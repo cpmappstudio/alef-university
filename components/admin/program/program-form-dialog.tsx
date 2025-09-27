@@ -23,7 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { api } from "@/convex/_generated/api";
-import { Program } from "./types";
+import { Program, ProgramFormData } from "./types";
 import { Textarea } from "@/components/ui/textarea";
 
 interface ProgramFormDialogProps {
@@ -54,7 +54,7 @@ export function ProgramFormDialog({
   const setOpen = onOpenChange || setInternalOpen;
 
   // Initialize form data based on mode and program
-  const initialFormData = React.useMemo(() => {
+  const initialFormData = React.useMemo((): ProgramFormData => {
     if (mode === "edit" && program) {
       return {
         code: program.code,
@@ -71,15 +71,16 @@ export function ProgramFormDialog({
         isActive: program.isActive,
       };
     }
+    // For create mode, use undefined for required selects to show placeholders
     return {
       code: "",
       nameEs: "",
       nameEn: "",
       descriptionEs: "",
       descriptionEn: "",
-      type: "bachelor" as "diploma" | "bachelor" | "master" | "doctorate",
+      type: undefined, // This allows placeholder to show
       degree: "",
-      language: "es" as "es" | "en" | "both",
+      language: undefined, // This allows placeholder to show
       totalCredits: 0,
       durationBimesters: 0,
       tuitionPerCredit: 0,
@@ -101,15 +102,10 @@ export function ProgramFormDialog({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Basic validation
-    if (
-      !formData.code ||
-      !formData.nameEs ||
-      !formData.descriptionEs ||
-      formData.totalCredits <= 0 ||
-      formData.durationBimesters <= 0
-    ) {
-      alert("Please fill in all required fields with valid values.");
+    // Enhanced validation with detailed error messages
+    const validationErrors = validateFormData(formData);
+    if (validationErrors.length > 0) {
+      alert(`Please fix the following errors:\n\n${validationErrors.join('\n')}`);
       return;
     }
 
@@ -117,15 +113,16 @@ export function ProgramFormDialog({
 
     try {
       if (mode === "create") {
+        // Type assertion is safe here because validation ensures these values exist
         await createProgram({
           code: formData.code,
           nameEs: formData.nameEs,
           nameEn: formData.nameEn || undefined,
           descriptionEs: formData.descriptionEs,
           descriptionEn: formData.descriptionEn || undefined,
-          type: formData.type,
+          type: formData.type as NonNullable<typeof formData.type>,
           degree: formData.degree || undefined,
-          language: formData.language,
+          language: formData.language as NonNullable<typeof formData.language>,
           totalCredits: formData.totalCredits,
           durationBimesters: formData.durationBimesters,
           tuitionPerCredit:
@@ -142,7 +139,7 @@ export function ProgramFormDialog({
           programId: program._id,
           descriptionEs: formData.descriptionEs,
           descriptionEn: formData.descriptionEn || undefined,
-          language: formData.language,
+          language: formData.language as NonNullable<typeof formData.language>,
           isActive: formData.isActive,
         });
 
@@ -187,6 +184,49 @@ export function ProgramFormDialog({
   const updateFormData = (field: string, value: string | boolean | number) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
+
+  // Helper function to validate required fields
+  const validateFormData = (data: ProgramFormData): string[] => {
+    const errors: string[] = [];
+    
+    if (!data.code.trim()) errors.push("Program code is required");
+    if (!data.nameEs.trim()) errors.push("Spanish name is required");
+    if (!data.descriptionEs.trim()) errors.push("Spanish description is required");
+    if (!data.type) errors.push("Program type is required");
+    if (!data.language) errors.push("Teaching language is required");
+    if (data.totalCredits <= 0) errors.push("Total credits must be greater than 0");
+    if (data.durationBimesters <= 0) errors.push("Duration must be greater than 0");
+    
+    return errors;
+  };
+
+  // Language field enablement logic
+  const getFieldEnabledState = () => {
+    const language = formData.language;
+    const languageEnabled = {
+      nameEs: language === "es" || language === "both",
+      nameEn: language === "en" || language === "both", 
+      descriptionEs: language === "es" || language === "both",
+      descriptionEn: language === "en" || language === "both"
+    };
+
+    // In edit mode, apply additional rules for name fields
+    if (mode === "edit" && program) {
+      return {
+        // Name fields: disabled if they already have a value, enabled if empty and language allows
+        nameEs: languageEnabled.nameEs && (!program.nameEs || program.nameEs.trim() === ""),
+        nameEn: languageEnabled.nameEn && (!program.nameEn || program.nameEn.trim() === ""),
+        // Description fields: always follow language rules (always editable when language allows)
+        descriptionEs: languageEnabled.descriptionEs,
+        descriptionEn: languageEnabled.descriptionEn
+      };
+    }
+
+    // In create mode, follow standard language rules
+    return languageEnabled;
+  };
+
+  const fieldEnabled = getFieldEnabledState();
 
   const isCreate = mode === "create";
   const dialogTitle = isCreate ? "Create New Program" : "Edit Program";
@@ -242,12 +282,12 @@ export function ProgramFormDialog({
                   Program Type <span className="text-destructive">*</span>
                 </Label>
                 <Select
-                  value={isCreate ? "" : formData.type}
-                  onValueChange={(value) => updateFormData("type", value)}
+                  value={formData.type || ""}
+                  onValueChange={(value) => updateFormData("type", value as Program['type'])}
                   disabled={!isCreate}
                 >
                   <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
-                    <SelectValue placeholder="Select program type" />
+                    <SelectValue placeholder="Select type" />
                   </SelectTrigger>
                   <SelectContent className="bg-background border-border shadow-lg">
                     <SelectItem value="diploma" className="hover:bg-muted/80">
@@ -267,82 +307,7 @@ export function ProgramFormDialog({
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label
-                  htmlFor="nameEs"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  Name (Spanish) <span className="text-destructive">*</span>
-                </Label>
-                <Input
-                  id="nameEs"
-                  value={formData.nameEs}
-                  onChange={(e) => updateFormData("nameEs", e.target.value)}
-                  placeholder="Nombre del programa en español"
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                  disabled={!isCreate}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label
-                  htmlFor="nameEn"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  Name (English)
-                </Label>
-                <Input
-                  id="nameEn"
-                  value={formData.nameEn}
-                  onChange={(e) => updateFormData("nameEn", e.target.value)}
-                  placeholder="Program name in English"
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                  disabled={!isCreate}
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label
-                  htmlFor="descriptionEs"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  Description (Spanish){" "}
-                  <span className="text-destructive">*</span>
-                </Label>
-                <Textarea
-                  id="descriptionEs"
-                  value={formData.descriptionEs}
-                  onChange={(e) =>
-                    updateFormData("descriptionEs", e.target.value)
-                  }
-                  placeholder="Descripción detallada del programa..."
-                  className="min-h-[100px] resize-none border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label
-                  htmlFor="descriptionEn"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  Description (English)
-                </Label>
-                <Textarea
-                  id="descriptionEn"
-                  value={formData.descriptionEn}
-                  onChange={(e) =>
-                    updateFormData("descriptionEn", e.target.value)
-                  }
-                  placeholder="Detailed program description..."
-                  className="min-h-[100px] resize-none border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                />
-              </div>
-            </div>
-
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label
@@ -369,8 +334,8 @@ export function ProgramFormDialog({
                   Teaching Language <span className="text-destructive">*</span>
                 </Label>
                 <Select
-                  value={isCreate ? "" : formData.language}
-                  onValueChange={(value) => updateFormData("language", value)}
+                  value={formData.language || ""}
+                  onValueChange={(value) => updateFormData("language", value as Program['language'])}
                 >
                   <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
                     <SelectValue placeholder="Select language" />
@@ -383,10 +348,88 @@ export function ProgramFormDialog({
                       English
                     </SelectItem>
                     <SelectItem value="both" className="hover:bg-muted/80">
-                      Both Languages
+                      English/Spanish
                     </SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label
+                  htmlFor="nameEs"
+                  className="text-sm font-semibold text-foreground"
+                >
+                  Name (Spanish) <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  id="nameEs"
+                  value={formData.nameEs}
+                  onChange={(e) => updateFormData("nameEs", e.target.value)}
+                  placeholder="Enter program name in Spanish"
+                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  disabled={isCreate ? !fieldEnabled.nameEs : !fieldEnabled.nameEs}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label
+                  htmlFor="nameEn"
+                  className="text-sm font-semibold text-foreground"
+                >
+                  Name (English)
+                </Label>
+                <Input
+                  id="nameEn"
+                  value={formData.nameEn}
+                  onChange={(e) => updateFormData("nameEn", e.target.value)}
+                  placeholder="Enter program name in English"
+                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  disabled={isCreate ? !fieldEnabled.nameEn : !fieldEnabled.nameEn}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label
+                  htmlFor="descriptionEs"
+                  className="text-sm font-semibold text-foreground"
+                >
+                  Description (Spanish){" "}
+                  <span className="text-destructive">*</span>
+                </Label>
+                <Textarea
+                  id="descriptionEs"
+                  value={formData.descriptionEs}
+                  onChange={(e) =>
+                    updateFormData("descriptionEs", e.target.value)
+                  }
+                  placeholder="Enter program description in Spanish"
+                  className="min-h-[100px] resize-none border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  disabled={!fieldEnabled.descriptionEs}
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label
+                  htmlFor="descriptionEn"
+                  className="text-sm font-semibold text-foreground"
+                >
+                  Description (English)
+                </Label>
+                <Textarea
+                  id="descriptionEn"
+                  value={formData.descriptionEn}
+                  onChange={(e) =>
+                    updateFormData("descriptionEn", e.target.value)
+                  }
+                  placeholder="Enter program description in English"
+                  className="min-h-[100px] resize-none border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  disabled={!fieldEnabled.descriptionEn}
+                />
               </div>
             </div>
           </div>
@@ -418,7 +461,6 @@ export function ProgramFormDialog({
                       parseInt(e.target.value) || 0,
                     )
                   }
-                  placeholder="120"
                   className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   min="1"
                   disabled={!isCreate}
@@ -443,7 +485,6 @@ export function ProgramFormDialog({
                       parseInt(e.target.value) || 0,
                     )
                   }
-                  placeholder="8"
                   className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   min="1"
                   disabled={!isCreate}
@@ -467,7 +508,6 @@ export function ProgramFormDialog({
                       parseFloat(e.target.value) || 0,
                     )
                   }
-                  placeholder="150.00"
                   className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   min="0"
                   step="0.01"
@@ -480,7 +520,7 @@ export function ProgramFormDialog({
                 htmlFor="isActive"
                 className="text-sm font-semibold text-foreground"
               >
-                Program Status <span className="text-destructive">*</span>
+                Program Availability <span className="text-destructive">*</span>
               </Label>
               <Select
                 value={isCreate ? "" : formData.isActive.toString()}
@@ -489,14 +529,14 @@ export function ProgramFormDialog({
                 }
               >
                 <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
-                  <SelectValue placeholder="Select program status" />
+                  <SelectValue placeholder="Select program availability" />
                 </SelectTrigger>
                 <SelectContent className="bg-background border-border shadow-lg">
                   <SelectItem value="true" className="hover:bg-muted/80">
-                    <div className="flex items-center gap-2">Active</div>
+                    <div className="flex items-center gap-2">Available</div>
                   </SelectItem>
                   <SelectItem value="false" className="hover:bg-muted/80">
-                    <div className="flex items-center gap-2">Inactive</div>
+                    <div className="flex items-center gap-2">Unavailable</div>
                   </SelectItem>
                 </SelectContent>
               </Select>
