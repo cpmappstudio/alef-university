@@ -13,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -24,7 +25,7 @@ import {
 } from "@/components/ui/select";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { Section } from "./types";
+import { Section } from "../types";
 
 // Section form data type for handling form state
 export type SectionFormData = {
@@ -58,6 +59,7 @@ export function SectionFormDialog({
   const [internalOpen, setInternalOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
+  const [activeTab, setActiveTab] = React.useState("general");
 
   // Convex mutations
   const updateSection = useMutation(api.courses.updateSection);
@@ -226,17 +228,25 @@ export function SectionFormDialog({
 
   const dialogContent = (
     <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-background border-border shadow-2xl">
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <DialogHeader className="space-y-4 pb-4 border-b border-border">
-          <DialogTitle className="text-2xl font-bold text-center text-foreground flex items-center justify-center gap-3">
-            {dialogTitle}
-          </DialogTitle>
-          <DialogDescription className="text-center text-muted-foreground text-base">
-            {dialogDescription}
-          </DialogDescription>
-        </DialogHeader>
+      <DialogHeader className="space-y-4 pb-4 border-b border-border">
+        <DialogTitle className="text-2xl font-bold text-center text-foreground flex items-center justify-center gap-3">
+          {dialogTitle}
+        </DialogTitle>
+        <DialogDescription className="text-center text-muted-foreground text-base">
+          {dialogDescription}
+        </DialogDescription>
+      </DialogHeader>
 
-        <div className="space-y-8 py-2">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="general">General Information</TabsTrigger>
+          <TabsTrigger value="details">Details</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="general" className="space-y-6 mt-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
+
+            <div className="space-y-8 py-2">
           {/* Basic Information Section */}
           <div className="space-y-6">
             <div className="flex items-center gap-3 pb-3 border-b border-border/50">
@@ -509,53 +519,135 @@ export function SectionFormDialog({
               </div>
             </div>
           </div>
-        </div>
+            </div>
 
-        <DialogFooter className="pt-6 border-t border-border">
-          <div className="flex flex-col-reverse sm:flex-row gap-3 w-full sm:w-auto">
-            <div className="flex gap-3 sm:gap-2">
-              {mode === "edit" && (
+            <DialogFooter className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-border bg-muted/10 -mx-6 -mb-6 px-6 pb-6 rounded-b-xl">
+              <div className="flex gap-3 w-full justify-end">
+                {mode === "edit" && (
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    onClick={handleDelete}
+                    disabled={isLoading || isDeleting}
+                    className="px-6 py-2.5"
+                  >
+                    {isDeleting ? (
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        Deleting...
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <Trash2 className="h-4 w-4" />
+                        Delete Section
+                      </div>
+                    )}
+                  </Button>
+                )}
                 <Button
-                  type="button"
-                  variant="destructive"
-                  onClick={handleDelete}
+                  type="submit"
+                  variant="default"
                   disabled={isLoading || isDeleting}
-                  className="px-6 py-2.5"
                 >
-                  {isDeleting ? (
+                  {isLoading ? (
                     <div className="flex items-center gap-2">
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Deleting...
+                      {isCreate ? "Creating..." : "Saving..."}
                     </div>
                   ) : (
                     <div className="flex items-center gap-2">
-                      <Trash2 className="h-4 w-4" />
-                      Delete Section
+                      <Save className="h-4 w-4" />
+                      {isCreate ? "Create Section" : "Save Changes"}
                     </div>
                   )}
                 </Button>
-              )}
-              <Button
-                type="submit"
-                variant="default"
-                disabled={isLoading || isDeleting}
-              >
-                {isLoading ? (
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    {isCreate ? "Creating..." : "Saving..."}
-                  </div>
+              </div>
+            </DialogFooter>
+          </form>
+        </TabsContent>
+
+        <TabsContent value="details" className="space-y-6 mt-6">
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 pb-3 border-b border-border/50">
+                <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
+                <h3 className="text-lg font-semibold text-foreground">
+                  Associated Periods
+                </h3>
+              </div>
+
+              <div className="space-y-3 max-h-[200px] overflow-y-auto">
+                {periods && periods.length > 0 ? (
+                  periods.map((period, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
+                    >
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-3">
+                          <span className="font-semibold text-foreground">
+                            Periodo
+                          </span>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                          Period
+                        </span>
+                      </div>
+                    </div>
+                  ))
                 ) : (
-                  <div className="flex items-center gap-2">
-                    <Save className="h-4 w-4" />
-                    {isCreate ? "Create Section" : "Save Changes"}
+                  <div className="text-center py-8">
+                    <p className="text-muted-foreground">
+                      No periods available.
+                    </p>
                   </div>
                 )}
-              </Button>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 pb-3 border-b border-border/50">
+                <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
+                <h3 className="text-lg font-semibold text-foreground">
+                  Associated Professors
+                </h3>
+              </div>
+
+              <div className="space-y-3 max-h-[200px] overflow-y-auto">
+                {professors && professors.length > 0 ? (
+                  professors.map((professor, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
+                    >
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-3">
+                          <span className="font-semibold text-foreground">
+                            Profesor
+                          </span>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                          Professor
+                        </span>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-8">
+                    <p className="text-muted-foreground">
+                      No professors available.
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </DialogFooter>
-      </form>
+        </TabsContent>
+      </Tabs>
     </DialogContent>
   );
 

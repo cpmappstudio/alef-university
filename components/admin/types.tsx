@@ -121,3 +121,24 @@ export type Section = {
   createdAt: number;
   updatedAt?: number;
 };
+
+export type Period = {
+  _id: Id<"periods">;
+  code: string;
+  year: number;
+  bimester: number;
+  nameEs: string;
+  nameEn?: string;
+  startDate: number;
+  endDate: number;
+  enrollmentStart: number;
+  enrollmentEnd: number;
+  addDropDeadline?: number;
+  withdrawalDeadline?: number;
+  graddingStart?: number;
+  graddingDeadline: number;
+  status: "planning"|"enrollment"|"active"|"grading"|"closed";
+  isCurrentPeriod: boolean;
+  createdAt: number;
+  updatedAt?: number;
+}

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Save, Trash2 } from "lucide-react";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,6 +13,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -23,7 +29,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { api } from "@/convex/_generated/api";
-import { Program, ProgramFormData } from "./types";
+import { Program, ProgramFormData } from "../types";
 import { Textarea } from "@/components/ui/textarea";
 
 interface ProgramFormDialogProps {
@@ -44,10 +50,17 @@ export function ProgramFormDialog({
   const [internalOpen, setInternalOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
+  const [activeTab, setActiveTab] = React.useState("general");
 
   // Convex mutations
   const updateProgram = useMutation(api.programs.updateProgram);
   const createProgram = useMutation(api.programs.createProgram);
+
+  // Query courses for the program (only in edit mode)
+  const courses = useQuery(
+    api.courses.getAllCourses,
+    mode === "edit" && program ? { programId: program._id } : "skip"
+  );
 
   // Use controlled or internal state
   const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
@@ -94,6 +107,7 @@ export function ProgramFormDialog({
   React.useEffect(() => {
     if (open) {
       setFormData(initialFormData);
+      setActiveTab("general"); // Reset to general tab when opening
     }
   }, [open, initialFormData]);
 
@@ -236,27 +250,36 @@ export function ProgramFormDialog({
 
   const dialogContent = (
     <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-background border-border shadow-2xl">
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <DialogHeader className="space-y-4 pb-4 border-b border-border">
-          <DialogTitle className="text-2xl font-bold text-center text-foreground flex items-center justify-center gap-3">
-            {dialogTitle}
-          </DialogTitle>
-          <DialogDescription className="text-center text-muted-foreground text-base">
-            {dialogDescription}
-          </DialogDescription>
-        </DialogHeader>
+      <DialogHeader className="space-y-4 pb-4 border-b border-border">
+        <DialogTitle className="text-2xl font-bold text-center text-foreground flex items-center justify-center gap-3">
+          {dialogTitle}
+        </DialogTitle>
+        <DialogDescription className="text-center text-muted-foreground text-base">
+          {dialogDescription}
+        </DialogDescription>
+      </DialogHeader>
 
-        <div className="space-y-8 py-2">
-          {/* Basic Information Section */}
-          <div className="space-y-6">
-            <div className="flex items-center gap-3 pb-3 border-b border-border/50">
-              <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
-              <h3 className="text-lg font-semibold text-foreground">
-                Basic Information
-              </h3>
-            </div>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="general">Información general</TabsTrigger>
+          <TabsTrigger value="details" disabled={mode === "create"}>
+            Detalles
+          </TabsTrigger>
+        </TabsList>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <TabsContent value="general" className="space-y-6 mt-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-8 py-2">
+              {/* Basic Information Section */}
+              <div className="space-y-6">
+                <div className="flex items-center gap-3 pb-3 border-b border-border/50">
+                  <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
+                  <h3 className="text-lg font-semibold text-foreground">
+                    Basic Information
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label
                   htmlFor="code"
@@ -264,8 +287,8 @@ export function ProgramFormDialog({
                 >
                   Program Code <span className="text-destructive">*</span>
                 </Label>
-                <Input
-                  id="code"
+                    <Input
+                      id="code"
                   value={formData.code}
                   onChange={(e) => updateFormData("code", e.target.value)}
                   placeholder="Enter program code"
@@ -432,16 +455,16 @@ export function ProgramFormDialog({
                 />
               </div>
             </div>
-          </div>
+              </div>
 
-          {/* Academic Information Section */}
-          <div className="space-y-6">
-            <div className="flex items-center gap-3 pb-3 border-b border-border/50">
-              <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
-              <h3 className="text-lg font-semibold text-foreground">
-                Academic Information
-              </h3>
-            </div>
+              {/* Academic Information Section */}
+              <div className="space-y-6">
+                <div className="flex items-center gap-3 pb-3 border-b border-border/50">
+                  <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
+                  <h3 className="text-lg font-semibold text-foreground">
+                    Academic Information
+                  </h3>
+                </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="space-y-2">
@@ -605,8 +628,71 @@ export function ProgramFormDialog({
               </Button>
             </div>
           </div>
-        </DialogFooter>
-      </form>
+            </DialogFooter>
+          </form>
+        </TabsContent>
+
+        <TabsContent value="details" className="space-y-6 mt-6">
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 pb-3 border-b border-border/50">
+                <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
+                <h3 className="text-lg font-semibold text-foreground">
+                  Associated Courses
+                </h3>
+              </div>
+
+              {courses === undefined ? (
+                <div className="flex items-center justify-center py-8">
+                  <div className="flex flex-col items-center space-y-4">
+                    <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                    <p className="text-muted-foreground text-sm">Loading courses...</p>
+                  </div>
+                </div>
+              ) : courses.length === 0 ? (
+                <div className="text-center py-8">
+                  <p className="text-muted-foreground">
+                    No courses are currently associated with this program.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-3 max-h-[400px] overflow-y-auto">
+                  {courses.map((course) => (
+                    <div
+                      key={course._id}
+                      className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
+                    >
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-3">
+                          <span className="font-semibold text-foreground">
+                            {course.code}
+                          </span>
+                          <span className="text-sm text-muted-foreground">
+                            {course.credits} credits
+                          </span>
+                        </div>
+                        <p className="text-sm text-foreground">
+                          {course.nameEs}
+                        </p>
+                        {course.nameEn && (
+                          <p className="text-xs text-muted-foreground">
+                            {course.nameEn}
+                          </p>
+                        )}
+                      </div>
+                      <div className="text-right">
+                        <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                          {course.category}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </TabsContent>
+      </Tabs>
     </DialogContent>
   );
 

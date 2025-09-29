@@ -3,7 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
-import { Program, Course, Section } from "./types";
+import { Program, Course, Section, Period } from "./types";
 
 export const columnsPrograms: ColumnDef<Program>[] = [
   {
@@ -207,6 +207,7 @@ export const columnsCourses: ColumnDef<Course>[] = [
       const course = row.original;
       const category = course.category;
       const language = course.language;
+      const level = course.level;
       const languageMap = {
         es: "Spanish",
         en: "English",
@@ -218,10 +219,17 @@ export const columnsCourses: ColumnDef<Course>[] = [
         elective: "Elective",
         general: "General",
       };
+      const levelMap = {
+        introductory: "Introductory",
+        intermediate: "Intermediate",
+        advanced: "Advanced",
+        graduate: "Graduate",
+      };
       const languageText =
         languageMap[language as keyof typeof languageMap] || language;
       const categoryText =
         categoryMap[category as keyof typeof categoryMap] || category;
+      const levelText = levelMap[level as keyof typeof levelMap] || level;
 
       return (
         <div className="space-y-1 w-full">
@@ -234,9 +242,14 @@ export const columnsCourses: ColumnDef<Course>[] = [
               <span className="text-xs bg-muted px-2 py-0.5 rounded">
                 {course.code}
               </span>
+              <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded capitalize">
+                {levelText}
+              </span>
             </div>
             <div className="flex flex-wrap items-center gap-1 text-xs">
-              <span className="capitalize whitespace-nowrap">{categoryText}</span>
+              <span className="capitalize whitespace-nowrap">
+                {categoryText}
+              </span>
               <span>•</span>
               <span className="whitespace-nowrap">
                 {course.credits} credits
@@ -274,6 +287,35 @@ export const columnsCourses: ColumnDef<Course>[] = [
       return (
         <span className="capitalize hidden lg:inline">
           {categoryMap[category as keyof typeof categoryMap] || category}
+        </span>
+      );
+    },
+  },
+  {
+    accessorKey: "level",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hidden md:flex"
+        >
+          Level
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const level = row.getValue("level") as string;
+      const levelMap = {
+        introductory: "Introductory",
+        intermediate: "Intermediate",
+        advanced: "Advanced",
+        graduate: "Graduate",
+      };
+      return (
+        <span className="capitalize hidden md:inline">
+          {levelMap[level as keyof typeof levelMap] || level}
         </span>
       );
     },
@@ -353,7 +395,6 @@ export const columnsCourses: ColumnDef<Course>[] = [
   },
 ];
 
-
 export const columnsSections: ColumnDef<Section>[] = [
   {
     accessorKey: "groupNumber",
@@ -371,14 +412,12 @@ export const columnsSections: ColumnDef<Section>[] = [
     cell: ({ row }) => {
       const section = row.original;
       const groupNumber = row.getValue("groupNumber") as string;
-      const professorName = (section as any).professorName || 'TBD';
+      const professorName = (section as any).professorName || "TBD";
       const enrollmentStats = (section as any).enrollmentStats;
-      
+
       return (
         <div className="space-y-1 w-full">
-          <div>
-            {groupNumber}
-          </div>
+          <div>{groupNumber}</div>
           {/* Mobile/Tablet view: show additional info below group */}
           <div className="block lg:hidden text-sm text-muted-foreground space-y-1">
             <div className="flex items-center gap-2">
@@ -386,17 +425,25 @@ export const columnsSections: ColumnDef<Section>[] = [
             </div>
             {enrollmentStats && (
               <div className="flex flex-wrap items-center gap-1 text-xs">
-                <span>{section.enrolled}/{section.capacity}</span>
+                <span>
+                  {section.enrolled}/{section.capacity}
+                </span>
                 <span>•</span>
-                <span>{(() => {
-                  const deliveryMethodMap = {
-                    online_sync: "Online Sync",
-                    online_async: "Online Async", 
-                    in_person: "In Person",
-                    hybrid: "Hybrid",
-                  };
-                  return deliveryMethodMap[section.deliveryMethod as keyof typeof deliveryMethodMap] || section.deliveryMethod;
-                })()}</span>
+                <span>
+                  {(() => {
+                    const deliveryMethodMap = {
+                      online_sync: "Online Sync",
+                      online_async: "Online Async",
+                      in_person: "In Person",
+                      hybrid: "Hybrid",
+                    };
+                    return (
+                      deliveryMethodMap[
+                        section.deliveryMethod as keyof typeof deliveryMethodMap
+                      ] || section.deliveryMethod
+                    );
+                  })()}
+                </span>
                 <span>•</span>
                 <span className="capitalize">{section.status}</span>
               </div>
@@ -422,7 +469,7 @@ export const columnsSections: ColumnDef<Section>[] = [
     },
     cell: ({ row }) => {
       const section = row.original;
-      const professorName = (section as any).professorName || 'TBD';
+      const professorName = (section as any).professorName || "TBD";
       return <span className="hidden lg:inline">{professorName}</span>;
     },
   },
@@ -442,7 +489,7 @@ export const columnsSections: ColumnDef<Section>[] = [
     },
     cell: ({ row }) => {
       const section = row.original;
-      
+
       return (
         <span className="hidden lg:inline">
           {row.getValue("enrolled")}/{section.capacity}
@@ -472,7 +519,9 @@ export const columnsSections: ColumnDef<Section>[] = [
         in_person: "In Person",
         hybrid: "Hybrid",
       };
-      const formattedMethod = deliveryMethodMap[deliveryMethod as keyof typeof deliveryMethodMap] || deliveryMethod;
+      const formattedMethod =
+        deliveryMethodMap[deliveryMethod as keyof typeof deliveryMethodMap] ||
+        deliveryMethod;
       return <span className="hidden lg:inline">{formattedMethod}</span>;
     },
   },
@@ -521,4 +570,105 @@ export const columnsSections: ColumnDef<Section>[] = [
       );
     },
   },
-]
+];
+export const columnsPeriod: ColumnDef<Period>[] = [
+  {
+    accessorKey: "code",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hidden lg:flex"
+        >
+          Code
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    }
+  },
+  {
+    accessorKey: "nameEs",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    }
+  },
+  {
+    accessorKey: "year",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Year
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    }
+  },
+  {
+    accessorKey: "bimester",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Bimester
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    }
+  },
+  {
+    accessorKey: "start date",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Start Date
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    }
+  },
+  {
+    accessorKey: "end date",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          End Date
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    }
+  },
+  {
+    accessorKey: "status",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    }
+  },
+];

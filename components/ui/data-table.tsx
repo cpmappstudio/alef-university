@@ -29,10 +29,10 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   onRowClick?: (row: TData) => void;
   // Search configuration
-  searchConfig: {
+  searchConfig?: {
     placeholder: string;
     columnKey: string;
-  };
+  } | null;
   // Primary action (create button)
   primaryAction: React.ReactNode;
   // Mobile responsive columns
@@ -90,19 +90,23 @@ export function DataTable<TData, TValue>({
   return (
     <div className="w-full space-y-6">
       {/* Controls Section */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-3 sm:p-4 rounded-lg">
-        <div className="flex-1 w-full sm:w-auto">
-          <Input
-            placeholder={searchConfig.placeholder}
-            value={(table.getColumn(searchConfig.columnKey)?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              table.getColumn(searchConfig.columnKey)?.setFilterValue(event.target.value)
-            }
-            className="w-full sm:max-w-sm bg-background border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-          />
+      {(searchConfig || primaryAction) && (
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-3 sm:p-4 rounded-lg">
+          {searchConfig && (
+            <div className="flex-1 w-full sm:w-auto">
+              <Input
+                placeholder={searchConfig.placeholder}
+                value={(table.getColumn(searchConfig.columnKey)?.getFilterValue() as string) ?? ""}
+                onChange={(event) =>
+                  table.getColumn(searchConfig.columnKey)?.setFilterValue(event.target.value)
+                }
+                className="w-full sm:max-w-sm bg-background border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+              />
+            </div>
+          )}
+          {primaryAction}
         </div>
-        {primaryAction}
-      </div>
+      )}
 
       {/* Table Section */}
       <div className="w-full overflow-x-auto rounded-lg border border-border bg-background shadow-sm">

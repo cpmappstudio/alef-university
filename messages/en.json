@@ -113,6 +113,14 @@
                     {
                         "title": "Period Management",
                         "url": "/admin/periods"
+                    },
+                    {
+                        "title": "Sections Management",
+                        "url": "/admin/sections"
+                    },
+                    {
+                        "title": "Enrollment Management",
+                        "url": "/admin/enrollments"
                     }
                 ]
             },

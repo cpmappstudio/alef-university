@@ -113,6 +113,14 @@
                     {
                         "title": "Gestión de Períodos",
                         "url": "/admin/periods"
+                    },
+                    {
+                        "title": "Gestión de Secciones",
+                        "url": "/admin/sections"
+                    },
+                    {
+                        "title": "Gestión de Matrículas",
+                        "url": "/admin/enrollments"
                     }
                 ]
             },
