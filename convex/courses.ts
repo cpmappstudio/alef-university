@@ -684,3 +684,52 @@ export const removeCourseFromProgram = mutation({
         };
     },
 });
+
+/**
+ * Delete a course (Admin only)
+ * This prevents deletion if there are any enrollments associated with the course.
+ */
+export const deleteCourse = mutation({
+    args: {
+        courseId: v.id("courses"),
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+            throw new ConvexError("Not authenticated");
+        }
+
+        const user = await getUserByClerkId(ctx.db, identity.subject);
+        if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
+            throw new ConvexError("Admin access required");
+        }
+
+        // Check if any student is enrolled in this course across all sections/periods
+        const enrollments = await ctx.db
+            .query("enrollments")
+            .filter((q) => q.eq(q.field("courseId"), args.courseId))
+            .collect();
+
+        if (enrollments.length > 0) {
+        throw new ConvexError(
+            `Cannot delete course with active or past enrollments (${enrollments.length}). Please deactivate the course instead.`,
+        );
+        }
+
+        // Also, check for sections
+        const sections = await ctx.db
+            .query("sections")
+            .withIndex("by_course_period", (q) => q.eq("courseId", args.courseId))
+            .collect();
+
+        if (sections.length > 0) {
+        throw new ConvexError(
+            `Cannot delete course with existing sections (${sections.length}). Please delete the sections first.`,
+        );
+        }
+
+        await ctx.db.delete(args.courseId);
+
+        return { success: true };
+    },
+});

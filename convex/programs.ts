@@ -145,20 +145,22 @@ export const createProgram = mutation({
 
 /**
  * Update existing program (Admin only)
+ * This version allows updating descriptive fields while keeping core academic rules immutable.
  */
 export const updateProgram = mutation({
     args: {
         programId: v.id("programs"),
-        nameEs: v.optional(v.string()),
+        // Editable fields
+        nameEs: v.string(),
         nameEn: v.optional(v.string()),
-        descriptionEs: v.optional(v.string()),
+        descriptionEs: v.string(),
         descriptionEn: v.optional(v.string()),
         degree: v.optional(v.string()),
-        language: v.optional(languageValidator),
-        totalCredits: v.optional(v.number()),
-        durationBimesters: v.optional(v.number()),
+        language: languageValidator,
         tuitionPerCredit: v.optional(v.number()),
-        isActive: v.optional(v.boolean()),
+        isActive: v.boolean(),
+        // Note: Core fields like 'code', 'type', 'totalCredits', 'durationBimesters' are intentionally omitted
+        // as they should not be changed after a program is created to maintain data integrity.
     },
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
@@ -171,36 +173,29 @@ export const updateProgram = mutation({
             throw new ConvexError("Admin access required");
         }
 
-        const program = await ctx.db.get(args.programId);
+        const { programId, ...updates } = args;
+
+        const program = await ctx.db.get(programId);
         if (!program) {
             throw new ConvexError("Program not found");
         }
 
-        // Validate credits and duration if provided
-        if (args.totalCredits !== undefined && args.totalCredits <= 0) {
-            throw new ConvexError("Total credits must be greater than 0");
-        }
-        if (args.durationBimesters !== undefined && args.durationBimesters <= 0) {
-            throw new ConvexError("Duration must be greater than 0");
-        }
+        // Construct the update payload securely
+        const updatePayload = {
+            nameEs: updates.nameEs,
+            nameEn: updates.nameEn,
+            descriptionEs: updates.descriptionEs,
+            descriptionEn: updates.descriptionEn,
+            degree: updates.degree,
+            language: updates.language,
+            tuitionPerCredit: updates.tuitionPerCredit,
+            isActive: updates.isActive,
+            updatedAt: Date.now(),
+        };
 
-        // Update program
-        const updateData: any = { updatedAt: Date.now() };
+        await ctx.db.patch(programId, updatePayload);
 
-        if (args.nameEs !== undefined) updateData.nameEs = args.nameEs;
-        if (args.nameEn !== undefined) updateData.nameEn = args.nameEn;
-        if (args.descriptionEs !== undefined) updateData.descriptionEs = args.descriptionEs;
-        if (args.descriptionEn !== undefined) updateData.descriptionEn = args.descriptionEn;
-        if (args.degree !== undefined) updateData.degree = args.degree;
-        if (args.language !== undefined) updateData.language = args.language;
-        if (args.totalCredits !== undefined) updateData.totalCredits = args.totalCredits;
-        if (args.durationBimesters !== undefined) updateData.durationBimesters = args.durationBimesters;
-        if (args.tuitionPerCredit !== undefined) updateData.tuitionPerCredit = args.tuitionPerCredit;
-        if (args.isActive !== undefined) updateData.isActive = args.isActive;
-
-        await ctx.db.patch(args.programId, updateData);
-
-        return args.programId;
+        return programId;
     },
 });
 
@@ -659,5 +654,42 @@ export const getProgramStatistics = query({
                 totalGraduates: programStats.reduce((sum, p) => sum + p.statistics.graduates, 0),
             },
         };
+    },
+});
+
+/**
+ * Delete a program (Admin only)
+ * Prevents deletion if students are enrolled in the program.
+ */
+export const deleteProgram = mutation({
+    args: {
+        programId: v.id("programs"),
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+            throw new ConvexError("Not authenticated");
+        }
+
+        const user = await getUserByClerkId(ctx.db, identity.subject);
+        if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
+            throw new ConvexError("Admin access required");
+        }
+
+        // Check for students enrolled in this program.
+        const studentsInProgram = await ctx.db
+            .query("users")
+            .withIndex("by_role_active", q => q.eq("role", "student"))
+            .filter(q => q.eq(q.field("studentProfile.programId"), args.programId))
+            .first();
+
+        if (studentsInProgram) {
+            throw new ConvexError("Cannot delete program with enrolled students. Please reassign students first.");
+        }
+
+        // Add additional checks here if needed (e.g., for associated courses)
+
+        await ctx.db.delete(args.programId);
+        return { success: true };
     },
 });
