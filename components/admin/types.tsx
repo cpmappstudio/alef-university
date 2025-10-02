@@ -142,3 +142,137 @@ export type Period = {
   createdAt: number;
   updatedAt?: number;
 }
+
+export type Enrollment = {
+  _id: Id<"enrollments">;
+  studentId: Id<"users">;
+  sectionId: Id<"sections">;
+  periodId: Id<"periods">;
+  courseId: Id<"courses">;
+  professorId: Id<"users">;
+  enrolledAt: number;
+  enrolledBy?: Id<"users">;
+  status: "enrolled" | "withdrawn" | "dropped" | "completed" | "failed" | "incomplete" | "in_progress";
+  statusChangedAt?: number;
+  statusChangedBy?: Id<"users">;
+  statusChangeReason?: string;
+  percentageGrade?: number; // 0-100
+  letterGrade?: string; // A+, A, A-, B+, etc.
+  gradePoints?: number; // 4.0 scale
+  qualityPoints?: number; // gradePoints * credits
+  gradedBy?: Id<"users">;
+  gradedAt?: number;
+  gradeNotes?: string;
+  lastGradeUpdate?: number;
+  isRetake: boolean;
+  isAuditing: boolean;
+  countsForGPA: boolean;
+  countsForProgress: boolean;
+  incompleteDeadline?: number;
+  createdAt: number;
+  updatedAt?: number;
+};
+
+/**
+ * Student type definition based on the Convex database schema
+ * Represents a student user with their profile information
+ */
+export type Student = {
+  // Document ID from Convex
+  _id: Id<"users">;
+
+  // Authentication
+  clerkId: string;
+  email: string;
+
+  // Personal information
+  firstName: string;
+  lastName: string;
+  secondLastName?: string;
+
+  // Additional fields for certificates
+  dateOfBirth?: number;
+  nationality?: string;
+  documentType?: "passport" | "national_id" | "driver_license" | "other";
+  documentNumber?: string;
+
+  // Contact
+  phone?: string;
+  country?: string;
+  address?: {
+    street?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+    country?: string;
+  };
+
+  // System fields
+  role: "student";
+  isActive: boolean;
+  createdBy?: Id<"users">;
+  createdAt: number;
+  updatedAt?: number;
+  lastLoginAt?: number;
+
+  // Student-specific profile
+  studentProfile: {
+    studentCode: string;
+    programId: Id<"programs">;
+    enrollmentDate: number;
+    expectedGraduationDate?: number;
+    status: "active" | "inactive" | "on_leave" | "graduated" | "withdrawn";
+    academicStanding?: "good_standing" | "probation" | "suspension";
+  };
+};
+
+/**
+ * Professor type definition based on the Convex database schema
+ * Represents a professor user with their profile information
+ */
+export type Professor = {
+  // Document ID from Convex
+  _id: Id<"users">;
+
+  // Authentication
+  clerkId: string;
+  email: string;
+
+  // Personal information
+  firstName: string;
+  lastName: string;
+  secondLastName?: string;
+
+  // Additional fields for certificates
+  dateOfBirth?: number;
+  nationality?: string;
+  documentType?: "passport" | "national_id" | "driver_license" | "other";
+  documentNumber?: string;
+
+  // Contact
+  phone?: string;
+  country?: string;
+  address?: {
+    street?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+    country?: string;
+  };
+
+  // System fields
+  role: "professor";
+  isActive: boolean;
+  createdBy?: Id<"users">;
+  createdAt: number;
+  updatedAt?: number;
+  lastLoginAt?: number;
+
+  // Professor-specific profile
+  professorProfile: {
+    employeeCode: string;
+    title?: string;
+    department?: string;
+    hireDate?: number;
+  };
+};

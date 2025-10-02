@@ -1,7 +1,4 @@
-import CourseTable from "@/components/admin/course/course-table";
 import ProgramTable from "@/components/admin/program/program-table";
-import SectionsTable from "@/components/admin/section/sections-table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function ProgramManagementPage() {
   return (

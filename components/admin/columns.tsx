@@ -3,7 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
-import { Program, Course, Section, Period } from "./types";
+import { Program, Course, Section, Period, Enrollment, Student, Professor } from "./types";
 
 export const columnsPrograms: ColumnDef<Program>[] = [
   {
@@ -670,5 +670,538 @@ export const columnsPeriod: ColumnDef<Period>[] = [
         </Button>
       );
     }
+  },
+];
+
+export const columnsEnrollment: ColumnDef<Enrollment>[] = [
+  {
+    accessorKey: "studentId",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Student
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const enrollment = row.original;
+      const studentName = (enrollment as any).studentName || "Unknown Student";
+      const courseName = (enrollment as any).courseName || "Unknown Course";
+      const sectionInfo = (enrollment as any).sectionInfo || {};
+      const periodInfo = (enrollment as any).periodInfo || {};
+      const professorName = (enrollment as any).professorName || "TBD";
+
+      return (
+        <div className="space-y-1 w-full">
+          <div className="whitespace-normal break-words md:overflow-hidden md:text-ellipsis lg:break-normal lg:overflow-visible lg:text-clip">
+            {studentName}
+          </div>
+          {/* Mobile/Tablet view: show additional info below student name */}
+          <div className="block lg:hidden text-sm text-muted-foreground space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="text-xs bg-muted px-2 py-0.5 rounded">
+                {courseName}
+              </span>
+            </div>
+            <div className="flex flex-wrap items-center gap-1 text-xs">
+              <span className="whitespace-nowrap">
+                Section: {sectionInfo.groupNumber || "N/A"}
+              </span>
+              <span>•</span>
+              <span className="whitespace-nowrap">
+                {periodInfo.nameEs || "Unknown Period"}
+              </span>
+              <span>•</span>
+              <span className="whitespace-nowrap">Prof: {professorName}</span>
+            </div>
+            {(enrollment.letterGrade || enrollment.isRetake) && (
+              <div className="flex flex-wrap items-center gap-1 text-xs">
+                {enrollment.letterGrade && (
+                  <>
+                    <span className="bg-blue-100 text-blue-800 px-1 py-0.5 rounded">
+                      {enrollment.letterGrade}
+                    </span>
+                    <span>•</span>
+                  </>
+                )}
+                {enrollment.isRetake && (
+                  <span className="bg-orange-100 text-orange-800 px-1 py-0.5 rounded">
+                    Retake
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "sectionId",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hidden lg:flex"
+        >
+          Section
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const enrollment = row.original;
+      const sectionInfo = (enrollment as any).sectionInfo || {};
+      return (
+        <span className="hidden lg:inline">
+          {sectionInfo.groupNumber || "N/A"}
+        </span>
+      );
+    },
+  },
+  {
+    accessorKey: "periodId",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hidden lg:flex"
+        >
+          Period
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const enrollment = row.original;
+      const periodInfo = (enrollment as any).periodInfo || {};
+      return (
+        <span className="hidden lg:inline">
+          {periodInfo.nameEs || "Unknown Period"}
+        </span>
+      );
+    },
+  },
+  {
+    accessorKey: "courseId",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hidden lg:flex"
+        >
+          Course
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const enrollment = row.original;
+      const courseName = (enrollment as any).courseName || "Unknown Course";
+      return <span className="hidden lg:inline">{courseName}</span>;
+    },
+  },
+  {
+    accessorKey: "professorId",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hidden lg:flex"
+        >
+          Professor
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const enrollment = row.original;
+      const professorName = (enrollment as any).professorName || "TBD";
+      return <span className="hidden lg:inline">{professorName}</span>;
+    },
+  },
+  {
+    accessorKey: "status",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const status = row.getValue("status") as string;
+      const statusMap = {
+        enrolled: "Enrolled",
+        withdrawn: "Withdrawn", 
+        dropped: "Dropped",
+        completed: "Completed",
+        failed: "Failed",
+        incomplete: "Incomplete",
+        in_progress: "In Progress",
+      };
+      const statusText = statusMap[status as keyof typeof statusMap] || status;
+
+      const getStatusColor = (status: string) => {
+        switch (status) {
+          case "enrolled":
+          case "in_progress":
+            return "bg-blue-100 text-blue-800";
+          case "completed":
+            return "bg-green-100 text-green-800";
+          case "failed":
+          case "dropped":
+            return "bg-red-100 text-red-800";
+          case "withdrawn":
+            return "bg-gray-100 text-gray-800";
+          case "incomplete":
+            return "bg-yellow-100 text-yellow-800";
+          default:
+            return "bg-gray-100 text-gray-800";
+        }
+      };
+
+      return (
+        <span
+          className={`px-2 py-1 rounded-full text-xs ${getStatusColor(status)}`}
+        >
+          {statusText}
+        </span>
+      );
+    },
+  },
+  {
+    accessorKey: "letterGrade",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hidden lg:flex"
+        >
+          Grade
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const letterGrade = row.getValue("letterGrade") as string | undefined;
+      return (
+        <span className="hidden lg:inline">
+          {letterGrade ? (
+            <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">
+              {letterGrade}
+            </span>
+          ) : (
+            <span className="text-muted-foreground">-</span>
+          )}
+        </span>
+      );
+    },
+  },
+  {
+    accessorKey: "isRetake",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hidden lg:flex"
+        >
+          Retake
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const isRetake = row.getValue("isRetake") as boolean;
+      return (
+        <span className="hidden lg:inline">
+          {isRetake ? (
+            <span className="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">
+              Yes
+            </span>
+          ) : (
+            <span className="text-muted-foreground">No</span>
+          )}
+        </span>
+      );
+    },
+  },
+];
+
+export const columnsStudent: ColumnDef<Student>[] = [
+  {
+    accessorKey: "firstName",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const student = row.original;
+      const fullName = `${student.firstName} ${student.lastName}`;
+      const studentCode = student.studentProfile.studentCode;
+      const programId = student.studentProfile.programId;
+
+      return (
+        <div className="space-y-1 w-full">
+          <div className="whitespace-normal break-words md:overflow-hidden md:text-ellipsis lg:break-normal lg:overflow-visible lg:text-clip">
+            {fullName}
+          </div>
+          {/* Mobile/Tablet view: show additional info below name */}
+          <div className="block lg:hidden text-sm text-muted-foreground space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="text-xs bg-muted px-2 py-0.5 rounded">
+                {studentCode}
+              </span>
+            </div>
+            <div className="flex flex-wrap items-center gap-1 text-xs">
+              <span className="whitespace-nowrap">Program: {programId}</span>
+            </div>
+          </div>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "studentProfile.studentCode",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hidden lg:flex"
+        >
+          Student Code
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const student = row.original;
+      const studentCode = student.studentProfile.studentCode;
+      return <span className="hidden lg:inline">{studentCode}</span>;
+    },
+  },
+  {
+    accessorKey: "studentProfile.programId",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hidden lg:flex"
+        >
+          Program ID
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const student = row.original;
+      const programId = student.studentProfile.programId;
+      return <span className="hidden lg:inline">{programId}</span>;
+    },
+  },
+  {
+    accessorKey: "studentProfile.status",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const student = row.original;
+      const status = student.studentProfile.status;
+      
+      const getStatusColor = (status: string) => {
+        switch (status) {
+          case "active":
+            return "bg-green-100 text-green-800";
+          case "inactive":
+            return "bg-gray-100 text-gray-800";
+          case "on_leave":
+            return "bg-yellow-100 text-yellow-800";
+          case "graduated":
+            return "bg-blue-100 text-blue-800";
+          case "withdrawn":
+            return "bg-red-100 text-red-800";
+          default:
+            return "bg-gray-100 text-gray-800";
+        }
+      };
+
+      const statusText = status.replace("_", " ").replace(/\b\w/g, l => l.toUpperCase());
+
+      return (
+        <span
+          className={`px-2 py-1 rounded-full text-xs capitalize ${getStatusColor(status)}`}
+        >
+          {statusText}
+        </span>
+      );
+    },
+  },
+];
+
+export const columnsProfessor: ColumnDef<Professor>[] = [
+  {
+    accessorKey: "firstName",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const professor = row.original;
+      const fullName = `${professor.firstName} ${professor.lastName}`;
+      const employeeCode = professor.professorProfile.employeeCode;
+      const title = professor.professorProfile.title;
+      const department = professor.professorProfile.department;
+
+      return (
+        <div className="space-y-1 w-full">
+          <div className="whitespace-normal break-words md:overflow-hidden md:text-ellipsis lg:break-normal lg:overflow-visible lg:text-clip">
+            {fullName}
+          </div>
+          {/* Mobile/Tablet view: show additional info below name */}
+          <div className="block lg:hidden text-sm text-muted-foreground space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="text-xs bg-muted px-2 py-0.5 rounded">
+                {employeeCode}
+              </span>
+            </div>
+            <div className="flex flex-wrap items-center gap-1 text-xs">
+              {title && (
+                <>
+                  <span className="whitespace-nowrap">{title}</span>
+                  <span>•</span>
+                </>
+              )}
+              {department && (
+                <span className="whitespace-nowrap">{department}</span>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "professorProfile.employeeCode",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hidden lg:flex"
+        >
+          Employee Code
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const professor = row.original;
+      const employeeCode = professor.professorProfile.employeeCode;
+      return <span className="hidden lg:inline">{employeeCode}</span>;
+    },
+  },
+  {
+    accessorKey: "professorProfile.title",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hidden lg:flex"
+        >
+          Title
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const professor = row.original;
+      const title = professor.professorProfile.title;
+      return <span className="hidden lg:inline">{title || "N/A"}</span>;
+    },
+  },
+  {
+    accessorKey: "professorProfile.department",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hidden lg:flex"
+        >
+          Department
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const professor = row.original;
+      const department = professor.professorProfile.department;
+      return <span className="hidden lg:inline">{department || "N/A"}</span>;
+    },
+  },
+  {
+    accessorKey: "isActive",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const isActive = row.getValue("isActive") as boolean;
+      return (
+        <span
+          className={`px-2 py-1 rounded-full text-xs ${
+            isActive ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+          }`}
+        >
+          {isActive ? "Active" : "Inactive"}
+        </span>
+      );
+    },
   },
 ];

@@ -1,3 +1,5 @@
+import EnrollmentTable from "@/components/admin/enrollment/enrollment-table";
+
 export default function EnrollmentManagementPage() {
     return (
         <div className="min-h-screen bg-background">
@@ -19,7 +21,7 @@ export default function EnrollmentManagementPage() {
         
               {/* Main Content */}
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* <CourseTable /> */}
+                <EnrollmentTable />
               </div>
             </div>
     );
