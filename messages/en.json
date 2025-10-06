@@ -221,6 +221,99 @@
                 "progressAnalysis": "Progress Analysis",
                 "academicCalendar": "Academic Calendar"
             }
+        },
+        "professor": {
+            "metrics": {
+                "currentSections": "Current Sections",
+                "totalStudents": "Total Students",
+                "sectionsToGrade": "Sections to Grade",
+                "teachingExperience": "Teaching Experience",
+                "credits": "credits",
+                "avgPerSection": "avg/section",
+                "actionRequired": "Action Required",
+                "upToDate": "Up to Date",
+                "studentsTaught": "students taught",
+                "activeTeaching": "Active teaching",
+                "currentPeriod": "{period}",
+                "studentEngagement": "Student engagement",
+                "sectionsEnrolled": "Across all sections",
+                "gradingPending": "Grading pending",
+                "allGraded": "All graded",
+                "checkGradebook": "Check gradebook for details",
+                "experiencedEducator": "Experienced educator",
+                "periodsTaughtTotal": "Total periods of teaching experience"
+            },
+            "currentSections": {
+                "title": "Current Sections",
+                "viewGradebook": "View Gradebook",
+                "code": "Code",
+                "course": "Course",
+                "group": "Group",
+                "students": "Students",
+                "category": "Category",
+                "closingDate": "Closing Date",
+                "status": "Status",
+                "categoryGeneral": "General",
+                "categoryProfessional": "Professional",
+                "categorySpecialty": "Specialty",
+                "statusActive": "Active",
+                "statusGrading": "Grading",
+                "statusClosed": "Closed",
+                "subtitle": "{period} • {sections} sections • {students} total students"
+            },
+            "closingDates": {
+                "title": "Upcoming Closing Dates",
+                "subtitle": "Important deadlines for grade submission",
+                "urgent": "Urgent",
+                "soon": "Soon",
+                "upcoming": "Upcoming",
+                "day": "day",
+                "days": "days"
+            }
+        },
+        "admin": {
+            "metrics": {
+                "activeProfessors": "Active Professors",
+                "activeStudents": "Active Students",
+                "activeCourses": "Active Courses",
+                "activePrograms": "Active Programs",
+                "teachingStaff": "Teaching Staff",
+                "enrollments": "enrollments",
+                "sections": "sections",
+                "academicPrograms": "Academic Programs",
+                "manageStaff": "Manage Staff",
+                "viewAllProfessors": "Click to view all professors",
+                "studentBody": "Student Body",
+                "viewAllStudents": "Click to view all students",
+                "courseCatalog": "Course Catalog",
+                "viewAllCourses": "Click to view all courses",
+                "programManagement": "Program Management",
+                "viewAllPrograms": "Click to view all programs"
+            },
+            "deadlines": {
+                "title": "Upcoming Deadlines",
+                "subtitle": "Important dates and deadlines to monitor",
+                "enrollment": "Enrollment",
+                "grading": "Grading",
+                "period": "Period",
+                "other": "Other",
+                "urgent": "Urgent",
+                "soon": "Soon",
+                "upcoming": "Upcoming",
+                "day": "day",
+                "days": "days"
+            },
+            "activities": {
+                "title": "Recent Activities",
+                "subtitle": "Latest administrative actions and updates",
+                "created": "Created",
+                "updated": "Updated",
+                "deleted": "Deleted",
+                "by": "by",
+                "minutesAgo": "{count} min ago",
+                "hoursAgo": "{count}h ago",
+                "daysAgo": "{count}d ago"
+            }
         }
     },
     "academicHistory": {
@@ -293,5 +386,79 @@
             "none": "None"
         },
         "noResults": "No subjects found matching your criteria"
+    },
+    "gradebook": {
+        "title": "Teaching History & Gradebook",
+        "subtitle": "Manage grades and view your complete teaching history",
+        "stats": {
+            "totalStudents": "Total Students Taught",
+            "totalCourses": "Total Courses Delivered",
+            "totalPeriods": "Periods Taught",
+            "acrossAllPeriods": "Across all periods",
+            "coursesDelivered": "Courses delivered",
+            "periodsTaught": "Periods taught"
+        },
+        "filters": {
+            "searchCourse": "Search course...",
+            "filterByPeriod": "Filter by period",
+            "allPeriods": "All periods"
+        },
+        "table": {
+            "code": "Code",
+            "group": "Group",
+            "courseName": "Course Name",
+            "credits": "Credits",
+            "category": "Category",
+            "closingDate": "Closing Date",
+            "students": "Students",
+            "status": "Status"
+        },
+        "status": {
+            "active": "Active",
+            "closed": "Closed",
+            "cancelled": "Cancelled"
+        },
+        "categories": {
+            "core": "Core",
+            "humanities": "Humanities",
+            "electives": "Electives"
+        },
+        "periodSummary": {
+            "courses": "Courses",
+            "students": "Students"
+        },
+        "sectionDetails": {
+            "title": "Section Details",
+            "group": "Group",
+            "enrolledStudents": "Enrolled Students",
+            "students": "students",
+            "description": "Description",
+            "schedule": "Schedule",
+            "studentList": "Student List",
+            "studentCode": "Student Code",
+            "studentName": "Student Name",
+            "percentGrade": "Percent Grade",
+            "letterGrade": "Letter",
+            "notes": "Notes",
+            "addNotes": "Add notes...",
+            "saveGrades": "Save Grades",
+            "gradesSaved": "Grades saved successfully!",
+            "mockDescription": "This is a mock course description. The actual description will be loaded from the database.",
+            "monday": "Monday",
+            "tuesday": "Tuesday",
+            "wednesday": "Wednesday",
+            "thursday": "Thursday",
+            "friday": "Friday",
+            "saturday": "Saturday",
+            "sunday": "Sunday"
+        },
+        "showAllPeriods": "Show all periods",
+        "more": "more",
+        "noResults": "No courses found matching your criteria",
+        "navigation": {
+            "newerPeriod": "Newer Period",
+            "olderPeriod": "Older Period",
+            "periodInfo": "Period {current} of {total}"
+        }
     }
 }

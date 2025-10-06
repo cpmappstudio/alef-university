@@ -255,8 +255,13 @@ export const getCourseWithSections = query({
             ? await ctx.db.get(args.periodId)
             : await getCurrentPeriod(ctx.db);
 
+        // If no period exists, return course with empty sections
         if (!targetPeriod) {
-            throw new ConvexError("Period not found");
+            return {
+                course,
+                period: null,
+                sections: [],
+            };
         }
 
         // Get sections for this course in the period
@@ -473,8 +478,12 @@ export const getSectionsByPeriod = query({
             ? await ctx.db.get(args.periodId)
             : await getCurrentPeriod(ctx.db);
 
+        // If no period exists, return empty result instead of throwing error
         if (!targetPeriod) {
-            throw new ConvexError("Period not found");
+            return {
+                period: null,
+                sections: [],
+            };
         }
 
         let sections: Doc<"sections">[];

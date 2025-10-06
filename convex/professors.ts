@@ -45,8 +45,18 @@ export const getMySections = query({
             ? await ctx.db.get(args.periodId)
             : await getCurrentPeriod(ctx.db);
 
+        // If no period found, return empty sections
         if (!targetPeriod) {
-            throw new ConvexError("Period not found");
+            return {
+                period: null,
+                sections: [],
+                summary: {
+                    totalSections: 0,
+                    totalStudents: 0,
+                    sectionsWithGrades: 0,
+                    sectionsPendingGrades: 0,
+                },
+            };
         }
 
         // Get professor's sections
