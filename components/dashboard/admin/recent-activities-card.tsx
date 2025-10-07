@@ -1,139 +1,113 @@
-import { Activity, UserPlus, BookPlus, Users, GraduationCap, FileEdit, Trash2 } from "lucide-react"
-import { useTranslations } from "next-intl"
-import { Badge } from '@/components/ui/badge'
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
-import { getMockAdminDashboardData } from './dashboard-data'
-import { AdminDashboardData, RecentActivity } from './types'
+import { useTranslations } from "next-intl";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Activity } from "lucide-react";
+import { format } from "date-fns";
+import { AdminDashboardData } from "./types";
+import { getMockAdminDashboardData } from "./dashboard-data";
 
 interface RecentActivitiesCardProps {
     data?: AdminDashboardData
 }
 
 export default function RecentActivitiesCard({ data: providedData }: RecentActivitiesCardProps) {
-    const t = useTranslations('dashboard.admin')
+    const t = useTranslations('dashboard.admin');
 
-    // TODO: Replace with real Convex query
-    const data = providedData || getMockAdminDashboardData()
-
-    const getActivityIcon = (type: RecentActivity['type']) => {
+    // Use real data if provided, otherwise use mock data
+    const data = providedData?.recentActivities?.length 
+        ? { recentActivities: providedData.recentActivities }
+        : getMockAdminDashboardData();
+    
+    // Helper function to get appropriate icon color
+    const getIconColorClass = (type: string) => {
         switch (type) {
-            case 'enrollment': return BookPlus
-            case 'professor': return UserPlus
-            case 'student': return GraduationCap
-            case 'course': return BookPlus
-            case 'program': return Users
-            default: return Activity
+            case 'student':
+                return 'bg-blue-100 text-blue-600';
+            case 'professor':
+                return 'bg-purple-100 text-purple-600';
+            case 'course':
+                return 'bg-green-100 text-green-600';
+            case 'section':
+                return 'bg-amber-100 text-amber-600';
+            case 'enrollment':
+                return 'bg-indigo-100 text-indigo-600';
+            default:
+                return 'bg-slate-100 text-slate-600';
         }
     }
 
-    const getActionIcon = (action: RecentActivity['action']) => {
+    // Helper function to get action text
+    const getActionText = (action: string) => {
         switch (action) {
-            case 'created': return UserPlus
-            case 'updated': return FileEdit
-            case 'deleted': return Trash2
-            default: return Activity
+            case 'created':
+                return t('recentActivities.created');
+            case 'updated':
+                return t('recentActivities.updated');
+            case 'deleted':
+                return t('recentActivities.deleted');
+            default:
+                return action;
         }
     }
 
-    const getActionVariant = (action: RecentActivity['action']): "default" | "secondary" | "destructive" | "outline" => {
-        switch (action) {
-            case 'created': return 'default'
-            case 'updated': return 'secondary'
-            case 'deleted': return 'destructive'
-            default: return 'outline'
+    // Helper function for time ago text
+    const getTimeAgo = (timestamp: string) => {
+        try {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+            
+            if (diffInSeconds < 60) return t('recentActivities.justNow');
+            if (diffInSeconds < 3600) return t('recentActivities.minutesAgo', { minutes: Math.floor(diffInSeconds / 60) });
+            if (diffInSeconds < 86400) return t('recentActivities.hoursAgo', { hours: Math.floor(diffInSeconds / 3600) });
+            if (diffInSeconds < 172800) return t('recentActivities.yesterday');
+            return format(date, 'MMM d');
+        } catch (e) {
+            return "Unknown";
         }
-    }
-
-    const getActionLabel = (action: RecentActivity['action']) => {
-        switch (action) {
-            case 'created': return t('activities.created')
-            case 'updated': return t('activities.updated')
-            case 'deleted': return t('activities.deleted')
-            default: return action
-        }
-    }
-
-    const getTypeColor = (type: RecentActivity['type']) => {
-        switch (type) {
-            case 'enrollment': return 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950'
-            case 'professor': return 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-950'
-            case 'student': return 'text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950'
-            case 'course': return 'text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-950'
-            case 'program': return 'text-pink-600 dark:text-pink-400 bg-pink-50 dark:bg-pink-950'
-            default: return 'text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-950'
-        }
-    }
-
-    const formatTimestamp = (timestamp: string) => {
-        const date = new Date(timestamp)
-        const now = new Date()
-        const diff = now.getTime() - date.getTime()
-        const minutes = Math.floor(diff / 60000)
-        const hours = Math.floor(diff / 3600000)
-        const days = Math.floor(diff / 86400000)
-
-        if (minutes < 60) return t('activities.minutesAgo', { count: minutes })
-        if (hours < 24) return t('activities.hoursAgo', { count: hours })
-        return t('activities.daysAgo', { count: days })
     }
 
     return (
-        <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs">
-            <Card data-slot="card">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                        <Activity className="size-5" />
-                        {t('activities.title')}
-                    </CardTitle>
-                    <CardDescription>
-                        {t('activities.subtitle')}
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="space-y-3">
-                        {data.recentActivities.map((activity) => {
-                            const ActivityIcon = getActivityIcon(activity.type)
-                            const ActionIcon = getActionIcon(activity.action)
-
-                            return (
-                                <div
-                                    key={activity.id}
-                                    className="flex items-start gap-3 p-3 rounded-lg border bg-card hover:bg-muted/50 transition-colors"
-                                >
-                                    <div className={`p-2 rounded-lg ${getTypeColor(activity.type)}`}>
-                                        <ActivityIcon className="size-4" />
-                                    </div>
-                                    <div className="flex-1 space-y-1">
-                                        <div className="flex items-center gap-2 flex-wrap">
-                                            <Badge variant={getActionVariant(activity.action)} className="text-xs">
-                                                <ActionIcon className="size-3 mr-1" />
-                                                {getActionLabel(activity.action)}
-                                            </Badge>
-                                            <span className="text-xs text-muted-foreground">
-                                                {formatTimestamp(activity.timestamp)}
-                                            </span>
-                                        </div>
-                                        <p className="text-sm font-medium">
-                                            {activity.description}
-                                        </p>
-                                        {activity.user && (
-                                            <p className="text-xs text-muted-foreground">
-                                                {t('activities.by')} {activity.user}
-                                            </p>
-                                        )}
-                                    </div>
+        <Card>
+            <CardHeader className="pb-2">
+                <CardTitle className="text-lg font-semibold flex items-center space-x-2">
+                    <Activity className="w-5 h-5 text-muted-foreground" />
+                    <span>{t('recentActivities.title')}</span>
+                </CardTitle>
+            </CardHeader>
+            <CardContent className="pb-4">
+                <div className="space-y-4">
+                    {data.recentActivities.map((activity) => (
+                        <div key={activity.id} className="flex items-start space-x-3">
+                            <div className="mt-0.5">
+                                <div className={`p-1.5 rounded-md ${getIconColorClass(activity.type)}`}>
+                                    <Activity className="h-4 w-4" />
                                 </div>
-                            )
-                        })}
-                    </div>
-                </CardContent>
-            </Card>
-        </div>
+                            </div>
+                            <div className="space-y-1 flex-1">
+                                <p className="font-medium leading-none">
+                                    {activity.description}
+                                </p>
+                                <div className="flex items-center justify-between">
+                                    <p className="text-xs text-muted-foreground">
+                                        {activity.user} {getActionText(activity.action)}
+                                    </p>
+                                    <p className="text-xs text-muted-foreground">
+                                        {getTimeAgo(activity.timestamp)}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                    
+                    {data.recentActivities.length === 0 && (
+                        <div className="text-center py-6">
+                            <p className="text-muted-foreground">
+                                {t('recentActivities.noActivities')}
+                            </p>
+                        </div>
+                    )}
+                </div>
+            </CardContent>
+        </Card>
     )
 }

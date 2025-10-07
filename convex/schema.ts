@@ -562,6 +562,18 @@ export default defineSchema({
     .index("by_requested_by", ["requestedBy", "generatedAt"]) // Added generatedAt for sorting
     .index("by_requested_for_type", ["requestedFor", "documentType", "status"]) // Combined index
     .index("by_generated", ["generatedAt"]),
+
+  systemLogs: defineTable({
+    entityId: v.optional(v.string()),
+    entityType: v.string(), // "enrollment", "professor", "student", "course", "program"
+    action: v.string(), // "created", "updated", "deleted"
+    description: v.string(),
+    userId: v.optional(v.id("users")),
+    metadata: v.optional(v.any()),
+  })
+  .index("by_entityType", ["entityType"])
+  .index("by_action", ["action"])
+  .index("by_userId", ["userId"]),
 });
 
 /**

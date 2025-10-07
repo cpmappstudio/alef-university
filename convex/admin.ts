@@ -1327,7 +1327,7 @@ export const adminCreateStudent = mutation({
 
     const placeholderClerkId = `placeholder_student_${Date.now()}`;
 
-    return await ctx.db.insert("users", {
+    const studentId = await ctx.db.insert("users", {
       clerkId: placeholderClerkId,
       email: args.email,
       firstName: args.firstName,
@@ -1352,6 +1352,17 @@ export const adminCreateStudent = mutation({
         academicStanding: args.academicStanding || "good_standing",
       },
     });
+
+    await ctx.db.insert("systemLogs", {
+      entityId: studentId,
+      entityType: "student",
+      action: "created",
+      description: `New student created: ${args.firstName} ${args.lastName}`,
+      userId: user._id,
+      metadata: { email: args.email }
+    });
+
+    return studentId;
   },
 });
 

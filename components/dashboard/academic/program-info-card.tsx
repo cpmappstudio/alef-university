@@ -31,21 +31,20 @@ import {
 import type { Doc } from '@/convex/_generated/dataModel'
 
 interface ProgramInfoCardProps {
-    data?: {
+    programInfo?: {
         program: Doc<"programs">
         user: Doc<"users">
     }
 }
 
-export default function ProgramInfoCard({ data }: ProgramInfoCardProps = {}) {
+export default function ProgramInfoCard({ programInfo }: ProgramInfoCardProps) {
     const t = useTranslations('dashboard.student')
     const locale = useLocale()
 
-    // TODO: Replace with real Convex query
-    // const dashboardData = useQuery(api.dashboard.getStudentDashboard)
-    const mockData = data || getMockProgramData()
+    // Fallback to mock data only if no props are provided (for standalone development)
+    const data = programInfo || getMockProgramData()
 
-    const { program, user } = mockData
+    const { program, user } = data
     const { studentProfile } = user
 
     // Early return if required data is missing
@@ -53,6 +52,7 @@ export default function ProgramInfoCard({ data }: ProgramInfoCardProps = {}) {
         return null
     }
 
+    // Rest of the component remains the same
     const programName = getProgramName(program.nameEs, program.nameEn, locale)
     const programTypeLabel = getProgramTypeLabel(program.type)
     const languageLabels = getProgramLanguages(program.language)

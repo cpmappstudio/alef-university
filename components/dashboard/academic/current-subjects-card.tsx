@@ -30,20 +30,18 @@ interface Subject {
     status: 'in-progress' | 'pending' | 'completed'
 }
 
-interface CurrentSubjectsProps {
-    // Props are now optional since we fetch data internally
-    currentPeriod?: string
-    enrolledSubjects?: number
-    creditsInProgress?: number
-    subjects?: Subject[]
+interface CurrentSubjectsCardProps {
+    subjects?: {
+        currentPeriod: string
+        enrolledSubjects: number
+        creditsInProgress: number
+        subjects: Subject[]
+    }
 }
 
 export default function CurrentSubjectsCard({
-    currentPeriod,
-    enrolledSubjects,
-    creditsInProgress,
     subjects
-}: CurrentSubjectsProps) {
+}: CurrentSubjectsCardProps) {
     const t = useTranslations('dashboard.student')
 
     // TODO: Replace with real Convex query
@@ -51,12 +49,7 @@ export default function CurrentSubjectsCard({
     const mockData = getMockCurrentSubjectsData()
 
     // Use provided props or fallback to mock data
-    const finalData = {
-        currentPeriod: currentPeriod || mockData.currentPeriod,
-        enrolledSubjects: enrolledSubjects ?? mockData.enrolledSubjects,
-        creditsInProgress: creditsInProgress ?? mockData.creditsInProgress,
-        subjects: subjects || mockData.subjects
-    }
+    const finalData = subjects || getMockCurrentSubjectsData()
 
     const formatGrade = (subject: Subject) => {
         if (subject.grade && subject.percentage) {
