@@ -40,6 +40,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+import { Id } from "../../../convex/_generated/dataModel";
 
 type StudentStatusFilter =
   | "all"
@@ -63,133 +66,17 @@ export default function StudentTable() {
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = React.useState(false);
 
-  // Mock data for demonstration
-  const mockPrograms = [
-    {
-      _id: "1",
-      code: "CS",
-      nameEs: "Ciencias de la Computación",
-      isActive: true,
-    },
-    {
-      _id: "2",
-      code: "BUS",
-      nameEs: "Administración de Empresas",
-      isActive: true,
-    },
-    { _id: "3", code: "MED", nameEs: "Medicina", isActive: true },
-    { _id: "4", code: "ENG", nameEs: "Ingeniería", isActive: true },
-  ];
+  const programs = useQuery(api.programs.getAllPrograms, { isActive: true });
 
-  const mockStudents: Student[] = [
-    {
-      _id: "1" as any,
-      clerkId: "clerk_1",
-      firstName: "Juan",
-      lastName: "Pérez",
-      email: "juan.perez@university.edu",
-      dateOfBirth: new Date("1998-05-15").getTime(),
-      phone: "+1-555-0123",
-      address: {
-        street: "123 Main St",
-        city: "City",
-        state: "State",
-        zipCode: "12345",
-        country: "Country",
-      },
-      role: "student" as const,
-      isActive: true,
-      createdAt: new Date().getTime(),
-      studentProfile: {
-        studentCode: "STU001",
-        programId: "1" as any,
-        enrollmentDate: new Date("2020-08-15").getTime(),
-        expectedGraduationDate: new Date("2024-05-15").getTime(),
-        status: "active" as const,
-        academicStanding: "good_standing" as const,
-      },
-    },
-    {
-      _id: "2" as any,
-      clerkId: "clerk_2",
-      firstName: "Ana",
-      lastName: "García",
-      email: "ana.garcia@university.edu",
-      dateOfBirth: new Date("1999-03-22").getTime(),
-      phone: "+1-555-0234",
-      address: {
-        street: "456 Oak Ave",
-        city: "City",
-        state: "State",
-        zipCode: "23456",
-        country: "Country",
-      },
-      role: "student" as const,
-      isActive: true,
-      createdAt: new Date().getTime(),
-      studentProfile: {
-        studentCode: "STU002",
-        programId: "2" as any,
-        enrollmentDate: new Date("2021-01-15").getTime(),
-        expectedGraduationDate: new Date("2025-01-15").getTime(),
-        status: "active" as const,
-        academicStanding: "good_standing" as const,
-      },
-    },
-    {
-      _id: "3" as any,
-      clerkId: "clerk_3",
-      firstName: "Carlos",
-      lastName: "Rodríguez",
-      email: "carlos.rodriguez@university.edu",
-      dateOfBirth: new Date("1997-11-08").getTime(),
-      phone: "+1-555-0345",
-      address: {
-        street: "789 Pine St",
-        city: "City",
-        state: "State",
-        zipCode: "34567",
-        country: "Country",
-      },
-      role: "student" as const,
-      isActive: true,
-      createdAt: new Date().getTime(),
-      studentProfile: {
-        studentCode: "STU003",
-        programId: "3" as any,
-        enrollmentDate: new Date("2019-08-15").getTime(),
-        expectedGraduationDate: new Date("2024-08-15").getTime(),
-        status: "graduated" as const,
-        academicStanding: "good_standing" as const,
-      },
-    },
-  ];
+  const students = useQuery(api.admin.getAllUsers, {
+    role: "student",
+    searchTerm: nameSearch || undefined,
+    programId: selectedProgramId === "all" ? undefined : selectedProgramId as Id<"programs">,
+    studentStatus: studentStatusFilter === "all" ? undefined : studentStatusFilter,
+  });
 
   // Filter students based on all active filters
-  const filteredStudents = React.useMemo(() => {
-    return mockStudents.filter((student) => {
-      // Name search filter
-      const nameMatch =
-        nameSearch === "" ||
-        student.firstName?.toLowerCase().includes(nameSearch.toLowerCase()) ||
-        student.lastName?.toLowerCase().includes(nameSearch.toLowerCase()) ||
-        student.studentProfile.studentCode
-          ?.toLowerCase()
-          .includes(nameSearch.toLowerCase());
-
-      // Program filter
-      const programMatch =
-        selectedProgramId === "all" ||
-        student.studentProfile.programId === selectedProgramId;
-
-      // Status filter
-      const statusMatch =
-        studentStatusFilter === "all" ||
-        student.studentProfile.status === studentStatusFilter;
-
-      return nameMatch && programMatch && statusMatch;
-    });
-  }, [mockStudents, nameSearch, selectedProgramId, studentStatusFilter]);
+  const filteredStudents = (students || []).filter(student => student.role === "student") as Student[];
 
   const handleRowClick = (student: Student) => {
     setSelectedStudent(student);
@@ -207,9 +94,20 @@ export default function StudentTable() {
   // Get selected program name for display
   const selectedProgramName = React.useMemo(() => {
     if (selectedProgramId === "all") return "All Programs";
-    const program = mockPrograms.find((p) => p._id === selectedProgramId);
+    const program = programs?.find((p) => p._id === selectedProgramId);
     return program ? `${program.code} - ${program.nameEs}` : "All Programs";
-  }, [selectedProgramId]);
+  }, [selectedProgramId, programs]);
+
+  if (programs === undefined || students === undefined) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px] bg-card rounded-xl border border-border/50 shadow-sm">
+        <div className="flex flex-col items-center space-y-4 p-8">
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-muted-foreground font-medium">Loading student data...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 sm:space-y-8">
@@ -303,33 +201,38 @@ export default function StudentTable() {
                                       >
                                         <Check
                                           className={`mr-2 h-4 w-4 ${
-                                            selectedProgramId === "all"
-                                              ? "opacity-100"
-                                              : "opacity-0"
+                                            selectedProgramId === "all" ? "opacity-100" : "opacity-0"
                                           }`}
                                         />
                                         All Programs
                                       </CommandItem>
-                                      {mockPrograms.map((program) => (
-                                        <CommandItem
-                                          key={program._id}
-                                          value={`${program.code} ${program.nameEs}`}
-                                          onSelect={() => {
-                                            setSelectedProgramId(program._id);
-                                            setProgramSearchValue("");
-                                            setProgramSearchOpen(false);
-                                          }}
-                                        >
-                                          <Check
-                                            className={`mr-2 h-4 w-4 ${
-                                              selectedProgramId === program._id
-                                                ? "opacity-100"
-                                                : "opacity-0"
-                                            }`}
-                                          />
-                                          {program.code} - {program.nameEs}
-                                        </CommandItem>
-                                      ))}
+                                      {programs
+                                        .filter((program) => {
+                                          const searchLower = programSearchValue.toLowerCase();
+                                          return (
+                                            !searchLower ||
+                                            program.code.toLowerCase().includes(searchLower) ||
+                                            program.nameEs.toLowerCase().includes(searchLower)
+                                          );
+                                        })
+                                        .map((program) => (
+                                          <CommandItem
+                                            key={program._id}
+                                            value={`${program.code} ${program.nameEs}`}
+                                            onSelect={() => {
+                                              setSelectedProgramId(program._id);
+                                              setProgramSearchValue("");
+                                              setProgramSearchOpen(false);
+                                            }}
+                                          >
+                                            <Check
+                                              className={`mr-2 h-4 w-4 ${
+                                                selectedProgramId === program._id ? "opacity-100" : "opacity-0"
+                                              }`}
+                                            />
+                                            {program.code} - {program.nameEs}
+                                          </CommandItem>
+                                        ))}
                                     </CommandGroup>
                                   </CommandList>
                                 </Command>

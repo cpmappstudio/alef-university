@@ -68,8 +68,11 @@ export function SectionFormDialog({
 
   // Queries for dropdowns
   const courses = useQuery(api.courses.getAllCourses, { isActive: true });
-  const professors = ["Laura Betancourt", "Juan Camilo Narvaez", "Maria Morales"];
-  const periods = ["2025-1", "2025-2", "2025-3"]; // Placeholder periods
+  const periods = useQuery(api.admin.getAllPeriods, {});
+  const professors = useQuery(api.admin.getAllUsers, { 
+    role: "professor", 
+    isActive: true 
+  });
 
   // Use controlled or internal state
   const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
@@ -302,13 +305,13 @@ export function SectionFormDialog({
                     <SelectValue placeholder={!periods || periods.length === 0 ? "No periods available" : "Select period"} />
                   </SelectTrigger>
                   <SelectContent className="bg-background border-border shadow-lg">
-                    {periods?.map((period: any, index: number) => (
+                    {periods?.map((period) => (
                       <SelectItem 
-                        key={typeof period === 'string' ? period : period._id || index} 
-                        value={typeof period === 'string' ? period : period._id}
+                        key={period._id} 
+                        value={period._id}
                         className="hover:bg-muted/80"
                       >
-                        {typeof period === 'string' ? period : `${period.nameEs} (${period.year})`}
+                        {period.code} - {period.nameEs} ({period.year})
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -347,16 +350,16 @@ export function SectionFormDialog({
                   onValueChange={(value) => updateFormData("professorId", value as Id<"users">)}
                 >
                   <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
-                    <SelectValue placeholder="Select professor" />
+                    <SelectValue placeholder={!professors || professors.length === 0 ? "No professors available" : "Select professor"} />
                   </SelectTrigger>
                   <SelectContent className="bg-background border-border shadow-lg">
-                    {professors?.map((professor: any, index: number) => (
+                    {professors?.map((professor) => (
                       <SelectItem 
-                        key={typeof professor === 'string' ? professor : professor._id || index} 
-                        value={typeof professor === 'string' ? professor : professor._id}
+                        key={professor._id} 
+                        value={professor._id}
                         className="hover:bg-muted/80"
                       >
-                        {typeof professor === 'string' ? professor : `${professor.firstName} ${professor.lastName}`}
+                        {professor.firstName} {professor.lastName}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -568,83 +571,88 @@ export function SectionFormDialog({
 
         <TabsContent value="details" className="space-y-6 mt-6">
           <div className="space-y-6">
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 pb-3 border-b border-border/50">
-                <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
-                <h3 className="text-lg font-semibold text-foreground">
-                  Associated Periods
-                </h3>
-              </div>
-
-              <div className="space-y-3 max-h-[200px] overflow-y-auto">
-                {periods && periods.length > 0 ? (
-                  periods.map((period, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
-                    >
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-3">
-                          <span className="font-semibold text-foreground">
-                            Periodo
-                          </span>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
-                          Period
-                        </span>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <div className="text-center py-8">
-                    <p className="text-muted-foreground">
-                      No periods available.
-                    </p>
+            {/* Only show details if we're in edit mode and have a section */}
+            {mode === "edit" && section && (
+              <>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 pb-3 border-b border-border/50">
+                    <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
+                    <h3 className="text-lg font-semibold text-foreground">
+                      Period Information
+                    </h3>
                   </div>
-                )}
-              </div>
-            </div>
 
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 pb-3 border-b border-border/50">
-                <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
-                <h3 className="text-lg font-semibold text-foreground">
-                  Associated Professors
-                </h3>
-              </div>
-
-              <div className="space-y-3 max-h-[200px] overflow-y-auto">
-                {professors && professors.length > 0 ? (
-                  professors.map((professor, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
-                    >
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-3">
-                          <span className="font-semibold text-foreground">
-                            Profesor
-                          </span>
+                  <div className="space-y-3">
+                    {periods ? (
+                      periods.filter(period => period._id === section.periodId).map((period) => (
+                        <div
+                          key={period._id}
+                          className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30"
+                        >
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-3">
+                              <span className="font-semibold text-foreground">
+                                {period.code} - {period.nameEs}
+                              </span>
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              {new Date(period.startDate).toLocaleDateString()} to {new Date(period.endDate).toLocaleDateString()}
+                            </p>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                              {period.status}
+                            </span>
+                          </div>
                         </div>
+                      ))
+                    ) : (
+                      <div className="text-center py-4">
+                        <p className="text-muted-foreground">Loading period information...</p>
                       </div>
-                      <div className="text-right">
-                        <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
-                          Professor
-                        </span>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <div className="text-center py-8">
-                    <p className="text-muted-foreground">
-                      No professors available.
-                    </p>
+                    )}
                   </div>
-                )}
-              </div>
-            </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 pb-3 border-b border-border/50">
+                    <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
+                    <h3 className="text-lg font-semibold text-foreground">
+                      Professor Information
+                    </h3>
+                  </div>
+
+                  <div className="space-y-3">
+                    {professors ? (
+                      professors.filter(professor => professor._id === section.professorId).map((professor) => (
+                        <div
+                          key={professor._id}
+                          className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30"
+                        >
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-3">
+                              <span className="font-semibold text-foreground">
+                                {professor.firstName} {professor.lastName}
+                              </span>
+                            </div>
+                            {professor.professorProfile && (
+                              <p className="text-sm text-muted-foreground">
+                                {professor.professorProfile.title} - {professor.professorProfile.department}
+                              </p>
+                            )}
+                            <p className="text-sm text-muted-foreground">{professor.email}</p>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="text-center py-4">
+                        <p className="text-muted-foreground">Loading professor information...</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </TabsContent>
       </Tabs>

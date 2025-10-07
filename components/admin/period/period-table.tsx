@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 import { columnsPeriod } from "../columns";
 import { DataTable } from "../../ui/data-table";
 import { Button } from "@/components/ui/button";
@@ -43,106 +45,24 @@ export default function PeriodTable() {
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = React.useState(false);
 
-  // Mock data for periods (5 examples)
-  const mockPeriods: Period[] = [
-    {
-      _id: "1" as Id<"periods">,
-      code: "2024-1",
-      year: 2024,
-      bimester: 1,
-      nameEs: "Primer Bimestre 2024",
-      nameEn: "First Bimester 2024",
-      startDate: new Date("2024-01-15").getTime(),
-      endDate: new Date("2024-03-15").getTime(),
-      enrollmentStart: new Date("2024-01-01").getTime(),
-      enrollmentEnd: new Date("2024-01-10").getTime(),
-      addDropDeadline: new Date("2024-01-20").getTime(),
-      withdrawalDeadline: new Date("2024-02-28").getTime(),
-      graddingStart: new Date("2024-03-16").getTime(),
-      graddingDeadline: new Date("2024-03-31").getTime(),
-      status: "closed",
-      isCurrentPeriod: false,
-      createdAt: new Date("2023-12-01").getTime(),
-      updatedAt: new Date("2024-03-31").getTime(),
-    },
-    {
-      _id: "2" as Id<"periods">,
-      code: "2024-2",
-      year: 2024,
-      bimester: 2,
-      nameEs: "Segundo Bimestre 2024",
-      nameEn: "Second Bimester 2024",
-      startDate: new Date("2024-04-01").getTime(),
-      endDate: new Date("2024-06-15").getTime(),
-      enrollmentStart: new Date("2024-03-15").getTime(),
-      enrollmentEnd: new Date("2024-03-25").getTime(),
-      addDropDeadline: new Date("2024-04-10").getTime(),
-      withdrawalDeadline: new Date("2024-05-31").getTime(),
-      graddingStart: new Date("2024-06-16").getTime(),
-      graddingDeadline: new Date("2024-06-30").getTime(),
-      status: "closed",
-      isCurrentPeriod: false,
-      createdAt: new Date("2024-02-01").getTime(),
-      updatedAt: new Date("2024-06-30").getTime(),
-    },
-    {
-      _id: "3" as Id<"periods">,
-      code: "2025-1",
-      year: 2025,
-      bimester: 1,
-      nameEs: "Primer Bimestre 2025",
-      nameEn: "First Bimester 2025",
-      startDate: new Date("2025-01-15").getTime(),
-      endDate: new Date("2025-03-15").getTime(),
-      enrollmentStart: new Date("2025-01-01").getTime(),
-      enrollmentEnd: new Date("2025-01-10").getTime(),
-      addDropDeadline: new Date("2025-01-20").getTime(),
-      withdrawalDeadline: new Date("2025-02-28").getTime(),
-      graddingStart: new Date("2025-03-16").getTime(),
-      graddingDeadline: new Date("2025-03-31").getTime(),
-      status: "active",
-      isCurrentPeriod: true,
-      createdAt: new Date("2024-12-01").getTime(),
-    },
-    {
-      _id: "4" as Id<"periods">,
-      code: "2025-2",
-      year: 2025,
-      bimester: 2,
-      nameEs: "Segundo Bimestre 2025",
-      nameEn: "Second Bimester 2025",
-      startDate: new Date("2025-04-01").getTime(),
-      endDate: new Date("2025-06-15").getTime(),
-      enrollmentStart: new Date("2025-03-15").getTime(),
-      enrollmentEnd: new Date("2025-03-25").getTime(),
-      addDropDeadline: new Date("2025-04-10").getTime(),
-      withdrawalDeadline: new Date("2025-05-31").getTime(),
-      graddingStart: new Date("2025-06-16").getTime(),
-      graddingDeadline: new Date("2025-06-30").getTime(),
-      status: "planning",
-      isCurrentPeriod: false,
-      createdAt: new Date("2025-01-01").getTime(),
-    },
-    {
-      _id: "5" as Id<"periods">,
-      code: "2026-1",
-      year: 2026,
-      bimester: 1,
-      nameEs: "Primer Bimestre 2026",
-      nameEn: "First Bimester 2026",
-      startDate: new Date("2026-01-15").getTime(),
-      endDate: new Date("2026-03-15").getTime(),
-      enrollmentStart: new Date("2026-01-01").getTime(),
-      enrollmentEnd: new Date("2026-01-10").getTime(),
-      addDropDeadline: new Date("2026-01-20").getTime(),
-      withdrawalDeadline: new Date("2026-02-28").getTime(),
-      graddingStart: new Date("2026-03-16").getTime(),
-      graddingDeadline: new Date("2026-03-31").getTime(),
-      status: "planning",
-      isCurrentPeriod: false,
-      createdAt: new Date("2025-10-01").getTime(),
-    },
-  ];
+  // Fetch periods from the backend with filters
+  const periods = useQuery(api.admin.getAllPeriods, {
+    year: selectedYear === "all" ? undefined : parseInt(selectedYear),
+    status: periodStatusFilter === "all" ? undefined : periodStatusFilter,
+    searchTerm: codeSearch,
+  });
+
+  // Transform periods to match the frontend's expected structure
+  const transformedPeriods = React.useMemo(() => {
+    if (!periods) return [];
+    
+    return periods.map(p => ({
+      ...p,
+      bimester: p.bimesterNumber,   // Map bimesterNumber to bimester
+      graddingStart: p.gradingStart, // Fix spelling in frontend data model
+      graddingDeadline: p.gradingDeadline // Map gradingDeadline property
+    })) as Period[];
+  }, [periods]);
 
   const handleRowClick = (period: Period) => {
     setSelectedPeriod(period);
@@ -159,13 +79,25 @@ export default function PeriodTable() {
     setSelectedPeriod(undefined);
   };
 
-  // Count active filters (all filters in DropdownMenu)
+  // Count active filters
   const activeFiltersCount = React.useMemo(() => {
     let count = 0;
     if (selectedYear !== "all") count++;
     if (periodStatusFilter !== "all") count++;
     return count;
   }, [selectedYear, periodStatusFilter]);
+
+  // Show loading state while data is being fetched
+  if (periods === undefined) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          <p className="text-muted-foreground">Loading periods...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 sm:space-y-8">
@@ -331,7 +263,7 @@ export default function PeriodTable() {
           <div className="min-w-full">
             <DataTable
               columns={columnsPeriod}
-              data={mockPeriods}
+              data={transformedPeriods}
               onRowClick={handleRowClick}
               searchConfig={null}
               primaryAction={null}

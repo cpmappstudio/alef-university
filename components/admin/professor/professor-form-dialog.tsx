@@ -26,39 +26,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 import { Professor } from "../types";
-
-// Mock sections data for the details tab
-const mockSections = [
-  {
-    _id: "1",
-    professorId: "1",
-    courseId: "1",
-    periodId: "1",
-    courseCode: "CS101",
-    courseName: "Introduction to Computer Science",
-    sectionCode: "A",
-    periodName: "Fall 2024",
-    schedule: "Mon, Wed, Fri 10:00-11:30",
-    classroom: "CS Building 201",
-    enrolledStudents: 25,
-    maxCapacity: 30,
-  },
-  {
-    _id: "2",
-    professorId: "1", 
-    courseId: "2",
-    periodId: "1",
-    courseCode: "CS201",
-    courseName: "Data Structures",
-    sectionCode: "B",
-    periodName: "Fall 2024",
-    schedule: "Tue, Thu 14:00-15:30",
-    classroom: "CS Building 203",
-    enrolledStudents: 22,
-    maxCapacity: 25,
-  },
-];
 
 interface ProfessorFormData {
   firstName: string;
@@ -106,6 +76,15 @@ export function ProfessorFormDialog({
   const [isLoading, setIsLoading] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState("general");
+
+  const adminCreateProfessor = useMutation(api.admin.adminCreateProfessor);
+  const adminUpdateProfessor = useMutation(api.admin.adminUpdateProfessor);
+  const deactivateUser = useMutation(api.auth.deactivateUser);
+
+  const teachingHistory = useQuery(
+    api.admin.getProfessorTeachingHistory,
+    mode === 'edit' && professor ? { professorId: professor._id } : 'skip'
+  );
 
   // Use controlled or internal state
   const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
@@ -192,22 +171,33 @@ export function ProfessorFormDialog({
     }
 
     setIsLoading(true);
-
     try {
       if (mode === "create") {
-        // Mock create logic
-        console.log("Creating professor:", formData);
-        alert("Professor created successfully!");
+          await adminCreateProfessor({
+            email: formData.email,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            employeeCode: formData.professorProfile.employeeCode,
+            title: formData.professorProfile.title || undefined,
+            department: formData.professorProfile.department || undefined,
+          });
+          alert("Professor created successfully!");
       } else {
-        // Mock update logic
-        console.log("Updating professor:", formData);
+        if (!professor) return;
+        await adminUpdateProfessor({
+          professorId: professor._id,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          isActive: formData.isActive,
+          title: formData.professorProfile.title || undefined,
+          department: formData.professorProfile.department || undefined,
+        });
         alert("Professor updated successfully!");
       }
-
       setOpen(false);
     } catch (error) {
       console.error(`Failed to ${mode} professor:`, error);
-      alert(`Failed to ${mode} professor. Please try again.`);
+      alert(`Failed to ${mode} professor: ${(error as Error).message}`);
     } finally {
       setIsLoading(false);
     }
@@ -215,21 +205,17 @@ export function ProfessorFormDialog({
 
   const handleDelete = async () => {
     if (!professor || mode === "create") return;
-
-    if (!confirm(`Are you sure you want to deactivate the professor "${professor.firstName} ${professor.lastName}"?`)) {
+    if (!confirm(`Are you sure you want to deactivate "${professor.firstName} ${professor.lastName}"?`)) {
       return;
     }
-
     setIsDeleting(true);
-
     try {
-      // Mock delete logic
-      console.log("Deactivating professor:", professor._id);
+      await deactivateUser({ userId: professor._id });
       alert("Professor deactivated successfully!");
       setOpen(false);
     } catch (error) {
       console.error("Failed to deactivate professor:", error);
-      alert("Failed to deactivate professor. Please try again.");
+      alert(`Failed to deactivate professor: ${(error as Error).message}`);
     } finally {
       setIsDeleting(false);
     }
@@ -283,7 +269,7 @@ export function ProfessorFormDialog({
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="general">Información general</TabsTrigger>
           <TabsTrigger value="details" disabled={mode === "create"}>
-            Detalles
+            Teaching History
           </TabsTrigger>
         </TabsList>
 
@@ -679,49 +665,89 @@ export function ProfessorFormDialog({
               <div className="flex items-center gap-3 pb-3 border-b border-border/50">
                 <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
                 <h3 className="text-lg font-semibold text-foreground">
-                  Assigned Sections
+                  Teaching History
                 </h3>
               </div>
 
-              {mockSections.length === 0 ? (
-                <div className="text-center py-8">
-                  <p className="text-muted-foreground">
-                    No sections are currently assigned to this professor.
-                  </p>
-                </div>
+              {teachingHistory === undefined ? (
+                <div className="text-center py-8">Loading teaching history...</div>
+              ) : !teachingHistory || teachingHistory.length === 0 ? (
+                <div className="text-center py-8">No teaching history available.</div>
               ) : (
-                <div className="space-y-3 max-h-[400px] overflow-y-auto">
-                  {mockSections.map((section) => (
-                    <div
-                      key={section._id}
-                      className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
-                    >
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-3">
-                          <span className="font-semibold text-foreground">
-                            {section.courseCode}
-                          </span>
-                          <span className="text-sm text-muted-foreground">
-                            Section {section.sectionCode}
-                          </span>
+                <div className="space-y-6 max-h-[400px] overflow-y-auto">
+                  {/* Group sections by period */}
+                  {Object.entries(
+                    teachingHistory.reduce((acc: Record<string, any[]>, section) => {
+                      const periodKey = `${section.periodName || 'Unknown'} (${new Date(section.periodId).getFullYear()})`;
+                      if (!acc[periodKey]) acc[periodKey] = [];
+                      acc[periodKey].push(section);
+                      return acc;
+                    }, {})
+                  ).map(([periodName, sections], index) => (
+                    <div key={index} className="space-y-3">
+                      <h4 className="font-medium text-foreground">{periodName}</h4>
+                      
+                      {sections.map((section, sIdx) => (
+                        <div
+                          key={`${index}-${sIdx}`}
+                          className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
+                        >
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-3">
+                              <span className="font-semibold text-foreground">
+                                {section.courseCode}
+                              </span>
+                              <span className="text-sm text-muted-foreground">
+                                Group {section.groupNumber}
+                              </span>
+                            </div>
+                            <p className="text-sm text-foreground">
+                              {section.courseName}
+                            </p>
+                            {section.schedule && (
+                              <p className="text-xs text-muted-foreground">
+                                {section.schedule.sessions?.map((session: any) => 
+                                  `${session.day.charAt(0).toUpperCase() + session.day.slice(1)} ${session.startTime}-${session.endTime}`
+                                ).join(', ')}
+                              </p>
+                            )}
+                            <p className="text-xs text-muted-foreground">
+                              {section.enrolled}/{section.capacity} students
+                            </p>
+                          </div>
                         </div>
-                        <p className="text-sm text-foreground">
-                          {section.courseName}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          {section.periodName} • {section.schedule}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          {section.classroom} • {section.enrolledStudents}/{section.maxCapacity} students
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
-                          {Math.round((section.enrolledStudents / section.maxCapacity) * 100)}% full
-                        </span>
-                      </div>
+                      ))}
                     </div>
                   ))}
+                </div>
+              )}
+              
+              {teachingHistory && teachingHistory.length > 0 && (
+                <div className="pt-4 mt-4 border-t border-border/50">
+                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                    <div className="p-3 bg-muted/30 rounded-lg text-center">
+                      <p className="text-xs text-muted-foreground">Total Sections</p>
+                      <p className="text-lg font-semibold text-foreground">{teachingHistory.length}</p>
+                    </div>
+                    <div className="p-3 bg-muted/30 rounded-lg text-center">
+                      <p className="text-xs text-muted-foreground">Total Periods</p>
+                      <p className="text-lg font-semibold text-foreground">
+                        {new Set(teachingHistory.map(s => s.periodId)).size}
+                      </p>
+                    </div>
+                    <div className="p-3 bg-muted/30 rounded-lg text-center">
+                      <p className="text-xs text-muted-foreground">Students Taught</p>
+                      <p className="text-lg font-semibold text-foreground">
+                        {teachingHistory.reduce((sum, s) => sum + s.enrolled, 0)}
+                      </p>
+                    </div>
+                    <div className="p-3 bg-muted/30 rounded-lg text-center">
+                      <p className="text-xs text-muted-foreground">Courses Delivered</p>
+                      <p className="text-lg font-semibold text-foreground">
+                        {new Set(teachingHistory.map(s => s.courseId)).size}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>

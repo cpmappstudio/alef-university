@@ -1,3 +1,5 @@
+// convex/dashboard.ts
+
 // ################################################################################
 // # File: dashboard.ts                                                           # 
 // # Authors: Juan Camilo Narváez Tascón (github.com/ulvenforst)                  #
@@ -20,7 +22,8 @@ import {
     getActiveProfessorsCount,
     getActiveCoursesCount,
     getActiveProgramsCount,
-    calculateGPA
+    calculateGPA,
+    getProfessorSections,
 } from "./helpers";
 
 /**
@@ -40,69 +43,48 @@ export const getStudentDashboard = query({
         }
 
         const currentPeriod = await getCurrentPeriod(ctx.db);
-
-        // Get student program
+        
         const program = await ctx.db.get(user.studentProfile.programId);
         if (!program) {
             throw new ConvexError("Program not found");
         }
 
-        // Get current enrollments
         const currentEnrollments = currentPeriod ? await ctx.db
             .query("enrollments")
             .withIndex("by_student_period", q =>
                 q.eq("studentId", user._id).eq("periodId", currentPeriod._id))
             .collect() : [];
 
-        // Get enrollment details with course and section info
         const enrollmentDetails = await Promise.all(
             currentEnrollments.map(async (enrollment) => {
-                const section = await ctx.db.get(enrollment.sectionId);
-                const course = await ctx.db.get(enrollment.courseId);
-                const professor = await ctx.db.get(enrollment.professorId);
-
-                return {
-                    enrollment,
-                    section,
-                    course,
-                    professor,
-                };
+                const [section, course, professor] = await Promise.all([
+                    ctx.db.get(enrollment.sectionId),
+                    ctx.db.get(enrollment.courseId),
+                    ctx.db.get(enrollment.professorId),
+                ]);
+                return { enrollment, section, course, professor };
             })
         );
 
-        // Calculate academic progress
         const academicProgress = await calculateAcademicProgress(ctx.db, user._id);
-
-        // Get all student enrollments for GPA calculation
         const allEnrollments = await ctx.db
             .query("enrollments")
             .withIndex("by_student_period", q => q.eq("studentId", user._id))
             .filter(q => q.eq(q.field("countsForGPA"), true))
             .collect();
 
-        // Calculate cumulative GPA
         const gpaResult = await calculateGPA(ctx.db, allEnrollments);
-
-        // Get period GPA (current period only)
         const periodGpaResult = await calculateGPA(ctx.db, currentEnrollments.filter(e => e.countsForGPA));
 
         return {
-            user: {
-                ...user,
-                program,
-            },
+            user: { ...user, program },
             currentPeriod,
             enrollments: enrollmentDetails,
             academicProgress,
-            gpa: {
-                cumulative: gpaResult,
-                period: periodGpaResult,
-            },
+            gpa: { cumulative: gpaResult, period: periodGpaResult },
             summary: {
-                totalCreditsEnrolled: enrollmentDetails.reduce((sum, e) =>
-                    sum + (e.course?.credits || 0), 0),
-                completedCourses: allEnrollments.filter(e =>
-                    e.status === "completed").length,
+                totalCreditsEnrolled: enrollmentDetails.reduce((sum, e) => sum + (e.course?.credits || 0), 0),
+                completedCourses: allEnrollments.filter(e => e.status === "completed").length,
                 totalCourses: allEnrollments.length,
                 academicStanding: user.studentProfile.academicStanding || "good_standing",
             }
@@ -112,6 +94,7 @@ export const getStudentDashboard = query({
 
 /**
  * Get comprehensive professor dashboard data
+ * Provides metrics, current sections, and upcoming deadlines.
  */
 export const getProfessorDashboard = query({
     args: {},
@@ -123,92 +106,84 @@ export const getProfessorDashboard = query({
 
         const user = await getUserByClerkId(ctx.db, identity.subject);
         if (!user || user.role !== "professor") {
-            throw new ConvexError("Professor not found or invalid role");
+            throw new ConvexError("Professor access required");
         }
 
+        const now = Date.now();
         const currentPeriod = await getCurrentPeriod(ctx.db);
+        if (!currentPeriod) {
+            return { 
+                metrics: { totalSections: 0, totalStudents: 0, sectionsToGrade: 0, averageEnrollment: 0, totalCreditsTeaching: 0, periodsTaught: 0, totalStudentsTaught: 0 },
+                sections: [],
+                upcomingClosingDates: []
+            };
+        }
 
-        // Get professor's current sections
-        const currentSections = currentPeriod ? await ctx.db
-            .query("sections")
-            .withIndex("by_professor_period", q =>
-                q.eq("professorId", user._id).eq("periodId", currentPeriod._id).eq("isActive", true))
-            .collect() : [];
+        // --- Data for Cards ---
+        const currentSections = await getProfessorSections(ctx.db, user._id, currentPeriod._id);
 
-        // Get section details with course info and enrollments
-        const sectionDetails = await Promise.all(
+        const sectionsDetails = await Promise.all(
             currentSections.map(async (section) => {
                 const course = await ctx.db.get(section.courseId);
-
-                // Get enrollments for this section
-                const enrollments = await ctx.db
-                    .query("enrollments")
-                    .withIndex("by_section", q => q.eq("sectionId", section._id))
-                    .collect();
-
-                // Get student details for enrollments
-                const studentEnrollments = await Promise.all(
-                    enrollments.map(async (enrollment) => {
-                        const student = await ctx.db.get(enrollment.studentId);
-                        return { enrollment, student };
-                    })
-                );
-
                 return {
-                    section,
-                    course,
-                    enrollments: studentEnrollments,
-                    statistics: {
-                        enrolled: enrollments.filter(e => e.status === "enrolled").length,
-                        graded: enrollments.filter(e => e.percentageGrade !== undefined).length,
-                        avgGrade: enrollments.length > 0 ?
-                            enrollments
-                                .filter(e => e.percentageGrade !== undefined)
-                                .reduce((sum, e) => sum + (e.percentageGrade || 0), 0) /
-                            enrollments.filter(e => e.percentageGrade !== undefined).length
-                            : 0,
-                    }
+                    id: section._id,
+                    courseCode: course?.code ?? "N/A",
+                    courseName: course?.nameEs ?? "Unknown",
+                    groupNumber: section.groupNumber,
+                    credits: course?.credits ?? 0,
+                    enrolledStudents: section.enrolled,
+                    closingDate: new Date(currentPeriod.gradingDeadline).toISOString(),
+                    category: course?.category ?? "general",
+                    status: section.status,
                 };
             })
         );
 
-        // Get teaching statistics
-        const allSections = await ctx.db
-            .query("sections")
-            .withIndex("by_professor_period", q => q.eq("professorId", user._id))
-            .collect();
+        const upcomingClosingDates = sectionsDetails
+            .filter(s => new Date(s.closingDate).getTime() > now)
+            .map(s => ({
+                courseCode: s.courseCode,
+                courseName: s.courseName,
+                groupNumber: parseInt(s.groupNumber),
+                closingDate: s.closingDate,
+                daysRemaining: Math.ceil((new Date(s.closingDate).getTime() - now) / (1000 * 60 * 60 * 24)),
+            }))
+            .sort((a, b) => a.daysRemaining - b.daysRemaining);
 
-        const totalStudents = currentPeriod ? await ctx.db
-            .query("enrollments")
-            .withIndex("by_professor_period", q =>
-                q.eq("professorId", user._id).eq("periodId", currentPeriod._id))
-            .collect() : [];
+        // --- Data for Metrics ---
+        const allTimeSections = await ctx.db.query("sections").withIndex("by_professor_period", q => q.eq("professorId", user._id)).collect();
+        const allTimeEnrollments = await ctx.db.query("enrollments").filter(q => q.eq(q.field("professorId"), user._id)).collect();
+        const totalCreditsTeaching = sectionsDetails.reduce((sum, s) => sum + s.credits, 0);
+        const sectionsToGrade = currentSections.filter(s => s.status === 'grading' || (s.status === 'active' && !s.gradesSubmitted)).length;
+        const totalStudentsCurrent = currentSections.reduce((sum, s) => sum + s.enrolled, 0);
 
         return {
-            user,
-            currentPeriod,
-            sections: sectionDetails,
-            summary: {
+            metrics: {
+                currentPeriod: currentPeriod.nameEs,
                 totalSections: currentSections.length,
-                totalStudents: totalStudents.length,
-                gradingPending: sectionDetails.filter(s => !s.section.gradesSubmitted).length,
-                totalSectionsAllTime: allSections.length,
-            }
+                totalStudents: totalStudentsCurrent,
+                sectionsToGrade: sectionsToGrade,
+                averageEnrollment: currentSections.length > 0 ? totalStudentsCurrent / currentSections.length : 0,
+                totalCreditsTeaching: totalCreditsTeaching,
+                periodsTaught: new Set(allTimeSections.map(s => s.periodId)).size,
+                totalStudentsTaught: allTimeEnrollments.length
+            },
+            sections: sectionsDetails,
+            upcomingClosingDates,
         };
     },
 });
 
+
 /**
  * Get comprehensive admin dashboard data
+ * Provides metrics, upcoming deadlines, and recent activities for the admin homepage.
  */
 export const getAdminDashboard = query({
     args: {},
     handler: async (ctx) => {
         const identity = await ctx.auth.getUserIdentity();
-        if (!identity) {
-            throw new ConvexError("Not authenticated");
-        }
-
+        if (!identity) throw new ConvexError("Not authenticated");
         const user = await getUserByClerkId(ctx.db, identity.subject);
         if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
             throw new ConvexError("Admin access required");
@@ -216,91 +191,77 @@ export const getAdminDashboard = query({
 
         const currentPeriod = await getCurrentPeriod(ctx.db);
 
-        // Get system statistics
+        // --- 1. Metrics for AdminMetricsGrid ---
         const [
-            activeStudents,
             activeProfessors,
+            activeStudents,
             activeCourses,
-            activePrograms
+            activePrograms,
+            totalEnrollments,
+            activeSections,
         ] = await Promise.all([
-            getActiveStudentsCount(ctx.db),
             getActiveProfessorsCount(ctx.db),
+            getActiveStudentsCount(ctx.db),
             getActiveCoursesCount(ctx.db),
-            getActiveProgramsCount(ctx.db)
+            getActiveProgramsCount(ctx.db),
+            ctx.db.query("enrollments").collect().then(e => e.length),
+            currentPeriod ? ctx.db.query("sections").withIndex("by_period_status_active", q => q.eq("periodId", currentPeriod._id)).collect().then(s => s.length) : 0,
         ]);
+        const pendingEnrollments = await ctx.db.query("enrollments").withIndex("by_status_period", q=> q.eq("status", "enrolled")).collect();
 
-        // Get current period enrollments
-        let currentEnrollments = 0;
-        let currentSections = 0;
+        // --- 2. Upcoming Deadlines for UpcomingDeadlinesCard ---
+        const now = Date.now();
+        const upcomingPeriods = await ctx.db.query("periods").filter(q => q.gt(q.field("endDate"), now)).collect();
 
-        if (currentPeriod) {
-            const enrollments = await ctx.db
-                .query("enrollments")
-                .filter(q => q.eq(q.field("periodId"), currentPeriod._id))
-                .collect();
+        const upcomingDeadlines = upcomingPeriods.flatMap(period => {
+            const deadlines = [];
+            if (period.enrollmentEnd > now) {
+                deadlines.push({
+                    id: `${period._id}-enroll`,
+                    title: "Enrollment Deadline",
+                    description: `For period ${period.code}`,
+                    date: new Date(period.enrollmentEnd).toISOString(),
+                    daysRemaining: Math.ceil((period.enrollmentEnd - now) / (1000 * 60 * 60 * 24)),
+                    type: "enrollment",
+                });
+            }
+            if (period.gradingDeadline > now) {
+                deadlines.push({
+                    id: `${period._id}-grade`,
+                    title: "Grade Submission",
+                    description: `For period ${period.code}`,
+                    date: new Date(period.gradingDeadline).toISOString(),
+                    daysRemaining: Math.ceil((period.gradingDeadline - now) / (1000 * 60 * 60 * 24)),
+                    type: "grading",
+                });
+            }
+            return deadlines;
+        }).sort((a, b) => a.daysRemaining - b.daysRemaining).slice(0, 4);
 
-            const sections = await ctx.db
-                .query("sections")
-                .withIndex("by_period_status_active", q =>
-                    q.eq("periodId", currentPeriod._id).eq("status", "active").eq("isActive", true))
-                .collect();
-
-            currentEnrollments = enrollments.filter(e => e.status === "enrolled").length;
-            currentSections = sections.length;
-        }
-
-        // Get recent user registrations (last 30 days)
-        const thirtyDaysAgo = Date.now() - (30 * 24 * 60 * 60 * 1000);
-        const recentUsers = await ctx.db
-            .query("users")
-            .filter(q => q.gte(q.field("createdAt"), thirtyDaysAgo))
-            .collect();
-
-        // Get pending activations
-        const pendingUsers = await ctx.db
-            .query("users")
-            .filter(q => q.eq(q.field("isActive"), false))
-            .collect();
-
-        // Period status overview
-        const allPeriods = await ctx.db
-            .query("periods")
-            .collect();
-
-        // Sort periods by creation time (newest first) and take last 6
-        const recentPeriods = allPeriods
-            .sort((a, b) => b._creationTime - a._creationTime)
-            .slice(0, 6);
+        // --- 3. Recent Activities for RecentActivitiesCard ---
+        const recentUsers = await ctx.db.query("users").order("desc").take(5);
+        const recentActivities = recentUsers.map(u => ({
+             id: u._id,
+             type: u.role,
+             action: 'created',
+             description: `New ${u.role}: ${u.firstName} ${u.lastName}`,
+             timestamp: new Date(u.createdAt).toISOString(),
+             user: "System"
+        }));
 
         return {
-            user,
-            currentPeriod,
-            statistics: {
-                users: {
-                    activeStudents,
-                    activeProfessors,
-                    recentRegistrations: recentUsers.length,
-                    pendingActivations: pendingUsers.length,
-                },
-                academic: {
-                    activePrograms,
-                    activeCourses,
-                    currentSections,
-                    currentEnrollments,
-                },
+            metrics: {
+                activeProfessors,
+                activeStudents,
+                activeCourses,
+                activePrograms,
+                totalEnrollments,
+                activeSections,
+                currentPeriod: currentPeriod?.nameEs ?? "N/A",
+                pendingEnrollments: pendingEnrollments.length,
             },
-            recentPeriods: recentPeriods,
-            pendingActions: {
-                userActivations: pendingUsers.length,
-                gradeSubmissions: currentPeriod ? (
-                    await ctx.db
-                        .query("sections")
-                        .withIndex("by_period_status_active", q =>
-                            q.eq("periodId", currentPeriod._id).eq("status", "active").eq("isActive", true))
-                        .filter(q => q.eq(q.field("gradesSubmitted"), false))
-                        .collect()
-                ).length : 0,
-            }
+            upcomingDeadlines,
+            recentActivities,
         };
     },
 });

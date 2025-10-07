@@ -85,14 +85,7 @@ export default function CourseTable() {
   // Get all courses (load all by default, filter by program if selected)
   const allCourses = useQuery(
     api.courses.getAllCourses,
-    selectedProgramId && selectedProgramId !== "all"
-      ? {
-          programId: selectedProgramId as Id<"programs">,
-          // Remove isActive filter to get all courses
-        }
-      : {
-          // Load all courses when no specific program is selected
-        },
+    selectedProgramId === "all" ? {} : { programId: selectedProgramId as Id<"programs"> }
   );
 
   // Filter courses based on all active filters
@@ -548,6 +541,10 @@ export default function CourseTable() {
                     <Button
                       variant="default"
                       className="h-10 px-4 font-medium shadow-sm"
+                      onClick={() => {
+                        setSelectedCourse(undefined);
+                        setIsEditDialogOpen(true);
+                      }}
                     >
                       <Plus className="h-4 w-4" />
                     </Button>

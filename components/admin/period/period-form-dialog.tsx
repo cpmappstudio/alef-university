@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/select";
 import { Id } from "@/convex/_generated/dataModel";
 import { Period } from "../types";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 // Period form data type for handling form state
 export type PeriodFormData = {
@@ -114,6 +116,10 @@ export function PeriodFormDialog({
 
   const [formData, setFormData] = React.useState(initialFormData);
 
+  const createPeriod = useMutation(api.admin.createPeriod);
+  const updatePeriod = useMutation(api.admin.updatePeriod);
+  const deletePeriod = useMutation(api.admin.deletePeriod);
+
   // Reset form when period changes or dialog opens
   React.useEffect(() => {
     if (open) {
@@ -127,21 +133,50 @@ export function PeriodFormDialog({
     // Enhanced validation with detailed error messages
     const validationErrors = validateFormData(formData);
     if (validationErrors.length > 0) {
-      alert(`Please fix the following errors:\\n\\n${validationErrors.join('\\n')}`);
+      alert(`Please fix the following errors:\n\n${validationErrors.join('\n')}`);
       return;
     }
 
     setIsLoading(true);
 
+    // Helper to convert date string to timestamp
+    const toTimestamp = (dateString: string) => dateString ? new Date(dateString).getTime() : undefined;
+
     try {
       if (mode === "create") {
-        // Here would be the create logic
-        console.log("Creating period:", formData);
+        await createPeriod({
+          code: formData.code,
+          year: formData.year,
+          bimesterNumber: formData.bimester,
+          nameEs: formData.nameEs,
+          nameEn: formData.nameEn || undefined,
+          startDate: toTimestamp(formData.startDate)!,
+          endDate: toTimestamp(formData.endDate)!,
+          enrollmentStart: toTimestamp(formData.enrollmentStart)!,
+          enrollmentEnd: toTimestamp(formData.enrollmentEnd)!,
+          addDropDeadline: toTimestamp(formData.addDropDeadline),
+          withdrawalDeadline: toTimestamp(formData.withdrawalDeadline),
+          gradingStart: toTimestamp(formData.graddingStart),
+          gradingDeadline: toTimestamp(formData.graddingDeadline)!,
+        });
         alert("Period created successfully!");
       } else {
         if (!period) return;
-        // Here would be the update logic
-        console.log("Updating period:", formData);
+        await updatePeriod({
+          periodId: period._id,
+          nameEs: formData.nameEs,
+          nameEn: formData.nameEn || undefined,
+          startDate: toTimestamp(formData.startDate)!,
+          endDate: toTimestamp(formData.endDate)!,
+          enrollmentStart: toTimestamp(formData.enrollmentStart)!,
+          enrollmentEnd: toTimestamp(formData.enrollmentEnd)!,
+          addDropDeadline: toTimestamp(formData.addDropDeadline),
+          withdrawalDeadline: toTimestamp(formData.withdrawalDeadline),
+          gradingStart: toTimestamp(formData.graddingStart),
+          gradingDeadline: toTimestamp(formData.graddingDeadline)!,
+          status: formData.status!,
+          isCurrentPeriod: formData.isCurrentPeriod,
+        });
         alert("Period updated successfully!");
       }
 
@@ -149,7 +184,7 @@ export function PeriodFormDialog({
       setOpen(false);
     } catch (error) {
       console.error(`Failed to ${mode} period:`, error);
-      alert(`Failed to ${mode} period. Please try again.`);
+      alert(`Failed to ${mode} period: ${(error as Error).message}`);
     } finally {
       setIsLoading(false);
     }
@@ -165,13 +200,12 @@ export function PeriodFormDialog({
     setIsDeleting(true);
 
     try {
-      // Here would be the delete logic
-      console.log("Deleting period:", period._id);
+      await deletePeriod({ periodId: period._id });
       alert("Period deleted successfully!");
       setOpen(false);
     } catch (error) {
       console.error("Failed to delete period:", error);
-      alert("Failed to delete period. Please try again.");
+      alert(`Failed to delete period: ${(error as Error).message}`);
     } finally {
       setIsDeleting(false);
     }

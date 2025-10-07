@@ -82,75 +82,42 @@ export default function SectionsTable() {
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = React.useState(false);
 
+  const [periodSearchOpen, setPeriodSearchOpen] = React.useState(false);
+  const [periodSearchValue, setPeriodSearchValue] = React.useState("");
+
   // Get all active courses for the filter dropdown
   const courses = useQuery(api.courses.getAllCourses, { isActive: true });
+  const periods = useQuery(api.admin.getAllPeriods, {});
+
 
   // Get all sections using getSectionsByPeriod (supports course filtering)
-  const allSectionsData = useQuery(
-    api.courses.getSectionsByPeriod,
-    selectedCourseId && selectedCourseId !== "all"
-      ? { courseId: selectedCourseId as Id<"courses"> }
-      : {},
-  );
+  const allSectionsData = useQuery(api.admin.adminGetSections, {
+    courseId: selectedCourseId === "all" ? undefined : selectedCourseId as Id<"courses">,
+    periodId: selectedPeriodId === "all" ? undefined : selectedPeriodId as Id<"periods">,
+    deliveryMethod: sectionModalityFilter === "all" ? undefined : sectionModalityFilter,
+    status: sectionStatusFilter === "all" ? undefined : sectionStatusFilter,
+    isActive: sectionAvailabilityFilter === "all" 
+        ? undefined 
+        : sectionAvailabilityFilter === "available",
+  });
 
-  // Extract all sections from sections data
-  const allSections = React.useMemo(() => {
-    if (!allSectionsData?.sections) return [];
-
-    // Get all sections and extract the section data
-    return allSectionsData.sections.map((sectionDetail) => ({
-      ...sectionDetail.section,
-      // Add course info, professor info and enrollment stats for display
-      courseName: sectionDetail.course
-        ? `${sectionDetail.course.code} - ${sectionDetail.course.nameEs}`
-        : "Unknown Course",
-      courseCode: sectionDetail.course?.code || "",
-      professorName: sectionDetail.professor
-        ? `${sectionDetail.professor.firstName} ${sectionDetail.professor.lastName}`
-        : "TBD",
-      enrollmentStats: sectionDetail.enrollmentStats,
-    }));
-  }, [allSectionsData]);
-
-  // Filter sections based on all active filters
+  // 3. Simplify the filteredSections logic to only handle text search
   const filteredSections = React.useMemo(() => {
-    if (!allSections) return [];
-
-    return allSections.filter((section) => {
-      // Name search filter (case-insensitive search in course name, code, and group number)
-      const nameMatch =
-        nameSearch === "" ||
-        section.courseName?.toLowerCase().includes(nameSearch.toLowerCase()) ||
-        section.courseCode?.toLowerCase().includes(nameSearch.toLowerCase()) ||
-        section.groupNumber
-          ?.toString()
-          .toLowerCase()
-          .includes(nameSearch.toLowerCase());
-
-      // Availability filter (renamed from status)
-      const availabilityMatch =
-        sectionAvailabilityFilter === "all" ||
-        (sectionAvailabilityFilter === "available" && section.isActive) ||
-        (sectionAvailabilityFilter === "unavailable" && !section.isActive);
-
-      // Modality filter
-      const modalityMatch =
-        sectionModalityFilter === "all" ||
-        section.deliveryMethod === sectionModalityFilter;
-
-      // Status filter (new filter)
-      const statusMatch =
-        sectionStatusFilter === "all" || section.status === sectionStatusFilter;
-
-      return nameMatch && availabilityMatch && modalityMatch && statusMatch;
+    if (!allSectionsData) return [];
+    
+    // If no text search, return all sections
+    if (!nameSearch) return allSectionsData;
+    
+    // Apply text search filter
+    return allSectionsData.filter((section) => {
+      const searchLower = nameSearch.toLowerCase();
+      return (
+        section.courseName?.toLowerCase().includes(searchLower) ||
+        section.courseCode?.toLowerCase().includes(searchLower) ||
+        section.groupNumber?.toString().toLowerCase().includes(searchLower)
+      );
     });
-  }, [
-    allSections,
-    nameSearch,
-    sectionAvailabilityFilter,
-    sectionModalityFilter,
-    sectionStatusFilter,
-  ]);
+  }, [allSectionsData, nameSearch]);
 
   const handleRowClick = (section: Section) => {
     setSelectedSection(section);
@@ -191,14 +158,14 @@ export default function SectionsTable() {
     return course ? `${course.code} - ${course.nameEs}` : "All Courses";
   }, [selectedCourseId, courses]);
 
-  // Show loading only when courses are loading
-  if (courses === undefined) {
+  // Show loading state when essential data is still being fetched
+  if (courses === undefined || periods === undefined) {
     return (
       <div className="flex items-center justify-center min-h-[400px] bg-card rounded-xl border border-border/50 shadow-sm">
         <div className="flex flex-col items-center space-y-4 p-8">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
           <p className="text-muted-foreground font-medium">
-            Loading sections...
+            Loading filter options...
           </p>
         </div>
       </div>
@@ -389,43 +356,96 @@ export default function SectionsTable() {
                         </Select>
                       </div>
 
-                      {/* Period Filter - Solo visual */}
+                      {/* Period Filter */}
                       <div className="space-y-2">
                         <label className="text-sm font-medium text-foreground">
                           Period
                         </label>
-                        <Select
-                          value={
-                            selectedPeriodId === "all"
-                              ? "all"
-                              : selectedPeriodId || "all"
-                          }
-                          onValueChange={(value) =>
-                            setSelectedPeriodId(
-                              value === "all"
-                                ? "all"
-                                : (value as Id<"periods">),
-                            )
-                          }
+                        <Popover
+                          open={periodSearchOpen}
+                          onOpenChange={setPeriodSearchOpen}
                         >
-                          <SelectTrigger className="w-full h-9 bg-background border-border/50 shadow-sm transition-colors hover:bg-accent/50">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent className="bg-popover border-border/50 shadow-lg">
-                            <SelectItem
-                              value="all"
-                              className="text-sm hover:bg-accent/50"
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              role="combobox"
+                              aria-expanded={periodSearchOpen}
+                              className="w-full h-9 justify-between bg-background border-border/50 shadow-sm transition-colors hover:bg-accent/50"
                             >
-                              All Periods
-                            </SelectItem>
-                            <SelectItem
-                              value="current"
-                              className="text-sm hover:bg-accent/50"
-                            >
-                              Current Period
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
+                              <span className="truncate">
+                                {selectedPeriodId === "all"
+                                  ? "All Periods"
+                                  : periods?.find(p => p._id === selectedPeriodId)
+                                    ? `${periods.find(p => p._id === selectedPeriodId)?.code} - ${periods.find(p => p._id === selectedPeriodId)?.nameEs}`
+                                    : "All Periods"}
+                              </span>
+                              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-full p-0" align="start">
+                            <Command>
+                              <CommandInput
+                                placeholder="Search periods..."
+                                value={periodSearchValue}
+                                onValueChange={setPeriodSearchValue}
+                              />
+                              <CommandList>
+                                <CommandEmpty>No periods found.</CommandEmpty>
+                                <CommandGroup>
+                                  <CommandItem
+                                    value="all"
+                                    onSelect={() => {
+                                      setSelectedPeriodId("all");
+                                      setPeriodSearchValue("");
+                                      setPeriodSearchOpen(false);
+                                    }}
+                                  >
+                                    <Check
+                                      className={`mr-2 h-4 w-4 ${
+                                        selectedPeriodId === "all"
+                                          ? "opacity-100"
+                                          : "opacity-0"
+                                      }`}
+                                    />
+                                    All Periods
+                                  </CommandItem>
+                                  {periods
+                                    ?.sort((a, b) => b.year - a.year || a.code.localeCompare(b.code))
+                                    .filter((period) => {
+                                      if (!periodSearchValue) return true;
+                                      const searchLower = periodSearchValue.toLowerCase();
+                                      return (
+                                        period.code.toLowerCase().includes(searchLower) ||
+                                        period.nameEs.toLowerCase().includes(searchLower) ||
+                                        period.nameEn?.toLowerCase().includes(searchLower) ||
+                                        period.year.toString().includes(searchLower)
+                                      );
+                                    })
+                                    .map((period) => (
+                                      <CommandItem
+                                        key={period._id}
+                                        value={`${period.code} ${period.nameEs}`}
+                                        onSelect={() => {
+                                          setSelectedPeriodId(period._id);
+                                          setPeriodSearchValue("");
+                                          setPeriodSearchOpen(false);
+                                        }}
+                                      >
+                                        <Check
+                                          className={`mr-2 h-4 w-4 ${
+                                            selectedPeriodId === period._id
+                                              ? "opacity-100"
+                                              : "opacity-0"
+                                          }`}
+                                        />
+                                        {period.code} - {period.nameEs} ({period.year})
+                                      </CommandItem>
+                                    ))}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
                       </div>
 
                       {/* Modality Filter */}

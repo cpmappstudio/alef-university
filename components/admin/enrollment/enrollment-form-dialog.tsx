@@ -25,6 +25,8 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Enrollment } from "../types";
 import { Id } from "@/convex/_generated/dataModel";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 // Enrollment form data type for handling form state
 export type EnrollmentFormData = {
@@ -86,84 +88,15 @@ export function EnrollmentFormDialog({
   const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
   const setOpen = onOpenChange || setInternalOpen;
 
-  // Mock data for demo purposes
-  const mockStudents = [
-    {
-      _id: "student1" as Id<"users">,
-      name: "María García",
-      email: "maria.garcia@alef.edu",
-    },
-    {
-      _id: "student2" as Id<"users">,
-      name: "Juan Pérez",
-      email: "juan.perez@alef.edu",
-    },
-    {
-      _id: "student3" as Id<"users">,
-      name: "Ana López",
-      email: "ana.lopez@alef.edu",
-    },
-  ];
+  const createEnrollment = useMutation(api.admin.createEnrollment);
+  const updateEnrollment = useMutation(api.admin.updateEnrollment);
+  const deleteEnrollment = useMutation(api.admin.deleteEnrollment);
 
-  const mockCourses = [
-    {
-      _id: "course1" as Id<"courses">,
-      code: "MATH101",
-      nameEs: "Matemáticas Básicas",
-    },
-    {
-      _id: "course2" as Id<"courses">,
-      code: "HIST201",
-      nameEs: "Historia Universal",
-    },
-    {
-      _id: "course3" as Id<"courses">,
-      code: "ENG301",
-      nameEs: "Inglés Avanzado",
-    },
-  ];
-
-  const mockSections = [
-    {
-      _id: "section1" as Id<"sections">,
-      groupNumber: "A01",
-      courseId: "course1" as Id<"courses">,
-    },
-    {
-      _id: "section2" as Id<"sections">,
-      groupNumber: "B02",
-      courseId: "course2" as Id<"courses">,
-    },
-    {
-      _id: "section3" as Id<"sections">,
-      groupNumber: "C03",
-      courseId: "course3" as Id<"courses">,
-    },
-  ];
-
-  const mockPeriods = [
-    {
-      _id: "period1" as Id<"periods">,
-      code: "2025-1",
-      nameEs: "Primer Bimestre 2025",
-    },
-    {
-      _id: "period2" as Id<"periods">,
-      code: "2025-2",
-      nameEs: "Segundo Bimestre 2025",
-    },
-    {
-      _id: "period3" as Id<"periods">,
-      code: "2024-6",
-      nameEs: "Sexto Bimestre 2024",
-    },
-  ];
-
-  const mockProfessors = [
-    { _id: "prof1" as Id<"users">, name: "Dr. Elena Vásquez" },
-    { _id: "prof2" as Id<"users">, name: "Prof. Miguel Santos" },
-    { _id: "prof3" as Id<"users">, name: "Dra. Carmen Flores" },
-  ];
+  const students = useQuery(api.admin.getAllUsers, { role: "student" });
+  const courses = useQuery(api.courses.getAllCourses, {});
+  const sections = useQuery(api.admin.adminGetSections, {});
+  const periods = useQuery(api.admin.getAllPeriods, {});
+  const professors = useQuery(api.admin.getAllUsers, { role: "professor" });
 
   // Initialize form data based on mode and enrollment
   const initialFormData = React.useMemo((): EnrollmentFormData => {
@@ -234,8 +167,6 @@ export function EnrollmentFormDialog({
   }, [open, initialFormData]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
     // Basic validation
     if (
       !formData.studentId ||
@@ -251,21 +182,50 @@ export function EnrollmentFormDialog({
     setIsLoading(true);
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
       if (mode === "create") {
-        console.log("Creating enrollment:", formData);
+        await createEnrollment({
+          studentId: formData.studentId,
+          sectionId: formData.sectionId,
+          periodId: formData.periodId,
+          courseId: formData.courseId,
+          professorId: formData.professorId,
+          status: formData.status,
+          statusChangeReason: formData.statusChangeReason || undefined,
+          percentageGrade: formData.percentageGrade,
+          letterGrade: formData.letterGrade || undefined,
+          gradePoints: formData.gradePoints,
+          gradeNotes: formData.gradeNotes || undefined,
+          isRetake: formData.isRetake,
+          isAuditing: formData.isAuditing,
+          countsForGPA: formData.countsForGPA,
+          countsForProgress: formData.countsForProgress,
+          incompleteDeadline: formData.incompleteDeadline,
+        });
         alert("Enrollment created successfully!");
       } else {
-        console.log("Updating enrollment:", formData);
+        if (!enrollment) return;
+        
+        await updateEnrollment({
+          enrollmentId: enrollment._id,
+          status: formData.status,
+          statusChangeReason: formData.statusChangeReason || undefined,
+          percentageGrade: formData.percentageGrade,
+          letterGrade: formData.letterGrade || undefined,
+          gradePoints: formData.gradePoints,
+          gradeNotes: formData.gradeNotes || undefined,
+          isRetake: formData.isRetake,
+          isAuditing: formData.isAuditing,
+          countsForGPA: formData.countsForGPA,
+          countsForProgress: formData.countsForProgress,
+          incompleteDeadline: formData.incompleteDeadline,
+        });
         alert("Enrollment updated successfully!");
       }
 
       setOpen(false);
     } catch (error) {
       console.error(`Failed to ${mode} enrollment:`, error);
-      alert(`Failed to ${mode} enrollment. Please try again.`);
+      alert(`Failed to ${mode} enrollment: ${(error as Error).message}`);
     } finally {
       setIsLoading(false);
     }
@@ -275,7 +235,7 @@ export function EnrollmentFormDialog({
     if (!enrollment) return;
 
     const confirmed = window.confirm(
-      "Are you sure you want to delete this enrollment? This action cannot be undone.",
+      "Are you sure you want to delete this enrollment? This action cannot be undone."
     );
 
     if (!confirmed) return;
@@ -283,15 +243,12 @@ export function EnrollmentFormDialog({
     setIsDeleting(true);
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      console.log("Deleting enrollment:", enrollment._id);
+      await deleteEnrollment({ enrollmentId: enrollment._id });
       alert("Enrollment deleted successfully!");
       setOpen(false);
     } catch (error) {
       console.error("Failed to delete enrollment:", error);
-      alert("Failed to delete enrollment. Please try again.");
+      alert(`Failed to delete enrollment: ${(error as Error).message}`);
     } finally {
       setIsDeleting(false);
     }
@@ -314,20 +271,17 @@ export function EnrollmentFormDialog({
   // Get related entity information for Details tab
   const getEntityDetails = () => {
     if (!enrollment && mode !== "edit") return null;
+    if (students === undefined || courses === undefined || sections === undefined || periods === undefined) return null;
 
-    const currentStudentId =
-      mode === "edit" ? enrollment?.studentId : formData.studentId;
-    const currentCourseId =
-      mode === "edit" ? enrollment?.courseId : formData.courseId;
-    const currentSectionId =
-      mode === "edit" ? enrollment?.sectionId : formData.sectionId;
-    const currentPeriodId =
-      mode === "edit" ? enrollment?.periodId : formData.periodId;
+    const currentStudentId = mode === "edit" ? enrollment?.studentId : formData.studentId;
+    const currentCourseId = mode === "edit" ? enrollment?.courseId : formData.courseId;
+    const currentSectionId = mode === "edit" ? enrollment?.sectionId : formData.sectionId;
+    const currentPeriodId = mode === "edit" ? enrollment?.periodId : formData.periodId;
 
-    const student = mockStudents.find((s) => s._id === currentStudentId);
-    const course = mockCourses.find((c) => c._id === currentCourseId);
-    const section = mockSections.find((s) => s._id === currentSectionId);
-    const period = mockPeriods.find((p) => p._id === currentPeriodId);
+    const student = students.find((s) => s._id === currentStudentId);
+    const course = courses.find((c) => c._id === currentCourseId);
+    const section = sections.find((s) => s._id === currentSectionId);
+    const period = periods.find((p) => p._id === currentPeriodId);
 
     return { student, course, section, period };
   };
@@ -354,7 +308,6 @@ export function EnrollmentFormDialog({
         </TabsList>
 
         <TabsContent value="general" className="space-y-6 mt-6">
-          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-8 py-2">
               {/* Basic Enrollment Information */}
               <div className="space-y-6">
@@ -383,15 +336,21 @@ export function EnrollmentFormDialog({
                         <SelectValue placeholder="Select student" />
                       </SelectTrigger>
                       <SelectContent className="bg-background border-border shadow-lg">
-                        {mockStudents.map((student) => (
-                          <SelectItem
-                            key={student._id}
-                            value={student._id}
-                            className="hover:bg-muted/80"
-                          >
-                            {student.name}
-                          </SelectItem>
-                        ))}
+                        {students === undefined ? (
+                          <SelectItem value="" disabled>Loading students...</SelectItem>
+                        ) : students.length === 0 ? (
+                          <SelectItem value="" disabled>No students available</SelectItem>
+                        ) : (
+                          students.map((student) => (
+                            <SelectItem
+                              key={student._id}
+                              value={student._id}
+                              className="hover:bg-muted/80"
+                            >
+                              {student.firstName} {student.lastName}
+                            </SelectItem>
+                          ))
+                        )}
                       </SelectContent>
                     </Select>
                   </div>
@@ -413,15 +372,21 @@ export function EnrollmentFormDialog({
                         <SelectValue placeholder="Select course" />
                       </SelectTrigger>
                       <SelectContent className="bg-background border-border shadow-lg">
-                        {mockCourses.map((course) => (
-                          <SelectItem
-                            key={course._id}
-                            value={course._id}
-                            className="hover:bg-muted/80"
-                          >
-                            {course.code} - {course.nameEs}
-                          </SelectItem>
-                        ))}
+                        {courses === undefined ? (
+                          <SelectItem value="" disabled>Loading courses...</SelectItem>
+                        ) : courses.length === 0 ? (
+                          <SelectItem value="" disabled>No courses available</SelectItem>
+                        ) : (
+                          courses.map((course) => (
+                            <SelectItem
+                              key={course._id}
+                              value={course._id}
+                              className="hover:bg-muted/80"
+                            >
+                              {course.code} - {course.nameEs}
+                            </SelectItem>
+                          ))
+                        )}
                       </SelectContent>
                     </Select>
                   </div>
@@ -445,15 +410,24 @@ export function EnrollmentFormDialog({
                         <SelectValue placeholder="Select section" />
                       </SelectTrigger>
                       <SelectContent className="bg-background border-border shadow-lg">
-                        {mockSections.map((section) => (
-                          <SelectItem
-                            key={section._id}
-                            value={section._id}
-                            className="hover:bg-muted/80"
-                          >
-                            {section.groupNumber}
-                          </SelectItem>
-                        ))}
+                        {sections === undefined ? (
+                          <SelectItem value="" disabled>Loading sections...</SelectItem>
+                        ) : sections.length === 0 ? (
+                          <SelectItem value="" disabled>No sections available</SelectItem>
+                        ) : (
+                          sections
+                            .filter(section => 
+                              formData.courseId ? section.courseId === formData.courseId : true)
+                            .map((section) => (
+                              <SelectItem
+                                key={section._id}
+                                value={section._id}
+                                className="hover:bg-muted/80"
+                              >
+                                {section.groupNumber}
+                              </SelectItem>
+                            ))
+                        )}
                       </SelectContent>
                     </Select>
                   </div>
@@ -475,15 +449,21 @@ export function EnrollmentFormDialog({
                         <SelectValue placeholder="Select period" />
                       </SelectTrigger>
                       <SelectContent className="bg-background border-border shadow-lg">
-                        {mockPeriods.map((period) => (
-                          <SelectItem
-                            key={period._id}
-                            value={period._id}
-                            className="hover:bg-muted/80"
-                          >
-                            {period.code} - {period.nameEs}
-                          </SelectItem>
-                        ))}
+                        {periods === undefined ? (
+                          <SelectItem value="" disabled>Loading periods...</SelectItem>
+                        ) : periods.length === 0 ? (
+                          <SelectItem value="" disabled>No periods available</SelectItem>
+                        ) : (
+                          periods.map((period) => (
+                            <SelectItem
+                              key={period._id}
+                              value={period._id}
+                              className="hover:bg-muted/80"
+                            >
+                              {period.code} - {period.nameEs}
+                            </SelectItem>
+                          ))
+                        )}
                       </SelectContent>
                     </Select>
                   </div>
@@ -507,15 +487,21 @@ export function EnrollmentFormDialog({
                         <SelectValue placeholder="Select professor" />
                       </SelectTrigger>
                       <SelectContent className="bg-background border-border shadow-lg">
-                        {mockProfessors.map((professor) => (
-                          <SelectItem
-                            key={professor._id}
-                            value={professor._id}
-                            className="hover:bg-muted/80"
-                          >
-                            {professor.name}
-                          </SelectItem>
-                        ))}
+                        {professors === undefined ? (
+                          <SelectItem value="" disabled>Loading professors...</SelectItem>
+                        ) : professors.length === 0 ? (
+                          <SelectItem value="" disabled>No professors available</SelectItem>
+                        ) : (
+                          professors.map((professor) => (
+                            <SelectItem
+                              key={professor._id}
+                              value={professor._id}
+                              className="hover:bg-muted/80"
+                            >
+                              {professor.firstName} {professor.lastName}
+                            </SelectItem>
+                          ))
+                        )}
                       </SelectContent>
                     </Select>
                   </div>
@@ -820,7 +806,6 @@ export function EnrollmentFormDialog({
                 </div>
               </div>
             </div>
-          </form>
         </TabsContent>
 
         <TabsContent value="details" className="space-y-6 mt-6">
@@ -844,16 +829,16 @@ export function EnrollmentFormDialog({
               ) : (
                 <div className="space-y-3 max-h-[400px] overflow-y-auto">
                   {/* Student Card */}
-                  {entityDetails.student && (
+                  {entityDetails?.student && (
                     <div className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
                       <div className="space-y-1">
                         <div className="flex items-center gap-3">
                           <span className="font-semibold text-foreground">
-                            {entityDetails.student.name}
+                            {entityDetails.student.firstName} {entityDetails.student.lastName}
                           </span>
                         </div>
                         <p className="text-sm text-foreground">
-                          {entityDetails.student.email}
+                          {entityDetails.student.email || "No email"}
                         </p>
                       </div>
                       <div className="text-right">
@@ -865,7 +850,7 @@ export function EnrollmentFormDialog({
                   )}
 
                   {/* Course Card */}
-                  {entityDetails.course && (
+                  {entityDetails?.course && (
                     <div className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
                       <div className="space-y-1">
                         <div className="flex items-center gap-3">
@@ -886,7 +871,7 @@ export function EnrollmentFormDialog({
                   )}
 
                   {/* Section Card */}
-                  {entityDetails.section && (
+                  {entityDetails?.section && (
                     <div className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
                       <div className="space-y-1">
                         <div className="flex items-center gap-3">
@@ -895,9 +880,7 @@ export function EnrollmentFormDialog({
                           </span>
                         </div>
                         <p className="text-sm text-foreground">
-                          {mockCourses.find(
-                            (c) => c._id === entityDetails.section?.courseId,
-                          )?.code || "N/A"}
+                          {courses?.find(c => c._id === entityDetails.section?.courseId)?.code || "N/A"}
                         </p>
                       </div>
                       <div className="text-right">
@@ -909,7 +892,7 @@ export function EnrollmentFormDialog({
                   )}
 
                   {/* Period Card */}
-                  {entityDetails.period && (
+                  {entityDetails?.period && (
                     <div className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
                       <div className="space-y-1">
                         <div className="flex items-center gap-3">
@@ -959,9 +942,11 @@ export function EnrollmentFormDialog({
         )}
 
         <Button
-          type="submit"
+          type="button"
           variant="default"
+          onClick={handleSubmit}
           disabled={isLoading || isDeleting}
+          className="px-6 py-2.5"
         >
           {isLoading ? (
             <div className="flex items-center gap-2">

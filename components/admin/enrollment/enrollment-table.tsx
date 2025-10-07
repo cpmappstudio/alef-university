@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 import { columnsEnrollment } from "../columns";
 import { DataTable } from "../../ui/data-table";
 import { Button } from "@/components/ui/button";
@@ -12,6 +14,7 @@ import {
   Check,
   ChevronsUpDown,
   Search,
+  Loader2,
 } from "lucide-react";
 import { Enrollment } from "../types";
 import {
@@ -51,31 +54,6 @@ type EnrollmentStatusFilter =
   | "failed" 
   | "incomplete" 
   | "in_progress";
-
-// Mock data types for demo purposes (not consuming real queries)
-type MockStudent = {
-  _id: Id<"users">;
-  name: string;
-  email: string;
-};
-
-type MockCourse = {
-  _id: Id<"courses">;
-  code: string;
-  nameEs: string;
-};
-
-type MockSection = {
-  _id: Id<"sections">;
-  groupNumber: string;
-  courseCode: string;
-};
-
-type MockPeriod = {
-  _id: Id<"periods">;
-  code: string;
-  nameEs: string;
-};
 
 export default function EnrollmentTable() {
   const [nameSearch, setNameSearch] = React.useState("");
@@ -119,191 +97,35 @@ export default function EnrollmentTable() {
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = React.useState(false);
 
-  // Mock data for demo purposes (since no queries should be consumed)
-  const mockStudents: MockStudent[] = [
-    { _id: "student1" as Id<"users">, name: "María García", email: "maria.garcia@alef.edu" },
-    { _id: "student2" as Id<"users">, name: "Juan Pérez", email: "juan.perez@alef.edu" },
-    { _id: "student3" as Id<"users">, name: "Ana López", email: "ana.lopez@alef.edu" },
-    { _id: "student4" as Id<"users">, name: "Carlos Rodríguez", email: "carlos.rodriguez@alef.edu" },
-    { _id: "student5" as Id<"users">, name: "Sofia Martinez", email: "sofia.martinez@alef.edu" },
-  ];
+  // Fetch real data for filters
+  const students = useQuery(api.admin.getAllUsers, { role: "student" });
+  const courses = useQuery(api.courses.getAllCourses, {});
+  const sections = useQuery(api.admin.adminGetSections, {}); 
+  const periods = useQuery(api.admin.getAllPeriods, {});
+  
+  // Fetch enrollments with filters
+  const enrollments = useQuery(api.admin.getAdminEnrollments, {
+    studentId: selectedStudentId === "all" ? undefined : selectedStudentId as Id<"users">,
+    courseId: selectedCourseId === "all" ? undefined : selectedCourseId as Id<"courses">,
+    sectionId: selectedSectionId === "all" ? undefined : selectedSectionId as Id<"sections">,
+    periodId: selectedPeriodId === "all" ? undefined : selectedPeriodId as Id<"periods">,
+    status: enrollmentStatusFilter === "all" ? undefined : enrollmentStatusFilter,
+  });
 
-  const mockCourses: MockCourse[] = [
-    { _id: "course1" as Id<"courses">, code: "MATH101", nameEs: "Matemáticas Básicas" },
-    { _id: "course2" as Id<"courses">, code: "HIST201", nameEs: "Historia Universal" },
-    { _id: "course3" as Id<"courses">, code: "ENG301", nameEs: "Inglés Avanzado" },
-    { _id: "course4" as Id<"courses">, code: "CS102", nameEs: "Fundamentos de Programación" },
-    { _id: "course5" as Id<"courses">, code: "BIO150", nameEs: "Biología General" },
-  ];
-
-  const mockSections: MockSection[] = [
-    { _id: "section1" as Id<"sections">, groupNumber: "A01", courseCode: "MATH101" },
-    { _id: "section2" as Id<"sections">, groupNumber: "B02", courseCode: "HIST201" },
-    { _id: "section3" as Id<"sections">, groupNumber: "C03", courseCode: "ENG301" },
-    { _id: "section4" as Id<"sections">, groupNumber: "A01", courseCode: "CS102" },
-    { _id: "section5" as Id<"sections">, groupNumber: "B01", courseCode: "BIO150" },
-  ];
-
-  const mockPeriods: MockPeriod[] = [
-    { _id: "period1" as Id<"periods">, code: "2025-1", nameEs: "Primer Bimestre 2025" },
-    { _id: "period2" as Id<"periods">, code: "2025-2", nameEs: "Segundo Bimestre 2025" },
-    { _id: "period3" as Id<"periods">, code: "2024-6", nameEs: "Sexto Bimestre 2024" },
-  ];
-
-  const mockProfessors = [
-    { _id: "prof1" as Id<"users">, name: "Dr. Elena Vásquez" },
-    { _id: "prof2" as Id<"users">, name: "Prof. Miguel Santos" },
-    { _id: "prof3" as Id<"users">, name: "Dra. Carmen Flores" },
-    { _id: "prof4" as Id<"users">, name: "Prof. Roberto Luna" },
-    { _id: "prof5" as Id<"users">, name: "Dr. Patricia Morales" },
-  ];
-
-  // Enhanced mock enrollments with extended properties for column display
-  const mockEnrollments = React.useMemo(() => {
-    const baseEnrollments: Enrollment[] = [
-      {
-        _id: "enrollment1" as Id<"enrollments">,
-        studentId: "student1" as Id<"users">,
-        sectionId: "section1" as Id<"sections">,
-        periodId: "period1" as Id<"periods">,
-        courseId: "course1" as Id<"courses">,
-        professorId: "prof1" as Id<"users">,
-        enrolledAt: Date.now(),
-        status: "completed",
-        letterGrade: "A",
-        isRetake: false,
-        isAuditing: false,
-        countsForGPA: true,
-        countsForProgress: true,
-        createdAt: Date.now(),
-      } as Enrollment,
-      {
-        _id: "enrollment2" as Id<"enrollments">,
-        studentId: "student2" as Id<"users">,
-        sectionId: "section2" as Id<"sections">,
-        periodId: "period1" as Id<"periods">,
-        courseId: "course2" as Id<"courses">,
-        professorId: "prof2" as Id<"users">,
-        enrolledAt: Date.now(),
-        status: "in_progress",
-        letterGrade: "B+",
-        isRetake: true,
-        isAuditing: false,
-        countsForGPA: true,
-        countsForProgress: true,
-        createdAt: Date.now(),
-      } as Enrollment,
-      {
-        _id: "enrollment3" as Id<"enrollments">,
-        studentId: "student3" as Id<"users">,
-        sectionId: "section3" as Id<"sections">,
-        periodId: "period2" as Id<"periods">,
-        courseId: "course3" as Id<"courses">,
-        professorId: "prof3" as Id<"users">,
-        enrolledAt: Date.now(),
-        status: "enrolled",
-        isRetake: false,
-        isAuditing: false,
-        countsForGPA: true,
-        countsForProgress: true,
-        createdAt: Date.now(),
-      } as Enrollment,
-      {
-        _id: "enrollment4" as Id<"enrollments">,
-        studentId: "student4" as Id<"users">,
-        sectionId: "section4" as Id<"sections">,
-        periodId: "period1" as Id<"periods">,
-        courseId: "course4" as Id<"courses">,
-        professorId: "prof4" as Id<"users">,
-        enrolledAt: Date.now(),
-        status: "failed",
-        letterGrade: "F",
-        isRetake: false,
-        isAuditing: false,
-        countsForGPA: true,
-        countsForProgress: true,
-        createdAt: Date.now(),
-      } as Enrollment,
-      {
-        _id: "enrollment5" as Id<"enrollments">,
-        studentId: "student5" as Id<"users">,
-        sectionId: "section5" as Id<"sections">,
-        periodId: "period2" as Id<"periods">,
-        courseId: "course5" as Id<"courses">,
-        professorId: "prof5" as Id<"users">,
-        enrolledAt: Date.now(),
-        status: "dropped",
-        isRetake: false,
-        isAuditing: false,
-        countsForGPA: false,
-        countsForProgress: false,
-        createdAt: Date.now(),
-      } as Enrollment,
-    ];
-
-    // Add extended properties that columns expect
-    return baseEnrollments.map(enrollment => ({
-      ...enrollment,
-      // Add student info
-      studentName: mockStudents.find(s => s._id === enrollment.studentId)?.name || "Unknown Student",
-      // Add course info 
-      courseName: mockCourses.find(c => c._id === enrollment.courseId)?.nameEs || "Unknown Course",
-      // Add section info
-      sectionInfo: {
-        groupNumber: mockSections.find(s => s._id === enrollment.sectionId)?.groupNumber || "N/A"
-      },
-      // Add period info
-      periodInfo: {
-        nameEs: mockPeriods.find(p => p._id === enrollment.periodId)?.nameEs || "Unknown Period"
-      },
-      // Add professor info
-      professorName: mockProfessors.find(p => p._id === enrollment.professorId)?.name || "TBD",
-    }));
-  }, []);
-
-  // Filter enrollments based on all active filters
+  // Apply name search filter client-side
   const filteredEnrollments = React.useMemo(() => {
-    return mockEnrollments.filter((enrollment) => {
-      // Name search filter (search in student name)
-      const student = mockStudents.find(s => s._id === enrollment.studentId);
-      const nameMatch =
-        nameSearch === "" ||
-        (enrollment as any).studentName?.toLowerCase().includes(nameSearch.toLowerCase()) ||
-        student?.email?.toLowerCase().includes(nameSearch.toLowerCase());
-
-      // Student filter
-      const studentMatch =
-        selectedStudentId === "all" || enrollment.studentId === selectedStudentId;
-
-      // Course filter
-      const courseMatch =
-        selectedCourseId === "all" || enrollment.courseId === selectedCourseId;
-
-      // Section filter
-      const sectionMatch =
-        selectedSectionId === "all" || enrollment.sectionId === selectedSectionId;
-
-      // Period filter
-      const periodMatch =
-        selectedPeriodId === "all" || enrollment.periodId === selectedPeriodId;
-
-      // Status filter
-      const statusMatch =
-        enrollmentStatusFilter === "all" || enrollment.status === enrollmentStatusFilter;
-
+    if (!enrollments) return [];
+    
+    if (!nameSearch) return enrollments;
+    
+    return enrollments.filter(enrollment => {
+      const searchLower = nameSearch.toLowerCase();
       return (
-        nameMatch && studentMatch && courseMatch && sectionMatch && periodMatch && statusMatch
+        enrollment.studentName?.toLowerCase().includes(searchLower) ||
+        enrollment.studentEmail?.toLowerCase().includes(searchLower)
       );
     });
-  }, [
-    mockEnrollments,
-    nameSearch,
-    selectedStudentId,
-    selectedCourseId,
-    selectedSectionId,
-    selectedPeriodId,
-    enrollmentStatusFilter,
-  ]);
+  }, [enrollments, nameSearch]);
 
   const handleRowClick = (enrollment: Enrollment) => {
     setSelectedEnrollment(enrollment);
@@ -339,27 +161,43 @@ export default function EnrollmentTable() {
   // Get selected names for display
   const selectedStudentName = React.useMemo(() => {
     if (selectedStudentId === "all") return "All Students";
-    const student = mockStudents?.find((s) => s._id === selectedStudentId);
-    return student ? student.name : "All Students";
-  }, [selectedStudentId]);
+    const student = students?.find((s) => s._id === selectedStudentId);
+    return student ? `${student.firstName} ${student.lastName}` : "All Students";
+  }, [selectedStudentId, students]);
 
   const selectedCourseName = React.useMemo(() => {
     if (selectedCourseId === "all") return "All Courses";
-    const course = mockCourses?.find((c) => c._id === selectedCourseId);
+    const course = courses?.find((c) => c._id === selectedCourseId);
     return course ? `${course.code} - ${course.nameEs}` : "All Courses";
-  }, [selectedCourseId]);
+  }, [selectedCourseId, courses]);
 
   const selectedSectionName = React.useMemo(() => {
     if (selectedSectionId === "all") return "All Sections";
-    const section = mockSections?.find((s) => s._id === selectedSectionId);
+    const section = sections?.find((s) => s._id === selectedSectionId);
     return section ? `${section.groupNumber} (${section.courseCode})` : "All Sections";
-  }, [selectedSectionId]);
+  }, [selectedSectionId, sections]);
 
   const selectedPeriodName = React.useMemo(() => {
     if (selectedPeriodId === "all") return "All Periods";
-    const period = mockPeriods?.find((p) => p._id === selectedPeriodId);
+    const period = periods?.find((p) => p._id === selectedPeriodId);
     return period ? `${period.code} - ${period.nameEs}` : "All Periods";
-  }, [selectedPeriodId]);
+  }, [selectedPeriodId, periods]);
+
+  // Show loading state when essential data is loading
+  const isLoading = students === undefined || courses === undefined || periods === undefined || sections === undefined || enrollments === undefined;
+  
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px] bg-card rounded-xl border border-border/50 shadow-sm">
+        <div className="flex flex-col items-center space-y-4 p-8">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <p className="text-muted-foreground font-medium">
+            Loading enrollment data...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 sm:space-y-8">
@@ -458,23 +296,22 @@ export default function EnrollmentTable() {
                                               : "opacity-0"
                                           }`}
                                         />
-                                        All
+                                        All Students
                                       </CommandItem>
-                                      {mockStudents
+                                      {students
                                         ?.filter((student) => {
-                                          if (!studentSearchValue) {
-                                            return mockStudents.slice(0, 3).includes(student);
-                                          }
+                                          if (!studentSearchValue) return true;
                                           const searchLower = studentSearchValue.toLowerCase();
                                           return (
-                                            student.name.toLowerCase().includes(searchLower) ||
-                                            student.email.toLowerCase().includes(searchLower)
+                                            student.firstName?.toLowerCase().includes(searchLower) ||
+                                            student.lastName?.toLowerCase().includes(searchLower) ||
+                                            student.email?.toLowerCase().includes(searchLower)
                                           );
                                         })
                                         .map((student) => (
                                           <CommandItem
                                             key={student._id}
-                                            value={`${student.name} ${student.email}`}
+                                            value={`${student.firstName} ${student.lastName}`}
                                             onSelect={() => {
                                               setSelectedStudentId(student._id);
                                               setStudentSearchValue("");
@@ -488,7 +325,7 @@ export default function EnrollmentTable() {
                                                   : "opacity-0"
                                               }`}
                                             />
-                                            {student.name}
+                                            {student.firstName} {student.lastName}
                                           </CommandItem>
                                         ))}
                                     </CommandGroup>
@@ -550,13 +387,11 @@ export default function EnrollmentTable() {
                                               : "opacity-0"
                                           }`}
                                         />
-                                        All
+                                        All Courses
                                       </CommandItem>
-                                      {mockCourses
+                                      {courses
                                         ?.filter((course) => {
-                                          if (!courseSearchValue) {
-                                            return mockCourses.slice(0, 3).includes(course);
-                                          }
+                                          if (!courseSearchValue) return true;
                                           const searchLower = courseSearchValue.toLowerCase();
                                           return (
                                             course.code.toLowerCase().includes(searchLower) ||
@@ -642,17 +477,15 @@ export default function EnrollmentTable() {
                                               : "opacity-0"
                                           }`}
                                         />
-                                        All
+                                        All Sections
                                       </CommandItem>
-                                      {mockSections
+                                      {sections
                                         ?.filter((section) => {
-                                          if (!sectionSearchValue) {
-                                            return mockSections.slice(0, 3).includes(section);
-                                          }
+                                          if (!sectionSearchValue) return true;
                                           const searchLower = sectionSearchValue.toLowerCase();
                                           return (
-                                            section.groupNumber.toLowerCase().includes(searchLower) ||
-                                            section.courseCode.toLowerCase().includes(searchLower)
+                                            section.groupNumber?.toString().toLowerCase().includes(searchLower) ||
+                                            section.courseCode?.toLowerCase().includes(searchLower)
                                           );
                                         })
                                         .map((section) => (
@@ -734,13 +567,11 @@ export default function EnrollmentTable() {
                                               : "opacity-0"
                                           }`}
                                         />
-                                        All
+                                        All Periods
                                       </CommandItem>
-                                      {mockPeriods
+                                      {periods
                                         ?.filter((period) => {
-                                          if (!periodSearchValue) {
-                                            return mockPeriods.slice(0, 3).includes(period);
-                                          }
+                                          if (!periodSearchValue) return true;
                                           const searchLower = periodSearchValue.toLowerCase();
                                           return (
                                             period.code.toLowerCase().includes(searchLower) ||
@@ -886,7 +717,7 @@ export default function EnrollmentTable() {
             searchConfig={null}
             primaryAction={null}
             mobileColumns={{
-              primaryColumn: "studentId",
+              primaryColumn: "studentName",
               secondaryColumn: "status",
             }}
             emptyState={{

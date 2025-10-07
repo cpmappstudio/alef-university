@@ -55,9 +55,9 @@ export function ProgramFormDialog({
   // Convex mutations
   const updateProgram = useMutation(api.programs.updateProgram);
   const createProgram = useMutation(api.programs.createProgram);
+  const deleteProgram = useMutation(api.programs.deleteProgram);
 
-  // Query courses for the program (only in edit mode)
-  const courses = useQuery(
+  const associatedCourses = useQuery(
     api.courses.getAllCourses,
     mode === "edit" && program ? { programId: program._id } : "skip"
   );
@@ -115,52 +115,44 @@ export function ProgramFormDialog({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Enhanced validation with detailed error messages
     const validationErrors = validateFormData(formData);
     if (validationErrors.length > 0) {
       alert(`Please fix the following errors:\n\n${validationErrors.join('\n')}`);
       return;
     }
-
     setIsLoading(true);
 
     try {
       if (mode === "create") {
-        // Type assertion is safe here because validation ensures these values exist
         await createProgram({
           code: formData.code,
           nameEs: formData.nameEs,
           nameEn: formData.nameEn || undefined,
           descriptionEs: formData.descriptionEs,
           descriptionEn: formData.descriptionEn || undefined,
-          type: formData.type as NonNullable<typeof formData.type>,
+          type: formData.type!, // Validation ensures this is not undefined
           degree: formData.degree || undefined,
-          language: formData.language as NonNullable<typeof formData.language>,
+          language: formData.language!, // Validation ensures this is not undefined
           totalCredits: formData.totalCredits,
           durationBimesters: formData.durationBimesters,
-          tuitionPerCredit:
-            formData.tuitionPerCredit > 0
-              ? formData.tuitionPerCredit
-              : undefined,
+          tuitionPerCredit: formData.tuitionPerCredit > 0 ? formData.tuitionPerCredit : undefined,
         });
-
         alert("Program created successfully!");
       } else {
         if (!program) return;
-
         await updateProgram({
           programId: program._id,
+          nameEs: formData.nameEs,
+          nameEn: formData.nameEn,
           descriptionEs: formData.descriptionEs,
-          descriptionEn: formData.descriptionEn || undefined,
-          language: formData.language as NonNullable<typeof formData.language>,
+          descriptionEn: formData.descriptionEn,
+          degree: formData.degree,
+          language: formData.language!,
+          tuitionPerCredit: formData.tuitionPerCredit,
           isActive: formData.isActive,
         });
-
         alert("Program updated successfully!");
       }
-
-      // Close dialog
       setOpen(false);
     } catch (error) {
       console.error(`Failed to ${mode} program:`, error);
@@ -170,30 +162,23 @@ export function ProgramFormDialog({
     }
   };
 
-  // const handleDelete = async () => {
-  //   if (!program || mode === "create") return;
-
-  //   if (!confirm(`Are you sure you want to deactivate the program "${program.nameEs}"? This action will make it inactive but won't permanently delete it.`)) {
-  //     return;
-  //   }
-
-  //   setIsDeleting(true);
-
-  //   try {
-  //     await updateProgram({
-  //       programId: program._id,
-  //       isActive: false,
-  //     });
-
-  //     alert("Program deactivated successfully!");
-  //     setOpen(false);
-  //   } catch (error) {
-  //     console.error("Failed to deactivate program:", error);
-  //     alert("Failed to deactivate program. Please try again.");
-  //   } finally {
-  //     setIsDeleting(false);
-  //   }
-  // };
+  const handleDelete = async () => {
+    if (!program || mode === "create") return;
+    if (!confirm(`Are you sure you want to delete the program "${program.nameEs}"? This action cannot be undone and is only possible if no students are enrolled.`)) {
+      return;
+    }
+    setIsDeleting(true);
+    try {
+      await deleteProgram({ programId: program._id });
+      alert("Program deleted successfully!");
+      setOpen(false);
+    } catch (error) {
+      console.error("Failed to delete program:", error);
+      alert(`Failed to delete program: ${(error as Error).message}`);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   const updateFormData = (field: string, value: string | boolean | number) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -642,14 +627,14 @@ export function ProgramFormDialog({
                 </h3>
               </div>
 
-              {courses === undefined ? (
+              {associatedCourses === undefined ? (
                 <div className="flex items-center justify-center py-8">
                   <div className="flex flex-col items-center space-y-4">
                     <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
                     <p className="text-muted-foreground text-sm">Loading courses...</p>
                   </div>
                 </div>
-              ) : courses.length === 0 ? (
+              ) : associatedCourses.length === 0 ? (
                 <div className="text-center py-8">
                   <p className="text-muted-foreground">
                     No courses are currently associated with this program.
@@ -657,7 +642,7 @@ export function ProgramFormDialog({
                 </div>
               ) : (
                 <div className="space-y-3 max-h-[400px] overflow-y-auto">
-                  {courses.map((course) => (
+                  {associatedCourses.map((course) => (
                     <div
                       key={course._id}
                       className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"

@@ -40,6 +40,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 
 type ProfessorTitleFilter =
   | "all"
@@ -63,117 +65,52 @@ export default function ProfessorTable() {
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = React.useState(false);
 
-  // Mock data for demonstration
-  const mockDepartments = [
-    { _id: "1", code: "CS", name: "Computer Science" },
-    { _id: "2", code: "BUS", name: "Business Administration" },
-    { _id: "3", code: "MED", name: "Medicine" },
-    { _id: "4", code: "ENG", name: "Engineering" },
-  ];
+  const professorsQuery = useQuery(api.admin.getAllUsers, { role: "professor" });
+  const professors = React.useMemo(() => {
+    if (!professorsQuery) return [];
+    return professorsQuery.filter(user => user.role === "professor") as Professor[];
+  }, [professorsQuery]);
 
-  const mockProfessors: Professor[] = [
-    {
-      _id: "1" as any,
-      clerkId: "clerk_prof_1",
-      firstName: "Dr. María",
-      lastName: "González",
-      email: "maria.gonzalez@university.edu",
-      dateOfBirth: new Date("1975-08-15").getTime(),
-      phone: "+1-555-1001",
-      address: {
-        street: "123 Faculty Ave",
-        city: "University City",
-        state: "State",
-        zipCode: "12345",
-        country: "Country",
-      },
-      role: "professor" as const,
-      isActive: true,
-      createdAt: new Date().getTime(),
-      professorProfile: {
-        employeeCode: "PROF001",
-        department: "Computer Science",
-        title: "associate",
-        hireDate: new Date("2010-08-15").getTime(),
-      },
-    },
-    {
-      _id: "2" as any,
-      clerkId: "clerk_prof_2",
-      firstName: "Dr. Carlos",
-      lastName: "Rodríguez",
-      email: "carlos.rodriguez@university.edu",
-      dateOfBirth: new Date("1968-03-22").getTime(),
-      phone: "+1-555-1002",
-      address: {
-        street: "456 Professor St",
-        city: "University City",
-        state: "State",
-        zipCode: "23456",
-        country: "Country",
-      },
-      role: "professor" as const,
-      isActive: true,
-      createdAt: new Date().getTime(),
-      professorProfile: {
-        employeeCode: "PROF002",
-        department: "Business Administration",
-        title: "full",
-        hireDate: new Date("2005-01-15").getTime(),
-      },
-    },
-    {
-      _id: "3" as any,
-      clerkId: "clerk_prof_3",
-      firstName: "Dr. Ana",
-      lastName: "Martínez",
-      email: "ana.martinez@university.edu",
-      dateOfBirth: new Date("1980-11-08").getTime(),
-      phone: "+1-555-1003",
-      address: {
-        street: "789 Academic Rd",
-        city: "University City",
-        state: "State",
-        zipCode: "34567",
-        country: "Country",
-      },
-      role: "professor" as const,
-      isActive: true,
-      createdAt: new Date().getTime(),
-      professorProfile: {
-        employeeCode: "PROF003",
-        department: "Medicine",
-        title: "assistant",
-        hireDate: new Date("2018-08-15").getTime(),
-      },
-    },
-  ];
+  const departments = React.useMemo(() => {
+    if (!professors || professors.length === 0) return [];
+    
+    // Extract unique departments and filter out undefined/null values
+    const departmentSet = new Set(
+      professors
+        .map(p => p.professorProfile?.department)
+        .filter((dept): dept is string => Boolean(dept)) // Type guard
+        .map(dept => dept.trim()) // Now safe
+    );
+    
+    // Convert to array of objects with _id and name properties
+    return Array.from(departmentSet)
+      .sort((a, b) => a.localeCompare(b))
+      .map(name => ({ _id: name, name }));
+  }, [professors]);
 
-  // Filter professors based on all active filters
   const filteredProfessors = React.useMemo(() => {
-    return mockProfessors.filter((professor) => {
-      // Name search filter
+    if (!professors) return []; // Return empty array while loading
+
+    return professors.filter((professor) => {
       const nameMatch =
         nameSearch === "" ||
         professor.firstName?.toLowerCase().includes(nameSearch.toLowerCase()) ||
         professor.lastName?.toLowerCase().includes(nameSearch.toLowerCase()) ||
-        professor.professorProfile.employeeCode
+        professor.professorProfile?.employeeCode
           ?.toLowerCase()
           .includes(nameSearch.toLowerCase());
 
-      // Department filter
       const departmentMatch =
         selectedDepartmentId === "all" ||
-        professor.professorProfile.department === selectedDepartmentId;
+        professor.professorProfile?.department === selectedDepartmentId;
 
-      // Title filter
       const titleMatch =
         professorTitleFilter === "all" ||
-        professor.professorProfile.title === professorTitleFilter;
+        professor.professorProfile?.title === professorTitleFilter;
 
       return nameMatch && departmentMatch && titleMatch;
     });
-  }, [mockProfessors, nameSearch, selectedDepartmentId, professorTitleFilter]);
+  }, [professors, nameSearch, selectedDepartmentId, professorTitleFilter]);
 
   const handleRowClick = (professor: Professor) => {
     setSelectedProfessor(professor);
@@ -191,13 +128,61 @@ export default function ProfessorTable() {
   // Get selected department name for display
   const selectedDepartmentName = React.useMemo(() => {
     if (selectedDepartmentId === "all") return "All Departments";
-    const department = mockDepartments.find(
+    const department = departments.find(
       (d) => d.name === selectedDepartmentId,
     );
-    return department
-      ? `${department.code} - ${department.name}`
-      : "All Departments";
-  }, [selectedDepartmentId]);
+    return department ? department.name : "All Departments";
+  }, [selectedDepartmentId, departments]);
+
+  const availableTitles = React.useMemo(() => {
+    if (!professors) return [];
+    
+    const titleSet = new Set(
+      professors
+        .map(p => p.professorProfile?.title)
+        .filter((title): title is string => Boolean(title))
+    );
+    
+    return Array.from(titleSet).sort();
+  }, [professors]);
+
+  if (professors === undefined) {
+    return (
+      <div className="space-y-6 sm:space-y-8">
+        <div className="bg-card rounded-xl border border-border/50 shadow-sm overflow-hidden mx-1 sm:mx-0">
+          <div className="p-3 sm:p-4 lg:p-6 border-b border-border/30 bg-card">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="h-8 w-48 bg-muted/60 animate-pulse rounded"></div>
+                <div className="h-8 w-24 bg-muted/60 animate-pulse rounded"></div>
+              </div>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div className="flex-1 h-10 bg-muted/60 animate-pulse rounded w-full"></div>
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 bg-muted/60 animate-pulse rounded"></div>
+                  <div className="h-10 w-10 bg-muted/60 animate-pulse rounded"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="p-4">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} className="flex items-center justify-between py-4 border-b border-border/20 last:border-0">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-muted/60 animate-pulse"></div>
+                  <div className="space-y-2">
+                    <div className="h-4 w-40 bg-muted/60 animate-pulse rounded"></div>
+                    <div className="h-3 w-24 bg-muted/60 animate-pulse rounded"></div>
+                  </div>
+                </div>
+                <div className="h-6 w-20 bg-muted/60 animate-pulse rounded"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 sm:space-y-8">
@@ -298,29 +283,32 @@ export default function ProfessorTable() {
                                         />
                                         All Departments
                                       </CommandItem>
-                                      {mockDepartments.map((department) => (
-                                        <CommandItem
-                                          key={department._id}
-                                          value={`${department.code} ${department.name}`}
-                                          onSelect={() => {
-                                            setSelectedDepartmentId(
-                                              department.name,
-                                            );
-                                            setDepartmentSearchValue("");
-                                            setDepartmentSearchOpen(false);
-                                          }}
-                                        >
-                                          <Check
-                                            className={`mr-2 h-4 w-4 ${
-                                              selectedDepartmentId ===
-                                              department.name
-                                                ? "opacity-100"
-                                                : "opacity-0"
-                                            }`}
-                                          />
-                                          {department.code} - {department.name}
+                                      {departments.length === 0 ? (
+                                        <CommandItem disabled>
+                                          <span className="text-muted-foreground italic">No departments available</span>
                                         </CommandItem>
-                                      ))}
+                                      ) : (
+                                        departments.map((department) => (
+                                          <CommandItem
+                                            key={department._id}
+                                            value={department.name}
+                                            onSelect={() => {
+                                              setSelectedDepartmentId(department.name);
+                                              setDepartmentSearchValue(""); // Clear search after selection
+                                              setDepartmentSearchOpen(false);
+                                            }}
+                                          >
+                                            <Check
+                                              className={`mr-2 h-4 w-4 ${
+                                                selectedDepartmentId === department.name
+                                                  ? "opacity-100"
+                                                  : "opacity-0"
+                                              }`}
+                                            />
+                                            {department.name}
+                                          </CommandItem>
+                                        ))
+                                      )}
                                     </CommandGroup>
                                   </CommandList>
                                 </Command>
@@ -346,21 +334,11 @@ export default function ProfessorTable() {
                               </SelectTrigger>
                               <SelectContent>
                                 <SelectItem value="all">All Titles</SelectItem>
-                                <SelectItem value="assistant">
-                                  Assistant Professor
-                                </SelectItem>
-                                <SelectItem value="associate">
-                                  Associate Professor
-                                </SelectItem>
-                                <SelectItem value="full">
-                                  Full Professor
-                                </SelectItem>
-                                <SelectItem value="emeritus">
-                                  Professor Emeritus
-                                </SelectItem>
-                                <SelectItem value="adjunct">
-                                  Adjunct Professor
-                                </SelectItem>
+                                  {availableTitles.map(title => (
+                                    <SelectItem key={title} value={title || "unknown"}>
+                                      {title || "Unknown"}
+                                    </SelectItem>
+                                  ))}
                               </SelectContent>
                             </Select>
                           </div>

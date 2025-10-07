@@ -449,10 +449,17 @@ export const getMyTeachingHistory = query({
         const allSections = await ctx.db
             .query("sections")
             .withIndex("by_professor_period", q => q.eq("professorId", user._id))
+            .order("desc")
+            .collect();
+
+        // Get all enrollments for this professor (for summary stats)
+        const allEnrollments = await ctx.db
+            .query("enrollments")
+            .filter(q => q.eq(q.field("professorId"), user._id))
             .collect();
 
         // Get section details grouped by period
-        const sectionsByPeriod = new Map();
+        const sectionsByPeriod = new Map<string, any>();
 
         for (const section of allSections) {
             const [period, course] = await Promise.all([
@@ -466,17 +473,29 @@ export const getMyTeachingHistory = query({
                 .withIndex("by_section", q => q.eq("sectionId", section._id))
                 .collect();
 
-            const periodKey = section.periodId;
+            const periodKey = section.periodId.toString();
             if (!sectionsByPeriod.has(periodKey)) {
                 sectionsByPeriod.set(periodKey, {
-                    period,
+                    period: {
+                        _id: period?._id,
+                        nameEs: period?.nameEs ?? "Unknown Period",
+                        year: period?.year,
+                        bimesterNumber: period?.bimesterNumber,
+                        startDate: period?.startDate,
+                        endDate: period?.endDate,
+                    },
                     sections: [],
                 });
             }
 
             sectionsByPeriod.get(periodKey).sections.push({
                 section,
-                course,
+                course: {
+                    _id: course?._id,
+                    code: course?.code ?? "N/A",
+                    nameEs: course?.nameEs ?? "Unknown Course",
+                    credits: course?.credits ?? 0,
+                },
                 statistics: {
                     enrolled: enrollments.filter(e => e.status === "enrolled").length,
                     completed: enrollments.filter(e => e.status === "completed").length,
@@ -505,9 +524,8 @@ export const getMyTeachingHistory = query({
             summary: {
                 totalSections: allSections.length,
                 totalPeriods: history.length,
-                totalStudentsTaught: history.reduce((sum, p) =>
-                    sum + p.sections.reduce((sectionSum: number, s: any) =>
-                        sectionSum + s.statistics.enrolled, 0), 0),
+                totalStudentsTaught: allEnrollments.length,
+                totalCoursesDelivered: new Set(allSections.map(s => s.courseId.toString())).size,
             },
         };
     },

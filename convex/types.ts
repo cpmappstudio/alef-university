@@ -252,6 +252,21 @@ export interface StudentView {
     currentPeriod: Doc<"periods"> | null;
 }
 
+export interface Professor {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+  isActive: boolean;
+  professorProfile?: {
+    employeeCode: string;
+    title?: string;
+    department?: string;
+    hireDate?: number;
+  };
+}
+
 /**
  * Professor-specific view with teaching data
  */

@@ -27,44 +27,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Student } from "../types";
-
-// Mock enrollments data for the details tab
-const mockEnrollments = [
-  {
-    _id: "1",
-    studentId: "1",
-    sectionId: "1",
-    periodId: "1",
-    courseCode: "CS101",
-    courseName: "Introduction to Computer Science",
-    sectionCode: "A",
-    periodName: "Fall 2024",
-    status: "active",
-    enrollmentDate: "2024-08-15",
-    grade: null,
-  },
-  {
-    _id: "2",
-    studentId: "1", 
-    sectionId: "2",
-    periodId: "1",
-    courseCode: "MATH201",
-    courseName: "Calculus I",
-    sectionCode: "B",
-    periodName: "Fall 2024",
-    status: "completed",
-    enrollmentDate: "2024-08-15",
-    grade: "A",
-  },
-];
-
-// Mock programs data for the dropdown
-const mockPrograms = [
-  { _id: "1", code: "CS", nameEs: "Ciencias de la Computación" },
-  { _id: "2", code: "BUS", nameEs: "Administración de Empresas" },
-  { _id: "3", code: "MED", nameEs: "Medicina" },
-  { _id: "4", code: "ENG", nameEs: "Ingeniería" },
-];
+import { useMutation, useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+import { Id } from "../../../convex/_generated/dataModel";
 
 interface StudentFormData {
   firstName: string;
@@ -114,6 +79,19 @@ export function StudentFormDialog({
   const [isLoading, setIsLoading] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState("general");
+
+  const adminCreateStudent = useMutation(api.admin.adminCreateStudent);
+  const adminUpdateStudent = useMutation(api.admin.adminUpdateStudent);
+  const deactivateUser = useMutation(api.auth.deactivateUser);
+
+  // Fetch programs for the dropdown
+  const programs = useQuery(api.programs.getAllPrograms, { isActive: true });
+
+  // Fetch student's enrollment history for the "Details" tab
+  const enrollmentHistory = useQuery(
+    api.admin.getAdminEnrollments,
+    mode === 'edit' && student ? { studentId: student._id } : 'skip'
+  );
 
   // Use controlled or internal state
   const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
@@ -206,20 +184,82 @@ export function StudentFormDialog({
     setIsLoading(true);
 
     try {
+      // Convert string dates to timestamps
+      const enrollmentDate = formData.studentProfile.enrollmentDate 
+        ? new Date(formData.studentProfile.enrollmentDate).getTime() 
+        : undefined;
+      
+      const expectedGraduationDate = formData.studentProfile.expectedGraduationDate
+        ? new Date(formData.studentProfile.expectedGraduationDate).getTime()
+        : undefined;
+      
+      const dateOfBirth = formData.dateOfBirth
+        ? new Date(formData.dateOfBirth).getTime()
+        : undefined;
+
       if (mode === "create") {
-        // Mock create logic
-        console.log("Creating student:", formData);
+        await adminCreateStudent({
+          email: formData.email,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          secondLastName: formData.secondLastName || undefined,
+          dateOfBirth,
+          nationality: formData.nationality || undefined,
+          documentType: formData.documentType,
+          documentNumber: formData.documentNumber || undefined,
+          phone: formData.phone || undefined,
+          country: formData.country || undefined,
+          address: formData.address.street ? {
+            street: formData.address.street,
+            city: formData.address.city,
+            state: formData.address.state,
+            zipCode: formData.address.zipCode,
+            country: formData.address.country,
+          } : undefined,
+          studentCode: formData.studentProfile.studentCode,
+          programId: formData.studentProfile.programId as Id<"programs">,
+          enrollmentDate: formData.studentProfile.enrollmentDate 
+            ? new Date(formData.studentProfile.enrollmentDate).getTime() 
+            : Date.now(),
+          expectedGraduationDate,
+          status: formData.studentProfile.status!,
+          academicStanding: formData.studentProfile.academicStanding || "good_standing",
+        });
         alert("Student created successfully!");
       } else {
-        // Mock update logic
-        console.log("Updating student:", formData);
+        if (!student) return;
+        await adminUpdateStudent({
+          studentId: student._id,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          secondLastName: formData.secondLastName || undefined,
+          dateOfBirth,
+          nationality: formData.nationality || undefined,
+          documentType: formData.documentType,
+          documentNumber: formData.documentNumber || undefined,
+          phone: formData.phone || undefined,
+          country: formData.country || undefined,
+          address: formData.address.street ? {
+            street: formData.address.street,
+            city: formData.address.city,
+            state: formData.address.state,
+            zipCode: formData.address.zipCode,
+            country: formData.address.country,
+          } : undefined,
+          isActive: formData.isActive,
+          programId: formData.studentProfile.programId as Id<"programs">,
+          enrollmentDate: enrollmentDate ?? (student?.studentProfile?.enrollmentDate || Date.now()),
+          expectedGraduationDate,
+          status: formData.studentProfile.status!,
+          academicStanding: formData.studentProfile.academicStanding || "good_standing",
+        });
         alert("Student updated successfully!");
       }
 
       setOpen(false);
     } catch (error) {
       console.error(`Failed to ${mode} student:`, error);
-      alert(`Failed to ${mode} student. Please try again.`);
+      alert(`Failed to ${mode} student: ${(error as Error).message}`);
     } finally {
       setIsLoading(false);
     }
@@ -228,20 +268,19 @@ export function StudentFormDialog({
   const handleDelete = async () => {
     if (!student || mode === "create") return;
 
-    if (!confirm(`Are you sure you want to deactivate the student "${student.firstName} ${student.lastName}"?`)) {
+    if (!confirm(`Are you sure you want to deactivate the student "${student.firstName} ${student.lastName}"? This action cannot be undone.`)) {
       return;
     }
 
     setIsDeleting(true);
 
     try {
-      // Mock delete logic
-      console.log("Deactivating student:", student._id);
+      await deactivateUser({ userId: student._id });
       alert("Student deactivated successfully!");
       setOpen(false);
     } catch (error) {
       console.error("Failed to deactivate student:", error);
-      alert("Failed to deactivate student. Please try again.");
+      alert(`Failed to deactivate student: ${(error as Error).message}`);
     } finally {
       setIsDeleting(false);
     }
@@ -273,6 +312,7 @@ export function StudentFormDialog({
     if (!data.studentProfile.programId) errors.push("Program is required");
     if (!data.studentProfile.enrollmentDate) errors.push("Enrollment date is required");
     if (!data.studentProfile.status) errors.push("Status is required");
+    if (!data.studentProfile.enrollmentDate) errors.push("Enrollment date is required");
     
     return errors;
   };
@@ -582,11 +622,17 @@ export function StudentFormDialog({
                         <SelectValue placeholder="Select program" />
                       </SelectTrigger>
                       <SelectContent>
-                        {mockPrograms.map((program) => (
-                          <SelectItem key={program._id} value={program._id}>
-                            {program.code} - {program.nameEs}
-                          </SelectItem>
-                        ))}
+                        {!programs ? (
+                          <SelectItem value="" disabled>Loading programs...</SelectItem>
+                        ) : programs.length === 0 ? (
+                          <SelectItem value="" disabled>No programs available</SelectItem>
+                        ) : (
+                          programs.map((program) => (
+                            <SelectItem key={program._id} value={program._id}>
+                              {program.code} - {program.nameEs}
+                            </SelectItem>
+                          ))
+                        )}
                       </SelectContent>
                     </Select>
                   </div>
@@ -741,7 +787,14 @@ export function StudentFormDialog({
                 </h3>
               </div>
 
-              {mockEnrollments.length === 0 ? (
+              {enrollmentHistory === undefined ? (
+                <div className="text-center py-8">
+                  <div className="flex flex-col items-center space-y-4">
+                    <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                    <p className="text-muted-foreground">Loading enrollment history...</p>
+                  </div>
+                </div>
+              ) : enrollmentHistory.length === 0 ? (
                 <div className="text-center py-8">
                   <p className="text-muted-foreground">
                     No enrollments found for this student.
@@ -749,7 +802,7 @@ export function StudentFormDialog({
                 </div>
               ) : (
                 <div className="space-y-3 max-h-[400px] overflow-y-auto">
-                  {mockEnrollments.map((enrollment) => (
+                  {enrollmentHistory.map((enrollment) => (
                     <div
                       key={enrollment._id}
                       className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
@@ -757,30 +810,32 @@ export function StudentFormDialog({
                       <div className="space-y-1">
                         <div className="flex items-center gap-3">
                           <span className="font-semibold text-foreground">
-                            {enrollment.courseCode}
+                            {enrollment.courseName}
                           </span>
                           <span className="text-sm text-muted-foreground">
-                            Section {enrollment.sectionCode}
+                            Section {enrollment.sectionInfo?.groupNumber || "N/A"}
                           </span>
                         </div>
                         <p className="text-sm text-foreground">
                           {enrollment.courseName}
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          {enrollment.periodName} • Enrolled: {enrollment.enrollmentDate}
+                          {enrollment.periodInfo?.nameEs || "N/A"} • 
+                          Enrolled: {new Date(enrollment._creationTime).toLocaleDateString()}
                         </p>
                       </div>
                       <div className="text-right space-y-1">
                         <span className={`text-xs px-2 py-1 rounded-full ${
-                          enrollment.status === 'active' ? 'bg-green-100 text-green-800' :
+                          enrollment.status === 'enrolled' || enrollment.status === 'in_progress' ? 'bg-green-100 text-green-800' :
                           enrollment.status === 'completed' ? 'bg-blue-100 text-blue-800' :
+                          enrollment.status === 'withdrawn' ? 'bg-amber-100 text-amber-800' :
                           'bg-gray-100 text-gray-800'
                         }`}>
                           {enrollment.status}
                         </span>
-                        {enrollment.grade && (
+                        {enrollment.percentageGrade !== undefined && enrollment.percentageGrade !== null && (
                           <div className="text-sm font-semibold text-foreground">
-                            Grade: {enrollment.grade}
+                            Grade: {enrollment.percentageGrade}%
                           </div>
                         )}
                       </div>

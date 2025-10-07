@@ -42,10 +42,12 @@ export function CourseFormDialog({
 }: CourseFormDialogProps) {
   const [internalOpen, setInternalOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isDeleting, setIsDeleting] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState("general");
 
   // Convex mutations and queries
   const updateCourse = useMutation(api.courses.updateCourse);
+  const deleteCourse = useMutation(api.courses.deleteCourse);
   const courseWithSections = useQuery(api.courses.getCourseWithSections, {
     courseId: course._id,
   });
@@ -100,26 +102,16 @@ export function CourseFormDialog({
         descriptionEs: formData.descriptionEs,
         descriptionEn: formData.descriptionEn || undefined,
         credits: formData.credits,
-        level: formData.level as
-          | "introductory"
-          | "intermediate"
-          | "advanced"
-          | "graduate",
+        level: formData.level as "introductory" | "intermediate" | "advanced" | "graduate",
         language: formData.language,
         category: formData.category,
         prerequisites: formData.prerequisites
-          ? formData.prerequisites
-              .split(",")
-              .map((p) => p.trim())
-              .filter((p) => p)
+          ? formData.prerequisites.split(',').map(p => p.trim()).filter(p => p)
           : [],
-        corequisites: formData.corequisites
-          ? formData.corequisites
-              .split(",")
-              .map((p) => p.trim())
-              .filter((p) => p)
+        corequisites: formData.corequisites && formData.corequisites.trim() !== ""
+          ? formData.corequisites.split(',').map(p => p.trim()).filter(p => p)
           : undefined,
-        syllabus: formData.syllabus || undefined,
+        syllabus: formData.syllabus.trim() || undefined,
         isActive: formData.isActive,
       });
 
@@ -160,6 +152,25 @@ export function CourseFormDialog({
       descriptionEs: languageEnabled.descriptionEs,
       descriptionEn: languageEnabled.descriptionEn,
     };
+  };
+
+  const handleDelete = async () => {
+    if (!confirm(`Are you sure you want to delete the course "${course.nameEs}"? This action cannot be undone.`)) {
+      return;
+    }
+    
+    setIsDeleting(true);
+    
+    try {
+      await deleteCourse({ courseId: course._id });
+      alert("Course deleted successfully!");
+      setOpen(false);
+    } catch (error) {
+      console.error("Failed to delete course:", error);
+      alert(`Failed to delete course: ${error instanceof Error ? error.message : "Unknown error"}`);
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   const fieldEnabled = getFieldEnabledState();
@@ -547,12 +558,21 @@ export function CourseFormDialog({
                 <Button
                   type="button"
                   variant="destructive"
-                  // onClick={handleDelete}
-                  // disabled={isDeleting}
+                  onClick={handleDelete}
+                  disabled={isDeleting || isLoading}
                   className="px-6 py-2.5"
                 >
-                  <Trash2 className="h-4 w-4" />
-                  Delete Course
+                  {isDeleting ? (
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Deleting...
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <Trash2 className="h-4 w-4" />
+                      Delete Course
+                    </div>
+                  )}
                 </Button>
                 <Button type="submit" variant="default" disabled={isLoading}>
                   {isLoading ? (
