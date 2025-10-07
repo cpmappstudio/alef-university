@@ -47,6 +47,8 @@ interface DataTableProps<TData, TValue> {
   };
   // Entity name for pagination info
   entityName: string;
+  // Disable pagination
+  disablePagination?: boolean;
 }
 
 export function DataTable<TData, TValue>({
@@ -58,6 +60,7 @@ export function DataTable<TData, TValue>({
   mobileColumns,
   emptyState,
   entityName,
+  disablePagination = false,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -69,14 +72,14 @@ export function DataTable<TData, TValue>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    getPaginationRowModel: disablePagination ? undefined : getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     initialState: {
-      pagination: {
+      pagination: disablePagination ? undefined : {
         pageSize: 10,
       },
     },
@@ -113,7 +116,7 @@ export function DataTable<TData, TValue>({
         <Table className="w-full min-w-full">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow 
+              <TableRow
                 key={headerGroup.id}
                 className="bg-deep-koamaru border-b border-border"
               >
@@ -121,22 +124,19 @@ export function DataTable<TData, TValue>({
                   // Hide columns on mobile and tablet except the specified mobile columns
                   const isHiddenOnMobile = header.column.id !== mobileColumns.primaryColumn && header.column.id !== mobileColumns.secondaryColumn;
                   return (
-                    <TableHead 
+                    <TableHead
                       key={header.id}
-                      className={`font-semibold text-white py-2 px-2 sm:px-3 lg:py-4 lg:px-6 text-left ${
-                        isHiddenOnMobile ? 'hidden lg:table-cell' : ''
-                      } ${
-                        header.column.id === mobileColumns.primaryColumn ? 'w-[65%] sm:w-2/3 md:w-3/4 lg:w-auto' : ''
-                      } ${
-                        header.column.id === mobileColumns.secondaryColumn ? 'w-[35%] sm:w-1/3 md:w-1/4 lg:w-auto' : ''
-                      }`}
+                      className={`font-semibold text-white py-2 px-2 sm:px-3 lg:py-4 lg:px-6 text-left ${isHiddenOnMobile ? 'hidden lg:table-cell' : ''
+                        } ${header.column.id === mobileColumns.primaryColumn ? 'w-[65%] sm:w-2/3 md:w-3/4 lg:w-auto' : ''
+                        } ${header.column.id === mobileColumns.secondaryColumn ? 'w-[35%] sm:w-1/3 md:w-1/4 lg:w-auto' : ''
+                        }`}
                     >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                     </TableHead>
                   );
                 })}
@@ -160,15 +160,12 @@ export function DataTable<TData, TValue>({
                     // Hide columns on mobile and tablet except the specified mobile columns
                     const isHiddenOnMobile = cell.column.id !== mobileColumns.primaryColumn && cell.column.id !== mobileColumns.secondaryColumn;
                     return (
-                      <TableCell 
-                        key={cell.id} 
-                        className={`py-2 px-2 sm:px-3 lg:py-4 lg:px-6 break-words ${
-                          isHiddenOnMobile ? 'hidden lg:table-cell' : ''
-                        } ${
-                          cell.column.id === mobileColumns.primaryColumn ? 'w-[65%] sm:w-2/3 md:w-3/4 lg:w-auto min-w-0' : ''
-                        } ${
-                          cell.column.id === mobileColumns.secondaryColumn ? 'w-[35%] sm:w-1/3 md:w-1/4 lg:w-auto text-right sm:text-left' : ''
-                        }`}
+                      <TableCell
+                        key={cell.id}
+                        className={`py-2 px-2 sm:px-3 lg:py-4 lg:px-6 break-words ${isHiddenOnMobile ? 'hidden lg:table-cell' : ''
+                          } ${cell.column.id === mobileColumns.primaryColumn ? 'w-[65%] sm:w-2/3 md:w-3/4 lg:w-auto min-w-0' : ''
+                          } ${cell.column.id === mobileColumns.secondaryColumn ? 'w-[35%] sm:w-1/3 md:w-1/4 lg:w-auto text-right sm:text-left' : ''
+                          }`}
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
@@ -199,34 +196,36 @@ export function DataTable<TData, TValue>({
       </div>
 
       {/* Pagination Section */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-3 sm:p-4 bg-muted/30 rounded-lg">
-        <div className="text-sm text-muted-foreground font-medium">
-          <span>
-            Showing {table.getRowModel().rows.length} of {table.getFilteredRowModel().rows.length} {entityName}
-          </span>
-        </div>
-        <div className="flex items-center space-x-3">
-          <Button
-            variant="default"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <div className="text-sm font-medium text-muted-foreground px-2">
-            Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+      {!disablePagination && (
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-3 sm:p-4 bg-muted/30 rounded-lg">
+          <div className="text-sm text-muted-foreground font-medium">
+            <span>
+              Showing {table.getRowModel().rows.length} of {table.getFilteredRowModel().rows.length} {entityName}
+            </span>
           </div>
-          <Button
-            variant="default"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
+          <div className="flex items-center space-x-3">
+            <Button
+              variant="default"
+              size="sm"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              Previous
+            </Button>
+            <div className="text-sm font-medium text-muted-foreground px-2">
+              Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+            </div>
+            <Button
+              variant="default"
+              size="sm"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              Next
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

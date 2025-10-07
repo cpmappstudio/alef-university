@@ -40,9 +40,6 @@ export const getStudentDashboard = query({
         }
 
         const currentPeriod = await getCurrentPeriod(ctx.db);
-        if (!currentPeriod) {
-            throw new ConvexError("No current period found");
-        }
 
         // Get student program
         const program = await ctx.db.get(user.studentProfile.programId);
@@ -51,11 +48,11 @@ export const getStudentDashboard = query({
         }
 
         // Get current enrollments
-        const currentEnrollments = await ctx.db
+        const currentEnrollments = currentPeriod ? await ctx.db
             .query("enrollments")
             .withIndex("by_student_period", q =>
                 q.eq("studentId", user._id).eq("periodId", currentPeriod._id))
-            .collect();
+            .collect() : [];
 
         // Get enrollment details with course and section info
         const enrollmentDetails = await Promise.all(
@@ -130,16 +127,13 @@ export const getProfessorDashboard = query({
         }
 
         const currentPeriod = await getCurrentPeriod(ctx.db);
-        if (!currentPeriod) {
-            throw new ConvexError("No current period found");
-        }
 
         // Get professor's current sections
-        const currentSections = await ctx.db
+        const currentSections = currentPeriod ? await ctx.db
             .query("sections")
             .withIndex("by_professor_period", q =>
                 q.eq("professorId", user._id).eq("periodId", currentPeriod._id).eq("isActive", true))
-            .collect();
+            .collect() : [];
 
         // Get section details with course info and enrollments
         const sectionDetails = await Promise.all(
@@ -184,11 +178,11 @@ export const getProfessorDashboard = query({
             .withIndex("by_professor_period", q => q.eq("professorId", user._id))
             .collect();
 
-        const totalStudents = await ctx.db
+        const totalStudents = currentPeriod ? await ctx.db
             .query("enrollments")
             .withIndex("by_professor_period", q =>
                 q.eq("professorId", user._id).eq("periodId", currentPeriod._id))
-            .collect();
+            .collect() : [];
 
         return {
             user,
@@ -333,8 +327,34 @@ export const getSystemStatistics = query({
             ? await ctx.db.get(args.periodId)
             : await getCurrentPeriod(ctx.db);
 
+        // If no period exists, return empty statistics
         if (!targetPeriod) {
-            throw new ConvexError("Period not found");
+            return {
+                period: null,
+                enrollmentStats: {
+                    total: 0,
+                    enrolled: 0,
+                    completed: 0,
+                    withdrawn: 0,
+                    failed: 0,
+                },
+                gradeStats: {
+                    graded: 0,
+                    pending: 0,
+                    distribution: {
+                        "A+": 0, "A": 0, "A-": 0,
+                        "B+": 0, "B": 0, "B-": 0,
+                        "C+": 0, "C": 0, "C-": 0,
+                        "D+": 0, "D": 0, "F": 0
+                    },
+                    averageGrade: 0,
+                },
+                sectionStats: {
+                    total: 0,
+                    gradesSubmitted: 0,
+                    gradesPending: 0,
+                }
+            };
         }
 
         // Get enrollments for the period

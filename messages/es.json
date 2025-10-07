@@ -221,6 +221,99 @@
                 "progressAnalysis": "Análisis de Progreso",
                 "academicCalendar": "Calendario Académico"
             }
+        },
+        "professor": {
+            "metrics": {
+                "currentSections": "Secciones Actuales",
+                "totalStudents": "Total Estudiantes",
+                "sectionsToGrade": "Secciones por Calificar",
+                "teachingExperience": "Experiencia Docente",
+                "credits": "créditos",
+                "avgPerSection": "prom/sección",
+                "actionRequired": "Acción Requerida",
+                "upToDate": "Al Día",
+                "studentsTaught": "estudiantes enseñados",
+                "activeTeaching": "Docencia activa",
+                "currentPeriod": "{period}",
+                "studentEngagement": "Compromiso estudiantil",
+                "sectionsEnrolled": "En todas las secciones",
+                "gradingPending": "Calificación pendiente",
+                "allGraded": "Todo calificado",
+                "checkGradebook": "Consulte el libro de calificaciones para detalles",
+                "experiencedEducator": "Educador experimentado",
+                "periodsTaughtTotal": "Total de períodos de experiencia docente"
+            },
+            "currentSections": {
+                "title": "Secciones Actuales",
+                "viewGradebook": "Ver Libro de Calificaciones",
+                "code": "Código",
+                "course": "Asignatura",
+                "group": "Grupo",
+                "students": "Estudiantes",
+                "category": "Categoría",
+                "closingDate": "Fecha de Cierre",
+                "status": "Estado",
+                "categoryGeneral": "General",
+                "categoryProfessional": "Profesional",
+                "categorySpecialty": "Especialidad",
+                "statusActive": "Activa",
+                "statusGrading": "Calificando",
+                "statusClosed": "Cerrada",
+                "subtitle": "{period} • {sections} secciones • {students} estudiantes totales"
+            },
+            "closingDates": {
+                "title": "Fechas de Cierre Próximas",
+                "subtitle": "Plazos importantes para la entrega de calificaciones",
+                "urgent": "Urgente",
+                "soon": "Pronto",
+                "upcoming": "Próximo",
+                "day": "día",
+                "days": "días"
+            }
+        },
+        "admin": {
+            "metrics": {
+                "activeProfessors": "Profesores Activos",
+                "activeStudents": "Estudiantes Activos",
+                "activeCourses": "Cursos Activos",
+                "activePrograms": "Programas Activos",
+                "teachingStaff": "Personal Docente",
+                "enrollments": "matrículas",
+                "sections": "secciones",
+                "academicPrograms": "Programas Académicos",
+                "manageStaff": "Administrar Personal",
+                "viewAllProfessors": "Clic para ver todos los profesores",
+                "studentBody": "Cuerpo Estudiantil",
+                "viewAllStudents": "Clic para ver todos los estudiantes",
+                "courseCatalog": "Catálogo de Cursos",
+                "viewAllCourses": "Clic para ver todos los cursos",
+                "programManagement": "Gestión de Programas",
+                "viewAllPrograms": "Clic para ver todos los programas"
+            },
+            "deadlines": {
+                "title": "Plazos Próximos",
+                "subtitle": "Fechas y plazos importantes a supervisar",
+                "enrollment": "Matrícula",
+                "grading": "Calificación",
+                "period": "Período",
+                "other": "Otro",
+                "urgent": "Urgente",
+                "soon": "Pronto",
+                "upcoming": "Próximo",
+                "day": "día",
+                "days": "días"
+            },
+            "activities": {
+                "title": "Actividades Recientes",
+                "subtitle": "Últimas acciones administrativas y actualizaciones",
+                "created": "Creado",
+                "updated": "Actualizado",
+                "deleted": "Eliminado",
+                "by": "por",
+                "minutesAgo": "hace {count} min",
+                "hoursAgo": "hace {count}h",
+                "daysAgo": "hace {count}d"
+            }
         }
     },
     "academicHistory": {
@@ -293,5 +386,79 @@
             "none": "Ninguno"
         },
         "noResults": "No se encontraron asignaturas que coincidan con los criterios"
+    },
+    "gradebook": {
+        "title": "Historial de Enseñanza y Calificaciones",
+        "subtitle": "Gestiona calificaciones y visualiza tu historial completo de enseñanza",
+        "stats": {
+            "totalStudents": "Total Estudiantes Enseñados",
+            "totalCourses": "Total Cursos Impartidos",
+            "totalPeriods": "Períodos Impartidos",
+            "acrossAllPeriods": "A través de todos los períodos",
+            "coursesDelivered": "Cursos impartidos",
+            "periodsTaught": "Períodos impartidos"
+        },
+        "filters": {
+            "searchCourse": "Buscar curso...",
+            "filterByPeriod": "Filtrar por período",
+            "allPeriods": "Todos los períodos"
+        },
+        "table": {
+            "code": "Código",
+            "group": "Grupo",
+            "courseName": "Nombre del Curso",
+            "credits": "Créditos",
+            "category": "Categoría",
+            "closingDate": "Fecha de Cierre",
+            "students": "Estudiantes",
+            "status": "Estado"
+        },
+        "status": {
+            "active": "Activo",
+            "closed": "Cerrado",
+            "cancelled": "Cancelado"
+        },
+        "categories": {
+            "core": "Troncal",
+            "humanities": "Humanística",
+            "electives": "Electiva"
+        },
+        "periodSummary": {
+            "courses": "Cursos",
+            "students": "Estudiantes"
+        },
+        "sectionDetails": {
+            "title": "Detalles de la Sección",
+            "group": "Grupo",
+            "enrolledStudents": "Estudiantes Inscritos",
+            "students": "estudiantes",
+            "description": "Descripción",
+            "schedule": "Horario",
+            "studentList": "Lista de Estudiantes",
+            "studentCode": "Código de Estudiante",
+            "studentName": "Nombre del Estudiante",
+            "percentGrade": "Calificación Porcentual",
+            "letterGrade": "Letra",
+            "notes": "Notas",
+            "addNotes": "Agregar notas...",
+            "saveGrades": "Guardar Calificaciones",
+            "gradesSaved": "¡Calificaciones guardadas exitosamente!",
+            "mockDescription": "Esta es una descripción de curso simulada. La descripción real se cargará desde la base de datos.",
+            "monday": "Lunes",
+            "tuesday": "Martes",
+            "wednesday": "Miércoles",
+            "thursday": "Jueves",
+            "friday": "Viernes",
+            "saturday": "Sábado",
+            "sunday": "Domingo"
+        },
+        "showAllPeriods": "Mostrar todos los períodos",
+        "more": "más",
+        "noResults": "No se encontraron cursos que coincidan con los criterios",
+        "navigation": {
+            "newerPeriod": "Período Más Reciente",
+            "olderPeriod": "Período Anterior",
+            "periodInfo": "Período {current} de {total}"
+        }
     }
 }

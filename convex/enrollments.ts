@@ -45,13 +45,21 @@ export const getAvailableSections = query({
             ? await ctx.db.get(args.periodId)
             : await getCurrentPeriod(ctx.db);
 
+        // If no period found, return empty sections
         if (!targetPeriod) {
-            throw new ConvexError("Period not found");
+            return {
+                period: null,
+                sections: [],
+            };
         }
 
         // Check if enrollment is open
         if (!isEnrollmentOpen(targetPeriod)) {
-            throw new ConvexError("Enrollment is not currently open");
+            return {
+                period: targetPeriod,
+                sections: [],
+                message: "Enrollment is not currently open",
+            };
         }
 
         // Get target program (student's program or specified)
