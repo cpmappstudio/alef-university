@@ -235,7 +235,7 @@ export function CourseFormDialog({
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="general">General</TabsTrigger>
-          <TabsTrigger value="details">Details</TabsTrigger>
+          <TabsTrigger value="details" disabled={mode !== "edit"}>Details</TabsTrigger>
         </TabsList>
 
         <TabsContent value="general" className="space-y-6 mt-6">
@@ -638,7 +638,7 @@ export function CourseFormDialog({
         </TabsContent>
 
         <TabsContent value="details" className="space-y-6 mt-6">
-          <div className="space-y-6">
+          {mode === "edit" && course && (<div className="space-y-6">
             <div className="space-y-4">
               <div className="flex items-center gap-3 pb-3 border-b border-border/50">
                 <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
@@ -724,7 +724,7 @@ export function CourseFormDialog({
                 </div>
               )}
             </div>
-          </div>
+          </div>)}
         </TabsContent>
       </Tabs>
     </DialogContent>
