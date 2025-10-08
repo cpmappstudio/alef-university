@@ -26,7 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation, useQuery, useAction } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Professor } from "../types";
 
@@ -77,7 +77,7 @@ export function ProfessorFormDialog({
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState("general");
 
-  const adminCreateProfessor = useMutation(api.admin.adminCreateProfessor);
+  const adminCreateProfessor = useAction(api.admin.createUserWithClerk);
   const adminUpdateProfessor = useMutation(api.admin.adminUpdateProfessor);
   const deactivateUser = useMutation(api.auth.deactivateUser);
 
@@ -92,12 +92,13 @@ export function ProfessorFormDialog({
 
   // Initialize form data based on mode and professor
   const initialFormData = React.useMemo((): ProfessorFormData => {
+    // This function will now only run when professor data is available
     if (mode === "edit" && professor) {
       return {
-        firstName: professor.firstName,
-        lastName: professor.lastName,
+        firstName: professor.firstName || "",
+        lastName: professor.lastName || "",
         secondLastName: professor.secondLastName || "",
-        email: professor.email,
+        email: professor.email || "",
         dateOfBirth: professor.dateOfBirth ? new Date(professor.dateOfBirth).toISOString().split('T')[0] : "",
         nationality: professor.nationality || "",
         documentType: professor.documentType,
@@ -113,40 +114,21 @@ export function ProfessorFormDialog({
         },
         isActive: professor.isActive,
         professorProfile: {
-          employeeCode: professor.professorProfile.employeeCode,
-          title: professor.professorProfile.title || "",
-          department: professor.professorProfile.department || "",
-          hireDate: professor.professorProfile.hireDate 
+          employeeCode: professor.professorProfile?.employeeCode || "",
+          title: professor.professorProfile?.title || "",
+          department: professor.professorProfile?.department || "",
+          hireDate: professor.professorProfile?.hireDate 
             ? new Date(professor.professorProfile.hireDate).toISOString().split('T')[0] : "",
         },
       };
     }
-    // For create mode
+    // Default for create mode
     return {
-      firstName: "",
-      lastName: "",
-      secondLastName: "",
-      email: "",
-      dateOfBirth: "",
-      nationality: "",
-      documentType: undefined,
-      documentNumber: "",
-      phone: "",
-      country: "",
-      address: {
-        street: "",
-        city: "",
-        state: "",
-        zipCode: "",
-        country: "",
-      },
+      firstName: "", lastName: "", secondLastName: "", email: "", dateOfBirth: "",
+      nationality: "", documentType: undefined, documentNumber: "", phone: "", country: "",
+      address: { street: "", city: "", state: "", zipCode: "", country: "" },
       isActive: true,
-      professorProfile: {
-        employeeCode: "",
-        title: "",
-        department: "",
-        hireDate: "",
-      },
+      professorProfile: { employeeCode: "", title: "", department: "", hireDate: "" },
     };
   }, [mode, professor]);
 
@@ -177,11 +159,17 @@ export function ProfessorFormDialog({
             email: formData.email,
             firstName: formData.firstName,
             lastName: formData.lastName,
-            employeeCode: formData.professorProfile.employeeCode,
-            title: formData.professorProfile.title || undefined,
-            department: formData.professorProfile.department || undefined,
+            role: "professor",
+            professorProfile: {
+                employeeCode: formData.professorProfile.employeeCode,
+                title: formData.professorProfile.title || undefined,
+                department: formData.professorProfile.department || undefined,
+                hireDate: formData.professorProfile.hireDate
+                    ? new Date(formData.professorProfile.hireDate).getTime()
+                    : undefined,
+            },
           });
-          alert("Professor created successfully!");
+          alert("Professor created successfully and an invitation has been sent.");
       } else {
         if (!professor) return;
         await adminUpdateProfessor({

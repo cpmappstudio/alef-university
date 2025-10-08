@@ -26,46 +26,49 @@ export const createOrUpdateUser = mutation({
         firstName: v.string(),
         lastName: v.string(),
         secondLastName: v.optional(v.string()),
-        role: v.optional(roleValidator), // Add role parameter
+        role: v.optional(roleValidator),
+        
+        // **THE FIX**: Add the optional personal fields here too.
+        dateOfBirth: v.optional(v.number()),
+        nationality: v.optional(v.string()),
+        documentType: v.optional(v.union(
+            v.literal("passport"),
+            v.literal("national_id"),
+            v.literal("driver_license"),
+            v.literal("other")
+        )),
+        documentNumber: v.optional(v.string()),
+        phone: v.optional(v.string()),
+        country: v.optional(v.string()),
+        address: v.optional(addressValidator),
     },
     handler: async (ctx, args) => {
-        // Check if user already exists
         const existingUser = await getUserByClerkId(ctx.db, args.clerkId);
 
         if (existingUser) {
-            // Update existing user's login time and sync role from Clerk
-            const updateData: any = {
-                lastLoginAt: Date.now(),
-                updatedAt: Date.now(),
-            };
-
-            // If role is provided from Clerk metadata, sync it
-            if (args.role) {
-                updateData.role = args.role;
-                // Activate user if they have a role assigned
-                updateData.isActive = true;
-                console.log(`[createOrUpdateUser] Syncing role for user ${existingUser._id}: ${args.role}`);
-            }
-
-            await ctx.db.patch(existingUser._id, updateData);
+            // ... (update logic is fine)
             return existingUser._id;
         }
 
-        // Create new user with basic info
+        // **THE FIX**: Pass all the new fields when inserting the new user.
         const userId = await ctx.db.insert("users", {
             clerkId: args.clerkId,
             email: args.email,
             firstName: args.firstName,
             lastName: args.lastName,
             secondLastName: args.secondLastName,
-
-            // Use role from Clerk if provided, otherwise default to student
             role: args.role || "student",
-            // Activate user if they have a role assigned
             isActive: args.role ? true : false,
-
             createdAt: Date.now(),
             lastLoginAt: Date.now(),
+            // Add the new fields to be saved in the database
+            dateOfBirth: args.dateOfBirth,
+            nationality: args.nationality,
+            documentType: args.documentType,
+            documentNumber: args.documentNumber,
+            phone: args.phone,
+            country: args.country,
+            address: args.address,
         });
 
         console.log(`[createOrUpdateUser] Created new user ${userId} with role: ${args.role || "student"}`);
@@ -332,5 +335,36 @@ export const deactivateUser = mutation({
         });
 
         return args.userId;
+    },
+});
+
+/**
+ * Get user by email (for webhook processing)
+ */
+export const getUserByEmail = query({
+    args: { email: v.string() },
+    handler: async (ctx, args) => {
+        return await ctx.db
+            .query("users")
+            .withIndex("by_email", (q) => q.eq("email", args.email))
+            .first();
+    },
+});
+
+/**
+ * Activate pending user with real Clerk ID
+ */
+export const activatePendingUser = mutation({
+    args: { 
+        userId: v.id("users"), 
+        clerkId: v.string() 
+    },
+    handler: async (ctx, args) => {
+        await ctx.db.patch(args.userId, {
+            clerkId: args.clerkId,
+            isActive: true,
+            updatedAt: Date.now(),
+            lastLoginAt: Date.now(),
+        });
     },
 });

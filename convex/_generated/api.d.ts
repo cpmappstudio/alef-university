@@ -20,6 +20,7 @@ import type * as dashboard from "../dashboard.js";
 import type * as enrollments from "../enrollments.js";
 import type * as grades from "../grades.js";
 import type * as helpers from "../helpers.js";
+import type * as http from "../http.js";
 import type * as professors from "../professors.js";
 import type * as programs from "../programs.js";
 import type * as reports from "../reports.js";
@@ -42,6 +43,7 @@ declare const fullApi: ApiFromModules<{
   enrollments: typeof enrollments;
   grades: typeof grades;
   helpers: typeof helpers;
+  http: typeof http;
   professors: typeof professors;
   programs: typeof programs;
   reports: typeof reports;

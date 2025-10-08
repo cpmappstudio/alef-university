@@ -2,6 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { ArrowUpDown } from "lucide-react";
 import { Program, Course, Section, Period, Enrollment, Student, Professor } from "./types";
 
@@ -959,8 +960,8 @@ export const columnsStudent: ColumnDef<Student>[] = [
     cell: ({ row }) => {
       const student = row.original;
       const fullName = `${student.firstName} ${student.lastName}`;
-      const studentCode = student.studentProfile.studentCode;
-      const programId = student.studentProfile.programId;
+      const studentCode = student.studentProfile?.studentCode || "N/A";
+      const programId = student.studentProfile?.programId || "N/A";
 
       return (
         <div className="space-y-1 w-full">
@@ -998,7 +999,7 @@ export const columnsStudent: ColumnDef<Student>[] = [
     },
     cell: ({ row }) => {
       const student = row.original;
-      const studentCode = student.studentProfile.studentCode;
+      const studentCode = student.studentProfile?.studentCode || "N/A";
       return <span className="hidden lg:inline">{studentCode}</span>;
     },
   },
@@ -1018,7 +1019,7 @@ export const columnsStudent: ColumnDef<Student>[] = [
     },
     cell: ({ row }) => {
       const student = row.original;
-      const programId = student.studentProfile.programId;
+      const programId = student.studentProfile?.programId || "N/A";
       return <span className="hidden lg:inline">{programId}</span>;
     },
   },
@@ -1037,7 +1038,11 @@ export const columnsStudent: ColumnDef<Student>[] = [
     },
     cell: ({ row }) => {
       const student = row.original;
-      const status = student.studentProfile.status;
+      const status = student?.studentProfile?.status;
+
+      if (!status) {
+        return <Badge variant="secondary">Unknown</Badge>;
+      }
       
       const getStatusColor = (status: string) => {
         switch (status) {
@@ -1086,9 +1091,9 @@ export const columnsProfessor: ColumnDef<Professor>[] = [
     cell: ({ row }) => {
       const professor = row.original;
       const fullName = `${professor.firstName} ${professor.lastName}`;
-      const employeeCode = professor.professorProfile.employeeCode;
-      const title = professor.professorProfile.title;
-      const department = professor.professorProfile.department;
+      const employeeCode = professor.professorProfile?.employeeCode || "N/A";
+      const title = professor.professorProfile?.title;
+      const department = professor.professorProfile?.department;
 
       return (
         <div className="space-y-1 w-full">
@@ -1134,7 +1139,7 @@ export const columnsProfessor: ColumnDef<Professor>[] = [
     },
     cell: ({ row }) => {
       const professor = row.original;
-      const employeeCode = professor.professorProfile.employeeCode;
+      const employeeCode = professor.professorProfile?.employeeCode || "N/A";
       return <span className="hidden lg:inline">{employeeCode}</span>;
     },
   },
@@ -1154,7 +1159,7 @@ export const columnsProfessor: ColumnDef<Professor>[] = [
     },
     cell: ({ row }) => {
       const professor = row.original;
-      const title = professor.professorProfile.title;
+      const title = professor.professorProfile?.title;
       return <span className="hidden lg:inline">{title || "N/A"}</span>;
     },
   },
@@ -1174,7 +1179,7 @@ export const columnsProfessor: ColumnDef<Professor>[] = [
     },
     cell: ({ row }) => {
       const professor = row.original;
-      const department = professor.professorProfile.department;
+      const department = professor.professorProfile?.department;
       return <span className="hidden lg:inline">{department || "N/A"}</span>;
     },
   },

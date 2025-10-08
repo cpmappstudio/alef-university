@@ -27,7 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Student } from "../types";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation, useQuery, useAction } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 
@@ -80,7 +80,7 @@ export function StudentFormDialog({
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState("general");
 
-  const adminCreateStudent = useMutation(api.admin.adminCreateStudent);
+  const adminCreateStudent = useAction(api.admin.createUserWithClerk);
   const adminUpdateStudent = useMutation(api.admin.adminUpdateStudent);
   const deactivateUser = useMutation(api.auth.deactivateUser);
 
@@ -120,13 +120,16 @@ export function StudentFormDialog({
         },
         isActive: student.isActive,
         studentProfile: {
-          studentCode: student.studentProfile.studentCode,
-          programId: student.studentProfile.programId as string,
-          enrollmentDate: new Date(student.studentProfile.enrollmentDate).toISOString().split('T')[0],
-          expectedGraduationDate: student.studentProfile.expectedGraduationDate 
-            ? new Date(student.studentProfile.expectedGraduationDate).toISOString().split('T')[0] : "",
-          status: student.studentProfile.status,
-          academicStanding: student.studentProfile.academicStanding,
+          studentCode: student.studentProfile?.studentCode || "",
+          programId: (student.studentProfile?.programId as string) || "",
+          enrollmentDate: student.studentProfile?.enrollmentDate
+              ? new Date(student.studentProfile.enrollmentDate).toISOString().split('T')[0]
+              : "",
+          expectedGraduationDate: student.studentProfile?.expectedGraduationDate 
+              ? new Date(student.studentProfile.expectedGraduationDate).toISOString().split('T')[0]
+              : "",
+          status: student.studentProfile?.status,
+          academicStanding: student.studentProfile?.academicStanding,
         },
       };
     }
@@ -202,6 +205,7 @@ export function StudentFormDialog({
           email: formData.email,
           firstName: formData.firstName,
           lastName: formData.lastName,
+          role: 'student',
           secondLastName: formData.secondLastName || undefined,
           dateOfBirth,
           nationality: formData.nationality || undefined,
@@ -216,15 +220,14 @@ export function StudentFormDialog({
             zipCode: formData.address.zipCode,
             country: formData.address.country,
           } : undefined,
-          studentCode: formData.studentProfile.studentCode,
-          programId: formData.studentProfile.programId as Id<"programs">,
-          enrollmentDate: formData.studentProfile.enrollmentDate 
-            ? new Date(formData.studentProfile.enrollmentDate).getTime() 
-            : Date.now(),
-          expectedGraduationDate,
-          status: formData.studentProfile.status!,
-          academicStanding: formData.studentProfile.academicStanding || "good_standing",
-        });
+          studentProfile: {
+            studentCode: formData.studentProfile.studentCode,
+            programId: formData.studentProfile.programId as Id<"programs">,
+            enrollmentDate: formData.studentProfile.enrollmentDate 
+              ? new Date(formData.studentProfile.enrollmentDate).getTime() 
+              : Date.now(),
+            status: formData.studentProfile.status!,
+          }});
         alert("Student created successfully!");
       } else {
         if (!student) return;

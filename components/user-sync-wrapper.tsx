@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { useAuth, useUser } from "@clerk/nextjs"
 import { useMutation } from "convex/react"
 import { api } from "@/convex/_generated/api"
@@ -9,10 +9,11 @@ export default function UserSyncWrapper({ children }: { children: React.ReactNod
     const { isLoaded: isAuthLoaded, userId } = useAuth()
     const { isLoaded: isUserLoaded, user } = useUser()
     const createOrUpdateUser = useMutation(api.auth.createOrUpdateUser)
+    const hasSynced = useRef(false)
 
     useEffect(() => {
         const syncUser = async () => {
-            if (isAuthLoaded && isUserLoaded && userId && user) {
+            if (isAuthLoaded && isUserLoaded && userId && user && !hasSynced.current) {
                 try {
                     await createOrUpdateUser({
                         clerkId: userId,
@@ -22,6 +23,7 @@ export default function UserSyncWrapper({ children }: { children: React.ReactNod
                         secondLastName: undefined,
                         role: user.publicMetadata?.role as any,
                     })
+                    hasSynced.current = true
                     console.log("[UserSyncWrapper] User synced successfully")
                 } catch (error) {
                     console.error("[UserSyncWrapper] Error syncing user:", error)
@@ -30,7 +32,7 @@ export default function UserSyncWrapper({ children }: { children: React.ReactNod
         }
 
         syncUser()
-    }, [isAuthLoaded, isUserLoaded, userId, user?.publicMetadata?.role, createOrUpdateUser])
+    }, [isAuthLoaded, isUserLoaded, userId, user, createOrUpdateUser])
 
     return <>{children}</>
 }

@@ -10,9 +10,13 @@
  * Handles user administration, program management, period management, and system analytics
  */
 
-import { query, mutation } from "./_generated/server";
+import { query, mutation, action } from "./_generated/server";
+import { api } from "./_generated/api"
+import type { ActionCtx } from "./_generated/server";
 import { v, ConvexError } from "convex/values";
 import type { Doc } from "./_generated/dataModel";
+import type { Id } from "./_generated/dataModel";
+import { addressValidator } from "./types";
 import {
     getUserByClerkId,
     getActiveStudentsCount,
@@ -1076,57 +1080,6 @@ export const deletePeriod = mutation({
 // -------------------------------------- Professor management for admin interface ----------------------------------------
 
 /**
- * Create a new user with the 'professor' role (Admin only)
- * Note: This creates a user record in Convex but does not create a login in Clerk.
- * The professor would need to be invited or sign up with the same email.
- */
-export const adminCreateProfessor = mutation({
-    args: {
-        firstName: v.string(),
-        lastName: v.string(),
-        email: v.string(),
-        employeeCode: v.string(),
-        // Add other fields from the form as optional
-        title: v.optional(v.string()),
-        department: v.optional(v.string()),
-    },
-    handler: async (ctx, args) => {
-        const identity = await ctx.auth.getUserIdentity();
-        if (!identity) throw new ConvexError("Not authenticated");
-        const user = await getUserByClerkId(ctx.db, identity.subject);
-        if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
-            throw new ConvexError("Admin access required");
-        }
-        
-        // Check for existing user by email or employee code
-        const existingByEmail = await ctx.db.query("users").withIndex("by_email", q => q.eq("email", args.email)).first();
-        if(existingByEmail) throw new ConvexError("A user with this email already exists.");
-
-        // NOTE: To check employee code efficiently, an index would be needed on `professorProfile.employeeCode`.
-        // For now, we'll skip this check as it would require a schema change.
-
-        // This is a placeholder for clerkId. In a real scenario, you'd likely use the Clerk
-        // backend API to create the user, get their ID, and then store it here.
-        const placeholderClerkId = `placeholder_${Date.now()}`;
-
-        return await ctx.db.insert("users", {
-            clerkId: placeholderClerkId,
-            email: args.email,
-            firstName: args.firstName,
-            lastName: args.lastName,
-            role: "professor",
-            isActive: true, // Professors created by admin are active by default
-            createdAt: Date.now(),
-            professorProfile: {
-                employeeCode: args.employeeCode,
-                title: args.title,
-                department: args.department,
-            },
-        });
-    },
-});
-
-/**
  * Update a professor's profile (Admin only)
  */
 export const adminUpdateProfessor = mutation({
@@ -1282,92 +1235,6 @@ export const adminGetSections = query({
     },
 });
 
-// -------------------------------------- Student management for admin interface ----------------------------------------
-
-/**
- * Create a new user with the 'student' role (Admin only)
- */
-export const adminCreateStudent = mutation({
-  args: {
-    // Required fields (keep these)
-    firstName: v.string(),
-    lastName: v.string(),
-    email: v.string(),
-    studentCode: v.string(),
-    programId: v.id("programs"),
-    enrollmentDate: v.number(),
-    status: v.union(v.literal("active"), v.literal("inactive"), v.literal("on_leave"), v.literal("graduated"), v.literal("withdrawn")),
-    
-    // New optional fields
-    secondLastName: v.optional(v.string()),
-    dateOfBirth: v.optional(v.number()),
-    nationality: v.optional(v.string()),
-    documentType: v.optional(v.union(v.literal("passport"), v.literal("national_id"), v.literal("driver_license"), v.literal("other"))),
-    documentNumber: v.optional(v.string()),
-    phone: v.optional(v.string()),
-    country: v.optional(v.string()),
-    address: v.optional(v.object({
-      street: v.string(),
-      city: v.string(),
-      state: v.string(),
-      zipCode: v.string(),
-      country: v.string(),
-    })),
-    academicStanding: v.optional(v.union(v.literal("good_standing"), v.literal("probation"), v.literal("suspension"))),
-    expectedGraduationDate: v.optional(v.number()),
-  },
-  handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new ConvexError("Not authenticated");
-    const user = await getUserByClerkId(ctx.db, identity.subject);
-    if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
-      throw new ConvexError("Admin access required");
-    }
-
-    const existingByEmail = await ctx.db.query("users").withIndex("by_email", q => q.eq("email", args.email)).first();
-    if (existingByEmail) throw new ConvexError("A user with this email already exists.");
-
-    const placeholderClerkId = `placeholder_student_${Date.now()}`;
-
-    const studentId = await ctx.db.insert("users", {
-      clerkId: placeholderClerkId,
-      email: args.email,
-      firstName: args.firstName,
-      lastName: args.lastName,
-      secondLastName: args.secondLastName,
-      dateOfBirth: args.dateOfBirth,
-      nationality: args.nationality,
-      documentType: args.documentType,
-      documentNumber: args.documentNumber,
-      phone: args.phone,
-      country: args.country,
-      address: args.address,
-      role: "student",
-      isActive: true,
-      createdAt: Date.now(),
-      studentProfile: {
-        studentCode: args.studentCode,
-        programId: args.programId,
-        enrollmentDate: args.enrollmentDate,
-        expectedGraduationDate: args.expectedGraduationDate,
-        status: args.status,
-        academicStanding: args.academicStanding || "good_standing",
-      },
-    });
-
-    await ctx.db.insert("systemLogs", {
-      entityId: studentId,
-      entityType: "student",
-      action: "created",
-      description: `New student created: ${args.firstName} ${args.lastName}`,
-      userId: user._id,
-      metadata: { email: args.email }
-    });
-
-    return studentId;
-  },
-});
-
 /**
  * Update a student's profile information (Admin only)
  */
@@ -1457,4 +1324,122 @@ export const adminUpdateStudent = mutation({
     await ctx.db.patch(studentId, updateObject);
     return studentId;
   },
+});
+
+/**
+ * Create a new user in Clerk and sync with Convex
+ * This is called by admins when creating students/professors
+ */
+export const createUserWithClerk = action({
+    args: {
+        email: v.string(),
+        firstName: v.string(),
+        lastName: v.string(),
+        secondLastName: v.optional(v.string()),
+        role: v.union(
+            v.literal("student"),
+            v.literal("professor"),
+            v.literal("admin")
+        ),
+        
+        // **THE FIX**: Add all the optional personal fields from the form.
+        dateOfBirth: v.optional(v.number()),
+        nationality: v.optional(v.string()),
+        documentType: v.optional(v.union(
+            v.literal("passport"),
+            v.literal("national_id"),
+            v.literal("driver_license"),
+            v.literal("other")
+        )),
+        documentNumber: v.optional(v.string()),
+        phone: v.optional(v.string()),
+        country: v.optional(v.string()),
+        address: v.optional(addressValidator), // Use the existing addressValidator
+
+        // Student-specific profile (no changes needed here)
+        studentProfile: v.optional(v.object({
+            studentCode: v.string(),
+            programId: v.id("programs"),
+            enrollmentDate: v.number(),
+            status: v.union(
+                v.literal("active"),
+                v.literal("inactive"),
+                v.literal("on_leave"),
+                v.literal("graduated"),
+                v.literal("withdrawn")
+            ),
+        })),
+
+        // Professor-specific profile (no changes needed here)
+        professorProfile: v.optional(v.object({
+            employeeCode: v.string(),
+            title: v.optional(v.string()),
+            department: v.optional(v.string()),
+            hireDate: v.optional(v.number()),
+        })),
+    },
+    handler: async (
+        ctx: ActionCtx,
+        args: any
+    ): Promise<{ success: boolean; message: string; }> => {
+        const clerkAPIKey = process.env.CLERK_SECRET_KEY;
+        if (!clerkAPIKey) {
+            throw new Error("CLERK_SECRET_KEY environment variable is not set.");
+        }
+
+        // **STEP 1: ONLY CREATE INVITATION (removed manual user creation)**
+        const invitationResponse = await fetch("https://api.clerk.com/v1/invitations", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${clerkAPIKey}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email_address: args.email,
+                public_metadata: { role: args.role },
+                redirect_url: `${process.env.NEXT_PUBLIC_APP_URL}/`,
+                ignore_existing: true,
+            }),
+        });
+
+        if (!invitationResponse.ok) {
+            const errorBody = await invitationResponse.text();
+            throw new Error(`Failed to create Clerk invitation: ${errorBody}`);
+        }
+
+        // **STEP 2: CREATE PENDING USER IN CONVEX**
+        const pendingClerkId = `pending_${args.email}_${Date.now()}`;
+        
+        const userId = await ctx.runMutation(api.auth.createOrUpdateUser, {
+            clerkId: pendingClerkId,
+            email: args.email,
+            firstName: args.firstName,
+            lastName: args.lastName,
+            secondLastName: args.secondLastName,
+            role: args.role,
+            dateOfBirth: args.dateOfBirth,
+            nationality: args.nationality,
+            documentType: args.documentType,
+            documentNumber: args.documentNumber,
+            phone: args.phone,
+            country: args.country,
+            address: args.address,
+        });
+
+        // **STEP 3: ADD ROLE-SPECIFIC PROFILE**
+        if (args.studentProfile || args.professorProfile) {
+            await ctx.runMutation(api.auth.updateUserRole, {
+                userId,
+                role: args.role,
+                isActive: false,
+                studentProfile: args.studentProfile,
+                professorProfile: args.professorProfile,
+            });
+        }
+
+        return {
+            success: true,
+            message: "Invitation sent successfully. User will be activated after accepting the invitation.",
+        };
+    },
 });
