@@ -41,7 +41,7 @@ export const getAllCourses = query({
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
         if (!identity) {
-            throw new ConvexError("Not authenticated");
+            return [];
         }
 
         let courses: Doc<"courses">[];

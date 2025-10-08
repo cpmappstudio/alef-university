@@ -32,12 +32,12 @@ export const getStudentDashboard = query({
     handler: async (ctx) => {
         const identity = await ctx.auth.getUserIdentity();
         if (!identity) {
-            throw new ConvexError("Not authenticated");
+            return null; // Keep this - user might not be authenticated yet
         }
 
         const user = await getUserByClerkId(ctx.db, identity.subject);
         if (!user || user.role !== "student" || !user.studentProfile) {
-            throw new ConvexError("Student not found or invalid role");
+            return null; // Return null for graceful handling
         }
 
         const currentPeriod = await getCurrentPeriod(ctx.db);
@@ -175,12 +175,12 @@ export const getProfessorDashboard = query({
     handler: async (ctx) => {
         const identity = await ctx.auth.getUserIdentity();
         if (!identity) {
-            throw new ConvexError("Not authenticated");
+            return null;
         }
 
         const user = await getUserByClerkId(ctx.db, identity.subject);
         if (!user || user.role !== "professor") {
-            throw new ConvexError("Professor access required");
+            return null;
         }
 
         const now = Date.now();
@@ -302,10 +302,20 @@ export const getAdminDashboard = query({
     args: {},
     handler: async (ctx) => {
         const identity = await ctx.auth.getUserIdentity();
-        if (!identity) throw new ConvexError("Not authenticated");
+        if (!identity) {
+            console.log("[getAdminDashboard] No identity found");
+            return null; // Return null instead of throwing
+        }
+        
         const user = await getUserByClerkId(ctx.db, identity.subject);
-        if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
-            throw new ConvexError("Admin access required");
+        if (!user) {
+            console.log("[getAdminDashboard] User not found in database for clerkId:", identity.subject);
+            return null; // Return null instead of throwing
+        }
+        
+        if (user.role !== "admin" && user.role !== "superadmin") {
+            console.log("[getAdminDashboard] User role check failed. Current role:", user.role);
+            return null; // Return null instead of throwing
         }
 
         const currentPeriod = await getCurrentPeriod(ctx.db);

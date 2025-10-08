@@ -26,17 +26,28 @@ export const createOrUpdateUser = mutation({
         firstName: v.string(),
         lastName: v.string(),
         secondLastName: v.optional(v.string()),
+        role: v.optional(roleValidator), // Add role parameter
     },
     handler: async (ctx, args) => {
         // Check if user already exists
         const existingUser = await getUserByClerkId(ctx.db, args.clerkId);
 
         if (existingUser) {
-            // Update existing user's login time
-            await ctx.db.patch(existingUser._id, {
+            // Update existing user's login time and sync role from Clerk
+            const updateData: any = {
                 lastLoginAt: Date.now(),
                 updatedAt: Date.now(),
-            });
+            };
+
+            // If role is provided from Clerk metadata, sync it
+            if (args.role) {
+                updateData.role = args.role;
+                // Activate user if they have a role assigned
+                updateData.isActive = true;
+                console.log(`[createOrUpdateUser] Syncing role for user ${existingUser._id}: ${args.role}`);
+            }
+
+            await ctx.db.patch(existingUser._id, updateData);
             return existingUser._id;
         }
 
@@ -48,13 +59,16 @@ export const createOrUpdateUser = mutation({
             lastName: args.lastName,
             secondLastName: args.secondLastName,
 
-            // Default role - will be updated by admin
-            role: "student",
-            isActive: false, // Inactive until admin activation
+            // Use role from Clerk if provided, otherwise default to student
+            role: args.role || "student",
+            // Activate user if they have a role assigned
+            isActive: args.role ? true : false,
 
             createdAt: Date.now(),
             lastLoginAt: Date.now(),
         });
+
+        console.log(`[createOrUpdateUser] Created new user ${userId} with role: ${args.role || "student"}`);
 
         return userId;
     },

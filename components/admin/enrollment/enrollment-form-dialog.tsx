@@ -337,9 +337,9 @@ export function EnrollmentFormDialog({
                       </SelectTrigger>
                       <SelectContent className="bg-background border-border shadow-lg">
                         {students === undefined ? (
-                          <SelectItem value="" disabled>Loading students...</SelectItem>
+                          <div className="py-2 px-3 text-sm text-muted-foreground">Loading students...</div>
                         ) : students.length === 0 ? (
-                          <SelectItem value="" disabled>No students available</SelectItem>
+                          <div className="py-2 px-3 text-sm text-muted-foreground">No students available</div>
                         ) : (
                           students.map((student) => (
                             <SelectItem
@@ -373,9 +373,9 @@ export function EnrollmentFormDialog({
                       </SelectTrigger>
                       <SelectContent className="bg-background border-border shadow-lg">
                         {courses === undefined ? (
-                          <SelectItem value="" disabled>Loading courses...</SelectItem>
+                          <div className="py-2 px-3 text-sm text-muted-foreground">Loading courses...</div>
                         ) : courses.length === 0 ? (
-                          <SelectItem value="" disabled>No courses available</SelectItem>
+                          <div className="py-2 px-3 text-sm text-muted-foreground">No courses available</div>
                         ) : (
                           courses.map((course) => (
                             <SelectItem
@@ -411,9 +411,9 @@ export function EnrollmentFormDialog({
                       </SelectTrigger>
                       <SelectContent className="bg-background border-border shadow-lg">
                         {sections === undefined ? (
-                          <SelectItem value="" disabled>Loading sections...</SelectItem>
+                          <div className="py-2 px-3 text-sm text-muted-foreground">Loading sections...</div>
                         ) : sections.length === 0 ? (
-                          <SelectItem value="" disabled>No sections available</SelectItem>
+                          <div className="py-2 px-3 text-sm text-muted-foreground">No sections available</div>
                         ) : (
                           sections
                             .filter(section => 
@@ -450,9 +450,9 @@ export function EnrollmentFormDialog({
                       </SelectTrigger>
                       <SelectContent className="bg-background border-border shadow-lg">
                         {periods === undefined ? (
-                          <SelectItem value="" disabled>Loading periods...</SelectItem>
+                          <div className="py-2 px-3 text-sm text-muted-foreground">Loading periods...</div>
                         ) : periods.length === 0 ? (
-                          <SelectItem value="" disabled>No periods available</SelectItem>
+                          <div className="py-2 px-3 text-sm text-muted-foreground">No periods available</div>
                         ) : (
                           periods.map((period) => (
                             <SelectItem
@@ -488,9 +488,9 @@ export function EnrollmentFormDialog({
                       </SelectTrigger>
                       <SelectContent className="bg-background border-border shadow-lg">
                         {professors === undefined ? (
-                          <SelectItem value="" disabled>Loading professors...</SelectItem>
+                          <div className="py-2 px-3 text-sm text-muted-foreground">Loading professors...</div>
                         ) : professors.length === 0 ? (
-                          <SelectItem value="" disabled>No professors available</SelectItem>
+                          <div className="py-2 px-3 text-sm text-muted-foreground">No professors available</div>
                         ) : (
                           professors.map((professor) => (
                             <SelectItem

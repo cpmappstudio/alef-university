@@ -40,12 +40,14 @@ export const getAllUsers = query({
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
         if (!identity) {
-            throw new ConvexError("Not authenticated");
+            // Return empty array instead of throwing error
+            return [];
         }
 
         const currentUser = await getUserByClerkId(ctx.db, identity.subject);
         if (!currentUser || (currentUser.role !== "admin" && currentUser.role !== "superadmin")) {
-            throw new ConvexError("Admin access required");
+            // Return empty array instead of throwing error
+            return [];
         }
 
         // Base query
@@ -655,7 +657,7 @@ export const getAdminEnrollments = query({
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) {
-      throw new ConvexError("Not authenticated");
+      return [];
     }
 
     const user = await getUserByClerkId(ctx.db, identity.subject);
@@ -959,7 +961,7 @@ export const getAllPeriods = query({
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
         if (!identity) {
-            throw new ConvexError("Not authenticated");
+            return [];
         }
 
         const currentUser = await getUserByClerkId(ctx.db, identity.subject);
@@ -1219,7 +1221,7 @@ export const adminGetSections = query({
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
         if (!identity) {
-            throw new ConvexError("Not authenticated");
+            return [];
         }
         const user = await getUserByClerkId(ctx.db, identity.subject);
         if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
