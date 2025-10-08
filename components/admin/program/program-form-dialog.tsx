@@ -189,12 +189,20 @@ export function ProgramFormDialog({
     const errors: string[] = [];
     
     if (!data.code.trim()) errors.push("Program code is required");
-    if (!data.nameEs.trim()) errors.push("Spanish name is required");
-    if (!data.descriptionEs.trim()) errors.push("Spanish description is required");
     if (!data.type) errors.push("Program type is required");
     if (!data.language) errors.push("Teaching language is required");
     if (data.totalCredits <= 0) errors.push("Total credits must be greater than 0");
     if (data.durationBimesters <= 0) errors.push("Duration must be greater than 0");
+
+    if (data.language === "es" || data.language === "both") {
+      if (!data.nameEs.trim()) errors.push("Spanish name is required");
+      if (!data.descriptionEs.trim()) errors.push("Spanish description is required");
+    }
+    
+    if (data.language === "en" || data.language === "both") {
+      if (!data.nameEn.trim()) errors.push("English name is required");
+      if (!data.descriptionEn.trim()) errors.push("English description is required");
+    }
     
     return errors;
   };
@@ -378,7 +386,7 @@ export function ProgramFormDialog({
                   placeholder="Enter program name in Spanish"
                   className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   disabled={isCreate ? !fieldEnabled.nameEs : !fieldEnabled.nameEs}
-                  required
+                  required={formData.language === "es" || formData.language === "both"}
                 />
               </div>
               <div className="space-y-2">
@@ -395,6 +403,7 @@ export function ProgramFormDialog({
                   placeholder="Enter program name in English"
                   className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   disabled={isCreate ? !fieldEnabled.nameEn : !fieldEnabled.nameEn}
+                  required={formData.language === "en" || formData.language === "both"}
                 />
               </div>
             </div>
@@ -417,7 +426,7 @@ export function ProgramFormDialog({
                   placeholder="Enter program description in Spanish"
                   className="min-h-[100px] resize-none border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   disabled={!fieldEnabled.descriptionEs}
-                  required
+                  required={formData.language === "es" || formData.language === "both"}
                 />
               </div>
 
@@ -437,6 +446,7 @@ export function ProgramFormDialog({
                   placeholder="Enter program description in English"
                   className="min-h-[100px] resize-none border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   disabled={!fieldEnabled.descriptionEn}
+                  required={formData.language === "en" || formData.language === "both"}
                 />
               </div>
             </div>
@@ -462,13 +472,11 @@ export function ProgramFormDialog({
                 <Input
                   id="totalCredits"
                   type="number"
-                  value={formData.totalCredits}
-                  onChange={(e) =>
-                    updateFormData(
-                      "totalCredits",
-                      parseInt(e.target.value) || 0,
-                    )
-                  }
+                  value={formData.totalCredits === 0 ? "" : formData.totalCredits}
+                  onChange={(e) => {
+                    const value = e.target.value === "" ? 0 : parseInt(e.target.value);
+                    updateFormData("totalCredits", isNaN(value) ? 0 : value);
+                  }}
                   className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   min="1"
                   disabled={!isCreate}
@@ -486,13 +494,11 @@ export function ProgramFormDialog({
                 <Input
                   id="durationBimesters"
                   type="number"
-                  value={formData.durationBimesters}
-                  onChange={(e) =>
-                    updateFormData(
-                      "durationBimesters",
-                      parseInt(e.target.value) || 0,
-                    )
-                  }
+                  value={formData.durationBimesters === 0 ? "" : formData.durationBimesters}
+                  onChange={(e) => {
+                    const value = e.target.value === "" ? 0 : parseInt(e.target.value);
+                    updateFormData("durationBimesters", isNaN(value) ? 0 : value);
+                  }}
                   className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   min="1"
                   disabled={!isCreate}
@@ -509,13 +515,11 @@ export function ProgramFormDialog({
                 <Input
                   id="tuitionPerCredit"
                   type="number"
-                  value={formData.tuitionPerCredit}
-                  onChange={(e) =>
-                    updateFormData(
-                      "tuitionPerCredit",
-                      parseFloat(e.target.value) || 0,
-                    )
-                  }
+                  value={formData.tuitionPerCredit === 0 ? "" : formData.tuitionPerCredit}
+                  onChange={(e) => {
+                    const value = e.target.value === "" ? 0 : parseFloat(e.target.value);
+                    updateFormData("tuitionPerCredit", isNaN(value) ? 0 : value);
+                  }}
                   className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   min="0"
                   step="0.01"
