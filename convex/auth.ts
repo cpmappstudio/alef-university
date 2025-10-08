@@ -43,25 +43,51 @@ export const createOrUpdateUser = mutation({
         address: v.optional(addressValidator),
     },
     handler: async (ctx, args) => {
-        const existingUser = await getUserByClerkId(ctx.db, args.clerkId);
+        const existingByClerkId = await ctx.db
+            .query("users")
+            .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.clerkId))
+            .first();
 
-        if (existingUser) {
-            // ... (update logic is fine)
-            return existingUser._id;
+        const existingByEmail = await ctx.db
+            .query("users")
+            .withIndex("by_email", (q) => q.eq("email", args.email))
+            .first();
+
+        if (existingByClerkId) {
+            await ctx.db.patch(existingByClerkId._id, {
+                email: args.email,
+                firstName: args.firstName,
+                lastName: args.lastName,
+                secondLastName: args.secondLastName,
+                role: args.role,
+                dateOfBirth: args.dateOfBirth,
+                nationality: args.nationality,
+                documentType: args.documentType,
+                documentNumber: args.documentNumber,
+                phone: args.phone,
+                country: args.country,
+                address: args.address,
+                updatedAt: Date.now(),
+            });
+            return existingByClerkId._id;
+        } 
+        
+        if (existingByEmail && !existingByEmail.clerkId.startsWith("pending_")) {
+            throw new Error("Email address already exists");
         }
 
-        // **THE FIX**: Pass all the new fields when inserting the new user.
+        if (existingByEmail && existingByEmail.clerkId.startsWith("pending_")) {
+            return existingByEmail._id;
+        }
+
         const userId = await ctx.db.insert("users", {
             clerkId: args.clerkId,
             email: args.email,
             firstName: args.firstName,
             lastName: args.lastName,
             secondLastName: args.secondLastName,
-            role: args.role || "student",
-            isActive: args.role ? true : false,
-            createdAt: Date.now(),
-            lastLoginAt: Date.now(),
-            // Add the new fields to be saved in the database
+            role: args.role ?? "student",
+            isActive: args.clerkId.startsWith("pending_") ? false : true,
             dateOfBirth: args.dateOfBirth,
             nationality: args.nationality,
             documentType: args.documentType,
@@ -69,9 +95,8 @@ export const createOrUpdateUser = mutation({
             phone: args.phone,
             country: args.country,
             address: args.address,
+            createdAt: Date.now(),
         });
-
-        console.log(`[createOrUpdateUser] Created new user ${userId} with role: ${args.role || "student"}`);
 
         return userId;
     },

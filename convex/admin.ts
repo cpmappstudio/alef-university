@@ -1387,6 +1387,8 @@ export const createUserWithClerk = action({
             throw new Error("CLERK_SECRET_KEY environment variable is not set.");
         }
 
+        const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+
         // **STEP 1: ONLY CREATE INVITATION (removed manual user creation)**
         const invitationResponse = await fetch("https://api.clerk.com/v1/invitations", {
             method: "POST",
@@ -1397,7 +1399,7 @@ export const createUserWithClerk = action({
             body: JSON.stringify({
                 email_address: args.email,
                 public_metadata: { role: args.role },
-                redirect_url: `${process.env.NEXT_PUBLIC_APP_URL}/`,
+                redirect_url: `${appUrl}/sign-up`,
                 ignore_existing: true,
             }),
         });

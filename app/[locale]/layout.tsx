@@ -76,9 +76,7 @@ export default async function RootLayout({
                     >
                         <ConvexClientProvider>
                             <NextIntlClientProvider messages={messages}>
-                                <UserSyncWrapper>
-                                    {children}
-                                </UserSyncWrapper>
+                                {children}
                             </NextIntlClientProvider>
                         </ConvexClientProvider>
                     </ClerkProvider>
