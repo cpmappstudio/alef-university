@@ -28,13 +28,15 @@ import { Course } from "../types";
 import { Textarea } from "@/components/ui/textarea";
 
 interface CourseFormDialogProps {
-  course: Course;
+  mode: "create" | "edit";
+  course?: Course;
   trigger?: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
 
 export function CourseFormDialog({
+  mode,
   course,
   trigger,
   open: controlledOpen,
@@ -46,11 +48,12 @@ export function CourseFormDialog({
   const [activeTab, setActiveTab] = React.useState("general");
 
   // Convex mutations and queries
+  const createCourse = useMutation(api.courses.createCourse);
   const updateCourse = useMutation(api.courses.updateCourse);
   const deleteCourse = useMutation(api.courses.deleteCourse);
-  const courseWithSections = useQuery(api.courses.getCourseWithSections, {
+  const courseWithSections = course ? useQuery(api.courses.getCourseWithSections, {
     courseId: course._id,
-  });
+  }) : undefined;
 
   // Use controlled or internal state
   const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
@@ -58,21 +61,37 @@ export function CourseFormDialog({
 
   // Initialize form data based on course
   const initialFormData = React.useMemo(() => {
+    if (mode === "edit" && course) {
+      return {
+        nameEs: course.nameEs,
+        nameEn: course.nameEn || "",
+        descriptionEs: course.descriptionEs,
+        descriptionEn: course.descriptionEn || "",
+        credits: course.credits,
+        level: course.level || "introductory",
+        language: course.language,
+        category: course.category,
+        prerequisites: course.prerequisites.join(", "), // Convert array to comma-separated string
+        corequisites: course.corequisites?.join(", ") || "", // Convert array to comma-separated string
+        syllabus: course.syllabus || "",
+        isActive: course.isActive,
+      };
+    }
     return {
-      nameEs: course.nameEs,
-      nameEn: course.nameEn || "",
-      descriptionEs: course.descriptionEs,
-      descriptionEn: course.descriptionEn || "",
-      credits: course.credits,
-      level: course.level || "introductory",
-      language: course.language,
-      category: course.category,
-      prerequisites: course.prerequisites.join(", "), // Convert array to comma-separated string
-      corequisites: course.corequisites?.join(", ") || "", // Convert array to comma-separated string
-      syllabus: course.syllabus || "",
-      isActive: course.isActive,
+      nameEs: "",
+      nameEn: "",
+      descriptionEs: "",
+      descriptionEn: "",
+      credits: 0,
+      level: "introductory",
+      language: "es",
+      category: "core",
+      prerequisites: "",
+      corequisites: "",
+      syllabus: "",
+      isActive: true,
     };
-  }, [course]);
+  }, [mode, course]);
 
   const [formData, setFormData] = React.useState(initialFormData);
 
@@ -95,28 +114,51 @@ export function CourseFormDialog({
     setIsLoading(true);
 
     try {
-      await updateCourse({
-        courseId: course._id,
-        nameEs: formData.nameEs,
-        nameEn: formData.nameEn || undefined,
-        descriptionEs: formData.descriptionEs,
-        descriptionEn: formData.descriptionEn || undefined,
-        credits: formData.credits,
-        level: formData.level as "introductory" | "intermediate" | "advanced" | "graduate",
-        language: formData.language,
-        category: formData.category,
-        prerequisites: formData.prerequisites
-          ? formData.prerequisites.split(',').map(p => p.trim()).filter(p => p)
-          : [],
-        corequisites: formData.corequisites && formData.corequisites.trim() !== ""
-          ? formData.corequisites.split(',').map(p => p.trim()).filter(p => p)
-          : undefined,
-        syllabus: formData.syllabus.trim() || undefined,
-        isActive: formData.isActive,
-      });
+      if (mode === "create") {
+        await createCourse({
+          code: `COURSE${Date.now()}`,
+          nameEs: formData.nameEs,
+          nameEn: formData.nameEn || undefined,
+          descriptionEs: formData.descriptionEs,
+          descriptionEn: formData.descriptionEn || undefined,
+          credits: formData.credits,
+          level: formData.level as "introductory" | "intermediate" | "advanced" | "graduate",
+          language: formData.language as "es" | "en" | "both",
+          category: formData.category as "humanities" | "core" | "elective" | "general",
+          prerequisites: formData.prerequisites
+            ? formData.prerequisites.split(',').map(p => p.trim()).filter(p => p)
+            : [],
+          corequisites: formData.corequisites && formData.corequisites.trim() !== ""
+            ? formData.corequisites.split(',').map(p => p.trim()).filter(p => p)
+            : undefined,
+          syllabus: formData.syllabus.trim() || undefined,
+        });
+        alert("Course created successfully!");
+        setOpen(false);
+      } else if (mode === "edit" && course) {
+        await updateCourse({
+          courseId: course._id,
+          nameEs: formData.nameEs,
+          nameEn: formData.nameEn || undefined,
+          descriptionEs: formData.descriptionEs,
+          descriptionEn: formData.descriptionEn || undefined,
+          credits: formData.credits,
+          level: formData.level as "introductory" | "intermediate" | "advanced" | "graduate",
+          language: formData.language as "es" | "en" | "both",
+          category: formData.category as "humanities" | "core" | "elective" | "general",
+          prerequisites: formData.prerequisites
+            ? formData.prerequisites.split(',').map(p => p.trim()).filter(p => p)
+            : [],
+          corequisites: formData.corequisites && formData.corequisites.trim() !== ""
+            ? formData.corequisites.split(',').map(p => p.trim()).filter(p => p)
+            : undefined,
+          syllabus: formData.syllabus.trim() || undefined,
+          isActive: formData.isActive,
+        });
 
-      alert("Course updated successfully!");
-      setOpen(false);
+        alert("Course updated successfully!");
+        setOpen(false);
+      }
     } catch (error) {
       console.error("Failed to update course:", error);
       alert("Failed to update course. Please try again.");
@@ -144,10 +186,10 @@ export function CourseFormDialog({
       // Name fields: disabled if they already have a value, enabled if empty and language allows
       nameEs:
         languageEnabled.nameEs &&
-        (!course.nameEs || course.nameEs.trim() === ""),
+        (!course?.nameEs || course.nameEs.trim() === ""),
       nameEn:
         languageEnabled.nameEn &&
-        (!course.nameEn || course.nameEn.trim() === ""),
+        (!course?.nameEn || course.nameEn.trim() === ""),
       // Description fields: always follow language rules (always editable when language allows)
       descriptionEs: languageEnabled.descriptionEs,
       descriptionEn: languageEnabled.descriptionEn,
@@ -155,6 +197,7 @@ export function CourseFormDialog({
   };
 
   const handleDelete = async () => {
+    if (!course) return;
     if (!confirm(`Are you sure you want to delete the course "${course.nameEs}"? This action cannot be undone.`)) {
       return;
     }
@@ -175,7 +218,7 @@ export function CourseFormDialog({
 
   const fieldEnabled = getFieldEnabledState();
 
-  const dialogTitle = "Edit Course";
+  const dialogTitle = mode === "edit" ? "Edit Course" : "Create Course";
   const dialogDescription = "Update the course information below";
 
   const dialogContent = (
@@ -217,7 +260,7 @@ export function CourseFormDialog({
                     </Label>
                     <Input
                       id="code"
-                      value={course.code}
+                      value={course?.code}
                       className="h-11 border-border bg-muted/50 text-muted-foreground"
                       disabled
                       readOnly
@@ -555,25 +598,27 @@ export function CourseFormDialog({
 
             <DialogFooter className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-border bg-muted/10 -mx-6 -mb-6 px-6 pb-6 rounded-b-xl">
               <div className="flex gap-3 w-full justify-end">
-                <Button
-                  type="button"
-                  variant="destructive"
-                  onClick={handleDelete}
-                  disabled={isDeleting || isLoading}
-                  className="px-6 py-2.5"
-                >
-                  {isDeleting ? (
-                    <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Deleting...
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-2">
-                      <Trash2 className="h-4 w-4" />
-                      Delete Course
-                    </div>
-                  )}
-                </Button>
+                {mode === "edit" && (
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    onClick={handleDelete}
+                    disabled={isDeleting || isLoading}
+                    className="px-6 py-2.5"
+                  >
+                    {isDeleting ? (
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        Deleting...
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <Trash2 className="h-4 w-4" />
+                        Delete Course
+                      </div>
+                    )}
+                  </Button>
+                )}
                 <Button type="submit" variant="default" disabled={isLoading}>
                   {isLoading ? (
                     <div className="flex items-center gap-2">

@@ -78,6 +78,7 @@ export default function CourseTable() {
     Course | undefined
   >();
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = React.useState(false); 
 
   // Get all programs for the filter dropdown
   const programs = useQuery(api.programs.getAllPrograms, { isActive: true });
@@ -541,10 +542,7 @@ export default function CourseTable() {
                     <Button
                       variant="default"
                       className="h-10 px-4 font-medium shadow-sm"
-                      onClick={() => {
-                        setSelectedCourse(undefined);
-                        setIsEditDialogOpen(true);
-                      }}
+                      onClick={() => setIsCreateDialogOpen(true)} // Correctly open the create dialog
                     >
                       <Plus className="h-4 w-4" />
                     </Button>
@@ -632,11 +630,18 @@ export default function CourseTable() {
       {/* Edit Course Dialog */}
       {selectedCourse && (
         <CourseFormDialog
+          mode="edit"
           course={selectedCourse}
           open={isEditDialogOpen}
           onOpenChange={handleDialogClose}
         />
       )}
+
+      <CourseFormDialog
+        mode="create"
+        open={isCreateDialogOpen}
+        onOpenChange={setIsCreateDialogOpen}
+      />
     </div>
   );
 }

@@ -623,9 +623,9 @@ export function StudentFormDialog({
                       </SelectTrigger>
                       <SelectContent>
                         {!programs ? (
-                          <SelectItem value="" disabled>Loading programs...</SelectItem>
+                          <div className="text-center py-8">Loading programs...</div>
                         ) : programs.length === 0 ? (
-                          <SelectItem value="" disabled>No programs available</SelectItem>
+                          <div className="text-center py-8">No programs available</div>
                         ) : (
                           programs.map((program) => (
                             <SelectItem key={program._id} value={program._id}>
