@@ -200,6 +200,7 @@
                 "status": "Status",
                 "inProgress": "In Progress",
                 "pending": "Pending",
+                "completed": "Completed",
                 "viewHistory": "View History"
             },
             "creditDistribution": {

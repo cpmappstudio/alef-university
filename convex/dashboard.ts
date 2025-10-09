@@ -53,6 +53,22 @@ export const getStudentDashboard = query({
                 q.eq("studentId", user._id).eq("periodId", currentPeriod._id))
             .collect() : [];
 
+        const completedEnrollments = await ctx.db
+            .query("enrollments")
+            .withIndex("by_student_period", q => q.eq("studentId", user._id))
+            .filter(q => q.eq(q.field("status"), "completed"))
+            .collect();
+
+        const totalCreditsEarned = await Promise.all(
+            completedEnrollments.map(async (enrollment) => {
+                const course = await ctx.db.get(enrollment.courseId);
+                return course?.credits || 0;
+            })
+        ).then(credits => credits.reduce((sum, credit) => sum + credit, 0));
+
+        const completionPercentage = program?.totalCredits ? 
+            Math.round((totalCreditsEarned / program.totalCredits) * 100) : 0;
+
         const enrollmentDetails = await Promise.all(
             currentEnrollments.map(async (enrollment) => {
                 const [section, course, professor] = await Promise.all([
@@ -88,23 +104,24 @@ export const getStudentDashboard = query({
                 // Make sure status values exactly match the expected literal types
                 status: enrollment.status === "completed" ? "completed" as const : 
                         enrollment.status === "enrolled" ? "in-progress" as const : 
+                        enrollment.status === "in_progress" ? "in-progress" as const :
                         "pending" as const
             }))
         };
 
         // Format metrics data
         const metrics = {
-            completedCredits: academicProgress?.creditsCompleted || 0,
+            completedCredits: totalCreditsEarned,
             totalCredits: program?.totalCredits || 0,
-            completionPercentage: academicProgress?.completionPercentage || 0,
-            creditsRemaining: (program?.totalCredits || 0) - (academicProgress?.creditsCompleted || 0),
+            completionPercentage: completionPercentage,
+            creditsRemaining: (program?.totalCredits || 0) - totalCreditsEarned,
             gpa: gpaResult.gpa,
             currentPeriod: currentPeriod?.nameEs || "N/A",
             enrolledSubjects: enrollmentDetails.length,
             creditsInProgress: enrollmentDetails.reduce((sum, e) => sum + (e.course?.credits || 0), 0),
             currentBimester: 1,
-            progressPercentage: academicProgress?.completionPercentage || 0,
-            bimestersRemaining: Math.max(0, (program?.durationBimesters || 8) - 1) // Fixed - using available properties
+            progressPercentage: completionPercentage,
+            bimestersRemaining: Math.max(0, (program?.durationBimesters || 8) - 1)
         };
 
         // Format credit distribution data

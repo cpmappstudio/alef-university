@@ -119,7 +119,7 @@ export default function CurrentSubjectsCard({
                                     </TableCell>
                                     <TableCell className="text-center">
                                         <Badge variant={getStatusVariant(subject.status)}>
-                                            {subject.status === 'in-progress' ? t('currentSubjects.inProgress') : t('currentSubjects.pending')}
+                                            {subject.status === 'completed' ? t('currentSubjects.completed') : subject.status === 'in-progress' ? t('currentSubjects.inProgress') : t('currentSubjects.pending')}
                                         </Badge>
                                     </TableCell>
                                 </TableRow>

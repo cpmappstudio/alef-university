@@ -265,12 +265,15 @@ export const submitGrades = mutation({
             const gradePoints = calculateGradePoints(gradeSubmission.percentageGrade);
             const qualityPoints = calculateQualityPoints(gradePoints, course.credits);
 
-            // Update enrollment with grade
+            const finalStatus = gradeSubmission.percentageGrade >= 65 ? "completed" : "failed";
+
+            // Update enrollment with grade AND status
             await ctx.db.patch(gradeSubmission.enrollmentId, {
                 percentageGrade: gradeSubmission.percentageGrade,
                 letterGrade,
                 gradePoints,
                 qualityPoints,
+                status: finalStatus,
                 gradedBy: user._id,
                 gradedAt: Date.now(),
                 gradeNotes: gradeSubmission.gradeNotes,
@@ -359,12 +362,15 @@ export const updateGrade = mutation({
         const gradePoints = calculateGradePoints(args.percentageGrade);
         const qualityPoints = calculateQualityPoints(gradePoints, course.credits);
 
-        // Update enrollment with new grade
+        const finalStatus = args.percentageGrade >= 65 ? "completed" : "failed";
+
+        // Update enrollment with new grade AND status
         await ctx.db.patch(args.enrollmentId, {
             percentageGrade: args.percentageGrade,
             letterGrade,
             gradePoints,
             qualityPoints,
+            status: finalStatus,
             gradedBy: user._id,
             gradedAt: Date.now(),
             gradeNotes: args.gradeNotes,
