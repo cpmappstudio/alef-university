@@ -452,7 +452,7 @@ export const getMyTeachingHistory = query({
 
         const user = await getUserByClerkId(ctx.db, identity.subject);
         if (!user || user.role !== "professor") {
-            throw new ConvexError("Professor access required");
+            return []; // Return empty array instead of throwing error
         }
 
         // Get all sections taught by professor

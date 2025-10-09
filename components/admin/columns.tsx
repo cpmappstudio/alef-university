@@ -160,9 +160,8 @@ export const columnsPrograms: ColumnDef<Program>[] = [
       const isActive = row.getValue("isActive") as boolean;
       return (
         <span
-          className={`px-2 py-1 rounded-full text-xs ${
-            isActive ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-          }`}
+          className={`px-2 py-1 rounded-full text-xs ${isActive ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+            }`}
         >
           {isActive ? "Available" : "Unavailable"}
         </span>
@@ -385,9 +384,8 @@ export const columnsCourses: ColumnDef<Course>[] = [
       const isActive = row.getValue("isActive") as boolean;
       return (
         <span
-          className={`px-2 py-1 rounded-full text-xs ${
-            isActive ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-          }`}
+          className={`px-2 py-1 rounded-full text-xs ${isActive ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+            }`}
         >
           {isActive ? "Available" : "Unavailable"}
         </span>
@@ -427,10 +425,6 @@ export const columnsSections: ColumnDef<Section>[] = [
             {enrollmentStats && (
               <div className="flex flex-wrap items-center gap-1 text-xs">
                 <span>
-                  {section.enrolled}/{section.capacity}
-                </span>
-                <span>•</span>
-                <span>
                   {(() => {
                     const deliveryMethodMap = {
                       online_sync: "Online Sync",
@@ -440,7 +434,7 @@ export const columnsSections: ColumnDef<Section>[] = [
                     };
                     return (
                       deliveryMethodMap[
-                        section.deliveryMethod as keyof typeof deliveryMethodMap
+                      section.deliveryMethod as keyof typeof deliveryMethodMap
                       ] || section.deliveryMethod
                     );
                   })()}
@@ -472,30 +466,6 @@ export const columnsSections: ColumnDef<Section>[] = [
       const section = row.original;
       const professorName = (section as any).professorName || "TBD";
       return <span className="hidden lg:inline">{professorName}</span>;
-    },
-  },
-  {
-    accessorKey: "enrolled",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="hidden lg:flex"
-        >
-          Enrolled
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const section = row.original;
-
-      return (
-        <span className="hidden lg:inline">
-          {row.getValue("enrolled")}/{section.capacity}
-        </span>
-      );
     },
   },
   {
@@ -562,9 +532,8 @@ export const columnsSections: ColumnDef<Section>[] = [
       const isActive = row.getValue("isActive") as boolean;
       return (
         <span
-          className={`px-2 py-1 rounded-full text-xs ${
-            isActive ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-          }`}
+          className={`px-2 py-1 rounded-full text-xs ${isActive ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+            }`}
         >
           {isActive ? "Available" : "Unavailable"}
         </span>
@@ -846,7 +815,7 @@ export const columnsEnrollment: ColumnDef<Enrollment>[] = [
       const status = row.getValue("status") as string;
       const statusMap = {
         enrolled: "Enrolled",
-        withdrawn: "Withdrawn", 
+        withdrawn: "Withdrawn",
         dropped: "Dropped",
         completed: "Completed",
         failed: "Failed",
@@ -961,7 +930,7 @@ export const columnsStudent: ColumnDef<Student>[] = [
       const student = row.original;
       const fullName = `${student.firstName} ${student.lastName}`;
       const studentCode = student.studentProfile?.studentCode || "N/A";
-      const programId = student.studentProfile?.programId || "N/A";
+      const programName = (student as any).programName || "N/A";
 
       return (
         <div className="space-y-1 w-full">
@@ -976,7 +945,7 @@ export const columnsStudent: ColumnDef<Student>[] = [
               </span>
             </div>
             <div className="flex flex-wrap items-center gap-1 text-xs">
-              <span className="whitespace-nowrap">Program: {programId}</span>
+              <span className="whitespace-nowrap">{programName}</span>
             </div>
           </div>
         </div>
@@ -1012,15 +981,15 @@ export const columnsStudent: ColumnDef<Student>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           className="hidden lg:flex"
         >
-          Program ID
+          Program
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
       const student = row.original;
-      const programId = student.studentProfile?.programId || "N/A";
-      return <span className="hidden lg:inline">{programId}</span>;
+      const programName = (student as any).programName || "N/A";
+      return <span className="hidden lg:inline">{programName}</span>;
     },
   },
   {
@@ -1043,7 +1012,7 @@ export const columnsStudent: ColumnDef<Student>[] = [
       if (!status) {
         return <Badge variant="secondary">Unknown</Badge>;
       }
-      
+
       const getStatusColor = (status: string) => {
         switch (status) {
           case "active":
@@ -1200,9 +1169,8 @@ export const columnsProfessor: ColumnDef<Professor>[] = [
       const isActive = row.getValue("isActive") as boolean;
       return (
         <span
-          className={`px-2 py-1 rounded-full text-xs ${
-            isActive ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-          }`}
+          className={`px-2 py-1 rounded-full text-xs ${isActive ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+            }`}
         >
           {isActive ? "Active" : "Inactive"}
         </span>

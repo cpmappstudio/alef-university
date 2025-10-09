@@ -40,20 +40,21 @@ export function SectionDetailsDialog({
     onOpenChange,
 }: SectionDetailsDialogProps) {
     const t = useTranslations("gradebook");
-    
+
     // Replace mock data with query to get real students
+    // Only execute query when dialog is open and section exists
     const students = useQuery(
         api.professors.getStudentsBySection,
-        section ? { sectionId: section._id as Id<"sections"> } : "skip"
+        open && section ? { sectionId: section._id as Id<"sections"> } : "skip"
     );
-    
+
     // Add mutation for submitting grades
     const submitGrades = useMutation(api.professors.submitGrades);
-    
+
     const [editedGrades, setEditedGrades] = React.useState<
         Record<string, { grade: string; notes: string }>
     >({});
-    
+
     // Initialize edited grades state when data loads
     React.useEffect(() => {
         if (students?.students && open) {
@@ -94,7 +95,7 @@ export function SectionDetailsDialog({
     // Update to use real submission endpoint
     const handleSaveGrades = async () => {
         if (!section || !students) return;
-        
+
         try {
             // Convert edited grades to the format expected by the API
             const gradesToSubmit = Object.entries(editedGrades)
@@ -104,14 +105,14 @@ export function SectionDetailsDialog({
                     gradeNotes: notes,
                 }))
                 .filter(g => !isNaN(g.percentageGrade)); // Filter out invalid grades
-            
+
             // Submit grades using the mutation with forceSubmit set to true
             await submitGrades({
                 sectionId: section._id as Id<"sections">,
                 grades: gradesToSubmit,
                 forceSubmit: true, // Add this line to bypass the period check
             });
-            
+
             alert(t("sectionDetails.gradesSaved"));
         } catch (error) {
             console.error("Failed to save grades:", error);
@@ -137,7 +138,7 @@ export function SectionDetailsDialog({
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
+            <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-background border-border shadow-2xl">
                 <DialogHeader>
                     <div className="flex items-start justify-between">
                         <div className="space-y-2">

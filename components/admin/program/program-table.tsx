@@ -63,7 +63,7 @@ export default function ProgramTable() {
 
     return programs.filter((program) => {
       // Name search filter
-      const nameMatch = 
+      const nameMatch =
         nameSearch === "" ||
         program.nameEs?.toLowerCase().includes(nameSearch.toLowerCase()) ||
         program.nameEn?.toLowerCase().includes(nameSearch.toLowerCase()) ||
@@ -133,8 +133,8 @@ export default function ProgramTable() {
                   <div className="flex items-center gap-3 w-full sm:w-auto">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button 
-                          variant="outline" 
+                        <Button
+                          variant="outline"
                           className="h-10 px-3 border-border/50 shadow-sm transition-colors hover:bg-accent/50"
                         >
                           <Filter className="h-4 w-4" />
@@ -148,7 +148,7 @@ export default function ProgramTable() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent className="w-72 p-4" align="end">
                         <DropdownMenuSeparator className="mb-4" />
-                        
+
                         <div className="space-y-4">
                           {/* Availability Filter */}
                           <div className="space-y-2">
@@ -221,11 +221,11 @@ export default function ProgramTable() {
                         </div>
                       </DropdownMenuContent>
                     </DropdownMenu>
-                    
+
                     {(activeFiltersCount > 0 || nameSearch !== "") && (
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
+                      <Button
+                        variant="ghost"
+                        size="sm"
                         onClick={() => {
                           setNameSearch("");
                           setProgramStatusFilter("all");
@@ -259,7 +259,7 @@ export default function ProgramTable() {
 
         {/* Data Table Section - Integrated */}
         <div className="bg-card">
-            <DataTable
+          <DataTable
             columns={columnsPrograms}
             data={filteredPrograms}
             onRowClick={handleRowClick}
@@ -272,16 +272,16 @@ export default function ProgramTable() {
             emptyState={{
               title: "No programs found",
               description: (() => {
-                const hasFilters = 
+                const hasFilters =
                   nameSearch !== "" ||
-                  programStatusFilter !== "all" || 
-                  programTypeFilter !== "all" || 
+                  programStatusFilter !== "all" ||
+                  programTypeFilter !== "all" ||
                   programLanguageFilter !== "all";
-                
+
                 if (!hasFilters) {
                   return "No programs have been created yet. Create your first program to get started.";
                 }
-                
+
                 const activeFilters = [];
                 if (nameSearch !== "") activeFilters.push(`"${nameSearch}"`);
                 if (programStatusFilter !== "all") activeFilters.push(programStatusFilter);
@@ -290,7 +290,7 @@ export default function ProgramTable() {
                   const languageLabel = programLanguageFilter === "en" ? "English" : programLanguageFilter === "es" ? "Spanish" : "Both languages";
                   activeFilters.push(languageLabel);
                 }
-                
+
                 return `No programs match the selected filters: ${activeFilters.join(", ")}. Try adjusting your filters.`;
               })()
             }}

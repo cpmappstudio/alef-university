@@ -392,10 +392,7 @@ export const createSection = mutation({
             throw new ConvexError("Professors can only create sections for themselves");
         }
 
-        // Validate capacity
-        if (args.capacity <= 0) {
-            throw new ConvexError("Capacity must be greater than 0");
-        }
+        // Note: Capacity validation removed - sections have unlimited capacity
 
         // Generate CRN (Course Reference Number)
         const crn = `${course.code}-${args.groupNumber}-${period.code}`;
@@ -477,10 +474,7 @@ export const updateSection = mutation({
             throw new ConvexError("Permission denied");
         }
 
-        // Validate capacity if provided
-        if (args.capacity !== undefined && args.capacity < section.enrolled) {
-            throw new ConvexError(`Cannot reduce capacity below current enrollment (${section.enrolled})`);
-        }
+        // Note: Capacity validation removed - sections have unlimited capacity
 
         // Update section
         const updateData: any = { updatedAt: Date.now() };

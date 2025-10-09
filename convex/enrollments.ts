@@ -164,10 +164,7 @@ export const enrollInSection = mutation({
             throw new ConvexError(`Enrollment failed: ${validation.reasons.join(", ")}`);
         }
 
-        // Check section capacity
-        if (!hasAvailableCapacity(section)) {
-            throw new ConvexError("Section is at full capacity");
-        }
+        // Note: Capacity check removed - sections have unlimited capacity
 
         // Check if enrollment period is open
         if (!isEnrollmentOpen(period)) {

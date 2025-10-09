@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useTranslations } from "next-intl";
+import { useAuth } from "@clerk/nextjs";
 import { createColumnsAcademicHistory } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
@@ -102,8 +103,13 @@ const mockAcademicHistory = {
 
 export default function AcademicHistoryTable() {
     const t = useTranslations("academicHistory");
+    const { isSignedIn } = useAuth();
 
-    const academicHistory = useQuery(api.students.getMyAcademicHistory);
+    // Only execute query when user is signed in
+    const academicHistory = useQuery(
+        api.students.getMyAcademicHistory,
+        isSignedIn ? {} : "skip"
+    );
 
     // Create columns with translations
     const columns = React.useMemo(
@@ -133,7 +139,7 @@ export default function AcademicHistoryTable() {
             }),
         [t]
     );
-    
+
     const [searchTerm, setSearchTerm] = React.useState("");
     const [selectedPeriod, setSelectedPeriod] = React.useState<string>("all");
     const [statusFilter, setStatusFilter] = React.useState<StatusFilter>("all");
@@ -150,50 +156,50 @@ export default function AcademicHistoryTable() {
         let accumulatedApprovedCredits = 0;
 
         return academicHistory.history.map((periodData) => {
-        const enrollments: EnrollmentHistoryItem[] = periodData.enrollments.map(
-            (item) => ({
-            _id: item.enrollment._id,
-            courseCode: item.course?.code || "N/A",
-            courseName: item.course?.nameEs || "Unknown Course",
-            groupNumber: item.section?.groupNumber || "N/A",
-            credits: item.course?.credits || 0,
-            category: item.course?.category || "general",
-            letterGrade: item.enrollment?.letterGrade,
-            percentageGrade: item.enrollment?.percentageGrade,
-            gradePoints: item.enrollment?.gradePoints,
-            status: item.enrollment?.status || "unknown",
-            isRetake: item.enrollment?.isRetake || false,
-            professorName: item.professor
-                ? `${item.professor.firstName} ${item.professor.lastName}`
-                : "TBD",
-            enrollment: item.enrollment,
-            course: item.course,
-            section: item.section,
-            professor: item.professor,
-            })
-        );
+            const enrollments: EnrollmentHistoryItem[] = periodData.enrollments.map(
+                (item) => ({
+                    _id: item.enrollment._id,
+                    courseCode: item.course?.code || "N/A",
+                    courseName: item.course?.nameEs || "Unknown Course",
+                    groupNumber: item.section?.groupNumber || "N/A",
+                    credits: item.course?.credits || 0,
+                    category: item.course?.category || "general",
+                    letterGrade: item.enrollment?.letterGrade,
+                    percentageGrade: item.enrollment?.percentageGrade,
+                    gradePoints: item.enrollment?.gradePoints,
+                    status: item.enrollment?.status || "unknown",
+                    isRetake: item.enrollment?.isRetake || false,
+                    professorName: item.professor
+                        ? `${item.professor.firstName} ${item.professor.lastName}`
+                        : "TBD",
+                    enrollment: item.enrollment,
+                    course: item.course,
+                    section: item.section,
+                    professor: item.professor,
+                })
+            );
 
-        const enrolledCredits = enrollments.reduce(
-            (sum, e) => sum + e.credits,
-            0
-        );
-        const approvedCredits = enrollments
-            .filter((e) => e.status === "completed" && e.percentageGrade && e.percentageGrade >= 65)
-            .reduce((sum, e) => sum + e.credits, 0);
+            const enrolledCredits = enrollments.reduce(
+                (sum, e) => sum + e.credits,
+                0
+            );
+            const approvedCredits = enrollments
+                .filter((e) => e.status === "completed" && e.percentageGrade && e.percentageGrade >= 65)
+                .reduce((sum, e) => sum + e.credits, 0);
 
-        accumulatedCredits += enrolledCredits;
-        accumulatedApprovedCredits += approvedCredits;
+            accumulatedCredits += enrolledCredits;
+            accumulatedApprovedCredits += approvedCredits;
 
-        return {
-            period: periodData.period,
-            enrollments,
-            enrolledCredits,
-            approvedCredits,
-            approvalPercentage: enrolledCredits > 0 ? (approvedCredits / enrolledCredits) * 100 : 0,
-            periodGPA: periodData.summary?.gpa || 0,
-            accumulatedCredits,
-            accumulatedApprovedCredits,
-        };
+            return {
+                period: periodData.period,
+                enrollments,
+                enrolledCredits,
+                approvedCredits,
+                approvalPercentage: enrolledCredits > 0 ? (approvedCredits / enrolledCredits) * 100 : 0,
+                periodGPA: periodData.summary?.gpa || 0,
+                accumulatedCredits,
+                accumulatedApprovedCredits,
+            };
         });
     }, [academicHistory]);
 

@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Save, Trash2 } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -121,7 +122,9 @@ export function SectionFormDialog({
     // Enhanced validation with detailed error messages
     const validationErrors = validateFormData(formData);
     if (validationErrors.length > 0) {
-      alert(`Please fix the following errors:\n\n${validationErrors.join('\n')}`);
+      toast.error("Validation Error", {
+        description: validationErrors.join(', '),
+      });
       return;
     }
 
@@ -135,7 +138,7 @@ export function SectionFormDialog({
           periodId: formData.periodId!,
           groupNumber: formData.groupNumber,
           professorId: formData.professorId!,
-          capacity: 30, // Default capacity
+          capacity: 9999, // Unlimited capacity (no practical limit)
           deliveryMethod: formData.deliveryMethod,
           schedule: {
             sessions: [], // Empty for now, can be extended later
@@ -144,7 +147,9 @@ export function SectionFormDialog({
           },
         });
 
-        alert("Section created successfully!");
+        toast.success("Section created successfully!", {
+          description: `Group ${formData.groupNumber} has been created`,
+        });
       } else {
         if (!section) return;
 
@@ -160,14 +165,18 @@ export function SectionFormDialog({
           },
         });
 
-        alert("Section updated successfully!");
+        toast.success("Section updated successfully!", {
+          description: `Changes to group ${section.groupNumber} have been saved`,
+        });
       }
 
       // Close dialog
       setOpen(false);
     } catch (error) {
       console.error(`Failed to ${mode} section:`, error);
-      alert(`Failed to ${mode} section. Please try again.`);
+      toast.error(`Failed to ${mode} section`, {
+        description: "Please try again or contact support",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -188,11 +197,15 @@ export function SectionFormDialog({
         forceDelete: true, // Allow deletion even with enrollments
       });
 
-      alert("Section deleted successfully!");
+      toast.success("Section deleted successfully!", {
+        description: `Group ${section.groupNumber} has been removed`,
+      });
       setOpen(false);
     } catch (error) {
       console.error("Failed to delete section:", error);
-      alert("Failed to delete section. Please try again.");
+      toast.error("Failed to delete section", {
+        description: "Please try again or contact support",
+      });
     } finally {
       setIsDeleting(false);
     }

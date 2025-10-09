@@ -4,6 +4,7 @@ import "../globals.css";
 import ConvexClientProvider from "@/components/convex-client-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/sonner"
 import { shadcn } from "@clerk/themes"
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
@@ -76,6 +77,7 @@ export default async function RootLayout({
                         <ConvexClientProvider>
                             <NextIntlClientProvider messages={messages}>
                                 {children}
+                                <Toaster />
                             </NextIntlClientProvider>
                         </ConvexClientProvider>
                     </ClerkProvider>

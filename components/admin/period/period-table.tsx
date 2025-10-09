@@ -45,24 +45,39 @@ export default function PeriodTable() {
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = React.useState(false);
 
-  // Fetch periods from the backend with filters
-  const periods = useQuery(api.admin.getAllPeriods, {
-    year: selectedYear === "all" ? undefined : parseInt(selectedYear),
-    status: periodStatusFilter === "all" ? undefined : periodStatusFilter,
-    searchTerm: codeSearch,
-  });
+  // Fetch ALL periods from the backend without filters
+  const periods = useQuery(api.admin.getAllPeriods, {});
 
-  // Transform periods to match the frontend's expected structure
-  const transformedPeriods = React.useMemo(() => {
+  // Transform and filter periods in the frontend
+  const filteredPeriods = React.useMemo(() => {
     if (!periods) return [];
-    
-    return periods.map(p => ({
-      ...p,
-      bimester: p.bimesterNumber,   // Map bimesterNumber to bimester
-      graddingStart: p.gradingStart, // Fix spelling in frontend data model
-      graddingDeadline: p.gradingDeadline // Map gradingDeadline property
-    })) as Period[];
-  }, [periods]);
+
+    return periods
+      .map(p => ({
+        ...p,
+        bimester: p.bimesterNumber,   // Map bimesterNumber to bimester
+        graddingStart: p.gradingStart, // Fix spelling in frontend data model
+        graddingDeadline: p.gradingDeadline // Map gradingDeadline property
+      }))
+      .filter((period) => {
+        // Code search filter
+        const codeMatch =
+          codeSearch === "" ||
+          period.code?.toLowerCase().includes(codeSearch.toLowerCase()) ||
+          period.nameEs?.toLowerCase().includes(codeSearch.toLowerCase()) ||
+          period.nameEn?.toLowerCase().includes(codeSearch.toLowerCase());
+
+        // Year filter
+        const yearMatch =
+          selectedYear === "all" || period.year === parseInt(selectedYear);
+
+        // Status filter
+        const statusMatch =
+          periodStatusFilter === "all" || period.status === periodStatusFilter;
+
+        return codeMatch && yearMatch && statusMatch;
+      }) as Period[];
+  }, [periods, codeSearch, selectedYear, periodStatusFilter]);
 
   const handleRowClick = (period: Period) => {
     setSelectedPeriod(period);
@@ -263,7 +278,7 @@ export default function PeriodTable() {
           <div className="min-w-full">
             <DataTable
               columns={columnsPeriod}
-              data={transformedPeriods}
+              data={filteredPeriods}
               onRowClick={handleRowClick}
               searchConfig={null}
               primaryAction={null}

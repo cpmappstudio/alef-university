@@ -461,6 +461,8 @@
             "addNotes": "Add notes...",
             "saveGrades": "Save Grades",
             "gradesSaved": "Grades saved successfully!",
+            "loadingStudents": "Loading students...",
+            "noStudents": "No students enrolled in this section",
             "mockDescription": "This is a mock course description. The actual description will be loaded from the database.",
             "monday": "Monday",
             "tuesday": "Tuesday",

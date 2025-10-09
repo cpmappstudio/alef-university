@@ -178,7 +178,6 @@ erDiagram
         string email UK "User email"
         string firstName "Given name"
         string lastName "Family name"
-        string secondLastName "Latin American naming"
         enum role "student|professor|admin|superadmin"
         boolean isActive "Account status"
         object studentProfile "Student-specific data"

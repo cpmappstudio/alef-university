@@ -78,7 +78,7 @@ export default function CourseTable() {
     Course | undefined
   >();
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = React.useState(false); 
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = React.useState(false);
 
   // Get all programs for the filter dropdown
   const programs = useQuery(api.programs.getAllPrograms, { isActive: true });
@@ -273,11 +273,10 @@ export default function CourseTable() {
                                         }}
                                       >
                                         <Check
-                                          className={`mr-2 h-4 w-4 ${
-                                            selectedProgramId === "all"
+                                          className={`mr-2 h-4 w-4 ${selectedProgramId === "all"
                                               ? "opacity-100"
                                               : "opacity-0"
-                                          }`}
+                                            }`}
                                         />
                                         All
                                       </CommandItem>
@@ -318,12 +317,11 @@ export default function CourseTable() {
                                             }}
                                           >
                                             <Check
-                                              className={`mr-2 h-4 w-4 ${
-                                                selectedProgramId ===
-                                                program._id
+                                              className={`mr-2 h-4 w-4 ${selectedProgramId ===
+                                                  program._id
                                                   ? "opacity-100"
                                                   : "opacity-0"
-                                              }`}
+                                                }`}
                                             />
                                             {program.code} - {program.nameEs}
                                           </CommandItem>

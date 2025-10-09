@@ -461,6 +461,8 @@
             "addNotes": "Agregar notas...",
             "saveGrades": "Guardar Calificaciones",
             "gradesSaved": "¡Calificaciones guardadas exitosamente!",
+            "loadingStudents": "Cargando estudiantes...",
+            "noStudents": "No hay estudiantes inscritos en esta sección",
             "mockDescription": "Esta es una descripción de curso simulada. La descripción real se cargará desde la base de datos.",
             "monday": "Lunes",
             "tuesday": "Martes",

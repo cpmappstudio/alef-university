@@ -220,12 +220,20 @@ export const getMyAcademicHistory = query({
     handler: async (ctx) => {
         const identity = await ctx.auth.getUserIdentity();
         if (!identity) {
-            throw new ConvexError("Not authenticated");
+            return {
+                history: [],
+                overallGPA: { totalCredits: 0, attemptedCredits: 0, earnedCredits: 0, gradePoints: 0, gpa: 0 },
+                summary: { totalPeriodsCompleted: 0, totalCreditsAttempted: 0, totalCreditsEarned: 0 }
+            };
         }
 
         const user = await getUserByClerkId(ctx.db, identity.subject);
         if (!user || user.role !== "student") {
-            throw new ConvexError("Student access required");
+            return {
+                history: [],
+                overallGPA: { totalCredits: 0, attemptedCredits: 0, earnedCredits: 0, gradePoints: 0, gpa: 0 },
+                summary: { totalPeriodsCompleted: 0, totalCreditsAttempted: 0, totalCreditsEarned: 0 }
+            };
         }
 
         // Get complete academic history

@@ -19,7 +19,6 @@ export function useSyncUser() {
                         email: user.emailAddresses[0]?.emailAddress || "",
                         firstName: user.firstName || "",
                         lastName: user.lastName || "",
-                        secondLastName: undefined,
                         role: user.publicMetadata?.role as any,
                     })
                 } catch (error) {

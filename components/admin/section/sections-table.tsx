@@ -96,18 +96,18 @@ export default function SectionsTable() {
     periodId: selectedPeriodId === "all" ? undefined : selectedPeriodId as Id<"periods">,
     deliveryMethod: sectionModalityFilter === "all" ? undefined : sectionModalityFilter,
     status: sectionStatusFilter === "all" ? undefined : sectionStatusFilter,
-    isActive: sectionAvailabilityFilter === "all" 
-        ? undefined 
-        : sectionAvailabilityFilter === "available",
+    isActive: sectionAvailabilityFilter === "all"
+      ? undefined
+      : sectionAvailabilityFilter === "available",
   });
 
   // 3. Simplify the filteredSections logic to only handle text search
   const filteredSections = React.useMemo(() => {
     if (!allSectionsData) return [];
-    
+
     // If no text search, return all sections
     if (!nameSearch) return allSectionsData;
-    
+
     // Apply text search filter
     return allSectionsData.filter((section) => {
       const searchLower = nameSearch.toLowerCase();
@@ -254,11 +254,10 @@ export default function SectionsTable() {
                                     }}
                                   >
                                     <Check
-                                      className={`mr-2 h-4 w-4 ${
-                                        selectedCourseId === "all"
+                                      className={`mr-2 h-4 w-4 ${selectedCourseId === "all"
                                           ? "opacity-100"
                                           : "opacity-0"
-                                      }`}
+                                        }`}
                                     />
                                     All Courses
                                   </CommandItem>
@@ -301,11 +300,10 @@ export default function SectionsTable() {
                                         }}
                                       >
                                         <Check
-                                          className={`mr-2 h-4 w-4 ${
-                                            selectedCourseId === course._id
+                                          className={`mr-2 h-4 w-4 ${selectedCourseId === course._id
                                               ? "opacity-100"
                                               : "opacity-0"
-                                          }`}
+                                            }`}
                                         />
                                         {course.code} - {course.nameEs}
                                       </CommandItem>
@@ -401,11 +399,10 @@ export default function SectionsTable() {
                                     }}
                                   >
                                     <Check
-                                      className={`mr-2 h-4 w-4 ${
-                                        selectedPeriodId === "all"
+                                      className={`mr-2 h-4 w-4 ${selectedPeriodId === "all"
                                           ? "opacity-100"
                                           : "opacity-0"
-                                      }`}
+                                        }`}
                                     />
                                     All Periods
                                   </CommandItem>
@@ -432,11 +429,10 @@ export default function SectionsTable() {
                                         }}
                                       >
                                         <Check
-                                          className={`mr-2 h-4 w-4 ${
-                                            selectedPeriodId === period._id
+                                          className={`mr-2 h-4 w-4 ${selectedPeriodId === period._id
                                               ? "opacity-100"
                                               : "opacity-0"
-                                          }`}
+                                            }`}
                                         />
                                         {period.code} - {period.nameEs} ({period.year})
                                       </CommandItem>

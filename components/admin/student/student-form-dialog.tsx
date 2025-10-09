@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { Save, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -177,7 +178,9 @@ export function StudentFormDialog({
     // Basic validation
     const validationErrors = validateFormData(formData);
     if (validationErrors.length > 0) {
-      alert(`Please fix the following errors:\n\n${validationErrors.join('\n')}`);
+      toast.error("Validation Error", {
+        description: validationErrors.join(', '),
+      });
       return;
     }
 
@@ -225,7 +228,9 @@ export function StudentFormDialog({
             status: formData.studentProfile.status!,
           }
         });
-        alert("Student created successfully!");
+        toast.success("Student created successfully!", {
+          description: `${formData.firstName} ${formData.lastName} has been added`,
+        });
       } else {
         if (!student) return;
         await adminUpdateStudent({
@@ -252,13 +257,17 @@ export function StudentFormDialog({
           status: formData.studentProfile.status!,
           academicStanding: formData.studentProfile.academicStanding || "good_standing",
         });
-        alert("Student updated successfully!");
+        toast.success("Student updated successfully!", {
+          description: `Changes to ${formData.firstName} ${formData.lastName} have been saved`,
+        });
       }
 
       setOpen(false);
     } catch (error) {
       console.error(`Failed to ${mode} student:`, error);
-      alert(`Failed to ${mode} student: ${(error as Error).message}`);
+      toast.error(`Failed to ${mode} student`, {
+        description: (error as Error).message,
+      });
     } finally {
       setIsLoading(false);
     }
@@ -275,11 +284,15 @@ export function StudentFormDialog({
 
     try {
       await deactivateUser({ userId: student._id });
-      alert("Student deactivated successfully!");
+      toast.success("Student deactivated successfully!", {
+        description: `${student.firstName} ${student.lastName} has been deactivated`,
+      });
       setOpen(false);
     } catch (error) {
       console.error("Failed to deactivate student:", error);
-      alert(`Failed to deactivate student: ${(error as Error).message}`);
+      toast.error("Failed to deactivate student", {
+        description: (error as Error).message,
+      });
     } finally {
       setIsDeleting(false);
     }
@@ -812,9 +825,9 @@ export function StudentFormDialog({
                       </div>
                       <div className="text-right space-y-1">
                         <span className={`text-xs px-2 py-1 rounded-full ${enrollment.status === 'enrolled' || enrollment.status === 'in_progress' ? 'bg-green-100 text-green-800' :
-                            enrollment.status === 'completed' ? 'bg-blue-100 text-blue-800' :
-                              enrollment.status === 'withdrawn' ? 'bg-amber-100 text-amber-800' :
-                                'bg-gray-100 text-gray-800'
+                          enrollment.status === 'completed' ? 'bg-blue-100 text-blue-800' :
+                            enrollment.status === 'withdrawn' ? 'bg-amber-100 text-amber-800' :
+                              'bg-gray-100 text-gray-800'
                           }`}>
                           {enrollment.status}
                         </span>

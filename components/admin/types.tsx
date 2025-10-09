@@ -99,13 +99,13 @@ export type Section = {
   schedule?: {
     sessions: {
       day:
-        | "monday"
-        | "tuesday"
-        | "wednesday"
-        | "thursday"
-        | "friday"
-        | "saturday"
-        | "sunday";
+      | "monday"
+      | "tuesday"
+      | "wednesday"
+      | "thursday"
+      | "friday"
+      | "saturday"
+      | "sunday";
       startTime: string;
       endTime: string;
       roomUrl?: string;
@@ -137,7 +137,7 @@ export type Period = {
   withdrawalDeadline?: number;
   graddingStart?: number;
   graddingDeadline: number;
-  status: "planning"|"enrollment"|"active"|"grading"|"closed";
+  status: "planning" | "enrollment" | "active" | "grading" | "closed";
   isCurrentPeriod: boolean;
   createdAt: number;
   updatedAt?: number;
@@ -188,7 +188,6 @@ export type Student = {
   // Personal information
   firstName: string;
   lastName: string;
-  secondLastName?: string;
 
   // Additional fields for certificates
   dateOfBirth?: number;
@@ -241,7 +240,6 @@ export type Professor = {
   // Personal information
   firstName: string;
   lastName: string;
-  secondLastName?: string;
 
   // Additional fields for certificates
   dateOfBirth?: number;

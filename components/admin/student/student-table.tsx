@@ -68,15 +68,49 @@ export default function StudentTable() {
 
   const programs = useQuery(api.programs.getAllPrograms, { isActive: true });
 
+  // Fetch ALL students from the backend without filters
   const students = useQuery(api.admin.getAllUsers, {
     role: "student",
-    searchTerm: nameSearch || undefined,
-    programId: selectedProgramId === "all" ? undefined : selectedProgramId as Id<"programs">,
-    studentStatus: studentStatusFilter === "all" ? undefined : studentStatusFilter,
   });
 
-  // Filter students based on all active filters
-  const filteredStudents = (students || []).filter(student => student.role === "student") as Student[];
+  // Filter students in the frontend
+  const filteredStudents = React.useMemo(() => {
+    if (!students || !programs) return [];
+
+    // Create a program map for quick lookup
+    const programMap = new Map(programs.map(p => [p._id, p]));
+
+    return students.filter((student) => {
+      if (student.role !== "student") return false;
+
+      // Name search filter
+      const nameMatch =
+        nameSearch === "" ||
+        student.firstName?.toLowerCase().includes(nameSearch.toLowerCase()) ||
+        student.lastName?.toLowerCase().includes(nameSearch.toLowerCase()) ||
+        student.email?.toLowerCase().includes(nameSearch.toLowerCase()) ||
+        (student as Student).studentProfile?.studentCode?.toLowerCase().includes(nameSearch.toLowerCase());
+
+      // Program filter
+      const programMatch =
+        selectedProgramId === "all" ||
+        (student as Student).studentProfile?.programId === selectedProgramId;
+
+      // Status filter
+      const statusMatch =
+        studentStatusFilter === "all" ||
+        (student as Student).studentProfile?.status === studentStatusFilter;
+
+      return nameMatch && programMatch && statusMatch;
+    }).map(student => {
+      // Enrich student with program name
+      const program = programMap.get((student as Student).studentProfile?.programId);
+      return {
+        ...student,
+        programName: program ? `${program.code} - ${program.nameEs}` : "N/A"
+      };
+    }) as Student[];
+  }, [students, programs, nameSearch, selectedProgramId, studentStatusFilter]);
 
   const handleRowClick = (student: Student) => {
     setSelectedStudent(student);
@@ -200,9 +234,8 @@ export default function StudentTable() {
                                         }}
                                       >
                                         <Check
-                                          className={`mr-2 h-4 w-4 ${
-                                            selectedProgramId === "all" ? "opacity-100" : "opacity-0"
-                                          }`}
+                                          className={`mr-2 h-4 w-4 ${selectedProgramId === "all" ? "opacity-100" : "opacity-0"
+                                            }`}
                                         />
                                         All Programs
                                       </CommandItem>
@@ -226,9 +259,8 @@ export default function StudentTable() {
                                             }}
                                           >
                                             <Check
-                                              className={`mr-2 h-4 w-4 ${
-                                                selectedProgramId === program._id ? "opacity-100" : "opacity-0"
-                                              }`}
+                                              className={`mr-2 h-4 w-4 ${selectedProgramId === program._id ? "opacity-100" : "opacity-0"
+                                                }`}
                                             />
                                             {program.code} - {program.nameEs}
                                           </CommandItem>

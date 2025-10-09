@@ -45,51 +45,51 @@ import {
 import { Id } from "@/convex/_generated/dataModel";
 import { EnrollmentFormDialog } from "./enrollment-form-dialog";
 
-type EnrollmentStatusFilter = 
-  | "all" 
-  | "enrolled" 
-  | "withdrawn" 
-  | "dropped" 
-  | "completed" 
-  | "failed" 
-  | "incomplete" 
+type EnrollmentStatusFilter =
+  | "all"
+  | "enrolled"
+  | "withdrawn"
+  | "dropped"
+  | "completed"
+  | "failed"
+  | "incomplete"
   | "in_progress";
 
 export default function EnrollmentTable() {
   const [nameSearch, setNameSearch] = React.useState("");
-  
+
   // Student filter states
   const [selectedStudentId, setSelectedStudentId] = React.useState<
     Id<"users"> | "all" | undefined
   >("all");
   const [studentSearchOpen, setStudentSearchOpen] = React.useState(false);
   const [studentSearchValue, setStudentSearchValue] = React.useState("");
-  
+
   // Course filter states
   const [selectedCourseId, setSelectedCourseId] = React.useState<
     Id<"courses"> | "all" | undefined
   >("all");
   const [courseSearchOpen, setCourseSearchOpen] = React.useState(false);
   const [courseSearchValue, setCourseSearchValue] = React.useState("");
-  
+
   // Section filter states
   const [selectedSectionId, setSelectedSectionId] = React.useState<
     Id<"sections"> | "all" | undefined
   >("all");
   const [sectionSearchOpen, setSectionSearchOpen] = React.useState(false);
   const [sectionSearchValue, setSectionSearchValue] = React.useState("");
-  
+
   // Period filter states
   const [selectedPeriodId, setSelectedPeriodId] = React.useState<
     Id<"periods"> | "all" | undefined
   >("all");
   const [periodSearchOpen, setPeriodSearchOpen] = React.useState(false);
   const [periodSearchValue, setPeriodSearchValue] = React.useState("");
-  
+
   // Status filter
   const [enrollmentStatusFilter, setEnrollmentStatusFilter] =
     React.useState<EnrollmentStatusFilter>("all");
-  
+
   // Dialog states
   const [selectedEnrollment, setSelectedEnrollment] = React.useState<
     Enrollment | undefined
@@ -100,9 +100,9 @@ export default function EnrollmentTable() {
   // Fetch real data for filters
   const students = useQuery(api.admin.getAllUsers, { role: "student" });
   const courses = useQuery(api.courses.getAllCourses, {});
-  const sections = useQuery(api.admin.adminGetSections, {}); 
+  const sections = useQuery(api.admin.adminGetSections, {});
   const periods = useQuery(api.admin.getAllPeriods, {});
-  
+
   // Fetch enrollments with filters
   const enrollments = useQuery(api.admin.getAdminEnrollments, {
     studentId: selectedStudentId === "all" ? undefined : selectedStudentId as Id<"users">,
@@ -115,9 +115,9 @@ export default function EnrollmentTable() {
   // Apply name search filter client-side
   const filteredEnrollments = React.useMemo(() => {
     if (!enrollments) return [];
-    
+
     if (!nameSearch) return enrollments;
-    
+
     return enrollments.filter(enrollment => {
       const searchLower = nameSearch.toLowerCase();
       return (
@@ -185,7 +185,7 @@ export default function EnrollmentTable() {
 
   // Show loading state when essential data is loading
   const isLoading = students === undefined || courses === undefined || periods === undefined || sections === undefined || enrollments === undefined;
-  
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px] bg-card rounded-xl border border-border/50 shadow-sm">
@@ -290,11 +290,10 @@ export default function EnrollmentTable() {
                                         }}
                                       >
                                         <Check
-                                          className={`mr-2 h-4 w-4 ${
-                                            selectedStudentId === "all"
+                                          className={`mr-2 h-4 w-4 ${selectedStudentId === "all"
                                               ? "opacity-100"
                                               : "opacity-0"
-                                          }`}
+                                            }`}
                                         />
                                         All Students
                                       </CommandItem>
@@ -319,11 +318,10 @@ export default function EnrollmentTable() {
                                             }}
                                           >
                                             <Check
-                                              className={`mr-2 h-4 w-4 ${
-                                                selectedStudentId === student._id
+                                              className={`mr-2 h-4 w-4 ${selectedStudentId === student._id
                                                   ? "opacity-100"
                                                   : "opacity-0"
-                                              }`}
+                                                }`}
                                             />
                                             {student.firstName} {student.lastName}
                                           </CommandItem>
@@ -381,11 +379,10 @@ export default function EnrollmentTable() {
                                         }}
                                       >
                                         <Check
-                                          className={`mr-2 h-4 w-4 ${
-                                            selectedCourseId === "all"
+                                          className={`mr-2 h-4 w-4 ${selectedCourseId === "all"
                                               ? "opacity-100"
                                               : "opacity-0"
-                                          }`}
+                                            }`}
                                         />
                                         All Courses
                                       </CommandItem>
@@ -409,11 +406,10 @@ export default function EnrollmentTable() {
                                             }}
                                           >
                                             <Check
-                                              className={`mr-2 h-4 w-4 ${
-                                                selectedCourseId === course._id
+                                              className={`mr-2 h-4 w-4 ${selectedCourseId === course._id
                                                   ? "opacity-100"
                                                   : "opacity-0"
-                                              }`}
+                                                }`}
                                             />
                                             {course.code} - {course.nameEs}
                                           </CommandItem>
@@ -471,11 +467,10 @@ export default function EnrollmentTable() {
                                         }}
                                       >
                                         <Check
-                                          className={`mr-2 h-4 w-4 ${
-                                            selectedSectionId === "all"
+                                          className={`mr-2 h-4 w-4 ${selectedSectionId === "all"
                                               ? "opacity-100"
                                               : "opacity-0"
-                                          }`}
+                                            }`}
                                         />
                                         All Sections
                                       </CommandItem>
@@ -499,11 +494,10 @@ export default function EnrollmentTable() {
                                             }}
                                           >
                                             <Check
-                                              className={`mr-2 h-4 w-4 ${
-                                                selectedSectionId === section._id
+                                              className={`mr-2 h-4 w-4 ${selectedSectionId === section._id
                                                   ? "opacity-100"
                                                   : "opacity-0"
-                                              }`}
+                                                }`}
                                             />
                                             {section.groupNumber} ({section.courseCode})
                                           </CommandItem>
@@ -561,11 +555,10 @@ export default function EnrollmentTable() {
                                         }}
                                       >
                                         <Check
-                                          className={`mr-2 h-4 w-4 ${
-                                            selectedPeriodId === "all"
+                                          className={`mr-2 h-4 w-4 ${selectedPeriodId === "all"
                                               ? "opacity-100"
                                               : "opacity-0"
-                                          }`}
+                                            }`}
                                         />
                                         All Periods
                                       </CommandItem>
@@ -589,11 +582,10 @@ export default function EnrollmentTable() {
                                             }}
                                           >
                                             <Check
-                                              className={`mr-2 h-4 w-4 ${
-                                                selectedPeriodId === period._id
+                                              className={`mr-2 h-4 w-4 ${selectedPeriodId === period._id
                                                   ? "opacity-100"
                                                   : "opacity-0"
-                                              }`}
+                                                }`}
                                             />
                                             {period.code} - {period.nameEs}
                                           </CommandItem>

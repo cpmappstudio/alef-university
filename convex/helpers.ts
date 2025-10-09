@@ -233,10 +233,7 @@ export async function validateEnrollment(
         reasons.push("Section is not open for enrollment");
     }
 
-    // Check capacity
-    if (section.enrolled >= section.capacity) {
-        reasons.push("Section is full");
-    }
+    // Note: Capacity checks removed - sections have unlimited capacity
 
     // Check if already enrolled
     const existingEnrollment = await db
@@ -562,15 +559,20 @@ export function isGradingOpen(period: Doc<"periods">): boolean {
 /**
  * Get available seats in a section
  */
+/**
+ * Get available seats in a section (unlimited capacity)
+ */
 export function getAvailableSeats(section: Doc<"sections">): number {
-    return Math.max(0, section.capacity - section.enrolled);
+    // No capacity limit - always return a large number
+    return 999;
 }
 
 /**
- * Check if section has available capacity
+ * Check if section has available capacity (always true - unlimited)
  */
 export function hasAvailableCapacity(section: Doc<"sections">): boolean {
-    return section.enrolled < section.capacity;
+    // Sections have unlimited capacity
+    return true;
 }
 
 /**

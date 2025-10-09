@@ -73,7 +73,7 @@ export default function ProfessorTable() {
 
   const departments = React.useMemo(() => {
     if (!professors || professors.length === 0) return [];
-    
+
     // Extract unique departments and filter out undefined/null values
     const departmentSet = new Set(
       professors
@@ -81,7 +81,7 @@ export default function ProfessorTable() {
         .filter((dept): dept is string => Boolean(dept)) // Type guard
         .map(dept => dept.trim()) // Now safe
     );
-    
+
     // Convert to array of objects with _id and name properties
     return Array.from(departmentSet)
       .sort((a, b) => a.localeCompare(b))
@@ -136,13 +136,13 @@ export default function ProfessorTable() {
 
   const availableTitles = React.useMemo(() => {
     if (!professors) return [];
-    
+
     const titleSet = new Set(
       professors
         .map(p => p.professorProfile?.title)
         .filter((title): title is string => Boolean(title))
     );
-    
+
     return Array.from(titleSet).sort();
   }, [professors]);
 
@@ -275,11 +275,10 @@ export default function ProfessorTable() {
                                         }}
                                       >
                                         <Check
-                                          className={`mr-2 h-4 w-4 ${
-                                            selectedDepartmentId === "all"
+                                          className={`mr-2 h-4 w-4 ${selectedDepartmentId === "all"
                                               ? "opacity-100"
                                               : "opacity-0"
-                                          }`}
+                                            }`}
                                         />
                                         All Departments
                                       </CommandItem>
@@ -299,11 +298,10 @@ export default function ProfessorTable() {
                                             }}
                                           >
                                             <Check
-                                              className={`mr-2 h-4 w-4 ${
-                                                selectedDepartmentId === department.name
+                                              className={`mr-2 h-4 w-4 ${selectedDepartmentId === department.name
                                                   ? "opacity-100"
                                                   : "opacity-0"
-                                              }`}
+                                                }`}
                                             />
                                             {department.name}
                                           </CommandItem>
@@ -334,11 +332,11 @@ export default function ProfessorTable() {
                               </SelectTrigger>
                               <SelectContent>
                                 <SelectItem value="all">All Titles</SelectItem>
-                                  {availableTitles.map(title => (
-                                    <SelectItem key={title} value={title || "unknown"}>
-                                      {title || "Unknown"}
-                                    </SelectItem>
-                                  ))}
+                                {availableTitles.map(title => (
+                                  <SelectItem key={title} value={title || "unknown"}>
+                                    {title || "Unknown"}
+                                  </SelectItem>
+                                ))}
                               </SelectContent>
                             </Select>
                           </div>

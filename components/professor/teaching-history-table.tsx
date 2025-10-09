@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useTranslations } from "next-intl";
+import { useAuth } from "@clerk/nextjs";
 import { createColumnsTeachingHistory } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
@@ -178,8 +179,13 @@ const mockTeachingHistory = {
 
 export default function TeachingHistoryTable() {
     const t = useTranslations("gradebook");
+    const { isSignedIn } = useAuth();
 
-    const teachingHistory = useQuery(api.professors.getMyTeachingHistory, {});
+    // Only execute query when user is signed in
+    const teachingHistory = useQuery(
+        api.professors.getMyTeachingHistory,
+        isSignedIn ? {} : "skip"
+    );
 
     // Create columns with translations
     const columns = React.useMemo(
@@ -219,30 +225,32 @@ export default function TeachingHistoryTable() {
     const [currentPeriodIndex, setCurrentPeriodIndex] = React.useState(0); // 0 = most recent period
 
     const periodSummaries = React.useMemo<PeriodTeachingSummary[]>(() => {
-        if (!teachingHistory?.history) return [];
+        // Check if teachingHistory is an empty array (no auth) or doesn't have history property
+        if (!teachingHistory || Array.isArray(teachingHistory)) return [];
+        if (!('history' in teachingHistory) || !Array.isArray(teachingHistory.history)) return [];
 
-        return teachingHistory.history.map((periodData) => {
-        const sections: TeachingHistorySection[] = periodData.sections.map((s: any) => ({
-            _id: s.section._id,
-            courseCode: s.course.code,
-            courseName: s.course.nameEs,
-            groupNumber: s.section.groupNumber,
-            credits: s.course.credits,
-            category: s.course.category,
-            closingDate: periodData.period.endDate,
-            status: s.section.status,
-            enrolledStudents: s.statistics.enrolled,
-            course: s.course,
-            section: s.section,
-            period: periodData.period,
-        }));
+        return teachingHistory.history.map((periodData: any) => {
+            const sections: TeachingHistorySection[] = periodData.sections.map((s: any) => ({
+                _id: s.section._id,
+                courseCode: s.course.code,
+                courseName: s.course.nameEs,
+                groupNumber: s.section.groupNumber,
+                credits: s.course.credits,
+                category: s.course.category,
+                closingDate: periodData.period.endDate,
+                status: s.section.status,
+                enrolledStudents: s.statistics.enrolled,
+                course: s.course,
+                section: s.section,
+                period: periodData.period,
+            }));
 
-        return {
-            period: periodData.period,
-            sections,
-            totalStudents: sections.reduce((sum, s) => sum + s.enrolledStudents, 0),
-            totalCourses: sections.length,
-        };
+            return {
+                period: periodData.period,
+                sections,
+                totalStudents: sections.reduce((sum, s) => sum + s.enrolledStudents, 0),
+                totalCourses: sections.length,
+            };
         });
     }, [teachingHistory]);
 
@@ -375,7 +383,9 @@ export default function TeachingHistoryTable() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">
-                            {teachingHistory.summary.totalStudentsTaught}
+                            {teachingHistory && !Array.isArray(teachingHistory) && 'summary' in teachingHistory
+                                ? teachingHistory.summary.totalStudentsTaught
+                                : 0}
                         </div>
                         <p className="text-xs text-muted-foreground">
                             {t("stats.acrossAllPeriods")}
@@ -391,7 +401,9 @@ export default function TeachingHistoryTable() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">
-                            {teachingHistory.summary.totalCoursesDelivered}
+                            {teachingHistory && !Array.isArray(teachingHistory) && 'summary' in teachingHistory
+                                ? teachingHistory.summary.totalCoursesDelivered
+                                : 0}
                         </div>
                         <p className="text-xs text-muted-foreground">
                             {t("stats.coursesDelivered")}
@@ -407,7 +419,9 @@ export default function TeachingHistoryTable() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">
-                            {teachingHistory.summary.totalPeriods}
+                            {teachingHistory && !Array.isArray(teachingHistory) && 'summary' in teachingHistory
+                                ? teachingHistory.summary.totalPeriods
+                                : 0}
                         </div>
                         <p className="text-xs text-muted-foreground">
                             {t("stats.periodsTaught")}

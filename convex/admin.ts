@@ -1251,7 +1251,6 @@ export const adminUpdateStudent = mutation({
         academicStanding: v.union(v.literal("good_standing"), v.literal("probation"), v.literal("suspension")),
 
         // Optional fields
-        secondLastName: v.optional(v.string()),
         dateOfBirth: v.optional(v.number()),
         nationality: v.optional(v.string()),
         documentType: v.optional(v.union(v.literal("passport"), v.literal("national_id"), v.literal("driver_license"), v.literal("other"))),
@@ -1284,7 +1283,6 @@ export const adminUpdateStudent = mutation({
             firstName: updates.firstName,
             lastName: updates.lastName,
             isActive: updates.isActive,
-            secondLastName: student.secondLastName,
             dateOfBirth: student.dateOfBirth,
             nationality: student.nationality,
             documentType: student.documentType,
@@ -1297,7 +1295,6 @@ export const adminUpdateStudent = mutation({
         };
 
         // Add optional personal fields
-        if (updates.secondLastName !== undefined) updateObject.secondLastName = updates.secondLastName;
         if (updates.dateOfBirth !== undefined) updateObject.dateOfBirth = updates.dateOfBirth;
         if (updates.nationality !== undefined) updateObject.nationality = updates.nationality;
         if (updates.documentType !== undefined) updateObject.documentType = updates.documentType;
