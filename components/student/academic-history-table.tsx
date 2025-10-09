@@ -21,6 +21,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { EnrollmentHistoryItem, PeriodHistorySummary } from "./types";
 import { CourseDetailsDialog } from "./course-details-dialog";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 type StatusFilter = "all" | "completed" | "failed" | "withdrawn" | "in_progress";
 type CategoryFilter = "all" | "humanities" | "core" | "elective" | "general";
@@ -101,6 +103,8 @@ const mockAcademicHistory = {
 export default function AcademicHistoryTable() {
     const t = useTranslations("academicHistory");
 
+    const academicHistory = useQuery(api.students.getMyAcademicHistory);
+
     // Create columns with translations
     const columns = React.useMemo(
         () =>
@@ -129,9 +133,7 @@ export default function AcademicHistoryTable() {
             }),
         [t]
     );
-
-    // Use mock data instead of Convex query
-    const academicHistory = mockAcademicHistory;
+    
     const [searchTerm, setSearchTerm] = React.useState("");
     const [selectedPeriod, setSelectedPeriod] = React.useState<string>("all");
     const [statusFilter, setStatusFilter] = React.useState<StatusFilter>("all");
@@ -141,59 +143,57 @@ export default function AcademicHistoryTable() {
         React.useState<EnrollmentHistoryItem | null>(null);
     const [isDetailsDialogOpen, setIsDetailsDialogOpen] = React.useState(false);
 
-    // Transform data for display
     const periodSummaries = React.useMemo<PeriodHistorySummary[]>(() => {
         if (!academicHistory?.history) return [];
 
         let accumulatedCredits = 0;
         let accumulatedApprovedCredits = 0;
 
-        return academicHistory.history.map((periodData: any) => {
-            const enrollments: EnrollmentHistoryItem[] = periodData.enrollments.map(
-                (item: any) => ({
-                    _id: item.enrollment._id,
-                    courseCode: item.course?.code || "N/A",
-                    courseName: item.course?.nameEs || "Unknown Course",
-                    groupNumber: item.section?.groupNumber || "N/A",
-                    credits: item.course?.credits || 0,
-                    category: item.course?.category || "general",
-                    letterGrade: item.enrollment?.letterGrade,
-                    percentageGrade: item.enrollment?.percentageGrade,
-                    gradePoints: item.enrollment?.gradePoints,
-                    status: item.enrollment?.status || "unknown",
-                    isRetake: item.enrollment?.isRetake || false,
-                    professorName: item.professor
-                        ? `${item.professor.firstName} ${item.professor.lastName}`
-                        : "TBD",
-                    enrollment: item.enrollment,
-                    course: item.course,
-                    section: item.section,
-                    professor: item.professor,
-                })
-            );
+        return academicHistory.history.map((periodData) => {
+        const enrollments: EnrollmentHistoryItem[] = periodData.enrollments.map(
+            (item) => ({
+            _id: item.enrollment._id,
+            courseCode: item.course?.code || "N/A",
+            courseName: item.course?.nameEs || "Unknown Course",
+            groupNumber: item.section?.groupNumber || "N/A",
+            credits: item.course?.credits || 0,
+            category: item.course?.category || "general",
+            letterGrade: item.enrollment?.letterGrade,
+            percentageGrade: item.enrollment?.percentageGrade,
+            gradePoints: item.enrollment?.gradePoints,
+            status: item.enrollment?.status || "unknown",
+            isRetake: item.enrollment?.isRetake || false,
+            professorName: item.professor
+                ? `${item.professor.firstName} ${item.professor.lastName}`
+                : "TBD",
+            enrollment: item.enrollment,
+            course: item.course,
+            section: item.section,
+            professor: item.professor,
+            })
+        );
 
-            const enrolledCredits = enrollments.reduce(
-                (sum, e) => sum + e.credits,
-                0
-            );
-            const approvedCredits = enrollments
-                .filter((e) => e.status === "completed" && e.percentageGrade && e.percentageGrade >= 65)
-                .reduce((sum, e) => sum + e.credits, 0);
+        const enrolledCredits = enrollments.reduce(
+            (sum, e) => sum + e.credits,
+            0
+        );
+        const approvedCredits = enrollments
+            .filter((e) => e.status === "completed" && e.percentageGrade && e.percentageGrade >= 65)
+            .reduce((sum, e) => sum + e.credits, 0);
 
-            accumulatedCredits += enrolledCredits;
-            accumulatedApprovedCredits += approvedCredits;
+        accumulatedCredits += enrolledCredits;
+        accumulatedApprovedCredits += approvedCredits;
 
-            return {
-                period: periodData.period,
-                enrollments,
-                enrolledCredits,
-                approvedCredits,
-                approvalPercentage:
-                    enrolledCredits > 0 ? (approvedCredits / enrolledCredits) * 100 : 0,
-                periodGPA: periodData.summary?.gpa || 0,
-                accumulatedCredits,
-                accumulatedApprovedCredits,
-            };
+        return {
+            period: periodData.period,
+            enrollments,
+            enrolledCredits,
+            approvedCredits,
+            approvalPercentage: enrolledCredits > 0 ? (approvedCredits / enrolledCredits) * 100 : 0,
+            periodGPA: periodData.summary?.gpa || 0,
+            accumulatedCredits,
+            accumulatedApprovedCredits,
+        };
         });
     }, [academicHistory]);
 

@@ -2,6 +2,9 @@
 
 import * as React from "react";
 import { useTranslations } from "next-intl";
+import { useQuery, useMutation } from "convex/react"; // Add this import
+import { api } from "@/convex/_generated/api"; // Add this import
+import { Id } from "@/convex/_generated/dataModel"; // Add this import
 import {
     Dialog,
     DialogContent,
@@ -21,53 +24,9 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Calendar, Clock, BookOpen, Users, Save } from "lucide-react";
+import { Calendar, Clock, BookOpen, Users, Save, Loader2 } from "lucide-react"; // Add Loader2
 
-// Mock students data
-const mockStudents: StudentGradeEntry[] = [
-    {
-        _id: "e1" as any,
-        studentId: "u1" as any,
-        studentName: "Juan Pérez García",
-        studentCode: "EST-2021-001",
-        percentageGrade: 95,
-        letterGrade: "A",
-        status: "completed",
-        notes: "Excelente participación en clase",
-    },
-    {
-        _id: "e2" as any,
-        studentId: "u2" as any,
-        studentName: "María González López",
-        studentCode: "EST-2021-002",
-        percentageGrade: 88,
-        letterGrade: "B+",
-        status: "completed",
-    },
-    {
-        _id: "e3" as any,
-        studentId: "u3" as any,
-        studentName: "Carlos Rodríguez Martínez",
-        studentCode: "EST-2021-003",
-        percentageGrade: 91,
-        letterGrade: "A-",
-        status: "completed",
-    },
-    {
-        _id: "e4" as any,
-        studentId: "u4" as any,
-        studentName: "Ana Martínez Sánchez",
-        studentCode: "EST-2021-004",
-        status: "enrolled",
-    },
-    {
-        _id: "e5" as any,
-        studentId: "u5" as any,
-        studentName: "Pedro Sánchez Torres",
-        studentCode: "EST-2021-005",
-        status: "enrolled",
-    },
-];
+// Remove the mock students data
 
 interface SectionDetailsDialogProps {
     section: TeachingHistorySection | null;
@@ -81,27 +40,34 @@ export function SectionDetailsDialog({
     onOpenChange,
 }: SectionDetailsDialogProps) {
     const t = useTranslations("gradebook");
-    const [students, setStudents] = React.useState<StudentGradeEntry[]>([]);
+    
+    // Replace mock data with query to get real students
+    const students = useQuery(
+        api.professors.getStudentsBySection,
+        section ? { sectionId: section._id as Id<"sections"> } : "skip"
+    );
+    
+    // Add mutation for submitting grades
+    const submitGrades = useMutation(api.professors.submitGrades);
+    
     const [editedGrades, setEditedGrades] = React.useState<
         Record<string, { grade: string; notes: string }>
     >({});
-
-    // Load mock students when dialog opens
+    
+    // Initialize edited grades state when data loads
     React.useEffect(() => {
-        if (open && section) {
-            setStudents(mockStudents);
-            // Initialize edited grades state
-            const initialGrades: Record<string, { grade: string; notes: string }> =
-                {};
-            mockStudents.forEach((student) => {
-                initialGrades[student._id] = {
-                    grade: student.percentageGrade?.toString() || "",
-                    notes: student.notes || "",
+        if (students?.students && open) {
+            // Reset edited grades when opening with new data
+            const initialGrades: Record<string, { grade: string; notes: string }> = {};
+            students.students.forEach((student) => {
+                initialGrades[student.enrollment._id] = {
+                    grade: student.grade.percentageGrade?.toString() || "",
+                    notes: student.grade.gradeNotes || "",
                 };
             });
             setEditedGrades(initialGrades);
         }
-    }, [open, section]);
+    }, [students, open]);
 
     if (!section) return null;
 
@@ -125,10 +91,32 @@ export function SectionDetailsDialog({
         }));
     };
 
-    const handleSaveGrades = () => {
-        // TODO: Implement save functionality when backend is ready
-        console.log("Saving grades:", editedGrades);
-        alert(t("sectionDetails.gradesSaved"));
+    // Update to use real submission endpoint
+    const handleSaveGrades = async () => {
+        if (!section || !students) return;
+        
+        try {
+            // Convert edited grades to the format expected by the API
+            const gradesToSubmit = Object.entries(editedGrades)
+                .map(([enrollmentId, { grade, notes }]) => ({
+                    enrollmentId: enrollmentId as Id<"enrollments">,
+                    percentageGrade: parseFloat(grade),
+                    gradeNotes: notes,
+                }))
+                .filter(g => !isNaN(g.percentageGrade)); // Filter out invalid grades
+            
+            // Submit grades using the mutation with forceSubmit set to true
+            await submitGrades({
+                sectionId: section._id as Id<"sections">,
+                grades: gradesToSubmit,
+                forceSubmit: true, // Add this line to bypass the period check
+            });
+            
+            alert(t("sectionDetails.gradesSaved"));
+        } catch (error) {
+            console.error("Failed to save grades:", error);
+            alert("Failed to save grades. Please try again.");
+        }
     };
 
     const categoryMap = {
@@ -202,26 +190,33 @@ export function SectionDetailsDialog({
                             </div>
                         </div>
 
-                        {/* Mock course description */}
+                        {/* Course description */}
                         <div className="space-y-2">
                             <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                 <BookOpen className="h-4 w-4" />
                                 <span className="font-medium">{t("sectionDetails.description")}</span>
                             </div>
                             <p className="text-sm text-muted-foreground">
-                                {t("sectionDetails.mockDescription")}
+                                {section.course?.descriptionEs || t("sectionDetails.mockDescription")}
                             </p>
                         </div>
 
-                        {/* Mock schedule */}
+                        {/* Schedule info - could be expanded later */}
                         <div className="space-y-2">
                             <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                 <Clock className="h-4 w-4" />
                                 <span className="font-medium">{t("sectionDetails.schedule")}</span>
                             </div>
                             <div className="flex flex-wrap gap-2">
-                                <Badge variant="outline">{t("sectionDetails.monday")} 14:00 - 16:00</Badge>
-                                <Badge variant="outline">{t("sectionDetails.wednesday")} 14:00 - 16:00</Badge>
+                                {section.section?.schedule?.sessions ? (
+                                    section.section.schedule.sessions.map((session: any, index: number) => (
+                                        <Badge key={index} variant="outline">
+                                            {session.dayOfWeek} {session.startTime} - {session.endTime}
+                                        </Badge>
+                                    ))
+                                ) : (
+                                    <Badge variant="outline">{t("sectionDetails.scheduleNotAvailable")}</Badge>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -250,49 +245,70 @@ export function SectionDetailsDialog({
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {students.map((student) => (
-                                        <TableRow key={student._id}>
-                                            <TableCell className="font-mono text-sm">
-                                                {student.studentCode}
-                                            </TableCell>
-                                            <TableCell className="font-medium">
-                                                {student.studentName}
-                                            </TableCell>
-                                            <TableCell>
-                                                <Input
-                                                    type="number"
-                                                    min="0"
-                                                    max="100"
-                                                    value={editedGrades[student._id]?.grade || ""}
-                                                    onChange={(e) =>
-                                                        handleGradeChange(student._id, e.target.value)
-                                                    }
-                                                    className="h-8 w-20"
-                                                    placeholder="0-100"
-                                                />
-                                            </TableCell>
-                                            <TableCell>
-                                                {student.letterGrade && (
-                                                    <Badge
-                                                        className={`${getGradeColor(student.letterGrade)}`}
-                                                    >
-                                                        {student.letterGrade}
-                                                    </Badge>
-                                                )}
-                                            </TableCell>
-                                            <TableCell>
-                                                <Input
-                                                    type="text"
-                                                    value={editedGrades[student._id]?.notes || ""}
-                                                    onChange={(e) =>
-                                                        handleNotesChange(student._id, e.target.value)
-                                                    }
-                                                    className="h-8"
-                                                    placeholder={t("sectionDetails.addNotes")}
-                                                />
+                                    {students === undefined ? (
+                                        <TableRow>
+                                            <TableCell colSpan={5} className="text-center py-8">
+                                                <div className="flex flex-col items-center justify-center gap-2">
+                                                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                                                    <span className="text-muted-foreground">
+                                                        {t("sectionDetails.loadingStudents")}
+                                                    </span>
+                                                </div>
                                             </TableCell>
                                         </TableRow>
-                                    ))}
+                                    ) : students.students.length === 0 ? (
+                                        <TableRow>
+                                            <TableCell colSpan={5} className="text-center py-8">
+                                                <span className="text-muted-foreground">
+                                                    {t("sectionDetails.noStudents")}
+                                                </span>
+                                            </TableCell>
+                                        </TableRow>
+                                    ) : (
+                                        students.students.map((student) => (
+                                            <TableRow key={student.enrollment._id}>
+                                                <TableCell className="font-mono text-sm">
+                                                    {student.student?.studentProfile?.studentCode || "N/A"}
+                                                </TableCell>
+                                                <TableCell className="font-medium">
+                                                    {student.student?.firstName} {student.student?.lastName}
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Input
+                                                        type="number"
+                                                        min="0"
+                                                        max="100"
+                                                        value={editedGrades[student.enrollment._id]?.grade || ""}
+                                                        onChange={(e) =>
+                                                            handleGradeChange(student.enrollment._id, e.target.value)
+                                                        }
+                                                        className="h-8 w-20"
+                                                        placeholder="0-100"
+                                                    />
+                                                </TableCell>
+                                                <TableCell>
+                                                    {student.grade.letterGrade && (
+                                                        <Badge
+                                                            className={`${getGradeColor(student.grade.letterGrade)}`}
+                                                        >
+                                                            {student.grade.letterGrade}
+                                                        </Badge>
+                                                    )}
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Input
+                                                        type="text"
+                                                        value={editedGrades[student.enrollment._id]?.notes || ""}
+                                                        onChange={(e) =>
+                                                            handleNotesChange(student.enrollment._id, e.target.value)
+                                                        }
+                                                        className="h-8"
+                                                        placeholder={t("sectionDetails.addNotes")}
+                                                    />
+                                                </TableCell>
+                                            </TableRow>
+                                        ))
+                                    )}
                                 </TableBody>
                             </Table>
                         </div>

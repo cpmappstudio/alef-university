@@ -205,6 +205,7 @@ export const submitGrades = mutation({
             percentageGrade: v.number(),
             gradeNotes: v.optional(v.string()),
         })),
+        forceSubmit: v.optional(v.boolean()),
     },
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
@@ -232,10 +233,14 @@ export const submitGrades = mutation({
             throw new ConvexError("Period not found");
         }
 
-        // Check if grading period is open
-        if (!isGradingOpen(period)) {
+        if (!isGradingOpen(period) && !args.forceSubmit) {
             throw new ConvexError("Grading period is closed");
         }
+
+        // // Check if grading period is open
+        // if (!isGradingOpen(period)) {
+        //     throw new ConvexError("Grading period is closed");
+        // }
 
         const course = await ctx.db.get(section.courseId);
         if (!course) {
@@ -297,6 +302,7 @@ export const updateGrade = mutation({
         enrollmentId: v.id("enrollments"),
         percentageGrade: v.number(),
         gradeNotes: v.optional(v.string()),
+        forceSubmit: v.optional(v.boolean()),
     },
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
@@ -334,10 +340,14 @@ export const updateGrade = mutation({
             throw new ConvexError("Period not found");
         }
 
-        // Check if grading period is open
-        if (!isGradingOpen(period)) {
+        if (!isGradingOpen(period) && !args.forceSubmit) {
             throw new ConvexError("Grading period is closed");
         }
+
+        // // Check if grading period is open
+        // if (!isGradingOpen(period)) {
+        //     throw new ConvexError("Grading period is closed");
+        // }
 
         const course = await ctx.db.get(enrollment.courseId);
         if (!course) {
@@ -437,7 +447,7 @@ export const getMyTeachingHistory = query({
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
         if (!identity) {
-            throw new ConvexError("Not authenticated");
+            return [];
         }
 
         const user = await getUserByClerkId(ctx.db, identity.subject);

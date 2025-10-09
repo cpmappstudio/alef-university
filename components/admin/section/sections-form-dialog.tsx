@@ -348,6 +348,7 @@ export function SectionFormDialog({
                 <Select
                   value={formData.professorId || ""}
                   onValueChange={(value) => updateFormData("professorId", value as Id<"users">)}
+                  disabled={mode === "edit"}
                 >
                   <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
                     <SelectValue placeholder={!professors || professors.length === 0 ? "No professors available" : "Select professor"} />

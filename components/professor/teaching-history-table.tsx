@@ -22,6 +22,8 @@ import {
 import { TeachingHistorySection, PeriodTeachingSummary } from "./types";
 import { SectionDetailsDialog } from "./section-details-dialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 type StatusFilter = "all" | "active" | "closed" | "cancelled";
 type CategoryFilter = "all" | "humanities" | "core" | "elective" | "general";
@@ -177,6 +179,8 @@ const mockTeachingHistory = {
 export default function TeachingHistoryTable() {
     const t = useTranslations("gradebook");
 
+    const teachingHistory = useQuery(api.professors.getMyTeachingHistory, {});
+
     // Create columns with translations
     const columns = React.useMemo(
         () =>
@@ -205,8 +209,6 @@ export default function TeachingHistoryTable() {
         [t]
     );
 
-    // Use mock data instead of Convex query
-    const teachingHistory = mockTeachingHistory;
     const [searchTerm, setSearchTerm] = React.useState("");
     const [statusFilter, setStatusFilter] = React.useState<StatusFilter>("all");
     const [categoryFilter, setCategoryFilter] =
@@ -216,19 +218,31 @@ export default function TeachingHistoryTable() {
     const [isDetailsDialogOpen, setIsDetailsDialogOpen] = React.useState(false);
     const [currentPeriodIndex, setCurrentPeriodIndex] = React.useState(0); // 0 = most recent period
 
-    // Transform data for display
     const periodSummaries = React.useMemo<PeriodTeachingSummary[]>(() => {
         if (!teachingHistory?.history) return [];
 
-        return teachingHistory.history.map((periodData: any) => {
-            const sections: TeachingHistorySection[] = periodData.sections;
+        return teachingHistory.history.map((periodData) => {
+        const sections: TeachingHistorySection[] = periodData.sections.map((s: any) => ({
+            _id: s.section._id,
+            courseCode: s.course.code,
+            courseName: s.course.nameEs,
+            groupNumber: s.section.groupNumber,
+            credits: s.course.credits,
+            category: s.course.category,
+            closingDate: periodData.period.endDate,
+            status: s.section.status,
+            enrolledStudents: s.statistics.enrolled,
+            course: s.course,
+            section: s.section,
+            period: periodData.period,
+        }));
 
-            return {
-                period: periodData.period,
-                sections,
-                totalStudents: sections.reduce((sum, s) => sum + s.enrolledStudents, 0),
-                totalCourses: sections.length,
-            };
+        return {
+            period: periodData.period,
+            sections,
+            totalStudents: sections.reduce((sum, s) => sum + s.enrolledStudents, 0),
+            totalCourses: sections.length,
+        };
         });
     }, [teachingHistory]);
 
@@ -361,7 +375,7 @@ export default function TeachingHistoryTable() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">
-                            {teachingHistory.overallStats.totalStudentsTaught}
+                            {teachingHistory.summary.totalStudentsTaught}
                         </div>
                         <p className="text-xs text-muted-foreground">
                             {t("stats.acrossAllPeriods")}
@@ -377,7 +391,7 @@ export default function TeachingHistoryTable() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">
-                            {teachingHistory.overallStats.totalCoursesDelivered}
+                            {teachingHistory.summary.totalCoursesDelivered}
                         </div>
                         <p className="text-xs text-muted-foreground">
                             {t("stats.coursesDelivered")}
@@ -393,7 +407,7 @@ export default function TeachingHistoryTable() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">
-                            {teachingHistory.overallStats.totalPeriodsTaught}
+                            {teachingHistory.summary.totalPeriods}
                         </div>
                         <p className="text-xs text-muted-foreground">
                             {t("stats.periodsTaught")}
