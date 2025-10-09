@@ -67,26 +67,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           url: menuConfig.student.url,
           icon: iconMap.student,
           isActive: true, // Dashboard activo por defecto
-          items: menuConfig.student.items.map(item => ({
-            title: item.title,
-            url: item.url,
-          })),
+          items: menuConfig.student.items
+            .filter(item => !item.url.includes('/progress')) // Ocultar enlaces de progress
+            .map(item => ({
+              title: item.title,
+              url: item.url,
+            })),
         })
       }
 
-      // Documentación para estudiantes
-      if (menuConfig.studentDocs) {
-        items.push({
-          title: menuConfig.studentDocs.title,
-          url: menuConfig.studentDocs.url,
-          icon: iconMap.studentDocs,
-          isActive: false,
-          items: menuConfig.studentDocs.items.map(item => ({
-            title: item.title,
-            url: item.url,
-          })),
-        })
-      }
+      // Documentación para estudiantes - OCULTO
+      // if (menuConfig.studentDocs) {
+      //   items.push({
+      //     title: menuConfig.studentDocs.title,
+      //     url: menuConfig.studentDocs.url,
+      //     icon: iconMap.studentDocs,
+      //     isActive: false,
+      //     items: menuConfig.studentDocs.items.map(item => ({
+      //       title: item.title,
+      //       url: item.url,
+      //     })),
+      //   })
+      // }
     }
 
     if (userRole === 'professor') {
@@ -97,26 +99,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           url: menuConfig.professor.url,
           icon: iconMap.professor,
           isActive: true,
-          items: menuConfig.professor.items.map(item => ({
-            title: item.title,
-            url: item.url,
-          })),
+          items: menuConfig.professor.items
+            .filter(item => !item.url.includes('/progress')) // Ocultar enlaces de progress
+            .map(item => ({
+              title: item.title,
+              url: item.url,
+            })),
         })
       }
 
-      // Documentación para profesores
-      if (menuConfig.professorDocs) {
-        items.push({
-          title: menuConfig.professorDocs.title,
-          url: menuConfig.professorDocs.url,
-          icon: iconMap.professorDocs,
-          isActive: false,
-          items: menuConfig.professorDocs.items.map(item => ({
-            title: item.title,
-            url: item.url,
-          })),
-        })
-      }
+      // Documentación para profesores - OCULTO
+      // if (menuConfig.professorDocs) {
+      //   items.push({
+      //     title: menuConfig.professorDocs.title,
+      //     url: menuConfig.professorDocs.url,
+      //     icon: iconMap.professorDocs,
+      //     isActive: false,
+      //     items: menuConfig.professorDocs.items.map(item => ({
+      //       title: item.title,
+      //       url: item.url,
+      //     })),
+      //   })
+      // }
     }
 
     if ((userRole === 'admin' || userRole === 'superadmin')) {
@@ -127,10 +131,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           url: menuConfig.adminAcademic.url,
           icon: iconMap.adminAcademic,
           isActive: true,
-          items: menuConfig.adminAcademic.items.map(item => ({
-            title: item.title,
-            url: item.url,
-          })),
+          items: menuConfig.adminAcademic.items
+            .filter(item => !item.url.includes('/progress')) // Ocultar enlaces de progress
+            .map(item => ({
+              title: item.title,
+              url: item.url,
+            })),
         })
       }
 
@@ -141,33 +147,35 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           url: menuConfig.adminPersonal.url,
           icon: iconMap.adminPersonal,
           isActive: false,
-          items: menuConfig.adminPersonal.items.map(item => ({
-            title: item.title,
-            url: item.url,
-          })),
+          items: menuConfig.adminPersonal.items
+            .filter(item => !item.url.includes('/progress')) // Ocultar enlaces de progress
+            .map(item => ({
+              title: item.title,
+              url: item.url,
+            })),
         })
       }
 
-      // Documentación para administradores
-      if (menuConfig.adminDocs) {
-        items.push({
-          title: menuConfig.adminDocs.title,
-          url: menuConfig.adminDocs.url,
-          icon: iconMap.adminDocs,
-          isActive: false,
-          items: menuConfig.adminDocs.items.map(item => ({
-            title: item.title,
-            url: item.url,
-          })),
-        })
-      }
+      // Documentación para administradores - OCULTO
+      // if (menuConfig.adminDocs) {
+      //   items.push({
+      //     title: menuConfig.adminDocs.title,
+      //     url: menuConfig.adminDocs.url,
+      //     icon: iconMap.adminDocs,
+      //     isActive: false,
+      //     items: menuConfig.adminDocs.items.map(item => ({
+      //       title: item.title,
+      //       url: item.url,
+      //     })),
+      //   })
+      // }
     }
 
     return items
   }, [t, userRole])
 
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible="icon" {...props} className="wrap-anywhere overflow-hidden">
       <SidebarHeader>
         <UserButtonWrapper
           showName={state !== "collapsed"}

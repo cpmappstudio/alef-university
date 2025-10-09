@@ -25,9 +25,8 @@ export const createOrUpdateUser = mutation({
         email: v.string(),
         firstName: v.string(),
         lastName: v.string(),
-        secondLastName: v.optional(v.string()),
         role: v.optional(roleValidator),
-        
+
         // **THE FIX**: Add the optional personal fields here too.
         dateOfBirth: v.optional(v.number()),
         nationality: v.optional(v.string()),
@@ -58,7 +57,6 @@ export const createOrUpdateUser = mutation({
                 email: args.email,
                 firstName: args.firstName,
                 lastName: args.lastName,
-                secondLastName: args.secondLastName,
                 role: args.role,
                 dateOfBirth: args.dateOfBirth,
                 nationality: args.nationality,
@@ -70,8 +68,8 @@ export const createOrUpdateUser = mutation({
                 updatedAt: Date.now(),
             });
             return existingByClerkId._id;
-        } 
-        
+        }
+
         if (existingByEmail && !existingByEmail.clerkId.startsWith("pending_")) {
             throw new Error("Email address already exists");
         }
@@ -85,7 +83,6 @@ export const createOrUpdateUser = mutation({
             email: args.email,
             firstName: args.firstName,
             lastName: args.lastName,
-            secondLastName: args.secondLastName,
             role: args.role ?? "student",
             isActive: args.clerkId.startsWith("pending_") ? false : true,
             dateOfBirth: args.dateOfBirth,
@@ -380,9 +377,9 @@ export const getUserByEmail = query({
  * Activate pending user with real Clerk ID
  */
 export const activatePendingUser = mutation({
-    args: { 
-        userId: v.id("users"), 
-        clerkId: v.string() 
+    args: {
+        userId: v.id("users"),
+        clerkId: v.string()
     },
     handler: async (ctx, args) => {
         await ctx.db.patch(args.userId, {

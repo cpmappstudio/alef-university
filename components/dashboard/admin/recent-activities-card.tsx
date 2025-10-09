@@ -4,6 +4,7 @@ import { Activity } from "lucide-react";
 import { format } from "date-fns";
 import { AdminDashboardData } from "./types";
 import { getMockAdminDashboardData } from "./dashboard-data";
+import { useState, useEffect } from 'react';
 
 interface RecentActivitiesCardProps {
     data?: AdminDashboardData
@@ -11,12 +12,17 @@ interface RecentActivitiesCardProps {
 
 export default function RecentActivitiesCard({ data: providedData }: RecentActivitiesCardProps) {
     const t = useTranslations('dashboard.admin');
+    const [mounted, setMounted] = useState(false);
 
     // Use real data if provided, otherwise use mock data
-    const data = providedData?.recentActivities?.length 
+    const data = providedData?.recentActivities?.length
         ? { recentActivities: providedData.recentActivities }
         : getMockAdminDashboardData();
-    
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     // Helper function to get appropriate icon color
     const getIconColorClass = (type: string) => {
         switch (type) {
@@ -51,18 +57,20 @@ export default function RecentActivitiesCard({ data: providedData }: RecentActiv
 
     // Helper function for time ago text
     const getTimeAgo = (timestamp: string) => {
+        if (!mounted) return ""; // Return empty during SSR to avoid hydration mismatch
+
         try {
             const date = new Date(timestamp);
             const now = new Date();
             const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-            
+
             if (diffInSeconds < 60) return t('recentActivities.justNow');
             if (diffInSeconds < 3600) return t('recentActivities.minutesAgo', { minutes: Math.floor(diffInSeconds / 60) });
             if (diffInSeconds < 86400) return t('recentActivities.hoursAgo', { hours: Math.floor(diffInSeconds / 3600) });
             if (diffInSeconds < 172800) return t('recentActivities.yesterday');
             return format(date, 'MMM d');
         } catch (e) {
-            return "Unknown";
+            return "";
         }
     }
 
@@ -98,7 +106,7 @@ export default function RecentActivitiesCard({ data: providedData }: RecentActiv
                             </div>
                         </div>
                     ))}
-                    
+
                     {data.recentActivities.length === 0 && (
                         <div className="text-center py-6">
                             <p className="text-muted-foreground">

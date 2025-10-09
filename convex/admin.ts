@@ -56,18 +56,18 @@ export const getAllUsers = query({
 
         // Base query
         let users: Doc<"users">[];
-        
+
         // Apply filters
-        if(args.role){
+        if (args.role) {
             users = await ctx.db.query("users")
                 .withIndex("by_role_active", q => q.eq("role", args.role!))
                 .collect();
         } else {
             users = await ctx.db.query("users").collect();
         }
-        
+
         // Apply post-query filters
-        if(args.isActive !== undefined){
+        if (args.isActive !== undefined) {
             users = users.filter(user => user.isActive === args.isActive);
         }
 
@@ -651,75 +651,75 @@ export const getEnrollmentStatistics = query({
  * Get all enrollments with rich data for the admin table
  */
 export const getAdminEnrollments = query({
-  args: {
-    studentId: v.optional(v.id("users")),
-    courseId: v.optional(v.id("courses")),
-    sectionId: v.optional(v.id("sections")),
-    periodId: v.optional(v.id("periods")),
-    status: v.optional(v.string()),
-  },
-  handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      return [];
-    }
+    args: {
+        studentId: v.optional(v.id("users")),
+        courseId: v.optional(v.id("courses")),
+        sectionId: v.optional(v.id("sections")),
+        periodId: v.optional(v.id("periods")),
+        status: v.optional(v.string()),
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+            return [];
+        }
 
-    const user = await getUserByClerkId(ctx.db, identity.subject);
-    if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
-      throw new ConvexError("Admin access required");
-    }
+        const user = await getUserByClerkId(ctx.db, identity.subject);
+        if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
+            throw new ConvexError("Admin access required");
+        }
 
-    // Start with the base query, applying index first if studentId is provided
-    let enrollments;
-    if (args.studentId) {
-      enrollments = await ctx.db
-        .query("enrollments")
-        .withIndex("by_student_period", q => q.eq("studentId", args.studentId!))
-        .collect();
-    } else {
-      enrollments = await ctx.db.query("enrollments").collect();
-    }
+        // Start with the base query, applying index first if studentId is provided
+        let enrollments;
+        if (args.studentId) {
+            enrollments = await ctx.db
+                .query("enrollments")
+                .withIndex("by_student_period", q => q.eq("studentId", args.studentId!))
+                .collect();
+        } else {
+            enrollments = await ctx.db.query("enrollments").collect();
+        }
 
-    // Apply additional filters in memory
-    if (args.courseId) {
-      enrollments = enrollments.filter(e => e.courseId === args.courseId);
-    }
-    if (args.sectionId) {
-      enrollments = enrollments.filter(e => e.sectionId === args.sectionId);
-    }
-    if (args.periodId) {
-      enrollments = enrollments.filter(e => e.periodId === args.periodId);
-    }
-    if (args.status) {
-      enrollments = enrollments.filter(e => e.status === args.status);
-    }
+        // Apply additional filters in memory
+        if (args.courseId) {
+            enrollments = enrollments.filter(e => e.courseId === args.courseId);
+        }
+        if (args.sectionId) {
+            enrollments = enrollments.filter(e => e.sectionId === args.sectionId);
+        }
+        if (args.periodId) {
+            enrollments = enrollments.filter(e => e.periodId === args.periodId);
+        }
+        if (args.status) {
+            enrollments = enrollments.filter(e => e.status === args.status);
+        }
 
-    // Enrich enrollments with related data
-    const enrollmentsWithDetails = await Promise.all(
-      enrollments.map(async (enrollment) => {
-        const [student, course, section, period, professor] = await Promise.all([
-          ctx.db.get(enrollment.studentId),
-          ctx.db.get(enrollment.courseId),
-          ctx.db.get(enrollment.sectionId),
-          ctx.db.get(enrollment.periodId),
-          ctx.db.get(enrollment.professorId),
-        ]);
+        // Enrich enrollments with related data
+        const enrollmentsWithDetails = await Promise.all(
+            enrollments.map(async (enrollment) => {
+                const [student, course, section, period, professor] = await Promise.all([
+                    ctx.db.get(enrollment.studentId),
+                    ctx.db.get(enrollment.courseId),
+                    ctx.db.get(enrollment.sectionId),
+                    ctx.db.get(enrollment.periodId),
+                    ctx.db.get(enrollment.professorId),
+                ]);
 
-        return {
-          ...enrollment,
-          studentName: student ? `${student.firstName} ${student.lastName}` : "N/A",
-          studentEmail: student?.email || "N/A", // Add this for frontend filtering
-          courseName: course ? course.nameEs : "N/A",
-          courseCode: course?.code || "N/A",
-          sectionInfo: section ? { groupNumber: section.groupNumber } : {},
-          periodInfo: period ? { nameEs: period.nameEs, code: period.code } : {},
-          professorName: professor ? `${professor.firstName} ${professor.lastName}`: "N/A",
-        };
-      })
-    );
+                return {
+                    ...enrollment,
+                    studentName: student ? `${student.firstName} ${student.lastName}` : "N/A",
+                    studentEmail: student?.email || "N/A", // Add this for frontend filtering
+                    courseName: course ? course.nameEs : "N/A",
+                    courseCode: course?.code || "N/A",
+                    sectionInfo: section ? { groupNumber: section.groupNumber } : {},
+                    periodInfo: period ? { nameEs: period.nameEs, code: period.code } : {},
+                    professorName: professor ? `${professor.firstName} ${professor.lastName}` : "N/A",
+                };
+            })
+        );
 
-    return enrollmentsWithDetails;
-  },
+        return enrollmentsWithDetails;
+    },
 });
 
 
@@ -727,192 +727,192 @@ export const getAdminEnrollments = query({
  * Create a new enrollment record (Admin only)
  */
 export const createEnrollment = mutation({
-  args: {
-    // Required fields
-    studentId: v.id("users"),
-    sectionId: v.id("sections"),
-    periodId: v.id("periods"),
-    courseId: v.id("courses"),
-    professorId: v.optional(v.id("users")),
-    status: enrollmentStatusValidator,
-    
-    // Optional fields
-    statusChangeReason: v.optional(v.string()),
-    percentageGrade: v.optional(v.number()),
-    letterGrade: v.optional(v.string()),
-    gradePoints: v.optional(v.number()),
-    gradeNotes: v.optional(v.string()),
-    isRetake: v.optional(v.boolean()),
-    isAuditing: v.optional(v.boolean()),
-    countsForGPA: v.optional(v.boolean()),
-    countsForProgress: v.optional(v.boolean()),
-    incompleteDeadline: v.optional(v.number()),
-  },
-  handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new ConvexError("Not authenticated");
+    args: {
+        // Required fields
+        studentId: v.id("users"),
+        sectionId: v.id("sections"),
+        periodId: v.id("periods"),
+        courseId: v.id("courses"),
+        professorId: v.optional(v.id("users")),
+        status: enrollmentStatusValidator,
+
+        // Optional fields
+        statusChangeReason: v.optional(v.string()),
+        percentageGrade: v.optional(v.number()),
+        letterGrade: v.optional(v.string()),
+        gradePoints: v.optional(v.number()),
+        gradeNotes: v.optional(v.string()),
+        isRetake: v.optional(v.boolean()),
+        isAuditing: v.optional(v.boolean()),
+        countsForGPA: v.optional(v.boolean()),
+        countsForProgress: v.optional(v.boolean()),
+        incompleteDeadline: v.optional(v.number()),
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+            throw new ConvexError("Not authenticated");
+        }
+        const user = await getUserByClerkId(ctx.db, identity.subject);
+        if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
+            throw new ConvexError("Admin access required");
+        }
+
+        // Validate that the section exists
+        const section = await ctx.db.get(args.sectionId);
+        if (!section) {
+            throw new ConvexError("Section not found");
+        }
+
+        // Validate that the course exists
+        const course = await ctx.db.get(args.courseId);
+        if (!course) {
+            throw new ConvexError("Course not found");
+        }
+
+        // Calculate grade-related fields if percentage grade is provided
+        let letterGrade = args.letterGrade;
+        let gradePoints = args.gradePoints;
+        let qualityPoints = undefined;
+
+        if (args.percentageGrade !== undefined) {
+            letterGrade = letterGrade || calculateLetterGrade(args.percentageGrade);
+            gradePoints = gradePoints || calculateGradePoints(args.percentageGrade);
+            qualityPoints = calculateQualityPoints(gradePoints, course.credits);
+        }
+
+        // Create enrollment record
+        const enrollmentId = await ctx.db.insert("enrollments", {
+            studentId: args.studentId,
+            sectionId: args.sectionId,
+            periodId: args.periodId,
+            courseId: args.courseId,
+            professorId: args.professorId || section.professorId,
+            enrolledAt: Date.now(),
+            enrolledBy: user._id,
+            status: args.status,
+            statusChangedAt: Date.now(),
+            statusChangedBy: user._id,
+            statusChangeReason: args.statusChangeReason,
+            percentageGrade: args.percentageGrade,
+            letterGrade,
+            gradePoints,
+            qualityPoints,
+            gradedBy: args.percentageGrade !== undefined ? user._id : undefined,
+            gradedAt: args.percentageGrade !== undefined ? Date.now() : undefined,
+            gradeNotes: args.gradeNotes,
+            lastGradeUpdate: args.percentageGrade !== undefined ? Date.now() : undefined,
+            isRetake: args.isRetake ?? false,
+            isAuditing: args.isAuditing ?? false,
+            countsForGPA: args.countsForGPA ?? !args.isAuditing,
+            countsForProgress: args.countsForProgress ?? !args.isAuditing,
+            incompleteDeadline: args.incompleteDeadline,
+            createdAt: Date.now(),
+        });
+
+        // Update section enrollment count
+        await ctx.db.patch(args.sectionId, {
+            enrolled: section.enrolled + 1,
+        });
+
+        return enrollmentId;
     }
-    const user = await getUserByClerkId(ctx.db, identity.subject);
-    if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
-      throw new ConvexError("Admin access required");
-    }
-
-    // Validate that the section exists
-    const section = await ctx.db.get(args.sectionId);
-    if (!section) {
-      throw new ConvexError("Section not found");
-    }
-
-    // Validate that the course exists
-    const course = await ctx.db.get(args.courseId);
-    if (!course) {
-      throw new ConvexError("Course not found");
-    }
-
-    // Calculate grade-related fields if percentage grade is provided
-    let letterGrade = args.letterGrade;
-    let gradePoints = args.gradePoints;
-    let qualityPoints = undefined;
-
-    if (args.percentageGrade !== undefined) {
-      letterGrade = letterGrade || calculateLetterGrade(args.percentageGrade);
-      gradePoints = gradePoints || calculateGradePoints(args.percentageGrade);
-      qualityPoints = calculateQualityPoints(gradePoints, course.credits);
-    }
-
-    // Create enrollment record
-    const enrollmentId = await ctx.db.insert("enrollments", {
-      studentId: args.studentId,
-      sectionId: args.sectionId,
-      periodId: args.periodId,
-      courseId: args.courseId,
-      professorId: args.professorId || section.professorId,
-      enrolledAt: Date.now(),
-      enrolledBy: user._id,
-      status: args.status,
-      statusChangedAt: Date.now(),
-      statusChangedBy: user._id,
-      statusChangeReason: args.statusChangeReason,
-      percentageGrade: args.percentageGrade,
-      letterGrade,
-      gradePoints,
-      qualityPoints,
-      gradedBy: args.percentageGrade !== undefined ? user._id : undefined,
-      gradedAt: args.percentageGrade !== undefined ? Date.now() : undefined,
-      gradeNotes: args.gradeNotes,
-      lastGradeUpdate: args.percentageGrade !== undefined ? Date.now() : undefined,
-      isRetake: args.isRetake ?? false,
-      isAuditing: args.isAuditing ?? false,
-      countsForGPA: args.countsForGPA ?? !args.isAuditing,
-      countsForProgress: args.countsForProgress ?? !args.isAuditing,
-      incompleteDeadline: args.incompleteDeadline,
-      createdAt: Date.now(),
-    });
-
-    // Update section enrollment count
-    await ctx.db.patch(args.sectionId, {
-      enrolled: section.enrolled + 1,
-    });
-
-    return enrollmentId;
-  }
 });
 
 /**
  * Update an existing enrollment record (Admin only)
  */
 export const updateEnrollment = mutation({
-  args: {
-    enrollmentId: v.id("enrollments"),
-    status: v.optional(enrollmentStatusValidator),
-    statusChangeReason: v.optional(v.string()),
-    percentageGrade: v.optional(v.number()),
-    letterGrade: v.optional(v.string()),
-    gradePoints: v.optional(v.number()),
-    gradeNotes: v.optional(v.string()),
-    isRetake: v.optional(v.boolean()),
-    isAuditing: v.optional(v.boolean()),
-    countsForGPA: v.optional(v.boolean()),
-    countsForProgress: v.optional(v.boolean()),
-    incompleteDeadline: v.optional(v.number()),
-  },
-  handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new ConvexError("Not authenticated");
-    }
-    const user = await getUserByClerkId(ctx.db, identity.subject);
-    if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
-      throw new ConvexError("Admin access required");
-    }
+    args: {
+        enrollmentId: v.id("enrollments"),
+        status: v.optional(enrollmentStatusValidator),
+        statusChangeReason: v.optional(v.string()),
+        percentageGrade: v.optional(v.number()),
+        letterGrade: v.optional(v.string()),
+        gradePoints: v.optional(v.number()),
+        gradeNotes: v.optional(v.string()),
+        isRetake: v.optional(v.boolean()),
+        isAuditing: v.optional(v.boolean()),
+        countsForGPA: v.optional(v.boolean()),
+        countsForProgress: v.optional(v.boolean()),
+        incompleteDeadline: v.optional(v.number()),
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+            throw new ConvexError("Not authenticated");
+        }
+        const user = await getUserByClerkId(ctx.db, identity.subject);
+        if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
+            throw new ConvexError("Admin access required");
+        }
 
-    const { enrollmentId, ...updates } = args;
-    const enrollment = await ctx.db.get(enrollmentId);
-    if (!enrollment) throw new ConvexError("Enrollment not found");
+        const { enrollmentId, ...updates } = args;
+        const enrollment = await ctx.db.get(enrollmentId);
+        if (!enrollment) throw new ConvexError("Enrollment not found");
 
-    const course = await ctx.db.get(enrollment.courseId);
-    if (!course) throw new ConvexError("Course not found");
+        const course = await ctx.db.get(enrollment.courseId);
+        if (!course) throw new ConvexError("Course not found");
 
-    // Build update object
-    const updatePayload: any = {
-      updatedAt: Date.now()
-    };
+        // Build update object
+        const updatePayload: any = {
+            updatedAt: Date.now()
+        };
 
-    // Update status-related fields
-    if (updates.status !== undefined) {
-      updatePayload.status = updates.status;
-      updatePayload.statusChangedAt = Date.now();
-      updatePayload.statusChangedBy = user._id;
-    }
-    if (updates.statusChangeReason !== undefined) {
-      updatePayload.statusChangeReason = updates.statusChangeReason;
-    }
+        // Update status-related fields
+        if (updates.status !== undefined) {
+            updatePayload.status = updates.status;
+            updatePayload.statusChangedAt = Date.now();
+            updatePayload.statusChangedBy = user._id;
+        }
+        if (updates.statusChangeReason !== undefined) {
+            updatePayload.statusChangeReason = updates.statusChangeReason;
+        }
 
-    // Update grade-related fields
-    if (updates.percentageGrade !== undefined) {
-      updatePayload.percentageGrade = updates.percentageGrade;
-      updatePayload.letterGrade = updates.letterGrade || calculateLetterGrade(updates.percentageGrade);
-      updatePayload.gradePoints = updates.gradePoints || calculateGradePoints(updates.percentageGrade);
-      updatePayload.qualityPoints = calculateQualityPoints(updatePayload.gradePoints, course.credits);
-      updatePayload.gradedAt = Date.now();
-      updatePayload.gradedBy = user._id;
-      updatePayload.lastGradeUpdate = Date.now();
-    } else {
-      // Update letter grade and grade points independently if provided
-      if (updates.letterGrade !== undefined) {
-        updatePayload.letterGrade = updates.letterGrade;
-      }
-      if (updates.gradePoints !== undefined) {
-        updatePayload.gradePoints = updates.gradePoints;
-        updatePayload.qualityPoints = calculateQualityPoints(updates.gradePoints, course.credits);
-      }
-    }
+        // Update grade-related fields
+        if (updates.percentageGrade !== undefined) {
+            updatePayload.percentageGrade = updates.percentageGrade;
+            updatePayload.letterGrade = updates.letterGrade || calculateLetterGrade(updates.percentageGrade);
+            updatePayload.gradePoints = updates.gradePoints || calculateGradePoints(updates.percentageGrade);
+            updatePayload.qualityPoints = calculateQualityPoints(updatePayload.gradePoints, course.credits);
+            updatePayload.gradedAt = Date.now();
+            updatePayload.gradedBy = user._id;
+            updatePayload.lastGradeUpdate = Date.now();
+        } else {
+            // Update letter grade and grade points independently if provided
+            if (updates.letterGrade !== undefined) {
+                updatePayload.letterGrade = updates.letterGrade;
+            }
+            if (updates.gradePoints !== undefined) {
+                updatePayload.gradePoints = updates.gradePoints;
+                updatePayload.qualityPoints = calculateQualityPoints(updates.gradePoints, course.credits);
+            }
+        }
 
-    if (updates.gradeNotes !== undefined) {
-      updatePayload.gradeNotes = updates.gradeNotes;
-    }
+        if (updates.gradeNotes !== undefined) {
+            updatePayload.gradeNotes = updates.gradeNotes;
+        }
 
-    // Update enrollment settings
-    if (updates.isRetake !== undefined) {
-      updatePayload.isRetake = updates.isRetake;
-    }
-    if (updates.isAuditing !== undefined) {
-      updatePayload.isAuditing = updates.isAuditing;
-    }
-    if (updates.countsForGPA !== undefined) {
-      updatePayload.countsForGPA = updates.countsForGPA;
-    }
-    if (updates.countsForProgress !== undefined) {
-      updatePayload.countsForProgress = updates.countsForProgress;
-    }
-    if (updates.incompleteDeadline !== undefined) {
-      updatePayload.incompleteDeadline = updates.incompleteDeadline;
-    }
+        // Update enrollment settings
+        if (updates.isRetake !== undefined) {
+            updatePayload.isRetake = updates.isRetake;
+        }
+        if (updates.isAuditing !== undefined) {
+            updatePayload.isAuditing = updates.isAuditing;
+        }
+        if (updates.countsForGPA !== undefined) {
+            updatePayload.countsForGPA = updates.countsForGPA;
+        }
+        if (updates.countsForProgress !== undefined) {
+            updatePayload.countsForProgress = updates.countsForProgress;
+        }
+        if (updates.incompleteDeadline !== undefined) {
+            updatePayload.incompleteDeadline = updates.incompleteDeadline;
+        }
 
-    await ctx.db.patch(enrollmentId, updatePayload);
-    return enrollmentId;
-  }
+        await ctx.db.patch(enrollmentId, updatePayload);
+        return enrollmentId;
+    }
 });
 
 
@@ -984,7 +984,7 @@ export const getAllPeriods = query({
         }
         if (args.searchTerm) {
             const searchLower = args.searchTerm.toLowerCase();
-            periods = periods.filter(p => 
+            periods = periods.filter(p =>
                 p.code.toLowerCase().includes(searchLower) ||
                 p.nameEs.toLowerCase().includes(searchLower)
             );
@@ -1103,8 +1103,8 @@ export const adminUpdateProfessor = mutation({
 
         const { professorId, ...rest } = args;
         const professor = await ctx.db.get(professorId);
-        if(!professor || professor.role !== 'professor') throw new ConvexError("Professor not found");
-        
+        if (!professor || professor.role !== 'professor') throw new ConvexError("Professor not found");
+
         await ctx.db.patch(professorId, {
             firstName: rest.firstName,
             lastName: rest.lastName,
@@ -1138,7 +1138,7 @@ export const getProfessorTeachingHistory = query({
             .query("sections")
             .withIndex("by_professor_period", q => q.eq("professorId", args.professorId))
             .collect();
-            
+
         return Promise.all(
             sections.map(async (section) => {
                 const [course, period] = await Promise.all([
@@ -1230,7 +1230,7 @@ export const adminGetSections = query({
                 };
             })
         );
-        
+
         return sectionsWithDetails;
     },
 });
@@ -1239,91 +1239,91 @@ export const adminGetSections = query({
  * Update a student's profile information (Admin only)
  */
 export const adminUpdateStudent = mutation({
-  args: {
-    // Required fields
-    studentId: v.id("users"),
-    firstName: v.string(),
-    lastName: v.string(),
-    isActive: v.boolean(),
-    programId: v.id("programs"),
-    enrollmentDate: v.number(),
-    status: v.union(v.literal("active"), v.literal("inactive"), v.literal("on_leave"), v.literal("graduated"), v.literal("withdrawn")),
-    academicStanding: v.union(v.literal("good_standing"), v.literal("probation"), v.literal("suspension")),
-    
-    // Optional fields
-    secondLastName: v.optional(v.string()),
-    dateOfBirth: v.optional(v.number()),
-    nationality: v.optional(v.string()),
-    documentType: v.optional(v.union(v.literal("passport"), v.literal("national_id"), v.literal("driver_license"), v.literal("other"))),
-    documentNumber: v.optional(v.string()),
-    phone: v.optional(v.string()),
-    country: v.optional(v.string()),
-    address: v.optional(v.object({
-      street: v.string(),
-      city: v.string(),
-      state: v.string(),
-      zipCode: v.string(),
-      country: v.string(),
-    })),
-    expectedGraduationDate: v.optional(v.number()),
-  },
-  handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new ConvexError("Not authenticated");
-    const user = await getUserByClerkId(ctx.db, identity.subject);
-    if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
-      throw new ConvexError("Admin access required");
-    }
+    args: {
+        // Required fields
+        studentId: v.id("users"),
+        firstName: v.string(),
+        lastName: v.string(),
+        isActive: v.boolean(),
+        programId: v.id("programs"),
+        enrollmentDate: v.number(),
+        status: v.union(v.literal("active"), v.literal("inactive"), v.literal("on_leave"), v.literal("graduated"), v.literal("withdrawn")),
+        academicStanding: v.union(v.literal("good_standing"), v.literal("probation"), v.literal("suspension")),
 
-    const { studentId, ...updates } = args;
-    const student = await ctx.db.get(studentId);
-    if (!student || student.role !== 'student') throw new ConvexError("Student not found");
+        // Optional fields
+        secondLastName: v.optional(v.string()),
+        dateOfBirth: v.optional(v.number()),
+        nationality: v.optional(v.string()),
+        documentType: v.optional(v.union(v.literal("passport"), v.literal("national_id"), v.literal("driver_license"), v.literal("other"))),
+        documentNumber: v.optional(v.string()),
+        phone: v.optional(v.string()),
+        country: v.optional(v.string()),
+        address: v.optional(v.object({
+            street: v.string(),
+            city: v.string(),
+            state: v.string(),
+            zipCode: v.string(),
+            country: v.string(),
+        })),
+        expectedGraduationDate: v.optional(v.number()),
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) throw new ConvexError("Not authenticated");
+        const user = await getUserByClerkId(ctx.db, identity.subject);
+        if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
+            throw new ConvexError("Admin access required");
+        }
 
-    // Build the update object with all fields
-    const updateObject = {
-      firstName: updates.firstName,
-      lastName: updates.lastName,
-      isActive: updates.isActive,
-      secondLastName: student.secondLastName,
-      dateOfBirth: student.dateOfBirth,
-      nationality: student.nationality,
-      documentType: student.documentType,
-      documentNumber: student.documentNumber,
-      phone: student.phone,
-      country: student.country,
-      address: student.address,
-      studentProfile: student.studentProfile,
-      updatedAt: Date.now()
-    };
-    
-    // Add optional personal fields
-    if (updates.secondLastName !== undefined) updateObject.secondLastName = updates.secondLastName;
-    if (updates.dateOfBirth !== undefined) updateObject.dateOfBirth = updates.dateOfBirth;
-    if (updates.nationality !== undefined) updateObject.nationality = updates.nationality;
-    if (updates.documentType !== undefined) updateObject.documentType = updates.documentType;
-    if (updates.documentNumber !== undefined) updateObject.documentNumber = updates.documentNumber;
-    if (updates.phone !== undefined) updateObject.phone = updates.phone;
-    if (updates.country !== undefined) updateObject.country = updates.country;
-    if (updates.address !== undefined) updateObject.address = updates.address;
-    
-    // Build student profile
-    updateObject.studentProfile = {
-      ...student.studentProfile, // Preserve existing fields
-      studentCode: student.studentProfile?.studentCode || "",
-      programId: updates.programId,
-      enrollmentDate: updates.enrollmentDate,
-      status: updates.status,
-      academicStanding: updates.academicStanding,
-    };
-    
-    // Add optional student profile fields
-    if (updates.expectedGraduationDate !== undefined) {
-      updateObject.studentProfile.expectedGraduationDate = updates.expectedGraduationDate;
-    }
+        const { studentId, ...updates } = args;
+        const student = await ctx.db.get(studentId);
+        if (!student || student.role !== 'student') throw new ConvexError("Student not found");
 
-    await ctx.db.patch(studentId, updateObject);
-    return studentId;
-  },
+        // Build the update object with all fields
+        const updateObject = {
+            firstName: updates.firstName,
+            lastName: updates.lastName,
+            isActive: updates.isActive,
+            secondLastName: student.secondLastName,
+            dateOfBirth: student.dateOfBirth,
+            nationality: student.nationality,
+            documentType: student.documentType,
+            documentNumber: student.documentNumber,
+            phone: student.phone,
+            country: student.country,
+            address: student.address,
+            studentProfile: student.studentProfile,
+            updatedAt: Date.now()
+        };
+
+        // Add optional personal fields
+        if (updates.secondLastName !== undefined) updateObject.secondLastName = updates.secondLastName;
+        if (updates.dateOfBirth !== undefined) updateObject.dateOfBirth = updates.dateOfBirth;
+        if (updates.nationality !== undefined) updateObject.nationality = updates.nationality;
+        if (updates.documentType !== undefined) updateObject.documentType = updates.documentType;
+        if (updates.documentNumber !== undefined) updateObject.documentNumber = updates.documentNumber;
+        if (updates.phone !== undefined) updateObject.phone = updates.phone;
+        if (updates.country !== undefined) updateObject.country = updates.country;
+        if (updates.address !== undefined) updateObject.address = updates.address;
+
+        // Build student profile
+        updateObject.studentProfile = {
+            ...student.studentProfile, // Preserve existing fields
+            studentCode: student.studentProfile?.studentCode || "",
+            programId: updates.programId,
+            enrollmentDate: updates.enrollmentDate,
+            status: updates.status,
+            academicStanding: updates.academicStanding,
+        };
+
+        // Add optional student profile fields
+        if (updates.expectedGraduationDate !== undefined) {
+            updateObject.studentProfile.expectedGraduationDate = updates.expectedGraduationDate;
+        }
+
+        await ctx.db.patch(studentId, updateObject);
+        return studentId;
+    },
 });
 
 /**
@@ -1335,13 +1335,12 @@ export const createUserWithClerk = action({
         email: v.string(),
         firstName: v.string(),
         lastName: v.string(),
-        secondLastName: v.optional(v.string()),
         role: v.union(
             v.literal("student"),
             v.literal("professor"),
             v.literal("admin")
         ),
-        
+
         // **THE FIX**: Add all the optional personal fields from the form.
         dateOfBirth: v.optional(v.number()),
         nationality: v.optional(v.string()),
@@ -1389,7 +1388,7 @@ export const createUserWithClerk = action({
 
         const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
-        // **STEP 1: ONLY CREATE INVITATION (removed manual user creation)**
+        // **STEP 1: CREATE INVITATION WITH FIRST/LAST NAME IN PUBLIC METADATA**
         const invitationResponse = await fetch("https://api.clerk.com/v1/invitations", {
             method: "POST",
             headers: {
@@ -1398,7 +1397,11 @@ export const createUserWithClerk = action({
             },
             body: JSON.stringify({
                 email_address: args.email,
-                public_metadata: { role: args.role },
+                public_metadata: {
+                    role: args.role,
+                    firstName: args.firstName,
+                    lastName: args.lastName,
+                },
                 redirect_url: `${appUrl}/sign-up`,
                 ignore_existing: true,
             }),
@@ -1411,13 +1414,12 @@ export const createUserWithClerk = action({
 
         // **STEP 2: CREATE PENDING USER IN CONVEX**
         const pendingClerkId = `pending_${args.email}_${Date.now()}`;
-        
+
         const userId = await ctx.runMutation(api.auth.createOrUpdateUser, {
             clerkId: pendingClerkId,
             email: args.email,
             firstName: args.firstName,
             lastName: args.lastName,
-            secondLastName: args.secondLastName,
             role: args.role,
             dateOfBirth: args.dateOfBirth,
             nationality: args.nationality,

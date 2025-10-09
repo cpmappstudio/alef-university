@@ -33,7 +33,6 @@ import { Professor } from "../types";
 interface ProfessorFormData {
   firstName: string;
   lastName: string;
-  secondLastName: string;
   email: string;
   dateOfBirth: string;
   nationality: string;
@@ -97,7 +96,6 @@ export function ProfessorFormDialog({
       return {
         firstName: professor.firstName || "",
         lastName: professor.lastName || "",
-        secondLastName: professor.secondLastName || "",
         email: professor.email || "",
         dateOfBirth: professor.dateOfBirth ? new Date(professor.dateOfBirth).toISOString().split('T')[0] : "",
         nationality: professor.nationality || "",
@@ -117,14 +115,14 @@ export function ProfessorFormDialog({
           employeeCode: professor.professorProfile?.employeeCode || "",
           title: professor.professorProfile?.title || "",
           department: professor.professorProfile?.department || "",
-          hireDate: professor.professorProfile?.hireDate 
+          hireDate: professor.professorProfile?.hireDate
             ? new Date(professor.professorProfile.hireDate).toISOString().split('T')[0] : "",
         },
       };
     }
     // Default for create mode
     return {
-      firstName: "", lastName: "", secondLastName: "", email: "", dateOfBirth: "",
+      firstName: "", lastName: "", email: "", dateOfBirth: "",
       nationality: "", documentType: undefined, documentNumber: "", phone: "", country: "",
       address: { street: "", city: "", state: "", zipCode: "", country: "" },
       isActive: true,
@@ -155,21 +153,21 @@ export function ProfessorFormDialog({
     setIsLoading(true);
     try {
       if (mode === "create") {
-          await adminCreateProfessor({
-            email: formData.email,
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            role: "professor",
-            professorProfile: {
-                employeeCode: formData.professorProfile.employeeCode,
-                title: formData.professorProfile.title || undefined,
-                department: formData.professorProfile.department || undefined,
-                hireDate: formData.professorProfile.hireDate
-                    ? new Date(formData.professorProfile.hireDate).getTime()
-                    : undefined,
-            },
-          });
-          alert("Professor created successfully and an invitation has been sent.");
+        await adminCreateProfessor({
+          email: formData.email,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          role: "professor",
+          professorProfile: {
+            employeeCode: formData.professorProfile.employeeCode,
+            title: formData.professorProfile.title || undefined,
+            department: formData.professorProfile.department || undefined,
+            hireDate: formData.professorProfile.hireDate
+              ? new Date(formData.professorProfile.hireDate).getTime()
+              : undefined,
+          },
+        });
+        alert("Professor created successfully and an invitation has been sent.");
       } else {
         if (!professor) return;
         await adminUpdateProfessor({
@@ -227,12 +225,12 @@ export function ProfessorFormDialog({
   // Helper function to validate required fields
   const validateFormData = (data: ProfessorFormData): string[] => {
     const errors: string[] = [];
-    
+
     if (!data.firstName.trim()) errors.push("First name is required");
     if (!data.lastName.trim()) errors.push("Last name is required");
     if (!data.email.trim()) errors.push("Email is required");
     if (!data.professorProfile.employeeCode.trim()) errors.push("Employee code is required");
-    
+
     return errors;
   };
 
@@ -283,11 +281,11 @@ export function ProfessorFormDialog({
                       value={formData.firstName}
                       onChange={(e) => updateFormData("firstName", e.target.value)}
                       placeholder="Enter first name"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                       required
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="lastName" className="text-sm font-semibold text-foreground">
                       Last Name <span className="text-destructive">*</span>
@@ -297,26 +295,13 @@ export function ProfessorFormDialog({
                       value={formData.lastName}
                       onChange={(e) => updateFormData("lastName", e.target.value)}
                       placeholder="Enter last name"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                       required
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="secondLastName" className="text-sm font-semibold text-foreground">
-                      Second Last Name
-                    </Label>
-                    <Input
-                      id="secondLastName"
-                      value={formData.secondLastName}
-                      onChange={(e) => updateFormData("secondLastName", e.target.value)}
-                      placeholder="Enter second last name"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                    />
-                  </div>
-
                   <div className="space-y-2">
                     <Label htmlFor="email" className="text-sm font-semibold text-foreground">
                       Email <span className="text-destructive">*</span>
@@ -327,13 +312,11 @@ export function ProfessorFormDialog({
                       value={formData.email}
                       onChange={(e) => updateFormData("email", e.target.value)}
                       placeholder="Enter email address"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                       required
                     />
                   </div>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="dateOfBirth" className="text-sm font-semibold text-foreground">
                       Date of Birth
@@ -343,10 +326,12 @@ export function ProfessorFormDialog({
                       type="date"
                       value={formData.dateOfBirth}
                       onChange={(e) => updateFormData("dateOfBirth", e.target.value)}
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
+                </div>
 
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="nationality" className="text-sm font-semibold text-foreground">
                       Nationality
@@ -356,7 +341,7 @@ export function ProfessorFormDialog({
                       value={formData.nationality}
                       onChange={(e) => updateFormData("nationality", e.target.value)}
                       placeholder="Enter nationality"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
                 </div>
@@ -370,7 +355,7 @@ export function ProfessorFormDialog({
                       value={formData.documentType || ""}
                       onValueChange={(value) => updateFormData("documentType", value)}
                     >
-                      <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
+                      <SelectTrigger className="w-full  border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
                         <SelectValue placeholder="Select document type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -391,7 +376,7 @@ export function ProfessorFormDialog({
                       value={formData.documentNumber}
                       onChange={(e) => updateFormData("documentNumber", e.target.value)}
                       placeholder="Enter document number"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
                 </div>
@@ -406,7 +391,7 @@ export function ProfessorFormDialog({
                       value={formData.phone}
                       onChange={(e) => updateFormData("phone", e.target.value)}
                       placeholder="Enter phone number"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
 
@@ -419,7 +404,7 @@ export function ProfessorFormDialog({
                       value={formData.country}
                       onChange={(e) => updateFormData("country", e.target.value)}
                       placeholder="Enter country"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
                 </div>
@@ -444,7 +429,7 @@ export function ProfessorFormDialog({
                       value={formData.address.street}
                       onChange={(e) => updateFormData("address.street", e.target.value)}
                       placeholder="Enter street address"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
 
@@ -457,7 +442,7 @@ export function ProfessorFormDialog({
                       value={formData.address.city}
                       onChange={(e) => updateFormData("address.city", e.target.value)}
                       placeholder="Enter city"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
                 </div>
@@ -472,7 +457,7 @@ export function ProfessorFormDialog({
                       value={formData.address.state}
                       onChange={(e) => updateFormData("address.state", e.target.value)}
                       placeholder="Enter state"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
 
@@ -485,7 +470,7 @@ export function ProfessorFormDialog({
                       value={formData.address.zipCode}
                       onChange={(e) => updateFormData("address.zipCode", e.target.value)}
                       placeholder="Enter ZIP code"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
 
@@ -498,7 +483,7 @@ export function ProfessorFormDialog({
                       value={formData.address.country}
                       onChange={(e) => updateFormData("address.country", e.target.value)}
                       placeholder="Enter country"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
                 </div>
@@ -523,7 +508,7 @@ export function ProfessorFormDialog({
                       value={formData.professorProfile.employeeCode}
                       onChange={(e) => updateFormData("professorProfile.employeeCode", e.target.value)}
                       placeholder="Enter employee code"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                       disabled={!isCreate}
                       required
                     />
@@ -537,7 +522,7 @@ export function ProfessorFormDialog({
                       value={formData.professorProfile.title || ""}
                       onValueChange={(value) => updateFormData("professorProfile.title", value)}
                     >
-                      <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
+                      <SelectTrigger className="w-full  border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
                         <SelectValue placeholder="Select academic title" />
                       </SelectTrigger>
                       <SelectContent>
@@ -561,7 +546,7 @@ export function ProfessorFormDialog({
                       value={formData.professorProfile.department}
                       onChange={(e) => updateFormData("professorProfile.department", e.target.value)}
                       placeholder="Enter department"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
 
@@ -574,7 +559,7 @@ export function ProfessorFormDialog({
                       type="date"
                       value={formData.professorProfile.hireDate}
                       onChange={(e) => updateFormData("professorProfile.hireDate", e.target.value)}
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
                 </div>
@@ -588,7 +573,7 @@ export function ProfessorFormDialog({
                       value={formData.isActive ? "true" : "false"}
                       onValueChange={(value) => updateFormData("isActive", value === "true")}
                     >
-                      <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
+                      <SelectTrigger className="w-full  border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -674,7 +659,7 @@ export function ProfessorFormDialog({
                   ).map(([periodName, sections], index) => (
                     <div key={index} className="space-y-3">
                       <h4 className="font-medium text-foreground">{periodName}</h4>
-                      
+
                       {sections.map((section, sIdx) => (
                         <div
                           key={`${index}-${sIdx}`}
@@ -694,7 +679,7 @@ export function ProfessorFormDialog({
                             </p>
                             {section.schedule && (
                               <p className="text-xs text-muted-foreground">
-                                {section.schedule.sessions?.map((session: any) => 
+                                {section.schedule.sessions?.map((session: any) =>
                                   `${session.day.charAt(0).toUpperCase() + session.day.slice(1)} ${session.startTime}-${session.endTime}`
                                 ).join(', ')}
                               </p>
@@ -709,7 +694,7 @@ export function ProfessorFormDialog({
                   ))}
                 </div>
               )}
-              
+
               {teachingHistory && teachingHistory.length > 0 && (
                 <div className="pt-4 mt-4 border-t border-border/50">
                   <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">

@@ -50,7 +50,6 @@ export default defineSchema({
     // Personal information
     firstName: v.string(),
     lastName: v.string(),
-    secondLastName: v.optional(v.string()), // Common in Latin America
 
     // Additional fields for certificates
     dateOfBirth: v.optional(v.number()),
@@ -571,9 +570,9 @@ export default defineSchema({
     userId: v.optional(v.id("users")),
     metadata: v.optional(v.any()),
   })
-  .index("by_entityType", ["entityType"])
-  .index("by_action", ["action"])
-  .index("by_userId", ["userId"]),
+    .index("by_entityType", ["entityType"])
+    .index("by_action", ["action"])
+    .index("by_userId", ["userId"]),
 });
 
 /**

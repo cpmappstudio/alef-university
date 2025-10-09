@@ -127,6 +127,73 @@ export function PeriodFormDialog({
     }
   }, [open, initialFormData]);
 
+  // Auto-calculate status based on dates
+  const calculateStatus = React.useCallback((data: PeriodFormData): "planning" | "enrollment" | "active" | "grading" | "closed" => {
+    const now = new Date();
+    now.setHours(0, 0, 0, 0); // Normalize to start of day for comparison
+
+    const enrollmentStart = data.enrollmentStart ? new Date(data.enrollmentStart) : null;
+    const enrollmentEnd = data.enrollmentEnd ? new Date(data.enrollmentEnd) : null;
+    const endDate = data.endDate ? new Date(data.endDate) : null;
+    const gradingStart = data.graddingStart ? new Date(data.graddingStart) : null;
+    const gradingDeadline = data.graddingDeadline ? new Date(data.graddingDeadline) : null;
+
+    // If we have grading deadline and we're past it, it's closed
+    if (gradingDeadline && now > gradingDeadline) {
+      return "closed";
+    }
+
+    // If we have grading start and we're past it (but before deadline), it's grading
+    if (gradingStart && now >= gradingStart) {
+      return "grading";
+    }
+
+    // If no grading start but we have end date and we're past it, assume grading period
+    if (!gradingStart && endDate && now > endDate && gradingDeadline && now <= gradingDeadline) {
+      return "grading";
+    }
+
+    // If we're past enrollment end but before grading period, it's active
+    if (enrollmentEnd && now > enrollmentEnd) {
+      return "active";
+    }
+
+    // If we're within enrollment period, it's enrollment
+    if (enrollmentStart && enrollmentEnd && now >= enrollmentStart && now <= enrollmentEnd) {
+      return "enrollment";
+    }
+
+    // Default to planning (before enrollment or if dates are incomplete)
+    return "planning";
+  }, []);
+
+  // Update status whenever relevant dates change
+  React.useEffect(() => {
+    const newStatus = calculateStatus(formData);
+    if (formData.status !== newStatus) {
+      setFormData(prev => ({ ...prev, status: newStatus }));
+    }
+  }, [formData.enrollmentStart, formData.enrollmentEnd, formData.graddingStart, formData.graddingDeadline, formData.endDate, calculateStatus]);
+
+  // Calculate if this should be the current period based on dates
+  const calculateIsCurrentPeriod = React.useCallback((data: PeriodFormData): boolean => {
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+
+    const startDate = data.startDate ? new Date(data.startDate) : null;
+    const endDate = data.endDate ? new Date(data.endDate) : null;
+
+    // A period is current if today is between start and end dates
+    // OR if the status is 'enrollment', 'active', or 'grading' (not planning or closed)
+    if (startDate && endDate && now >= startDate && now <= endDate) {
+      return true;
+    }
+
+    // Also consider current if in active phases
+    const status = calculateStatus(data);
+    return status === 'enrollment' || status === 'active' || status === 'grading';
+  }, [calculateStatus]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -141,6 +208,9 @@ export function PeriodFormDialog({
 
     // Helper to convert date string to timestamp
     const toTimestamp = (dateString: string) => dateString ? new Date(dateString).getTime() : undefined;
+
+    // Calculate isCurrentPeriod automatically
+    const isCurrentPeriod = calculateIsCurrentPeriod(formData);
 
     try {
       if (mode === "create") {
@@ -175,7 +245,7 @@ export function PeriodFormDialog({
           gradingStart: toTimestamp(formData.graddingStart),
           gradingDeadline: toTimestamp(formData.graddingDeadline)!,
           status: formData.status!,
-          isCurrentPeriod: formData.isCurrentPeriod,
+          isCurrentPeriod: isCurrentPeriod,
         });
         alert("Period updated successfully!");
       }
@@ -218,7 +288,7 @@ export function PeriodFormDialog({
   // Helper function to validate required fields
   const validateFormData = (data: PeriodFormData): string[] => {
     const errors: string[] = [];
-    
+
     if (!data.code.trim()) errors.push("Code is required");
     if (!data.nameEs.trim()) errors.push("Spanish name is required");
     if (!data.startDate) errors.push("Start date is required");
@@ -226,10 +296,10 @@ export function PeriodFormDialog({
     if (!data.enrollmentStart) errors.push("Enrollment start date is required");
     if (!data.enrollmentEnd) errors.push("Enrollment end date is required");
     if (!data.graddingDeadline) errors.push("Grading deadline is required");
-    if (!data.status) errors.push("Status is required");
+    // Status is auto-calculated, no need to validate
     if (data.year <= 0) errors.push("Year must be a positive number");
     if (data.bimester < 1 || data.bimester > 6) errors.push("Bimester must be between 1 and 6");
-    
+
     // Date validation
     if (data.startDate && data.endDate && new Date(data.startDate) >= new Date(data.endDate)) {
       errors.push("Start date must be before end date");
@@ -237,7 +307,7 @@ export function PeriodFormDialog({
     if (data.enrollmentStart && data.enrollmentEnd && new Date(data.enrollmentStart) >= new Date(data.enrollmentEnd)) {
       errors.push("Enrollment start must be before enrollment end");
     }
-    
+
     return errors;
   };
 
@@ -282,7 +352,7 @@ export function PeriodFormDialog({
                   value={formData.code}
                   onChange={(e) => updateFormData("code", e.target.value)}
                   placeholder="Enter period code (e.g., 2025-1)"
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   disabled={!isCreate}
                   required
                 />
@@ -293,14 +363,14 @@ export function PeriodFormDialog({
                   htmlFor="status"
                   className="text-sm font-semibold text-foreground"
                 >
-                  Status <span className="text-destructive">*</span>
+                  Status <span className="text-muted-foreground text-xs">(Auto-calculated)</span>
                 </Label>
                 <Select
                   value={formData.status || ""}
-                  onValueChange={(value) => updateFormData("status", value)}
+                  disabled
                 >
-                  <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
-                    <SelectValue placeholder="Select status" />
+                  <SelectTrigger className="w-full  border-border bg-muted/50 cursor-not-allowed">
+                    <SelectValue placeholder="Will be calculated from dates" />
                   </SelectTrigger>
                   <SelectContent className="bg-background border-border shadow-lg">
                     <SelectItem value="planning" className="hover:bg-muted/80">
@@ -320,6 +390,9 @@ export function PeriodFormDialog({
                     </SelectItem>
                   </SelectContent>
                 </Select>
+                <p className="text-xs text-muted-foreground">
+                  Status is automatically determined based on enrollment and grading dates
+                </p>
               </div>
             </div>
 
@@ -337,7 +410,7 @@ export function PeriodFormDialog({
                   value={formData.year}
                   onChange={(e) => updateFormData("year", parseInt(e.target.value) || 0)}
                   placeholder="Enter year"
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   min="2020"
                   max="2030"
                   required
@@ -357,7 +430,7 @@ export function PeriodFormDialog({
                   value={formData.bimester}
                   onChange={(e) => updateFormData("bimester", parseInt(e.target.value) || 0)}
                   placeholder="Enter bimester"
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   min="1"
                   max="6"
                   required
@@ -378,7 +451,7 @@ export function PeriodFormDialog({
                   value={formData.nameEs}
                   onChange={(e) => updateFormData("nameEs", e.target.value)}
                   placeholder="Enter name in Spanish"
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   required
                 />
               </div>
@@ -395,38 +468,9 @@ export function PeriodFormDialog({
                   value={formData.nameEn}
                   onChange={(e) => updateFormData("nameEn", e.target.value)}
                   placeholder="Enter name in English"
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                 />
               </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label
-                htmlFor="isCurrentPeriod"
-                className="text-sm font-semibold text-foreground"
-              >
-                Current Period <span className="text-destructive">*</span>
-              </Label>
-              <Select
-                value={formData.isCurrentPeriod.toString()}
-                onValueChange={(value) => updateFormData("isCurrentPeriod", value === "true")}
-              >
-                <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="bg-background border-border shadow-lg">
-                  <SelectItem value="false" className="hover:bg-muted/80">
-                    <div className="flex items-center gap-2">
-                      No
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="true" className="hover:bg-muted/80">
-                    <div className="flex items-center gap-2">
-                      Yes - Current Period
-                    </div>
-                  </SelectItem>
-                </SelectContent>
-              </Select>
             </div>
           </div>
 
@@ -452,7 +496,7 @@ export function PeriodFormDialog({
                   type="date"
                   value={formData.startDate}
                   onChange={(e) => updateFormData("startDate", e.target.value)}
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   required
                 />
               </div>
@@ -469,7 +513,7 @@ export function PeriodFormDialog({
                   type="date"
                   value={formData.endDate}
                   onChange={(e) => updateFormData("endDate", e.target.value)}
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   required
                 />
               </div>
@@ -498,7 +542,7 @@ export function PeriodFormDialog({
                   type="date"
                   value={formData.enrollmentStart}
                   onChange={(e) => updateFormData("enrollmentStart", e.target.value)}
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   required
                 />
               </div>
@@ -515,7 +559,7 @@ export function PeriodFormDialog({
                   type="date"
                   value={formData.enrollmentEnd}
                   onChange={(e) => updateFormData("enrollmentEnd", e.target.value)}
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   required
                 />
               </div>
@@ -544,7 +588,7 @@ export function PeriodFormDialog({
                   type="date"
                   value={formData.addDropDeadline}
                   onChange={(e) => updateFormData("addDropDeadline", e.target.value)}
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                 />
               </div>
 
@@ -560,7 +604,7 @@ export function PeriodFormDialog({
                   type="date"
                   value={formData.withdrawalDeadline}
                   onChange={(e) => updateFormData("withdrawalDeadline", e.target.value)}
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                 />
               </div>
             </div>
@@ -578,7 +622,7 @@ export function PeriodFormDialog({
                   type="date"
                   value={formData.graddingStart}
                   onChange={(e) => updateFormData("graddingStart", e.target.value)}
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                 />
               </div>
 
@@ -594,7 +638,7 @@ export function PeriodFormDialog({
                   type="date"
                   value={formData.graddingDeadline}
                   onChange={(e) => updateFormData("graddingDeadline", e.target.value)}
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                  className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                   required
                 />
               </div>
@@ -610,9 +654,9 @@ export function PeriodFormDialog({
                   fields must be completed
                 </p>
                 <p className="text-foreground">
-                  {isCreate 
-                    ? "Fill in all required information to create a new academic period."
-                    : "Update the period information. The code cannot be modified after creation."
+                  {isCreate
+                    ? "Fill in all required information to create a new academic period. The status and current period flag will be calculated automatically based on the dates."
+                    : "Update the period information. The code cannot be modified after creation. The status and current period flag are calculated automatically."
                   }
                 </p>
               </div>

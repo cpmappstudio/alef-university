@@ -303,6 +303,47 @@ export const getCourseWithSections = query({
 });
 
 /**
+ * Get programs associated with a course
+ */
+export const getCoursePrograms = query({
+    args: {
+        courseId: v.id("courses"),
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+            throw new ConvexError("Not authenticated");
+        }
+
+        // Get all program_courses associations for this course
+        const associations = await ctx.db
+            .query("program_courses")
+            .withIndex("by_course", q => q.eq("courseId", args.courseId))
+            .filter(q => q.eq(q.field("isActive"), true))
+            .collect();
+
+        // Get program details
+        const programDetails = await Promise.all(
+            associations.map(async (assoc) => {
+                const program = await ctx.db.get(assoc.programId);
+                if (!program) return null;
+
+                return {
+                    programId: assoc.programId,
+                    programCode: program.code,
+                    programName: program.nameEs,
+                    isRequired: assoc.isRequired,
+                    categoryOverride: assoc.categoryOverride,
+                    associationId: assoc._id,
+                };
+            })
+        );
+
+        return programDetails.filter(p => p !== null);
+    },
+});
+
+/**
  * Create new section (Admin/Professor)
  */
 export const createSection = mutation({
@@ -720,9 +761,9 @@ export const deleteCourse = mutation({
             .collect();
 
         if (enrollments.length > 0) {
-        throw new ConvexError(
-            `Cannot delete course with active or past enrollments (${enrollments.length}). Please deactivate the course instead.`,
-        );
+            throw new ConvexError(
+                `Cannot delete course with active or past enrollments (${enrollments.length}). Please deactivate the course instead.`,
+            );
         }
 
         // Also, check for sections
@@ -732,9 +773,9 @@ export const deleteCourse = mutation({
             .collect();
 
         if (sections.length > 0) {
-        throw new ConvexError(
-            `Cannot delete course with existing sections (${sections.length}). Please delete the sections first.`,
-        );
+            throw new ConvexError(
+                `Cannot delete course with existing sections (${sections.length}). Please delete the sections first.`,
+            );
         }
 
         await ctx.db.delete(args.courseId);

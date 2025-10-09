@@ -313,6 +313,24 @@
                 "minutesAgo": "hace {count} min",
                 "hoursAgo": "hace {count}h",
                 "daysAgo": "hace {count}d"
+            },
+            "upcomingDeadlines": {
+                "title": "Plazos Próximos",
+                "today": "Hoy",
+                "tomorrow": "Mañana",
+                "inXDays": "en {days} días",
+                "noDeadlines": "No hay plazos próximos"
+            },
+            "recentActivities": {
+                "title": "Actividades Recientes",
+                "created": "creó",
+                "updated": "actualizó",
+                "deleted": "eliminó",
+                "justNow": "justo ahora",
+                "minutesAgo": "hace {minutes}m",
+                "hoursAgo": "hace {hours}h",
+                "yesterday": "ayer",
+                "noActivities": "No hay actividades recientes"
             }
         }
     },

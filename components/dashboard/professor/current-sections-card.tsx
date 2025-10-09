@@ -21,6 +21,7 @@ import {
 } from '@/components/ui/table'
 import { getMockProfessorDashboardData } from './dashboard-data'
 import { ProfessorDashboardData, CurrentSection } from './types'
+import { useState, useEffect } from 'react'
 
 interface CurrentSectionsCardProps {
     data?: ProfessorDashboardData
@@ -28,10 +29,15 @@ interface CurrentSectionsCardProps {
 
 export default function CurrentSectionsCard({ data: providedData }: CurrentSectionsCardProps) {
     const t = useTranslations('dashboard.professor')
+    const [mounted, setMounted] = useState(false)
 
     // TODO: Replace with real Convex query
     // const data = useQuery(api.professorDashboard.getCurrentSections)
     const data = providedData || getMockProfessorDashboardData()
+
+    useEffect(() => {
+        setMounted(true)
+    }, [])
 
     const getCategoryVariant = (category: CurrentSection['category']) => {
         switch (category) {
@@ -105,10 +111,16 @@ export default function CurrentSectionsCard({ data: providedData }: CurrentSecti
                         </TableHeader>
                         <TableBody>
                             {data.sections.map((section) => {
+                                // Only calculate dates on client to avoid hydration mismatch
                                 const closingDate = new Date(section.closingDate)
-                                const today = new Date()
-                                const daysUntilClosing = Math.ceil((closingDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
-                                const isClosingSoon = daysUntilClosing <= 7
+                                let daysUntilClosing = 0
+                                let isClosingSoon = false
+
+                                if (mounted) {
+                                    const today = new Date()
+                                    daysUntilClosing = Math.ceil((closingDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
+                                    isClosingSoon = daysUntilClosing <= 7
+                                }
 
                                 return (
                                     <TableRow

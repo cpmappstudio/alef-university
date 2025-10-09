@@ -34,7 +34,6 @@ import { Id } from "../../../convex/_generated/dataModel";
 interface StudentFormData {
   firstName: string;
   lastName: string;
-  secondLastName: string;
   email: string;
   dateOfBirth: string;
   nationality: string;
@@ -103,7 +102,6 @@ export function StudentFormDialog({
       return {
         firstName: student.firstName,
         lastName: student.lastName,
-        secondLastName: student.secondLastName || "",
         email: student.email,
         dateOfBirth: student.dateOfBirth ? new Date(student.dateOfBirth).toISOString().split('T')[0] : "",
         nationality: student.nationality || "",
@@ -123,11 +121,11 @@ export function StudentFormDialog({
           studentCode: student.studentProfile?.studentCode || "",
           programId: (student.studentProfile?.programId as string) || "",
           enrollmentDate: student.studentProfile?.enrollmentDate
-              ? new Date(student.studentProfile.enrollmentDate).toISOString().split('T')[0]
-              : "",
-          expectedGraduationDate: student.studentProfile?.expectedGraduationDate 
-              ? new Date(student.studentProfile.expectedGraduationDate).toISOString().split('T')[0]
-              : "",
+            ? new Date(student.studentProfile.enrollmentDate).toISOString().split('T')[0]
+            : "",
+          expectedGraduationDate: student.studentProfile?.expectedGraduationDate
+            ? new Date(student.studentProfile.expectedGraduationDate).toISOString().split('T')[0]
+            : "",
           status: student.studentProfile?.status,
           academicStanding: student.studentProfile?.academicStanding,
         },
@@ -137,7 +135,6 @@ export function StudentFormDialog({
     return {
       firstName: "",
       lastName: "",
-      secondLastName: "",
       email: "",
       dateOfBirth: "",
       nationality: "",
@@ -188,14 +185,14 @@ export function StudentFormDialog({
 
     try {
       // Convert string dates to timestamps
-      const enrollmentDate = formData.studentProfile.enrollmentDate 
-        ? new Date(formData.studentProfile.enrollmentDate).getTime() 
+      const enrollmentDate = formData.studentProfile.enrollmentDate
+        ? new Date(formData.studentProfile.enrollmentDate).getTime()
         : undefined;
-      
+
       const expectedGraduationDate = formData.studentProfile.expectedGraduationDate
         ? new Date(formData.studentProfile.expectedGraduationDate).getTime()
         : undefined;
-      
+
       const dateOfBirth = formData.dateOfBirth
         ? new Date(formData.dateOfBirth).getTime()
         : undefined;
@@ -206,7 +203,6 @@ export function StudentFormDialog({
           firstName: formData.firstName,
           lastName: formData.lastName,
           role: 'student',
-          secondLastName: formData.secondLastName || undefined,
           dateOfBirth,
           nationality: formData.nationality || undefined,
           documentType: formData.documentType,
@@ -223,11 +219,12 @@ export function StudentFormDialog({
           studentProfile: {
             studentCode: formData.studentProfile.studentCode,
             programId: formData.studentProfile.programId as Id<"programs">,
-            enrollmentDate: formData.studentProfile.enrollmentDate 
-              ? new Date(formData.studentProfile.enrollmentDate).getTime() 
+            enrollmentDate: formData.studentProfile.enrollmentDate
+              ? new Date(formData.studentProfile.enrollmentDate).getTime()
               : Date.now(),
             status: formData.studentProfile.status!,
-          }});
+          }
+        });
         alert("Student created successfully!");
       } else {
         if (!student) return;
@@ -235,7 +232,6 @@ export function StudentFormDialog({
           studentId: student._id,
           firstName: formData.firstName,
           lastName: formData.lastName,
-          secondLastName: formData.secondLastName || undefined,
           dateOfBirth,
           nationality: formData.nationality || undefined,
           documentType: formData.documentType,
@@ -307,7 +303,7 @@ export function StudentFormDialog({
   // Helper function to validate required fields
   const validateFormData = (data: StudentFormData): string[] => {
     const errors: string[] = [];
-    
+
     if (!data.firstName.trim()) errors.push("First name is required");
     if (!data.lastName.trim()) errors.push("Last name is required");
     if (!data.email.trim()) errors.push("Email is required");
@@ -316,7 +312,7 @@ export function StudentFormDialog({
     if (!data.studentProfile.enrollmentDate) errors.push("Enrollment date is required");
     if (!data.studentProfile.status) errors.push("Status is required");
     if (!data.studentProfile.enrollmentDate) errors.push("Enrollment date is required");
-    
+
     return errors;
   };
 
@@ -371,7 +367,7 @@ export function StudentFormDialog({
                       required
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="lastName" className="text-sm font-semibold text-foreground">
                       Last Name <span className="text-destructive">*</span>
@@ -389,19 +385,6 @@ export function StudentFormDialog({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="secondLastName" className="text-sm font-semibold text-foreground">
-                      Second Last Name
-                    </Label>
-                    <Input
-                      id="secondLastName"
-                      value={formData.secondLastName}
-                      onChange={(e) => updateFormData("secondLastName", e.target.value)}
-                      placeholder="Enter second last name"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
                     <Label htmlFor="email" className="text-sm font-semibold text-foreground">
                       Email <span className="text-destructive">*</span>
                     </Label>
@@ -415,9 +398,7 @@ export function StudentFormDialog({
                       required
                     />
                   </div>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="dateOfBirth" className="text-sm font-semibold text-foreground">
                       Date of Birth
@@ -430,7 +411,9 @@ export function StudentFormDialog({
                       className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
+                </div>
 
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="nationality" className="text-sm font-semibold text-foreground">
                       Nationality
@@ -823,17 +806,16 @@ export function StudentFormDialog({
                           {enrollment.courseName}
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          {enrollment.periodInfo?.nameEs || "N/A"} • 
+                          {enrollment.periodInfo?.nameEs || "N/A"} •
                           Enrolled: {new Date(enrollment._creationTime).toLocaleDateString()}
                         </p>
                       </div>
                       <div className="text-right space-y-1">
-                        <span className={`text-xs px-2 py-1 rounded-full ${
-                          enrollment.status === 'enrolled' || enrollment.status === 'in_progress' ? 'bg-green-100 text-green-800' :
-                          enrollment.status === 'completed' ? 'bg-blue-100 text-blue-800' :
-                          enrollment.status === 'withdrawn' ? 'bg-amber-100 text-amber-800' :
-                          'bg-gray-100 text-gray-800'
-                        }`}>
+                        <span className={`text-xs px-2 py-1 rounded-full ${enrollment.status === 'enrolled' || enrollment.status === 'in_progress' ? 'bg-green-100 text-green-800' :
+                            enrollment.status === 'completed' ? 'bg-blue-100 text-blue-800' :
+                              enrollment.status === 'withdrawn' ? 'bg-amber-100 text-amber-800' :
+                                'bg-gray-100 text-gray-800'
+                          }`}>
                           {enrollment.status}
                         </span>
                         {enrollment.percentageGrade !== undefined && enrollment.percentageGrade !== null && (

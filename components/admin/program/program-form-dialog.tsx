@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Save, Trash2 } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
+import { useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -31,6 +32,7 @@ import {
 import { api } from "@/convex/_generated/api";
 import { Program, ProgramFormData } from "../types";
 import { Textarea } from "@/components/ui/textarea";
+import type { UserRole } from "@/convex/types";
 
 interface ProgramFormDialogProps {
   mode: "create" | "edit";
@@ -51,6 +53,11 @@ export function ProgramFormDialog({
   const [isLoading, setIsLoading] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState("general");
+
+  // Get user role from Clerk
+  const { user } = useUser();
+  const userRole = user?.publicMetadata?.role as UserRole | undefined;
+  const isSuperAdmin = userRole === "superadmin";
 
   // Convex mutations
   const updateProgram = useMutation(api.programs.updateProgram);
@@ -187,7 +194,7 @@ export function ProgramFormDialog({
   // Helper function to validate required fields
   const validateFormData = (data: ProgramFormData): string[] => {
     const errors: string[] = [];
-    
+
     if (!data.code.trim()) errors.push("Program code is required");
     if (!data.type) errors.push("Program type is required");
     if (!data.language) errors.push("Teaching language is required");
@@ -198,12 +205,12 @@ export function ProgramFormDialog({
       if (!data.nameEs.trim()) errors.push("Spanish name is required");
       if (!data.descriptionEs.trim()) errors.push("Spanish description is required");
     }
-    
+
     if (data.language === "en" || data.language === "both") {
       if (!data.nameEn.trim()) errors.push("English name is required");
       if (!data.descriptionEn.trim()) errors.push("English description is required");
     }
-    
+
     return errors;
   };
 
@@ -212,7 +219,7 @@ export function ProgramFormDialog({
     const language = formData.language;
     const languageEnabled = {
       nameEs: language === "es" || language === "both",
-      nameEn: language === "en" || language === "both", 
+      nameEn: language === "en" || language === "both",
       descriptionEs: language === "es" || language === "both",
       descriptionEn: language === "en" || language === "both"
     };
@@ -273,183 +280,183 @@ export function ProgramFormDialog({
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label
-                  htmlFor="code"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  Program Code <span className="text-destructive">*</span>
-                </Label>
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="code"
+                      className="text-sm font-semibold text-foreground"
+                    >
+                      Program Code <span className="text-destructive">*</span>
+                    </Label>
                     <Input
                       id="code"
-                  value={formData.code}
-                  onChange={(e) => updateFormData("code", e.target.value)}
-                  placeholder="Enter program code"
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                  disabled={!isCreate}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label
-                  htmlFor="type"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  Program Type <span className="text-destructive">*</span>
-                </Label>
-                <Select
-                  value={formData.type || ""}
-                  onValueChange={(value) => updateFormData("type", value as Program['type'])}
-                  disabled={!isCreate}
-                >
-                  <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
-                    <SelectValue placeholder="Select type" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-background border-border shadow-lg">
-                    <SelectItem value="diploma" className="hover:bg-muted/80">
-                      Diploma
-                    </SelectItem>
-                    <SelectItem value="bachelor" className="hover:bg-muted/80">
-                      Bachelor
-                    </SelectItem>
-                    <SelectItem value="master" className="hover:bg-muted/80">
-                      Master
-                    </SelectItem>
-                    <SelectItem value="doctorate" className="hover:bg-muted/80">
-                      Doctorate
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
+                      value={formData.code}
+                      onChange={(e) => updateFormData("code", e.target.value)}
+                      placeholder="Enter program code"
+                      className="border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      disabled={!isCreate}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="type"
+                      className="text-sm font-semibold text-foreground"
+                    >
+                      Program Type <span className="text-destructive">*</span>
+                    </Label>
+                    <Select
+                      value={formData.type || ""}
+                      onValueChange={(value) => updateFormData("type", value as Program['type'])}
+                      disabled={!isCreate}
+                    >
+                      <SelectTrigger className="w-full border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
+                        <SelectValue placeholder="Select type" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-background border-border shadow-lg">
+                        <SelectItem value="diploma" className="hover:bg-muted/80">
+                          Diploma
+                        </SelectItem>
+                        <SelectItem value="bachelor" className="hover:bg-muted/80">
+                          Bachelor
+                        </SelectItem>
+                        <SelectItem value="master" className="hover:bg-muted/80">
+                          Master
+                        </SelectItem>
+                        <SelectItem value="doctorate" className="hover:bg-muted/80">
+                          Doctorate
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
 
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label
-                  htmlFor="degree"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  Degree Title
-                </Label>
-                <Input
-                  id="degree"
-                  value={formData.degree}
-                  onChange={(e) => updateFormData("degree", e.target.value)}
-                  placeholder="Enter degree tittle"
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                  disabled={!isCreate}
-                />
-              </div>
 
-              <div className="space-y-2">
-                <Label
-                  htmlFor="language"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  Teaching Language <span className="text-destructive">*</span>
-                </Label>
-                <Select
-                  value={formData.language || ""}
-                  onValueChange={(value) => updateFormData("language", value as Program['language'])}
-                >
-                  <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
-                    <SelectValue placeholder="Select language" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-background border-border shadow-lg">
-                    <SelectItem value="es" className="hover:bg-muted/80">
-                      Spanish
-                    </SelectItem>
-                    <SelectItem value="en" className="hover:bg-muted/80">
-                      English
-                    </SelectItem>
-                    <SelectItem value="both" className="hover:bg-muted/80">
-                      English/Spanish
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="degree"
+                      className="text-sm font-semibold text-foreground"
+                    >
+                      Degree Title
+                    </Label>
+                    <Input
+                      id="degree"
+                      value={formData.degree}
+                      onChange={(e) => updateFormData("degree", e.target.value)}
+                      placeholder="Enter degree tittle"
+                      className="border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      disabled={!isCreate}
+                    />
+                  </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label
-                  htmlFor="nameEs"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  Name (Spanish) <span className="text-destructive">*</span>
-                </Label>
-                <Input
-                  id="nameEs"
-                  value={formData.nameEs}
-                  onChange={(e) => updateFormData("nameEs", e.target.value)}
-                  placeholder="Enter program name in Spanish"
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                  disabled={isCreate ? !fieldEnabled.nameEs : !fieldEnabled.nameEs}
-                  required={formData.language === "es" || formData.language === "both"}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label
-                  htmlFor="nameEn"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  Name (English)
-                </Label>
-                <Input
-                  id="nameEn"
-                  value={formData.nameEn}
-                  onChange={(e) => updateFormData("nameEn", e.target.value)}
-                  placeholder="Enter program name in English"
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                  disabled={isCreate ? !fieldEnabled.nameEn : !fieldEnabled.nameEn}
-                  required={formData.language === "en" || formData.language === "both"}
-                />
-              </div>
-            </div>
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="language"
+                      className="text-sm font-semibold text-foreground"
+                    >
+                      Teaching Language <span className="text-destructive">*</span>
+                    </Label>
+                    <Select
+                      value={formData.language || ""}
+                      onValueChange={(value) => updateFormData("language", value as Program['language'])}
+                    >
+                      <SelectTrigger className="w-full border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
+                        <SelectValue placeholder="Select language" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-background border-border shadow-lg">
+                        <SelectItem value="es" className="hover:bg-muted/80">
+                          Spanish
+                        </SelectItem>
+                        <SelectItem value="en" className="hover:bg-muted/80">
+                          English
+                        </SelectItem>
+                        <SelectItem value="both" className="hover:bg-muted/80">
+                          English/Spanish
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label
-                  htmlFor="descriptionEs"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  Description (Spanish){" "}
-                  <span className="text-destructive">*</span>
-                </Label>
-                <Textarea
-                  id="descriptionEs"
-                  value={formData.descriptionEs}
-                  onChange={(e) =>
-                    updateFormData("descriptionEs", e.target.value)
-                  }
-                  placeholder="Enter program description in Spanish"
-                  className="min-h-[100px] resize-none border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                  disabled={!fieldEnabled.descriptionEs}
-                  required={formData.language === "es" || formData.language === "both"}
-                />
-              </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="nameEs"
+                      className="text-sm font-semibold text-foreground"
+                    >
+                      Name (Spanish) <span className="text-destructive">*</span>
+                    </Label>
+                    <Input
+                      id="nameEs"
+                      value={formData.nameEs}
+                      onChange={(e) => updateFormData("nameEs", e.target.value)}
+                      placeholder="Enter program name in Spanish"
+                      className="border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      disabled={isCreate ? !fieldEnabled.nameEs : !fieldEnabled.nameEs}
+                      required={formData.language === "es" || formData.language === "both"}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="nameEn"
+                      className="text-sm font-semibold text-foreground"
+                    >
+                      Name (English)
+                    </Label>
+                    <Input
+                      id="nameEn"
+                      value={formData.nameEn}
+                      onChange={(e) => updateFormData("nameEn", e.target.value)}
+                      placeholder="Enter program name in English"
+                      className="border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      disabled={isCreate ? !fieldEnabled.nameEn : !fieldEnabled.nameEn}
+                      required={formData.language === "en" || formData.language === "both"}
+                    />
+                  </div>
+                </div>
 
-              <div className="space-y-2">
-                <Label
-                  htmlFor="descriptionEn"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  Description (English)
-                </Label>
-                <Textarea
-                  id="descriptionEn"
-                  value={formData.descriptionEn}
-                  onChange={(e) =>
-                    updateFormData("descriptionEn", e.target.value)
-                  }
-                  placeholder="Enter program description in English"
-                  className="min-h-[100px] resize-none border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                  disabled={!fieldEnabled.descriptionEn}
-                  required={formData.language === "en" || formData.language === "both"}
-                />
-              </div>
-            </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="descriptionEs"
+                      className="text-sm font-semibold text-foreground"
+                    >
+                      Description (Spanish){" "}
+                      <span className="text-destructive">*</span>
+                    </Label>
+                    <Textarea
+                      id="descriptionEs"
+                      value={formData.descriptionEs}
+                      onChange={(e) =>
+                        updateFormData("descriptionEs", e.target.value)
+                      }
+                      placeholder="Enter program description in Spanish"
+                      className="min-h-[100px] resize-none border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      disabled={!fieldEnabled.descriptionEs}
+                      required={formData.language === "es" || formData.language === "both"}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="descriptionEn"
+                      className="text-sm font-semibold text-foreground"
+                    >
+                      Description (English)
+                    </Label>
+                    <Textarea
+                      id="descriptionEn"
+                      value={formData.descriptionEn}
+                      onChange={(e) =>
+                        updateFormData("descriptionEn", e.target.value)
+                      }
+                      placeholder="Enter program description in English"
+                      className="min-h-[100px] resize-none border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      disabled={!fieldEnabled.descriptionEn}
+                      required={formData.language === "en" || formData.language === "both"}
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* Academic Information Section */}
@@ -461,162 +468,162 @@ export function ProgramFormDialog({
                   </h3>
                 </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="space-y-2">
-                <Label
-                  htmlFor="totalCredits"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  Total Credits <span className="text-destructive">*</span>
-                </Label>
-                <Input
-                  id="totalCredits"
-                  type="number"
-                  value={formData.totalCredits === 0 ? "" : formData.totalCredits}
-                  onChange={(e) => {
-                    const value = e.target.value === "" ? 0 : parseInt(e.target.value);
-                    updateFormData("totalCredits", isNaN(value) ? 0 : value);
-                  }}
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                  min="1"
-                  disabled={!isCreate}
-                  required
-                />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="totalCredits"
+                      className="text-sm font-semibold text-foreground"
+                    >
+                      Total Credits <span className="text-destructive">*</span>
+                    </Label>
+                    <Input
+                      id="totalCredits"
+                      type="number"
+                      value={formData.totalCredits === 0 ? "" : formData.totalCredits}
+                      onChange={(e) => {
+                        const value = e.target.value === "" ? 0 : parseInt(e.target.value);
+                        updateFormData("totalCredits", isNaN(value) ? 0 : value);
+                      }}
+                      className="border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      min="1"
+                      disabled={!isCreate}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="durationBimesters"
+                      className="text-sm font-semibold text-foreground"
+                    >
+                      Duration (Bimesters){" "}
+                      <span className="text-destructive">*</span>
+                    </Label>
+                    <Input
+                      id="durationBimesters"
+                      type="number"
+                      value={formData.durationBimesters === 0 ? "" : formData.durationBimesters}
+                      onChange={(e) => {
+                        const value = e.target.value === "" ? 0 : parseInt(e.target.value);
+                        updateFormData("durationBimesters", isNaN(value) ? 0 : value);
+                      }}
+                      className="border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      min="1"
+                      disabled={!isCreate}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="tuitionPerCredit"
+                      className="text-sm font-semibold text-foreground"
+                    >
+                      Tuition per Credit ($)
+                    </Label>
+                    <Input
+                      id="tuitionPerCredit"
+                      type="number"
+                      value={formData.tuitionPerCredit === 0 ? "" : formData.tuitionPerCredit}
+                      onChange={(e) => {
+                        const value = e.target.value === "" ? 0 : parseFloat(e.target.value);
+                        updateFormData("tuitionPerCredit", isNaN(value) ? 0 : value);
+                      }}
+                      className="border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      min="0"
+                      step="0.01"
+                      disabled={!isCreate}
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="isActive"
+                    className="text-sm font-semibold text-foreground"
+                  >
+                    Program Availability <span className="text-destructive">*</span>
+                  </Label>
+                  <Select
+                    value={isCreate ? "" : formData.isActive.toString()}
+                    onValueChange={(value) =>
+                      updateFormData("isActive", value === "true")
+                    }
+                  >
+                    <SelectTrigger className="w-full border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
+                      <SelectValue placeholder="Select program availability" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border-border shadow-lg">
+                      <SelectItem value="true" className="hover:bg-muted/80">
+                        <div className="flex items-center gap-2">Available</div>
+                      </SelectItem>
+                      <SelectItem value="false" className="hover:bg-muted/80">
+                        <div className="flex items-center gap-2">Unavailable</div>
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label
-                  htmlFor="durationBimesters"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  Duration (Bimesters){" "}
-                  <span className="text-destructive">*</span>
-                </Label>
-                <Input
-                  id="durationBimesters"
-                  type="number"
-                  value={formData.durationBimesters === 0 ? "" : formData.durationBimesters}
-                  onChange={(e) => {
-                    const value = e.target.value === "" ? 0 : parseInt(e.target.value);
-                    updateFormData("durationBimesters", isNaN(value) ? 0 : value);
-                  }}
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                  min="1"
-                  disabled={!isCreate}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label
-                  htmlFor="tuitionPerCredit"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  Tuition per Credit ($)
-                </Label>
-                <Input
-                  id="tuitionPerCredit"
-                  type="number"
-                  value={formData.tuitionPerCredit === 0 ? "" : formData.tuitionPerCredit}
-                  onChange={(e) => {
-                    const value = e.target.value === "" ? 0 : parseFloat(e.target.value);
-                    updateFormData("tuitionPerCredit", isNaN(value) ? 0 : value);
-                  }}
-                  className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                  min="0"
-                  step="0.01"
-                  disabled={!isCreate}
-                />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label
-                htmlFor="isActive"
-                className="text-sm font-semibold text-foreground"
-              >
-                Program Availability <span className="text-destructive">*</span>
-              </Label>
-              <Select
-                value={isCreate ? "" : formData.isActive.toString()}
-                onValueChange={(value) =>
-                  updateFormData("isActive", value === "true")
-                }
-              >
-                <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
-                  <SelectValue placeholder="Select program availability" />
-                </SelectTrigger>
-                <SelectContent className="bg-background border-border shadow-lg">
-                  <SelectItem value="true" className="hover:bg-muted/80">
-                    <div className="flex items-center gap-2">Available</div>
-                  </SelectItem>
-                  <SelectItem value="false" className="hover:bg-muted/80">
-                    <div className="flex items-center gap-2">Unavailable</div>
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
 
-          {/* Info Section */}
-          <div className="bg-fuzzy-wuzzy/20 rounded-xl p-4">
-            <div className="flex items-start gap-3">
-              <div className="text-sm space-y-2">
-                <p className="font-medium text-foreground">
-                  <span className="text-destructive">*</span> Required fields
-                  must be completed
-                </p>
-                {!isCreate && (
-                  <p className="text-foreground">
-                    Some fields are read-only in edit mode to maintain data
-                    integrity.
-                  </p>
-                )}
+              {/* Info Section */}
+              <div className="bg-fuzzy-wuzzy/20 rounded-xl p-4">
+                <div className="flex items-start gap-3">
+                  <div className="text-sm space-y-2">
+                    <p className="font-medium text-foreground">
+                      <span className="text-destructive">*</span> Required fields
+                      must be completed
+                    </p>
+                    {!isCreate && (
+                      <p className="text-foreground">
+                        Some fields are read-only in edit mode to maintain data
+                        integrity.
+                      </p>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <DialogFooter className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-border bg-muted/10 -mx-6 -mb-6 px-6 pb-6 rounded-b-xl">
-          <div className="flex gap-3 w-full justify-between">
-            <div className="flex gap-3 ml-auto">
-              {!isCreate && (
-                <Button
-                  type="button"
-                  variant="destructive"
-                  // onClick={handleDelete}
-                  disabled={isLoading || isDeleting}
-                  className="px-6 py-2.5"
-                >
-                  {isDeleting ? (
-                    <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Deactivating...
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-2">
-                      <Trash2 className="h-4 w-4" />
-                      Delete Program
-                    </div>
+            <DialogFooter className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-border bg-muted/10 -mx-6 -mb-6 px-6 pb-6 rounded-b-xl">
+              <div className="flex gap-3 w-full justify-between">
+                <div className="flex gap-3 ml-auto">
+                  {!isCreate && isSuperAdmin && (
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      onClick={handleDelete}
+                      disabled={isLoading || isDeleting}
+                      className="px-6 py-2.5"
+                    >
+                      {isDeleting ? (
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          Deleting...
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <Trash2 className="h-4 w-4" />
+                          Delete Program
+                        </div>
+                      )}
+                    </Button>
                   )}
-                </Button>
-              )}
-              <Button
-                type="submit"
-                variant="default"
-                disabled={isLoading || isDeleting}
-              >
-                {isLoading ? (
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    {isCreate ? "Creating..." : "Saving..."}
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <Save className="h-4 w-4" />
-                    {isCreate ? "Create Program" : "Save Changes"}
-                  </div>
-                )}
-              </Button>
-            </div>
-          </div>
+                  <Button
+                    type="submit"
+                    variant="default"
+                    disabled={isLoading || isDeleting}
+                  >
+                    {isLoading ? (
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        {isCreate ? "Creating..." : "Saving..."}
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <Save className="h-4 w-4" />
+                        {isCreate ? "Create Program" : "Save Changes"}
+                      </div>
+                    )}
+                  </Button>
+                </div>
+              </div>
             </DialogFooter>
           </form>
         </TabsContent>

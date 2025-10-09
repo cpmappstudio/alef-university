@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Save, Trash2 } from "lucide-react";
+import { Save, Trash2, Check, ChevronsUpDown, X } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,9 +23,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import { api } from "@/convex/_generated/api";
 import { Course } from "../types";
 import { Textarea } from "@/components/ui/textarea";
+import type { Id } from "@/convex/_generated/dataModel";
 
 interface CourseFormDialogProps {
   mode: "create" | "edit";
@@ -46,11 +61,27 @@ export function CourseFormDialog({
   const [isLoading, setIsLoading] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState("general");
+  const [comboboxOpen, setComboboxOpen] = React.useState(false);
+  // For create mode: store programs to associate after course creation
+  const [programsToAssociate, setProgramsToAssociate] = React.useState<Array<{
+    programId: Id<"programs">;
+    programName: string;
+    programCode: string;
+    isRequired: boolean;
+    categoryOverride?: "humanities" | "core" | "elective" | "general";
+  }>>([]);
 
   // Convex mutations and queries
   const createCourse = useMutation(api.courses.createCourse);
   const updateCourse = useMutation(api.courses.updateCourse);
   const deleteCourse = useMutation(api.courses.deleteCourse);
+  const addCourseToProgram = useMutation(api.courses.addCourseToProgram);
+  const removeCourseFromProgram = useMutation(api.courses.removeCourseFromProgram);
+
+  const allPrograms = useQuery(api.programs.getAllPrograms, { isActive: true });
+  const coursePrograms = course ? useQuery(api.courses.getCoursePrograms, {
+    courseId: course._id,
+  }) : undefined;
   const courseWithSections = course ? useQuery(api.courses.getCourseWithSections, {
     courseId: course._id,
   }) : undefined;
@@ -99,6 +130,7 @@ export function CourseFormDialog({
   React.useEffect(() => {
     if (open) {
       setFormData(initialFormData);
+      setProgramsToAssociate([]);
     }
   }, [open, initialFormData]);
 
@@ -115,7 +147,7 @@ export function CourseFormDialog({
 
     try {
       if (mode === "create") {
-        await createCourse({
+        const courseId = await createCourse({
           code: `COURSE${Date.now()}`,
           nameEs: formData.nameEs,
           nameEn: formData.nameEn || undefined,
@@ -133,6 +165,23 @@ export function CourseFormDialog({
             : undefined,
           syllabus: formData.syllabus.trim() || undefined,
         });
+
+        // Associate programs if any were selected
+        if (programsToAssociate.length > 0) {
+          for (const program of programsToAssociate) {
+            try {
+              await addCourseToProgram({
+                courseId: courseId,
+                programId: program.programId,
+                isRequired: program.isRequired,
+                categoryOverride: program.categoryOverride,
+              });
+            } catch (error) {
+              console.error(`Failed to associate program ${program.programCode}:`, error);
+            }
+          }
+        }
+
         alert("Course created successfully!");
         setOpen(false);
       } else if (mode === "edit" && course) {
@@ -201,9 +250,9 @@ export function CourseFormDialog({
     if (!confirm(`Are you sure you want to delete the course "${course.nameEs}"? This action cannot be undone.`)) {
       return;
     }
-    
+
     setIsDeleting(true);
-    
+
     try {
       await deleteCourse({ courseId: course._id });
       alert("Course deleted successfully!");
@@ -213,6 +262,35 @@ export function CourseFormDialog({
       alert(`Failed to delete course: ${error instanceof Error ? error.message : "Unknown error"}`);
     } finally {
       setIsDeleting(false);
+    }
+  };
+
+  const handleRemoveProgram = async (programId: Id<"programs">, skipConfirmation = false) => {
+    // In create mode, remove from temporary list
+    if (mode === "create") {
+      setProgramsToAssociate(programsToAssociate.filter(p => p.programId !== programId));
+      return;
+    }
+
+    // In edit mode, remove association from database
+    if (!course) return;
+
+    // Ask for confirmation only when removing from chip (not from combobox toggle)
+    if (!skipConfirmation && !confirm("Are you sure you want to remove this program association?")) {
+      return;
+    }
+
+    try {
+      await removeCourseFromProgram({
+        courseId: course._id,
+        programId: programId,
+      });
+      if (!skipConfirmation) {
+        alert("Program removed successfully!");
+      }
+    } catch (error) {
+      console.error("Failed to remove program:", error);
+      alert(`Failed to remove program: ${error instanceof Error ? error.message : "Unknown error"}`);
     }
   };
 
@@ -261,7 +339,7 @@ export function CourseFormDialog({
                     <Input
                       id="code"
                       value={course?.code}
-                      className="h-11 border-border bg-muted/50 text-muted-foreground"
+                      className=" border-border bg-muted/50 text-muted-foreground"
                       disabled
                       readOnly
                     />
@@ -280,7 +358,7 @@ export function CourseFormDialog({
                         updateFormData("category", value)
                       }
                     >
-                      <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
+                      <SelectTrigger className="w-full border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
                         <SelectValue placeholder="Select course category" />
                       </SelectTrigger>
                       <SelectContent className="bg-background border-border shadow-lg">
@@ -322,7 +400,7 @@ export function CourseFormDialog({
                     value={formData.language || ""}
                     onValueChange={(value) => updateFormData("language", value)}
                   >
-                    <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
+                    <SelectTrigger className="w-full  border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
                       <SelectValue placeholder="Select language" />
                     </SelectTrigger>
                     <SelectContent className="bg-background border-border shadow-lg">
@@ -352,7 +430,7 @@ export function CourseFormDialog({
                       value={formData.nameEs}
                       onChange={(e) => updateFormData("nameEs", e.target.value)}
                       placeholder="Enter course name in Spanish"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                       disabled={!fieldEnabled.nameEs}
                       required
                     />
@@ -369,7 +447,7 @@ export function CourseFormDialog({
                       value={formData.nameEn}
                       onChange={(e) => updateFormData("nameEn", e.target.value)}
                       placeholder="Enter course name in English"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                       disabled={!fieldEnabled.nameEn}
                     />
                   </div>
@@ -442,7 +520,7 @@ export function CourseFormDialog({
                       onChange={(e) =>
                         updateFormData("credits", parseInt(e.target.value) || 0)
                       }
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                       min="1"
                       required
                     />
@@ -458,7 +536,7 @@ export function CourseFormDialog({
                       value={formData.level || ""}
                       onValueChange={(value) => updateFormData("level", value)}
                     >
-                      <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
+                      <SelectTrigger className="w-full  border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
                         <SelectValue placeholder="Select course level" />
                       </SelectTrigger>
                       <SelectContent className="bg-background border-border shadow-lg">
@@ -491,7 +569,7 @@ export function CourseFormDialog({
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label
                       htmlFor="prerequisites"
@@ -506,7 +584,7 @@ export function CourseFormDialog({
                         updateFormData("prerequisites", e.target.value)
                       }
                       placeholder="Enter course codes separated by commas"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
                   <div className="space-y-2">
@@ -523,10 +601,10 @@ export function CourseFormDialog({
                         updateFormData("corequisites", e.target.value)
                       }
                       placeholder="Enter course codes separated by commas"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
-                </div>
+                </div> */}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
@@ -543,7 +621,7 @@ export function CourseFormDialog({
                         updateFormData("syllabus", e.target.value)
                       }
                       placeholder="https://example.com/syllabus.pdf"
-                      className="h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
                   <div className="space-y-2">
@@ -560,7 +638,7 @@ export function CourseFormDialog({
                         updateFormData("isActive", value === "true")
                       }
                     >
-                      <SelectTrigger className="w-full h-11 border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
+                      <SelectTrigger className="w-full border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
                         <SelectValue placeholder="Select course availability" />
                       </SelectTrigger>
                       <SelectContent className="bg-background border-border shadow-lg">
@@ -592,6 +670,139 @@ export function CourseFormDialog({
                       The course code is read-only to maintain data integrity.
                     </p>
                   </div>
+                </div>
+              </div>
+
+              {/* Associated Programs Section */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 pb-3 border-b border-border/50">
+                  <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
+                  <h3 className="text-lg font-semibold text-foreground">
+                    Associate with Programs
+                  </h3>
+                </div>
+
+                <div className="space-y-3">
+                  <Label className="text-sm font-semibold text-foreground">
+                    Select Programs
+                  </Label>
+                  <Popover open={comboboxOpen} onOpenChange={setComboboxOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={comboboxOpen}
+                        className="w-full justify-start min-h-[40px] h-auto"
+                      >
+                        <div className="flex gap-1 flex-wrap flex-1">
+                          {mode === "create" ? (
+                            programsToAssociate.length > 0 ? (
+                              programsToAssociate.map((program) => (
+                                <span
+                                  key={program.programId}
+                                  className="inline-flex items-center gap-1 px-1 rounded-md bg-primary/10 text-primary text-sm"
+                                >
+                                  {program.programCode}
+                                  {program.isRequired && (
+                                    <span className="text-xs">*</span>
+                                  )}
+
+                                </span>
+                              ))
+                            ) : (
+                              <span className="text-muted-foreground">Select programs...</span>
+                            )
+                          ) : (
+                            coursePrograms && coursePrograms.length > 0 ? (
+                              coursePrograms.map((program) => (
+                                <span
+                                  key={program.programId}
+                                  className="inline-flex items-center gap-1 px-1 rounded-md bg-primary/10 text-primary text-sm"
+                                >
+                                  {program.programCode}
+                                  {program.isRequired && (
+                                    <span className="text-xs">*</span>
+                                  )}
+
+                                </span>
+                              ))
+                            ) : (
+                              <span className="text-muted-foreground">Select programs...</span>
+                            )
+                          )}
+                        </div>
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0" align="start">
+                      <Command>
+                        <CommandInput placeholder="Search program..." className="h-9" />
+                        <CommandList>
+                          <CommandEmpty>No program found.</CommandEmpty>
+                          <CommandGroup>
+                            {allPrograms?.map((program) => {
+                              // Check if program is already selected
+                              const isSelected = mode === "edit"
+                                ? coursePrograms?.some(cp => cp.programId === program._id)
+                                : programsToAssociate.some(pa => pa.programId === program._id);
+
+                              return (
+                                <CommandItem
+                                  key={program._id}
+                                  value={program.nameEs}
+                                  onSelect={() => {
+                                    if (isSelected) {
+                                      // Deselect/Remove the program (no confirmation needed)
+                                      handleRemoveProgram(program._id, true);
+                                    } else {
+                                      // Select/Add the program
+                                      const newProgram = {
+                                        programId: program._id,
+                                        programName: program.nameEs,
+                                        programCode: program.code,
+                                        isRequired: false,
+                                        categoryOverride: undefined,
+                                      };
+
+                                      if (mode === "create") {
+                                        setProgramsToAssociate([...programsToAssociate, newProgram]);
+                                      } else {
+                                        // In edit mode, associate immediately
+                                        addCourseToProgram({
+                                          courseId: course!._id,
+                                          programId: program._id,
+                                          isRequired: false,
+                                          categoryOverride: undefined,
+                                        }).catch((error) => {
+                                          console.error("Failed to associate program:", error);
+                                          alert(`Failed to associate program: ${error instanceof Error ? error.message : "Unknown error"}`);
+                                        });
+                                      }
+                                    }
+                                  }}
+                                  className="cursor-pointer"
+                                >
+                                  <Check
+                                    className={cn(
+                                      "mr-2 h-4 w-4",
+                                      isSelected ? "opacity-100" : "opacity-0"
+                                    )}
+                                  />
+                                  <div className="flex flex-col flex-1">
+                                    <span className="font-medium">{program.nameEs}</span>
+                                    <span className="text-xs text-muted-foreground">{program.code}</span>
+                                  </div>
+                                </CommandItem>
+                              );
+                            })}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                  <p className="text-xs text-muted-foreground">
+                    * indicates required course for the program
+                  </p>
                 </div>
               </div>
             </div>
@@ -639,6 +850,7 @@ export function CourseFormDialog({
 
         <TabsContent value="details" className="space-y-6 mt-6">
           {mode === "edit" && course && (<div className="space-y-6">
+            {/* Associated Sections Section */}
             <div className="space-y-4">
               <div className="flex items-center gap-3 pb-3 border-b border-border/50">
                 <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
@@ -700,7 +912,7 @@ export function CourseFormDialog({
                                 {idx <
                                   sectionData.section.schedule!.sessions
                                     .length -
-                                    1 && <span>•</span>}
+                                  1 && <span>•</span>}
                               </div>
                             ),
                           )}
@@ -711,10 +923,10 @@ export function CourseFormDialog({
                           {sectionData.section.deliveryMethod === "in_person"
                             ? "In Person"
                             : sectionData.section.deliveryMethod ===
-                                "online_sync"
+                              "online_sync"
                               ? "Online Sync"
                               : sectionData.section.deliveryMethod ===
-                                  "online_async"
+                                "online_async"
                                 ? "Online Async"
                                 : "Hybrid"}
                         </span>
