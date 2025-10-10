@@ -110,7 +110,7 @@ export function SectionDetailsDialog({
             await submitGrades({
                 sectionId: section._id as Id<"sections">,
                 grades: gradesToSubmit,
-                forceSubmit: true, // Add this line to bypass the period check
+                forceSubmit: false, // Change to true to bypass the period check
             });
 
             alert(t("sectionDetails.gradesSaved"));
