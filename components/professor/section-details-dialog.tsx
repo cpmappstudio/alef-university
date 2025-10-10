@@ -177,7 +177,7 @@ export function SectionDetailsDialog({
                                     <Users className="h-4 w-4" />
                                     <span className="font-medium">{t("sectionDetails.enrolledStudents")}</span>
                                 </div>
-                                <p className="text-lg font-semibold">{section.enrolledStudents} {t("sectionDetails.students")}</p>
+                                <p className="text-lg font-semibold">{section.enrolledStudents + section.completedStudents} {t("sectionDetails.students")}</p>
                             </div>
 
                             <div className="space-y-2">

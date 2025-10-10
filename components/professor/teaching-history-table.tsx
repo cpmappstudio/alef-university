@@ -29,154 +29,6 @@ import { api } from "@/convex/_generated/api";
 type StatusFilter = "all" | "active" | "closed" | "cancelled";
 type CategoryFilter = "all" | "humanities" | "core" | "elective" | "general";
 
-// Mock data for development
-const mockTeachingHistory = {
-    overallStats: {
-        totalStudentsTaught: 347,
-        totalCoursesDelivered: 24,
-        totalPeriodsTaught: 12,
-    },
-    history: [
-        {
-            period: {
-                _id: "period1" as any,
-                code: "2025-B1",
-                nameEs: "Primer Bimestre 2025",
-                startDate: new Date("2025-01-15").getTime(),
-                endDate: new Date("2025-03-15").getTime(),
-            },
-            sections: [
-                {
-                    _id: "s1" as any,
-                    courseCode: "THEO-101",
-                    courseName: "Teología Sistemática I",
-                    groupNumber: "01",
-                    credits: 3,
-                    category: "humanities",
-                    closingDate: new Date("2025-03-15").getTime(),
-                    status: "active" as const,
-                    enrolledStudents: 28,
-                    course: {},
-                    section: {},
-                    period: {},
-                },
-                {
-                    _id: "s2" as any,
-                    courseCode: "BIBL-201",
-                    courseName: "Exégesis del Nuevo Testamento",
-                    groupNumber: "02",
-                    credits: 4,
-                    category: "core",
-                    closingDate: new Date("2025-03-15").getTime(),
-                    status: "active" as const,
-                    enrolledStudents: 22,
-                    course: {},
-                    section: {},
-                    period: {},
-                },
-            ],
-            totalStudents: 50,
-            totalCourses: 2,
-        },
-        {
-            period: {
-                _id: "period2" as any,
-                code: "2024-B6",
-                nameEs: "Sexto Bimestre 2024",
-                startDate: new Date("2024-11-01").getTime(),
-                endDate: new Date("2024-12-31").getTime(),
-            },
-            sections: [
-                {
-                    _id: "s3" as any,
-                    courseCode: "THEO-101",
-                    courseName: "Teología Sistemática I",
-                    groupNumber: "01",
-                    credits: 3,
-                    category: "humanities",
-                    closingDate: new Date("2024-12-31").getTime(),
-                    status: "closed" as const,
-                    enrolledStudents: 30,
-                    course: {},
-                    section: {},
-                    period: {},
-                },
-                {
-                    _id: "s4" as any,
-                    courseCode: "BIBL-201",
-                    courseName: "Exégesis del Nuevo Testamento",
-                    groupNumber: "01",
-                    credits: 4,
-                    category: "core",
-                    closingDate: new Date("2024-12-31").getTime(),
-                    status: "closed" as const,
-                    enrolledStudents: 25,
-                    course: {},
-                    section: {},
-                    period: {},
-                },
-                {
-                    _id: "s5" as any,
-                    courseCode: "GREC-102",
-                    courseName: "Griego Bíblico II",
-                    groupNumber: "01",
-                    credits: 4,
-                    category: "core",
-                    closingDate: new Date("2024-12-31").getTime(),
-                    status: "closed" as const,
-                    enrolledStudents: 18,
-                    course: {},
-                    section: {},
-                    period: {},
-                },
-            ],
-            totalStudents: 73,
-            totalCourses: 3,
-        },
-        {
-            period: {
-                _id: "period3" as any,
-                code: "2024-B5",
-                nameEs: "Quinto Bimestre 2024",
-                startDate: new Date("2024-09-01").getTime(),
-                endDate: new Date("2024-10-31").getTime(),
-            },
-            sections: [
-                {
-                    _id: "s6" as any,
-                    courseCode: "THEO-101",
-                    courseName: "Teología Sistemática I",
-                    groupNumber: "01",
-                    credits: 3,
-                    category: "humanities",
-                    closingDate: new Date("2024-10-31").getTime(),
-                    status: "closed" as const,
-                    enrolledStudents: 26,
-                    course: {},
-                    section: {},
-                    period: {},
-                },
-                {
-                    _id: "s7" as any,
-                    courseCode: "HERM-201",
-                    courseName: "Hermenéutica Bíblica",
-                    groupNumber: "02",
-                    credits: 3,
-                    category: "core",
-                    closingDate: new Date("2024-10-31").getTime(),
-                    status: "closed" as const,
-                    enrolledStudents: 29,
-                    course: {},
-                    section: {},
-                    period: {},
-                },
-            ],
-            totalStudents: 55,
-            totalCourses: 2,
-        },
-    ],
-};
-
 export default function TeachingHistoryTable() {
     const t = useTranslations("gradebook");
     const { isSignedIn } = useAuth();
@@ -240,6 +92,7 @@ export default function TeachingHistoryTable() {
                 closingDate: periodData.period.endDate,
                 status: s.section.status,
                 enrolledStudents: s.statistics.enrolled,
+                completedStudents: s.statistics.completed,
                 course: s.course,
                 section: s.section,
                 period: periodData.period,
@@ -248,7 +101,7 @@ export default function TeachingHistoryTable() {
             return {
                 period: periodData.period,
                 sections,
-                totalStudents: sections.reduce((sum, s) => sum + s.enrolledStudents, 0),
+                totalStudents: sections.reduce((sum, s) => sum + (s.enrolledStudents + s.completedStudents), 0),
                 totalCourses: sections.length,
             };
         });

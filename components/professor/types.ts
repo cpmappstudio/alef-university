@@ -10,6 +10,7 @@ export type TeachingHistorySection = {
     closingDate: number;
     status: "active" | "closed" | "cancelled";
     enrolledStudents: number;
+    completedStudents: number;
     course: any;
     section: any;
     period: any;

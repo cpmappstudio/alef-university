@@ -118,7 +118,7 @@ export const createColumnsTeachingHistory = (
                                 </span>
                                 <span>•</span>
                                 <span className="whitespace-nowrap">
-                                    {item.enrolledStudents} {t.table.students.toLowerCase()}
+                                    {item.enrolledStudents + item.completedStudents} {t.table.students.toLowerCase()}
                                 </span>
                             </div>
                         </div>
@@ -175,7 +175,8 @@ export const createColumnsTeachingHistory = (
             },
         },
         {
-            accessorKey: "enrolledStudents",
+            id: "totalStudents",
+            accessorFn: (row) => row.enrolledStudents + row.completedStudents,
             header: ({ column }) => {
                 return (
                     <Button
@@ -189,10 +190,10 @@ export const createColumnsTeachingHistory = (
                 );
             },
             cell: ({ row }) => {
-                const students = row.getValue("enrolledStudents") as number;
+                const totalStudents = row.getValue("totalStudents") as number;
                 return (
                     <span className="hidden md:inline text-center font-semibold">
-                        {students}
+                        {totalStudents}
                     </span>
                 );
             },
