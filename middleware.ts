@@ -15,10 +15,6 @@ const isPublicRoute = createRouteMatcher([
   '/sign-up(.*)',
   '/:locale/pending-role',
   '/pending-role',
-  '/:locale/accept-invitation(.*)',
-  '/accept-invitation(.*)',
-  '/:locale/verify(.*)',
-  '/verify(.*)',
   '/:locale',
   '/',
 ])
@@ -49,18 +45,6 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
 
   const locale = getLocaleFromPathname(pathname)
 
-  // Check for Clerk invitation/verification tokens in URL
-  const url = new URL(req.url)
-  const hasInvitationToken = url.searchParams.has('__clerk_ticket') || 
-                             url.searchParams.has('__clerk_status') ||
-                             url.searchParams.has('ticket')
-  
-  // Allow invitation flows to pass through without redirect
-  if (hasInvitationToken) {
-    console.log('[Middleware] Invitation token detected, allowing through:', pathname)
-    return intlMiddleware(req)
-  }
-
   if (isPublicRoute(req)) {
     return intlMiddleware(req)
   }
@@ -75,19 +59,8 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
         !pathname.startsWith('//') &&
         !pathname.includes('@')
 
-      // Preserve any query parameters (important for invitation flows)
       if (isInternalPath && pathname !== '/' && pathname !== `/${locale}`) {
         signInUrl.searchParams.set('redirect_url', pathname + search)
-      }
-
-      // Preserve Clerk tokens
-      if (search) {
-        const sourceParams = new URLSearchParams(search)
-        sourceParams.forEach((value, key) => {
-          if (key.startsWith('__clerk') || key === 'ticket') {
-            signInUrl.searchParams.set(key, value)
-          }
-        })
       }
 
       return NextResponse.redirect(signInUrl)
@@ -128,18 +101,9 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
     // En error, siempre denegar acceso
     const errorUrl = new URL(`/${locale}/sign-in`, req.url)
     errorUrl.searchParams.set('error', 'auth_error')
-    
-    // Preserve Clerk tokens even on error
-    const sourceParams = new URLSearchParams(search)
-    sourceParams.forEach((value, key) => {
-      if (key.startsWith('__clerk') || key === 'ticket') {
-        errorUrl.searchParams.set(key, value)
-      }
-    })
-    
     return NextResponse.redirect(errorUrl)
   }
-}, { debug: process.env.NODE_ENV === 'development' })
+})
 
 export const config = {
   matcher: [
