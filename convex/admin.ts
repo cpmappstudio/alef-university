@@ -1383,8 +1383,7 @@ export const createUserWithClerk = action({
             throw new Error("CLERK_SECRET_KEY environment variable is not set.");
         }
 
-        const appUrl = "https://alef-university.vercel.app";
-        // const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://alef-university.vercel.app";
+        const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://alef-university.vercel.app";
 
         // **STEP 1: CREATE INVITATION WITH FIRST/LAST NAME IN PUBLIC METADATA**
         const invitationResponse = await fetch("https://api.clerk.com/v1/invitations", {
@@ -1400,7 +1399,7 @@ export const createUserWithClerk = action({
                     firstName: args.firstName,
                     lastName: args.lastName,
                 },
-                // redirect_url: `${appUrl}/sign-up`,
+                redirect_url: `${appUrl}/sign-up`,
                 ignore_existing: true,
             }),
         });
