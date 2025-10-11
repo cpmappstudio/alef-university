@@ -1400,7 +1400,7 @@ export const createUserWithClerk = action({
                     firstName: args.firstName,
                     lastName: args.lastName,
                 },
-                redirect_url: `${appUrl}/sign-up`,
+                // redirect_url: `${appUrl}/sign-up`,
                 ignore_existing: true,
             }),
         });
