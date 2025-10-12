@@ -390,3 +390,36 @@ export const activatePendingUser = mutation({
         });
     },
 });
+
+/**
+ * INTERNAL: Get user by email (for webhook processing)
+ * This is an internal function that can be called from httpActions
+ */
+export const getUserByEmailInternal = query({
+    args: { email: v.string() },
+    handler: async (ctx, args) => {
+        return await ctx.db
+            .query("users")
+            .withIndex("by_email", (q) => q.eq("email", args.email))
+            .first();
+    },
+});
+
+/**
+ * INTERNAL: Activate pending user with real Clerk ID
+ * This is an internal function that can be called from httpActions
+ */
+export const activatePendingUserInternal = mutation({
+    args: {
+        userId: v.id("users"),
+        clerkId: v.string()
+    },
+    handler: async (ctx, args) => {
+        await ctx.db.patch(args.userId, {
+            clerkId: args.clerkId,
+            isActive: true,
+            updatedAt: Date.now(),
+            lastLoginAt: Date.now(),
+        });
+    },
+});
