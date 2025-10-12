@@ -30,7 +30,7 @@ const http = httpRouter();
  * Setup instructions:
  * 1. Go to Clerk Dashboard > Webhooks > Add Endpoint
  * 2. Set Endpoint URL to: https://<your-deployment>.convex.site/clerk-webhook
- * 3. Subscribe to: user.created event
+ * 3. Subscribe to: user.created, user.updated events
  * 4. Copy the Signing Secret and set it as CLERK_WEBHOOK_SECRET in Convex Dashboard
  */
 http.route({
@@ -46,75 +46,29 @@ http.route({
 
         console.log("Webhook event received:", event.type);
 
-        switch (event.type) {
-            case "user.created":
-                const emailAddress = event.data.email_addresses?.[0]?.email_address;
+        try {
+            const emailAddress = event.data.email_addresses?.[0]?.email_address;
+            const firstName = event.data.first_name || "";
+            const lastName = event.data.last_name || "";
 
-                if (!emailAddress) {
-                    console.error("No email address in webhook payload");
-                    break;
-                }
+            if (!emailAddress) {
+                console.error("No email address in webhook payload");
+                return new Response("No email address", { status: 400 });
+            }
 
-                console.log("Processing user.created for email:", emailAddress);
+            // Llamar a la función interna que maneja el webhook
+            await ctx.runMutation(internal.auth.handleClerkWebhook, {
+                eventType: event.type,
+                userId: event.data.id,
+                email: emailAddress,
+                firstName,
+                lastName,
+            });
 
-                try {
-                    // Find the pending user
-                    const pendingUser = await ctx.runQuery(internal.auth.getUserByEmailInternal, {
-                        email: emailAddress
-                    });
-
-                    console.log("Pending user found:", !!pendingUser);
-
-                    if (pendingUser && pendingUser.clerkId.startsWith("pending_")) {
-                        // Get firstName and lastName from metadata or from Clerk payload
-                        const firstName = event.data.public_metadata?.firstName ||
-                            event.data.first_name ||
-                            pendingUser.firstName;
-                        const lastName = event.data.public_metadata?.lastName ||
-                            event.data.last_name ||
-                            pendingUser.lastName;
-
-                        console.log("Activating user with names:", firstName, lastName);
-
-                        // Activate the user with real Clerk ID
-                        await ctx.runMutation(internal.auth.activatePendingUserInternal, {
-                            userId: pendingUser._id,
-                            clerkId: event.data.id,
-                        });
-
-                        console.log("User activated successfully");
-
-                        // Update Clerk user with firstName and lastName
-                        const clerkAPIKey = process.env.CLERK_SECRET_KEY;
-                        if (clerkAPIKey) {
-                            try {
-                                await fetch(`https://api.clerk.com/v1/users/${event.data.id}`, {
-                                    method: "PATCH",
-                                    headers: {
-                                        "Authorization": `Bearer ${clerkAPIKey}`,
-                                        "Content-Type": "application/json",
-                                    },
-                                    body: JSON.stringify({
-                                        first_name: firstName,
-                                        last_name: lastName,
-                                    }),
-                                });
-                                console.log("Clerk user updated with names");
-                            } catch (error) {
-                                console.error("Failed to update Clerk user with names:", error);
-                            }
-                        }
-                    } else {
-                        console.log("No pending user found or user already activated");
-                    }
-                } catch (error) {
-                    console.error("Error processing user.created webhook:", error);
-                    return new Response("Error processing webhook", { status: 500 });
-                }
-                break;
-
-            default:
-                console.log("Ignored Clerk webhook event", event.type);
+            console.log(`Webhook ${event.type} processed successfully for ${emailAddress}`);
+        } catch (error) {
+            console.error("Error processing webhook:", error);
+            return new Response("Error processing webhook", { status: 500 });
         }
 
         return new Response(null, { status: 200 });
@@ -135,7 +89,7 @@ async function validateClerkWebhook(
     };
 
     const webhookSecret = process.env.CLERK_WEBHOOK_SECRET;
-    
+
     if (!webhookSecret) {
         console.error("CLERK_WEBHOOK_SECRET is not set");
         return null;

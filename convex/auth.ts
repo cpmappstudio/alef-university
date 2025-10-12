@@ -10,7 +10,7 @@
  * Handles Clerk integration, user creation, profile updates
  */
 
-import { query, mutation } from "./_generated/server";
+import { query, mutation, internalMutation } from "./_generated/server";
 import { v, ConvexError } from "convex/values";
 import { getUserByClerkId } from "./helpers";
 import { roleValidator, addressValidator } from "./types";
@@ -421,5 +421,117 @@ export const activatePendingUserInternal = mutation({
             updatedAt: Date.now(),
             lastLoginAt: Date.now(),
         });
+    },
+});
+
+/**
+ * INTERNAL: Handle Clerk webhook events
+ * Called from http.ts webhook endpoint to process user events
+ */
+export const handleClerkWebhook = internalMutation({
+    args: {
+        eventType: v.string(),
+        userId: v.string(),
+        email: v.optional(v.string()),
+        firstName: v.optional(v.string()),
+        lastName: v.optional(v.string()),
+    },
+    handler: async (ctx, args) => {
+        console.log(`Processing webhook event: ${args.eventType} for user ${args.email}`);
+
+        switch (args.eventType) {
+            case "user.created":
+                // Check if user already exists by clerkId
+                const existingUserByClerkId = await ctx.db
+                    .query("users")
+                    .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.userId))
+                    .first();
+
+                if (existingUserByClerkId) {
+                    console.log(`User with clerkId ${args.userId} already exists`);
+                    return existingUserByClerkId._id;
+                }
+
+                // Check if there's a pending user with this email
+                const pendingUser = await ctx.db
+                    .query("users")
+                    .withIndex("by_email", (q) => q.eq("email", args.email || ""))
+                    .first();
+
+                if (pendingUser && pendingUser.clerkId.startsWith("pending_")) {
+                    // Activate the pending user with real Clerk ID
+                    console.log(`Activating pending user ${args.email}`);
+                    await ctx.db.patch(pendingUser._id, {
+                        clerkId: args.userId,
+                        firstName: args.firstName || pendingUser.firstName,
+                        lastName: args.lastName || pendingUser.lastName,
+                        isActive: true,
+                        updatedAt: Date.now(),
+                        lastLoginAt: Date.now(),
+                    });
+
+                    // Update Clerk user with names from database
+                    const clerkAPIKey = process.env.CLERK_SECRET_KEY;
+                    if (clerkAPIKey) {
+                        try {
+                            await fetch(`https://api.clerk.com/v1/users/${args.userId}`, {
+                                method: "PATCH",
+                                headers: {
+                                    "Authorization": `Bearer ${clerkAPIKey}`,
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    first_name: args.firstName || pendingUser.firstName,
+                                    last_name: args.lastName || pendingUser.lastName,
+                                }),
+                            });
+                            console.log("Updated Clerk user with names from database");
+                        } catch (error) {
+                            console.error("Failed to update Clerk user:", error);
+                        }
+                    }
+
+                    return pendingUser._id;
+                }
+
+                // If no pending user, create new user with default student role
+                console.log(`Creating new user ${args.email}`);
+                const newUserId = await ctx.db.insert("users", {
+                    clerkId: args.userId,
+                    email: args.email || "",
+                    firstName: args.firstName || "",
+                    lastName: args.lastName || "",
+                    role: "student", // Default role
+                    isActive: false, // Needs admin to activate and assign proper role
+                    createdAt: Date.now(),
+                });
+
+                return newUserId;
+
+            case "user.updated":
+                // Update user information
+                const userToUpdate = await ctx.db
+                    .query("users")
+                    .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.userId))
+                    .first();
+
+                if (userToUpdate) {
+                    console.log(`Updating user ${args.email}`);
+                    await ctx.db.patch(userToUpdate._id, {
+                        email: args.email || userToUpdate.email,
+                        firstName: args.firstName || userToUpdate.firstName,
+                        lastName: args.lastName || userToUpdate.lastName,
+                        updatedAt: Date.now(),
+                    });
+                    return userToUpdate._id;
+                }
+
+                console.log(`User ${args.email} not found for update`);
+                return null;
+
+            default:
+                console.log(`Unhandled event type: ${args.eventType}`);
+                return null;
+        }
     },
 });
