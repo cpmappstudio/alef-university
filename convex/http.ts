@@ -37,27 +37,48 @@ http.route({
     path: "/clerk-webhook",
     method: "POST",
     handler: httpAction(async (ctx, request) => {
+        console.log("=== WEBHOOK RECEIVED ===");
+        console.log("Headers:", {
+            "svix-id": request.headers.get("svix-id"),
+            "svix-timestamp": request.headers.get("svix-timestamp"),
+            "svix-signature": request.headers.get("svix-signature")?.substring(0, 20) + "...",
+        });
+
         const event = await validateClerkWebhook(request);
 
         if (!event) {
-            console.error("Error validating webhook");
+            console.error("❌ Error validating webhook signature");
             return new Response("Error validating webhook", { status: 400 });
         }
 
-        console.log("Webhook event received:", event.type);
+        console.log("✅ Webhook signature validated");
+        console.log("Event type:", event.type);
+        console.log("User ID:", event.data.id);
+        console.log("Email addresses:", event.data.email_addresses);
+        console.log("First name:", event.data.first_name);
+        console.log("Last name:", event.data.last_name);
 
         try {
             const emailAddress = event.data.email_addresses?.[0]?.email_address;
             const firstName = event.data.first_name || "";
             const lastName = event.data.last_name || "";
 
+            // Para testing de Clerk que envía email_addresses vacío
             if (!emailAddress) {
-                console.error("No email address in webhook payload");
-                return new Response("No email address", { status: 400 });
+                console.warn("⚠️ No email address in webhook payload - this might be a test webhook");
+                console.warn("Test webhook accepted with 200 but no action taken");
+                return new Response(JSON.stringify({ 
+                    message: "Test webhook received - no email to process" 
+                }), { 
+                    status: 200,
+                    headers: { "Content-Type": "application/json" }
+                });
             }
 
+            console.log(`Processing ${event.type} for email: ${emailAddress}`);
+
             // Llamar a la función interna que maneja el webhook
-            await ctx.runMutation(internal.auth.handleClerkWebhook, {
+            const result = await ctx.runMutation(internal.auth.handleClerkWebhook, {
                 eventType: event.type,
                 userId: event.data.id,
                 email: emailAddress,
@@ -65,13 +86,28 @@ http.route({
                 lastName,
             });
 
-            console.log(`Webhook ${event.type} processed successfully for ${emailAddress}`);
-        } catch (error) {
-            console.error("Error processing webhook:", error);
-            return new Response("Error processing webhook", { status: 500 });
-        }
+            console.log(`✅ Webhook ${event.type} processed successfully`);
+            console.log("Result:", result);
 
-        return new Response(null, { status: 200 });
+            return new Response(JSON.stringify({ 
+                success: true, 
+                message: `${event.type} processed`,
+                userId: result 
+            }), { 
+                status: 200,
+                headers: { "Content-Type": "application/json" }
+            });
+        } catch (error) {
+            console.error("❌ Error processing webhook:", error);
+            console.error("Error details:", JSON.stringify(error, null, 2));
+            return new Response(JSON.stringify({ 
+                error: "Error processing webhook",
+                details: error instanceof Error ? error.message : String(error)
+            }), { 
+                status: 500,
+                headers: { "Content-Type": "application/json" }
+            });
+        }
     }),
 });
 
@@ -82,25 +118,43 @@ async function validateClerkWebhook(
     req: Request
 ): Promise<WebhookEvent | null> {
     const payloadString = await req.text();
+    
+    console.log("Payload length:", payloadString.length);
+    console.log("Payload preview:", payloadString.substring(0, 200));
+    
     const svixHeaders = {
         "svix-id": req.headers.get("svix-id")!,
         "svix-timestamp": req.headers.get("svix-timestamp")!,
         "svix-signature": req.headers.get("svix-signature")!,
     };
 
+    console.log("Svix headers present:", {
+        hasId: !!svixHeaders["svix-id"],
+        hasTimestamp: !!svixHeaders["svix-timestamp"],
+        hasSignature: !!svixHeaders["svix-signature"],
+    });
+
     const webhookSecret = process.env.CLERK_WEBHOOK_SECRET;
 
     if (!webhookSecret) {
-        console.error("CLERK_WEBHOOK_SECRET is not set");
+        console.error("❌ CLERK_WEBHOOK_SECRET is not set in Convex environment variables");
+        console.error("Go to Convex Dashboard → Settings → Environment Variables");
+        console.error("Add: CLERK_WEBHOOK_SECRET=whsec_...");
         return null;
     }
+
+    console.log("Webhook secret found (first 10 chars):", webhookSecret.substring(0, 10));
 
     const wh = new Webhook(webhookSecret);
 
     try {
-        return wh.verify(payloadString, svixHeaders) as unknown as WebhookEvent;
+        const verified = wh.verify(payloadString, svixHeaders) as unknown as WebhookEvent;
+        console.log("✅ Signature verified successfully");
+        return verified;
     } catch (error) {
-        console.error("Error verifying webhook event", error);
+        console.error("❌ Error verifying webhook signature:", error);
+        console.error("Error type:", error instanceof Error ? error.constructor.name : typeof error);
+        console.error("Error message:", error instanceof Error ? error.message : String(error));
         return null;
     }
 }
