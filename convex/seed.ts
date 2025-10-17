@@ -5,8 +5,9 @@
 // ################################################################################
 
 import { internalAction, internalMutation } from "./_generated/server";
-import { api, internal } from "./_generated/api";
+import { internal } from "./_generated/api";
 import { v, ConvexError } from "convex/values";
+import { Id } from "./_generated/dataModel";
 
 /**
  * Helper mutation to delete a specific user by ID
@@ -21,12 +22,34 @@ export const deleteUserById = internalMutation({
 });
 
 /**
+ * Internal mutation helper to delete all documents from a table
+ */
+export const deleteAllFromTable = internalMutation({
+  args: {
+    table: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const tableName = args.table as any;
+    const documents = await ctx.db.query(tableName).collect();
+    
+    let count = 0;
+    for (const doc of documents) {
+      await ctx.db.delete(doc._id);
+      count++;
+    }
+    
+    console.log(`  Deleted ${count} documents from ${args.table}`);
+    return count;
+  },
+});
+
+/**
  * Clean/Revert the database before seeding
  * WARNING: This will delete ALL data from the specified tables
  */
 export const revertSeed = internalAction({
   args: {},
-  handler: async (ctx) => {
+  handler: async (ctx): Promise<{ success: boolean; message: string }> => {
     console.log("🧹 Starting database cleanup process...");
 
     try {
@@ -54,32 +77,11 @@ export const revertSeed = internalAction({
 
       console.log("✅ Database cleanup completed successfully!");
       return { success: true, message: "All seed data has been removed" };
-    } catch (error: any) {
-      console.error("❌ Error during cleanup:", error.message);
-      throw new ConvexError(`Cleanup failed: ${error.message}`);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error("❌ Error during cleanup:", errorMessage);
+      throw new ConvexError(`Cleanup failed: ${errorMessage}`);
     }
-  },
-});
-
-/**
- * Internal mutation helper to delete all documents from a table
- */
-export const deleteAllFromTable = internalMutation({
-  args: {
-    table: v.string(),
-  },
-  handler: async (ctx, args) => {
-    const tableName = args.table as any;
-    const documents = await ctx.db.query(tableName).collect();
-    
-    let count = 0;
-    for (const doc of documents) {
-      await ctx.db.delete(doc._id);
-      count++;
-    }
-    
-    console.log(`  Deleted ${count} documents from ${args.table}`);
-    return count;
   },
 });
 
@@ -91,7 +93,17 @@ export const seedDatabase = internalAction({
   args: {
     cleanFirst: v.optional(v.boolean()),
   },
-  handler: async (ctx, args) => {
+  handler: async (ctx, args): Promise<{
+    success: boolean;
+    summary: {
+      professor: number;
+      program: number;
+      courses: number;
+      sections: number;
+      students: number;
+      enrollments: number;
+    };
+  }> => {
     console.log("🚀 Starting database seeding process...");
 
     // Clean existing data if requested
@@ -99,6 +111,9 @@ export const seedDatabase = internalAction({
       console.log("Cleaning existing data first...");
       await ctx.runAction(internal.seed.revertSeed, {});
     }
+
+    const now = new Date();
+    const year = now.getFullYear();
 
     // --- 1. Create a Professor ---
     console.log("Creating professor...");
@@ -159,7 +174,7 @@ export const seedDatabase = internalAction({
       { code: "THHI-06", name: "Padres de la Iglesia", credits: 3 },
     ];
 
-    const courseIds = [];
+    const courseIds: Id<"courses">[] = [];
     for (const course of coursesData) {
       const courseId = await ctx.runMutation(internal.courses.internalCreateCourse, {
         code: course.code,
@@ -182,8 +197,6 @@ export const seedDatabase = internalAction({
 
     // --- 4. Create an Academic Period ---
     console.log("Creating academic period...");
-    const now = new Date();
-    const year = now.getFullYear();
     const periodId = await ctx.runMutation(internal.admin.internalCreatePeriod, {
         code: `${year}-B5`,
         year: year,
@@ -204,7 +217,7 @@ export const seedDatabase = internalAction({
 
     // --- 5. Create Sections for Courses ---
     console.log("Creating sections for each course...");
-    const sectionIds = [];
+    const sectionIds: Id<"sections">[] = [];
     for (const courseId of courseIds) {
         const section = await ctx.runMutation(internal.courses.internalCreateSection, {
             courseId: courseId,
@@ -225,18 +238,20 @@ export const seedDatabase = internalAction({
     // --- 6. Create Students via Clerk Invitation ---
     console.log("Creating students and sending invitations...");
     const studentsData = [
-      { firstName: "Oscar", lastName: "Lopez", email: "lopez_oscar23@hotmail.com" },
-      { firstName: "Daniel", lastName: "Leshua", email: "danieljeshua97@gmail.com" },
-      { firstName: "Calles", lastName: "Diaz", email: "callesdiaz83@gmail.com" },
-      { firstName: "Liezer", lastName: "ZR", email: "liezerzr@hotmail.es" },
-      { firstName: "Jose", lastName: "Inestroza", email: "joseinestroza.swd@gmail.com" },
-      { firstName: "Carmen", lastName: "Ruiz", email: "carmen.ruiz.alicea@gmail.com" },
+      // { firstName: "Oscar", lastName: "Lopez", email: "lopez_oscar23@hotmail.com" },
+      // { firstName: "Daniel", lastName: "Leshua", email: "danieljeshua97@gmail.com" },
+      // { firstName: "Calles", lastName: "Diaz", email: "callesdiaz83@gmail.com" },
+      // { firstName: "Liezer", lastName: "ZR", email: "liezerzr@hotmail.es" },
+      // { firstName: "Jose", lastName: "Inestroza", email: "joseinestroza.swd@gmail.com" },
+      // { firstName: "Carmen", lastName: "Ruiz", email: "carmen.ruiz.alicea@gmail.com" }, // Continue with julian.puyo.jp@gmail.com and .jp2...
+      { firstName: "Julian", lastName: "Puyo", email: "julian.puyo.jp@gmail.com" },
+      { firstName: "Julian", lastName: "Puyo", email: "julian.puyo.jp2@gmail.com" },
     ];
 
-    const studentConvexIds = [];
+    const studentConvexIds: Id<"users">[] = [];
     for (const [index, student] of studentsData.entries()) {
         try {
-            // Use the internal action instead
+            console.log(`  - Creating student ${student.email}...`);
             const result = await ctx.runAction(internal.admin.internalCreateUserWithClerk, {
               email: student.email,
               firstName: student.firstName,
@@ -250,34 +265,58 @@ export const seedDatabase = internalAction({
               }
             });
 
+            console.log(`  - Student created with userId: ${result.userId}`);
             studentConvexIds.push(result.userId);
-            console.log(`  - Invitation sent to ${student.email}.`);
-        } catch (error: any) {
-            console.error(`  - Failed to invite ${student.email}: ${error.message}`);
+            console.log(`  ✅ Invitation sent to ${student.email}.`);
+        } catch (error: unknown) {
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            console.error(`  ❌ Failed to invite ${student.email}: ${errorMessage}`);
+            // Continue with next student even if one fails
         }
     }
-    console.log(`✅ ${studentConvexIds.length} student invitations sent.`);
+    console.log(`✅ ${studentConvexIds.length} students created successfully.`);
     
     // --- 7. Enroll Students in Sections ---
     console.log("Enrolling students in sections...");
-    const sectionsToEnroll = sectionIds.slice(0, 3);
+    console.log(`  - Students to enroll: ${studentConvexIds.length}`);
+    console.log(`  - Sections available: ${sectionIds.length}`);
+    
+    const sectionsToEnroll = sectionIds;
+    console.log(`  - Will enroll in first ${sectionsToEnroll.length} sections`);
+    
+    let enrollmentCount = 0;
     for (const studentId of studentConvexIds) {
+        console.log(`  - Enrolling student ${studentId}...`);
         for (const sectionId of sectionsToEnroll) {
             try {
                 await ctx.runMutation(internal.admin.internalForceEnrollStudent, {
                     studentId,
                     sectionId,
+                    enrolledBy: professorId,
                     reason: "Initial seed enrollment",
                 });
-            } catch (error: any) {
-                console.warn(`Could not enroll student ${studentId} in ${sectionId}: ${error.message}`);
+                console.log(`    ✓ Enrolled in section ${sectionId}`);
+                enrollmentCount++;
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error);
+                console.error(`    ✗ Could not enroll student ${studentId} in ${sectionId}: ${errorMessage}`);
             }
         }
     }
-    console.log(`✅ Students enrolled in initial sections.`);
+    console.log(`✅ ${enrollmentCount} total enrollments created.`);
 
     console.log("🎉 Database seeding process completed successfully!");
 
-    return { success: true };
+    return { 
+      success: true,
+      summary: {
+        professor: 1,
+        program: 1,
+        courses: courseIds.length,
+        sections: sectionIds.length,
+        students: studentConvexIds.length,
+        enrollments: enrollmentCount,
+      }
+    };
   },
 });

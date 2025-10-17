@@ -656,6 +656,7 @@ export const internalForceEnrollStudent = internalMutation({
         bypassPrerequisites: v.optional(v.boolean()),
         bypassCapacity: v.optional(v.boolean()),
         reason: v.optional(v.string()),
+        enrolledBy: v.optional(v.id("users")), // Add this to accept a valid user ID
     },
     handler: async (ctx, args) => {
         const student = await ctx.db.get(args.studentId);
@@ -684,9 +685,8 @@ export const internalForceEnrollStudent = internalMutation({
             throw new ConvexError("Section is at capacity and bypass not requested");
         }
 
-        // For internal mutations, we need to get a system user ID or use a placeholder
-        // Since this is internal, we'll use a system placeholder
-        const systemUserId = "system" as any; // This will need to be handled appropriately
+        // Use the provided enrolledBy or default to the student themselves
+        const enrolledBy = args.enrolledBy || args.studentId;
 
         // Create enrollment
         const enrollmentId = await ctx.db.insert("enrollments", {
@@ -696,7 +696,7 @@ export const internalForceEnrollStudent = internalMutation({
             courseId: section.courseId,
             professorId: section.professorId,
             enrolledAt: Date.now(),
-            enrolledBy: systemUserId,
+            enrolledBy: enrolledBy, // Use a valid user ID
             status: "enrolled",
             isRetake: false,
             isAuditing: false,
@@ -705,13 +705,11 @@ export const internalForceEnrollStudent = internalMutation({
             createdAt: Date.now(),
         });
 
-        // Update section enrollment count if not bypassing capacity
-        if (!args.bypassCapacity) {
-            await ctx.db.patch(args.sectionId, {
-                enrolled: section.enrolled + 1,
-                updatedAt: Date.now(),
-            });
-        }
+        // Update section enrollment count
+        await ctx.db.patch(args.sectionId, {
+            enrolled: section.enrolled + 1,
+            updatedAt: Date.now(),
+        });
 
         return {
             enrollmentId,
