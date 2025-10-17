@@ -238,14 +238,14 @@ export const seedDatabase = internalAction({
     // --- 6. Create Students via Clerk Invitation ---
     console.log("Creating students and sending invitations...");
     const studentsData = [
-      // { firstName: "Oscar", lastName: "Lopez", email: "lopez_oscar23@hotmail.com" },
-      // { firstName: "Daniel", lastName: "Leshua", email: "danieljeshua97@gmail.com" },
-      // { firstName: "Calles", lastName: "Diaz", email: "callesdiaz83@gmail.com" },
-      // { firstName: "Liezer", lastName: "ZR", email: "liezerzr@hotmail.es" },
-      // { firstName: "Jose", lastName: "Inestroza", email: "joseinestroza.swd@gmail.com" },
-      // { firstName: "Carmen", lastName: "Ruiz", email: "carmen.ruiz.alicea@gmail.com" }, // Continue with julian.puyo.jp@gmail.com and .jp2...
-      { firstName: "Julian", lastName: "Puyo", email: "julian.puyo.jp@gmail.com" },
-      { firstName: "Julian", lastName: "Puyo", email: "julian.puyo.jp2@gmail.com" },
+      { firstName: "Oscar", lastName: "Lopez", email: "lopez_oscar23@hotmail.com" },
+      { firstName: "Daniel", lastName: "Leshua", email: "danieljeshua97@gmail.com" },
+      { firstName: "Calles", lastName: "Diaz", email: "callesdiaz83@gmail.com" },
+      { firstName: "Liezer", lastName: "ZR", email: "liezerzr@hotmail.es" },
+      { firstName: "Jose", lastName: "Inestroza", email: "joseinestroza.swd@gmail.com" },
+      { firstName: "Carmen", lastName: "Ruiz", email: "carmen.ruiz.alicea@gmail.com" },
+      // { firstName: "Julian", lastName: "Puyo", email: "julian.puyo.jp@gmail.com" },
+      // { firstName: "Julian", lastName: "Puyo", email: "julian.puyo.jp2@gmail.com" },
     ];
 
     const studentConvexIds: Id<"users">[] = [];
