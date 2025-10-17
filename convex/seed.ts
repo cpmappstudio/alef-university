@@ -119,7 +119,7 @@ export const seedDatabase = internalAction({
     console.log("Creating professor...");
     const professorId = await ctx.runMutation(internal.auth.internalCreateOrUpdateUser, {
         clerkId: `pending_professor_${Date.now()}`,
-        email: "professor.aleft@gmail.com",
+        email: "ulvenforst@gmail.com",
         firstName: "Juan",
         lastName: "Camilo",
         role: "professor",
