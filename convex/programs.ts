@@ -10,7 +10,7 @@
  * Handles program creation, requirements, student assignments
  */
 
-import { query, mutation } from "./_generated/server";
+import { query, mutation, internalMutation } from "./_generated/server";
 import { v, ConvexError } from "convex/values";
 import type { Doc } from "./_generated/dataModel";
 import {
@@ -142,6 +142,51 @@ export const createProgram = mutation({
         return programId;
     },
 });
+
+export const internalCreateProgram = internalMutation({
+    args: {
+        code: v.string(),
+        nameEs: v.string(),
+        nameEn: v.optional(v.string()),
+        descriptionEs: v.string(),
+        descriptionEn: v.optional(v.string()),
+        type: programTypeValidator,
+        degree: v.optional(v.string()),
+        language: languageValidator,
+        totalCredits: v.number(),
+        durationBimesters: v.number(),
+        tuitionPerCredit: v.optional(v.number()),
+    },
+    handler: async (ctx, args) => {
+        // Check for duplicate program code
+        const existingProgram = await ctx.db
+            .query("programs")
+            .withIndex("by_code", q => q.eq("code", args.code))
+            .first();
+
+        if (existingProgram) {
+            throw new ConvexError("Program code already exists");
+        }
+
+        // Validate credits and duration
+        if (args.totalCredits <= 0) {
+            throw new ConvexError("Total credits must be greater than 0");
+        }
+        if (args.durationBimesters <= 0) {
+            throw new ConvexError("Duration must be greater than 0");
+        }
+
+        // Create program
+        const programId = await ctx.db.insert("programs", {
+            ...args,
+            isActive: true,
+            createdAt: Date.now(),
+        });
+
+        return programId;
+    },
+});
+
 
 /**
  * Update existing program (Admin only)

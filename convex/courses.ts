@@ -10,7 +10,7 @@
  * Handles course catalog, section creation, and course-program relationships
  */
 
-import { query, mutation } from "./_generated/server";
+import { query, mutation, internalMutation } from "./_generated/server";
 import { v, ConvexError } from "convex/values";
 import type { Doc } from "./_generated/dataModel";
 import {
@@ -163,6 +163,54 @@ export const createCourse = mutation({
         return courseId;
     },
 });
+
+export const internalCreateCourse = internalMutation({
+    args: {
+        code: v.string(),
+        nameEs: v.string(),
+        nameEn: v.optional(v.string()),
+        descriptionEs: v.string(),
+        descriptionEn: v.optional(v.string()),
+        credits: v.number(),
+        level: v.optional(v.union(
+            v.literal("introductory"),
+            v.literal("intermediate"),
+            v.literal("advanced"),
+            v.literal("graduate")
+        )),
+        language: languageValidator,
+        category: courseCategoryValidator,
+        prerequisites: v.array(v.string()),
+        corequisites: v.optional(v.array(v.string())),
+        syllabus: v.optional(v.string()),
+    },
+    handler: async (ctx, args) => {
+        // Check for duplicate course code
+        const existingCourse = await ctx.db
+            .query("courses")
+            .withIndex("by_code", q => q.eq("code", args.code))
+            .first();
+
+        if (existingCourse) {
+            throw new ConvexError("Course code already exists");
+        }
+
+        // Validate credits
+        if (args.credits <= 0) {
+            throw new ConvexError("Credits must be greater than 0");
+        }
+
+        // Create course
+        const courseId = await ctx.db.insert("courses", {
+            ...args,
+            isActive: true,
+            createdAt: Date.now(),
+        });
+
+        return courseId;
+    },
+});
+
 
 /**
  * Update existing course (Admin only)
@@ -434,6 +482,78 @@ export const createSection = mutation({
     },
 });
 
+export const internalCreateSection = internalMutation({
+    args: {
+        courseId: v.id("courses"),
+        periodId: v.id("periods"),
+        groupNumber: v.string(),
+        professorId: v.id("users"),
+        capacity: v.number(),
+        deliveryMethod: deliveryMethodValidator,
+        schedule: v.optional(v.object({
+            sessions: v.array(scheduleSessionValidator),
+            timezone: v.string(),
+            notes: v.optional(v.string()),
+        })),
+        waitlistCapacity: v.optional(v.number()),
+    },
+    handler: async (ctx, args) => {
+        const course = await ctx.db.get(args.courseId);
+        if (!course) {
+            throw new ConvexError("Course not found");
+        }
+
+        const period = await ctx.db.get(args.periodId);
+        if (!period) {
+            throw new ConvexError("Period not found");
+        }
+
+        const professor = await ctx.db.get(args.professorId);
+        if (!professor || professor.role !== "professor") {
+            throw new ConvexError("Professor not found or invalid role");
+        }
+
+        // Generate CRN (Course Reference Number)
+        const crn = `${course.code}-${args.groupNumber}-${period.code}`;
+
+        // Check for duplicate CRN
+        const existingSection = await ctx.db
+            .query("sections")
+            .withIndex("by_crn", q => q.eq("crn", crn))
+            .first();
+
+        if (existingSection) {
+            throw new ConvexError("Section with this group number already exists for this period");
+        }
+
+        // Create section
+        const sectionId = await ctx.db.insert("sections", {
+            courseId: args.courseId,
+            periodId: args.periodId,
+            groupNumber: args.groupNumber,
+            crn,
+            professorId: args.professorId,
+            capacity: args.capacity,
+            enrolled: 0,
+            waitlistCapacity: args.waitlistCapacity,
+            waitlisted: 0,
+            deliveryMethod: args.deliveryMethod,
+            schedule: args.schedule,
+            status: "draft",
+            gradesSubmitted: false,
+            isActive: true,
+            createdAt: Date.now(),
+        });
+
+        return {
+            sectionId,
+            crn,
+            message: "Section created successfully",
+        };
+    },
+});
+
+
 /**
  * Update section details (Admin/Professor who owns section)
  */
@@ -475,6 +595,40 @@ export const updateSection = mutation({
         }
 
         // Note: Capacity validation removed - sections have unlimited capacity
+
+        // Update section
+        const updateData: any = { updatedAt: Date.now() };
+
+        if (args.capacity !== undefined) updateData.capacity = args.capacity;
+        if (args.deliveryMethod !== undefined) updateData.deliveryMethod = args.deliveryMethod;
+        if (args.schedule !== undefined) updateData.schedule = args.schedule;
+        if (args.status !== undefined) updateData.status = args.status;
+        if (args.waitlistCapacity !== undefined) updateData.waitlistCapacity = args.waitlistCapacity;
+
+        await ctx.db.patch(args.sectionId, updateData);
+
+        return args.sectionId;
+    },
+});
+
+export const internalUpdateSection = internalMutation({
+    args: {
+        sectionId: v.id("sections"),
+        capacity: v.optional(v.number()),
+        deliveryMethod: v.optional(deliveryMethodValidator),
+        schedule: v.optional(v.object({
+            sessions: v.array(scheduleSessionValidator),
+            timezone: v.string(),
+            notes: v.optional(v.string()),
+        })),
+        status: v.optional(sectionStatusValidator),
+        waitlistCapacity: v.optional(v.number()),
+    },
+    handler: async (ctx, args) => {
+        const section = await ctx.db.get(args.sectionId);
+        if (!section) {
+            throw new ConvexError("Section not found");
+        }
 
         // Update section
         const updateData: any = { updatedAt: Date.now() };
@@ -691,6 +845,47 @@ export const addCourseToProgram = mutation({
         return associationId;
     },
 });
+
+export const internalAddCourseToProgram = internalMutation({
+    args: {
+        courseId: v.id("courses"),
+        programId: v.id("programs"),
+        isRequired: v.boolean(),
+        categoryOverride: v.optional(courseCategoryValidator),
+    },
+    handler: async (ctx, args) => {
+        // Check if association already exists
+        const existing = await ctx.db
+            .query("program_courses")
+            .withIndex("by_program_course", q =>
+                q.eq("programId", args.programId).eq("courseId", args.courseId))
+            .first();
+
+        if (existing) {
+            throw new ConvexError("Course is already associated with this program");
+        }
+
+        const course = await ctx.db.get(args.courseId);
+        const program = await ctx.db.get(args.programId);
+
+        if (!course || !program) {
+            throw new ConvexError("Course or program not found");
+        }
+
+        // Create association
+        const associationId = await ctx.db.insert("program_courses", {
+            courseId: args.courseId,
+            programId: args.programId,
+            isRequired: args.isRequired,
+            categoryOverride: args.categoryOverride,
+            isActive: true,
+            createdAt: Date.now(),
+        });
+
+        return associationId;
+    },
+});
+
 
 /**
  * Remove course from program (Admin only)

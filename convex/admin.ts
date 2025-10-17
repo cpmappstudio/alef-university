@@ -10,8 +10,8 @@
  * Handles user administration, program management, period management, and system analytics
  */
 
-import { query, mutation, action } from "./_generated/server";
-import { api } from "./_generated/api"
+import { query, mutation, action, internalMutation, internalAction } from "./_generated/server";
+import { internal, api } from "./_generated/api"
 import type { ActionCtx } from "./_generated/server";
 import { v, ConvexError } from "convex/values";
 import type { Doc } from "./_generated/dataModel";
@@ -167,6 +167,51 @@ export const createPeriod = mutation({
     },
 });
 
+export const internalCreatePeriod = internalMutation({
+    args: {
+        code: v.string(),
+        year: v.number(),
+        bimesterNumber: v.number(),
+        nameEs: v.string(),
+        nameEn: v.optional(v.string()),
+        startDate: v.number(),
+        endDate: v.number(),
+        enrollmentStart: v.number(),
+        enrollmentEnd: v.number(),
+        addDropDeadline: v.optional(v.number()),
+        withdrawalDeadline: v.optional(v.number()),
+        gradingStart: v.optional(v.number()),
+        gradingDeadline: v.number(),
+    },
+    handler: async (ctx, args) => {
+        // Validate bimester number (1-6)
+        if (args.bimesterNumber < 1 || args.bimesterNumber > 6) {
+            throw new ConvexError("Bimester number must be between 1 and 6");
+        }
+
+        // Check for duplicate period code
+        const existingPeriod = await ctx.db
+            .query("periods")
+            .filter(q => q.eq(q.field("code"), args.code))
+            .first();
+
+        if (existingPeriod) {
+            throw new ConvexError("Period code already exists");
+        }
+
+        // Create period
+        const periodId = await ctx.db.insert("periods", {
+            ...args,
+            status: "planning",
+            isCurrentPeriod: false,
+            createdAt: Date.now(),
+        });
+
+        return periodId;
+    },
+});
+
+
 /**
  * Update period status and dates (Admin only)
  */
@@ -235,6 +280,63 @@ export const updatePeriodStatus = mutation({
         return args.periodId;
     },
 });
+
+export const internalUpdatePeriodStatus = internalMutation({
+    args: {
+        periodId: v.id("periods"),
+        status: periodStatusValidator,
+        isCurrentPeriod: v.optional(v.boolean()),
+        enrollmentStart: v.optional(v.number()),
+        enrollmentEnd: v.optional(v.number()),
+        gradingStart: v.optional(v.number()),
+        gradingDeadline: v.optional(v.number()),
+    },
+    handler: async (ctx, args) => {
+        const period = await ctx.db.get(args.periodId);
+        if (!period) {
+            throw new ConvexError("Period not found");
+        }
+
+        // If marking as current period, unmark others first
+        if (args.isCurrentPeriod) {
+            const currentPeriods = await ctx.db
+                .query("periods")
+                .withIndex("by_current", q => q.eq("isCurrentPeriod", true))
+                .collect();
+
+            for (const p of currentPeriods) {
+                await ctx.db.patch(p._id, { isCurrentPeriod: false });
+            }
+        }
+
+        // Update period
+        const updateData: any = {
+            status: args.status,
+            updatedAt: Date.now(),
+        };
+
+        if (args.isCurrentPeriod !== undefined) {
+            updateData.isCurrentPeriod = args.isCurrentPeriod;
+        }
+        if (args.enrollmentStart !== undefined) {
+            updateData.enrollmentStart = args.enrollmentStart;
+        }
+        if (args.enrollmentEnd !== undefined) {
+            updateData.enrollmentEnd = args.enrollmentEnd;
+        }
+        if (args.gradingStart !== undefined) {
+            updateData.gradingStart = args.gradingStart;
+        }
+        if (args.gradingDeadline !== undefined) {
+            updateData.gradingDeadline = args.gradingDeadline;
+        }
+
+        await ctx.db.patch(args.periodId, updateData);
+
+        return args.periodId;
+    },
+});
+
 
 /**
  * Update student's academic standing (Admin only)
@@ -546,6 +648,82 @@ export const forceEnrollStudent = mutation({
         };
     },
 });
+
+export const internalForceEnrollStudent = internalMutation({
+    args: {
+        studentId: v.id("users"),
+        sectionId: v.id("sections"),
+        bypassPrerequisites: v.optional(v.boolean()),
+        bypassCapacity: v.optional(v.boolean()),
+        reason: v.optional(v.string()),
+    },
+    handler: async (ctx, args) => {
+        const student = await ctx.db.get(args.studentId);
+        if (!student || student.role !== "student") {
+            throw new ConvexError("Student not found or invalid role");
+        }
+
+        const section = await ctx.db.get(args.sectionId);
+        if (!section) {
+            throw new ConvexError("Section not found");
+        }
+
+        // Check for existing enrollment
+        const existingEnrollment = await ctx.db
+            .query("enrollments")
+            .withIndex("by_student_section", q =>
+                q.eq("studentId", args.studentId).eq("sectionId", args.sectionId))
+            .first();
+
+        if (existingEnrollment) {
+            throw new ConvexError("Student is already enrolled in this section");
+        }
+
+        // Check capacity unless bypass is requested
+        if (!args.bypassCapacity && section.enrolled >= section.capacity) {
+            throw new ConvexError("Section is at capacity and bypass not requested");
+        }
+
+        // For internal mutations, we need to get a system user ID or use a placeholder
+        // Since this is internal, we'll use a system placeholder
+        const systemUserId = "system" as any; // This will need to be handled appropriately
+
+        // Create enrollment
+        const enrollmentId = await ctx.db.insert("enrollments", {
+            studentId: args.studentId,
+            sectionId: args.sectionId,
+            periodId: section.periodId,
+            courseId: section.courseId,
+            professorId: section.professorId,
+            enrolledAt: Date.now(),
+            enrolledBy: systemUserId,
+            status: "enrolled",
+            isRetake: false,
+            isAuditing: false,
+            countsForGPA: true,
+            countsForProgress: true,
+            createdAt: Date.now(),
+        });
+
+        // Update section enrollment count if not bypassing capacity
+        if (!args.bypassCapacity) {
+            await ctx.db.patch(args.sectionId, {
+                enrolled: section.enrolled + 1,
+                updatedAt: Date.now(),
+            });
+        }
+
+        return {
+            enrollmentId,
+            message: "Student force enrolled successfully",
+            warnings: [
+                ...(args.bypassPrerequisites ? ["Prerequisites bypassed"] : []),
+                ...(args.bypassCapacity ? ["Capacity limit bypassed"] : []),
+            ],
+        };
+    },
+});
+
 
 /**
  * Get enrollment statistics by program and period (Admin only)
@@ -1442,5 +1620,114 @@ export const createUserWithClerk = action({
             success: true,
             message: "Invitation sent successfully. User will be activated after accepting the invitation.",
         };
+    },
+});
+
+/**
+ * INTERNAL: Create user with Clerk invitation (for seeding/automation)
+ * This bypasses authentication checks
+ */
+export const internalCreateUserWithClerk = internalAction({
+    args: {
+        email: v.string(),
+        firstName: v.string(),
+        lastName: v.string(),
+        role: v.optional(roleValidator),
+        studentProfile: v.optional(v.object({
+            studentCode: v.string(),
+            programId: v.id("programs"),
+            enrollmentDate: v.number(),
+            expectedGraduationDate: v.optional(v.number()),
+            status: v.union(
+                v.literal("active"),
+                v.literal("inactive"),
+                v.literal("on_leave"),
+                v.literal("graduated"),
+                v.literal("withdrawn")
+            ),
+            academicStanding: v.optional(v.union(
+                v.literal("good_standing"),
+                v.literal("probation"),
+                v.literal("suspension")
+            )),
+        })),
+        professorProfile: v.optional(v.object({
+            employeeCode: v.string(),
+            title: v.optional(v.string()),
+            department: v.optional(v.string()),
+            hireDate: v.optional(v.number()),
+        })),
+    },
+    handler: async (ctx, args): Promise<{ userId: any; invitationId: string; message: string }> => {
+        // Check if user already exists
+        const existingUser = await ctx.runQuery(internal.auth.getUserByEmailInternal, { 
+            email: args.email 
+        });
+
+        if (existingUser) {
+            throw new ConvexError("User with this email already exists");
+        }
+
+        // Create pending user in Convex
+        const pendingClerkId = `pending_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+        const userId = await ctx.runMutation(internal.auth.internalCreateOrUpdateUser, {
+            clerkId: pendingClerkId,
+            email: args.email,
+            firstName: args.firstName,
+            lastName: args.lastName,
+            role: args.role || "student",
+        });
+
+        // Update role and profile if provided
+        if (args.studentProfile || args.professorProfile) {
+            await ctx.runMutation(internal.auth.internalUpdateUserRoleUnsafe, {
+                userId: userId,
+                role: args.role || "student",
+                isActive: false, // Will be activated when they accept invitation
+                studentProfile: args.studentProfile,
+                professorProfile: args.professorProfile,
+            });
+        }
+
+        // Send Clerk invitation
+        const clerkAPIKey = process.env.CLERK_SECRET_KEY;
+        if (!clerkAPIKey) {
+            throw new ConvexError("Clerk API key not configured");
+        }
+
+        try {
+            const response = await fetch("https://api.clerk.com/v1/invitations", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${clerkAPIKey}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email_address: args.email,
+                    public_metadata: {
+                        role: args.role || "student",
+                        convex_user_id: userId,
+                    },
+                    redirect_url: process.env.CLERK_REDIRECT_URL,
+                }),
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new ConvexError(`Clerk invitation failed: ${errorText}`);
+            }
+
+            const invitation = await response.json();
+
+            return {
+                userId,
+                invitationId: invitation.id,
+                message: "User created and invitation sent successfully",
+            };
+        } catch (error: any) {
+            // If Clerk invitation fails, delete the pending user
+            await ctx.runMutation(internal.seed.deleteUserById, { userId });
+            throw new ConvexError(`Failed to send invitation: ${error.message}`);
+        }
     },
 });

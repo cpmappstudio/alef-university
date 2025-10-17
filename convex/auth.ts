@@ -10,7 +10,8 @@
  * Handles Clerk integration, user creation, profile updates
  */
 
-import { query, mutation, internalMutation } from "./_generated/server";
+import { query, mutation, internalMutation, internalQuery } from "./_generated/server";
+import { internal } from "./_generated/api";
 import { v, ConvexError } from "convex/values";
 import { getUserByClerkId } from "./helpers";
 import { roleValidator, addressValidator } from "./types";
@@ -98,6 +99,85 @@ export const createOrUpdateUser = mutation({
         return userId;
     },
 });
+
+export const internalCreateOrUpdateUser = internalMutation({
+    args: {
+        clerkId: v.string(),
+        email: v.string(),
+        firstName: v.string(),
+        lastName: v.string(),
+        role: v.optional(roleValidator),
+        dateOfBirth: v.optional(v.number()),
+        nationality: v.optional(v.string()),
+        documentType: v.optional(v.union(
+            v.literal("passport"),
+            v.literal("national_id"),
+            v.literal("driver_license"),
+            v.literal("other")
+        )),
+        documentNumber: v.optional(v.string()),
+        phone: v.optional(v.string()),
+        country: v.optional(v.string()),
+        address: v.optional(addressValidator),
+    },
+    handler: async (ctx, args) => {
+        const existingByClerkId = await ctx.db
+            .query("users")
+            .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.clerkId))
+            .first();
+
+        const existingByEmail = await ctx.db
+            .query("users")
+            .withIndex("by_email", (q) => q.eq("email", args.email))
+            .first();
+
+        if (existingByClerkId) {
+            await ctx.db.patch(existingByClerkId._id, {
+                email: args.email,
+                firstName: args.firstName,
+                lastName: args.lastName,
+                role: args.role,
+                dateOfBirth: args.dateOfBirth,
+                nationality: args.nationality,
+                documentType: args.documentType,
+                documentNumber: args.documentNumber,
+                phone: args.phone,
+                country: args.country,
+                address: args.address,
+                updatedAt: Date.now(),
+            });
+            return existingByClerkId._id;
+        }
+
+        if (existingByEmail && !existingByEmail.clerkId.startsWith("pending_")) {
+            throw new Error("Email address already exists");
+        }
+
+        if (existingByEmail && existingByEmail.clerkId.startsWith("pending_")) {
+            return existingByEmail._id;
+        }
+
+        const userId = await ctx.db.insert("users", {
+            clerkId: args.clerkId,
+            email: args.email,
+            firstName: args.firstName,
+            lastName: args.lastName,
+            role: args.role ?? "student",
+            isActive: args.clerkId.startsWith("pending_") ? false : true,
+            dateOfBirth: args.dateOfBirth,
+            nationality: args.nationality,
+            documentType: args.documentType,
+            documentNumber: args.documentNumber,
+            phone: args.phone,
+            country: args.country,
+            address: args.address,
+            createdAt: Date.now(),
+        });
+
+        return userId;
+    },
+});
+
 
 /**
  * Get current authenticated user with full profile
@@ -234,6 +314,48 @@ export const updateUserRole = mutation({
             updatedAt: Date.now(),
         });
 
+        return args.userId;
+    },
+});
+
+export const internalUpdateUserRoleUnsafe = internalMutation({
+    args: {
+        userId: v.id("users"),
+        role: roleValidator,
+        isActive: v.boolean(),
+        studentProfile: v.optional(v.object({
+            studentCode: v.string(),
+            programId: v.id("programs"),
+            enrollmentDate: v.number(),
+            expectedGraduationDate: v.optional(v.number()),
+            status: v.union(
+                v.literal("active"),
+                v.literal("inactive"),
+                v.literal("on_leave"),
+                v.literal("graduated"),
+                v.literal("withdrawn")
+            ),
+            academicStanding: v.optional(v.union(
+                v.literal("good_standing"),
+                v.literal("probation"),
+                v.literal("suspension")
+            )),
+        })),
+        professorProfile: v.optional(v.object({
+            employeeCode: v.string(),
+            title: v.optional(v.string()),
+            department: v.optional(v.string()),
+            hireDate: v.optional(v.number()),
+        })),
+    },
+    handler: async (ctx, args) => {
+        await ctx.db.patch(args.userId, {
+            role: args.role,
+            isActive: args.isActive,
+            studentProfile: args.studentProfile,
+            professorProfile: args.professorProfile,
+            updatedAt: Date.now(),
+        });
         return args.userId;
     },
 });
@@ -395,7 +517,7 @@ export const activatePendingUser = mutation({
  * INTERNAL: Get user by email (for webhook processing)
  * This is an internal function that can be called from httpActions
  */
-export const getUserByEmailInternal = query({
+export const getUserByEmailInternal = internalQuery({
     args: { email: v.string() },
     handler: async (ctx, args) => {
         return await ctx.db
@@ -409,7 +531,7 @@ export const getUserByEmailInternal = query({
  * INTERNAL: Activate pending user with real Clerk ID
  * This is an internal function that can be called from httpActions
  */
-export const activatePendingUserInternal = mutation({
+export const activatePendingUserInternal = internalMutation({
     args: {
         userId: v.id("users"),
         clerkId: v.string()

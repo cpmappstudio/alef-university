@@ -24,6 +24,7 @@ import type * as http from "../http.js";
 import type * as professors from "../professors.js";
 import type * as programs from "../programs.js";
 import type * as reports from "../reports.js";
+import type * as seed from "../seed.js";
 import type * as students from "../students.js";
 import type * as types from "../types.js";
 
@@ -47,6 +48,7 @@ declare const fullApi: ApiFromModules<{
   professors: typeof professors;
   programs: typeof programs;
   reports: typeof reports;
+  seed: typeof seed;
   students: typeof students;
   types: typeof types;
 }>;
