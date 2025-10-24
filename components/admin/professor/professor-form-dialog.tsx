@@ -11,12 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -36,7 +31,12 @@ interface ProfessorFormData {
   email: string;
   dateOfBirth: string;
   nationality: string;
-  documentType: "passport" | "national_id" | "driver_license" | "other" | undefined;
+  documentType:
+    | "passport"
+    | "national_id"
+    | "driver_license"
+    | "other"
+    | undefined;
   documentNumber: string;
   phone: string;
   country: string;
@@ -78,11 +78,11 @@ export function ProfessorFormDialog({
 
   const adminCreateProfessor = useAction(api.admin.createUserWithClerk);
   const adminUpdateProfessor = useMutation(api.admin.adminUpdateProfessor);
-  const deactivateUser = useMutation(api.auth.deactivateUser);
+  const deleteUser = useMutation(api.auth.deleteUser);
 
   const teachingHistory = useQuery(
     api.admin.getProfessorTeachingHistory,
-    mode === 'edit' && professor ? { professorId: professor._id } : 'skip'
+    mode === "edit" && professor ? { professorId: professor._id } : "skip",
   );
 
   // Use controlled or internal state
@@ -97,7 +97,9 @@ export function ProfessorFormDialog({
         firstName: professor.firstName || "",
         lastName: professor.lastName || "",
         email: professor.email || "",
-        dateOfBirth: professor.dateOfBirth ? new Date(professor.dateOfBirth).toISOString().split('T')[0] : "",
+        dateOfBirth: professor.dateOfBirth
+          ? new Date(professor.dateOfBirth).toISOString().split("T")[0]
+          : "",
         nationality: professor.nationality || "",
         documentType: professor.documentType,
         documentNumber: professor.documentNumber || "",
@@ -116,17 +118,32 @@ export function ProfessorFormDialog({
           title: professor.professorProfile?.title || "",
           department: professor.professorProfile?.department || "",
           hireDate: professor.professorProfile?.hireDate
-            ? new Date(professor.professorProfile.hireDate).toISOString().split('T')[0] : "",
+            ? new Date(professor.professorProfile.hireDate)
+                .toISOString()
+                .split("T")[0]
+            : "",
         },
       };
     }
     // Default for create mode
     return {
-      firstName: "", lastName: "", email: "", dateOfBirth: "",
-      nationality: "", documentType: undefined, documentNumber: "", phone: "", country: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      dateOfBirth: "",
+      nationality: "",
+      documentType: undefined,
+      documentNumber: "",
+      phone: "",
+      country: "",
       address: { street: "", city: "", state: "", zipCode: "", country: "" },
       isActive: true,
-      professorProfile: { employeeCode: "", title: "", department: "", hireDate: "" },
+      professorProfile: {
+        employeeCode: "",
+        title: "",
+        department: "",
+        hireDate: "",
+      },
     };
   }, [mode, professor]);
 
@@ -146,7 +163,9 @@ export function ProfessorFormDialog({
     // Basic validation
     const validationErrors = validateFormData(formData);
     if (validationErrors.length > 0) {
-      alert(`Please fix the following errors:\n\n${validationErrors.join('\n')}`);
+      alert(
+        `Please fix the following errors:\n\n${validationErrors.join("\n")}`,
+      );
       return;
     }
 
@@ -167,7 +186,9 @@ export function ProfessorFormDialog({
               : undefined,
           },
         });
-        alert("Professor created successfully and an invitation has been sent.");
+        alert(
+          "Professor created successfully and an invitation has been sent.",
+        );
       } else {
         if (!professor) return;
         await adminUpdateProfessor({
@@ -191,25 +212,29 @@ export function ProfessorFormDialog({
 
   const handleDelete = async () => {
     if (!professor || mode === "create") return;
-    if (!confirm(`Are you sure you want to deactivate "${professor.firstName} ${professor.lastName}"?`)) {
+    if (
+      !confirm(
+        `Are you sure you want to delete "${professor.firstName} ${professor.lastName}"?`,
+      )
+    ) {
       return;
     }
     setIsDeleting(true);
     try {
-      await deactivateUser({ userId: professor._id });
-      alert("Professor deactivated successfully!");
+      await deleteUser({ userId: professor._id });
+      alert("Professor deleted successfully!");
       setOpen(false);
     } catch (error) {
-      console.error("Failed to deactivate professor:", error);
-      alert(`Failed to deactivate professor: ${(error as Error).message}`);
+      console.error("Failed to delete professor:", error);
+      alert(`Failed to delete professor: ${(error as Error).message}`);
     } finally {
       setIsDeleting(false);
     }
   };
 
   const updateFormData = (field: string, value: string | boolean | number) => {
-    if (field.includes('.')) {
-      const [parent, child] = field.split('.');
+    if (field.includes(".")) {
+      const [parent, child] = field.split(".");
       setFormData((prev) => ({
         ...prev,
         [parent]: {
@@ -229,7 +254,8 @@ export function ProfessorFormDialog({
     if (!data.firstName.trim()) errors.push("First name is required");
     if (!data.lastName.trim()) errors.push("Last name is required");
     if (!data.email.trim()) errors.push("Email is required");
-    if (!data.professorProfile.employeeCode.trim()) errors.push("Employee code is required");
+    if (!data.professorProfile.employeeCode.trim())
+      errors.push("Employee code is required");
 
     return errors;
   };
@@ -273,13 +299,18 @@ export function ProfessorFormDialog({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="firstName" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="firstName"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       First Name <span className="text-destructive">*</span>
                     </Label>
                     <Input
                       id="firstName"
                       value={formData.firstName}
-                      onChange={(e) => updateFormData("firstName", e.target.value)}
+                      onChange={(e) =>
+                        updateFormData("firstName", e.target.value)
+                      }
                       placeholder="Enter first name"
                       className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                       required
@@ -287,13 +318,18 @@ export function ProfessorFormDialog({
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="lastName" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="lastName"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       Last Name <span className="text-destructive">*</span>
                     </Label>
                     <Input
                       id="lastName"
                       value={formData.lastName}
-                      onChange={(e) => updateFormData("lastName", e.target.value)}
+                      onChange={(e) =>
+                        updateFormData("lastName", e.target.value)
+                      }
                       placeholder="Enter last name"
                       className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                       required
@@ -303,7 +339,10 @@ export function ProfessorFormDialog({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="email"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       Email <span className="text-destructive">*</span>
                     </Label>
                     <Input
@@ -318,14 +357,19 @@ export function ProfessorFormDialog({
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="dateOfBirth" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="dateOfBirth"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       Date of Birth
                     </Label>
                     <Input
                       id="dateOfBirth"
                       type="date"
                       value={formData.dateOfBirth}
-                      onChange={(e) => updateFormData("dateOfBirth", e.target.value)}
+                      onChange={(e) =>
+                        updateFormData("dateOfBirth", e.target.value)
+                      }
                       className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
@@ -333,13 +377,18 @@ export function ProfessorFormDialog({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="nationality" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="nationality"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       Nationality
                     </Label>
                     <Input
                       id="nationality"
                       value={formData.nationality}
-                      onChange={(e) => updateFormData("nationality", e.target.value)}
+                      onChange={(e) =>
+                        updateFormData("nationality", e.target.value)
+                      }
                       placeholder="Enter nationality"
                       className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
@@ -348,12 +397,17 @@ export function ProfessorFormDialog({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="documentType" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="documentType"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       Document Type
                     </Label>
                     <Select
                       value={formData.documentType || ""}
-                      onValueChange={(value) => updateFormData("documentType", value)}
+                      onValueChange={(value) =>
+                        updateFormData("documentType", value)
+                      }
                     >
                       <SelectTrigger className="w-full  border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
                         <SelectValue placeholder="Select document type" />
@@ -361,20 +415,27 @@ export function ProfessorFormDialog({
                       <SelectContent>
                         <SelectItem value="national_id">National ID</SelectItem>
                         <SelectItem value="passport">Passport</SelectItem>
-                        <SelectItem value="driver_license">Driver License</SelectItem>
+                        <SelectItem value="driver_license">
+                          Driver License
+                        </SelectItem>
                         <SelectItem value="other">Other</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="documentNumber" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="documentNumber"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       Document Number
                     </Label>
                     <Input
                       id="documentNumber"
                       value={formData.documentNumber}
-                      onChange={(e) => updateFormData("documentNumber", e.target.value)}
+                      onChange={(e) =>
+                        updateFormData("documentNumber", e.target.value)
+                      }
                       placeholder="Enter document number"
                       className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
@@ -383,7 +444,10 @@ export function ProfessorFormDialog({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="phone"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       Phone
                     </Label>
                     <Input
@@ -396,13 +460,18 @@ export function ProfessorFormDialog({
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="country" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="country"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       Country
                     </Label>
                     <Input
                       id="country"
                       value={formData.country}
-                      onChange={(e) => updateFormData("country", e.target.value)}
+                      onChange={(e) =>
+                        updateFormData("country", e.target.value)
+                      }
                       placeholder="Enter country"
                       className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
@@ -421,26 +490,36 @@ export function ProfessorFormDialog({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="street" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="street"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       Street
                     </Label>
                     <Input
                       id="street"
                       value={formData.address.street}
-                      onChange={(e) => updateFormData("address.street", e.target.value)}
+                      onChange={(e) =>
+                        updateFormData("address.street", e.target.value)
+                      }
                       placeholder="Enter street address"
                       className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="city" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="city"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       City
                     </Label>
                     <Input
                       id="city"
                       value={formData.address.city}
-                      onChange={(e) => updateFormData("address.city", e.target.value)}
+                      onChange={(e) =>
+                        updateFormData("address.city", e.target.value)
+                      }
                       placeholder="Enter city"
                       className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
@@ -449,39 +528,54 @@ export function ProfessorFormDialog({
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="state" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="state"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       State
                     </Label>
                     <Input
                       id="state"
                       value={formData.address.state}
-                      onChange={(e) => updateFormData("address.state", e.target.value)}
+                      onChange={(e) =>
+                        updateFormData("address.state", e.target.value)
+                      }
                       placeholder="Enter state"
                       className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="zipCode" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="zipCode"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       ZIP Code
                     </Label>
                     <Input
                       id="zipCode"
                       value={formData.address.zipCode}
-                      onChange={(e) => updateFormData("address.zipCode", e.target.value)}
+                      onChange={(e) =>
+                        updateFormData("address.zipCode", e.target.value)
+                      }
                       placeholder="Enter ZIP code"
                       className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="addressCountry" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="addressCountry"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       Address Country
                     </Label>
                     <Input
                       id="addressCountry"
                       value={formData.address.country}
-                      onChange={(e) => updateFormData("address.country", e.target.value)}
+                      onChange={(e) =>
+                        updateFormData("address.country", e.target.value)
+                      }
                       placeholder="Enter country"
                       className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
@@ -500,13 +594,21 @@ export function ProfessorFormDialog({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="employeeCode" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="employeeCode"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       Employee Code <span className="text-destructive">*</span>
                     </Label>
                     <Input
                       id="employeeCode"
                       value={formData.professorProfile.employeeCode}
-                      onChange={(e) => updateFormData("professorProfile.employeeCode", e.target.value)}
+                      onChange={(e) =>
+                        updateFormData(
+                          "professorProfile.employeeCode",
+                          e.target.value,
+                        )
+                      }
                       placeholder="Enter employee code"
                       className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                       disabled={!isCreate}
@@ -515,22 +617,35 @@ export function ProfessorFormDialog({
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="title" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="title"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       Academic Title
                     </Label>
                     <Select
                       value={formData.professorProfile.title || ""}
-                      onValueChange={(value) => updateFormData("professorProfile.title", value)}
+                      onValueChange={(value) =>
+                        updateFormData("professorProfile.title", value)
+                      }
                     >
                       <SelectTrigger className="w-full  border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
                         <SelectValue placeholder="Select academic title" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="assistant">Assistant Professor</SelectItem>
-                        <SelectItem value="associate">Associate Professor</SelectItem>
+                        <SelectItem value="assistant">
+                          Assistant Professor
+                        </SelectItem>
+                        <SelectItem value="associate">
+                          Associate Professor
+                        </SelectItem>
                         <SelectItem value="full">Full Professor</SelectItem>
-                        <SelectItem value="emeritus">Professor Emeritus</SelectItem>
-                        <SelectItem value="adjunct">Adjunct Professor</SelectItem>
+                        <SelectItem value="emeritus">
+                          Professor Emeritus
+                        </SelectItem>
+                        <SelectItem value="adjunct">
+                          Adjunct Professor
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -538,27 +653,43 @@ export function ProfessorFormDialog({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="department" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="department"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       Department
                     </Label>
                     <Input
                       id="department"
                       value={formData.professorProfile.department}
-                      onChange={(e) => updateFormData("professorProfile.department", e.target.value)}
+                      onChange={(e) =>
+                        updateFormData(
+                          "professorProfile.department",
+                          e.target.value,
+                        )
+                      }
                       placeholder="Enter department"
                       className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="hireDate" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="hireDate"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       Hire Date
                     </Label>
                     <Input
                       id="hireDate"
                       type="date"
                       value={formData.professorProfile.hireDate}
-                      onChange={(e) => updateFormData("professorProfile.hireDate", e.target.value)}
+                      onChange={(e) =>
+                        updateFormData(
+                          "professorProfile.hireDate",
+                          e.target.value,
+                        )
+                      }
                       className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                     />
                   </div>
@@ -566,12 +697,17 @@ export function ProfessorFormDialog({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="isActive" className="text-sm font-semibold text-foreground">
+                    <Label
+                      htmlFor="isActive"
+                      className="text-sm font-semibold text-foreground"
+                    >
                       Active Status
                     </Label>
                     <Select
                       value={formData.isActive ? "true" : "false"}
-                      onValueChange={(value) => updateFormData("isActive", value === "true")}
+                      onValueChange={(value) =>
+                        updateFormData("isActive", value === "true")
+                      }
                     >
                       <SelectTrigger className="w-full  border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
                         <SelectValue />
@@ -643,22 +779,31 @@ export function ProfessorFormDialog({
               </div>
 
               {teachingHistory === undefined ? (
-                <div className="text-center py-8">Loading teaching history...</div>
+                <div className="text-center py-8">
+                  Loading teaching history...
+                </div>
               ) : !teachingHistory || teachingHistory.length === 0 ? (
-                <div className="text-center py-8">No teaching history available.</div>
+                <div className="text-center py-8">
+                  No teaching history available.
+                </div>
               ) : (
                 <div className="space-y-6 max-h-[400px] overflow-y-auto">
                   {/* Group sections by period */}
                   {Object.entries(
-                    teachingHistory.reduce((acc: Record<string, any[]>, section) => {
-                      const periodKey = `${section.periodName || 'Unknown'} (${new Date(section.periodId).getFullYear()})`;
-                      if (!acc[periodKey]) acc[periodKey] = [];
-                      acc[periodKey].push(section);
-                      return acc;
-                    }, {})
+                    teachingHistory.reduce(
+                      (acc: Record<string, any[]>, section) => {
+                        const periodKey = `${section.periodName || "Unknown"} (${new Date(section.periodId).getFullYear()})`;
+                        if (!acc[periodKey]) acc[periodKey] = [];
+                        acc[periodKey].push(section);
+                        return acc;
+                      },
+                      {},
+                    ),
                   ).map(([periodName, sections], index) => (
                     <div key={index} className="space-y-3">
-                      <h4 className="font-medium text-foreground">{periodName}</h4>
+                      <h4 className="font-medium text-foreground">
+                        {periodName}
+                      </h4>
 
                       {sections.map((section, sIdx) => (
                         <div
@@ -679,9 +824,12 @@ export function ProfessorFormDialog({
                             </p>
                             {section.schedule && (
                               <p className="text-xs text-muted-foreground">
-                                {section.schedule.sessions?.map((session: any) =>
-                                  `${session.day.charAt(0).toUpperCase() + session.day.slice(1)} ${session.startTime}-${session.endTime}`
-                                ).join(', ')}
+                                {section.schedule.sessions
+                                  ?.map(
+                                    (session: any) =>
+                                      `${session.day.charAt(0).toUpperCase() + session.day.slice(1)} ${session.startTime}-${session.endTime}`,
+                                  )
+                                  .join(", ")}
                               </p>
                             )}
                             <p className="text-xs text-muted-foreground">
@@ -699,25 +847,38 @@ export function ProfessorFormDialog({
                 <div className="pt-4 mt-4 border-t border-border/50">
                   <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
                     <div className="p-3 bg-muted/30 rounded-lg text-center">
-                      <p className="text-xs text-muted-foreground">Total Sections</p>
-                      <p className="text-lg font-semibold text-foreground">{teachingHistory.length}</p>
-                    </div>
-                    <div className="p-3 bg-muted/30 rounded-lg text-center">
-                      <p className="text-xs text-muted-foreground">Total Periods</p>
+                      <p className="text-xs text-muted-foreground">
+                        Total Sections
+                      </p>
                       <p className="text-lg font-semibold text-foreground">
-                        {new Set(teachingHistory.map(s => s.periodId)).size}
+                        {teachingHistory.length}
                       </p>
                     </div>
                     <div className="p-3 bg-muted/30 rounded-lg text-center">
-                      <p className="text-xs text-muted-foreground">Students Taught</p>
+                      <p className="text-xs text-muted-foreground">
+                        Total Periods
+                      </p>
                       <p className="text-lg font-semibold text-foreground">
-                        {teachingHistory.reduce((sum, s) => sum + s.enrolled, 0)}
+                        {new Set(teachingHistory.map((s) => s.periodId)).size}
                       </p>
                     </div>
                     <div className="p-3 bg-muted/30 rounded-lg text-center">
-                      <p className="text-xs text-muted-foreground">Courses Delivered</p>
+                      <p className="text-xs text-muted-foreground">
+                        Students Taught
+                      </p>
                       <p className="text-lg font-semibold text-foreground">
-                        {new Set(teachingHistory.map(s => s.courseId)).size}
+                        {teachingHistory.reduce(
+                          (sum, s) => sum + s.enrolled,
+                          0,
+                        )}
+                      </p>
+                    </div>
+                    <div className="p-3 bg-muted/30 rounded-lg text-center">
+                      <p className="text-xs text-muted-foreground">
+                        Courses Delivered
+                      </p>
+                      <p className="text-lg font-semibold text-foreground">
+                        {new Set(teachingHistory.map((s) => s.courseId)).size}
                       </p>
                     </div>
                   </div>
