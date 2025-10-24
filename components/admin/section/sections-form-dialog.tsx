@@ -38,7 +38,14 @@ export type SectionFormData = {
   groupNumber: string;
   professorId: Id<"users"> | undefined;
   deliveryMethod: "online_sync" | "online_async" | "in_person" | "hybrid";
-  status: "draft" | "open" | "closed" | "active" | "grading" | "completed" | undefined;
+  status:
+    | "draft"
+    | "open"
+    | "closed"
+    | "active"
+    | "grading"
+    | "completed"
+    | undefined;
   timezone: string;
   scheduleNotes: string;
 };
@@ -73,7 +80,7 @@ export function SectionFormDialog({
   const periods = useQuery(api.admin.getAllPeriods, {});
   const professors = useQuery(api.admin.getAllUsers, {
     role: "professor",
-    isActive: true
+    isActive: true,
   });
 
   // Use controlled or internal state
@@ -123,7 +130,7 @@ export function SectionFormDialog({
     const validationErrors = validateFormData(formData);
     if (validationErrors.length > 0) {
       toast.error("Validation Error", {
-        description: validationErrors.join(', '),
+        description: validationErrors.join(", "),
       });
       return;
     }
@@ -185,7 +192,11 @@ export function SectionFormDialog({
   const handleDelete = async () => {
     if (!section || mode === "create") return;
 
-    if (!confirm(`Are you sure you want to delete the section "${section.groupNumber}"? This action cannot be undone.`)) {
+    if (
+      !confirm(
+        `Are you sure you want to delete the section "${section.groupNumber}"? This action cannot be undone.`,
+      )
+    ) {
       return;
     }
 
@@ -249,12 +260,13 @@ export function SectionFormDialog({
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="general">General Information</TabsTrigger>
-          <TabsTrigger value="details" disabled={mode !== "edit"}>Details</TabsTrigger>
+          <TabsTrigger value="details" disabled={mode !== "edit"}>
+            Details
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="general" className="space-y-6 mt-6">
           <form onSubmit={handleSubmit} className="space-y-6">
-
             <div className="space-y-8 py-2">
               {/* Basic Information Section */}
               <div className="space-y-6">
@@ -275,7 +287,9 @@ export function SectionFormDialog({
                     </Label>
                     <Select
                       value={formData.courseId || ""}
-                      onValueChange={(value) => updateFormData("courseId", value as Id<"courses">)}
+                      onValueChange={(value) =>
+                        updateFormData("courseId", value as Id<"courses">)
+                      }
                       disabled={!isCreate}
                     >
                       <SelectTrigger className="w-full  border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
@@ -304,11 +318,19 @@ export function SectionFormDialog({
                     </Label>
                     <Select
                       value={formData.periodId || ""}
-                      onValueChange={(value) => updateFormData("periodId", value as Id<"periods">)}
+                      onValueChange={(value) =>
+                        updateFormData("periodId", value as Id<"periods">)
+                      }
                       disabled={!isCreate || !periods || periods.length === 0}
                     >
                       <SelectTrigger className="w-full  border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
-                        <SelectValue placeholder={!periods || periods.length === 0 ? "No periods available" : "Select period"} />
+                        <SelectValue
+                          placeholder={
+                            !periods || periods.length === 0
+                              ? "No periods available"
+                              : "Select period"
+                          }
+                        />
                       </SelectTrigger>
                       <SelectContent className="bg-background border-border shadow-lg">
                         {periods?.map((period) => (
@@ -336,7 +358,9 @@ export function SectionFormDialog({
                     <Input
                       id="groupNumber"
                       value={formData.groupNumber}
-                      onChange={(e) => updateFormData("groupNumber", e.target.value)}
+                      onChange={(e) =>
+                        updateFormData("groupNumber", e.target.value)
+                      }
                       placeholder="Enter group number"
                       className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
                       disabled={!isCreate}
@@ -353,11 +377,18 @@ export function SectionFormDialog({
                     </Label>
                     <Select
                       value={formData.professorId || ""}
-                      onValueChange={(value) => updateFormData("professorId", value as Id<"users">)}
-                      disabled={mode === "edit"}
+                      onValueChange={(value) =>
+                        updateFormData("professorId", value as Id<"users">)
+                      }
                     >
                       <SelectTrigger className="w-full  border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
-                        <SelectValue placeholder={!professors || professors.length === 0 ? "No professors available" : "Select professor"} />
+                        <SelectValue
+                          placeholder={
+                            !professors || professors.length === 0
+                              ? "No professors available"
+                              : "Select professor"
+                          }
+                        />
                       </SelectTrigger>
                       <SelectContent className="bg-background border-border shadow-lg">
                         {professors?.map((professor) => (
@@ -390,26 +421,41 @@ export function SectionFormDialog({
                       htmlFor="deliveryMethod"
                       className="text-sm font-semibold text-foreground"
                     >
-                      Delivery Method <span className="text-destructive">*</span>
+                      Delivery Method{" "}
+                      <span className="text-destructive">*</span>
                     </Label>
                     <Select
                       value={formData.deliveryMethod}
-                      onValueChange={(value) => updateFormData("deliveryMethod", value)}
+                      onValueChange={(value) =>
+                        updateFormData("deliveryMethod", value)
+                      }
                     >
                       <SelectTrigger className="w-full border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
                         <SelectValue placeholder="Select delivery method" />
                       </SelectTrigger>
                       <SelectContent className="bg-background border-border shadow-lg">
-                        <SelectItem value="online_sync" className="hover:bg-muted/80">
+                        <SelectItem
+                          value="online_sync"
+                          className="hover:bg-muted/80"
+                        >
                           Online Sync
                         </SelectItem>
-                        <SelectItem value="online_async" className="hover:bg-muted/80">
+                        <SelectItem
+                          value="online_async"
+                          className="hover:bg-muted/80"
+                        >
                           Online Async
                         </SelectItem>
-                        <SelectItem value="in_person" className="hover:bg-muted/80">
+                        <SelectItem
+                          value="in_person"
+                          className="hover:bg-muted/80"
+                        >
                           In Person
                         </SelectItem>
-                        <SelectItem value="hybrid" className="hover:bg-muted/80">
+                        <SelectItem
+                          value="hybrid"
+                          className="hover:bg-muted/80"
+                        >
                           Hybrid
                         </SelectItem>
                       </SelectContent>
@@ -426,28 +472,48 @@ export function SectionFormDialog({
                       </Label>
                       <Select
                         value={formData.status || ""}
-                        onValueChange={(value) => updateFormData("status", value)}
+                        onValueChange={(value) =>
+                          updateFormData("status", value)
+                        }
                       >
                         <SelectTrigger className="w-full border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
                           <SelectValue placeholder="Select status" />
                         </SelectTrigger>
                         <SelectContent className="bg-background border-border shadow-lg">
-                          <SelectItem value="draft" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="draft"
+                            className="hover:bg-muted/80"
+                          >
                             Draft
                           </SelectItem>
-                          <SelectItem value="open" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="open"
+                            className="hover:bg-muted/80"
+                          >
                             Open
                           </SelectItem>
-                          <SelectItem value="closed" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="closed"
+                            className="hover:bg-muted/80"
+                          >
                             Closed
                           </SelectItem>
-                          <SelectItem value="active" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="active"
+                            className="hover:bg-muted/80"
+                          >
                             Active
                           </SelectItem>
-                          <SelectItem value="grading" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="grading"
+                            className="hover:bg-muted/80"
+                          >
                             Grading
                           </SelectItem>
-                          <SelectItem value="completed" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="completed"
+                            className="hover:bg-muted/80"
+                          >
                             Completed
                           </SelectItem>
                         </SelectContent>
@@ -466,7 +532,9 @@ export function SectionFormDialog({
                     </Label>
                     <Select
                       value={formData.timezone}
-                      onValueChange={(value) => updateFormData("timezone", value)}
+                      onValueChange={(value) =>
+                        updateFormData("timezone", value)
+                      }
                     >
                       <SelectTrigger className="w-full border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
                         <SelectValue placeholder="Select timezone" />
@@ -474,52 +542,88 @@ export function SectionFormDialog({
                       <SelectContent className="bg-background border-border shadow-lg">
                         <SelectGroup>
                           <SelectLabel>North America</SelectLabel>
-                          <SelectItem value="America/Mexico_City" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="America/Mexico_City"
+                            className="hover:bg-muted/80"
+                          >
                             Mexico City (GMT-6)
                           </SelectItem>
-                          <SelectItem value="America/Cancun" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="America/Cancun"
+                            className="hover:bg-muted/80"
+                          >
                             Cancún (GMT-5)
                           </SelectItem>
-                          <SelectItem value="America/New_York" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="America/New_York"
+                            className="hover:bg-muted/80"
+                          >
                             New York (GMT-5)
                           </SelectItem>
-                          <SelectItem value="America/Chicago" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="America/Chicago"
+                            className="hover:bg-muted/80"
+                          >
                             Chicago (GMT-6)
                           </SelectItem>
-                          <SelectItem value="America/Denver" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="America/Denver"
+                            className="hover:bg-muted/80"
+                          >
                             Denver (GMT-7)
                           </SelectItem>
-                          <SelectItem value="America/Los_Angeles" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="America/Los_Angeles"
+                            className="hover:bg-muted/80"
+                          >
                             Los Angeles (GMT-8)
                           </SelectItem>
                         </SelectGroup>
                         <SelectGroup>
                           <SelectLabel>South America</SelectLabel>
-                          <SelectItem value="America/Sao_Paulo" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="America/Sao_Paulo"
+                            className="hover:bg-muted/80"
+                          >
                             Belo Horizonte / São Paulo (GMT-3)
                           </SelectItem>
-                          <SelectItem value="America/Argentina/Buenos_Aires" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="America/Argentina/Buenos_Aires"
+                            className="hover:bg-muted/80"
+                          >
                             Osorno / Buenos Aires (GMT-3)
                           </SelectItem>
                         </SelectGroup>
                         <SelectGroup>
                           <SelectLabel>Africa</SelectLabel>
-                          <SelectItem value="Africa/Nairobi" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="Africa/Nairobi"
+                            className="hover:bg-muted/80"
+                          >
                             Nairobi (GMT+3)
                           </SelectItem>
                         </SelectGroup>
                         <SelectGroup>
                           <SelectLabel>Europe</SelectLabel>
-                          <SelectItem value="Europe/Madrid" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="Europe/Madrid"
+                            className="hover:bg-muted/80"
+                          >
                             Madrid (GMT+1)
                           </SelectItem>
-                          <SelectItem value="Europe/London" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="Europe/London"
+                            className="hover:bg-muted/80"
+                          >
                             London (GMT+0)
                           </SelectItem>
                         </SelectGroup>
                         <SelectGroup>
                           <SelectLabel>Asia/Pacific</SelectLabel>
-                          <SelectItem value="Australia/Sydney" className="hover:bg-muted/80">
+                          <SelectItem
+                            value="Australia/Sydney"
+                            className="hover:bg-muted/80"
+                          >
                             Sydney (GMT+11)
                           </SelectItem>
                         </SelectGroup>
@@ -537,7 +641,9 @@ export function SectionFormDialog({
                     <Textarea
                       id="scheduleNotes"
                       value={formData.scheduleNotes}
-                      onChange={(e) => updateFormData("scheduleNotes", e.target.value)}
+                      onChange={(e) =>
+                        updateFormData("scheduleNotes", e.target.value)
+                      }
                       placeholder="Enter schedule details, meeting times, or any other relevant information..."
                       className="border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 min-h-[100px]"
                     />
@@ -606,31 +712,39 @@ export function SectionFormDialog({
 
                   <div className="space-y-3">
                     {periods ? (
-                      periods.filter(period => period._id === section.periodId).map((period) => (
-                        <div
-                          key={period._id}
-                          className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30"
-                        >
-                          <div className="space-y-1">
-                            <div className="flex items-center gap-3">
-                              <span className="font-semibold text-foreground">
-                                {period.code} - {period.nameEs}
+                      periods
+                        .filter((period) => period._id === section.periodId)
+                        .map((period) => (
+                          <div
+                            key={period._id}
+                            className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30"
+                          >
+                            <div className="space-y-1">
+                              <div className="flex items-center gap-3">
+                                <span className="font-semibold text-foreground">
+                                  {period.code} - {period.nameEs}
+                                </span>
+                              </div>
+                              <p className="text-sm text-muted-foreground">
+                                {new Date(
+                                  period.startDate,
+                                ).toLocaleDateString()}{" "}
+                                to{" "}
+                                {new Date(period.endDate).toLocaleDateString()}
+                              </p>
+                            </div>
+                            <div className="text-right">
+                              <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                                {period.status}
                               </span>
                             </div>
-                            <p className="text-sm text-muted-foreground">
-                              {new Date(period.startDate).toLocaleDateString()} to {new Date(period.endDate).toLocaleDateString()}
-                            </p>
                           </div>
-                          <div className="text-right">
-                            <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
-                              {period.status}
-                            </span>
-                          </div>
-                        </div>
-                      ))
+                        ))
                     ) : (
                       <div className="text-center py-4">
-                        <p className="text-muted-foreground">Loading period information...</p>
+                        <p className="text-muted-foreground">
+                          Loading period information...
+                        </p>
                       </div>
                     )}
                   </div>
@@ -646,29 +760,38 @@ export function SectionFormDialog({
 
                   <div className="space-y-3">
                     {professors ? (
-                      professors.filter(professor => professor._id === section.professorId).map((professor) => (
-                        <div
-                          key={professor._id}
-                          className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30"
-                        >
-                          <div className="space-y-1">
-                            <div className="flex items-center gap-3">
-                              <span className="font-semibold text-foreground">
-                                {professor.firstName} {professor.lastName}
-                              </span>
-                            </div>
-                            {professor.professorProfile && (
+                      professors
+                        .filter(
+                          (professor) => professor._id === section.professorId,
+                        )
+                        .map((professor) => (
+                          <div
+                            key={professor._id}
+                            className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30"
+                          >
+                            <div className="space-y-1">
+                              <div className="flex items-center gap-3">
+                                <span className="font-semibold text-foreground">
+                                  {professor.firstName} {professor.lastName}
+                                </span>
+                              </div>
+                              {professor.professorProfile && (
+                                <p className="text-sm text-muted-foreground">
+                                  {professor.professorProfile.title} -{" "}
+                                  {professor.professorProfile.department}
+                                </p>
+                              )}
                               <p className="text-sm text-muted-foreground">
-                                {professor.professorProfile.title} - {professor.professorProfile.department}
+                                {professor.email}
                               </p>
-                            )}
-                            <p className="text-sm text-muted-foreground">{professor.email}</p>
+                            </div>
                           </div>
-                        </div>
-                      ))
+                        ))
                     ) : (
                       <div className="text-center py-4">
-                        <p className="text-muted-foreground">Loading professor information...</p>
+                        <p className="text-muted-foreground">
+                          Loading professor information...
+                        </p>
                       </div>
                     )}
                   </div>
