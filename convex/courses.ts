@@ -101,7 +101,37 @@ export const getAllCourses = query({
             courses = courses.filter(course => programCourseIds.has(course._id));
         }
 
-        return courses;
+        // Enrich courses with program information
+        const coursesWithPrograms = await Promise.all(
+            courses.map(async (course) => {
+                // Get all program associations for this course
+                const programAssociations = await ctx.db
+                    .query("program_courses")
+                    .withIndex("by_course", q => q.eq("courseId", course._id))
+                    .filter(q => q.eq(q.field("isActive"), true))
+                    .collect();
+
+                // Get program details
+                const programs = await Promise.all(
+                    programAssociations.map(async (assoc) => {
+                        const program = await ctx.db.get(assoc.programId);
+                        if (!program) return null;
+                        return {
+                            _id: program._id,
+                            code: program.code || program.codeEn || "N/A",
+                            name: program.nameEs || program.nameEn || "N/A",
+                        };
+                    })
+                );
+
+                return {
+                    ...course,
+                    programs: programs.filter(p => p !== null),
+                };
+            })
+        );
+
+        return coursesWithPrograms;
     },
 });
 

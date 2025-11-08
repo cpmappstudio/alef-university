@@ -302,7 +302,6 @@ export const columnsCourses: ColumnDef<Course>[] = [
       const course = row.original;
       const category = course.category;
       const language = course.language;
-      const level = course.level;
       const languageMap = {
         es: "Spanish",
         en: "English",
@@ -314,17 +313,10 @@ export const columnsCourses: ColumnDef<Course>[] = [
         elective: "Elective",
         general: "General",
       };
-      const levelMap = {
-        introductory: "Introductory",
-        intermediate: "Intermediate",
-        advanced: "Advanced",
-        graduate: "Graduate",
-      };
       const languageText =
         languageMap[language as keyof typeof languageMap] || language;
       const categoryText =
         categoryMap[category as keyof typeof categoryMap] || category;
-      const levelText = levelMap[level as keyof typeof levelMap] || level;
 
       // Show the appropriate name based on language
       const displayName = course.language === "en" 
@@ -382,9 +374,6 @@ export const columnsCourses: ColumnDef<Course>[] = [
                   {displayCode || "N/A"}
                 </span>
               )}
-              <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded capitalize">
-                {levelText}
-              </span>
             </div>
             <div className="flex flex-wrap items-center gap-1 text-xs">
               <span className="capitalize whitespace-nowrap">
@@ -397,7 +386,56 @@ export const columnsCourses: ColumnDef<Course>[] = [
               <span>•</span>
               <span className="whitespace-nowrap">{languageText}</span>
             </div>
+            {(course as any).programs && (course as any).programs.length > 0 && (
+              <div className="flex flex-wrap items-center gap-1">
+                <span className="text-xs text-muted-foreground">Programs:</span>
+                {(course as any).programs.map((program: any, index: number) => (
+                  <span 
+                    key={index}
+                    className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded"
+                  >
+                    {program.code}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "programs",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hidden md:flex"
+        >
+          Programs
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const course = row.original;
+      const programs = (course as any).programs || [];
+      
+      if (programs.length === 0) {
+        return <span className="hidden md:inline text-muted-foreground">-</span>;
+      }
+      
+      return (
+        <div className="hidden md:flex flex-wrap gap-1">
+          {programs.map((program: any, index: number) => (
+            <span 
+              key={index}
+              className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded"
+            >
+              {program.code}
+            </span>
+          ))}
         </div>
       );
     },
@@ -427,35 +465,6 @@ export const columnsCourses: ColumnDef<Course>[] = [
       return (
         <span className="capitalize hidden lg:inline">
           {categoryMap[category as keyof typeof categoryMap] || category}
-        </span>
-      );
-    },
-  },
-  {
-    accessorKey: "level",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="hidden md:flex"
-        >
-          Level
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const level = row.getValue("level") as string;
-      const levelMap = {
-        introductory: "Introductory",
-        intermediate: "Intermediate",
-        advanced: "Advanced",
-        graduate: "Graduate",
-      };
-      return (
-        <span className="capitalize hidden md:inline">
-          {levelMap[level as keyof typeof levelMap] || level}
         </span>
       );
     },
