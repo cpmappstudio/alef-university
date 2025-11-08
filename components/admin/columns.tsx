@@ -22,8 +22,33 @@ export const columnsPrograms: ColumnDef<Program>[] = [
       );
     },
     cell: ({ row }) => {
-      const code = row.getValue("code") as string;
-      return <span className="hidden lg:inline">{code}</span>;
+      const program = row.original;
+      
+      if (program.language === "both") {
+        // Show both codes for bilingual programs
+        return (
+          <div className="hidden lg:flex flex-col gap-1 text-sm">
+            {program.code && (
+              <div className="flex items-center gap-1">
+                <span className="text-xs text-muted-foreground">ES:</span>
+                <span>{program.code}</span>
+              </div>
+            )}
+            {program.codeEn && (
+              <div className="flex items-center gap-1">
+                <span className="text-xs text-muted-foreground">EN:</span>
+                <span>{program.codeEn}</span>
+              </div>
+            )}
+          </div>
+        );
+      }
+      
+      // Show the appropriate code based on language
+      const displayCode = program.language === "en" 
+        ? program.codeEn 
+        : program.code || program.codeEn;
+      return <span className="hidden lg:inline">{displayCode || "N/A"}</span>;
     },
   },
   {
@@ -51,17 +76,62 @@ export const columnsPrograms: ColumnDef<Program>[] = [
       const languageText =
         languageMap[language as keyof typeof languageMap] || language;
 
+      // Show the appropriate name based on language
+      const displayName = program.language === "en" 
+        ? program.nameEn 
+        : program.nameEs || program.nameEn;
+      
+      // Show the appropriate code based on language
+      const displayCode = program.language === "en" 
+        ? program.codeEn 
+        : program.code || program.codeEn;
+
       return (
         <div className="space-y-1 w-full">
-          <div className="whitespace-normal break-words md:overflow-hidden md:text-ellipsis lg:break-normal lg:overflow-visible lg:text-clip">
-            {program.nameEs}
-          </div>
+          {program.language === "both" ? (
+            // Show both names for bilingual programs with labels in all screen sizes
+            <div className="flex flex-col gap-1">
+              {program.nameEs && (
+                <div className="whitespace-normal break-words md:overflow-hidden md:text-ellipsis lg:break-normal lg:overflow-visible lg:text-clip">
+                  <span className="text-xs text-muted-foreground mr-1">ES:</span>
+                  {program.nameEs}
+                </div>
+              )}
+              {program.nameEn && (
+                <div className="whitespace-normal break-words md:overflow-hidden md:text-ellipsis lg:break-normal lg:overflow-visible lg:text-clip">
+                  <span className="text-xs text-muted-foreground mr-1">EN:</span>
+                  {program.nameEn}
+                </div>
+              )}
+            </div>
+          ) : (
+            // Show single name for single-language programs
+            <div className="whitespace-normal break-words md:overflow-hidden md:text-ellipsis lg:break-normal lg:overflow-visible lg:text-clip">
+              {displayName || "N/A"}
+            </div>
+          )}
           {/* Mobile/Tablet view: show additional info below name */}
           <div className="block lg:hidden text-sm text-muted-foreground space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="text-xs bg-muted px-2 py-0.5 rounded">
-                {program.code}
-              </span>
+            <div className="flex items-center gap-2 flex-wrap">
+              {program.language === "both" ? (
+                // Show both codes for bilingual in mobile view
+                <>
+                  {program.code && (
+                    <span className="text-xs bg-muted px-2 py-0.5 rounded">
+                      ES: {program.code}
+                    </span>
+                  )}
+                  {program.codeEn && (
+                    <span className="text-xs bg-muted px-2 py-0.5 rounded">
+                      EN: {program.codeEn}
+                    </span>
+                  )}
+                </>
+              ) : (
+                <span className="text-xs bg-muted px-2 py-0.5 rounded">
+                  {displayCode || "N/A"}
+                </span>
+              )}
             </div>
             <div className="flex flex-wrap items-center gap-1 text-xs">
               <span className="capitalize whitespace-nowrap">{type}</span>

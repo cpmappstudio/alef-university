@@ -106,7 +106,7 @@ export function SectionFormDialog({
       courseId: undefined,
       periodId: undefined,
       groupNumber: "",
-      professorId: undefined,
+      professorId: undefined, 
       deliveryMethod: "online_sync",
       status: undefined,
       timezone: "America/Mexico_City",

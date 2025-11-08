@@ -3,17 +3,22 @@ import { Id } from "@/convex/_generated/dataModel";
 /**
  * Program type definition based on the Convex database schema
  * Represents an academic program offered by the university
+ * Note: Code fields are optional and required based on 'language' field:
+ * - language="es" → code is required
+ * - language="en" → codeEn is required
+ * - language="both" → both code and codeEn are required
  */
 export type Program = {
   // Document ID from Convex
   _id: Id<"programs">;
 
   // Program identification
-  code: string;
-  nameEs: string;
-  nameEn?: string;
-  descriptionEs: string;
-  descriptionEn?: string;
+  code?: string; // Spanish code, required when language is "es" or "both"
+  codeEn?: string; // English code, required when language is "en" or "both"
+  nameEs?: string; // Spanish name, required when language is "es" or "both"
+  nameEn?: string; // English name, required when language is "en" or "both"
+  descriptionEs?: string; // Spanish description, required when language is "es" or "both"
+  descriptionEn?: string; // English description, required when language is "en" or "both"
 
   // Program classification
   type: "diploma" | "bachelor" | "master" | "doctorate";
@@ -36,9 +41,11 @@ export type Program = {
 /**
  * Form data type for creating/editing programs
  * Allows undefined/empty values for better UX during form filling
+ * Validation is performed dynamically based on 'language' selection
  */
 export type ProgramFormData = {
   code: string;
+  codeEn: string;
   nameEs: string;
   nameEn: string;
   descriptionEs: string;
@@ -49,7 +56,7 @@ export type ProgramFormData = {
   totalCredits: number;
   durationBimesters: number;
   tuitionPerCredit: number;
-  isActive: boolean;
+  isActive: boolean | undefined; // Allow undefined for placeholder state
 };
 
 export type Course = {

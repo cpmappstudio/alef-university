@@ -76,8 +76,9 @@ export const getAllPrograms = query({
         if (args.searchTerm) {
             const searchLower = args.searchTerm.toLowerCase();
             programs = programs.filter(program =>
-                program.code.toLowerCase().includes(searchLower) ||
-                program.nameEs.toLowerCase().includes(searchLower) ||
+                (program.code?.toLowerCase().includes(searchLower)) ||
+                (program.codeEn?.toLowerCase().includes(searchLower)) ||
+                (program.nameEs?.toLowerCase().includes(searchLower)) ||
                 (program.nameEn?.toLowerCase().includes(searchLower))
             );
         }
@@ -88,13 +89,19 @@ export const getAllPrograms = query({
 
 /**
  * Create new program (Admin only)
+ * Validates language-specific fields based on the 'language' selection
+ * code and codeEn are validated based on language:
+ * - language="es" → code is required
+ * - language="en" → codeEn is required  
+ * - language="both" → both code and codeEn are required
  */
 export const createProgram = mutation({
     args: {
-        code: v.string(),
-        nameEs: v.string(),
+        code: v.optional(v.string()),
+        codeEn: v.optional(v.string()),
+        nameEs: v.optional(v.string()),
         nameEn: v.optional(v.string()),
-        descriptionEs: v.string(),
+        descriptionEs: v.optional(v.string()),
         descriptionEn: v.optional(v.string()),
         type: programTypeValidator,
         degree: v.optional(v.string()),
@@ -114,16 +121,6 @@ export const createProgram = mutation({
             throw new ConvexError("Admin access required");
         }
 
-        // Check for duplicate program code
-        const existingProgram = await ctx.db
-            .query("programs")
-            .withIndex("by_code", q => q.eq("code", args.code))
-            .first();
-
-        if (existingProgram) {
-            throw new ConvexError("Program code already exists");
-        }
-
         // Validate credits and duration
         if (args.totalCredits <= 0) {
             throw new ConvexError("Total credits must be greater than 0");
@@ -132,9 +129,62 @@ export const createProgram = mutation({
             throw new ConvexError("Duration must be greater than 0");
         }
 
+        // Validate language-specific fields based on language selection
+        if (args.language === "es" || args.language === "both") {
+            if (!args.code || args.code.trim() === "") {
+                throw new ConvexError("Spanish program code is required when language is Spanish or both");
+            }
+            if (!args.nameEs || args.nameEs.trim() === "") {
+                throw new ConvexError("Spanish name is required when language is Spanish or both");
+            }
+            if (!args.descriptionEs || args.descriptionEs.trim() === "") {
+                throw new ConvexError("Spanish description is required when language is Spanish or both");
+            }
+        }
+
+        if (args.language === "en" || args.language === "both") {
+            if (!args.codeEn || args.codeEn.trim() === "") {
+                throw new ConvexError("English program code is required when language is English or both");
+            }
+            if (!args.nameEn || args.nameEn.trim() === "") {
+                throw new ConvexError("English name is required when language is English or both");
+            }
+            if (!args.descriptionEn || args.descriptionEn.trim() === "") {
+                throw new ConvexError("English description is required when language is English or both");
+            }
+        }
+
+        // Check for duplicate codes
+        const allPrograms = await ctx.db.query("programs").collect();
+        
+        if (args.code) {
+            const duplicateCode = allPrograms.find(p => p.code === args.code);
+            if (duplicateCode) {
+                throw new ConvexError(`Program code "${args.code}" already exists`);
+            }
+        }
+        
+        if (args.codeEn) {
+            const duplicateCodeEn = allPrograms.find(p => p.codeEn === args.codeEn);
+            if (duplicateCodeEn) {
+                throw new ConvexError(`Program code "${args.codeEn}" already exists`);
+            }
+        }
+
         // Create program
         const programId = await ctx.db.insert("programs", {
-            ...args,
+            code: args.code,
+            codeEn: args.codeEn,
+            nameEs: args.nameEs,
+            nameEn: args.nameEn,
+            descriptionEs: args.descriptionEs,
+            descriptionEn: args.descriptionEn,
+            type: args.type,
+            degree: args.degree,
+            language: args.language,
+            totalCredits: args.totalCredits,
+            durationBimesters: args.durationBimesters,
+            tuitionPerCredit: args.tuitionPerCredit,
             isActive: true,
             createdAt: Date.now(),
         });
@@ -145,10 +195,11 @@ export const createProgram = mutation({
 
 export const internalCreateProgram = internalMutation({
     args: {
-        code: v.string(),
-        nameEs: v.string(),
+        code: v.optional(v.string()),
+        codeEn: v.optional(v.string()),
+        nameEs: v.optional(v.string()),
         nameEn: v.optional(v.string()),
-        descriptionEs: v.string(),
+        descriptionEs: v.optional(v.string()),
         descriptionEn: v.optional(v.string()),
         type: programTypeValidator,
         degree: v.optional(v.string()),
@@ -158,16 +209,6 @@ export const internalCreateProgram = internalMutation({
         tuitionPerCredit: v.optional(v.number()),
     },
     handler: async (ctx, args) => {
-        // Check for duplicate program code
-        const existingProgram = await ctx.db
-            .query("programs")
-            .withIndex("by_code", q => q.eq("code", args.code))
-            .first();
-
-        if (existingProgram) {
-            throw new ConvexError("Program code already exists");
-        }
-
         // Validate credits and duration
         if (args.totalCredits <= 0) {
             throw new ConvexError("Total credits must be greater than 0");
@@ -176,9 +217,62 @@ export const internalCreateProgram = internalMutation({
             throw new ConvexError("Duration must be greater than 0");
         }
 
+        // Validate language-specific fields based on language selection
+        if (args.language === "es" || args.language === "both") {
+            if (!args.code || args.code.trim() === "") {
+                throw new ConvexError("Spanish program code is required when language is Spanish or both");
+            }
+            if (!args.nameEs || args.nameEs.trim() === "") {
+                throw new ConvexError("Spanish name is required when language is Spanish or both");
+            }
+            if (!args.descriptionEs || args.descriptionEs.trim() === "") {
+                throw new ConvexError("Spanish description is required when language is Spanish or both");
+            }
+        }
+
+        if (args.language === "en" || args.language === "both") {
+            if (!args.codeEn || args.codeEn.trim() === "") {
+                throw new ConvexError("English program code is required when language is English or both");
+            }
+            if (!args.nameEn || args.nameEn.trim() === "") {
+                throw new ConvexError("English name is required when language is English or both");
+            }
+            if (!args.descriptionEn || args.descriptionEn.trim() === "") {
+                throw new ConvexError("English description is required when language is English or both");
+            }
+        }
+
+        // Check for duplicate codes
+        const allPrograms = await ctx.db.query("programs").collect();
+        
+        if (args.code) {
+            const duplicateCode = allPrograms.find(p => p.code === args.code);
+            if (duplicateCode) {
+                throw new ConvexError(`Program code "${args.code}" already exists`);
+            }
+        }
+        
+        if (args.codeEn) {
+            const duplicateCodeEn = allPrograms.find(p => p.codeEn === args.codeEn);
+            if (duplicateCodeEn) {
+                throw new ConvexError(`Program code "${args.codeEn}" already exists`);
+            }
+        }
+
         // Create program
         const programId = await ctx.db.insert("programs", {
-            ...args,
+            code: args.code,
+            codeEn: args.codeEn,
+            nameEs: args.nameEs,
+            nameEn: args.nameEn,
+            descriptionEs: args.descriptionEs,
+            descriptionEn: args.descriptionEn,
+            type: args.type,
+            degree: args.degree,
+            language: args.language,
+            totalCredits: args.totalCredits,
+            durationBimesters: args.durationBimesters,
+            tuitionPerCredit: args.tuitionPerCredit,
             isActive: true,
             createdAt: Date.now(),
         });
@@ -191,20 +285,24 @@ export const internalCreateProgram = internalMutation({
 /**
  * Update existing program (Admin only)
  * This version allows updating descriptive fields while keeping core academic rules immutable.
+ * Validates language-specific fields based on the 'language' selection.
+ * Note: code and codeEn can be updated to maintain consistency with language setting.
  */
 export const updateProgram = mutation({
     args: {
         programId: v.id("programs"),
         // Editable fields
-        nameEs: v.string(),
+        code: v.optional(v.string()),
+        codeEn: v.optional(v.string()),
+        nameEs: v.optional(v.string()),
         nameEn: v.optional(v.string()),
-        descriptionEs: v.string(),
+        descriptionEs: v.optional(v.string()),
         descriptionEn: v.optional(v.string()),
         degree: v.optional(v.string()),
         language: languageValidator,
         tuitionPerCredit: v.optional(v.number()),
         isActive: v.boolean(),
-        // Note: Core fields like 'code', 'type', 'totalCredits', 'durationBimesters' are intentionally omitted
+        // Note: Core fields like 'type', 'totalCredits', 'durationBimesters' are intentionally omitted
         // as they should not be changed after a program is created to maintain data integrity.
     },
     handler: async (ctx, args) => {
@@ -225,8 +323,52 @@ export const updateProgram = mutation({
             throw new ConvexError("Program not found");
         }
 
+        // Validate language-specific fields based on language selection
+        if (updates.language === "es" || updates.language === "both") {
+            if (!updates.code || updates.code.trim() === "") {
+                throw new ConvexError("Spanish program code is required when language is Spanish or both");
+            }
+            if (!updates.nameEs || updates.nameEs.trim() === "") {
+                throw new ConvexError("Spanish name is required when language is Spanish or both");
+            }
+            if (!updates.descriptionEs || updates.descriptionEs.trim() === "") {
+                throw new ConvexError("Spanish description is required when language is Spanish or both");
+            }
+        }
+
+        if (updates.language === "en" || updates.language === "both") {
+            if (!updates.codeEn || updates.codeEn.trim() === "") {
+                throw new ConvexError("English program code is required when language is English or both");
+            }
+            if (!updates.nameEn || updates.nameEn.trim() === "") {
+                throw new ConvexError("English name is required when language is English or both");
+            }
+            if (!updates.descriptionEn || updates.descriptionEn.trim() === "") {
+                throw new ConvexError("English description is required when language is English or both");
+            }
+        }
+
+        // Check for duplicate codes (excluding current program)
+        const allPrograms = await ctx.db.query("programs").collect();
+        
+        if (updates.code) {
+            const duplicateCode = allPrograms.find(p => p._id !== programId && p.code === updates.code);
+            if (duplicateCode) {
+                throw new ConvexError(`Program code "${updates.code}" already exists`);
+            }
+        }
+        
+        if (updates.codeEn) {
+            const duplicateCodeEn = allPrograms.find(p => p._id !== programId && p.codeEn === updates.codeEn);
+            if (duplicateCodeEn) {
+                throw new ConvexError(`Program code "${updates.codeEn}" already exists`);
+            }
+        }
+
         // Construct the update payload securely
         const updatePayload = {
+            code: updates.code,
+            codeEn: updates.codeEn,
             nameEs: updates.nameEs,
             nameEn: updates.nameEn,
             descriptionEs: updates.descriptionEs,

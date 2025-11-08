@@ -122,13 +122,19 @@ export default defineSchema({
 
   /**
    * Academic programs
+   * Note: code and codeEn are optional and used based on the 'language' field:
+   * - language="es" → code is required (Spanish code)
+   * - language="en" → codeEn is required (English code)
+   * - language="both" → both code and codeEn are required
+   * All language-specific fields are validated in backend based on the 'language' field.
    */
   programs: defineTable({
-    code: v.string(),
-    nameEs: v.string(),
-    nameEn: v.optional(v.string()),
-    descriptionEs: v.string(),
-    descriptionEn: v.optional(v.string()),
+    code: v.optional(v.string()), // Spanish code, required when language is "es" or "both"
+    codeEn: v.optional(v.string()), // English code, required when language is "en" or "both"
+    nameEs: v.optional(v.string()), // Spanish name, required when language is "es" or "both"
+    nameEn: v.optional(v.string()), // English name, required when language is "en" or "both"
+    descriptionEs: v.optional(v.string()), // Spanish description, required when language is "es" or "both"
+    descriptionEn: v.optional(v.string()), // English description, required when language is "en" or "both"
 
     type: v.union(
       v.literal("diploma"),
@@ -155,7 +161,6 @@ export default defineSchema({
     createdAt: v.number(),
     updatedAt: v.optional(v.number()),
   })
-    .index("by_code", ["code"])
     .index("by_active", ["isActive"]) // For admin dashboard summary
     .index("by_type_active", ["type", "isActive"])
     .index("by_language_active", ["language", "isActive"]), // Combined for efficiency
