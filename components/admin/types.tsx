@@ -59,13 +59,22 @@ export type ProgramFormData = {
   isActive: boolean | undefined; // Allow undefined for placeholder state
 };
 
+/**
+ * Course type definition based on the Convex database schema
+ * Note: Code and language fields are interconnected:
+ * - language="es" → code is required (Spanish code)
+ * - language="en" → codeEn is required (English code)
+ * - language="both" → both code and codeEn are required
+ * Name and description fields follow the same pattern
+ */
 export type Course = {
   _id: Id<"courses">;
-  code: string;
-  nameEs: string;
-  nameEn?: string;
-  descriptionEs: string;
-  descriptionEn?: string;
+  code?: string; // Spanish code, required when language is "es" or "both"
+  codeEn?: string; // English code, required when language is "en" or "both"
+  nameEs?: string; // Spanish name, required when language is "es" or "both"
+  nameEn?: string; // English name, required when language is "en" or "both"
+  descriptionEs?: string; // Spanish description, required when language is "es" or "both"
+  descriptionEn?: string; // English description, required when language is "en" or "both"
 
   // Course credits
   credits: number;

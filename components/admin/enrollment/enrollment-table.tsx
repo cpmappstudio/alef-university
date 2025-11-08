@@ -391,14 +391,16 @@ export default function EnrollmentTable() {
                                           if (!courseSearchValue) return true;
                                           const searchLower = courseSearchValue.toLowerCase();
                                           return (
-                                            course.code.toLowerCase().includes(searchLower) ||
-                                            course.nameEs.toLowerCase().includes(searchLower)
+                                            course.code?.toLowerCase().includes(searchLower) ||
+                                            course.codeEn?.toLowerCase().includes(searchLower) ||
+                                            course.nameEs?.toLowerCase().includes(searchLower) ||
+                                            course.nameEn?.toLowerCase().includes(searchLower)
                                           );
                                         })
                                         .map((course) => (
                                           <CommandItem
                                             key={course._id}
-                                            value={`${course.code} ${course.nameEs}`}
+                                            value={`${course.code || course.codeEn || ""} ${course.nameEs || course.nameEn || ""}`}
                                             onSelect={() => {
                                               setSelectedCourseId(course._id);
                                               setCourseSearchValue("");

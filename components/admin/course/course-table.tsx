@@ -281,9 +281,11 @@ export default function CourseTable() {
                                         All
                                       </CommandItem>
                                       {programs
-                                        ?.sort((a, b) =>
-                                          a.code.localeCompare(b.code),
-                                        )
+                                        ?.sort((a, b) => {
+                                          const codeA = a.code || a.codeEn || "";
+                                          const codeB = b.code || b.codeEn || "";
+                                          return codeA.localeCompare(codeB);
+                                        })
                                         .filter((program) => {
                                           if (!programSearchValue) {
                                             const firstThreePrograms =
@@ -296,10 +298,10 @@ export default function CourseTable() {
                                             programSearchValue.toLowerCase();
                                           return (
                                             program.code
-                                              .toLowerCase()
+                                              ?.toLowerCase()
                                               .includes(searchLower) ||
                                             program.nameEs
-                                              .toLowerCase()
+                                              ?.toLowerCase()
                                               .includes(searchLower) ||
                                             program.nameEn
                                               ?.toLowerCase()

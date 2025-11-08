@@ -256,8 +256,33 @@ export const columnsCourses: ColumnDef<Course>[] = [
       );
     },
     cell: ({ row }) => {
-      const code = row.getValue("code") as string;
-      return <span className="hidden lg:inline">{code}</span>;
+      const course = row.original;
+      
+      if (course.language === "both") {
+        // Show both codes for bilingual courses
+        return (
+          <div className="hidden lg:flex flex-col gap-1 text-sm">
+            {course.code && (
+              <div className="flex items-center gap-1">
+                <span className="text-xs text-muted-foreground">ES:</span>
+                <span>{course.code}</span>
+              </div>
+            )}
+            {course.codeEn && (
+              <div className="flex items-center gap-1">
+                <span className="text-xs text-muted-foreground">EN:</span>
+                <span>{course.codeEn}</span>
+              </div>
+            )}
+          </div>
+        );
+      }
+      
+      // Show the appropriate code based on language
+      const displayCode = course.language === "en" 
+        ? course.codeEn 
+        : course.code || course.codeEn;
+      return <span className="hidden lg:inline">{displayCode || "N/A"}</span>;
     },
   },
   {
@@ -301,17 +326,62 @@ export const columnsCourses: ColumnDef<Course>[] = [
         categoryMap[category as keyof typeof categoryMap] || category;
       const levelText = levelMap[level as keyof typeof levelMap] || level;
 
+      // Show the appropriate name based on language
+      const displayName = course.language === "en" 
+        ? course.nameEn 
+        : course.nameEs || course.nameEn;
+      
+      // Show the appropriate code based on language
+      const displayCode = course.language === "en" 
+        ? course.codeEn 
+        : course.code || course.codeEn;
+
       return (
         <div className="space-y-1 w-full">
-          <div className="whitespace-normal break-words md:overflow-hidden md:text-ellipsis lg:break-normal lg:overflow-visible lg:text-clip">
-            {course.nameEs}
-          </div>
+          {course.language === "both" ? (
+            // Show both names for bilingual courses with labels in all screen sizes
+            <div className="flex flex-col gap-1">
+              {course.nameEs && (
+                <div className="whitespace-normal break-words md:overflow-hidden md:text-ellipsis lg:break-normal lg:overflow-visible lg:text-clip">
+                  <span className="text-xs text-muted-foreground mr-1">ES:</span>
+                  {course.nameEs}
+                </div>
+              )}
+              {course.nameEn && (
+                <div className="whitespace-normal break-words md:overflow-hidden md:text-ellipsis lg:break-normal lg:overflow-visible lg:text-clip">
+                  <span className="text-xs text-muted-foreground mr-1">EN:</span>
+                  {course.nameEn}
+                </div>
+              )}
+            </div>
+          ) : (
+            // Show single name for single-language courses
+            <div className="whitespace-normal break-words md:overflow-hidden md:text-ellipsis lg:break-normal lg:overflow-visible lg:text-clip">
+              {displayName || "N/A"}
+            </div>
+          )}
           {/* Mobile/Tablet view: show additional info below name */}
           <div className="block lg:hidden text-sm text-muted-foreground space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="text-xs bg-muted px-2 py-0.5 rounded">
-                {course.code}
-              </span>
+            <div className="flex items-center gap-2 flex-wrap">
+              {course.language === "both" ? (
+                // Show both codes for bilingual in mobile view
+                <>
+                  {course.code && (
+                    <span className="text-xs bg-muted px-2 py-0.5 rounded">
+                      ES: {course.code}
+                    </span>
+                  )}
+                  {course.codeEn && (
+                    <span className="text-xs bg-muted px-2 py-0.5 rounded">
+                      EN: {course.codeEn}
+                    </span>
+                  )}
+                </>
+              ) : (
+                <span className="text-xs bg-muted px-2 py-0.5 rounded">
+                  {displayCode || "N/A"}
+                </span>
+              )}
               <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded capitalize">
                 {levelText}
               </span>

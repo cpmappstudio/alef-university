@@ -187,8 +187,14 @@ export async function validatePrerequisites(
     for (const enrollment of completedEnrollments) {
         if (enrollment.percentageGrade && enrollment.percentageGrade >= 65) {
             const completedCourse = await db.get(enrollment.courseId);
-            if (completedCourse) {
-                completedCourseCodes.add(completedCourse.code);
+            if (completedCourse && (completedCourse.code || completedCourse.codeEn)) {
+                // Add both Spanish and English codes if they exist
+                if (completedCourse.code) {
+                    completedCourseCodes.add(completedCourse.code);
+                }
+                if (completedCourse.codeEn) {
+                    completedCourseCodes.add(completedCourse.codeEn);
+                }
             }
         }
     }
@@ -437,7 +443,9 @@ export async function validateGraduationRequirements(
             .first();
 
         if (!completed) {
-            missingCourses.push(course.code);
+            // Use the appropriate code based on course language
+            const courseCode = course.code || course.codeEn || "UNKNOWN";
+            missingCourses.push(courseCode);
         }
     }
 

@@ -83,9 +83,10 @@ export const getAllCourses = query({
         if (args.searchTerm) {
             const searchLower = args.searchTerm.toLowerCase();
             courses = courses.filter(course =>
-                course.code.toLowerCase().includes(searchLower) ||
-                course.nameEs.toLowerCase().includes(searchLower) ||
-                (course.nameEn?.toLowerCase().includes(searchLower))
+                course.code?.toLowerCase().includes(searchLower) ||
+                course.codeEn?.toLowerCase().includes(searchLower) ||
+                course.nameEs?.toLowerCase().includes(searchLower) ||
+                course.nameEn?.toLowerCase().includes(searchLower)
             );
         }
 
@@ -109,11 +110,12 @@ export const getAllCourses = query({
  */
 export const createCourse = mutation({
     args: {
-        code: v.string(),
-        nameEs: v.string(),
-        nameEn: v.optional(v.string()),
-        descriptionEs: v.string(),
-        descriptionEn: v.optional(v.string()),
+        code: v.optional(v.string()), // Required when language is "es" or "both"
+        codeEn: v.optional(v.string()), // Required when language is "en" or "both"
+        nameEs: v.optional(v.string()), // Required when language is "es" or "both"
+        nameEn: v.optional(v.string()), // Required when language is "en" or "both"
+        descriptionEs: v.optional(v.string()), // Required when language is "es" or "both"
+        descriptionEn: v.optional(v.string()), // Required when language is "en" or "both"
         credits: v.number(),
         level: v.optional(v.union(
             v.literal("introductory"),
@@ -138,14 +140,33 @@ export const createCourse = mutation({
             throw new ConvexError("Admin access required");
         }
 
-        // Check for duplicate course code
-        const existingCourse = await ctx.db
-            .query("courses")
-            .withIndex("by_code", q => q.eq("code", args.code))
-            .first();
+        // Validate language-specific fields
+        if (args.language === "es" || args.language === "both") {
+            if (!args.code || !args.nameEs || !args.descriptionEs) {
+                throw new ConvexError("Spanish fields (code, nameEs, descriptionEs) are required when language is Spanish or both");
+            }
+        }
+        if (args.language === "en" || args.language === "both") {
+            if (!args.codeEn || !args.nameEn || !args.descriptionEn) {
+                throw new ConvexError("English fields (codeEn, nameEn, descriptionEn) are required when language is English or both");
+            }
+        }
 
-        if (existingCourse) {
-            throw new ConvexError("Course code already exists");
+        // Check for duplicate course codes (scan all courses since we removed the index)
+        const allCourses = await ctx.db.query("courses").collect();
+        
+        if (args.code) {
+            const duplicateCode = allCourses.find(c => c.code?.toLowerCase() === args.code!.toLowerCase());
+            if (duplicateCode) {
+                throw new ConvexError("Spanish course code already exists");
+            }
+        }
+        
+        if (args.codeEn) {
+            const duplicateCodeEn = allCourses.find(c => c.codeEn?.toLowerCase() === args.codeEn!.toLowerCase());
+            if (duplicateCodeEn) {
+                throw new ConvexError("English course code already exists");
+            }
         }
 
         // Validate credits
@@ -166,11 +187,12 @@ export const createCourse = mutation({
 
 export const internalCreateCourse = internalMutation({
     args: {
-        code: v.string(),
-        nameEs: v.string(),
-        nameEn: v.optional(v.string()),
-        descriptionEs: v.string(),
-        descriptionEn: v.optional(v.string()),
+        code: v.optional(v.string()), // Required when language is "es" or "both"
+        codeEn: v.optional(v.string()), // Required when language is "en" or "both"
+        nameEs: v.optional(v.string()), // Required when language is "es" or "both"
+        nameEn: v.optional(v.string()), // Required when language is "en" or "both"
+        descriptionEs: v.optional(v.string()), // Required when language is "es" or "both"
+        descriptionEn: v.optional(v.string()), // Required when language is "en" or "both"
         credits: v.number(),
         level: v.optional(v.union(
             v.literal("introductory"),
@@ -185,14 +207,33 @@ export const internalCreateCourse = internalMutation({
         syllabus: v.optional(v.string()),
     },
     handler: async (ctx, args) => {
-        // Check for duplicate course code
-        const existingCourse = await ctx.db
-            .query("courses")
-            .withIndex("by_code", q => q.eq("code", args.code))
-            .first();
+        // Validate language-specific fields
+        if (args.language === "es" || args.language === "both") {
+            if (!args.code || !args.nameEs || !args.descriptionEs) {
+                throw new ConvexError("Spanish fields (code, nameEs, descriptionEs) are required when language is Spanish or both");
+            }
+        }
+        if (args.language === "en" || args.language === "both") {
+            if (!args.codeEn || !args.nameEn || !args.descriptionEn) {
+                throw new ConvexError("English fields (codeEn, nameEn, descriptionEn) are required when language is English or both");
+            }
+        }
 
-        if (existingCourse) {
-            throw new ConvexError("Course code already exists");
+        // Check for duplicate course codes (scan all courses since we removed the index)
+        const allCourses = await ctx.db.query("courses").collect();
+        
+        if (args.code) {
+            const duplicateCode = allCourses.find(c => c.code?.toLowerCase() === args.code!.toLowerCase());
+            if (duplicateCode) {
+                throw new ConvexError("Spanish course code already exists");
+            }
+        }
+        
+        if (args.codeEn) {
+            const duplicateCodeEn = allCourses.find(c => c.codeEn?.toLowerCase() === args.codeEn!.toLowerCase());
+            if (duplicateCodeEn) {
+                throw new ConvexError("English course code already exists");
+            }
         }
 
         // Validate credits
@@ -218,6 +259,8 @@ export const internalCreateCourse = internalMutation({
 export const updateCourse = mutation({
     args: {
         courseId: v.id("courses"),
+        code: v.optional(v.string()), // Can be updated now
+        codeEn: v.optional(v.string()), // Can be updated now
         nameEs: v.optional(v.string()),
         nameEn: v.optional(v.string()),
         descriptionEs: v.optional(v.string()),
@@ -252,6 +295,52 @@ export const updateCourse = mutation({
             throw new ConvexError("Course not found");
         }
 
+        // Determine the final language value (use provided or existing)
+        const finalLanguage = args.language !== undefined ? args.language : course.language;
+
+        // Validate language-specific fields
+        if (finalLanguage === "es" || finalLanguage === "both") {
+            const finalCode = args.code !== undefined ? args.code : course.code;
+            const finalNameEs = args.nameEs !== undefined ? args.nameEs : course.nameEs;
+            const finalDescriptionEs = args.descriptionEs !== undefined ? args.descriptionEs : course.descriptionEs;
+            
+            if (!finalCode || !finalNameEs || !finalDescriptionEs) {
+                throw new ConvexError("Spanish fields (code, nameEs, descriptionEs) are required when language is Spanish or both");
+            }
+        }
+        if (finalLanguage === "en" || finalLanguage === "both") {
+            const finalCodeEn = args.codeEn !== undefined ? args.codeEn : course.codeEn;
+            const finalNameEn = args.nameEn !== undefined ? args.nameEn : course.nameEn;
+            const finalDescriptionEn = args.descriptionEn !== undefined ? args.descriptionEn : course.descriptionEn;
+            
+            if (!finalCodeEn || !finalNameEn || !finalDescriptionEn) {
+                throw new ConvexError("English fields (codeEn, nameEn, descriptionEn) are required when language is English or both");
+            }
+        }
+
+        // Check for duplicate codes (excluding current course)
+        const allCourses = await ctx.db.query("courses").collect();
+        
+        if (args.code !== undefined) {
+            const duplicateCode = allCourses.find(c => 
+                c._id !== args.courseId && 
+                c.code?.toLowerCase() === args.code!.toLowerCase()
+            );
+            if (duplicateCode) {
+                throw new ConvexError("Spanish course code already exists");
+            }
+        }
+        
+        if (args.codeEn !== undefined) {
+            const duplicateCodeEn = allCourses.find(c => 
+                c._id !== args.courseId && 
+                c.codeEn?.toLowerCase() === args.codeEn!.toLowerCase()
+            );
+            if (duplicateCodeEn) {
+                throw new ConvexError("English course code already exists");
+            }
+        }
+
         // Validate credits if provided
         if (args.credits !== undefined && args.credits <= 0) {
             throw new ConvexError("Credits must be greater than 0");
@@ -260,6 +349,8 @@ export const updateCourse = mutation({
         // Update course
         const updateData: any = { updatedAt: Date.now() };
 
+        if (args.code !== undefined) updateData.code = args.code;
+        if (args.codeEn !== undefined) updateData.codeEn = args.codeEn;
         if (args.nameEs !== undefined) updateData.nameEs = args.nameEs;
         if (args.nameEn !== undefined) updateData.nameEn = args.nameEn;
         if (args.descriptionEs !== undefined) updateData.descriptionEs = args.descriptionEs;

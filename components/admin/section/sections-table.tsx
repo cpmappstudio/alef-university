@@ -262,9 +262,11 @@ export default function SectionsTable() {
                                     All Courses
                                   </CommandItem>
                                   {courses
-                                    ?.sort((a, b) =>
-                                      a.code.localeCompare(b.code),
-                                    )
+                                    ?.sort((a, b) => {
+                                      const codeA = a.code || a.codeEn || "";
+                                      const codeB = b.code || b.codeEn || "";
+                                      return codeA.localeCompare(codeB);
+                                    })
                                     .filter((course) => {
                                       if (!courseSearchValue) {
                                         const firstThreeCourses = courses.slice(
@@ -279,10 +281,13 @@ export default function SectionsTable() {
                                         courseSearchValue.toLowerCase();
                                       return (
                                         course.code
-                                          .toLowerCase()
+                                          ?.toLowerCase()
+                                          .includes(searchLower) ||
+                                        course.codeEn
+                                          ?.toLowerCase()
                                           .includes(searchLower) ||
                                         course.nameEs
-                                          .toLowerCase()
+                                          ?.toLowerCase()
                                           .includes(searchLower) ||
                                         course.nameEn
                                           ?.toLowerCase()
@@ -292,7 +297,7 @@ export default function SectionsTable() {
                                     .map((course) => (
                                       <CommandItem
                                         key={course._id}
-                                        value={`${course.code} ${course.nameEs}`}
+                                        value={`${course.code || course.codeEn || ""} ${course.nameEs || course.nameEn || ""}`}
                                         onSelect={() => {
                                           setSelectedCourseId(course._id);
                                           setCourseSearchValue("");

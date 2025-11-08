@@ -208,13 +208,25 @@ export default defineSchema({
 
   /**
    * Course catalog (shared across programs)
+   * Code and language fields are interconnected:
+   * - language "es" uses code (Spanish code)
+   * - language "en" uses codeEn (English code)
+   * - language "both" uses both code and codeEn
+   * 
+   * Name and description fields are also language-dependent:
+   * - language "es" requires code, nameEs, and descriptionEs
+   * - language "en" requires codeEn, nameEn, and descriptionEn
+   * - language "both" requires all fields: code, codeEn, nameEs, nameEn, descriptionEs, descriptionEn
+   * 
+   * Note: by_code index removed to allow optional code field
    */
   courses: defineTable({
-    code: v.string(),
-    nameEs: v.string(),
-    nameEn: v.optional(v.string()),
-    descriptionEs: v.string(),
-    descriptionEn: v.optional(v.string()),
+    code: v.optional(v.string()), // Required when language is "es" or "both"
+    codeEn: v.optional(v.string()), // Required when language is "en" or "both"
+    nameEs: v.optional(v.string()), // Required when language is "es" or "both"
+    nameEn: v.optional(v.string()), // Required when language is "en" or "both"
+    descriptionEs: v.optional(v.string()), // Required when language is "es" or "both"
+    descriptionEn: v.optional(v.string()), // Required when language is "en" or "both"
 
     credits: v.number(),
 
@@ -251,7 +263,6 @@ export default defineSchema({
     createdAt: v.number(),
     updatedAt: v.optional(v.number()),
   })
-    .index("by_code", ["code"])
     .index("by_active", ["isActive"]) // For listing all active courses
     .index("by_category_active", ["category", "isActive"])
     .index("by_language_active", ["language", "isActive"]) // Combined index
