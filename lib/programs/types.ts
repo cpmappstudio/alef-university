@@ -3,20 +3,40 @@ import type { Id } from "@/convex/_generated/dataModel";
 
 export type Program = {
   codeEs: string | undefined;
+
   codeEn: string | undefined;
+
   nameEs: string | undefined;
+
   nameEn: string | undefined;
+
   descriptionEs: string | undefined;
+
   descriptionEn: string | undefined;
+
   type: "diploma" | "bachelor" | "master" | "doctorate";
+
   degree: string | undefined;
+
+  categoryId: Id<"program_categories"> | undefined;
   language: "es" | "en" | "both";
+
   totalCredits: number;
+
   durationBimesters: number;
+
   tuitionPerCredit: number | undefined;
+
   isActive: boolean;
+
   createdAt: number;
+
   updatedAt: number | undefined;
+};
+
+export type ProgramCategory = {
+  _id: Id<"program_categories">;
+  name: string;
 };
 
 export type ProgramLanguageOption = Program["language"];
@@ -27,21 +47,33 @@ export type ProgramFormType = ProgramTypeOption | "";
 
 export type ProgramFormState = {
   language: ProgramFormLanguage;
+
   type: ProgramFormType;
+
+  categoryId: string;
   codeEs: string;
+
   nameEs: string;
+
   descriptionEs: string;
+
   codeEn: string;
+
   nameEn: string;
+
   descriptionEn: string;
+
   totalCredits: string;
+
   durationBimesters: string;
+
   isActive: boolean;
 };
 
 export type ProgramFormErrorKey =
   | "language"
   | "type"
+  | "categoryId"
   | "codeEs"
   | "nameEs"
   | "descriptionEs"
@@ -56,6 +88,7 @@ export type ProgramFormErrors = Partial<Record<ProgramFormErrorKey, string>>;
 export type ProgramFormValidationMessages = {
   languageRequired: string;
   typeRequired: string;
+  categoryRequired: string;
   codeEsRequired: string;
   nameEsRequired: string;
   descriptionEsRequired: string;
@@ -73,30 +106,53 @@ export type ProgramFormValidationResult = {
 
 export type ProgramCreatePayload = {
   codeEs?: string;
+
   codeEn?: string;
+
   nameEs?: string;
+
   nameEn?: string;
+
   descriptionEs?: string;
+
   descriptionEn?: string;
+
+  categoryId: Id<"program_categories">;
   language: ProgramLanguageOption;
+
   type: ProgramTypeOption;
+
   totalCredits: number;
+
   durationBimesters: number;
+
   tuitionPerCredit?: number;
+
   degree?: string;
 };
 
 export type ProgramUpdatePayload = {
   programId: Id<"programs">;
+
+  categoryId: Id<"program_categories">;
   language: ProgramLanguageOption;
+
   isActive: boolean;
+
   codeEs?: string;
+
   codeEn?: string;
+
   nameEs?: string;
+
   nameEn?: string;
+
   descriptionEs?: string;
+
   descriptionEn?: string;
+
   degree?: string;
+
   tuitionPerCredit?: number;
 };
 

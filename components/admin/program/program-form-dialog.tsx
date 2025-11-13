@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Loader2 } from "lucide-react";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 
@@ -67,6 +67,9 @@ export default function ProgramFormDialog({
   const [formError, setFormError] = React.useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
+  const categoriesQuery = useQuery(api.programs.getProgramCategories, {});
+  const categories = categoriesQuery ?? [];
+  const isLoadingCategories = categoriesQuery === undefined;
   const createProgram = useMutation(api.programs.createProgram);
   const updateProgram = useMutation(api.programs.updateProgram);
 
@@ -102,7 +105,7 @@ export default function ProgramFormDialog({
     };
 
   const handleSelectChange =
-    (field: "language" | "type") => (value: string) => {
+    (field: "language" | "type" | "categoryId") => (value: string) => {
       setFormState((prev) => ({
         ...prev,
         [field]: value as ProgramFormState[typeof field],
@@ -113,9 +116,15 @@ export default function ProgramFormDialog({
     event.preventDefault();
     setFormError(null);
 
+    if (!isLoadingCategories && categories.length === 0) {
+      setFormError(t("messages.noCategories"));
+      return;
+    }
+
     const validationMessages: ProgramFormValidationMessages = {
       languageRequired: t("messages.errors.language"),
       typeRequired: t("messages.errors.type"),
+      categoryRequired: t("messages.errors.category"),
       codeEsRequired: t("messages.errors.codeEs"),
       nameEsRequired: t("messages.errors.nameEs"),
       descriptionEsRequired: t("messages.errors.descriptionEs"),
@@ -230,7 +239,42 @@ export default function ProgramFormDialog({
                     </SelectContent>
                   </Select>
                 </Field>
+
+                <Field>
+                  <FieldLabel htmlFor="program-category">
+                    {t("fields.category.label")} *
+                  </FieldLabel>
+
+                  <Select
+                    value={formState.categoryId}
+                    onValueChange={handleSelectChange("categoryId")}
+                    disabled={isLoadingCategories || categories.length === 0}
+                  >
+                    <SelectTrigger id="program-category">
+                      <SelectValue
+                        placeholder={t("fields.category.placeholder")}
+                      />
+                    </SelectTrigger>
+
+                    <SelectContent>
+                      {categories.map((category) => (
+                        <SelectItem key={category._id} value={category._id}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </Field>
               </FieldGroup>
+
+              {!isLoadingCategories && categories.length === 0 ? (
+                <FieldDescription className="text-muted-foreground">
+                  {t("messages.noCategories", {
+                    defaultMessage:
+                      "Create at least one program category before adding a program.",
+                  })}
+                </FieldDescription>
+              ) : null}
 
               {!formState.language ? (
                 <FieldDescription className="text-muted-foreground">
@@ -367,7 +411,12 @@ export default function ProgramFormDialog({
             ) : null}
 
             <Field orientation="horizontal">
-              <Button type="submit" disabled={isSubmitting}>
+              <Button
+                type="submit"
+                disabled={
+                  isSubmitting || isLoadingCategories || categories.length === 0
+                }
+              >
                 {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

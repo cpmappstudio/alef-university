@@ -500,6 +500,8 @@
 
           "type": "Type",
 
+          "category": "Category",
+
           "language": "Language",
 
           "credits": "Credits",
@@ -584,6 +586,10 @@
             "label": "Program type",
             "placeholder": "Select a program type"
           },
+          "category": {
+            "label": "Program category",
+            "placeholder": "Select a program category"
+          },
           "codeEs": {
             "label": "Code (ES)",
             "placeholder": "E.g. IDS-001"
@@ -643,6 +649,7 @@
           "errors": {
             "language": "Select a language for the program.",
             "type": "Select the program type.",
+            "category": "Select a category for the program.",
             "codeEs": "Spanish code is required.",
             "nameEs": "Spanish name is required.",
             "descriptionEs": "Spanish description is required.",
@@ -653,7 +660,8 @@
             "durationBimesters": "Duration must be a number greater than zero.",
             "generic": "The program could not be created. Please try again."
           },
-          "success": "Program created successfully."
+          "success": "Program created successfully.",
+          "noCategories": "Create at least one program category before adding a program."
         }
       }
     }

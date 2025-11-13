@@ -92,6 +92,51 @@ export const getAllPrograms = query({
   },
 });
 
+export const getProgramCategories = query({
+  args: {},
+
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      return [];
+    }
+
+    const categories = await ctx.db.query("program_categories").collect();
+
+    categories.sort((a, b) => a.name.localeCompare(b.name));
+
+    return categories;
+  },
+});
+
+export const internalCreateProgramCategory = internalMutation({
+  args: {
+    name: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const trimmedName = args.name.trim();
+    if (!trimmedName) {
+      throw new ConvexError("Category name is required");
+    }
+
+    const existingCategory = await ctx.db
+      .query("program_categories")
+      .withIndex("by_name", (q) => q.eq("name", trimmedName))
+      .first();
+
+    if (existingCategory) {
+      return existingCategory._id;
+    }
+
+    const categoryId = await ctx.db.insert("program_categories", {
+      name: trimmedName,
+    });
+
+    return categoryId;
+  },
+});
+
 /**
  * Create new program (Admin only)
  * Validates language-specific fields based on the 'language' selection
@@ -110,6 +155,7 @@ export const createProgram = mutation({
     descriptionEn: v.optional(v.string()),
     type: programTypeValidator,
     degree: v.optional(v.string()),
+    categoryId: v.id("program_categories"),
     language: languageValidator,
     totalCredits: v.number(),
     durationBimesters: v.number(),
@@ -124,6 +170,11 @@ export const createProgram = mutation({
     const user = await getUserByClerkId(ctx.db, identity.subject);
     if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
       throw new ConvexError("Admin access required");
+    }
+
+    const category = await ctx.db.get(args.categoryId);
+    if (!category) {
+      throw new ConvexError("Invalid program category");
     }
 
     // Validate credits and duration
@@ -198,6 +249,7 @@ export const createProgram = mutation({
       descriptionEn: args.descriptionEn,
       type: args.type,
       degree: args.degree,
+      categoryId: args.categoryId,
       language: args.language,
       totalCredits: args.totalCredits,
       durationBimesters: args.durationBimesters,
@@ -220,12 +272,18 @@ export const internalCreateProgram = internalMutation({
     descriptionEn: v.optional(v.string()),
     type: programTypeValidator,
     degree: v.optional(v.string()),
+    categoryId: v.id("program_categories"),
     language: languageValidator,
     totalCredits: v.number(),
     durationBimesters: v.number(),
     tuitionPerCredit: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
+    const category = await ctx.db.get(args.categoryId);
+    if (!category) {
+      throw new ConvexError("Invalid program category");
+    }
+
     // Validate credits and duration
     if (args.totalCredits <= 0) {
       throw new ConvexError("Total credits must be greater than 0");
@@ -298,6 +356,7 @@ export const internalCreateProgram = internalMutation({
       descriptionEn: args.descriptionEn,
       type: args.type,
       degree: args.degree,
+      categoryId: args.categoryId,
       language: args.language,
       totalCredits: args.totalCredits,
       durationBimesters: args.durationBimesters,
@@ -327,6 +386,7 @@ export const updateProgram = mutation({
     descriptionEs: v.optional(v.string()),
     descriptionEn: v.optional(v.string()),
     degree: v.optional(v.string()),
+    categoryId: v.id("program_categories"),
     language: languageValidator,
     tuitionPerCredit: v.optional(v.number()),
     isActive: v.boolean(),
@@ -349,6 +409,11 @@ export const updateProgram = mutation({
     const program = await ctx.db.get(programId);
     if (!program) {
       throw new ConvexError("Program not found");
+    }
+
+    const category = await ctx.db.get(updates.categoryId);
+    if (!category) {
+      throw new ConvexError("Invalid program category");
     }
 
     // Validate language-specific fields based on language selection
@@ -422,6 +487,7 @@ export const updateProgram = mutation({
       descriptionEs: updates.descriptionEs,
       descriptionEn: updates.descriptionEn,
       degree: updates.degree,
+      categoryId: updates.categoryId,
       language: updates.language,
       tuitionPerCredit: updates.tuitionPerCredit,
       isActive: updates.isActive,

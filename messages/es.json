@@ -494,6 +494,7 @@
 
           "program": "Programa",
           "type": "Tipo",
+          "category": "Categoría",
           "language": "Idioma",
           "credits": "Créditos",
 
@@ -557,6 +558,10 @@
             "label": "Tipo de programa",
             "placeholder": "Selecciona un tipo de programa"
           },
+          "category": {
+            "label": "Categoría del programa",
+            "placeholder": "Selecciona una categoría de programa"
+          },
           "codeEs": {
             "label": "Código (ES)",
             "placeholder": "Ej. IDS-001"
@@ -614,8 +619,9 @@
         "messages": {
           "infoSelectLanguage": "Selecciona un idioma para mostrar los campos correspondientes.",
           "errors": {
-            "language": "Selecciona un idioma para el programa.",
+            "language": "Selecciona el idioma del programa.",
             "type": "Selecciona el tipo de programa.",
+            "category": "Selecciona la categoría del programa.",
             "codeEs": "El código en español es obligatorio.",
             "nameEs": "El nombre en español es obligatorio.",
             "descriptionEs": "La descripción en español es obligatoria.",
@@ -626,7 +632,8 @@
             "durationBimesters": "La duración debe ser un número mayor que cero.",
             "generic": "No se pudo crear el programa. Intenta nuevamente."
           },
-          "success": "Programa creado correctamente."
+          "success": "Programa creado correctamente.",
+          "noCategories": "Crea al menos una categoría de programas antes de agregar un programa."
         }
       }
     }

@@ -131,6 +131,14 @@ export default defineSchema({
     .index("by_document", ["documentType", "documentNumber"]),
 
   /**
+   * Program categories
+   * Simple lookup table for program classification (e.g., Engineering, Business)
+   */
+  program_categories: defineTable({
+    name: v.string(),
+  }).index("by_name", ["name"]),
+
+  /**
    * Academic programs
    * Note: code and codeEn are optional and used based on the 'language' field:
    * - language="es" → code is required (Spanish code)
@@ -154,6 +162,7 @@ export default defineSchema({
     ),
 
     degree: v.optional(v.string()), // "Bachelor of Arts", "Master of Science", etc.
+    categoryId: v.optional(v.id("program_categories")), // Reference to program_categories table
 
     language: v.union(v.literal("es"), v.literal("en"), v.literal("both")),
 
@@ -168,6 +177,7 @@ export default defineSchema({
     updatedAt: v.optional(v.number()),
   })
     .index("by_active", ["isActive"]) // For admin dashboard summary
+    .index("by_category", ["categoryId"])
     .index("by_type_active", ["type", "isActive"])
     .index("by_language_active", ["language", "isActive"]), // Combined for efficiency
 

@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import type { Doc } from "@/convex/_generated/dataModel";
@@ -177,6 +177,7 @@ const buildSearchableField = (
 export const programColumns = (
   t: Translator,
   locale: string,
+  categoryLabels?: Record<string, string>,
 ): ColumnDef<ProgramRow>[] => {
   const emptyValue = t("columns.emptyValue");
 
@@ -240,6 +241,29 @@ export const programColumns = (
         return value ? (typeLabels[value] ?? emptyValue) : emptyValue;
       },
     },
+
+    {
+      accessorKey: "categoryId",
+
+      header: t("columns.category"),
+
+      cell: ({ row }) => {
+        const categoryId = row.original.categoryId;
+        if (!categoryId) {
+          return emptyValue;
+        }
+
+        const categoryKey = String(categoryId);
+        const categoryLabel = categoryLabels?.[categoryKey];
+
+        if (categoryLabel && categoryLabel.trim()) {
+          return categoryLabel.trim();
+        }
+
+        return categoryKey;
+      },
+    },
+
     {
       accessorKey: "language",
       header: t("columns.language"),

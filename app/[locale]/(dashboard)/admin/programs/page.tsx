@@ -14,11 +14,31 @@ import ProgramActions from "@/components/admin/program/program-actions";
 
 export default function ProgramManagementPage() {
   const t = useTranslations("admin.programs.table");
+
   const locale = useLocale();
+
   const router = useRouter();
+
   const data = useQuery(api.programs.getAllPrograms, {});
 
-  const columns = React.useMemo(() => programColumns(t, locale), [t, locale]);
+  const categories = useQuery(api.programs.getProgramCategories, {});
+
+  const categoryLabels = React.useMemo(() => {
+    if (!categories) {
+      return {};
+    }
+
+    return categories.reduce<Record<string, string>>((acc, category) => {
+      const trimmedName = category.name.trim();
+      acc[String(category._id)] = trimmedName || category.name;
+      return acc;
+    }, {});
+  }, [categories]);
+
+  const columns = React.useMemo(
+    () => programColumns(t, locale, categoryLabels),
+    [t, locale, categoryLabels],
+  );
 
   const handleRowClick = React.useCallback(
     (program: Doc<"programs">) => {

@@ -161,6 +161,13 @@ export const seedDatabase = internalAction({
 
     // --- 2. Create the Academic Program ---
     console.log("Creating academic program...");
+
+    const theologyCategoryId = await ctx.runMutation(
+      internal.programs.internalCreateProgramCategory,
+      { name: "Teología" },
+    );
+    console.log(`✅ Program category ready with ID: ${theologyCategoryId}`);
+
     const programId = await ctx.runMutation(
       internal.programs.internalCreateProgram,
       {
@@ -170,6 +177,7 @@ export const seedDatabase = internalAction({
           "Programa de maestría enfocado en el estudio profundo del pensamiento cristiano a lo largo de la historia.",
         type: "master",
         language: "es",
+        categoryId: theologyCategoryId,
         totalCredits: 40,
         durationBimesters: 6,
       },
