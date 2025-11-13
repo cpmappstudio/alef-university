@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useTranslations } from "next-intl";
 
 import {
   ColumnDef,
@@ -15,7 +16,7 @@ import {
   VisibilityState,
 } from "@tanstack/react-table";
 
-import { ChevronDown } from "lucide-react";
+import { Columns3CogIcon, Download } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -66,6 +67,8 @@ type CustomTableProps<TData> = {
   filterPlaceholder?: string;
   emptyMessage?: string;
   columnsMenuLabel?: string;
+  exportButtonLabel?: string;
+  onExport?: (rows: TData[]) => void;
   onRowClick?: (row: TData) => void;
 };
 
@@ -76,18 +79,20 @@ export default function CustomTable<TData>({
   filterPlaceholder = "Filter...",
   emptyMessage = "No results.",
   columnsMenuLabel = "Columns",
+  exportButtonLabel,
+  onExport,
   onRowClick,
 }: CustomTableProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
-
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
-
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
-
   const [rowSelection, setRowSelection] = React.useState({});
+
+  const t = useTranslations("common");
+  const resolvedExportLabel = exportButtonLabel ?? t("export");
 
   const table = useReactTable({
     data: data ?? [],
@@ -112,9 +117,63 @@ export default function CustomTable<TData>({
     ? table.getColumn(filterColumn)
     : undefined;
 
+  const handleRowClick = React.useCallback(
+    (rowData: TData) => {
+      onRowClick?.(rowData);
+    },
+    [onRowClick],
+  );
+
+  const handleRowContainerClick = React.useCallback(
+    (
+      event: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
+      rowData: TData,
+    ) => {
+      if (!onRowClick) {
+        return;
+      }
+
+      if (event.defaultPrevented) {
+        return;
+      }
+
+      const nativeEvent = event.nativeEvent;
+      const target = event.target;
+      const elementTarget = target instanceof Element ? target : null;
+
+      if (
+        nativeEvent.button !== 0 ||
+        nativeEvent.metaKey ||
+        nativeEvent.ctrlKey ||
+        nativeEvent.shiftKey ||
+        nativeEvent.altKey ||
+        elementTarget?.closest(INTERACTIVE_TARGET_SELECTOR) ||
+        (elementTarget instanceof HTMLElement &&
+          elementTarget.isContentEditable)
+      ) {
+        return;
+      }
+
+      handleRowClick(rowData);
+    },
+    [handleRowClick, onRowClick],
+  );
+
+  const exportRows = React.useCallback(() => {
+    if (!onExport) {
+      return;
+    }
+
+    const rows = table
+      .getFilteredRowModel()
+      .rows.map((row) => row.original as TData);
+
+    onExport(rows);
+  }, [onExport, table]);
+
   return (
     <div className="w-full">
-      <div className="flex items-center py-4 gap-2">
+      <div className="flex items-center gap-2 py-4">
         {filterColumnInstance ? (
           <Input
             placeholder={filterPlaceholder}
@@ -125,49 +184,60 @@ export default function CustomTable<TData>({
             className="max-w-sm bg-white dark:bg-dark-gunmetal"
           />
         ) : null}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="ml-auto bg-white dark:bg-dark-gunmetal"
-            >
-              {columnsMenuLabel} <ChevronDown />
-            </Button>
-          </DropdownMenuTrigger>
+        <div className="ml-auto flex items-center gap-2">
+          <Button
+            variant="outline"
+            className="bg-white dark:bg-dark-gunmetal disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={exportRows}
+            disabled={!onExport}
+          >
+            <span className="hidden md:block mr-1">{resolvedExportLabel}</span>
+            <Download className="size-3.5" />
+          </Button>
 
-          <DropdownMenuContent align="end">
-            {table
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                className="bg-white dark:bg-dark-gunmetal cursor-pointer"
+              >
+                <span className="hidden md:block mr-1">{columnsMenuLabel}</span>
+                <Columns3CogIcon />
+              </Button>
+            </DropdownMenuTrigger>
 
-              .getAllColumns()
-
-              .filter((column) => column.getCanHide())
-
-              .map((column) => (
-                <DropdownMenuCheckboxItem
-                  key={column.id}
-                  className="capitalize"
-                  checked={column.getIsVisible()}
-                  onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                >
-                  {column.id}
-                </DropdownMenuCheckboxItem>
-              ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
 
       <div className="overflow-hidden rounded-md border">
         <Table className="bg-white dark:bg-dark-gunmetal">
-          <TableHeader className="bg-deep-koamaru ">
+          <TableHeader className="bg-deep-koamaru">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id} className="text-white ">
+                  <TableHead key={header.id} className="text-white">
                     {header.isPlaceholder
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-
                           header.getContext(),
                         )}
                   </TableHead>
@@ -177,7 +247,7 @@ export default function CustomTable<TData>({
           </TableHeader>
 
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -189,34 +259,7 @@ export default function CustomTable<TData>({
                   }
                   onClick={
                     onRowClick
-                      ? (event) => {
-                          if (event.defaultPrevented) {
-                            return;
-                          }
-
-                          const nativeEvent = event.nativeEvent;
-
-                          const target = event.target;
-                          const elementTarget =
-                            target instanceof Element ? target : null;
-
-                          if (
-                            nativeEvent.button !== 0 ||
-                            nativeEvent.metaKey ||
-                            nativeEvent.ctrlKey ||
-                            nativeEvent.shiftKey ||
-                            nativeEvent.altKey ||
-                            elementTarget?.closest(
-                              INTERACTIVE_TARGET_SELECTOR,
-                            ) ||
-                            (elementTarget instanceof HTMLElement &&
-                              elementTarget.isContentEditable)
-                          ) {
-                            return;
-                          }
-
-                          onRowClick(row.original);
-                        }
+                      ? (event) => handleRowContainerClick(event, row.original)
                       : undefined
                   }
                 >
@@ -224,7 +267,6 @@ export default function CustomTable<TData>({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-
                         cell.getContext(),
                       )}
                     </TableCell>
@@ -246,7 +288,7 @@ export default function CustomTable<TData>({
       </div>
 
       <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="text-muted-foreground flex-1 text-sm">
+        <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>

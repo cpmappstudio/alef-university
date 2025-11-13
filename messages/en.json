@@ -6,7 +6,8 @@
     "theme": "Theme",
     "light": "Light",
     "dark": "Dark",
-    "system": "System"
+    "system": "System",
+    "export": "Export"
   },
   "navigation": {
     "university": "Alef University",
@@ -482,39 +483,67 @@
       "periodInfo": "Period {current} of {total}"
     }
   },
+
   "admin": {
     "programs": {
       "table": {
+        "actions": {
+          "create": "Create Program",
+
+          "import": "Import Programs"
+        },
+
         "columns": {
           "code": "Code",
+
           "program": "Program",
+
           "type": "Type",
+
           "language": "Language",
+
           "credits": "Credits",
+
           "duration": "Bimesters",
+
           "tuitionPerCredit": "Tuition per Credit",
+
           "status": "Status",
+
           "emptyValue": "—",
+
           "notAvailable": "N/A"
         },
+
         "types": {
           "diploma": "Diploma",
+
           "bachelor": "Bachelor",
+
           "master": "Master",
+
           "doctorate": "Doctorate"
         },
+
         "languages": {
           "es": "Spanish",
+
           "en": "English",
+
           "both": "Bilingual"
         },
+
         "status": {
           "active": "Active",
+
           "inactive": "Inactive"
         },
+
         "aria": {
           "selectAll": "Select all rows",
+
           "selectRow": "Select row",
+
           "openMenu": "Open menu"
         },
 
@@ -527,9 +556,105 @@
         },
 
         "columnsMenuLabel": "Columns",
+
         "filterPlaceholder": "Filter programs...",
 
         "emptyMessage": "No programs available."
+      },
+
+      "form": {
+        "title": "Create program",
+        "description": "Complete the information to register a new academic program.",
+        "sections": {
+          "errors": "Errors",
+          "general": "General setup",
+          "spanish": "Spanish content",
+          "english": "English content",
+          "academics": "Academic details",
+          "status": "Status"
+        },
+
+        "fields": {
+          "language": {
+            "label": "Program language",
+            "placeholder": "Select a language"
+          },
+
+          "type": {
+            "label": "Program type",
+            "placeholder": "Select a program type"
+          },
+          "codeEs": {
+            "label": "Code (ES)",
+            "placeholder": "E.g. IDS-001"
+          },
+          "nameEs": {
+            "label": "Name (ES)",
+            "placeholder": "Spanish name"
+          },
+          "descriptionEs": {
+            "label": "Description (ES)",
+            "placeholder": "Spanish program description"
+          },
+          "codeEn": {
+            "label": "Code (EN)",
+            "placeholder": "E.g. IDS-001"
+          },
+          "nameEn": {
+            "label": "Name (EN)",
+            "placeholder": "Program name in English"
+          },
+          "descriptionEn": {
+            "label": "Description (EN)",
+            "placeholder": "Program description in English"
+          },
+          "totalCredits": {
+            "label": "Total credits",
+            "placeholder": "E.g. 240"
+          },
+          "durationBimesters": {
+            "label": "Duration (bimesters)",
+            "placeholder": "E.g. 8"
+          },
+          "isActive": {
+            "label": "Create program as active"
+          }
+        },
+        "options": {
+          "languages": {
+            "es": "Spanish",
+            "en": "English",
+            "both": "Bilingual (ES/EN)"
+          },
+          "types": {
+            "diploma": "Diploma",
+            "bachelor": "Bachelor",
+            "master": "Master",
+            "doctorate": "Doctorate"
+          }
+        },
+        "buttons": {
+          "cancel": "Cancel",
+          "submit": "Create program",
+          "loading": "Saving..."
+        },
+        "messages": {
+          "infoSelectLanguage": "Select a language to display the appropriate fields.",
+          "errors": {
+            "language": "Select a language for the program.",
+            "type": "Select the program type.",
+            "codeEs": "Spanish code is required.",
+            "nameEs": "Spanish name is required.",
+            "descriptionEs": "Spanish description is required.",
+            "codeEn": "English code is required.",
+            "nameEn": "English name is required.",
+            "descriptionEn": "English description is required.",
+            "totalCredits": "Total credits must be a number greater than zero.",
+            "durationBimesters": "Duration must be a number greater than zero.",
+            "generic": "The program could not be created. Please try again."
+          },
+          "success": "Program created successfully."
+        }
       }
     }
   }

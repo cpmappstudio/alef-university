@@ -8,6 +8,9 @@ import { useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
 import { api } from "@/convex/_generated/api";
 import type { Doc } from "@/convex/_generated/dataModel";
+import { Separator } from "@/components/ui/separator";
+
+import ProgramActions from "@/components/admin/program/program-actions";
 
 export default function ProgramManagementPage() {
   const t = useTranslations("admin.programs.table");
@@ -24,17 +27,28 @@ export default function ProgramManagementPage() {
     [router, locale],
   );
 
+  const handleExport = React.useCallback((rows: Doc<"programs">[]) => {
+    // Implementa tu lógica de exportación: CSV, XLSX, PDF, etc.
+    // Aquí un ejemplo muy básico que simplemente registra las filas:
+    console.log("Programas a exportar:", rows);
+  }, []);
+
   const filterColumnKey = "program";
 
   return (
-    <CustomTable
-      columns={columns}
-      data={data}
-      filterColumn={filterColumnKey}
-      filterPlaceholder={t("filterPlaceholder")}
-      columnsMenuLabel={t("columnsMenuLabel")}
-      emptyMessage={t("emptyMessage")}
-      onRowClick={handleRowClick}
-    />
+    <>
+      <ProgramActions />
+      <Separator className="" />
+      <CustomTable
+        columns={columns}
+        data={data}
+        filterColumn={filterColumnKey}
+        filterPlaceholder={t("filterPlaceholder")}
+        columnsMenuLabel={t("columnsMenuLabel")}
+        emptyMessage={t("emptyMessage")}
+        onRowClick={handleRowClick}
+        onExport={handleExport}
+      />
+    </>
   );
 }

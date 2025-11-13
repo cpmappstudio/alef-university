@@ -6,7 +6,8 @@
     "theme": "Tema",
     "light": "Claro",
     "dark": "Oscuro",
-    "system": "Sistema"
+    "system": "Sistema",
+    "export": "Exportar"
   },
   "navigation": {
     "university": "Alef University",
@@ -484,6 +485,10 @@
   "admin": {
     "programs": {
       "table": {
+        "actions": {
+          "create": "Crear Programa",
+          "import": "Importar Programas"
+        },
         "columns": {
           "code": "Código",
 
@@ -531,6 +536,98 @@
         "columnsMenuLabel": "Columnas",
         "filterPlaceholder": "Filtrar programas...",
         "emptyMessage": "No hay programas disponibles."
+      },
+      "form": {
+        "title": "Crear programa",
+        "description": "Completa la información para registrar un nuevo programa académico.",
+        "sections": {
+          "errors": "Errores",
+          "general": "Configuración general",
+          "spanish": "Contenido en español",
+          "english": "Contenido en inglés",
+          "academics": "Detalles académicos",
+          "status": "Estado"
+        },
+        "fields": {
+          "language": {
+            "label": "Idioma del programa",
+            "placeholder": "Selecciona un idioma"
+          },
+          "type": {
+            "label": "Tipo de programa",
+            "placeholder": "Selecciona un tipo de programa"
+          },
+          "codeEs": {
+            "label": "Código (ES)",
+            "placeholder": "Ej. IDS-001"
+          },
+          "nameEs": {
+            "label": "Nombre (ES)",
+            "placeholder": "Nombre en español"
+          },
+          "descriptionEs": {
+            "label": "Descripción (ES)",
+            "placeholder": "Descripción del programa en español"
+          },
+          "codeEn": {
+            "label": "Code (EN)",
+            "placeholder": "E.g. IDS-001"
+          },
+          "nameEn": {
+            "label": "Name (EN)",
+            "placeholder": "Program name in English"
+          },
+          "descriptionEn": {
+            "label": "Description (EN)",
+            "placeholder": "Program description in English"
+          },
+          "totalCredits": {
+            "label": "Créditos totales",
+            "placeholder": "Ej. 240"
+          },
+          "durationBimesters": {
+            "label": "Duración (bimestres)",
+            "placeholder": "Ej. 8"
+          },
+          "isActive": {
+            "label": "Crear programa como activo"
+          }
+        },
+        "options": {
+          "languages": {
+            "es": "Español",
+            "en": "Inglés",
+            "both": "Bilingüe (ES/EN)"
+          },
+          "types": {
+            "diploma": "Diploma",
+            "bachelor": "Pregrado",
+            "master": "Maestría",
+            "doctorate": "Doctorado"
+          }
+        },
+        "buttons": {
+          "cancel": "Cancelar",
+          "submit": "Crear programa",
+          "loading": "Guardando..."
+        },
+        "messages": {
+          "infoSelectLanguage": "Selecciona un idioma para mostrar los campos correspondientes.",
+          "errors": {
+            "language": "Selecciona un idioma para el programa.",
+            "type": "Selecciona el tipo de programa.",
+            "codeEs": "El código en español es obligatorio.",
+            "nameEs": "El nombre en español es obligatorio.",
+            "descriptionEs": "La descripción en español es obligatoria.",
+            "codeEn": "El código en inglés es obligatorio.",
+            "nameEn": "El nombre en inglés es obligatorio.",
+            "descriptionEn": "La descripción en inglés es obligatoria.",
+            "totalCredits": "Los créditos totales deben ser un número mayor que cero.",
+            "durationBimesters": "La duración debe ser un número mayor que cero.",
+            "generic": "No se pudo crear el programa. Intenta nuevamente."
+          },
+          "success": "Programa creado correctamente."
+        }
       }
     }
   }

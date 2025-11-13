@@ -1,15 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import type { Doc } from "@/convex/_generated/dataModel";
 
 type ProgramRow = Doc<"programs">;
@@ -203,37 +195,7 @@ export const programColumns = (
 
   const programHeader = t("columns.program");
 
-  const currencyFormatter = new Intl.NumberFormat(
-    locale === "es" ? "es-ES" : "en-US",
-    {
-      style: "currency",
-      currency: "USD",
-    },
-  );
-
   return [
-    {
-      id: "select",
-      header: ({ table }) => (
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label={t("aria.selectAll")}
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label={t("aria.selectRow")}
-        />
-      ),
-      enableSorting: false,
-      enableHiding: false,
-    },
     {
       id: "code",
       accessorFn: (row) =>
@@ -317,42 +279,6 @@ export const programColumns = (
           {row.original.isActive ? t("status.active") : t("status.inactive")}
         </span>
       ),
-    },
-    {
-      id: "actions",
-      enableHiding: false,
-      cell: ({ row }) => {
-        const program = row.original;
-
-        const handleCopyCode = () => {
-          const code = formatLocalizedFieldForCopy(
-            program,
-            "codeEs",
-            "codeEn",
-            locale,
-          );
-          void navigator.clipboard.writeText(code);
-        };
-
-        return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">{t("aria.openMenu")}</span>
-                <MoreHorizontal />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>{t("menu.label")}</DropdownMenuLabel>
-              <DropdownMenuItem onClick={handleCopyCode}>
-                {t("menu.copyProgramCode")}
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>{t("menu.viewDetails")}</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        );
-      },
     },
   ];
 };

@@ -13,7 +13,7 @@ export type Program = {
   _id: Id<"programs">;
 
   // Program identification
-  code?: string; // Spanish code, required when language is "es" or "both"
+  codeEs?: string; // Spanish code, required when language is "es" or "both"
   codeEn?: string; // English code, required when language is "en" or "both"
   nameEs?: string; // Spanish name, required when language is "es" or "both"
   nameEn?: string; // English name, required when language is "en" or "both"
@@ -44,15 +44,15 @@ export type Program = {
  * Validation is performed dynamically based on 'language' selection
  */
 export type ProgramFormData = {
-  code: string;
+  codeEs: string;
   codeEn: string;
   nameEs: string;
   nameEn: string;
   descriptionEs: string;
   descriptionEn: string;
-  type: Program['type'] | undefined; // Allow undefined for placeholder state
+  type: Program["type"] | undefined; // Allow undefined for placeholder state
   degree: string;
-  language: Program['language'] | undefined; // Allow undefined for placeholder state
+  language: Program["language"] | undefined; // Allow undefined for placeholder state
   totalCredits: number;
   durationBimesters: number;
   tuitionPerCredit: number;
@@ -115,13 +115,13 @@ export type Section = {
   schedule?: {
     sessions: {
       day:
-      | "monday"
-      | "tuesday"
-      | "wednesday"
-      | "thursday"
-      | "friday"
-      | "saturday"
-      | "sunday";
+        | "monday"
+        | "tuesday"
+        | "wednesday"
+        | "thursday"
+        | "friday"
+        | "saturday"
+        | "sunday";
       startTime: string;
       endTime: string;
       roomUrl?: string;
@@ -157,7 +157,7 @@ export type Period = {
   isCurrentPeriod: boolean;
   createdAt: number;
   updatedAt?: number;
-}
+};
 
 export type Enrollment = {
   _id: Id<"enrollments">;
@@ -168,7 +168,14 @@ export type Enrollment = {
   professorId: Id<"users">;
   enrolledAt: number;
   enrolledBy?: Id<"users">;
-  status: "enrolled" | "withdrawn" | "dropped" | "completed" | "failed" | "incomplete" | "in_progress";
+  status:
+    | "enrolled"
+    | "withdrawn"
+    | "dropped"
+    | "completed"
+    | "failed"
+    | "incomplete"
+    | "in_progress";
   statusChangedAt?: number;
   statusChangedBy?: Id<"users">;
   statusChangeReason?: string;
