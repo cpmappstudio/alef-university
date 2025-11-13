@@ -11,7 +11,6 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLabel,
-  FieldLegend,
   FieldSeparator,
   FieldSet,
 } from "@/components/ui/field";
@@ -33,48 +32,21 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
+
 import { api } from "@/convex/_generated/api";
-import type { Program } from "@/components/admin/types";
-
-type LanguageOption = "es" | "en" | "both";
-type ProgramType = Program["type"];
-
-interface ProgramFormDialogProps {
-  mode: "create" | "edit";
-  program?: Program;
-  trigger?: React.ReactNode;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
-}
-
-type FormState = {
-  language: LanguageOption | "";
-  type: ProgramType | "";
-  codeEs: string;
-  nameEs: string;
-  descriptionEs: string;
-  codeEn: string;
-  nameEn: string;
-  descriptionEn: string;
-  totalCredits: string;
-  durationBimesters: string;
-  isActive: boolean;
-};
-
-const INITIAL_STATE: FormState = {
-  language: "",
-  type: "",
-  codeEs: "",
-  nameEs: "",
-  descriptionEs: "",
-  codeEn: "",
-  nameEn: "",
-  descriptionEn: "",
-  totalCredits: "",
-  durationBimesters: "",
-  isActive: true,
-};
+import {
+  ProgramFormDialogProps,
+  ProgramFormState,
+  ProgramFormValidationMessages,
+} from "@/lib/programs/types";
+import {
+  buildProgramCreatePayload,
+  buildProgramUpdatePayload,
+  createEmptyProgramFormState,
+  createFormStateFromProgram,
+  getLanguageVisibility,
+  validateProgramForm,
+} from "@/lib/programs/utils";
 
 export default function ProgramFormDialog({
   mode: _mode,
@@ -89,31 +61,29 @@ export default function ProgramFormDialog({
   const open = controlledOpen ?? internalOpen;
   const setOpen = onOpenChange ?? setInternalOpen;
 
-  const [formState, setFormState] = React.useState<FormState>(INITIAL_STATE);
+  const [formState, setFormState] = React.useState<ProgramFormState>(
+    createEmptyProgramFormState,
+  );
   const [formError, setFormError] = React.useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const createProgram = useMutation(api.programs.createProgram);
   const updateProgram = useMutation(api.programs.updateProgram);
 
-  type CreateProgramArgs = Parameters<typeof createProgram>[0];
-  type UpdateProgramArgs = Parameters<typeof updateProgram>[0];
-
-  const showSpanishFields =
-    formState.language === "es" || formState.language === "both";
-  const showEnglishFields =
-    formState.language === "en" || formState.language === "both";
+  const { showSpanishFields, showEnglishFields } = getLanguageVisibility(
+    formState.language,
+  );
 
   const resetForm = React.useCallback(() => {
-    setFormState(INITIAL_STATE);
+    setFormState(createFormStateFromProgram(program));
     setFormError(null);
-  }, []);
+  }, [program]);
 
   React.useEffect(() => {
     if (open) {
       resetForm();
     }
-  }, [open, resetForm, program]);
+  }, [open, resetForm]);
 
   const handleDialogChange = (nextOpen: boolean) => {
     setOpen(nextOpen);
@@ -125,7 +95,7 @@ export default function ProgramFormDialog({
   };
 
   const handleInputChange =
-    (field: keyof FormState) =>
+    (field: keyof ProgramFormState) =>
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const value = event.target.value;
       setFormState((prev) => ({ ...prev, [field]: value }));
@@ -135,7 +105,7 @@ export default function ProgramFormDialog({
     (field: "language" | "type") => (value: string) => {
       setFormState((prev) => ({
         ...prev,
-        [field]: value as FormState[typeof field],
+        [field]: value as ProgramFormState[typeof field],
       }));
     };
 
@@ -143,92 +113,34 @@ export default function ProgramFormDialog({
     event.preventDefault();
     setFormError(null);
 
-    const errors: string[] = [];
+    const validationMessages: ProgramFormValidationMessages = {
+      languageRequired: t("messages.errors.language"),
+      typeRequired: t("messages.errors.type"),
+      codeEsRequired: t("messages.errors.codeEs"),
+      nameEsRequired: t("messages.errors.nameEs"),
+      descriptionEsRequired: t("messages.errors.descriptionEs"),
+      codeEnRequired: t("messages.errors.codeEn"),
+      nameEnRequired: t("messages.errors.nameEn"),
+      descriptionEnRequired: t("messages.errors.descriptionEn"),
+      totalCreditsPositive: t("messages.errors.totalCredits"),
+      durationBimestersPositive: t("messages.errors.durationBimesters"),
+    };
 
-    if (!formState.language) {
-      errors.push(t("messages.errors.language"));
-    }
+    const validation = validateProgramForm(formState, validationMessages);
 
-    if (!formState.type) {
-      errors.push(t("messages.errors.type"));
-    }
-
-    if (showSpanishFields) {
-      if (!formState.codeEs.trim()) errors.push(t("messages.errors.codeEs"));
-      if (!formState.nameEs.trim()) errors.push(t("messages.errors.nameEs"));
-      if (!formState.descriptionEs.trim())
-        errors.push(t("messages.errors.descriptionEs"));
-    }
-
-    if (showEnglishFields) {
-      if (!formState.codeEn.trim()) errors.push(t("messages.errors.codeEn"));
-      if (!formState.nameEn.trim()) errors.push(t("messages.errors.nameEn"));
-      if (!formState.descriptionEn.trim())
-        errors.push(t("messages.errors.descriptionEn"));
-    }
-
-    const totalCredits = Number(formState.totalCredits);
-    if (!Number.isFinite(totalCredits) || totalCredits <= 0) {
-      errors.push(t("messages.errors.totalCredits"));
-    }
-
-    const durationBimesters = Number(formState.durationBimesters);
-    if (!Number.isFinite(durationBimesters) || durationBimesters <= 0) {
-      errors.push(t("messages.errors.durationBimesters"));
-    }
-
-    if (errors.length > 0) {
-      setFormError(errors.join("\n"));
+    if (!validation.isValid) {
+      setFormError(Object.values(validation.errors).filter(Boolean).join("\n"));
       return;
     }
 
-    setIsSubmitting(true);
-
-    const sanitizedPayload = {
-      language: formState.language as LanguageOption,
-      type: formState.type as ProgramType,
-      totalCredits,
-      durationBimesters,
-      ...(showSpanishFields
-        ? {
-            codeEs: formState.codeEs.trim(),
-            nameEs: formState.nameEs.trim(),
-            descriptionEs: formState.descriptionEs.trim(),
-          }
-        : {}),
-      ...(showEnglishFields
-        ? {
-            codeEn: formState.codeEn.trim(),
-            nameEn: formState.nameEn.trim(),
-            descriptionEn: formState.descriptionEn.trim(),
-          }
-        : {}),
-    } as CreateProgramArgs;
-
     try {
-      const programId = await createProgram(sanitizedPayload);
+      setIsSubmitting(true);
+
+      const createPayload = buildProgramCreatePayload(formState);
+      const programId = await createProgram(createPayload);
 
       if (!formState.isActive && programId) {
-        const updatePayload = {
-          programId,
-          language: sanitizedPayload.language,
-          isActive: false,
-          ...(sanitizedPayload.codeEs
-            ? {
-                codeEs: sanitizedPayload.codeEs,
-                nameEs: sanitizedPayload.nameEs,
-                descriptionEs: sanitizedPayload.descriptionEs,
-              }
-            : {}),
-          ...(sanitizedPayload.codeEn
-            ? {
-                codeEn: sanitizedPayload.codeEn,
-                nameEn: sanitizedPayload.nameEn,
-                descriptionEn: sanitizedPayload.descriptionEn,
-              }
-            : {}),
-        } as UpdateProgramArgs;
-
+        const updatePayload = buildProgramUpdatePayload(programId, formState);
         await updateProgram(updatePayload);
       }
 
@@ -331,7 +243,6 @@ export default function ProgramFormDialog({
               <>
                 <FieldSeparator />
                 <FieldSet>
-                  <FieldLegend>{t("sections.spanish")}</FieldLegend>
                   <FieldGroup>
                     <Field>
                       <FieldLabel htmlFor="program-code-es">
@@ -376,7 +287,6 @@ export default function ProgramFormDialog({
               <>
                 <FieldSeparator />
                 <FieldSet>
-                  <FieldLegend>{t("sections.english")}</FieldLegend>
                   <FieldGroup>
                     <Field>
                       <FieldLabel htmlFor="program-code-en">
@@ -419,7 +329,6 @@ export default function ProgramFormDialog({
 
             <FieldSeparator />
             <FieldSet>
-              <FieldLegend>{t("sections.academics")}</FieldLegend>
               <FieldGroup>
                 <Field>
                   <FieldLabel htmlFor="program-total-credits">
@@ -451,7 +360,6 @@ export default function ProgramFormDialog({
             <FieldSeparator />
             {formError ? (
               <FieldSet>
-                <FieldLegend>{t("sections.errors")}</FieldLegend>
                 <FieldDescription className="whitespace-pre-line text-destructive">
                   {formError}
                 </FieldDescription>

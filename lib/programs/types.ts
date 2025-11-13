@@ -1,39 +1,5 @@
-// programs: defineTable({
-//   code: v.optional(v.string()), // Spanish code, required when language is "es" or "both"
-//   codeEn: v.optional(v.string()), // English code, required when language is "en" or "both"
-//   nameEs: v.optional(v.string()), // Spanish name, required when language is "es" or "both"
-//   nameEn: v.optional(v.string()), // English name, required when language is "en" or "both"
-//   descriptionEs: v.optional(v.string()), // Spanish description, required when language is "es" or "both"
-//   descriptionEn: v.optional(v.string()), // English description, required when language is "en" or "both"
-
-//   type: v.union(
-//     v.literal("diploma"),
-//     v.literal("bachelor"),
-//     v.literal("master"),
-//     v.literal("doctorate")
-//   ),
-
-//   degree: v.optional(v.string()), // "Bachelor of Arts", "Master of Science", etc.
-
-//   language: v.union(
-//     v.literal("es"),
-//     v.literal("en"),
-//     v.literal("both")
-//   ),
-
-//   totalCredits: v.number(),
-//   durationBimesters: v.number(),
-
-//   // Costs (optional for financial module)
-//   tuitionPerCredit: v.optional(v.number()),
-
-//   isActive: v.boolean(),
-//   createdAt: v.number(),
-//   updatedAt: v.optional(v.number()),
-// })
-//   .index("by_active", ["isActive"]) // For admin dashboard summary
-//   .index("by_type_active", ["type", "isActive"])
-//   .index("by_language_active", ["language", "isActive"]), // Combined for efficiency
+import type { ReactNode } from "react";
+import type { Id } from "@/convex/_generated/dataModel";
 
 export type Program = {
   codeEs: string | undefined;
@@ -51,4 +17,95 @@ export type Program = {
   isActive: boolean;
   createdAt: number;
   updatedAt: number | undefined;
+};
+
+export type ProgramLanguageOption = Program["language"];
+export type ProgramTypeOption = Program["type"];
+
+export type ProgramFormLanguage = ProgramLanguageOption | "";
+export type ProgramFormType = ProgramTypeOption | "";
+
+export type ProgramFormState = {
+  language: ProgramFormLanguage;
+  type: ProgramFormType;
+  codeEs: string;
+  nameEs: string;
+  descriptionEs: string;
+  codeEn: string;
+  nameEn: string;
+  descriptionEn: string;
+  totalCredits: string;
+  durationBimesters: string;
+  isActive: boolean;
+};
+
+export type ProgramFormErrorKey =
+  | "language"
+  | "type"
+  | "codeEs"
+  | "nameEs"
+  | "descriptionEs"
+  | "codeEn"
+  | "nameEn"
+  | "descriptionEn"
+  | "totalCredits"
+  | "durationBimesters";
+
+export type ProgramFormErrors = Partial<Record<ProgramFormErrorKey, string>>;
+
+export type ProgramFormValidationMessages = {
+  languageRequired: string;
+  typeRequired: string;
+  codeEsRequired: string;
+  nameEsRequired: string;
+  descriptionEsRequired: string;
+  codeEnRequired: string;
+  nameEnRequired: string;
+  descriptionEnRequired: string;
+  totalCreditsPositive: string;
+  durationBimestersPositive: string;
+};
+
+export type ProgramFormValidationResult = {
+  errors: ProgramFormErrors;
+  isValid: boolean;
+};
+
+export type ProgramCreatePayload = {
+  codeEs?: string;
+  codeEn?: string;
+  nameEs?: string;
+  nameEn?: string;
+  descriptionEs?: string;
+  descriptionEn?: string;
+  language: ProgramLanguageOption;
+  type: ProgramTypeOption;
+  totalCredits: number;
+  durationBimesters: number;
+  tuitionPerCredit?: number;
+  degree?: string;
+};
+
+export type ProgramUpdatePayload = {
+  programId: Id<"programs">;
+  language: ProgramLanguageOption;
+  isActive: boolean;
+  codeEs?: string;
+  codeEn?: string;
+  nameEs?: string;
+  nameEn?: string;
+  descriptionEs?: string;
+  descriptionEn?: string;
+  degree?: string;
+  tuitionPerCredit?: number;
+};
+
+export type ProgramFormDialogMode = "create" | "edit";
+
+export type ProgramFormDialogProps = {
+  mode: ProgramFormDialogMode;
+  program?: Program | null;
+  trigger?: ReactNode;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 };
