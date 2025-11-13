@@ -1,5 +1,5 @@
 // ################################################################################
-// # File: schema.ts                                                              # 
+// # File: schema.ts                                                              #
 // # Authors: Juan Camilo Narváez Tascón (github.com/ulvenforst)                  #
 // # Creation date: 08/17/2025                                                    #
 // # License: Apache License 2.0                                                  #
@@ -8,20 +8,20 @@
 /**
  * ALEF UNIVERSITY: Student Information System (SIS)
  * Schema optimized for American grading system and bimester-based academic periods.
- * 
+ *
  * PERFORMANCE NOTES (Convex Best Practices):
  * - Indexes are designed to avoid full table scans on tables > 1000 documents
  * - Compound indexes ordered by selectivity (most selective field first)
  * - No redundant indexes (if we have ["a", "b"], we don't need ["a"])
  * - Maximum 32 indexes per table (we use ~4-5 per table)
  * - Strategic denormalization in enrollments table for dashboard queries
- * 
+ *
  * QUERY PATTERNS SUPPORTED:
  * - Student dashboard: Progress by category, GPA calculation, current enrollments
  * - Professor dashboard: Sections by period, grade submission, student lists
  * - Admin dashboard: Program management, enrollment statistics, user management
  * - Document generation: Transcripts, certificates with audit trail
- * 
+ *
  * Tables:
  * 1. users - Students, professors, admins (indexed by role, clerk_id, email)
  * 2. programs - Academic programs (indexed by code, type, language)
@@ -54,24 +54,28 @@ export default defineSchema({
     // Additional fields for certificates
     dateOfBirth: v.optional(v.number()),
     nationality: v.optional(v.string()),
-    documentType: v.optional(v.union(
-      v.literal("passport"),
-      v.literal("national_id"),
-      v.literal("driver_license"),
-      v.literal("other")
-    )),
+    documentType: v.optional(
+      v.union(
+        v.literal("passport"),
+        v.literal("national_id"),
+        v.literal("driver_license"),
+        v.literal("other"),
+      ),
+    ),
     documentNumber: v.optional(v.string()),
 
     // Contact
     phone: v.optional(v.string()),
     country: v.optional(v.string()),
-    address: v.optional(v.object({
-      street: v.optional(v.string()),
-      city: v.optional(v.string()),
-      state: v.optional(v.string()),
-      zipCode: v.optional(v.string()),
-      country: v.optional(v.string()),
-    })),
+    address: v.optional(
+      v.object({
+        street: v.optional(v.string()),
+        city: v.optional(v.string()),
+        state: v.optional(v.string()),
+        zipCode: v.optional(v.string()),
+        country: v.optional(v.string()),
+      }),
+    ),
 
     // System fields
     role: v.union(
@@ -87,33 +91,39 @@ export default defineSchema({
     lastLoginAt: v.optional(v.number()),
 
     // Student-specific
-    studentProfile: v.optional(v.object({
-      studentCode: v.string(), // Student ID number
-      programId: v.id("programs"),
-      enrollmentDate: v.number(),
-      expectedGraduationDate: v.optional(v.number()),
-      status: v.union(
-        v.literal("active"),
-        v.literal("inactive"),
-        v.literal("on_leave"),
-        v.literal("graduated"),
-        v.literal("withdrawn")
-      ),
-      // Academic standing
-      academicStanding: v.optional(v.union(
-        v.literal("good_standing"),
-        v.literal("probation"),
-        v.literal("suspension")
-      )),
-    })),
+    studentProfile: v.optional(
+      v.object({
+        studentCode: v.string(), // Student ID number
+        programId: v.id("programs"),
+        enrollmentDate: v.number(),
+        expectedGraduationDate: v.optional(v.number()),
+        status: v.union(
+          v.literal("active"),
+          v.literal("inactive"),
+          v.literal("on_leave"),
+          v.literal("graduated"),
+          v.literal("withdrawn"),
+        ),
+        // Academic standing
+        academicStanding: v.optional(
+          v.union(
+            v.literal("good_standing"),
+            v.literal("probation"),
+            v.literal("suspension"),
+          ),
+        ),
+      }),
+    ),
 
     // Professor-specific
-    professorProfile: v.optional(v.object({
-      employeeCode: v.string(),
-      title: v.optional(v.string()), // Dr., Prof., etc.
-      department: v.optional(v.string()),
-      hireDate: v.optional(v.number()),
-    })),
+    professorProfile: v.optional(
+      v.object({
+        employeeCode: v.string(),
+        title: v.optional(v.string()), // Dr., Prof., etc.
+        department: v.optional(v.string()),
+        hireDate: v.optional(v.number()),
+      }),
+    ),
   })
     .index("by_clerk_id", ["clerkId"])
     .index("by_email", ["email"])
@@ -129,7 +139,7 @@ export default defineSchema({
    * All language-specific fields are validated in backend based on the 'language' field.
    */
   programs: defineTable({
-    code: v.optional(v.string()), // Spanish code, required when language is "es" or "both"
+    codeEs: v.optional(v.string()), // Spanish code, required when language is "es" or "both"
     codeEn: v.optional(v.string()), // English code, required when language is "en" or "both"
     nameEs: v.optional(v.string()), // Spanish name, required when language is "es" or "both"
     nameEn: v.optional(v.string()), // English name, required when language is "en" or "both"
@@ -140,16 +150,12 @@ export default defineSchema({
       v.literal("diploma"),
       v.literal("bachelor"),
       v.literal("master"),
-      v.literal("doctorate")
+      v.literal("doctorate"),
     ),
 
     degree: v.optional(v.string()), // "Bachelor of Arts", "Master of Science", etc.
 
-    language: v.union(
-      v.literal("es"),
-      v.literal("en"),
-      v.literal("both")
-    ),
+    language: v.union(v.literal("es"), v.literal("en"), v.literal("both")),
 
     totalCredits: v.number(),
     durationBimesters: v.number(),
@@ -193,7 +199,7 @@ export default defineSchema({
       v.literal("enrollment"),
       v.literal("active"),
       v.literal("grading"),
-      v.literal("closed")
+      v.literal("closed"),
     ),
 
     isCurrentPeriod: v.boolean(),
@@ -212,16 +218,16 @@ export default defineSchema({
    * - language "es" uses code (Spanish code)
    * - language "en" uses codeEn (English code)
    * - language "both" uses both code and codeEn
-   * 
+   *
    * Name and description fields are also language-dependent:
    * - language "es" requires code, nameEs, and descriptionEs
    * - language "en" requires codeEn, nameEn, and descriptionEn
    * - language "both" requires all fields: code, codeEn, nameEs, nameEn, descriptionEs, descriptionEn
-   * 
+   *
    * Note: by_code index removed to allow optional code field
    */
   courses: defineTable({
-    code: v.optional(v.string()), // Required when language is "es" or "both"
+    codeEs: v.optional(v.string()), // Required when language is "es" or "both"
     codeEn: v.optional(v.string()), // Required when language is "en" or "both"
     nameEs: v.optional(v.string()), // Required when language is "es" or "both"
     nameEn: v.optional(v.string()), // Required when language is "en" or "both"
@@ -231,25 +237,23 @@ export default defineSchema({
     credits: v.number(),
 
     // Course level
-    level: v.optional(v.union(
-      v.literal("introductory"),
-      v.literal("intermediate"),
-      v.literal("advanced"),
-      v.literal("graduate")
-    )),
-
-    language: v.union(
-      v.literal("es"),
-      v.literal("en"),
-      v.literal("both")
+    level: v.optional(
+      v.union(
+        v.literal("introductory"),
+        v.literal("intermediate"),
+        v.literal("advanced"),
+        v.literal("graduate"),
+      ),
     ),
+
+    language: v.union(v.literal("es"), v.literal("en"), v.literal("both")),
 
     // Category for requirements
     category: v.union(
       v.literal("humanities"),
       v.literal("core"),
       v.literal("elective"),
-      v.literal("general")
+      v.literal("general"),
     ),
 
     // Prerequisites (course codes)
@@ -278,12 +282,14 @@ export default defineSchema({
 
     // Override category for this specific program (A course asociated to different programs
     // may have different categories)
-    categoryOverride: v.optional(v.union(
-      v.literal("humanities"),
-      v.literal("core"),
-      v.literal("elective"),
-      v.literal("general")
-    )),
+    categoryOverride: v.optional(
+      v.union(
+        v.literal("humanities"),
+        v.literal("core"),
+        v.literal("elective"),
+        v.literal("general"),
+      ),
+    ),
 
     // Is this course required for this program?
     isRequired: v.boolean(),
@@ -317,28 +323,32 @@ export default defineSchema({
       v.literal("online_sync"), // Synchronous online
       v.literal("online_async"), // Asynchronous online
       v.literal("hybrid"),
-      v.literal("in_person")
+      v.literal("in_person"),
     ),
 
     // Virtual schedule
-    schedule: v.optional(v.object({
-      sessions: v.array(v.object({
-        day: v.union(
-          v.literal("monday"),
-          v.literal("tuesday"),
-          v.literal("wednesday"),
-          v.literal("thursday"),
-          v.literal("friday"),
-          v.literal("saturday"),
-          v.literal("sunday")
+    schedule: v.optional(
+      v.object({
+        sessions: v.array(
+          v.object({
+            day: v.union(
+              v.literal("monday"),
+              v.literal("tuesday"),
+              v.literal("wednesday"),
+              v.literal("thursday"),
+              v.literal("friday"),
+              v.literal("saturday"),
+              v.literal("sunday"),
+            ),
+            startTime: v.string(), // "14:00"
+            endTime: v.string(), // "16:00"
+            roomUrl: v.optional(v.string()), // Zoom/Meet link
+          }),
         ),
-        startTime: v.string(), // "14:00"
-        endTime: v.string(), // "16:00"
-        roomUrl: v.optional(v.string()), // Zoom/Meet link
-      })),
-      timezone: v.string(), // "America/Bogota"
-      notes: v.optional(v.string()),
-    })),
+        timezone: v.string(), // "America/Bogota"
+        notes: v.optional(v.string()),
+      }),
+    ),
 
     // Status tracking
     status: v.union(
@@ -347,7 +357,7 @@ export default defineSchema({
       v.literal("closed"),
       v.literal("active"),
       v.literal("grading"),
-      v.literal("completed")
+      v.literal("completed"),
     ),
 
     gradesSubmitted: v.boolean(),
@@ -387,7 +397,7 @@ export default defineSchema({
       v.literal("completed"),
       v.literal("failed"),
       v.literal("incomplete"),
-      v.literal("in_progress")
+      v.literal("in_progress"),
     ),
 
     // Status change tracking
@@ -491,7 +501,7 @@ export default defineSchema({
       v.literal("assignment"),
       v.literal("exam"),
       v.literal("schedule"),
-      v.literal("urgent")
+      v.literal("urgent"),
     ),
 
     // Visibility
@@ -526,30 +536,29 @@ export default defineSchema({
       v.literal("completion_certificate"),
       v.literal("degree"),
       v.literal("schedule"),
-      v.literal("other")
+      v.literal("other"),
     ),
 
     // Scope
-    scope: v.optional(v.object({
-      periodId: v.optional(v.id("periods")),
-      programId: v.optional(v.id("programs")),
-      fromDate: v.optional(v.number()),
-      toDate: v.optional(v.number()),
-      includeInProgress: v.optional(v.boolean()),
-    })),
+    scope: v.optional(
+      v.object({
+        periodId: v.optional(v.id("periods")),
+        programId: v.optional(v.id("programs")),
+        fromDate: v.optional(v.number()),
+        toDate: v.optional(v.number()),
+        includeInProgress: v.optional(v.boolean()),
+      }),
+    ),
 
     // Document metadata
     format: v.union(
       v.literal("pdf"),
       v.literal("html"),
       v.literal("csv"),
-      v.literal("json")
+      v.literal("json"),
     ),
 
-    language: v.union(
-      v.literal("es"),
-      v.literal("en")
-    ),
+    language: v.union(v.literal("es"), v.literal("en")),
 
     // Storage reference (could be URL, file ID, etc.)
     documentUrl: v.optional(v.string()),
@@ -561,7 +570,7 @@ export default defineSchema({
       v.literal("generating"),
       v.literal("completed"),
       v.literal("failed"),
-      v.literal("expired")
+      v.literal("expired"),
     ),
 
     errorMessage: v.optional(v.string()),
@@ -593,7 +602,7 @@ export default defineSchema({
 
 /**
  * CONVEX LIMITS AND PERFORMANCE CONSIDERATIONS:
- * 
+ *
  * 1. Document size: Max 1MB per document (we're well below with our schema)
  * 2. Nesting depth: Max 16 levels (our max is 3 levels)
  * 3. Index limit: Max 32 indexes per table (we use 3-5 per table)
@@ -604,13 +613,13 @@ export default defineSchema({
  * 5. Denormalization trade-offs:
  *    - enrollments table includes periodId, courseId, professorId for fast dashboards
  *    - Reduces query complexity at the cost of storage
- * 
+ *
  * EXPECTED SCALE:
  * - ~250 active students (from PDF requirements)
  * - ~9,000 historical enrollment records
  * - 6 periods per year
  * - Multiple programs with shared courses
- * 
+ *
  * INDEX STRATEGY:
  * - Primary access patterns covered by compound indexes
  * - No redundant indexes (compound indexes serve prefix queries)

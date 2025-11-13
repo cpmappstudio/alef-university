@@ -1,484 +1,537 @@
 {
-    "common": {
-        "language": "Idioma",
-        "english": "English",
-        "spanish": "Español",
-        "theme": "Tema",
-        "light": "Claro",
-        "dark": "Oscuro",
-        "system": "Sistema"
-    },
-    "navigation": {
-        "university": "Alef University",
-        "dashboard": "Tablero",
-        "navigation": "Navegación",
-        "playground": "Área de Pruebas",
-        "models": "Modelos",
-        "documentation": "Documentación",
-        "settings": "Configuración",
-        "history": "Historial",
-        "starred": "Destacados",
-        "general": "General",
-        "introduction": "Introducción",
-        "getStarted": "Comenzar",
-        "tutorials": "Tutoriales",
-        "changelog": "Registro de Cambios",
-        "profile": "Mi Cuenta",
-        "myStudy": "Mi Estudio",
-        "studentDocs": "Documentación",
-        "myClasses": "Mis Clases",
-        "professorDocs": "Documentación",
-        "academicAdmin": "Administración Académica",
-        "personalAdmin": "Administración Personal",
-        "adminDocs": "Documentación",
-        "menu": {
-            "profile": {
-                "title": "Mi Cuenta",
-                "url": "/profile",
-                "items": [
-                    {
-                        "title": "Información Personal",
-                        "url": "/profile"
-                    }
-                ]
-            },
-            "student": {
-                "title": "Mi Estudio",
-                "url": "/academic",
-                "items": [
-                    {
-                        "title": "Historial Académico",
-                        "url": "/academic/history"
-                    },
-                    {
-                        "title": "Progreso Académico",
-                        "url": "/academic/progress"
-                    }
-                ]
-            },
-            "studentDocs": {
-                "title": "Documentación",
-                "url": "/docs",
-                "items": [
-                    {
-                        "title": "Certificados y Transcripciones",
-                        "url": "/docs/transcripts"
-                    },
-                    {
-                        "title": "Guía de Progreso Académico",
-                        "url": "/docs/progress"
-                    }
-                ]
-            },
-            "professor": {
-                "title": "Mis Clases",
-                "url": "/teaching",
-                "items": [
-                    {
-                        "title": "Libro de Calificaciones",
-                        "url": "/teaching/gradebook"
-                    },
-                    {
-                        "title": "Progreso de Enseñanza",
-                        "url": "/teaching/progress"
-                    }
-                ]
-            },
-            "professorDocs": {
-                "title": "Documentación",
-                "url": "/docs/teaching",
-                "items": [
-                    {
-                        "title": "Guía de Calificaciones",
-                        "url": "/docs/teaching/grading"
-                    },
-                    {
-                        "title": "Recursos Pedagógicos",
-                        "url": "/docs/teaching/resources"
-                    }
-                ]
-            },
-            "adminAcademic": {
-                "title": "Administración Académica",
-                "url": "/admin",
-                "items": [
-                    {
-                        "title": "Gestión de Programas",
-                        "url": "/admin/programs"
-                    },
-                    {
-                        "title": "Gestión de Cursos",
-                        "url": "/admin/courses"
-                    },
-                    {
-                        "title": "Gestión de Períodos",
-                        "url": "/admin/periods"
-                    },
-                    {
-                        "title": "Gestión de Secciones",
-                        "url": "/admin/sections"
-                    },
-                    {
-                        "title": "Gestión de Matrículas",
-                        "url": "/admin/enrollments"
-                    }
-                ]
-            },
-            "adminPersonal": {
-                "title": "Administración Personal",
-                "url": "/admin/users",
-                "items": [
-                    {
-                        "title": "Gestión de Profesores",
-                        "url": "/admin/professors"
-                    },
-                    {
-                        "title": "Gestión de Estudiantes",
-                        "url": "/admin/students"
-                    }
-                ]
-            },
-            "adminDocs": {
-                "title": "Documentación",
-                "url": "/docs/admin",
-                "items": [
-                    {
-                        "title": "Manual de Administración",
-                        "url": "/docs/admin/manual"
-                    },
-                    {
-                        "title": "Guías del Sistema",
-                        "url": "/docs/admin/guides"
-                    }
-                ]
-            }
-        }
-    },
-    "university": {
-        "name": "Alef University",
-        "academicRecords": "Sistema de Registro Universitario"
-    },
-    "dashboard": {
-        "student": {
-            "metrics": {
-                "completedCredits": "Créditos Completados",
-                "cumulativeGPA": "GPA Acumulado",
-                "currentBimester": "Bimestre Actual",
-                "careerProgress": "Progreso Carrera",
-                "excellentProgress": "Progreso excelente",
-                "creditsRemaining": "{count} créditos restantes para graduarte",
-                "outstandingPerformance": "Rendimiento destacado",
-                "maintainLevel": "Mantén este nivel para graduarte con honores",
-                "currentlyEnrolled": "Inscrito actualmente",
-                "creditsInProgress": "{count} créditos en curso este bimestre",
-                "almostGraduating": "Casi graduándote",
-                "bimestersRemaining": "{count} bimestre restante previsto",
-                "excellent": "Excelente",
-                "bimesters": "bimestres",
-                "subjects": "materias"
-            },
-            "program": {
-                "title": "Ingeniería de Software",
-                "subtitle": "Programa de Pregrado • Código: IDS-001",
-                "admissionDate": "Fecha de Ingreso",
-                "estimatedGraduation": "Graduación Estimada",
-                "status": "Estado",
-                "active": "Activo",
-                "totalCredits": "Créditos Totales",
-                "duration": "Duración",
-                "languages": "Idiomas",
-                "modalityPresential": "Presencial",
-                "viewDetails": "Ver Detalles"
-            },
-            "currentSubjects": {
-                "title": "Materias del Bimestre",
-                "subtitle": "{period} • {count} materias inscritas • {credits} créditos",
-                "code": "Código",
-                "subject": "Materia",
-                "credits": "Créditos",
-                "grade": "Nota",
-                "status": "Estado",
-                "inProgress": "Cursando",
-                "pending": "Pendiente",
-                "viewHistory": "Ver Historial"
-            },
-            "creditDistribution": {
-                "title": "Distribución de Créditos",
-                "core": "Troncales",
-                "humanities": "Humanísticas",
-                "electives": "Electivas"
-            },
-            "upcomingDates": {
-                "title": "Próximas Fechas",
-                "gradesDeadline": "Fecha límite calificaciones",
-                "nextBimesterStart": "Inicio próximo bimestre",
-                "earlyEnrollment": "Matrícula anticipada"
-            },
-            "documents": {
-                "title": "Documentos",
-                "transcriptCertificate": "Certificado de Notas",
-                "academicHistory": "Historial Académico",
-                "progressAnalysis": "Análisis de Progreso",
-                "academicCalendar": "Calendario Académico"
-            }
-        },
-        "professor": {
-            "metrics": {
-                "currentSections": "Secciones Actuales",
-                "totalStudents": "Total Estudiantes",
-                "sectionsToGrade": "Secciones por Calificar",
-                "teachingExperience": "Experiencia Docente",
-                "credits": "créditos",
-                "avgPerSection": "prom/sección",
-                "actionRequired": "Acción Requerida",
-                "upToDate": "Al Día",
-                "studentsTaught": "estudiantes enseñados",
-                "activeTeaching": "Docencia activa",
-                "currentPeriod": "{period}",
-                "studentEngagement": "Compromiso estudiantil",
-                "sectionsEnrolled": "En todas las secciones",
-                "gradingPending": "Calificación pendiente",
-                "allGraded": "Todo calificado",
-                "checkGradebook": "Consulte el libro de calificaciones para detalles",
-                "experiencedEducator": "Educador experimentado",
-                "periodsTaughtTotal": "Total de períodos de experiencia docente"
-            },
-            "currentSections": {
-                "title": "Secciones Actuales",
-                "viewGradebook": "Ver Libro de Calificaciones",
-                "code": "Código",
-                "course": "Asignatura",
-                "group": "Grupo",
-                "students": "Estudiantes",
-                "category": "Categoría",
-                "closingDate": "Fecha de Cierre",
-                "status": "Estado",
-                "categoryGeneral": "General",
-                "categoryProfessional": "Profesional",
-                "categorySpecialty": "Especialidad",
-                "statusActive": "Activa",
-                "statusGrading": "Calificando",
-                "statusClosed": "Cerrada",
-                "subtitle": "{period} • {sections} secciones • {students} estudiantes totales"
-            },
-            "closingDates": {
-                "title": "Fechas de Cierre Próximas",
-                "subtitle": "Plazos importantes para la entrega de calificaciones",
-                "urgent": "Urgente",
-                "soon": "Pronto",
-                "upcoming": "Próximo",
-                "day": "día",
-                "days": "días"
-            }
-        },
-        "admin": {
-            "metrics": {
-                "activeProfessors": "Profesores Activos",
-                "activeStudents": "Estudiantes Activos",
-                "activeCourses": "Cursos Activos",
-                "activePrograms": "Programas Activos",
-                "teachingStaff": "Personal Docente",
-                "enrollments": "matrículas",
-                "sections": "secciones",
-                "academicPrograms": "Programas Académicos",
-                "manageStaff": "Administrar Personal",
-                "viewAllProfessors": "Clic para ver todos los profesores",
-                "studentBody": "Cuerpo Estudiantil",
-                "viewAllStudents": "Clic para ver todos los estudiantes",
-                "courseCatalog": "Catálogo de Cursos",
-                "viewAllCourses": "Clic para ver todos los cursos",
-                "programManagement": "Gestión de Programas",
-                "viewAllPrograms": "Clic para ver todos los programas"
-            },
-            "deadlines": {
-                "title": "Plazos Próximos",
-                "subtitle": "Fechas y plazos importantes a supervisar",
-                "enrollment": "Matrícula",
-                "grading": "Calificación",
-                "period": "Período",
-                "other": "Otro",
-                "urgent": "Urgente",
-                "soon": "Pronto",
-                "upcoming": "Próximo",
-                "day": "día",
-                "days": "días"
-            },
-            "activities": {
-                "title": "Actividades Recientes",
-                "subtitle": "Últimas acciones administrativas y actualizaciones",
-                "created": "Creado",
-                "updated": "Actualizado",
-                "deleted": "Eliminado",
-                "by": "por",
-                "minutesAgo": "hace {count} min",
-                "hoursAgo": "hace {count}h",
-                "daysAgo": "hace {count}d"
-            },
-            "upcomingDeadlines": {
-                "title": "Plazos Próximos",
-                "today": "Hoy",
-                "tomorrow": "Mañana",
-                "inXDays": "en {days} días",
-                "noDeadlines": "No hay plazos próximos"
-            },
-            "recentActivities": {
-                "title": "Actividades Recientes",
-                "created": "creó",
-                "updated": "actualizó",
-                "deleted": "eliminó",
-                "justNow": "justo ahora",
-                "minutesAgo": "hace {minutes}m",
-                "hoursAgo": "hace {hours}h",
-                "yesterday": "ayer",
-                "noActivities": "No hay actividades recientes"
-            }
-        }
-    },
-    "academicHistory": {
-        "title": "Historial Académico",
-        "subtitle": "Registro completo del rendimiento académico",
-        "printTranscript": "Imprimir Histórico",
-        "printPeriod": "Imprimir Periodo",
-        "filters": {
-            "searchSubject": "Buscar asignatura...",
-            "filterByPeriod": "Filtrar por periodo",
-            "allPeriods": "Todos los periodos",
-            "columns": "Columnas"
-        },
-        "table": {
-            "code": "Código",
-            "group": "Grupo",
-            "subject": "Asignatura",
-            "credits": "Créditos",
-            "category": "Categoría",
-            "letterGrade": "Nota Literal",
-            "percentGrade": "Porcentaje",
-            "gpaScale": "Escala 4.0",
-            "status": "Estado",
-            "professor": "Profesor",
-            "actions": "Acciones"
-        },
-        "status": {
-            "passed": "Aprobado",
-            "failed": "Reprobado",
-            "inProgress": "Cursando",
-            "withdrawn": "Retirado",
-            "incomplete": "Incompleto"
-        },
-        "categories": {
-            "core": "Troncal",
-            "humanities": "Humanística",
-            "electives": "Electiva",
-            "prerequisite": "Prerrequisito"
-        },
-        "periodSummary": {
-            "title": "Resumen de Finalización por Periodo",
-            "creditsEnrolled": "Créditos Matriculados",
-            "creditsApproved": "Núm. Créd. Aprobados",
-            "percentApproved": "% Créd. Aprobados",
-            "cumulativeCredits": "Créditos Acumulados",
-            "cumulativeApproved": "Núm. Créd. Aprobados Acumulados",
-            "periodGPA": "Promedio Semestral",
-            "cumulativeGPA": "Promedio Acumulado"
-        },
-        "overallSummary": {
-            "title": "Resumen Académico General",
-            "totalCreditsCompleted": "Total Créditos Completados",
-            "totalCreditsRequired": "Total Créditos Requeridos",
-            "overallGPA": "Promedio Total Acumulado",
-            "academicStanding": "Estado Académico",
-            "expectedGraduation": "Graduación Esperada"
-        },
-        "standing": {
-            "excellent": "Excelente",
-            "good": "Buen Rendimiento",
-            "probation": "Probatoria Académica",
-            "warning": "Advertencia Académica"
-        },
-        "subjectDetails": {
-            "title": "Detalles de la Asignatura",
-            "description": "Descripción",
-            "prerequisites": "Prerrequisitos",
-            "schedule": "Horario",
-            "notes": "Notas",
-            "none": "Ninguno"
-        },
-        "noResults": "No se encontraron asignaturas que coincidan con los criterios"
-    },
-    "gradebook": {
-        "title": "Historial de Enseñanza y Calificaciones",
-        "subtitle": "Gestiona calificaciones y visualiza tu historial completo de enseñanza",
-        "stats": {
-            "totalStudents": "Total Estudiantes Enseñados",
-            "totalCourses": "Total Cursos Impartidos",
-            "totalPeriods": "Períodos Impartidos",
-            "acrossAllPeriods": "A través de todos los períodos",
-            "coursesDelivered": "Cursos impartidos",
-            "periodsTaught": "Períodos impartidos"
-        },
-        "filters": {
-            "searchCourse": "Buscar curso...",
-            "filterByPeriod": "Filtrar por período",
-            "allPeriods": "Todos los períodos"
-        },
-        "table": {
-            "code": "Código",
-            "group": "Grupo",
-            "courseName": "Nombre del Curso",
-            "credits": "Créditos",
-            "category": "Categoría",
-            "closingDate": "Fecha de Cierre",
-            "students": "Estudiantes",
-            "status": "Estado"
-        },
-        "status": {
-            "active": "Activo",
-            "closed": "Cerrado",
-            "cancelled": "Cancelado"
-        },
-        "categories": {
-            "core": "Troncal",
-            "humanities": "Humanística",
-            "electives": "Electiva"
-        },
-        "periodSummary": {
-            "courses": "Cursos",
-            "students": "Estudiantes"
-        },
-        "sectionDetails": {
-            "title": "Detalles de la Sección",
-            "group": "Grupo",
-            "enrolledStudents": "Estudiantes Inscritos",
-            "students": "estudiantes",
-            "description": "Descripción",
-            "schedule": "Horario",
-            "studentList": "Lista de Estudiantes",
-            "studentCode": "Código de Estudiante",
-            "studentName": "Nombre del Estudiante",
-            "percentGrade": "Calificación Porcentual",
-            "letterGrade": "Letra",
-            "notes": "Notas",
-            "addNotes": "Agregar notas...",
-            "saveGrades": "Guardar Calificaciones",
-            "gradesSaved": "¡Calificaciones guardadas exitosamente!",
-            "loadingStudents": "Cargando estudiantes...",
-            "noStudents": "No hay estudiantes inscritos en esta sección",
-            "mockDescription": "Esta es una descripción de curso simulada. La descripción real se cargará desde la base de datos.",
-            "monday": "Lunes",
-            "tuesday": "Martes",
-            "wednesday": "Miércoles",
-            "thursday": "Jueves",
-            "friday": "Viernes",
-            "saturday": "Sábado",
-            "sunday": "Domingo"
-        },
-        "showAllPeriods": "Mostrar todos los períodos",
-        "more": "más",
-        "noResults": "No se encontraron cursos que coincidan con los criterios",
-        "navigation": {
-            "newerPeriod": "Período Más Reciente",
-            "olderPeriod": "Período Anterior",
-            "periodInfo": "Período {current} de {total}"
-        }
+  "common": {
+    "language": "Idioma",
+    "english": "English",
+    "spanish": "Español",
+    "theme": "Tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema"
+  },
+  "navigation": {
+    "university": "Alef University",
+    "dashboard": "Tablero",
+    "navigation": "Navegación",
+    "playground": "Área de Pruebas",
+    "models": "Modelos",
+    "documentation": "Documentación",
+    "settings": "Configuración",
+    "history": "Historial",
+    "starred": "Destacados",
+    "general": "General",
+    "introduction": "Introducción",
+    "getStarted": "Comenzar",
+    "tutorials": "Tutoriales",
+    "changelog": "Registro de Cambios",
+    "profile": "Mi Cuenta",
+    "myStudy": "Mi Estudio",
+    "studentDocs": "Documentación",
+    "myClasses": "Mis Clases",
+    "professorDocs": "Documentación",
+    "academicAdmin": "Administración Académica",
+    "personalAdmin": "Administración Personal",
+    "adminDocs": "Documentación",
+    "menu": {
+      "profile": {
+        "title": "Mi Cuenta",
+        "url": "/profile",
+        "items": [
+          {
+            "title": "Información Personal",
+            "url": "/profile"
+          }
+        ]
+      },
+      "student": {
+        "title": "Mi Estudio",
+        "url": "/academic",
+        "items": [
+          {
+            "title": "Historial Académico",
+            "url": "/academic/history"
+          },
+          {
+            "title": "Progreso Académico",
+            "url": "/academic/progress"
+          }
+        ]
+      },
+      "studentDocs": {
+        "title": "Documentación",
+        "url": "/docs",
+        "items": [
+          {
+            "title": "Certificados y Transcripciones",
+            "url": "/docs/transcripts"
+          },
+          {
+            "title": "Guía de Progreso Académico",
+            "url": "/docs/progress"
+          }
+        ]
+      },
+      "professor": {
+        "title": "Mis Clases",
+        "url": "/teaching",
+        "items": [
+          {
+            "title": "Libro de Calificaciones",
+            "url": "/teaching/gradebook"
+          },
+          {
+            "title": "Progreso de Enseñanza",
+            "url": "/teaching/progress"
+          }
+        ]
+      },
+      "professorDocs": {
+        "title": "Documentación",
+        "url": "/docs/teaching",
+        "items": [
+          {
+            "title": "Guía de Calificaciones",
+            "url": "/docs/teaching/grading"
+          },
+          {
+            "title": "Recursos Pedagógicos",
+            "url": "/docs/teaching/resources"
+          }
+        ]
+      },
+      "adminAcademic": {
+        "title": "Administración Académica",
+        "url": "/admin",
+        "items": [
+          {
+            "title": "Gestión de Programas",
+            "url": "/admin/programs"
+          },
+          {
+            "title": "Gestión de Cursos",
+            "url": "/admin/courses"
+          },
+          {
+            "title": "Gestión de Períodos",
+            "url": "/admin/periods"
+          },
+          {
+            "title": "Gestión de Secciones",
+            "url": "/admin/sections"
+          },
+          {
+            "title": "Gestión de Matrículas",
+            "url": "/admin/enrollments"
+          }
+        ]
+      },
+      "adminPersonal": {
+        "title": "Administración Personal",
+        "url": "/admin/users",
+        "items": [
+          {
+            "title": "Gestión de Profesores",
+            "url": "/admin/professors"
+          },
+          {
+            "title": "Gestión de Estudiantes",
+            "url": "/admin/students"
+          }
+        ]
+      },
+      "adminDocs": {
+        "title": "Documentación",
+        "url": "/docs/admin",
+        "items": [
+          {
+            "title": "Manual de Administración",
+            "url": "/docs/admin/manual"
+          },
+          {
+            "title": "Guías del Sistema",
+            "url": "/docs/admin/guides"
+          }
+        ]
+      }
     }
+  },
+  "university": {
+    "name": "Alef University",
+    "academicRecords": "Sistema de Registro Universitario"
+  },
+  "dashboard": {
+    "student": {
+      "metrics": {
+        "completedCredits": "Créditos Completados",
+        "cumulativeGPA": "GPA Acumulado",
+        "currentBimester": "Bimestre Actual",
+        "careerProgress": "Progreso Carrera",
+        "excellentProgress": "Progreso excelente",
+        "creditsRemaining": "{count} créditos restantes para graduarte",
+        "outstandingPerformance": "Rendimiento destacado",
+        "maintainLevel": "Mantén este nivel para graduarte con honores",
+        "currentlyEnrolled": "Inscrito actualmente",
+        "creditsInProgress": "{count} créditos en curso este bimestre",
+        "almostGraduating": "Casi graduándote",
+        "bimestersRemaining": "{count} bimestre restante previsto",
+        "excellent": "Excelente",
+        "bimesters": "bimestres",
+        "subjects": "materias"
+      },
+      "program": {
+        "title": "Ingeniería de Software",
+        "subtitle": "Programa de Pregrado • Código: IDS-001",
+        "admissionDate": "Fecha de Ingreso",
+        "estimatedGraduation": "Graduación Estimada",
+        "status": "Estado",
+        "active": "Activo",
+        "totalCredits": "Créditos Totales",
+        "duration": "Duración",
+        "languages": "Idiomas",
+        "modalityPresential": "Presencial",
+        "viewDetails": "Ver Detalles"
+      },
+      "currentSubjects": {
+        "title": "Materias del Bimestre",
+        "subtitle": "{period} • {count} materias inscritas • {credits} créditos",
+        "code": "Código",
+        "subject": "Materia",
+        "credits": "Créditos",
+        "grade": "Nota",
+        "status": "Estado",
+        "inProgress": "Cursando",
+        "pending": "Pendiente",
+        "viewHistory": "Ver Historial"
+      },
+      "creditDistribution": {
+        "title": "Distribución de Créditos",
+        "core": "Troncales",
+        "humanities": "Humanísticas",
+        "electives": "Electivas"
+      },
+      "upcomingDates": {
+        "title": "Próximas Fechas",
+        "gradesDeadline": "Fecha límite calificaciones",
+        "nextBimesterStart": "Inicio próximo bimestre",
+        "earlyEnrollment": "Matrícula anticipada"
+      },
+      "documents": {
+        "title": "Documentos",
+        "transcriptCertificate": "Certificado de Notas",
+        "academicHistory": "Historial Académico",
+        "progressAnalysis": "Análisis de Progreso",
+        "academicCalendar": "Calendario Académico"
+      }
+    },
+    "professor": {
+      "metrics": {
+        "currentSections": "Secciones Actuales",
+        "totalStudents": "Total Estudiantes",
+        "sectionsToGrade": "Secciones por Calificar",
+        "teachingExperience": "Experiencia Docente",
+        "credits": "créditos",
+        "avgPerSection": "prom/sección",
+        "actionRequired": "Acción Requerida",
+        "upToDate": "Al Día",
+        "studentsTaught": "estudiantes enseñados",
+        "activeTeaching": "Docencia activa",
+        "currentPeriod": "{period}",
+        "studentEngagement": "Compromiso estudiantil",
+        "sectionsEnrolled": "En todas las secciones",
+        "gradingPending": "Calificación pendiente",
+        "allGraded": "Todo calificado",
+        "checkGradebook": "Consulte el libro de calificaciones para detalles",
+        "experiencedEducator": "Educador experimentado",
+        "periodsTaughtTotal": "Total de períodos de experiencia docente"
+      },
+      "currentSections": {
+        "title": "Secciones Actuales",
+        "viewGradebook": "Ver Libro de Calificaciones",
+        "code": "Código",
+        "course": "Asignatura",
+        "group": "Grupo",
+        "students": "Estudiantes",
+        "category": "Categoría",
+        "closingDate": "Fecha de Cierre",
+        "status": "Estado",
+        "categoryGeneral": "General",
+        "categoryProfessional": "Profesional",
+        "categorySpecialty": "Especialidad",
+        "statusActive": "Activa",
+        "statusGrading": "Calificando",
+        "statusClosed": "Cerrada",
+        "subtitle": "{period} • {sections} secciones • {students} estudiantes totales"
+      },
+      "closingDates": {
+        "title": "Fechas de Cierre Próximas",
+        "subtitle": "Plazos importantes para la entrega de calificaciones",
+        "urgent": "Urgente",
+        "soon": "Pronto",
+        "upcoming": "Próximo",
+        "day": "día",
+        "days": "días"
+      }
+    },
+    "admin": {
+      "metrics": {
+        "activeProfessors": "Profesores Activos",
+        "activeStudents": "Estudiantes Activos",
+        "activeCourses": "Cursos Activos",
+        "activePrograms": "Programas Activos",
+        "teachingStaff": "Personal Docente",
+        "enrollments": "matrículas",
+        "sections": "secciones",
+        "academicPrograms": "Programas Académicos",
+        "manageStaff": "Administrar Personal",
+        "viewAllProfessors": "Clic para ver todos los profesores",
+        "studentBody": "Cuerpo Estudiantil",
+        "viewAllStudents": "Clic para ver todos los estudiantes",
+        "courseCatalog": "Catálogo de Cursos",
+        "viewAllCourses": "Clic para ver todos los cursos",
+        "programManagement": "Gestión de Programas",
+        "viewAllPrograms": "Clic para ver todos los programas"
+      },
+      "deadlines": {
+        "title": "Plazos Próximos",
+        "subtitle": "Fechas y plazos importantes a supervisar",
+        "enrollment": "Matrícula",
+        "grading": "Calificación",
+        "period": "Período",
+        "other": "Otro",
+        "urgent": "Urgente",
+        "soon": "Pronto",
+        "upcoming": "Próximo",
+        "day": "día",
+        "days": "días"
+      },
+      "activities": {
+        "title": "Actividades Recientes",
+        "subtitle": "Últimas acciones administrativas y actualizaciones",
+        "created": "Creado",
+        "updated": "Actualizado",
+        "deleted": "Eliminado",
+        "by": "por",
+        "minutesAgo": "hace {count} min",
+        "hoursAgo": "hace {count}h",
+        "daysAgo": "hace {count}d"
+      },
+      "upcomingDeadlines": {
+        "title": "Plazos Próximos",
+        "today": "Hoy",
+        "tomorrow": "Mañana",
+        "inXDays": "en {days} días",
+        "noDeadlines": "No hay plazos próximos"
+      },
+      "recentActivities": {
+        "title": "Actividades Recientes",
+        "created": "creó",
+        "updated": "actualizó",
+        "deleted": "eliminó",
+        "justNow": "justo ahora",
+        "minutesAgo": "hace {minutes}m",
+        "hoursAgo": "hace {hours}h",
+        "yesterday": "ayer",
+        "noActivities": "No hay actividades recientes"
+      }
+    }
+  },
+  "academicHistory": {
+    "title": "Historial Académico",
+    "subtitle": "Registro completo del rendimiento académico",
+    "printTranscript": "Imprimir Histórico",
+    "printPeriod": "Imprimir Periodo",
+    "filters": {
+      "searchSubject": "Buscar asignatura...",
+      "filterByPeriod": "Filtrar por periodo",
+      "allPeriods": "Todos los periodos",
+      "columns": "Columnas"
+    },
+    "table": {
+      "code": "Código",
+      "group": "Grupo",
+      "subject": "Asignatura",
+      "credits": "Créditos",
+      "category": "Categoría",
+      "letterGrade": "Nota Literal",
+      "percentGrade": "Porcentaje",
+      "gpaScale": "Escala 4.0",
+      "status": "Estado",
+      "professor": "Profesor",
+      "actions": "Acciones"
+    },
+    "status": {
+      "passed": "Aprobado",
+      "failed": "Reprobado",
+      "inProgress": "Cursando",
+      "withdrawn": "Retirado",
+      "incomplete": "Incompleto"
+    },
+    "categories": {
+      "core": "Troncal",
+      "humanities": "Humanística",
+      "electives": "Electiva",
+      "prerequisite": "Prerrequisito"
+    },
+    "periodSummary": {
+      "title": "Resumen de Finalización por Periodo",
+      "creditsEnrolled": "Créditos Matriculados",
+      "creditsApproved": "Núm. Créd. Aprobados",
+      "percentApproved": "% Créd. Aprobados",
+      "cumulativeCredits": "Créditos Acumulados",
+      "cumulativeApproved": "Núm. Créd. Aprobados Acumulados",
+      "periodGPA": "Promedio Semestral",
+      "cumulativeGPA": "Promedio Acumulado"
+    },
+    "overallSummary": {
+      "title": "Resumen Académico General",
+      "totalCreditsCompleted": "Total Créditos Completados",
+      "totalCreditsRequired": "Total Créditos Requeridos",
+      "overallGPA": "Promedio Total Acumulado",
+      "academicStanding": "Estado Académico",
+      "expectedGraduation": "Graduación Esperada"
+    },
+    "standing": {
+      "excellent": "Excelente",
+      "good": "Buen Rendimiento",
+      "probation": "Probatoria Académica",
+      "warning": "Advertencia Académica"
+    },
+    "subjectDetails": {
+      "title": "Detalles de la Asignatura",
+      "description": "Descripción",
+      "prerequisites": "Prerrequisitos",
+      "schedule": "Horario",
+      "notes": "Notas",
+      "none": "Ninguno"
+    },
+    "noResults": "No se encontraron asignaturas que coincidan con los criterios"
+  },
+  "gradebook": {
+    "title": "Historial de Enseñanza y Calificaciones",
+    "subtitle": "Gestiona calificaciones y visualiza tu historial completo de enseñanza",
+    "stats": {
+      "totalStudents": "Total Estudiantes Enseñados",
+      "totalCourses": "Total Cursos Impartidos",
+      "totalPeriods": "Períodos Impartidos",
+      "acrossAllPeriods": "A través de todos los períodos",
+      "coursesDelivered": "Cursos impartidos",
+      "periodsTaught": "Períodos impartidos"
+    },
+    "filters": {
+      "searchCourse": "Buscar curso...",
+      "filterByPeriod": "Filtrar por período",
+      "allPeriods": "Todos los períodos"
+    },
+    "table": {
+      "code": "Código",
+      "group": "Grupo",
+      "courseName": "Nombre del Curso",
+      "credits": "Créditos",
+      "category": "Categoría",
+      "closingDate": "Fecha de Cierre",
+      "students": "Estudiantes",
+      "status": "Estado"
+    },
+    "status": {
+      "active": "Activo",
+      "closed": "Cerrado",
+      "cancelled": "Cancelado"
+    },
+    "categories": {
+      "core": "Troncal",
+      "humanities": "Humanística",
+      "electives": "Electiva"
+    },
+    "periodSummary": {
+      "courses": "Cursos",
+      "students": "Estudiantes"
+    },
+    "sectionDetails": {
+      "title": "Detalles de la Sección",
+      "group": "Grupo",
+      "enrolledStudents": "Estudiantes Inscritos",
+      "students": "estudiantes",
+      "description": "Descripción",
+      "schedule": "Horario",
+      "studentList": "Lista de Estudiantes",
+      "studentCode": "Código de Estudiante",
+      "studentName": "Nombre del Estudiante",
+      "percentGrade": "Calificación Porcentual",
+      "letterGrade": "Letra",
+      "notes": "Notas",
+      "addNotes": "Agregar notas...",
+      "saveGrades": "Guardar Calificaciones",
+      "gradesSaved": "¡Calificaciones guardadas exitosamente!",
+      "loadingStudents": "Cargando estudiantes...",
+      "noStudents": "No hay estudiantes inscritos en esta sección",
+      "mockDescription": "Esta es una descripción de curso simulada. La descripción real se cargará desde la base de datos.",
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sábado",
+      "sunday": "Domingo"
+    },
+    "showAllPeriods": "Mostrar todos los períodos",
+    "more": "más",
+    "noResults": "No se encontraron cursos que coincidan con los criterios",
+    "navigation": {
+      "newerPeriod": "Período Más Reciente",
+      "olderPeriod": "Período Anterior",
+      "periodInfo": "Período {current} de {total}"
+    }
+  },
+  "admin": {
+    "programs": {
+      "table": {
+        "columns": {
+          "code": "Código",
+
+          "program": "Programa",
+          "type": "Tipo",
+          "language": "Idioma",
+          "credits": "Créditos",
+
+          "duration": "Bimestres",
+
+          "tuitionPerCredit": "Valor por crédito",
+
+          "status": "Estado",
+
+          "emptyValue": "—",
+
+          "notAvailable": "N/D"
+        },
+
+        "types": {
+          "diploma": "Diploma",
+          "bachelor": "Pregrado",
+          "master": "Maestría",
+          "doctorate": "Doctorado"
+        },
+        "languages": {
+          "es": "Español",
+          "en": "Inglés",
+          "both": "Bilingüe"
+        },
+        "status": {
+          "active": "Activo",
+          "inactive": "Inactivo"
+        },
+        "aria": {
+          "selectAll": "Seleccionar todas las filas",
+          "selectRow": "Seleccionar fila",
+          "openMenu": "Abrir menú"
+        },
+        "menu": {
+          "label": "Acciones",
+          "copyProgramCode": "Copiar código del programa",
+          "viewDetails": "Ver detalles"
+        },
+        "columnsMenuLabel": "Columnas",
+        "filterPlaceholder": "Filtrar programas...",
+        "emptyMessage": "No hay programas disponibles."
+      }
+    }
+  }
 }

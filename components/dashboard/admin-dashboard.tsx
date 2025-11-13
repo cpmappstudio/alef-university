@@ -21,7 +21,7 @@ export default function AdminDashboard() {
   // Show loading state while auth is loading or data is being fetched
   if (!isLoaded || !isSignedIn) {
     return (
-      <div className="max-w-7xl mx-auto   py-12">
+      <div className="max-w-7xl mx-auto">
         <div className="flex flex-col items-center justify-center space-y-4">
           <Loader2 className="h-12 w-12 animate-spin text-primary" />
           <p className="text-lg font-medium text-muted-foreground">
@@ -34,7 +34,7 @@ export default function AdminDashboard() {
 
   if (data === undefined) {
     return (
-      <div className="max-w-7xl mx-auto   py-12">
+      <div className="max-w-7xl mx-auto   ">
         <div className="flex flex-col items-center justify-center space-y-4">
           <Loader2 className="h-12 w-12 animate-spin text-primary" />
           <p className="text-lg font-medium text-muted-foreground">
@@ -48,7 +48,7 @@ export default function AdminDashboard() {
   // Handle when user doesn't have admin access
   if (data === null) {
     return (
-      <div className="max-w-7xl mx-auto py-12">
+      <div className="max-w-7xl mx-auto ">
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Access Denied</AlertTitle>
@@ -63,7 +63,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="max-w-7xl mx-auto ">
-      <div className="@container/main space-y-4 md:space-y-6 py-6">
+      <div className="@container/main space-y-4 md:space-y-6 ">
         <AdminMetricsGrid metricsData={data.metrics} />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
           <UpcomingDeadlinesCard data={data} />

@@ -1,0 +1,358 @@
+[
+  {
+    "_creationTime": 1762537321110.0562,
+    "_id": "kd7frg331351saav7m1858thx57ty5jw",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Raúl",
+    "isActive": true,
+    "lastName": "Zaldívar",
+    "professorProfile": {
+      "department": "Teología",
+      "employeeCode": "PC -01"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0564,
+    "_id": "kd7ems42mmr0e4njc0vfccn1th7tz2gn",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "César",
+    "isActive": true,
+    "lastName": "Gómez",
+    "professorProfile": {
+      "department": "Exégesis",
+      "employeeCode": "PT -02"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0566,
+    "_id": "kd78jazpd97y0te7rmjm00fhk57ty3zr",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Dulce",
+    "isActive": true,
+    "lastName": "Gutiérrez",
+    "professorProfile": {
+      "department": "Teología",
+      "employeeCode": "PT -03"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.057,
+    "_id": "kd723a2e6jx58r2w1bw1znjpb17tz8f1",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Jairo",
+    "isActive": true,
+    "lastName": "López",
+    "professorProfile": {
+      "department": "Ciencias Sociales",
+      "employeeCode": "PT - 04"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0571,
+    "_id": "kd7a2ajb6zs19yns23pc0c6ny17tz7pd",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Edwin",
+    "isActive": true,
+    "lastName": "Rivera",
+    "professorProfile": {
+      "department": "Exégesis",
+      "employeeCode": "PT - 05"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0574,
+    "_id": "kd734d777r2t8ww26sn77q3xqx7tyevj",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Francisco",
+    "isActive": true,
+    "lastName": "Zúñiga",
+    "professorProfile": {
+      "department": "Teología práctica",
+      "employeeCode": "PT -06"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0576,
+    "_id": "kd7age2zbgtw67g5kay28h5tx97tzzr3",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Heber",
+    "isActive": true,
+    "lastName": "Sauceda",
+    "professorProfile": {
+      "department": "Teologia",
+      "employeeCode": "PT - 07"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0579,
+    "_id": "kd7e6q8perv4g2e3vts19atkr57tyr1q",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Mayra",
+    "isActive": true,
+    "lastName": "Navarro",
+    "professorProfile": {
+      "department": "Ciencias Sociales",
+      "employeeCode": "PT - 08"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.058,
+    "_id": "kd78wbg2thnx6ndcy8qcs05v357tzy4q",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Jenny",
+    "isActive": true,
+    "lastName": "Meza",
+    "professorProfile": {
+      "department": "Teología",
+      "employeeCode": "PT -09"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0583,
+    "_id": "kd72ztcrq8ntts5g59v2pa44pn7tyte8",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Mattew",
+    "isActive": true,
+    "lastName": "Wilmeth",
+    "professorProfile": {
+      "department": "Biblia",
+      "employeeCode": "PT -10"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0586,
+    "_id": "kd7djxew7tksjernaty8j2h7ch7ty3vg",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Mike",
+    "isActive": true,
+    "lastName": "Bourrassa",
+    "professorProfile": {
+      "department": "Biblia",
+      "employeeCode": "PT -11"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0588,
+    "_id": "kd73322dc06mpc5y2rggbg7fhs7ty35x",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Melody",
+    "isActive": true,
+    "lastName": "Varela",
+    "professorProfile": {
+      "department": "Ciencias Sociales",
+      "employeeCode": "PT -12"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.059,
+    "_id": "kd769b3kmzye60jm2ahpcdbgw17tzsq5",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Pedro",
+    "isActive": true,
+    "lastName": "Estrada",
+    "professorProfile": {
+      "department": "Biblia",
+      "employeeCode": "PT - 13"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0593,
+    "_id": "kd7a5gdd8fp7e4jrcqqv0edh517ty7eg",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Perminus",
+    "isActive": true,
+    "lastName": "Kihima",
+    "professorProfile": {
+      "department": "Teología",
+      "employeeCode": "PT - 14"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0596,
+    "_id": "kd7186qfb964xcrjwk0qnf6ze57tzt0k",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Bob",
+    "isActive": true,
+    "lastName": "Hoeller",
+    "professorProfile": {
+      "department": "Teología",
+      "employeeCode": "PC- 15"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0598,
+    "_id": "kd760wfnmr8bm06jkrk3aay8957ty97y",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Evalyne Awitti",
+    "isActive": true,
+    "lastName": "Ogaloh",
+    "professorProfile": {
+      "department": "Teología",
+      "employeeCode": "PT -16"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.06,
+    "_id": "kd75v6bsvjh70tpgv4ve4cbmy97ty1qq",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Yadira",
+    "isActive": true,
+    "lastName": "Pérez",
+    "professorProfile": {
+      "department": "Teología",
+      "employeeCode": "PT -17"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0603,
+    "_id": "kd7bzb1mj3smwcn81yej4wj8qn7tyxj7",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Muchengetwa",
+    "isActive": true,
+    "lastName": "Bgoni",
+    "professorProfile": {
+      "department": "Biblia",
+      "employeeCode": "PC -18"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0605,
+    "_id": "kd71v7vssx2tzn2k3dnrka3r8d7tyy43",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Agustín",
+    "isActive": true,
+    "lastName": "Arce",
+    "professorProfile": {
+      "department": "Exégesis",
+      "employeeCode": "PT - 19"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0608,
+    "_id": "kd7fm78jt92jby4m83050emt397ty5g9",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Miriam",
+    "isActive": true,
+    "lastName": "Bermúdez",
+    "professorProfile": {
+      "department": "Historia",
+      "employeeCode": "PT -20"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.061,
+    "_id": "kd76sj34215gxkhj9xzpjzb11h7ty2cd",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Daniel",
+    "isActive": true,
+    "lastName": "Barahona",
+    "professorProfile": {
+      "department": "Exégesis",
+      "employeeCode": "PT - 21"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0613,
+    "_id": "kd7ffmfzcjhfm2c0eqkxx5panx7tz04p",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Iris",
+    "isActive": true,
+    "lastName": "Barrientos",
+    "professorProfile": {
+      "department": "Exégesis",
+      "employeeCode": "PC - 22"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762537321110.0615,
+    "_id": "kd78e9d54734bj0hp10mq7ma317tzef6",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "María",
+    "isActive": true,
+    "lastName": "Vargas",
+    "professorProfile": {
+      "department": "Gramática castellana",
+      "employeeCode": "PE-23"
+    },
+    "role": "professor"
+  },
+  {
+    "_creationTime": 1762570635800.0327,
+    "_id": "kd720azpe1ekhz74pdegbyn8mx7v0v33",
+    "clerkId": "",
+    "createdAt": 0,
+    "email": "",
+    "firstName": "Karla",
+    "isActive": false,
+    "lastName": "Blandin",
+    "role": "professor"
+  }
+]

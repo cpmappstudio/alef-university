@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   BookOpen,
   User,
@@ -8,12 +8,12 @@ import {
   Settings,
   UserCog,
   FileText,
-} from "lucide-react"
-import { useTranslations } from "next-intl"
-import { useUser } from "@clerk/nextjs"
+} from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useUser } from "@clerk/nextjs";
 
-import { NavMain } from "@/components/nav-main"
-import { UniversityLogo } from "@/components/university-logo"
+import { NavMain } from "@/components/nav-main";
+import { UniversityLogo } from "@/components/university-logo";
 import {
   Sidebar,
   SidebarContent,
@@ -21,19 +21,19 @@ import {
   SidebarHeader,
   SidebarRail,
   useSidebar,
-} from "@/components/ui/sidebar"
-import { ModeToggle } from "./mode-toggle"
-import { LangToggle } from "./lang-toggle"
-import { UserButtonWrapper } from "./user-button-wrapper"
-import type { UserRole } from "@/convex/types"
+} from "@/components/ui/sidebar";
+import { ModeToggle } from "./mode-toggle";
+import { LangToggle } from "./lang-toggle";
+import { UserButtonWrapper } from "./user-button-wrapper";
+import type { UserRole } from "@/convex/types";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { state } = useSidebar()
-  const { user } = useUser()
-  const t = useTranslations('navigation')
+  const { state } = useSidebar();
+  const { user } = useUser();
+  const t = useTranslations("navigation");
 
   // Get user role from Clerk metadata
-  const userRole = user?.publicMetadata?.role as UserRole | undefined
+  const userRole = user?.publicMetadata?.role as UserRole | undefined;
 
   // Configuración de íconos para cada tipo de menú
   const iconMap = {
@@ -45,21 +45,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     adminAcademic: Settings,
     adminPersonal: UserCog,
     adminDocs: FileText,
-  } as const
+  } as const;
 
   // Generar estructura de navegación basada en el rol del usuario
   const navItems = React.useMemo(() => {
-    const menuConfig = t.raw('menu') as Record<string, {
-      title: string;
-      url: string;
-      items: Array<{ title: string; url: string }>
-    }>
+    const menuConfig = t.raw("menu") as Record<
+      string,
+      {
+        title: string;
+        url: string;
+        items: Array<{ title: string; url: string }>;
+      }
+    >;
 
-    const items = []
+    const items = [];
 
     // Eliminar "Mi Cuenta" para todos los roles
     // Menús específicos por rol
-    if (userRole === 'student') {
+    if (userRole === "student") {
       // Mi Estudio
       if (menuConfig.student) {
         items.push({
@@ -68,12 +71,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           icon: iconMap.student,
           isActive: true, // Dashboard activo por defecto
           items: menuConfig.student.items
-            .filter(item => !item.url.includes('/progress')) // Ocultar enlaces de progress
-            .map(item => ({
+            .filter((item) => !item.url.includes("/progress")) // Ocultar enlaces de progress
+            .map((item) => ({
               title: item.title,
               url: item.url,
             })),
-        })
+        });
       }
 
       // Documentación para estudiantes - OCULTO
@@ -91,7 +94,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       // }
     }
 
-    if (userRole === 'professor') {
+    if (userRole === "professor") {
       // Mis Clases
       if (menuConfig.professor) {
         items.push({
@@ -100,12 +103,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           icon: iconMap.professor,
           isActive: true,
           items: menuConfig.professor.items
-            .filter(item => !item.url.includes('/progress')) // Ocultar enlaces de progress
-            .map(item => ({
+            .filter((item) => !item.url.includes("/progress")) // Ocultar enlaces de progress
+            .map((item) => ({
               title: item.title,
               url: item.url,
             })),
-        })
+        });
       }
 
       // Documentación para profesores - OCULTO
@@ -123,7 +126,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       // }
     }
 
-    if ((userRole === 'admin' || userRole === 'superadmin')) {
+    if (userRole === "admin" || userRole === "superadmin") {
       // Administración Académica
       if (menuConfig.adminAcademic) {
         items.push({
@@ -132,12 +135,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           icon: iconMap.adminAcademic,
           isActive: true,
           items: menuConfig.adminAcademic.items
-            .filter(item => !item.url.includes('/progress')) // Ocultar enlaces de progress
-            .map(item => ({
+            .filter((item) => !item.url.includes("/progress")) // Ocultar enlaces de progress
+            .map((item) => ({
               title: item.title,
               url: item.url,
             })),
-        })
+        });
       }
 
       // Administración Personal
@@ -148,12 +151,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           icon: iconMap.adminPersonal,
           isActive: false,
           items: menuConfig.adminPersonal.items
-            .filter(item => !item.url.includes('/progress')) // Ocultar enlaces de progress
-            .map(item => ({
+            .filter((item) => !item.url.includes("/progress")) // Ocultar enlaces de progress
+            .map((item) => ({
               title: item.title,
               url: item.url,
             })),
-        })
+        });
       }
 
       // Documentación para administradores - OCULTO
@@ -171,11 +174,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       // }
     }
 
-    return items
-  }, [t, userRole])
+    return items;
+  }, [t, userRole]);
 
   return (
-    <Sidebar collapsible="icon" {...props} className="wrap-anywhere overflow-hidden">
+    <Sidebar
+      collapsible="icon"
+      {...props}
+      className="wrap-anywhere overflow-hidden"
+    >
       <SidebarHeader>
         <UserButtonWrapper
           showName={state !== "collapsed"}
@@ -185,8 +192,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <NavMain
           items={navItems}
-          dashboardLabel={t('dashboard')}
-          navigationLabel={t('navigation')}
+          dashboardLabel={t("dashboard")}
+          navigationLabel={t("navigation")}
         />
       </SidebarContent>
       <SidebarFooter>
@@ -196,5 +203,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

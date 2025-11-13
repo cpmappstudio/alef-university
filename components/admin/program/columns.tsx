@@ -1,0 +1,358 @@
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import type { Doc } from "@/convex/_generated/dataModel";
+
+type ProgramRow = Doc<"programs">;
+type Translator = (key: string, values?: Record<string, any>) => string;
+
+const LANGUAGE_TAGS = {
+  es: "ES",
+  en: "EN",
+} as const;
+
+const getStringValue = <T extends keyof ProgramRow>(
+  row: ProgramRow,
+  key: T,
+): string => {
+  const value = row[key];
+  return typeof value === "string" ? value.trim() : "";
+};
+
+const pickPreferredValue = (
+  primary: string,
+  fallback: string,
+): string | null => {
+  if (primary) {
+    return primary;
+  }
+  if (fallback) {
+    return fallback;
+  }
+  return null;
+};
+
+const renderLocalizedField = (
+  row: ProgramRow,
+  esKey: keyof ProgramRow,
+  enKey: keyof ProgramRow,
+  locale: string,
+  emptyValue: string,
+) => {
+  const valueEs = getStringValue(row, esKey);
+  const valueEn = getStringValue(row, enKey);
+
+  if (row.language === "both") {
+    const items: Array<{ tag: string; value: string }> = [];
+
+    if (locale === "en") {
+      if (valueEn) {
+        items.push({ tag: LANGUAGE_TAGS.en, value: valueEn });
+      }
+      if (valueEs) {
+        items.push({ tag: LANGUAGE_TAGS.es, value: valueEs });
+      }
+    } else {
+      if (valueEs) {
+        items.push({ tag: LANGUAGE_TAGS.es, value: valueEs });
+      }
+      if (valueEn) {
+        items.push({ tag: LANGUAGE_TAGS.en, value: valueEn });
+      }
+    }
+
+    if (!items.length) {
+      return emptyValue;
+    }
+
+    return (
+      <div className="flex flex-col gap-0.5">
+        {items.map(({ tag, value }) => (
+          <span key={tag}>
+            <span className="font-semibold">{tag}:</span> {value}
+          </span>
+        ))}
+      </div>
+    );
+  }
+
+  if (row.language === "en") {
+    const preferredValue = getStringValue(row, enKey);
+    const fallbackValue = getStringValue(row, esKey);
+    return pickPreferredValue(preferredValue, fallbackValue) ?? emptyValue;
+  }
+
+  const preferredValue = getStringValue(row, esKey);
+  const fallbackValue = getStringValue(row, enKey);
+  return pickPreferredValue(preferredValue, fallbackValue) ?? emptyValue;
+};
+
+const formatLocalizedFieldForCopy = (
+  row: ProgramRow,
+  esKey: keyof ProgramRow,
+  enKey: keyof ProgramRow,
+  locale: string,
+): string => {
+  const valueEs = getStringValue(row, esKey);
+  const valueEn = getStringValue(row, enKey);
+
+  if (row.language === "both") {
+    const parts: string[] = [];
+
+    if (locale === "en") {
+      if (valueEn) {
+        parts.push(`${LANGUAGE_TAGS.en}: ${valueEn}`);
+      }
+      if (valueEs) {
+        parts.push(`${LANGUAGE_TAGS.es}: ${valueEs}`);
+      }
+    } else {
+      if (valueEs) {
+        parts.push(`${LANGUAGE_TAGS.es}: ${valueEs}`);
+      }
+      if (valueEn) {
+        parts.push(`${LANGUAGE_TAGS.en}: ${valueEn}`);
+      }
+    }
+
+    return parts.join("\n");
+  }
+
+  if (row.language === "en") {
+    return pickPreferredValue(valueEn, valueEs) ?? "";
+  }
+
+  return pickPreferredValue(valueEs, valueEn) ?? "";
+};
+
+const buildSearchableField = (
+  row: ProgramRow,
+  esKey: keyof ProgramRow,
+  enKey: keyof ProgramRow,
+  locale: string,
+): string => {
+  const valueEs = getStringValue(row, esKey);
+  const valueEn = getStringValue(row, enKey);
+
+  if (row.language === "both") {
+    const parts: string[] = [];
+
+    if (locale === "en") {
+      if (valueEn) {
+        parts.push(`${LANGUAGE_TAGS.en}: ${valueEn}`);
+      }
+      if (valueEs) {
+        parts.push(`${LANGUAGE_TAGS.es}: ${valueEs}`);
+      }
+    } else {
+      if (valueEs) {
+        parts.push(`${LANGUAGE_TAGS.es}: ${valueEs}`);
+      }
+      if (valueEn) {
+        parts.push(`${LANGUAGE_TAGS.en}: ${valueEn}`);
+      }
+    }
+
+    return parts.join(" ");
+  }
+
+  if (row.language === "en") {
+    return (
+      pickPreferredValue(
+        getStringValue(row, enKey),
+        getStringValue(row, esKey),
+      ) ?? ""
+    );
+  }
+
+  return (
+    pickPreferredValue(
+      getStringValue(row, esKey),
+      getStringValue(row, enKey),
+    ) ?? ""
+  );
+};
+
+export const programColumns = (
+  t: Translator,
+  locale: string,
+): ColumnDef<ProgramRow>[] => {
+  const emptyValue = t("columns.emptyValue");
+
+  const typeLabels: Record<ProgramRow["type"], string> = {
+    diploma: t("types.diploma"),
+    bachelor: t("types.bachelor"),
+    master: t("types.master"),
+    doctorate: t("types.doctorate"),
+  };
+
+  const languageLabels: Record<ProgramRow["language"], string> = {
+    es: t("languages.es"),
+    en: t("languages.en"),
+    both: t("languages.both"),
+  };
+
+  const programHeader = t("columns.program");
+
+  const currencyFormatter = new Intl.NumberFormat(
+    locale === "es" ? "es-ES" : "en-US",
+    {
+      style: "currency",
+      currency: "USD",
+    },
+  );
+
+  return [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label={t("aria.selectAll")}
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label={t("aria.selectRow")}
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
+      id: "code",
+      accessorFn: (row) =>
+        buildSearchableField(row, "codeEs", "codeEn", locale),
+      header: t("columns.code"),
+      cell: ({ row }) =>
+        renderLocalizedField(
+          row.original,
+          "codeEs",
+          "codeEn",
+          locale,
+          emptyValue,
+        ),
+    },
+    {
+      id: "program",
+      accessorFn: (row) =>
+        buildSearchableField(row, "nameEs", "nameEn", locale),
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          {programHeader}
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      ),
+      cell: ({ row }) =>
+        renderLocalizedField(
+          row.original,
+          "nameEs",
+          "nameEn",
+          locale,
+          emptyValue,
+        ),
+    },
+    {
+      accessorKey: "type",
+      header: t("columns.type"),
+      cell: ({ row }) => {
+        const value = row.getValue("type") as ProgramRow["type"] | undefined;
+        return value ? (typeLabels[value] ?? emptyValue) : emptyValue;
+      },
+    },
+    {
+      accessorKey: "language",
+      header: t("columns.language"),
+      cell: ({ row }) => {
+        const value = row.getValue("language") as
+          | ProgramRow["language"]
+          | undefined;
+        return value ? (languageLabels[value] ?? emptyValue) : emptyValue;
+      },
+    },
+    {
+      accessorKey: "totalCredits",
+      header: () => <div className="text-right">{t("columns.credits")}</div>,
+      cell: ({ row }) => {
+        const value = row.getValue("totalCredits") as number | undefined;
+        return (
+          <div className="text-right font-medium">{value ?? emptyValue}</div>
+        );
+      },
+    },
+    {
+      accessorKey: "durationBimesters",
+      header: () => <div className="text-right">{t("columns.duration")}</div>,
+      cell: ({ row }) => {
+        const value = row.getValue("durationBimesters") as number | undefined;
+        return (
+          <div className="text-right font-medium">{value ?? emptyValue}</div>
+        );
+      },
+    },
+
+    {
+      accessorKey: "isActive",
+      header: t("columns.status"),
+      cell: ({ row }) => (
+        <span className="font-medium">
+          {row.original.isActive ? t("status.active") : t("status.inactive")}
+        </span>
+      ),
+    },
+    {
+      id: "actions",
+      enableHiding: false,
+      cell: ({ row }) => {
+        const program = row.original;
+
+        const handleCopyCode = () => {
+          const code = formatLocalizedFieldForCopy(
+            program,
+            "codeEs",
+            "codeEn",
+            locale,
+          );
+          void navigator.clipboard.writeText(code);
+        };
+
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">{t("aria.openMenu")}</span>
+                <MoreHorizontal />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>{t("menu.label")}</DropdownMenuLabel>
+              <DropdownMenuItem onClick={handleCopyCode}>
+                {t("menu.copyProgramCode")}
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>{t("menu.viewDetails")}</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        );
+      },
+    },
+  ];
+};

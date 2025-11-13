@@ -1,485 +1,536 @@
 {
-    "common": {
-        "language": "Language",
-        "english": "English",
-        "spanish": "Español",
-        "theme": "Theme",
-        "light": "Light",
-        "dark": "Dark",
-        "system": "System"
-    },
-    "navigation": {
-        "university": "Alef University",
-        "dashboard": "Dashboard",
-        "navigation": "Navigation",
-        "playground": "Playground",
-        "models": "Models",
-        "documentation": "Documentation",
-        "settings": "Settings",
-        "history": "History",
-        "starred": "Starred",
-        "general": "General",
-        "introduction": "Introduction",
-        "getStarted": "Get Started",
-        "tutorials": "Tutorials",
-        "changelog": "Changelog",
-        "profile": "My Account",
-        "myStudy": "My Study",
-        "studentDocs": "Documentation",
-        "myClasses": "My Classes",
-        "professorDocs": "Documentation",
-        "academicAdmin": "Academic Administration",
-        "personalAdmin": "Personal Administration",
-        "adminDocs": "Documentation",
-        "menu": {
-            "profile": {
-                "title": "My Account",
-                "url": "/profile",
-                "items": [
-                    {
-                        "title": "Personal Information",
-                        "url": "/profile"
-                    }
-                ]
-            },
-            "student": {
-                "title": "My Study",
-                "url": "/academic",
-                "items": [
-                    {
-                        "title": "Academic History",
-                        "url": "/academic/history"
-                    },
-                    {
-                        "title": "Academic Progress",
-                        "url": "/academic/progress"
-                    }
-                ]
-            },
-            "studentDocs": {
-                "title": "Documentation",
-                "url": "/docs",
-                "items": [
-                    {
-                        "title": "Certificates & Transcripts",
-                        "url": "/docs/transcripts"
-                    },
-                    {
-                        "title": "Academic Progress Guide",
-                        "url": "/docs/progress"
-                    }
-                ]
-            },
-            "professor": {
-                "title": "My Classes",
-                "url": "/teaching",
-                "items": [
-                    {
-                        "title": "Gradebook",
-                        "url": "/teaching/gradebook"
-                    },
-                    {
-                        "title": "Teaching Progress",
-                        "url": "/teaching/progress"
-                    }
-                ]
-            },
-            "professorDocs": {
-                "title": "Documentation",
-                "url": "/docs/teaching",
-                "items": [
-                    {
-                        "title": "Grading Guide",
-                        "url": "/docs/teaching/grading"
-                    },
-                    {
-                        "title": "Teaching Resources",
-                        "url": "/docs/teaching/resources"
-                    }
-                ]
-            },
-            "adminAcademic": {
-                "title": "Academic Administration",
-                "url": "/admin",
-                "items": [
-                    {
-                        "title": "Program Management",
-                        "url": "/admin/programs"
-                    },
-                    {
-                        "title": "Course Management",
-                        "url": "/admin/courses"
-                    },
-                    {
-                        "title": "Period Management",
-                        "url": "/admin/periods"
-                    },
-                    {
-                        "title": "Sections Management",
-                        "url": "/admin/sections"
-                    },
-                    {
-                        "title": "Enrollment Management",
-                        "url": "/admin/enrollments"
-                    }
-                ]
-            },
-            "adminPersonal": {
-                "title": "Personal Administration",
-                "url": "/admin/users",
-                "items": [
-                    {
-                        "title": "Professor Management",
-                        "url": "/admin/professors"
-                    },
-                    {
-                        "title": "Student Management",
-                        "url": "/admin/students"
-                    }
-                ]
-            },
-            "adminDocs": {
-                "title": "Documentation",
-                "url": "/docs/admin",
-                "items": [
-                    {
-                        "title": "Administration Manual",
-                        "url": "/docs/admin/manual"
-                    },
-                    {
-                        "title": "System Guides",
-                        "url": "/docs/admin/guides"
-                    }
-                ]
-            }
-        }
-    },
-    "university": {
-        "name": "Alef University",
-        "academicRecords": "University Registration System"
-    },
-    "dashboard": {
-        "student": {
-            "metrics": {
-                "completedCredits": "Completed Credits",
-                "cumulativeGPA": "Cumulative GPA",
-                "currentBimester": "Current Bimester",
-                "careerProgress": "Career Progress",
-                "excellentProgress": "Excellent progress",
-                "creditsRemaining": "{count} credits remaining to graduate",
-                "outstandingPerformance": "Outstanding performance",
-                "maintainLevel": "Maintain this level to graduate with honors",
-                "currentlyEnrolled": "Currently enrolled",
-                "creditsInProgress": "{count} credits in progress this bimester",
-                "almostGraduating": "Almost graduating",
-                "bimestersRemaining": "{count} bimester remaining expected",
-                "excellent": "Excellent",
-                "bimesters": "bimesters",
-                "subjects": "subjects"
-            },
-            "program": {
-                "title": "Software Engineering",
-                "subtitle": "Undergraduate Program • Code: IDS-001",
-                "admissionDate": "Admission Date",
-                "estimatedGraduation": "Estimated Graduation",
-                "status": "Status",
-                "active": "Active",
-                "totalCredits": "Total Credits",
-                "duration": "Duration",
-                "languages": "Languages",
-                "modalityPresential": "Presential",
-                "viewDetails": "View Details"
-            },
-            "currentSubjects": {
-                "title": "Bimester Subjects",
-                "subtitle": "{period} • {count} enrolled subjects • {credits} credits",
-                "code": "Code",
-                "subject": "Subject",
-                "credits": "Credits",
-                "grade": "Grade",
-                "status": "Status",
-                "inProgress": "In Progress",
-                "pending": "Pending",
-                "completed": "Completed",
-                "viewHistory": "View History"
-            },
-            "creditDistribution": {
-                "title": "Credit Distribution",
-                "core": "Core",
-                "humanities": "Humanities",
-                "electives": "Electives"
-            },
-            "upcomingDates": {
-                "title": "Upcoming Dates",
-                "gradesDeadline": "Grades deadline",
-                "nextBimesterStart": "Next bimester start",
-                "earlyEnrollment": "Early enrollment"
-            },
-            "documents": {
-                "title": "Documents",
-                "transcriptCertificate": "Transcript Certificate",
-                "academicHistory": "Academic History",
-                "progressAnalysis": "Progress Analysis",
-                "academicCalendar": "Academic Calendar"
-            }
-        },
-        "professor": {
-            "metrics": {
-                "currentSections": "Current Sections",
-                "totalStudents": "Total Students",
-                "sectionsToGrade": "Sections to Grade",
-                "teachingExperience": "Teaching Experience",
-                "credits": "credits",
-                "avgPerSection": "avg/section",
-                "actionRequired": "Action Required",
-                "upToDate": "Up to Date",
-                "studentsTaught": "students taught",
-                "activeTeaching": "Active teaching",
-                "currentPeriod": "{period}",
-                "studentEngagement": "Student engagement",
-                "sectionsEnrolled": "Across all sections",
-                "gradingPending": "Grading pending",
-                "allGraded": "All graded",
-                "checkGradebook": "Check gradebook for details",
-                "experiencedEducator": "Experienced educator",
-                "periodsTaughtTotal": "Total periods of teaching experience"
-            },
-            "currentSections": {
-                "title": "Current Sections",
-                "viewGradebook": "View Gradebook",
-                "code": "Code",
-                "course": "Course",
-                "group": "Group",
-                "students": "Students",
-                "category": "Category",
-                "closingDate": "Closing Date",
-                "status": "Status",
-                "categoryGeneral": "General",
-                "categoryProfessional": "Professional",
-                "categorySpecialty": "Specialty",
-                "statusActive": "Active",
-                "statusGrading": "Grading",
-                "statusClosed": "Closed",
-                "subtitle": "{period} • {sections} sections • {students} total students"
-            },
-            "closingDates": {
-                "title": "Upcoming Closing Dates",
-                "subtitle": "Important deadlines for grade submission",
-                "urgent": "Urgent",
-                "soon": "Soon",
-                "upcoming": "Upcoming",
-                "day": "day",
-                "days": "days"
-            }
-        },
-        "admin": {
-            "metrics": {
-                "activeProfessors": "Active Professors",
-                "activeStudents": "Active Students",
-                "activeCourses": "Active Courses",
-                "activePrograms": "Active Programs",
-                "teachingStaff": "Teaching Staff",
-                "enrollments": "enrollments",
-                "sections": "sections",
-                "academicPrograms": "Academic Programs",
-                "manageStaff": "Manage Staff",
-                "viewAllProfessors": "Click to view all professors",
-                "studentBody": "Student Body",
-                "viewAllStudents": "Click to view all students",
-                "courseCatalog": "Course Catalog",
-                "viewAllCourses": "Click to view all courses",
-                "programManagement": "Program Management",
-                "viewAllPrograms": "Click to view all programs"
-            },
-            "deadlines": {
-                "title": "Upcoming Deadlines",
-                "subtitle": "Important dates and deadlines to monitor",
-                "enrollment": "Enrollment",
-                "grading": "Grading",
-                "period": "Period",
-                "other": "Other",
-                "urgent": "Urgent",
-                "soon": "Soon",
-                "upcoming": "Upcoming",
-                "day": "day",
-                "days": "days"
-            },
-            "activities": {
-                "title": "Recent Activities",
-                "subtitle": "Latest administrative actions and updates",
-                "created": "Created",
-                "updated": "Updated",
-                "deleted": "Deleted",
-                "by": "by",
-                "minutesAgo": "{count} min ago",
-                "hoursAgo": "{count}h ago",
-                "daysAgo": "{count}d ago"
-            },
-            "upcomingDeadlines": {
-                "title": "Upcoming Deadlines",
-                "today": "Today",
-                "tomorrow": "Tomorrow",
-                "inXDays": "in {days} days",
-                "noDeadlines": "No upcoming deadlines"
-            },
-            "recentActivities": {
-                "title": "Recent Activities",
-                "created": "created",
-                "updated": "updated",
-                "deleted": "deleted",
-                "justNow": "just now",
-                "minutesAgo": "{minutes}m ago",
-                "hoursAgo": "{hours}h ago",
-                "yesterday": "yesterday",
-                "noActivities": "No recent activities"
-            }
-        }
-    },
-    "academicHistory": {
-        "title": "Academic History",
-        "subtitle": "Complete record of academic performance",
-        "printTranscript": "Print Transcript",
-        "printPeriod": "Print Period",
-        "filters": {
-            "searchSubject": "Search subject...",
-            "filterByPeriod": "Filter by period",
-            "allPeriods": "All periods",
-            "columns": "Columns"
-        },
-        "table": {
-            "code": "Code",
-            "group": "Group",
-            "subject": "Subject",
-            "credits": "Credits",
-            "category": "Category",
-            "letterGrade": "Letter Grade",
-            "percentGrade": "Percent",
-            "gpaScale": "GPA Scale",
-            "status": "Status",
-            "professor": "Professor",
-            "actions": "Actions"
-        },
-        "status": {
-            "passed": "Passed",
-            "failed": "Failed",
-            "inProgress": "In Progress",
-            "withdrawn": "Withdrawn",
-            "incomplete": "Incomplete"
-        },
-        "categories": {
-            "core": "Core",
-            "humanities": "Humanities",
-            "electives": "Electives",
-            "prerequisite": "Prerequisite"
-        },
-        "periodSummary": {
-            "title": "Period Completion Summary",
-            "creditsEnrolled": "Credits Enrolled",
-            "creditsApproved": "Credits Approved",
-            "percentApproved": "% Credits Approved",
-            "cumulativeCredits": "Cumulative Credits",
-            "cumulativeApproved": "Cumulative Credits Approved",
-            "periodGPA": "Period GPA",
-            "cumulativeGPA": "Cumulative GPA"
-        },
-        "overallSummary": {
-            "title": "Overall Academic Summary",
-            "totalCreditsCompleted": "Total Credits Completed",
-            "totalCreditsRequired": "Total Credits Required",
-            "overallGPA": "Overall GPA",
-            "academicStanding": "Academic Standing",
-            "expectedGraduation": "Expected Graduation"
-        },
-        "standing": {
-            "excellent": "Excellent",
-            "good": "Good Standing",
-            "probation": "Academic Probation",
-            "warning": "Academic Warning"
-        },
-        "subjectDetails": {
-            "title": "Subject Details",
-            "description": "Description",
-            "prerequisites": "Prerequisites",
-            "schedule": "Schedule",
-            "notes": "Notes",
-            "none": "None"
-        },
-        "noResults": "No subjects found matching your criteria"
-    },
-    "gradebook": {
-        "title": "Teaching History & Gradebook",
-        "subtitle": "Manage grades and view your complete teaching history",
-        "stats": {
-            "totalStudents": "Total Students Taught",
-            "totalCourses": "Total Courses Delivered",
-            "totalPeriods": "Periods Taught",
-            "acrossAllPeriods": "Across all periods",
-            "coursesDelivered": "Courses delivered",
-            "periodsTaught": "Periods taught"
-        },
-        "filters": {
-            "searchCourse": "Search course...",
-            "filterByPeriod": "Filter by period",
-            "allPeriods": "All periods"
-        },
-        "table": {
-            "code": "Code",
-            "group": "Group",
-            "courseName": "Course Name",
-            "credits": "Credits",
-            "category": "Category",
-            "closingDate": "Closing Date",
-            "students": "Students",
-            "status": "Status"
-        },
-        "status": {
-            "active": "Active",
-            "closed": "Closed",
-            "cancelled": "Cancelled"
-        },
-        "categories": {
-            "core": "Core",
-            "humanities": "Humanities",
-            "electives": "Electives"
-        },
-        "periodSummary": {
-            "courses": "Courses",
-            "students": "Students"
-        },
-        "sectionDetails": {
-            "title": "Section Details",
-            "group": "Group",
-            "enrolledStudents": "Enrolled Students",
-            "students": "students",
-            "description": "Description",
-            "schedule": "Schedule",
-            "studentList": "Student List",
-            "studentCode": "Student Code",
-            "studentName": "Student Name",
-            "percentGrade": "Percent Grade",
-            "letterGrade": "Letter",
-            "notes": "Notes",
-            "addNotes": "Add notes...",
-            "saveGrades": "Save Grades",
-            "gradesSaved": "Grades saved successfully!",
-            "loadingStudents": "Loading students...",
-            "noStudents": "No students enrolled in this section",
-            "mockDescription": "This is a mock course description. The actual description will be loaded from the database.",
-            "monday": "Monday",
-            "tuesday": "Tuesday",
-            "wednesday": "Wednesday",
-            "thursday": "Thursday",
-            "friday": "Friday",
-            "saturday": "Saturday",
-            "sunday": "Sunday"
-        },
-        "showAllPeriods": "Show all periods",
-        "more": "more",
-        "noResults": "No courses found matching your criteria",
-        "navigation": {
-            "newerPeriod": "Newer Period",
-            "olderPeriod": "Older Period",
-            "periodInfo": "Period {current} of {total}"
-        }
+  "common": {
+    "language": "Language",
+    "english": "English",
+    "spanish": "Español",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "navigation": {
+    "university": "Alef University",
+    "dashboard": "Dashboard",
+    "navigation": "Navigation",
+    "playground": "Playground",
+    "models": "Models",
+    "documentation": "Documentation",
+    "settings": "Settings",
+    "history": "History",
+    "starred": "Starred",
+    "general": "General",
+    "introduction": "Introduction",
+    "getStarted": "Get Started",
+    "tutorials": "Tutorials",
+    "changelog": "Changelog",
+    "profile": "My Account",
+    "myStudy": "My Study",
+    "studentDocs": "Documentation",
+    "myClasses": "My Classes",
+    "professorDocs": "Documentation",
+    "academicAdmin": "Academic Administration",
+    "personalAdmin": "Personal Administration",
+    "adminDocs": "Documentation",
+    "menu": {
+      "profile": {
+        "title": "My Account",
+        "url": "/profile",
+        "items": [
+          {
+            "title": "Personal Information",
+            "url": "/profile"
+          }
+        ]
+      },
+      "student": {
+        "title": "My Study",
+        "url": "/academic",
+        "items": [
+          {
+            "title": "Academic History",
+            "url": "/academic/history"
+          },
+          {
+            "title": "Academic Progress",
+            "url": "/academic/progress"
+          }
+        ]
+      },
+      "studentDocs": {
+        "title": "Documentation",
+        "url": "/docs",
+        "items": [
+          {
+            "title": "Certificates & Transcripts",
+            "url": "/docs/transcripts"
+          },
+          {
+            "title": "Academic Progress Guide",
+            "url": "/docs/progress"
+          }
+        ]
+      },
+      "professor": {
+        "title": "My Classes",
+        "url": "/teaching",
+        "items": [
+          {
+            "title": "Gradebook",
+            "url": "/teaching/gradebook"
+          },
+          {
+            "title": "Teaching Progress",
+            "url": "/teaching/progress"
+          }
+        ]
+      },
+      "professorDocs": {
+        "title": "Documentation",
+        "url": "/docs/teaching",
+        "items": [
+          {
+            "title": "Grading Guide",
+            "url": "/docs/teaching/grading"
+          },
+          {
+            "title": "Teaching Resources",
+            "url": "/docs/teaching/resources"
+          }
+        ]
+      },
+      "adminAcademic": {
+        "title": "Academic Administration",
+        "url": "/admin",
+        "items": [
+          {
+            "title": "Program Management",
+            "url": "/admin/programs"
+          },
+          {
+            "title": "Course Management",
+            "url": "/admin/courses"
+          },
+          {
+            "title": "Period Management",
+            "url": "/admin/periods"
+          },
+          {
+            "title": "Sections Management",
+            "url": "/admin/sections"
+          },
+          {
+            "title": "Enrollment Management",
+            "url": "/admin/enrollments"
+          }
+        ]
+      },
+      "adminPersonal": {
+        "title": "Personal Administration",
+        "url": "/admin/users",
+        "items": [
+          {
+            "title": "Professor Management",
+            "url": "/admin/professors"
+          },
+          {
+            "title": "Student Management",
+            "url": "/admin/students"
+          }
+        ]
+      },
+      "adminDocs": {
+        "title": "Documentation",
+        "url": "/docs/admin",
+        "items": [
+          {
+            "title": "Administration Manual",
+            "url": "/docs/admin/manual"
+          },
+          {
+            "title": "System Guides",
+            "url": "/docs/admin/guides"
+          }
+        ]
+      }
     }
+  },
+  "university": {
+    "name": "Alef University",
+    "academicRecords": "University Registration System"
+  },
+  "dashboard": {
+    "student": {
+      "metrics": {
+        "completedCredits": "Completed Credits",
+        "cumulativeGPA": "Cumulative GPA",
+        "currentBimester": "Current Bimester",
+        "careerProgress": "Career Progress",
+        "excellentProgress": "Excellent progress",
+        "creditsRemaining": "{count} credits remaining to graduate",
+        "outstandingPerformance": "Outstanding performance",
+        "maintainLevel": "Maintain this level to graduate with honors",
+        "currentlyEnrolled": "Currently enrolled",
+        "creditsInProgress": "{count} credits in progress this bimester",
+        "almostGraduating": "Almost graduating",
+        "bimestersRemaining": "{count} bimester remaining expected",
+        "excellent": "Excellent",
+        "bimesters": "bimesters",
+        "subjects": "subjects"
+      },
+      "program": {
+        "title": "Software Engineering",
+        "subtitle": "Undergraduate Program • Code: IDS-001",
+        "admissionDate": "Admission Date",
+        "estimatedGraduation": "Estimated Graduation",
+        "status": "Status",
+        "active": "Active",
+        "totalCredits": "Total Credits",
+        "duration": "Duration",
+        "languages": "Languages",
+        "modalityPresential": "Presential",
+        "viewDetails": "View Details"
+      },
+      "currentSubjects": {
+        "title": "Bimester Subjects",
+        "subtitle": "{period} • {count} enrolled subjects • {credits} credits",
+        "code": "Code",
+        "subject": "Subject",
+        "credits": "Credits",
+        "grade": "Grade",
+        "status": "Status",
+        "inProgress": "In Progress",
+        "pending": "Pending",
+        "completed": "Completed",
+        "viewHistory": "View History"
+      },
+      "creditDistribution": {
+        "title": "Credit Distribution",
+        "core": "Core",
+        "humanities": "Humanities",
+        "electives": "Electives"
+      },
+      "upcomingDates": {
+        "title": "Upcoming Dates",
+        "gradesDeadline": "Grades deadline",
+        "nextBimesterStart": "Next bimester start",
+        "earlyEnrollment": "Early enrollment"
+      },
+      "documents": {
+        "title": "Documents",
+        "transcriptCertificate": "Transcript Certificate",
+        "academicHistory": "Academic History",
+        "progressAnalysis": "Progress Analysis",
+        "academicCalendar": "Academic Calendar"
+      }
+    },
+    "professor": {
+      "metrics": {
+        "currentSections": "Current Sections",
+        "totalStudents": "Total Students",
+        "sectionsToGrade": "Sections to Grade",
+        "teachingExperience": "Teaching Experience",
+        "credits": "credits",
+        "avgPerSection": "avg/section",
+        "actionRequired": "Action Required",
+        "upToDate": "Up to Date",
+        "studentsTaught": "students taught",
+        "activeTeaching": "Active teaching",
+        "currentPeriod": "{period}",
+        "studentEngagement": "Student engagement",
+        "sectionsEnrolled": "Across all sections",
+        "gradingPending": "Grading pending",
+        "allGraded": "All graded",
+        "checkGradebook": "Check gradebook for details",
+        "experiencedEducator": "Experienced educator",
+        "periodsTaughtTotal": "Total periods of teaching experience"
+      },
+      "currentSections": {
+        "title": "Current Sections",
+        "viewGradebook": "View Gradebook",
+        "code": "Code",
+        "course": "Course",
+        "group": "Group",
+        "students": "Students",
+        "category": "Category",
+        "closingDate": "Closing Date",
+        "status": "Status",
+        "categoryGeneral": "General",
+        "categoryProfessional": "Professional",
+        "categorySpecialty": "Specialty",
+        "statusActive": "Active",
+        "statusGrading": "Grading",
+        "statusClosed": "Closed",
+        "subtitle": "{period} • {sections} sections • {students} total students"
+      },
+      "closingDates": {
+        "title": "Upcoming Closing Dates",
+        "subtitle": "Important deadlines for grade submission",
+        "urgent": "Urgent",
+        "soon": "Soon",
+        "upcoming": "Upcoming",
+        "day": "day",
+        "days": "days"
+      }
+    },
+    "admin": {
+      "metrics": {
+        "activeProfessors": "Active Professors",
+        "activeStudents": "Active Students",
+        "activeCourses": "Active Courses",
+        "activePrograms": "Active Programs",
+        "teachingStaff": "Teaching Staff",
+        "enrollments": "enrollments",
+        "sections": "sections",
+        "academicPrograms": "Academic Programs",
+        "manageStaff": "Manage Staff",
+        "viewAllProfessors": "Click to view all professors",
+        "studentBody": "Student Body",
+        "viewAllStudents": "Click to view all students",
+        "courseCatalog": "Course Catalog",
+        "viewAllCourses": "Click to view all courses",
+        "programManagement": "Program Management",
+        "viewAllPrograms": "Click to view all programs"
+      },
+      "deadlines": {
+        "title": "Upcoming Deadlines",
+        "subtitle": "Important dates and deadlines to monitor",
+        "enrollment": "Enrollment",
+        "grading": "Grading",
+        "period": "Period",
+        "other": "Other",
+        "urgent": "Urgent",
+        "soon": "Soon",
+        "upcoming": "Upcoming",
+        "day": "day",
+        "days": "days"
+      },
+      "activities": {
+        "title": "Recent Activities",
+        "subtitle": "Latest administrative actions and updates",
+        "created": "Created",
+        "updated": "Updated",
+        "deleted": "Deleted",
+        "by": "by",
+        "minutesAgo": "{count} min ago",
+        "hoursAgo": "{count}h ago",
+        "daysAgo": "{count}d ago"
+      },
+      "upcomingDeadlines": {
+        "title": "Upcoming Deadlines",
+        "today": "Today",
+        "tomorrow": "Tomorrow",
+        "inXDays": "in {days} days",
+        "noDeadlines": "No upcoming deadlines"
+      },
+      "recentActivities": {
+        "title": "Recent Activities",
+        "created": "created",
+        "updated": "updated",
+        "deleted": "deleted",
+        "justNow": "just now",
+        "minutesAgo": "{minutes}m ago",
+        "hoursAgo": "{hours}h ago",
+        "yesterday": "yesterday",
+        "noActivities": "No recent activities"
+      }
+    }
+  },
+  "academicHistory": {
+    "title": "Academic History",
+    "subtitle": "Complete record of academic performance",
+    "printTranscript": "Print Transcript",
+    "printPeriod": "Print Period",
+    "filters": {
+      "searchSubject": "Search subject...",
+      "filterByPeriod": "Filter by period",
+      "allPeriods": "All periods",
+      "columns": "Columns"
+    },
+    "table": {
+      "code": "Code",
+      "group": "Group",
+      "subject": "Subject",
+      "credits": "Credits",
+      "category": "Category",
+      "letterGrade": "Letter Grade",
+      "percentGrade": "Percent",
+      "gpaScale": "GPA Scale",
+      "status": "Status",
+      "professor": "Professor",
+      "actions": "Actions"
+    },
+    "status": {
+      "passed": "Passed",
+      "failed": "Failed",
+      "inProgress": "In Progress",
+      "withdrawn": "Withdrawn",
+      "incomplete": "Incomplete"
+    },
+    "categories": {
+      "core": "Core",
+      "humanities": "Humanities",
+      "electives": "Electives",
+      "prerequisite": "Prerequisite"
+    },
+    "periodSummary": {
+      "title": "Period Completion Summary",
+      "creditsEnrolled": "Credits Enrolled",
+      "creditsApproved": "Credits Approved",
+      "percentApproved": "% Credits Approved",
+      "cumulativeCredits": "Cumulative Credits",
+      "cumulativeApproved": "Cumulative Credits Approved",
+      "periodGPA": "Period GPA",
+      "cumulativeGPA": "Cumulative GPA"
+    },
+    "overallSummary": {
+      "title": "Overall Academic Summary",
+      "totalCreditsCompleted": "Total Credits Completed",
+      "totalCreditsRequired": "Total Credits Required",
+      "overallGPA": "Overall GPA",
+      "academicStanding": "Academic Standing",
+      "expectedGraduation": "Expected Graduation"
+    },
+    "standing": {
+      "excellent": "Excellent",
+      "good": "Good Standing",
+      "probation": "Academic Probation",
+      "warning": "Academic Warning"
+    },
+    "subjectDetails": {
+      "title": "Subject Details",
+      "description": "Description",
+      "prerequisites": "Prerequisites",
+      "schedule": "Schedule",
+      "notes": "Notes",
+      "none": "None"
+    },
+    "noResults": "No subjects found matching your criteria"
+  },
+  "gradebook": {
+    "title": "Teaching History & Gradebook",
+    "subtitle": "Manage grades and view your complete teaching history",
+    "stats": {
+      "totalStudents": "Total Students Taught",
+      "totalCourses": "Total Courses Delivered",
+      "totalPeriods": "Periods Taught",
+      "acrossAllPeriods": "Across all periods",
+      "coursesDelivered": "Courses delivered",
+      "periodsTaught": "Periods taught"
+    },
+    "filters": {
+      "searchCourse": "Search course...",
+      "filterByPeriod": "Filter by period",
+      "allPeriods": "All periods"
+    },
+    "table": {
+      "code": "Code",
+      "group": "Group",
+      "courseName": "Course Name",
+      "credits": "Credits",
+      "category": "Category",
+      "closingDate": "Closing Date",
+      "students": "Students",
+      "status": "Status"
+    },
+    "status": {
+      "active": "Active",
+      "closed": "Closed",
+      "cancelled": "Cancelled"
+    },
+    "categories": {
+      "core": "Core",
+      "humanities": "Humanities",
+      "electives": "Electives"
+    },
+    "periodSummary": {
+      "courses": "Courses",
+      "students": "Students"
+    },
+    "sectionDetails": {
+      "title": "Section Details",
+      "group": "Group",
+      "enrolledStudents": "Enrolled Students",
+      "students": "students",
+      "description": "Description",
+      "schedule": "Schedule",
+      "studentList": "Student List",
+      "studentCode": "Student Code",
+      "studentName": "Student Name",
+      "percentGrade": "Percent Grade",
+      "letterGrade": "Letter",
+      "notes": "Notes",
+      "addNotes": "Add notes...",
+      "saveGrades": "Save Grades",
+      "gradesSaved": "Grades saved successfully!",
+      "loadingStudents": "Loading students...",
+      "noStudents": "No students enrolled in this section",
+      "mockDescription": "This is a mock course description. The actual description will be loaded from the database.",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "showAllPeriods": "Show all periods",
+    "more": "more",
+    "noResults": "No courses found matching your criteria",
+    "navigation": {
+      "newerPeriod": "Newer Period",
+      "olderPeriod": "Older Period",
+      "periodInfo": "Period {current} of {total}"
+    }
+  },
+  "admin": {
+    "programs": {
+      "table": {
+        "columns": {
+          "code": "Code",
+          "program": "Program",
+          "type": "Type",
+          "language": "Language",
+          "credits": "Credits",
+          "duration": "Bimesters",
+          "tuitionPerCredit": "Tuition per Credit",
+          "status": "Status",
+          "emptyValue": "—",
+          "notAvailable": "N/A"
+        },
+        "types": {
+          "diploma": "Diploma",
+          "bachelor": "Bachelor",
+          "master": "Master",
+          "doctorate": "Doctorate"
+        },
+        "languages": {
+          "es": "Spanish",
+          "en": "English",
+          "both": "Bilingual"
+        },
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        },
+        "aria": {
+          "selectAll": "Select all rows",
+          "selectRow": "Select row",
+          "openMenu": "Open menu"
+        },
+
+        "menu": {
+          "label": "Actions",
+
+          "copyProgramCode": "Copy program code",
+
+          "viewDetails": "View details"
+        },
+
+        "columnsMenuLabel": "Columns",
+        "filterPlaceholder": "Filter programs...",
+
+        "emptyMessage": "No programs available."
+      }
+    }
+  }
 }

@@ -131,7 +131,7 @@ export function ProgramFormDialog({
     try {
       if (mode === "create") {
         await createProgram({
-          code: formData.code || undefined,
+          codeEs: formData.codeEs || undefined,
           codeEn: formData.codeEn || undefined,
           nameEs: formData.nameEs || undefined,
           nameEn: formData.nameEn || undefined,
@@ -152,7 +152,7 @@ export function ProgramFormDialog({
         if (!program) return;
         await updateProgram({
           programId: program._id,
-          code: formData.code || undefined,
+          codeEs: formData.codeEs || undefined,
           codeEn: formData.codeEn || undefined,
           nameEs: formData.nameEs || undefined,
           nameEn: formData.nameEn || undefined,
@@ -742,7 +742,7 @@ export function ProgramFormDialog({
                       <div className="space-y-1">
                         <div className="flex items-center gap-3">
                           <span className="font-semibold text-foreground">
-                            {course.code}
+                            {course.codeEs}
                           </span>
                           <span className="text-sm text-muted-foreground">
                             {course.credits} credits
