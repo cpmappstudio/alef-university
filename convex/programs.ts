@@ -132,7 +132,6 @@ export const getProgramCategories = query({
 export const createProgramCategory = mutation({
   args: {
     name: v.string(),
-    description: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -163,7 +162,6 @@ export const createProgramCategory = mutation({
 
     const categoryId = await ctx.db.insert("program_categories", {
       name: trimmedName,
-      description: args.description?.trim() || undefined,
     });
 
     return categoryId;

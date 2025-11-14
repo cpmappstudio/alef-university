@@ -716,6 +716,13 @@
           "success": "Program created successfully.",
           "noCategories": "Create at least one program category before adding a program."
         }
+      },
+      "export": {
+        "title": "Programs Report",
+        "generatedOn": "Generated on",
+        "totalPrograms": "Total Programs",
+        "page": "Page",
+        "of": "of"
       }
     }
   }

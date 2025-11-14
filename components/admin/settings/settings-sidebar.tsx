@@ -99,7 +99,6 @@ export function SettingsSidebar() {
             label: customizationLabel,
             href: `${basePath}/account/customization`,
             icon: Palette,
-            aliases: [basePath],
           },
           {
             id: "profile",
@@ -170,21 +169,15 @@ export function SettingsSidebar() {
   const isItemActive = React.useCallback(
     (item: SectionItem) => {
       const normalizedHref = normalizePath(item.href);
-      if (
-        normalizedPath === normalizedHref ||
-        normalizedPath.startsWith(`${normalizedHref}/`)
-      ) {
+
+      // Exact match or path starts with the item's href
+      if (normalizedPath === normalizedHref) {
         return true;
       }
 
-      if (item.aliases?.length) {
-        return item.aliases.some((alias) => {
-          const normalizedAlias = normalizePath(alias);
-          return (
-            normalizedPath === normalizedAlias ||
-            normalizedPath.startsWith(`${normalizedAlias}/`)
-          );
-        });
+      // Check if it's a sub-path (but not just the base path)
+      if (normalizedPath.startsWith(`${normalizedHref}/`)) {
+        return true;
       }
 
       return false;

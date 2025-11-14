@@ -11,9 +11,11 @@ import type { Doc } from "@/convex/_generated/dataModel";
 import { Separator } from "@/components/ui/separator";
 
 import ProgramActions from "@/components/admin/program/program-actions";
+import { exportProgramsToPDF } from "@/lib/export-programs-pdf";
 
 export default function ProgramManagementPage() {
   const t = useTranslations("admin.programs.table");
+  const tExport = useTranslations("admin.programs.export");
 
   const locale = useLocale();
 
@@ -47,11 +49,49 @@ export default function ProgramManagementPage() {
     [router, locale],
   );
 
-  const handleExport = React.useCallback((rows: Doc<"programs">[]) => {
-    // Implementa tu lógica de exportación: CSV, XLSX, PDF, etc.
-    // Aquí un ejemplo muy básico que simplemente registra las filas:
-    console.log("Programas a exportar:", rows);
-  }, []);
+  const handleExport = React.useCallback(
+    (rows: Doc<"programs">[]) => {
+      exportProgramsToPDF({
+        programs: rows,
+        categoryLabels,
+        locale,
+        translations: {
+          title: tExport("title"),
+          generatedOn: tExport("generatedOn"),
+          totalPrograms: tExport("totalPrograms"),
+          page: tExport("page"),
+          of: tExport("of"),
+          columns: {
+            code: t("columns.code"),
+            program: t("columns.program"),
+            type: t("columns.type"),
+            category: t("columns.category"),
+            language: t("columns.language"),
+            credits: t("columns.credits"),
+            duration: t("columns.duration"),
+            status: t("columns.status"),
+          },
+          types: {
+            diploma: t("types.diploma"),
+            bachelor: t("types.bachelor"),
+            master: t("types.master"),
+            doctorate: t("types.doctorate"),
+          },
+          languages: {
+            es: t("languages.es"),
+            en: t("languages.en"),
+            both: t("languages.both"),
+          },
+          status: {
+            active: t("status.active"),
+            inactive: t("status.inactive"),
+          },
+          emptyValue: t("columns.emptyValue"),
+        },
+      });
+    },
+    [categoryLabels, locale, t, tExport],
+  );
 
   const filterColumnKey = "program";
 

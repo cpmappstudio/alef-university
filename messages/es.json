@@ -688,6 +688,13 @@
           "success": "Programa creado correctamente.",
           "noCategories": "Crea al menos una categoría de programas antes de agregar un programa."
         }
+      },
+      "export": {
+        "title": "Reporte de Programas",
+        "generatedOn": "Generado el",
+        "totalPrograms": "Total de Programas",
+        "page": "Página",
+        "of": "de"
       }
     }
   }

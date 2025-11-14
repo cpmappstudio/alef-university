@@ -122,23 +122,16 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
     // Split path and create segments
     const pathParts = pathWithoutLocale.split("/").filter(Boolean);
 
-    // Build breadcrumb path
-    let currentPath = "";
-    pathParts.forEach((part, index) => {
-      currentPath += `/${part}`;
-      const isLast = index === pathParts.length - 1;
+    // Build breadcrumb path - only show the last segment (current page)
+    const lastPart = pathParts[pathParts.length - 1];
+    const config = ROUTE_CONFIG[lastPart];
+    const title = config
+      ? getTranslation(config.title, config.fallback || config.title)
+      : lastPart.charAt(0).toUpperCase() + lastPart.slice(1);
 
-      // Get route config with efficient lookup
-      const config = ROUTE_CONFIG[part];
-      const title = config
-        ? getTranslation(config.title, config.fallback || config.title)
-        : part.charAt(0).toUpperCase() + part.slice(1);
-
-      segments.push({
-        title,
-        href: isLast ? undefined : currentPath,
-        isCurrentPage: isLast,
-      });
+    segments.push({
+      title,
+      isCurrentPage: true,
     });
 
     return segments;
