@@ -757,7 +757,28 @@
         "updatedAt": "Updated At",
         "edit": "Edit",
         "delete": "Delete",
-        "createCourse": "Create Course"
+        "createCourse": "Create Course",
+        "manageCoursesButton": "Manage Courses",
+        "manageCourses": {
+          "title": "Manage Program Courses",
+          "description": "Select the courses you want to associate with this program. Selected courses will be added and unselected ones will be removed.",
+          "addCourse": "Add Course",
+          "searchPlaceholder": "Search courses by name or code...",
+          "noCourses": "No courses found.",
+          "selectedCourses": "Selected Courses",
+          "noCoursesSelected": "No courses selected. Use the selector above to add courses.",
+          "credits": "credits",
+          "selected": "Selected",
+          "cancel": "Cancel",
+          "save": "Save Changes",
+          "saving": "Saving...",
+          "success": "Courses updated",
+          "successDescription": "The program courses have been updated successfully.",
+          "error": "Error",
+          "errorDescription": "Could not update courses. Please try again.",
+          "courseAdded": "Course added to program",
+          "courseRemoved": "Course removed from program"
+        }
       },
       "deleteDialog": {
         "title": "Delete program?",
@@ -814,6 +835,13 @@
           "credits": {
             "label": "Credits",
             "placeholder": "E.g. 3"
+          },
+          "programs": {
+            "label": "Programs",
+            "description": "Select the programs this course will belong to (optional).",
+            "placeholder": "Select programs...",
+            "search": "Search programs...",
+            "noPrograms": "No programs found."
           }
         },
         "options": {

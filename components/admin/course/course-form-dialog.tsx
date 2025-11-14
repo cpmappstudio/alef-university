@@ -1,10 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Check, ChevronsUpDown, X } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 import {
   Field,
@@ -32,9 +33,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Badge } from "@/components/ui/badge";
 
 import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
+import type { Id, Doc } from "@/convex/_generated/dataModel";
 import {
   CourseFormDialogProps,
   CourseFormState,
@@ -58,6 +73,7 @@ export function CourseFormDialog({
   onOpenChange,
 }: CourseFormDialogProps) {
   const t = useTranslations("admin.courses.form");
+  const locale = useLocale();
 
   const [internalOpen, setInternalOpen] = React.useState(false);
   const open = controlledOpen ?? internalOpen;
@@ -69,13 +85,37 @@ export function CourseFormDialog({
   const [formError, setFormError] = React.useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
+  const [comboboxOpen, setComboboxOpen] = React.useState(false);
+  const [selectedPrograms, setSelectedPrograms] = React.useState<Set<string>>(
+    new Set(),
+  );
+
   const createCourse = useMutation(api.courses.createCourse);
   const updateCourse = useMutation(api.courses.updateCourse);
   const addCourseToProgram = useMutation(api.courses.addCourseToProgram);
+  const removeCourseFromProgram = useMutation(
+    api.courses.removeCourseFromProgram,
+  );
+
+  const allPrograms = useQuery(api.programs.getAllPrograms, {});
+
+  // Get associated programs for this course when in edit mode
+  const coursePrograms = useQuery(
+    api.courses.getCoursePrograms,
+    mode === "edit" && course?._id ? { courseId: course._id } : "skip",
+  );
 
   const { showSpanishFields, showEnglishFields } = getLanguageVisibility(
     formState.language,
   );
+
+  // Initialize selected programs when course programs are loaded
+  React.useEffect(() => {
+    if (mode === "edit" && coursePrograms && open) {
+      const programIds = new Set(coursePrograms.map((cp) => cp.programId));
+      setSelectedPrograms(programIds);
+    }
+  }, [coursePrograms, mode, open]);
 
   const resetForm = React.useCallback(() => {
     setFormState(createFormStateFromCourse(course));
@@ -85,8 +125,14 @@ export function CourseFormDialog({
   React.useEffect(() => {
     if (open) {
       resetForm();
+      // If programId is provided (creating from program detail page), pre-select it
+      if (programId && mode === "create") {
+        setSelectedPrograms(new Set([programId]));
+      } else if (mode === "create") {
+        setSelectedPrograms(new Set());
+      }
     }
-  }, [open, resetForm]);
+  }, [open, resetForm, programId, mode]);
 
   const handleDialogChange = (nextOpen: boolean) => {
     setOpen(nextOpen);
@@ -94,7 +140,42 @@ export function CourseFormDialog({
       resetForm();
       setFormError(null);
       setIsSubmitting(false);
+      setSelectedPrograms(new Set());
     }
+  };
+
+  const getProgramName = (program: Doc<"programs">) => {
+    if (locale === "es") {
+      return program.nameEs || program.nameEn || "—";
+    }
+    return program.nameEn || program.nameEs || "—";
+  };
+
+  const getProgramCode = (program: Doc<"programs">) => {
+    if (locale === "es") {
+      return program.codeEs || program.codeEn || "—";
+    }
+    return program.codeEn || program.codeEs || "—";
+  };
+
+  const toggleProgram = (programId: string) => {
+    setSelectedPrograms((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(programId)) {
+        newSet.delete(programId);
+      } else {
+        newSet.add(programId);
+      }
+      return newSet;
+    });
+  };
+
+  const removeProgram = (programId: string) => {
+    setSelectedPrograms((prev) => {
+      const newSet = new Set(prev);
+      newSet.delete(programId);
+      return newSet;
+    });
   };
 
   const handleInputChange =
@@ -141,18 +222,47 @@ export function CourseFormDialog({
       if (mode === "edit" && course?._id) {
         const updatePayload = buildCourseUpdatePayload(course._id, formState);
         await updateCourse(updatePayload);
+
+        // Update program associations for edit mode
+        const currentPrograms = coursePrograms?.map((cp) => cp.programId) || [];
+        const currentSet = new Set(currentPrograms);
+        const newSet = selectedPrograms;
+
+        // Add new programs
+        for (const programId of newSet) {
+          if (!currentSet.has(programId)) {
+            await addCourseToProgram({
+              courseId: course._id,
+              programId: programId as Id<"programs">,
+              isRequired: false,
+              categoryOverride: undefined,
+            });
+          }
+        }
+
+        // Remove old programs
+        for (const programId of currentSet) {
+          if (!newSet.has(programId)) {
+            await removeCourseFromProgram({
+              courseId: course._id,
+              programId: programId as Id<"programs">,
+            });
+          }
+        }
       } else {
         const createPayload = buildCourseCreatePayload(formState);
         const courseId = await createCourse(createPayload);
 
-        // If programId is provided, associate course with program
-        if (programId && courseId) {
-          await addCourseToProgram({
-            courseId: courseId,
-            programId: programId,
-            isRequired: false,
-            categoryOverride: undefined,
-          });
+        // Associate course with selected programs
+        if (courseId) {
+          for (const programId of selectedPrograms) {
+            await addCourseToProgram({
+              courseId: courseId,
+              programId: programId as Id<"programs">,
+              isRequired: false,
+              categoryOverride: undefined,
+            });
+          }
         }
 
         if (!formState.isActive && courseId) {
@@ -260,6 +370,99 @@ export function CourseFormDialog({
                   {t("messages.infoSelectLanguage")}
                 </FieldDescription>
               ) : null}
+            </FieldSet>
+
+            <FieldSeparator />
+            <FieldSet>
+              <Field>
+                <FieldLabel>{t("fields.programs.label")}</FieldLabel>
+                <FieldDescription className="text-muted-foreground">
+                  {t("fields.programs.description")}
+                </FieldDescription>
+
+                <Popover open={comboboxOpen} onOpenChange={setComboboxOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={comboboxOpen}
+                      className="w-full justify-between"
+                      type="button"
+                    >
+                      {t("fields.programs.placeholder")}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[500px] p-0" align="start">
+                    <Command>
+                      <CommandInput
+                        placeholder={t("fields.programs.search")}
+                        className="h-9"
+                      />
+                      <CommandList>
+                        <CommandEmpty>
+                          {t("fields.programs.noPrograms")}
+                        </CommandEmpty>
+                        <CommandGroup>
+                          {allPrograms?.map((program) => {
+                            const isSelected = selectedPrograms.has(
+                              program._id,
+                            );
+                            return (
+                              <CommandItem
+                                key={program._id}
+                                value={`${getProgramCode(program)} ${getProgramName(program)}`}
+                                onSelect={() => toggleProgram(program._id)}
+                                className="cursor-pointer"
+                              >
+                                <Check
+                                  className={cn(
+                                    "mr-2 h-4 w-4",
+                                    isSelected ? "opacity-100" : "opacity-0",
+                                  )}
+                                />
+                                <div className="flex-1">
+                                  <div className="font-medium">
+                                    {getProgramCode(program)} -{" "}
+                                    {getProgramName(program)}
+                                  </div>
+                                </div>
+                              </CommandItem>
+                            );
+                          })}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+
+                {selectedPrograms.size > 0 && (
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {Array.from(selectedPrograms).map((programId) => {
+                      const program = allPrograms?.find(
+                        (p) => p._id === programId,
+                      );
+                      if (!program) return null;
+                      return (
+                        <Badge
+                          key={programId}
+                          variant="secondary"
+                          className="gap-1"
+                        >
+                          {getProgramCode(program)} - {getProgramName(program)}
+                          <button
+                            type="button"
+                            onClick={() => removeProgram(programId)}
+                            className="ml-1 rounded-full hover:bg-muted"
+                          >
+                            <X className="h-3 w-3" />
+                          </button>
+                        </Badge>
+                      );
+                    })}
+                  </div>
+                )}
+              </Field>
             </FieldSet>
 
             {showSpanishFields ? (

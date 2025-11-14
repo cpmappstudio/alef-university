@@ -8,13 +8,12 @@ import { api } from "@/convex/_generated/api";
 import type { Doc, Id } from "@/convex/_generated/dataModel";
 import CustomTable from "@/components/ui/custom-table";
 import { Separator } from "@/components/ui/separator";
-import ProgramDetailHeader from "@/components/admin/program/program-detail-header";
 import ProgramDetailInfo from "@/components/admin/program/program-detail-info";
 import ProgramDetailActions from "@/components/admin/course/program-detail-actions";
 import { courseColumns } from "@/components/admin/course/columns";
 import ProgramFormDialog from "@/components/admin/program/program-form-dialog";
 import { ProgramDeleteDialog } from "@/components/admin/program/program-delete-dialog";
-import { CourseFormDialog } from "@/components/admin/course/course-form-dialog";
+
 import { exportProgramsToPDF } from "@/lib/export-programs-pdf";
 
 export default function ProgramDetailPage() {
@@ -28,8 +27,6 @@ export default function ProgramDetailPage() {
 
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
-  const [isCreateCourseDialogOpen, setIsCreateCourseDialogOpen] =
-    React.useState(false);
 
   const programId = params.programId as Id<"programs">;
 
@@ -68,10 +65,6 @@ export default function ProgramDetailPage() {
     },
     [router, locale],
   );
-
-  const handleCreateCourse = React.useCallback(() => {
-    setIsCreateCourseDialogOpen(true);
-  }, []);
 
   const handleEdit = React.useCallback(() => {
     setIsEditDialogOpen(true);
@@ -193,29 +186,18 @@ export default function ProgramDetailPage() {
         onSuccess={handleDeleteSuccess}
       />
 
-      <CourseFormDialog
-        mode="create"
-        programId={programId}
-        open={isCreateCourseDialogOpen}
-        onOpenChange={setIsCreateCourseDialogOpen}
-      />
-
-      <ProgramDetailHeader
-        programName={programName}
+      <ProgramDetailInfo
+        program={program}
+        categoryLabel={categoryLabel}
+        locale={locale}
         onBack={handleBack}
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
 
-      <ProgramDetailInfo
-        program={program}
-        categoryLabel={categoryLabel}
-        locale={locale}
-      />
-
       <Separator />
 
-      <ProgramDetailActions onCreateCourse={handleCreateCourse} />
+      <ProgramDetailActions programId={programId} />
 
       <Separator />
 

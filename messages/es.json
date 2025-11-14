@@ -730,7 +730,28 @@
         "updatedAt": "Actualizado el",
         "edit": "Editar",
         "delete": "Eliminar",
-        "createCourse": "Crear Curso"
+        "createCourse": "Crear Curso",
+        "manageCoursesButton": "Gestionar Cursos",
+        "manageCourses": {
+          "title": "Gestionar Cursos del Programa",
+          "description": "Selecciona los cursos que deseas asociar a este programa. Los cursos seleccionados serán agregados y los no seleccionados serán removidos.",
+          "addCourse": "Agregar Curso",
+          "searchPlaceholder": "Buscar cursos por nombre o código...",
+          "noCourses": "No se encontraron cursos.",
+          "selectedCourses": "Cursos Seleccionados",
+          "noCoursesSelected": "No hay cursos seleccionados. Usa el selector de arriba para agregar cursos.",
+          "credits": "créditos",
+          "selected": "Seleccionados",
+          "cancel": "Cancelar",
+          "save": "Guardar Cambios",
+          "saving": "Guardando...",
+          "success": "Cursos actualizados",
+          "successDescription": "Los cursos del programa han sido actualizados exitosamente.",
+          "error": "Error",
+          "errorDescription": "No se pudieron actualizar los cursos. Intenta nuevamente.",
+          "courseAdded": "Curso agregado al programa",
+          "courseRemoved": "Curso removido del programa"
+        }
       },
       "deleteDialog": {
         "title": "¿Eliminar programa?",
@@ -787,6 +808,13 @@
           "credits": {
             "label": "Créditos",
             "placeholder": "Ej. 3"
+          },
+          "programs": {
+            "label": "Programas",
+            "description": "Selecciona los programas a los que pertenecerá este curso (opcional).",
+            "placeholder": "Seleccionar programas...",
+            "search": "Buscar programas...",
+            "noPrograms": "No se encontraron programas."
           }
         },
         "options": {
