@@ -498,7 +498,43 @@
         "academicManagement": "Gestión académica",
         "programs": "Programas"
       },
-      "categories": "Categorías"
+      "categories": "Categorías",
+      "categoriesPage": {
+        "description": "Las categorías de programas ayudan a organizar los programas académicos en diferentes grupos. Cada programa debe ser asignado a una categoría. Las categorías se utilizan en todo el sistema para filtrar y organizar programas.",
+        "table": {
+          "name": "Nombre",
+          "description": "Descripción",
+          "programs": "Programas",
+          "noDescription": "Sin descripción",
+          "noCategories": "No hay categorías disponibles. Crea categorías para organizar tus programas."
+        },
+        "dialog": {
+          "trigger": "Nueva Categoría",
+          "title": "Crear Categoría",
+          "description": "Agrega una nueva categoría de programa para organizar tus programas académicos.",
+          "nameLabel": "Nombre de la Categoría",
+          "namePlaceholder": "ej., Ingeniería, Negocios, Artes",
+          "descriptionLabel": "Descripción (opcional)",
+          "descriptionPlaceholder": "Breve descripción de esta categoría",
+          "cancel": "Cancelar",
+          "create": "Crear",
+          "creating": "Creando..."
+        },
+        "deleteDialog": {
+          "title": "Eliminar Categoría",
+          "description": "¿Estás seguro de que deseas eliminar esta categoría? Esta acción no se puede deshacer.",
+          "cancel": "Cancelar",
+          "delete": "Eliminar",
+          "deleting": "Eliminando..."
+        },
+        "messages": {
+          "nameRequired": "El nombre de la categoría es requerido",
+          "createSuccess": "Categoría creada exitosamente",
+          "createError": "Error al crear la categoría",
+          "deleteSuccess": "Categoría eliminada exitosamente",
+          "deleteError": "Error al eliminar la categoría"
+        }
+      }
     },
     "programs": {
       "table": {

@@ -500,7 +500,43 @@
         "academicManagement": "Academic Management",
         "programs": "Programs"
       },
-      "categories": "Categories"
+      "categories": "Categories",
+      "categoriesPage": {
+        "description": "Program categories help organize academic programs into different groups. Each program must be assigned to a category. Categories are used throughout the system to filter and organize programs.",
+        "table": {
+          "name": "Name",
+          "description": "Description",
+          "programs": "Programs",
+          "noDescription": "No description",
+          "noCategories": "No categories available. Create categories to organize your programs."
+        },
+        "dialog": {
+          "trigger": "New Category",
+          "title": "Create Category",
+          "description": "Add a new program category to organize your academic programs.",
+          "nameLabel": "Category Name",
+          "namePlaceholder": "e.g., Engineering, Business, Arts",
+          "descriptionLabel": "Description (optional)",
+          "descriptionPlaceholder": "Brief description of this category",
+          "cancel": "Cancel",
+          "create": "Create",
+          "creating": "Creating..."
+        },
+        "deleteDialog": {
+          "title": "Delete Category",
+          "description": "Are you sure you want to delete this category? This action cannot be undone.",
+          "cancel": "Cancel",
+          "delete": "Delete",
+          "deleting": "Deleting..."
+        },
+        "messages": {
+          "nameRequired": "Category name is required",
+          "createSuccess": "Category created successfully",
+          "createError": "Failed to create category",
+          "deleteSuccess": "Category deleted successfully",
+          "deleteError": "Failed to delete category"
+        }
+      }
     },
     "programs": {
       "table": {

@@ -104,9 +104,107 @@ export const getProgramCategories = query({
 
     const categories = await ctx.db.query("program_categories").collect();
 
-    categories.sort((a, b) => a.name.localeCompare(b.name));
+    // Get program count for each category
+    const categoriesWithCount = await Promise.all(
+      categories.map(async (category) => {
+        const programCount = await ctx.db
+          .query("programs")
+          .filter((q) => q.eq(q.field("categoryId"), category._id))
+          .collect()
+          .then((programs) => programs.length);
 
-    return categories;
+        return {
+          ...category,
+          programCount,
+        };
+      }),
+    );
+
+    categoriesWithCount.sort((a, b) => a.name.localeCompare(b.name));
+
+    return categoriesWithCount;
+  },
+});
+
+/**
+ * Create a new program category
+ */
+export const createProgramCategory = mutation({
+  args: {
+    name: v.string(),
+    description: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new ConvexError("Not authenticated");
+    }
+
+    const user = await getUserByClerkId(ctx.db, identity.subject);
+
+    if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
+      throw new ConvexError("Unauthorized: Admin access required");
+    }
+
+    const trimmedName = args.name.trim();
+    if (!trimmedName) {
+      throw new ConvexError("Category name is required");
+    }
+
+    const existingCategory = await ctx.db
+      .query("program_categories")
+      .withIndex("by_name", (q) => q.eq("name", trimmedName))
+      .first();
+
+    if (existingCategory) {
+      throw new ConvexError("A category with this name already exists");
+    }
+
+    const categoryId = await ctx.db.insert("program_categories", {
+      name: trimmedName,
+      description: args.description?.trim() || undefined,
+    });
+
+    return categoryId;
+  },
+});
+
+/**
+ * Delete a program category
+ */
+export const deleteProgramCategory = mutation({
+  args: {
+    categoryId: v.id("program_categories"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new ConvexError("Not authenticated");
+    }
+
+    const user = await getUserByClerkId(ctx.db, identity.subject);
+
+    if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
+      throw new ConvexError("Unauthorized: Admin access required");
+    }
+
+    // Check if there are any programs using this category
+    const programsWithCategory = await ctx.db
+      .query("programs")
+      .filter((q) => q.eq(q.field("categoryId"), args.categoryId))
+      .collect();
+
+    if (programsWithCategory.length > 0) {
+      throw new ConvexError(
+        `Cannot delete category: ${programsWithCategory.length} program(s) are using this category`,
+      );
+    }
+
+    await ctx.db.delete(args.categoryId);
+
+    return { success: true };
   },
 });
 

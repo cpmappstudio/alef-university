@@ -136,6 +136,7 @@ export default defineSchema({
    */
   program_categories: defineTable({
     name: v.string(),
+    description: v.optional(v.string()),
   }).index("by_name", ["name"]),
 
   /**
