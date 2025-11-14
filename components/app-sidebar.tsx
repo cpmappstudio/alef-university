@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import {
   BookOpen,
   User,
@@ -9,11 +10,13 @@ import {
   UserCog,
   FileText,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 
 import { NavMain } from "@/components/nav-main";
 import { UniversityLogo } from "@/components/university-logo";
+import { cn } from "@/lib/utils";
 import {
   Sidebar,
   SidebarContent,
@@ -22,15 +25,17 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { ModeToggle } from "./mode-toggle";
-import { LangToggle } from "./lang-toggle";
 import { UserButtonWrapper } from "./user-button-wrapper";
 import type { UserRole } from "@/convex/types";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   const { user } = useUser();
+  const locale = useLocale();
+  const pathname = usePathname();
   const t = useTranslations("navigation");
+  const settingsHref = `/${locale}/admin/settings/account/customization`;
+  const isSettingsActive = pathname.startsWith(`/${locale}/admin/settings`);
 
   // Get user role from Clerk metadata
   const userRole = user?.publicMetadata?.role as UserRole | undefined;
@@ -197,8 +202,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         />
       </SidebarContent>
       <SidebarFooter>
-        <LangToggle showText={state !== "collapsed"} />
-        <ModeToggle showText={state !== "collapsed"} />
+        <Link
+          href={settingsHref}
+          className={cn(
+            "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors",
+            isSettingsActive &&
+              "bg-sidebar-accent text-sidebar-accent-foreground",
+            state === "collapsed" && "justify-center px-0",
+          )}
+          aria-label={t("settings")}
+          aria-current={isSettingsActive ? "page" : undefined}
+        >
+          <Settings className="h-4 w-4" />
+          {state !== "collapsed" && <span>{t("settings")}</span>}
+        </Link>
         <UniversityLogo />
       </SidebarFooter>
       <SidebarRail />

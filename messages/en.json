@@ -485,6 +485,23 @@
   },
 
   "admin": {
+    "settings": {
+      "sidebar": {
+        "navigation": "Settings navigation",
+        "title": "Settings",
+        "description": "Select a category to manage preferences.",
+        "account": "Account",
+        "customization": "Customization",
+        "profile": "Profile",
+        "university": "University",
+        "general": "General",
+        "members": "Members",
+        "roles": "Roles",
+        "academicManagement": "Academic Management",
+        "programs": "Programs"
+      },
+      "categories": "Categories"
+    },
     "programs": {
       "table": {
         "actions": {

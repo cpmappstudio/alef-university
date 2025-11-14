@@ -483,6 +483,23 @@
     }
   },
   "admin": {
+    "settings": {
+      "sidebar": {
+        "navigation": "Navegación de configuraciones",
+        "title": "Configuraciones",
+        "description": "Selecciona una categoría para gestionar tus preferencias.",
+        "account": "Cuenta",
+        "customization": "Personalización",
+        "profile": "Perfil",
+        "university": "Universidad",
+        "general": "General",
+        "members": "Miembros",
+        "roles": "Roles",
+        "academicManagement": "Gestión académica",
+        "programs": "Programas"
+      },
+      "categories": "Categorías"
+    },
     "programs": {
       "table": {
         "actions": {
