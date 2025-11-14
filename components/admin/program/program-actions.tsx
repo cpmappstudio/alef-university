@@ -22,7 +22,7 @@ export default function ProgramActions() {
         }
       />
 
-      <div className="flex items-center gap-2">
+      {/*<div className="flex items-center gap-2">
         <Button
           className="cursor-pointer bg-white dark:bg-dark-gunmetal dark:text-white"
           variant="secondary"
@@ -37,7 +37,7 @@ export default function ProgramActions() {
             <p>Add to library</p>
           </TooltipContent>
         </Tooltip>
-      </div>
+      </div>*/}
     </div>
   );
 }

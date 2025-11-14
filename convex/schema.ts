@@ -246,16 +246,6 @@ export default defineSchema({
 
     credits: v.number(),
 
-    // Course level
-    level: v.optional(
-      v.union(
-        v.literal("introductory"),
-        v.literal("intermediate"),
-        v.literal("advanced"),
-        v.literal("graduate"),
-      ),
-    ),
-
     language: v.union(v.literal("es"), v.literal("en"), v.literal("both")),
 
     // Category for requirements
@@ -266,21 +256,13 @@ export default defineSchema({
       v.literal("general"),
     ),
 
-    // Prerequisites (course codes)
-    prerequisites: v.array(v.string()),
-    corequisites: v.optional(v.array(v.string())),
-
-    // Additional metadata
-    syllabus: v.optional(v.string()), // URL or document reference
-
     isActive: v.boolean(),
     createdAt: v.number(),
     updatedAt: v.optional(v.number()),
   })
     .index("by_active", ["isActive"]) // For listing all active courses
     .index("by_category_active", ["category", "isActive"])
-    .index("by_language_active", ["language", "isActive"]) // Combined index
-    .index("by_level_active", ["level", "isActive"]), // For course filtering by level
+    .index("by_language_active", ["language", "isActive"]), // Combined index
 
   /**
    * Program-Course relationship (many-to-many)

@@ -12,7 +12,8 @@
 
 import { query, mutation, internalMutation } from "./_generated/server";
 import { v, ConvexError } from "convex/values";
-import type { Doc } from "./_generated/dataModel";
+import type { Doc, Id } from "./_generated/dataModel";
+import type { DatabaseReader, DatabaseWriter } from "./_generated/server";
 import {
   getUserByClerkId,
   getProgramCourses,
@@ -89,6 +90,24 @@ export const getAllPrograms = query({
     }
 
     return programs;
+  },
+});
+
+/**
+ * Get a single program by ID
+ */
+export const getProgramById = query({
+  args: {
+    id: v.id("programs"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return null;
+    }
+
+    const program = await ctx.db.get(args.id);
+    return program;
   },
 });
 
@@ -253,7 +272,6 @@ export const createProgram = mutation({
     degree: v.optional(v.string()),
     categoryId: v.id("program_categories"),
     language: languageValidator,
-    totalCredits: v.number(),
     durationBimesters: v.number(),
     tuitionPerCredit: v.optional(v.number()),
   },
@@ -273,10 +291,7 @@ export const createProgram = mutation({
       throw new ConvexError("Invalid program category");
     }
 
-    // Validate credits and duration
-    if (args.totalCredits <= 0) {
-      throw new ConvexError("Total credits must be greater than 0");
-    }
+    // Validate duration
     if (args.durationBimesters <= 0) {
       throw new ConvexError("Duration must be greater than 0");
     }
@@ -335,7 +350,8 @@ export const createProgram = mutation({
       }
     }
 
-    // Create program
+    // Create program with totalCredits initialized to 0
+    // Credits will be automatically calculated from associated courses
     const programId = await ctx.db.insert("programs", {
       codeEs: args.codeEs,
       codeEn: args.codeEn,
@@ -347,7 +363,7 @@ export const createProgram = mutation({
       degree: args.degree,
       categoryId: args.categoryId,
       language: args.language,
-      totalCredits: args.totalCredits,
+      totalCredits: 0,
       durationBimesters: args.durationBimesters,
       tuitionPerCredit: args.tuitionPerCredit,
       isActive: true,
@@ -370,7 +386,6 @@ export const internalCreateProgram = internalMutation({
     degree: v.optional(v.string()),
     categoryId: v.id("program_categories"),
     language: languageValidator,
-    totalCredits: v.number(),
     durationBimesters: v.number(),
     tuitionPerCredit: v.optional(v.number()),
   },
@@ -380,10 +395,7 @@ export const internalCreateProgram = internalMutation({
       throw new ConvexError("Invalid program category");
     }
 
-    // Validate credits and duration
-    if (args.totalCredits <= 0) {
-      throw new ConvexError("Total credits must be greater than 0");
-    }
+    // Validate duration
     if (args.durationBimesters <= 0) {
       throw new ConvexError("Duration must be greater than 0");
     }
@@ -442,7 +454,8 @@ export const internalCreateProgram = internalMutation({
       }
     }
 
-    // Create program
+    // Create program with totalCredits initialized to 0
+    // Credits will be automatically calculated from associated courses
     const programId = await ctx.db.insert("programs", {
       codeEs: args.codeEs,
       codeEn: args.codeEn,
@@ -454,7 +467,7 @@ export const internalCreateProgram = internalMutation({
       degree: args.degree,
       categoryId: args.categoryId,
       language: args.language,
-      totalCredits: args.totalCredits,
+      totalCredits: 0,
       durationBimesters: args.durationBimesters,
       tuitionPerCredit: args.tuitionPerCredit,
       isActive: true,
@@ -1153,9 +1166,62 @@ export const deleteProgram = mutation({
       );
     }
 
-    // Add additional checks here if needed (e.g., for associated courses)
+    // Cascade delete: Remove all program_courses relationships
+    const programCourses = await ctx.db
+      .query("program_courses")
+      .withIndex("by_program_course", (q) => q.eq("programId", args.programId))
+      .collect();
 
+    for (const programCourse of programCourses) {
+      await ctx.db.delete(programCourse._id);
+    }
+
+    // Delete the program itself
     await ctx.db.delete(args.programId);
     return { success: true };
+  },
+});
+
+/**
+ * Internal function to recalculate total credits for a program
+ * based on associated courses
+ */
+async function recalculateProgramCredits(
+  db: DatabaseReader & DatabaseWriter,
+  programId: Id<"programs">,
+): Promise<number> {
+  // Get all active courses associated with this program
+  const programCourses = await db
+    .query("program_courses")
+    .withIndex("by_program_course", (q) => q.eq("programId", programId))
+    .collect();
+
+  // Get the course details and sum up credits
+  let totalCredits = 0;
+  for (const pc of programCourses) {
+    if (pc.isActive) {
+      const course = await db.get(pc.courseId);
+      if (course && course.isActive) {
+        totalCredits += course.credits;
+      }
+    }
+  }
+
+  // Update the program with the new total credits
+  await db.patch(programId, { totalCredits });
+
+  return totalCredits;
+}
+
+/**
+ * Internal mutation to recalculate program credits
+ * This can be called from other mutations
+ */
+export const internalRecalculateProgramCredits = internalMutation({
+  args: {
+    programId: v.id("programs"),
+  },
+  handler: async (ctx, args) => {
+    return await recalculateProgramCredits(ctx.db, args.programId);
   },
 });

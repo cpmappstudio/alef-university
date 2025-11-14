@@ -184,54 +184,11 @@ export async function validatePrerequisites(
   studentId: Id<"users">,
   courseId: Id<"courses">,
 ): Promise<PrerequisiteValidation> {
-  const course = await db.get(courseId);
-  if (!course || !course.prerequisites.length) {
-    return {
-      isValid: true,
-      missingPrerequisites: [],
-      completedPrerequisites: [],
-    };
-  }
-
-  // Get all completed enrollments for the student
-  const completedEnrollments = await db
-    .query("enrollments")
-    .withIndex("by_student_course", (q) => q.eq("studentId", studentId))
-    .filter((q) => q.eq(q.field("status"), "completed"))
-    .collect();
-
-  // Build set of completed course codes
-  const completedCourseCodes = new Set<string>();
-  for (const enrollment of completedEnrollments) {
-    if (enrollment.percentageGrade && enrollment.percentageGrade >= 65) {
-      const completedCourse = await db.get(enrollment.courseId);
-      if (
-        completedCourse &&
-        (completedCourse.codeEs || completedCourse.codeEn)
-      ) {
-        // Add both Spanish and English codes if they exist
-        if (completedCourse.codeEs) {
-          completedCourseCodes.add(completedCourse.codeEs);
-        }
-        if (completedCourse.codeEn) {
-          completedCourseCodes.add(completedCourse.codeEn);
-        }
-      }
-    }
-  }
-
-  const missingPrerequisites = course.prerequisites.filter(
-    (code) => !completedCourseCodes.has(code),
-  );
-
-  const completedPrerequisites = course.prerequisites.filter((code) =>
-    completedCourseCodes.has(code),
-  );
-
+  // Prerequisites feature removed - always return valid
   return {
-    isValid: missingPrerequisites.length === 0,
-    missingPrerequisites,
-    completedPrerequisites,
+    isValid: true,
+    missingPrerequisites: [],
+    completedPrerequisites: [],
   };
 }
 

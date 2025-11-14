@@ -1,21 +1,29 @@
 "use client";
 
 import * as React from "react";
-import { Save, Trash2, Check, ChevronsUpDown, X, Info } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+  FieldSeparator,
+  FieldSet,
+} from "@/components/ui/field";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -23,971 +31,369 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import { api } from "@/convex/_generated/api";
-import { Course } from "../types";
 import { Textarea } from "@/components/ui/textarea";
-import type { Id } from "@/convex/_generated/dataModel";
 
-interface CourseFormDialogProps {
-  mode: "create" | "edit";
-  course?: Course;
-  trigger?: React.ReactNode;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
-}
+import { api } from "@/convex/_generated/api";
+import type { Id } from "@/convex/_generated/dataModel";
+import {
+  CourseFormDialogProps,
+  CourseFormState,
+  CourseFormValidationMessages,
+} from "@/lib/courses/types";
+import {
+  buildCourseCreatePayload,
+  buildCourseUpdatePayload,
+  createEmptyCourseFormState,
+  createFormStateFromCourse,
+  getLanguageVisibility,
+  validateCourseForm,
+} from "@/lib/courses/utils";
 
 export function CourseFormDialog({
   mode,
   course,
+  programId,
   trigger,
   open: controlledOpen,
   onOpenChange,
 }: CourseFormDialogProps) {
-  const [internalOpen, setInternalOpen] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [isDeleting, setIsDeleting] = React.useState(false);
-  const [activeTab, setActiveTab] = React.useState("general");
-  const [comboboxOpen, setComboboxOpen] = React.useState(false);
-  // For create mode: store programs to associate after course creation
-  const [programsToAssociate, setProgramsToAssociate] = React.useState<Array<{
-    programId: Id<"programs">;
-    programName: string;
-    programCode: string;
-    isRequired: boolean;
-    categoryOverride?: "humanities" | "core" | "elective" | "general";
-  }>>([]);
+  const t = useTranslations("admin.courses.form");
 
-  // Convex mutations and queries
+  const [internalOpen, setInternalOpen] = React.useState(false);
+  const open = controlledOpen ?? internalOpen;
+  const setOpen = onOpenChange ?? setInternalOpen;
+
+  const [formState, setFormState] = React.useState<CourseFormState>(
+    createEmptyCourseFormState,
+  );
+  const [formError, setFormError] = React.useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+
   const createCourse = useMutation(api.courses.createCourse);
   const updateCourse = useMutation(api.courses.updateCourse);
-  const deleteCourse = useMutation(api.courses.deleteCourse);
   const addCourseToProgram = useMutation(api.courses.addCourseToProgram);
-  const removeCourseFromProgram = useMutation(api.courses.removeCourseFromProgram);
 
-  const allPrograms = useQuery(api.programs.getAllPrograms, { isActive: true });
-  const coursePrograms = course ? useQuery(api.courses.getCoursePrograms, {
-    courseId: course._id,
-  }) : undefined;
-  const courseWithSections = course ? useQuery(api.courses.getCourseWithSections, {
-    courseId: course._id,
-  }) : undefined;
-
-  // Use controlled or internal state
-  const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
-  const setOpen = onOpenChange || setInternalOpen;
-
-  // Initialize form data based on course
-  const initialFormData = React.useMemo(() => {
-    if (mode === "edit" && course) {
-      return {
-        code: course.code || "",
-        codeEn: course.codeEn || "",
-        nameEs: course.nameEs || "",
-        nameEn: course.nameEn || "",
-        descriptionEs: course.descriptionEs || "",
-        descriptionEn: course.descriptionEn || "",
-        credits: course.credits,
-        level: course.level || "introductory",
-        language: course.language,
-        category: course.category,
-        prerequisites: course.prerequisites.join(", "), // Convert array to comma-separated string
-        corequisites: course.corequisites?.join(", ") || "", // Convert array to comma-separated string
-        syllabus: course.syllabus || "",
-        isActive: course.isActive,
-      };
-    }
-    return {
-      code: "",
-      codeEn: "",
-      nameEs: "",
-      nameEn: "",
-      descriptionEs: "",
-      descriptionEn: "",
-      credits: 0,
-      level: "introductory",
-      language: undefined as any, // This allows placeholder to show
-      category: "core",
-      prerequisites: "",
-      corequisites: "",
-      syllabus: "",
-      isActive: true,
-    };
-  }, [mode, course]);
-
-  const [formData, setFormData] = React.useState(initialFormData);
-
-  // Reset form when course changes or dialog opens
-  React.useEffect(() => {
-    if (open) {
-      setFormData(initialFormData);
-      setProgramsToAssociate([]);
-    }
-  }, [open, initialFormData]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Dynamic validation based on language
-    const errors: string[] = [];
-    
-    if (!formData.language) errors.push("Teaching language is required");
-    if (formData.credits <= 0) errors.push("Credits must be greater than 0");
-    
-    // Validate Spanish fields when language is "es" or "both"
-    if (formData.language === "es" || formData.language === "both") {
-      if (!formData.code.trim()) errors.push("Spanish course code is required when language is Spanish or both");
-      if (!formData.nameEs.trim()) errors.push("Spanish name is required when language is Spanish or both");
-      if (!formData.descriptionEs.trim()) errors.push("Spanish description is required when language is Spanish or both");
-    }
-    
-    // Validate English fields when language is "en" or "both"
-    if (formData.language === "en" || formData.language === "both") {
-      if (!formData.codeEn.trim()) errors.push("English course code is required when language is English or both");
-      if (!formData.nameEn.trim()) errors.push("English name is required when language is English or both");
-      if (!formData.descriptionEn.trim()) errors.push("English description is required when language is English or both");
-    }
-    
-    if (errors.length > 0) {
-      alert(`Please fix the following errors:\n\n${errors.join("\n")}`);
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      if (mode === "create") {
-        const courseId = await createCourse({
-          code: formData.code || undefined,
-          codeEn: formData.codeEn || undefined,
-          nameEs: formData.nameEs || undefined,
-          nameEn: formData.nameEn || undefined,
-          descriptionEs: formData.descriptionEs || undefined,
-          descriptionEn: formData.descriptionEn || undefined,
-          credits: formData.credits,
-          level: formData.level as "introductory" | "intermediate" | "advanced" | "graduate",
-          language: formData.language as "es" | "en" | "both",
-          category: formData.category as "humanities" | "core" | "elective" | "general",
-          prerequisites: formData.prerequisites
-            ? formData.prerequisites.split(',').map(p => p.trim()).filter(p => p)
-            : [],
-          corequisites: formData.corequisites && formData.corequisites.trim() !== ""
-            ? formData.corequisites.split(',').map(p => p.trim()).filter(p => p)
-            : undefined,
-          syllabus: formData.syllabus.trim() || undefined,
-        });
-
-        // Associate programs if any were selected
-        if (programsToAssociate.length > 0) {
-          for (const program of programsToAssociate) {
-            try {
-              await addCourseToProgram({
-                courseId: courseId,
-                programId: program.programId,
-                isRequired: program.isRequired,
-                categoryOverride: program.categoryOverride,
-              });
-            } catch (error) {
-              console.error(`Failed to associate program ${program.programCode}:`, error);
-            }
-          }
-        }
-
-        alert("Course created successfully!");
-        setOpen(false);
-      } else if (mode === "edit" && course) {
-        await updateCourse({
-          courseId: course._id,
-          code: formData.code || undefined,
-          codeEn: formData.codeEn || undefined,
-          nameEs: formData.nameEs || undefined,
-          nameEn: formData.nameEn || undefined,
-          descriptionEs: formData.descriptionEs || undefined,
-          descriptionEn: formData.descriptionEn || undefined,
-          credits: formData.credits,
-          level: formData.level as "introductory" | "intermediate" | "advanced" | "graduate",
-          language: formData.language as "es" | "en" | "both",
-          category: formData.category as "humanities" | "core" | "elective" | "general",
-          prerequisites: formData.prerequisites
-            ? formData.prerequisites.split(',').map(p => p.trim()).filter(p => p)
-            : [],
-          corequisites: formData.corequisites && formData.corequisites.trim() !== ""
-            ? formData.corequisites.split(',').map(p => p.trim()).filter(p => p)
-            : undefined,
-          syllabus: formData.syllabus.trim() || undefined,
-          isActive: formData.isActive,
-        });
-
-        alert("Course updated successfully!");
-        setOpen(false);
-      }
-    } catch (error) {
-      console.error("Failed to update course:", error);
-      alert("Failed to update course. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const updateFormData = (field: string, value: string | boolean | number) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  // Language field enablement logic (same as program-form-dialog.tsx)
-  const getFieldEnabledState = () => {
-    const language = formData.language;
-    // All fields are now editable in both create and edit mode
-    // Only language selection determines which fields are shown and enabled
-    return {
-      code: language === "es" || language === "both", // code for Spanish courses
-      codeEn: language === "en" || language === "both", // codeEn for English courses
-      nameEs: language === "es" || language === "both",
-      nameEn: language === "en" || language === "both",
-      descriptionEs: language === "es" || language === "both",
-      descriptionEn: language === "en" || language === "both",
-    };
-  };
-
-  const handleDelete = async () => {
-    if (!course) return;
-    if (!confirm(`Are you sure you want to delete the course "${course.nameEs}"? This action cannot be undone.`)) {
-      return;
-    }
-
-    setIsDeleting(true);
-
-    try {
-      await deleteCourse({ courseId: course._id });
-      alert("Course deleted successfully!");
-      setOpen(false);
-    } catch (error) {
-      console.error("Failed to delete course:", error);
-      alert(`Failed to delete course: ${error instanceof Error ? error.message : "Unknown error"}`);
-    } finally {
-      setIsDeleting(false);
-    }
-  };
-
-  const handleRemoveProgram = async (programId: Id<"programs">, skipConfirmation = false) => {
-    // In create mode, remove from temporary list
-    if (mode === "create") {
-      setProgramsToAssociate(programsToAssociate.filter(p => p.programId !== programId));
-      return;
-    }
-
-    // In edit mode, remove association from database
-    if (!course) return;
-
-    // Ask for confirmation only when removing from chip (not from combobox toggle)
-    if (!skipConfirmation && !confirm("Are you sure you want to remove this program association?")) {
-      return;
-    }
-
-    try {
-      await removeCourseFromProgram({
-        courseId: course._id,
-        programId: programId,
-      });
-      if (!skipConfirmation) {
-        alert("Program removed successfully!");
-      }
-    } catch (error) {
-      console.error("Failed to remove program:", error);
-      alert(`Failed to remove program: ${error instanceof Error ? error.message : "Unknown error"}`);
-    }
-  };
-
-  const fieldEnabled = getFieldEnabledState();
-
-  const dialogTitle = mode === "edit" ? "Edit Course" : "Create Course";
-  const dialogDescription = "Update the course information below";
-
-  const dialogContent = (
-    <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-background border-border shadow-2xl">
-      <DialogHeader className="space-y-4 pb-4 border-b border-border">
-        <DialogTitle className="text-2xl font-bold text-center text-foreground flex items-center justify-center gap-3">
-          {dialogTitle}
-        </DialogTitle>
-        <DialogDescription className="text-center text-muted-foreground text-base">
-          {dialogDescription}
-        </DialogDescription>
-      </DialogHeader>
-
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="general">General</TabsTrigger>
-          <TabsTrigger value="details" disabled={mode !== "edit"}>Details</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="general" className="space-y-6 mt-6">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-8 py-2">
-              {/* Basic Information Section */}
-              <div className="space-y-6">
-                <div className="flex items-center gap-3 pb-3 border-b border-border/50">
-                  <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
-                  <h3 className="text-lg font-semibold text-foreground">
-                    Basic Information
-                  </h3>
-                </div>
-
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="language"
-                      className="text-sm font-semibold text-foreground"
-                    >
-                      Teaching Language{" "}
-                      <span className="text-destructive">*</span>
-                    </Label>
-                    <Select
-                      value={formData.language || ""}
-                      onValueChange={(value) => updateFormData("language", value)}
-                    >
-                      <SelectTrigger className="w-full border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
-                        <SelectValue placeholder="Select language" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-background border-border shadow-lg">
-                        <SelectItem value="es" className="hover:bg-muted/80">
-                          Spanish
-                        </SelectItem>
-                        <SelectItem value="en" className="hover:bg-muted/80">
-                          English
-                        </SelectItem>
-                        <SelectItem value="both" className="hover:bg-muted/80">
-                          English/Spanish
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                {/* Instruction message when no language is selected */}
-                {!formData.language && mode === "create" && (
-                  <div className="flex items-center gap-2 p-3 rounded-lg bg-muted/50 border border-border/50">
-                    <Info className="text-deep-koamaru w-4 h-4 flex-shrink-0" />
-                    <p className="text-sm text-muted-foreground">
-                      Please select a teaching language to configure the course details (code, name, and description).
-                    </p>
-                  </div>
-                )}
-
-                <div
-                  className={`grid gap-6 ${formData.language === "both" ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"}`}
-                >
-                  {/* CodeEn field for English (en or both) */}
-                  {(formData.language === "en" ||
-                    formData.language === "both") && (
-                    <div className="space-y-2">
-                      <Label
-                        htmlFor="codeEn"
-                        className="text-sm font-semibold text-foreground"
-                      >
-                        Course Code (English)
-                        <span className="text-destructive"> *</span>
-                      </Label>
-                      <Input
-                        id="codeEn"
-                        value={formData.codeEn}
-                        onChange={(e) =>
-                          updateFormData("codeEn", e.target.value)
-                        }
-                        placeholder="Enter course code in English"
-                        className="border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                        disabled={!fieldEnabled.codeEn}
-                        required
-                      />
-                    </div>
-                  )}
-                  {/* Code field for Spanish (es or both) */}
-                  {(formData.language === "es" ||
-                    formData.language === "both") && (
-                    <div className="space-y-2">
-                      <Label
-                        htmlFor="code"
-                        className="text-sm font-semibold text-foreground"
-                      >
-                        Course Code (Spanish)
-                        <span className="text-destructive"> *</span>
-                      </Label>
-                      <Input
-                        id="code"
-                        value={formData.code}
-                        onChange={(e) => updateFormData("code", e.target.value)}
-                        placeholder="Enter course code in Spanish"
-                        className="border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                        disabled={!fieldEnabled.code}
-                        required
-                      />
-                    </div>
-                  )}
-                </div>
-
-                <div
-                  className={`grid gap-6 ${formData.language === "both" ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"}`}
-                >
-                  {/* Name field for English (en or both) */}
-                  {(formData.language === "en" ||
-                    formData.language === "both") && (
-                    <div className="space-y-2">
-                      <Label
-                        htmlFor="nameEn"
-                        className="text-sm font-semibold text-foreground"
-                      >
-                        Name (English)
-                        <span className="text-destructive"> *</span>
-                      </Label>
-                      <Input
-                        id="nameEn"
-                        value={formData.nameEn}
-                        onChange={(e) =>
-                          updateFormData("nameEn", e.target.value)
-                        }
-                        placeholder="Enter course name in English"
-                        className="border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                        disabled={!fieldEnabled.nameEn}
-                        required
-                      />
-                    </div>
-                  )}
-                  {/* Name field for Spanish (es or both) */}
-                  {(formData.language === "es" ||
-                    formData.language === "both") && (
-                    <div className="space-y-2">
-                      <Label
-                        htmlFor="nameEs"
-                        className="text-sm font-semibold text-foreground"
-                      >
-                        Name (Spanish)
-                        <span className="text-destructive"> *</span>
-                      </Label>
-                      <Input
-                        id="nameEs"
-                        value={formData.nameEs}
-                        onChange={(e) =>
-                          updateFormData("nameEs", e.target.value)
-                        }
-                        placeholder="Enter course name in Spanish"
-                        className="border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                        disabled={!fieldEnabled.nameEs}
-                        required
-                      />
-                    </div>
-                  )}
-                </div>
-
-                <div
-                  className={`grid gap-6 ${formData.language === "both" ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"}`}
-                >
-                  {/* Description field for English (en or both) */}
-                  {(formData.language === "en" ||
-                    formData.language === "both") && (
-                    <div className="space-y-2">
-                      <Label
-                        htmlFor="descriptionEn"
-                        className="text-sm font-semibold text-foreground"
-                      >
-                        Description (English)
-                        <span className="text-destructive"> *</span>
-                      </Label>
-                      <Textarea
-                        id="descriptionEn"
-                        value={formData.descriptionEn}
-                        onChange={(e) =>
-                          updateFormData("descriptionEn", e.target.value)
-                        }
-                        placeholder="Enter course description in English"
-                        className="min-h-[100px] resize-none border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                        disabled={!fieldEnabled.descriptionEn}
-                        required
-                      />
-                    </div>
-                  )}
-                  {/* Description field for Spanish (es or both) */}
-                  {(formData.language === "es" ||
-                    formData.language === "both") && (
-                    <div className="space-y-2">
-                      <Label
-                        htmlFor="descriptionEs"
-                        className="text-sm font-semibold text-foreground"
-                      >
-                        Description (Spanish)
-                        <span className="text-destructive"> *</span>
-                      </Label>
-                      <Textarea
-                        id="descriptionEs"
-                        value={formData.descriptionEs}
-                        onChange={(e) =>
-                          updateFormData("descriptionEs", e.target.value)
-                        }
-                        placeholder="Enter course description in Spanish"
-                        className="min-h-[100px] resize-none border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                        disabled={!fieldEnabled.descriptionEs}
-                        required
-                      />
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Academic Information Section */}
-              <div className="space-y-6">
-                <div className="flex items-center gap-3 pb-3 border-b border-border/50">
-                  <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
-                  <h3 className="text-lg font-semibold text-foreground">
-                    Academic Information
-                  </h3>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="credits"
-                      className="text-sm font-semibold text-foreground"
-                    >
-                      Credits <span className="text-destructive">*</span>
-                    </Label>
-                    <Input
-                      id="credits"
-                      type="number"
-                      value={formData.credits}
-                      onChange={(e) =>
-                        updateFormData("credits", parseInt(e.target.value) || 0)
-                      }
-                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                      min="1"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="category"
-                      className="text-sm font-semibold text-foreground"
-                    >
-                      Course Category{" "}
-                      <span className="text-destructive">*</span>
-                    </Label>
-                    <Select
-                      value={formData.category || ""}
-                      onValueChange={(value) =>
-                        updateFormData("category", value)
-                      }
-                    >
-                      <SelectTrigger className="w-full border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
-                        <SelectValue placeholder="Select course category" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-background border-border shadow-lg">
-                        <SelectItem
-                          value="humanities"
-                          className="hover:bg-muted/80"
-                        >
-                          Humanities
-                        </SelectItem>
-                        <SelectItem value="core" className="hover:bg-muted/80">
-                          Core
-                        </SelectItem>
-                        <SelectItem
-                          value="elective"
-                          className="hover:bg-muted/80"
-                        >
-                          Elective
-                        </SelectItem>
-                        <SelectItem
-                          value="general"
-                          className="hover:bg-muted/80"
-                        >
-                          General
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="prerequisites"
-                      className="text-sm font-semibold text-foreground"
-                    >
-                      Prerequisites
-                    </Label>
-                    <Input
-                      id="prerequisites"
-                      value={formData.prerequisites}
-                      onChange={(e) =>
-                        updateFormData("prerequisites", e.target.value)
-                      }
-                      placeholder="Enter course codes separated by commas"
-                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="corequisites"
-                      className="text-sm font-semibold text-foreground"
-                    >
-                      Corequisites
-                    </Label>
-                    <Input
-                      id="corequisites"
-                      value={formData.corequisites}
-                      onChange={(e) =>
-                        updateFormData("corequisites", e.target.value)
-                      }
-                      placeholder="Enter course codes separated by commas"
-                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                    />
-                  </div>
-                </div> */}
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="syllabus"
-                      className="text-sm font-semibold text-foreground"
-                    >
-                      Syllabus URL
-                    </Label>
-                    <Input
-                      id="syllabus"
-                      value={formData.syllabus}
-                      onChange={(e) =>
-                        updateFormData("syllabus", e.target.value)
-                      }
-                      placeholder="https://example.com/syllabus.pdf"
-                      className=" border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="isActive"
-                      className="text-sm font-semibold text-foreground"
-                    >
-                      Course Availability{" "}
-                      <span className="text-destructive">*</span>
-                    </Label>
-                    <Select
-                      value={formData.isActive.toString() || ""}
-                      onValueChange={(value) =>
-                        updateFormData("isActive", value === "true")
-                      }
-                    >
-                      <SelectTrigger className="w-full border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200">
-                        <SelectValue placeholder="Select course availability" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-background border-border shadow-lg">
-                        <SelectItem value="true" className="hover:bg-muted/80">
-                          <div className="flex items-center gap-2">
-                            Available
-                          </div>
-                        </SelectItem>
-                        <SelectItem value="false" className="hover:bg-muted/80">
-                          <div className="flex items-center gap-2">
-                            Unavailable
-                          </div>
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </div>
-
-              {/* Info Section */}
-              <div className="bg-fuzzy-wuzzy/20 rounded-xl p-4">
-                <div className="flex items-start gap-3">
-                  <div className="text-sm space-y-2">
-                    <p className="font-medium text-foreground">
-                      <span className="text-destructive">*</span> Required
-                      fields must be completed
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Associated Programs Section */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 pb-3 border-b border-border/50">
-                  <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
-                  <h3 className="text-lg font-semibold text-foreground">
-                    Associate with Programs
-                  </h3>
-                </div>
-
-                <div className="space-y-3">
-                  <Label className="text-sm font-semibold text-foreground">
-                    Select Programs
-                  </Label>
-                  <Popover open={comboboxOpen} onOpenChange={setComboboxOpen}>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        aria-expanded={comboboxOpen}
-                        className="w-full justify-start min-h-[40px] h-auto"
-                      >
-                        <div className="flex gap-1 flex-wrap flex-1">
-                          {mode === "create" ? (
-                            programsToAssociate.length > 0 ? (
-                              programsToAssociate.map((program) => (
-                                <span
-                                  key={program.programId}
-                                  className="inline-flex items-center gap-1 px-1 rounded-md bg-primary/10 text-primary text-sm"
-                                >
-                                  {program.programCode}
-                                  {program.isRequired && (
-                                    <span className="text-xs">*</span>
-                                  )}
-
-                                </span>
-                              ))
-                            ) : (
-                              <span className="text-muted-foreground">Select programs...</span>
-                            )
-                          ) : (
-                            coursePrograms && coursePrograms.length > 0 ? (
-                              coursePrograms.map((program) => (
-                                <span
-                                  key={program.programId}
-                                  className="inline-flex items-center gap-1 px-1 rounded-md bg-primary/10 text-primary text-sm"
-                                >
-                                  {program.programCode}
-                                  {program.isRequired && (
-                                    <span className="text-xs">*</span>
-                                  )}
-
-                                </span>
-                              ))
-                            ) : (
-                              <span className="text-muted-foreground">Select programs...</span>
-                            )
-                          )}
-                        </div>
-                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-full p-0" align="start">
-                      <Command>
-                        <CommandInput placeholder="Search program..." className="h-9" />
-                        <CommandList>
-                          <CommandEmpty>No program found.</CommandEmpty>
-                          <CommandGroup>
-                            {allPrograms?.map((program) => {
-                              // Check if program is already selected
-                              const isSelected = mode === "edit"
-                                ? coursePrograms?.some(cp => cp.programId === program._id)
-                                : programsToAssociate.some(pa => pa.programId === program._id);
-
-                              return (
-                                <CommandItem
-                                  key={program._id}
-                                  value={program.nameEs}
-                                  onSelect={() => {
-                                    if (isSelected) {
-                                      // Deselect/Remove the program (no confirmation needed)
-                                      handleRemoveProgram(program._id, true);
-                                    } else {
-                                      // Select/Add the program
-                                      const newProgram = {
-                                        programId: program._id,
-                                        programName: program.nameEs || program.nameEn || "Unknown Program",
-                                        programCode: program.code || program.codeEn || "N/A",
-                                        isRequired: false,
-                                        categoryOverride: undefined,
-                                      };
-
-                                      if (mode === "create") {
-                                        setProgramsToAssociate([...programsToAssociate, newProgram]);
-                                      } else {
-                                        // In edit mode, associate immediately
-                                        addCourseToProgram({
-                                          courseId: course!._id,
-                                          programId: program._id,
-                                          isRequired: false,
-                                          categoryOverride: undefined,
-                                        }).catch((error) => {
-                                          console.error("Failed to associate program:", error);
-                                          alert(`Failed to associate program: ${error instanceof Error ? error.message : "Unknown error"}`);
-                                        });
-                                      }
-                                    }
-                                  }}
-                                  className="cursor-pointer"
-                                >
-                                  <Check
-                                    className={cn(
-                                      "mr-2 h-4 w-4",
-                                      isSelected ? "opacity-100" : "opacity-0"
-                                    )}
-                                  />
-                                  <div className="flex flex-col flex-1">
-                                    <span className="font-medium">{program.nameEs}</span>
-                                    <span className="text-xs text-muted-foreground">{program.code}</span>
-                                  </div>
-                                </CommandItem>
-                              );
-                            })}
-                          </CommandGroup>
-                        </CommandList>
-                      </Command>
-                    </PopoverContent>
-                  </Popover>
-                  <p className="text-xs text-muted-foreground">
-                    * indicates required course for the program
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <DialogFooter className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-border bg-muted/10 -mx-6 -mb-6 px-6 pb-6 rounded-b-xl">
-              <div className="flex gap-3 w-full justify-end">
-                {mode === "edit" && (
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    onClick={handleDelete}
-                    disabled={isDeleting || isLoading}
-                    className="px-6 py-2.5"
-                  >
-                    {isDeleting ? (
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        Deleting...
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-2">
-                        <Trash2 className="h-4 w-4" />
-                        Delete Course
-                      </div>
-                    )}
-                  </Button>
-                )}
-                <Button type="submit" variant="default" disabled={isLoading}>
-                  {isLoading ? (
-                    <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Saving...
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-2">
-                      <Save className="h-4 w-4" />
-                      Save Changes
-                    </div>
-                  )}
-                </Button>
-              </div>
-            </DialogFooter>
-          </form>
-        </TabsContent>
-
-        <TabsContent value="details" className="space-y-6 mt-6">
-          {mode === "edit" && course && (<div className="space-y-6">
-            {/* Associated Sections Section */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 pb-3 border-b border-border/50">
-                <div className="w-2 h-2 rounded-full bg-deep-koamaru"></div>
-                <h3 className="text-lg font-semibold text-foreground">
-                  Associated Sections
-                </h3>
-              </div>
-
-              {courseWithSections === undefined ? (
-                <div className="flex items-center justify-center py-8">
-                  <div className="flex flex-col items-center space-y-4">
-                    <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-                    <p className="text-muted-foreground text-sm">
-                      Loading sections...
-                    </p>
-                  </div>
-                </div>
-              ) : !courseWithSections.sections ||
-                courseWithSections.sections.length === 0 ? (
-                <div className="text-center py-8">
-                  <p className="text-muted-foreground">
-                    No sections are currently associated with this course.
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-3 max-h-[400px] overflow-y-auto">
-                  {courseWithSections.sections.map((sectionData) => (
-                    <div
-                      key={sectionData.section._id}
-                      className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
-                    >
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-3">
-                          <span className="font-semibold text-foreground">
-                            {sectionData.section.groupNumber}
-                          </span>
-                          <span className="text-sm text-muted-foreground">
-                            {sectionData.enrollmentStats.enrolled} /{" "}
-                            {sectionData.enrollmentStats.capacity} students
-                          </span>
-                        </div>
-                        <p className="text-sm text-foreground">
-                          {sectionData.professor?.firstName}{" "}
-                          {sectionData.professor?.lastName}
-                        </p>
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                          {sectionData.section.schedule?.sessions.map(
-                            (session, idx) => (
-                              <div
-                                key={idx}
-                                className="flex items-center gap-1"
-                              >
-                                <span className="capitalize">
-                                  {session.day}
-                                </span>
-                                <span>
-                                  {session.startTime} - {session.endTime}
-                                </span>
-                                {idx <
-                                  sectionData.section.schedule!.sessions
-                                    .length -
-                                  1 && <span>•</span>}
-                              </div>
-                            ),
-                          )}
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
-                          {sectionData.section.deliveryMethod === "in_person"
-                            ? "In Person"
-                            : sectionData.section.deliveryMethod ===
-                              "online_sync"
-                              ? "Online Sync"
-                              : sectionData.section.deliveryMethod ===
-                                "online_async"
-                                ? "Online Async"
-                                : "Hybrid"}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>)}
-        </TabsContent>
-      </Tabs>
-    </DialogContent>
+  const { showSpanishFields, showEnglishFields } = getLanguageVisibility(
+    formState.language,
   );
 
+  const resetForm = React.useCallback(() => {
+    setFormState(createFormStateFromCourse(course));
+    setFormError(null);
+  }, [course]);
+
+  React.useEffect(() => {
+    if (open) {
+      resetForm();
+    }
+  }, [open, resetForm]);
+
+  const handleDialogChange = (nextOpen: boolean) => {
+    setOpen(nextOpen);
+    if (!nextOpen) {
+      resetForm();
+      setFormError(null);
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleInputChange =
+    (field: keyof CourseFormState) =>
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const value = event.target.value;
+      setFormState((prev) => ({ ...prev, [field]: value }));
+    };
+
+  const handleSelectChange =
+    (field: "language" | "category") => (value: string) => {
+      setFormState((prev) => ({
+        ...prev,
+        [field]: value as CourseFormState[typeof field],
+      }));
+    };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setFormError(null);
+
+    const validationMessages: CourseFormValidationMessages = {
+      languageRequired: t("messages.errors.language"),
+      categoryRequired: t("messages.errors.category"),
+      codeEsRequired: t("messages.errors.codeEs"),
+      nameEsRequired: t("messages.errors.nameEs"),
+      descriptionEsRequired: t("messages.errors.descriptionEs"),
+      codeEnRequired: t("messages.errors.codeEn"),
+      nameEnRequired: t("messages.errors.nameEn"),
+      descriptionEnRequired: t("messages.errors.descriptionEn"),
+      creditsPositive: t("messages.errors.credits"),
+    };
+
+    const validation = validateCourseForm(formState, validationMessages);
+
+    if (!validation.isValid) {
+      setFormError(Object.values(validation.errors).filter(Boolean).join("\n"));
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+
+      if (mode === "edit" && course?._id) {
+        const updatePayload = buildCourseUpdatePayload(course._id, formState);
+        await updateCourse(updatePayload);
+      } else {
+        const createPayload = buildCourseCreatePayload(formState);
+        const courseId = await createCourse(createPayload);
+
+        // If programId is provided, associate course with program
+        if (programId && courseId) {
+          await addCourseToProgram({
+            courseId: courseId,
+            programId: programId,
+            isRequired: false,
+            categoryOverride: undefined,
+          });
+        }
+
+        if (!formState.isActive && courseId) {
+          const updatePayload = buildCourseUpdatePayload(courseId, formState);
+          await updateCourse(updatePayload);
+        }
+      }
+
+      handleDialogChange(false);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : t("messages.errors.generic");
+      setFormError(message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
-      {dialogContent}
+    <Dialog open={open} onOpenChange={handleDialogChange}>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-background border-border shadow-2xl">
+        <form onSubmit={handleSubmit}>
+          <DialogHeader className="hidden">
+            <DialogTitle>
+              {mode === "edit" ? t("titleEdit") : t("title")}
+            </DialogTitle>
+            <DialogDescription>
+              {mode === "edit" ? t("descriptionEdit") : t("description")}
+            </DialogDescription>
+          </DialogHeader>
+
+          <FieldGroup>
+            <FieldSet>
+              <FieldGroup>
+                <Field>
+                  <FieldLabel htmlFor="course-language">
+                    {t("fields.language.label")} *
+                  </FieldLabel>
+
+                  <Select
+                    value={formState.language}
+                    onValueChange={handleSelectChange("language")}
+                  >
+                    <SelectTrigger id="course-language">
+                      <SelectValue
+                        placeholder={t("fields.language.placeholder")}
+                      />
+                    </SelectTrigger>
+
+                    <SelectContent>
+                      <SelectItem value="es">
+                        {t("options.languages.es")}
+                      </SelectItem>
+
+                      <SelectItem value="en">
+                        {t("options.languages.en")}
+                      </SelectItem>
+
+                      <SelectItem value="both">
+                        {t("options.languages.both")}
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </Field>
+
+                <Field>
+                  <FieldLabel htmlFor="course-category">
+                    {t("fields.category.label")} *
+                  </FieldLabel>
+
+                  <Select
+                    value={formState.category}
+                    onValueChange={handleSelectChange("category")}
+                  >
+                    <SelectTrigger id="course-category">
+                      <SelectValue
+                        placeholder={t("fields.category.placeholder")}
+                      />
+                    </SelectTrigger>
+
+                    <SelectContent>
+                      <SelectItem value="humanities">
+                        {t("options.categories.humanities")}
+                      </SelectItem>
+
+                      <SelectItem value="core">
+                        {t("options.categories.core")}
+                      </SelectItem>
+
+                      <SelectItem value="elective">
+                        {t("options.categories.elective")}
+                      </SelectItem>
+
+                      <SelectItem value="general">
+                        {t("options.categories.general")}
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </Field>
+              </FieldGroup>
+
+              {!formState.language ? (
+                <FieldDescription className="text-muted-foreground">
+                  {t("messages.infoSelectLanguage")}
+                </FieldDescription>
+              ) : null}
+            </FieldSet>
+
+            {showSpanishFields ? (
+              <>
+                <FieldSeparator />
+                <FieldSet>
+                  <FieldGroup>
+                    <Field>
+                      <FieldLabel htmlFor="course-code-es">
+                        {t("fields.codeEs.label")} *
+                      </FieldLabel>
+                      <Input
+                        id="course-code-es"
+                        value={formState.codeEs}
+                        onChange={handleInputChange("codeEs")}
+                        placeholder={t("fields.codeEs.placeholder")}
+                      />
+                    </Field>
+                    <Field>
+                      <FieldLabel htmlFor="course-name-es">
+                        {t("fields.nameEs.label")} *
+                      </FieldLabel>
+                      <Input
+                        id="course-name-es"
+                        value={formState.nameEs}
+                        onChange={handleInputChange("nameEs")}
+                        placeholder={t("fields.nameEs.placeholder")}
+                      />
+                    </Field>
+                    <Field>
+                      <FieldLabel htmlFor="course-description-es">
+                        {t("fields.descriptionEs.label")} *
+                      </FieldLabel>
+                      <Textarea
+                        id="course-description-es"
+                        value={formState.descriptionEs}
+                        onChange={handleInputChange("descriptionEs")}
+                        placeholder={t("fields.descriptionEs.placeholder")}
+                        className="resize-none"
+                      />
+                    </Field>
+                  </FieldGroup>
+                </FieldSet>
+              </>
+            ) : null}
+
+            {showEnglishFields ? (
+              <>
+                <FieldSeparator />
+                <FieldSet>
+                  <FieldGroup>
+                    <Field>
+                      <FieldLabel htmlFor="course-code-en">
+                        {t("fields.codeEn.label")} *
+                      </FieldLabel>
+                      <Input
+                        id="course-code-en"
+                        value={formState.codeEn}
+                        onChange={handleInputChange("codeEn")}
+                        placeholder={t("fields.codeEn.placeholder")}
+                      />
+                    </Field>
+                    <Field>
+                      <FieldLabel htmlFor="course-name-en">
+                        {t("fields.nameEn.label")} *
+                      </FieldLabel>
+                      <Input
+                        id="course-name-en"
+                        value={formState.nameEn}
+                        onChange={handleInputChange("nameEn")}
+                        placeholder={t("fields.nameEn.placeholder")}
+                      />
+                    </Field>
+                    <Field>
+                      <FieldLabel htmlFor="course-description-en">
+                        {t("fields.descriptionEn.label")} *
+                      </FieldLabel>
+                      <Textarea
+                        id="course-description-en"
+                        value={formState.descriptionEn}
+                        onChange={handleInputChange("descriptionEn")}
+                        placeholder={t("fields.descriptionEn.placeholder")}
+                        className="resize-none"
+                      />
+                    </Field>
+                  </FieldGroup>
+                </FieldSet>
+              </>
+            ) : null}
+
+            <FieldSeparator />
+            <FieldSet>
+              <FieldGroup>
+                <Field>
+                  <FieldLabel htmlFor="course-credits">
+                    {t("fields.credits.label")} *
+                  </FieldLabel>
+                  <Input
+                    id="course-credits"
+                    value={formState.credits}
+                    onChange={handleInputChange("credits")}
+                    placeholder={t("fields.credits.placeholder")}
+                    inputMode="numeric"
+                  />
+                </Field>
+              </FieldGroup>
+            </FieldSet>
+
+            <FieldSeparator />
+            {formError ? (
+              <FieldSet>
+                <FieldDescription className="whitespace-pre-line text-destructive">
+                  {formError}
+                </FieldDescription>
+              </FieldSet>
+            ) : null}
+
+            <Field orientation="horizontal">
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {t("buttons.loading")}
+                  </>
+                ) : mode === "edit" ? (
+                  t("buttons.update")
+                ) : (
+                  t("buttons.submit")
+                )}
+              </Button>
+            </Field>
+          </FieldGroup>
+        </form>
+      </DialogContent>
     </Dialog>
   );
 }

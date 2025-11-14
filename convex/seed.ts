@@ -178,7 +178,6 @@ export const seedDatabase = internalAction({
         type: "master",
         language: "es",
         categoryId: theologyCategoryId,
-        totalCredits: 40,
         durationBimesters: 6,
       },
     );
@@ -242,7 +241,6 @@ export const seedDatabase = internalAction({
           credits: course.credits,
           language: "es",
           category: "core",
-          prerequisites: [],
         },
       );
       await ctx.runMutation(internal.courses.internalAddCourseToProgram, {

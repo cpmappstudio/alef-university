@@ -49,7 +49,7 @@ import {
 } from "@/lib/programs/utils";
 
 export default function ProgramFormDialog({
-  mode: _mode,
+  mode,
   program,
   trigger,
   open: controlledOpen,
@@ -131,7 +131,6 @@ export default function ProgramFormDialog({
       codeEnRequired: t("messages.errors.codeEn"),
       nameEnRequired: t("messages.errors.nameEn"),
       descriptionEnRequired: t("messages.errors.descriptionEn"),
-      totalCreditsPositive: t("messages.errors.totalCredits"),
       durationBimestersPositive: t("messages.errors.durationBimesters"),
     };
 
@@ -145,12 +144,17 @@ export default function ProgramFormDialog({
     try {
       setIsSubmitting(true);
 
-      const createPayload = buildProgramCreatePayload(formState);
-      const programId = await createProgram(createPayload);
-
-      if (!formState.isActive && programId) {
-        const updatePayload = buildProgramUpdatePayload(programId, formState);
+      if (mode === "edit" && program?._id) {
+        const updatePayload = buildProgramUpdatePayload(program._id, formState);
         await updateProgram(updatePayload);
+      } else {
+        const createPayload = buildProgramCreatePayload(formState);
+        const programId = await createProgram(createPayload);
+
+        if (!formState.isActive && programId) {
+          const updatePayload = buildProgramUpdatePayload(programId, formState);
+          await updateProgram(updatePayload);
+        }
       }
 
       handleDialogChange(false);
@@ -169,8 +173,12 @@ export default function ProgramFormDialog({
       <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-background border-border shadow-2xl">
         <form onSubmit={handleSubmit}>
           <DialogHeader className="hidden">
-            <DialogTitle>{t("title")}</DialogTitle>
-            <DialogDescription>{t("description")}</DialogDescription>
+            <DialogTitle>
+              {mode === "edit" ? t("titleEdit") : t("title")}
+            </DialogTitle>
+            <DialogDescription>
+              {mode === "edit" ? t("descriptionEdit") : t("description")}
+            </DialogDescription>
           </DialogHeader>
 
           <FieldGroup>
@@ -375,18 +383,6 @@ export default function ProgramFormDialog({
             <FieldSet>
               <FieldGroup>
                 <Field>
-                  <FieldLabel htmlFor="program-total-credits">
-                    {t("fields.totalCredits.label")} *
-                  </FieldLabel>
-                  <Input
-                    id="program-total-credits"
-                    value={formState.totalCredits}
-                    onChange={handleInputChange("totalCredits")}
-                    placeholder={t("fields.totalCredits.placeholder")}
-                    inputMode="numeric"
-                  />
-                </Field>
-                <Field>
                   <FieldLabel htmlFor="program-duration">
                     {t("fields.durationBimesters.label")} *
                   </FieldLabel>
@@ -397,8 +393,14 @@ export default function ProgramFormDialog({
                     placeholder={t("fields.durationBimesters.placeholder")}
                     inputMode="numeric"
                   />
+                  <FieldDescription className="text-muted-foreground text-sm">
+                    {t("fields.durationBimesters.description")}
+                  </FieldDescription>
                 </Field>
               </FieldGroup>
+              <FieldDescription className="text-muted-foreground">
+                {t("messages.infoAutoCredits")}
+              </FieldDescription>
             </FieldSet>
 
             <FieldSeparator />
@@ -422,6 +424,8 @@ export default function ProgramFormDialog({
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     {t("buttons.loading")}
                   </>
+                ) : mode === "edit" ? (
+                  t("buttons.update")
                 ) : (
                   t("buttons.submit")
                 )}

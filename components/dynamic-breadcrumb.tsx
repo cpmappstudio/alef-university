@@ -1,8 +1,11 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useMemo, Fragment, memo, useCallback } from "react";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import type { Id } from "@/convex/_generated/dataModel";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -83,12 +86,36 @@ const ROUTE_CONFIG: Record<string, RouteConfig> = {
 
 export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
   const pathname = usePathname();
+  const locale = useLocale();
   const t = useTranslations("navigation");
 
   // Memoize path processing
   const pathWithoutLocale = useMemo(() => {
     return pathname.replace(/^\/[a-z]{2}(?=\/|$)/, "");
   }, [pathname]);
+
+  // Extract dynamic IDs from pathname
+  const pathParts = useMemo(() => {
+    return pathWithoutLocale.split("/").filter(Boolean);
+  }, [pathWithoutLocale]);
+
+  // Detect dynamic entity IDs
+  const programId = useMemo(() => {
+    const programsIndex = pathParts.indexOf("programs");
+    if (programsIndex !== -1 && pathParts[programsIndex + 1]) {
+      const id = pathParts[programsIndex + 1];
+      if (!ROUTE_CONFIG[id] && id.length > 20) {
+        return id as Id<"programs">;
+      }
+    }
+    return null;
+  }, [pathParts]);
+
+  // Fetch data for dynamic entities
+  const program = useQuery(
+    api.programs.getProgramById,
+    programId ? { id: programId } : "skip",
+  );
 
   // Stable translation function with useCallback
   const getTranslation = useCallback(
@@ -119,11 +146,23 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
       return segments;
     }
 
-    // Split path and create segments
-    const pathParts = pathWithoutLocale.split("/").filter(Boolean);
-
     // Build breadcrumb path - only show the last segment (current page)
     const lastPart = pathParts[pathParts.length - 1];
+
+    // If this is a program detail page and we have program data, show program name
+    if (programId && program) {
+      const nameEs = program.nameEs || "";
+      const nameEn = program.nameEn || "";
+      const programName = locale === "es" ? nameEs || nameEn : nameEn || nameEs;
+
+      segments.push({
+        title: programName || "Program",
+        isCurrentPage: true,
+      });
+      return segments;
+    }
+
+    // Otherwise, use standard route config
     const config = ROUTE_CONFIG[lastPart];
     const title = config
       ? getTranslation(config.title, config.fallback || config.title)
@@ -135,7 +174,14 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
     });
 
     return segments;
-  }, [pathWithoutLocale, getTranslation]);
+  }, [
+    pathWithoutLocale,
+    pathParts,
+    getTranslation,
+    programId,
+    program,
+    locale,
+  ]);
 
   return (
     <Breadcrumb>

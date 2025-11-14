@@ -2,36 +2,39 @@ import type { ReactNode } from "react";
 import type { Id } from "@/convex/_generated/dataModel";
 
 export type Program = {
-  codeEs: string | undefined;
+  _id?: Id<"programs">;
+  _creationTime?: number;
 
-  codeEn: string | undefined;
+  codeEs?: string | undefined;
 
-  nameEs: string | undefined;
+  codeEn?: string | undefined;
 
-  nameEn: string | undefined;
+  nameEs?: string | undefined;
 
-  descriptionEs: string | undefined;
+  nameEn?: string | undefined;
 
-  descriptionEn: string | undefined;
+  descriptionEs?: string | undefined;
 
-  type: "diploma" | "bachelor" | "master" | "doctorate";
+  descriptionEn?: string | undefined;
 
-  degree: string | undefined;
+  type?: "diploma" | "bachelor" | "master" | "doctorate";
 
-  categoryId: Id<"program_categories"> | undefined;
-  language: "es" | "en" | "both";
+  degree?: string | undefined;
 
-  totalCredits: number;
+  categoryId?: Id<"program_categories"> | undefined;
+  language?: "es" | "en" | "both";
 
-  durationBimesters: number;
+  totalCredits?: number;
 
-  tuitionPerCredit: number | undefined;
+  durationBimesters?: number;
 
-  isActive: boolean;
+  tuitionPerCredit?: number | undefined;
 
-  createdAt: number;
+  isActive?: boolean;
 
-  updatedAt: number | undefined;
+  createdAt?: number;
+
+  updatedAt?: number | undefined;
 };
 
 export type ProgramCategory = {
@@ -39,8 +42,8 @@ export type ProgramCategory = {
   name: string;
 };
 
-export type ProgramLanguageOption = Program["language"];
-export type ProgramTypeOption = Program["type"];
+export type ProgramLanguageOption = "es" | "en" | "both";
+export type ProgramTypeOption = "diploma" | "bachelor" | "master" | "doctorate";
 
 export type ProgramFormLanguage = ProgramLanguageOption | "";
 export type ProgramFormType = ProgramTypeOption | "";
@@ -63,8 +66,6 @@ export type ProgramFormState = {
 
   descriptionEn: string;
 
-  totalCredits: string;
-
   durationBimesters: string;
 
   isActive: boolean;
@@ -80,7 +81,6 @@ export type ProgramFormErrorKey =
   | "codeEn"
   | "nameEn"
   | "descriptionEn"
-  | "totalCredits"
   | "durationBimesters";
 
 export type ProgramFormErrors = Partial<Record<ProgramFormErrorKey, string>>;
@@ -95,7 +95,6 @@ export type ProgramFormValidationMessages = {
   codeEnRequired: string;
   nameEnRequired: string;
   descriptionEnRequired: string;
-  totalCreditsPositive: string;
   durationBimestersPositive: string;
 };
 
@@ -121,8 +120,6 @@ export type ProgramCreatePayload = {
   language: ProgramLanguageOption;
 
   type: ProgramTypeOption;
-
-  totalCredits: number;
 
   durationBimesters: number;
 

@@ -25,6 +25,7 @@ import {
   sectionStatusValidator,
   scheduleSessionValidator,
 } from "./types";
+import { internal } from "./_generated/api";
 
 /**
  * Get all courses with filtering options
@@ -34,7 +35,6 @@ export const getAllCourses = query({
     programId: v.optional(v.id("programs")),
     category: v.optional(courseCategoryValidator),
     language: v.optional(languageValidator),
-    level: v.optional(v.string()),
     isActive: v.optional(v.boolean()),
     searchTerm: v.optional(v.string()),
   },
@@ -76,9 +76,6 @@ export const getAllCourses = query({
     }
     if (args.language !== undefined && args.isActive === undefined) {
       courses = courses.filter((course) => course.language === args.language);
-    }
-    if (args.level !== undefined) {
-      courses = courses.filter((course) => course.level === args.level);
     }
 
     // Apply search term filter
@@ -152,19 +149,8 @@ export const createCourse = mutation({
     descriptionEs: v.optional(v.string()), // Required when language is "es" or "both"
     descriptionEn: v.optional(v.string()), // Required when language is "en" or "both"
     credits: v.number(),
-    level: v.optional(
-      v.union(
-        v.literal("introductory"),
-        v.literal("intermediate"),
-        v.literal("advanced"),
-        v.literal("graduate"),
-      ),
-    ),
     language: languageValidator,
     category: courseCategoryValidator,
-    prerequisites: v.array(v.string()),
-    corequisites: v.optional(v.array(v.string())),
-    syllabus: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -230,6 +216,53 @@ export const createCourse = mutation({
   },
 });
 
+/**
+ * Get all courses for a specific program
+ */
+export const getCourseById = query({
+  args: {
+    id: v.id("courses"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return null;
+    }
+
+    const course = await ctx.db.get(args.id);
+    return course;
+  },
+});
+
+export const getCoursesByProgram = query({
+  args: {
+    programId: v.id("programs"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return [];
+    }
+
+    // Get all program_courses relationships for this program
+    const programCourses = await ctx.db
+      .query("program_courses")
+      .withIndex("by_program_course", (q) => q.eq("programId", args.programId))
+      .collect();
+
+    // Get the actual course documents
+    const courses = await Promise.all(
+      programCourses.map(async (pc) => {
+        const course = await ctx.db.get(pc.courseId);
+        return course;
+      }),
+    );
+
+    // Filter out null values (in case a course was deleted)
+    return courses.filter((course) => course !== null);
+  },
+});
+
 export const internalCreateCourse = internalMutation({
   args: {
     codeEs: v.optional(v.string()), // Required when language is "es" or "both"
@@ -239,19 +272,8 @@ export const internalCreateCourse = internalMutation({
     descriptionEs: v.optional(v.string()), // Required when language is "es" or "both"
     descriptionEn: v.optional(v.string()), // Required when language is "en" or "both"
     credits: v.number(),
-    level: v.optional(
-      v.union(
-        v.literal("introductory"),
-        v.literal("intermediate"),
-        v.literal("advanced"),
-        v.literal("graduate"),
-      ),
-    ),
     language: languageValidator,
     category: courseCategoryValidator,
-    prerequisites: v.array(v.string()),
-    corequisites: v.optional(v.array(v.string())),
-    syllabus: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     // Validate language-specific fields
@@ -320,19 +342,8 @@ export const updateCourse = mutation({
     descriptionEs: v.optional(v.string()),
     descriptionEn: v.optional(v.string()),
     credits: v.optional(v.number()),
-    level: v.optional(
-      v.union(
-        v.literal("introductory"),
-        v.literal("intermediate"),
-        v.literal("advanced"),
-        v.literal("graduate"),
-      ),
-    ),
     language: v.optional(languageValidator),
     category: v.optional(courseCategoryValidator),
-    prerequisites: v.optional(v.array(v.string())),
-    corequisites: v.optional(v.array(v.string())),
-    syllabus: v.optional(v.string()),
     isActive: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
@@ -430,19 +441,31 @@ export const updateCourse = mutation({
     if (args.descriptionEn !== undefined)
       updateData.descriptionEn = args.descriptionEn;
     if (args.credits !== undefined) updateData.credits = args.credits;
-    if (args.level !== undefined) updateData.level = args.level;
     if (args.language !== undefined) updateData.language = args.language;
     if (args.category !== undefined) updateData.category = args.category;
-    if (args.prerequisites !== undefined)
-      updateData.prerequisites = args.prerequisites;
-    if (args.corequisites !== undefined)
-      updateData.corequisites = args.corequisites;
-    if (args.syllabus !== undefined) updateData.syllabus = args.syllabus;
     if (args.isActive !== undefined) updateData.isActive = args.isActive;
 
     await ctx.db.patch(args.courseId, updateData);
 
-    return args.courseId;
+    // If credits changed, recalculate total credits for all programs using this course
+    if (args.credits !== undefined && args.credits !== course.credits) {
+      const programCourses = await ctx.db
+        .query("program_courses")
+        .withIndex("by_course", (q) => q.eq("courseId", args.courseId))
+        .collect();
+
+      for (const pc of programCourses) {
+        await ctx.scheduler.runAfter(
+          0,
+          internal.programs.internalRecalculateProgramCredits,
+          {
+            programId: pc.programId,
+          },
+        );
+      }
+    }
+
+    return { message: "Course updated successfully" };
   },
 });
 
@@ -1042,6 +1065,15 @@ export const addCourseToProgram = mutation({
       createdAt: Date.now(),
     });
 
+    // Recalculate total credits for the program
+    await ctx.scheduler.runAfter(
+      0,
+      internal.programs.internalRecalculateProgramCredits,
+      {
+        programId: args.programId,
+      },
+    );
+
     return associationId;
   },
 });
@@ -1083,6 +1115,15 @@ export const internalAddCourseToProgram = internalMutation({
       createdAt: Date.now(),
     });
 
+    // Recalculate total credits for the program
+    await ctx.scheduler.runAfter(
+      0,
+      internal.programs.internalRecalculateProgramCredits,
+      {
+        programId: args.programId,
+      },
+    );
+
     return associationId;
   },
 });
@@ -1118,6 +1159,15 @@ export const removeCourseFromProgram = mutation({
     }
 
     await ctx.db.delete(association._id);
+
+    // Recalculate total credits for the program
+    await ctx.scheduler.runAfter(
+      0,
+      internal.programs.internalRecalculateProgramCredits,
+      {
+        programId: args.programId,
+      },
+    );
 
     return {
       message: "Course removed from program successfully",

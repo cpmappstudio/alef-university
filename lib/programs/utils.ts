@@ -20,7 +20,6 @@ export const INITIAL_PROGRAM_FORM_STATE: ProgramFormState = {
   codeEn: "",
   nameEn: "",
   descriptionEn: "",
-  totalCredits: "",
   durationBimesters: "",
   isActive: true,
 };
@@ -46,7 +45,6 @@ export function createFormStateFromProgram(
     codeEn: program.codeEn ?? "",
     nameEn: program.nameEn ?? "",
     descriptionEn: program.descriptionEn ?? "",
-    totalCredits: safeNumberToString(program.totalCredits),
     durationBimesters: safeNumberToString(program.durationBimesters),
     isActive: Boolean(program.isActive),
   };
@@ -107,10 +105,6 @@ export function validateProgramForm(
     }
   }
 
-  if (parsePositiveNumber(values.totalCredits) === null) {
-    errors.totalCredits = messages.totalCreditsPositive;
-  }
-
   if (parsePositiveNumber(values.durationBimesters) === null) {
     errors.durationBimesters = messages.durationBimestersPositive;
   }
@@ -132,11 +126,10 @@ export function buildProgramCreatePayload(
     throw new Error("Invalid program type");
   }
 
-  const totalCredits = parsePositiveNumber(values.totalCredits);
   const durationBimesters = parsePositiveNumber(values.durationBimesters);
 
-  if (totalCredits === null || durationBimesters === null) {
-    throw new Error("Invalid numeric values for credits or duration");
+  if (durationBimesters === null) {
+    throw new Error("Invalid numeric value for duration");
   }
 
   const { showSpanishFields, showEnglishFields } = getLanguageVisibility(
@@ -148,10 +141,9 @@ export function buildProgramCreatePayload(
   }
 
   return {
-    language: values.language,
-    type: values.type,
+    language: values.language as ProgramLanguageOption,
+    type: values.type as ProgramTypeOption,
     categoryId: values.categoryId as ProgramCreatePayload["categoryId"],
-    totalCredits,
     durationBimesters,
     ...(showSpanishFields
       ? {
@@ -189,7 +181,7 @@ export function buildProgramUpdatePayload(
   return {
     programId,
     categoryId: values.categoryId as ProgramUpdatePayload["categoryId"],
-    language: values.language,
+    language: values.language as ProgramLanguageOption,
     isActive: values.isActive,
     ...(showSpanishFields
       ? {

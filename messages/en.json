@@ -551,6 +551,8 @@
 
           "program": "Program",
 
+          "course": "Course",
+
           "type": "Type",
 
           "category": "Category",
@@ -619,7 +621,9 @@
 
       "form": {
         "title": "Create program",
+        "titleEdit": "Edit program",
         "description": "Complete the information to register a new academic program.",
+        "descriptionEdit": "Update the academic program information.",
         "sections": {
           "errors": "Errors",
           "general": "General setup",
@@ -673,7 +677,8 @@
           },
           "durationBimesters": {
             "label": "Duration (bimesters)",
-            "placeholder": "E.g. 8"
+            "placeholder": "E.g. 8",
+            "description": "Number of academic bimesters in the program"
           },
           "isActive": {
             "label": "Create program as active"
@@ -695,10 +700,12 @@
         "buttons": {
           "cancel": "Cancel",
           "submit": "Create program",
+          "update": "Update program",
           "loading": "Saving..."
         },
         "messages": {
           "infoSelectLanguage": "Select a language to display the appropriate fields.",
+          "infoAutoCredits": "Total credits are automatically calculated as the sum of credits from courses associated with the program.",
           "errors": {
             "language": "Select a language for the program.",
             "type": "Select the program type.",
@@ -709,7 +716,6 @@
             "codeEn": "English code is required.",
             "nameEn": "English name is required.",
             "descriptionEn": "English description is required.",
-            "totalCredits": "Total credits must be a number greater than zero.",
             "durationBimesters": "Duration must be a number greater than zero.",
             "generic": "The program could not be created. Please try again."
           },
@@ -723,6 +729,129 @@
         "totalPrograms": "Total Programs",
         "page": "Page",
         "of": "of"
+      },
+      "detail": {
+        "back": "Back to Programs",
+        "type": "Type",
+        "category": "Category",
+        "language": "Language",
+        "credits": "Total Credits",
+        "duration": "Duration",
+        "bimesters": "bimesters",
+        "degree": "Degree",
+        "tuitionPerCredit": "Tuition per Credit",
+        "courses": "Program Courses",
+        "totalCourses": "courses",
+        "filterCoursesPlaceholder": "Filter courses...",
+        "columnsMenuLabel": "Columns",
+        "emptyCoursesMessage": "No courses assigned to this program.",
+        "codeEs": "Code (Spanish)",
+        "codeEn": "Code (English)",
+        "nameEs": "Name (Spanish)",
+        "nameEn": "Name (English)",
+        "descriptionEs": "Description (Spanish)",
+        "descriptionEn": "Description (English)",
+        "description": "Description",
+        "status": "Status",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At",
+        "edit": "Edit",
+        "delete": "Delete",
+        "createCourse": "Create Course"
+      },
+      "deleteDialog": {
+        "title": "Delete program?",
+        "description": "Are you sure you want to delete the program \"{programName}\"?",
+        "warning": "Warning: Cascade deletion",
+        "cascadeInfo": "This program has {count} associated course(s). All program-course relationships will be permanently deleted.",
+        "irreversible": "This action cannot be undone.",
+        "cancel": "Cancel",
+        "delete": "Delete program",
+        "deleting": "Deleting...",
+        "success": "Program deleted successfully",
+        "error": "Error deleting program"
+      }
+    },
+    "courses": {
+      "form": {
+        "title": "Create course",
+        "titleEdit": "Edit course",
+        "description": "Complete the information to register a new course.",
+        "descriptionEdit": "Update the course information.",
+        "fields": {
+          "language": {
+            "label": "Course language",
+            "placeholder": "Select a language"
+          },
+          "category": {
+            "label": "Course category",
+            "placeholder": "Select a category"
+          },
+          "codeEs": {
+            "label": "Code (ES)",
+            "placeholder": "E.g. MAT-101"
+          },
+          "nameEs": {
+            "label": "Name (ES)",
+            "placeholder": "Spanish name"
+          },
+          "descriptionEs": {
+            "label": "Description (ES)",
+            "placeholder": "Spanish course description"
+          },
+          "codeEn": {
+            "label": "Code (EN)",
+            "placeholder": "E.g. MAT-101"
+          },
+          "nameEn": {
+            "label": "Name (EN)",
+            "placeholder": "Course name in English"
+          },
+          "descriptionEn": {
+            "label": "Description (EN)",
+            "placeholder": "Course description in English"
+          },
+          "credits": {
+            "label": "Credits",
+            "placeholder": "E.g. 3"
+          }
+        },
+        "options": {
+          "languages": {
+            "es": "Spanish",
+            "en": "English",
+            "both": "Bilingual (ES/EN)"
+          },
+          "categories": {
+            "humanities": "Humanities",
+            "core": "Core",
+            "elective": "Elective",
+            "general": "General"
+          }
+        },
+        "buttons": {
+          "cancel": "Cancel",
+          "submit": "Create course",
+          "update": "Update course",
+          "loading": "Saving..."
+        },
+        "messages": {
+          "infoSelectLanguage": "Select a language to display the appropriate fields.",
+          "errors": {
+            "language": "Select a language for the course.",
+            "category": "Select a category for the course.",
+            "codeEs": "Spanish code is required.",
+            "nameEs": "Spanish name is required.",
+            "descriptionEs": "Spanish description is required.",
+            "codeEn": "English code is required.",
+            "nameEn": "English name is required.",
+            "descriptionEn": "English description is required.",
+            "credits": "Credits must be a positive number.",
+            "generic": "Could not create course. Please try again."
+          },
+          "success": "Course created successfully.",
+          "successAssociation": "Course associated with program successfully."
+        }
       }
     }
   }
