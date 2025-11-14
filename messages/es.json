@@ -825,6 +825,42 @@
           "success": "Curso creado correctamente.",
           "successAssociation": "Curso asociado al programa correctamente."
         }
+      },
+      "table": {
+        "title": "Gestión de Cursos",
+        "description": "Ver y gestionar todos los cursos académicos en el sistema.",
+        "filterPlaceholder": "Filtrar cursos...",
+        "columnsMenuLabel": "Columnas",
+        "emptyMessage": "No se encontraron cursos.",
+        "actions": {
+          "create": "Crear curso"
+        },
+        "columns": {
+          "code": "Código",
+          "course": "Curso",
+          "programs": "Programas",
+          "category": "Categoría",
+          "credits": "Créditos",
+          "status": "Estado",
+          "emptyValue": "—"
+        },
+        "options": {
+          "categories": {
+            "humanities": "Humanidades",
+            "core": "Núcleo",
+            "elective": "Electiva",
+            "general": "General"
+          }
+        },
+        "status": {
+          "active": "Activo",
+          "inactive": "Inactivo"
+        },
+        "languages": {
+          "es": "Español",
+          "en": "Inglés",
+          "both": "Bilingüe"
+        }
       }
     }
   }

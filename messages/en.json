@@ -852,6 +852,42 @@
           "success": "Course created successfully.",
           "successAssociation": "Course associated with program successfully."
         }
+      },
+      "table": {
+        "title": "Course Management",
+        "description": "View and manage all academic courses in the system.",
+        "filterPlaceholder": "Filter courses...",
+        "columnsMenuLabel": "Columns",
+        "emptyMessage": "No courses found.",
+        "actions": {
+          "create": "Create course"
+        },
+        "columns": {
+          "code": "Code",
+          "course": "Course",
+          "programs": "Programs",
+          "category": "Category",
+          "credits": "Credits",
+          "status": "Status",
+          "emptyValue": "—"
+        },
+        "options": {
+          "categories": {
+            "humanities": "Humanities",
+            "core": "Core",
+            "elective": "Elective",
+            "general": "General"
+          }
+        },
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        },
+        "languages": {
+          "es": "Spanish",
+          "en": "English",
+          "both": "Bilingual"
+        }
       }
     }
   }
