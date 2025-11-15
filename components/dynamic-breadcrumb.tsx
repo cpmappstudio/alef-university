@@ -122,6 +122,17 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
     return null;
   }, [pathParts]);
 
+  const classId = useMemo(() => {
+    const classesIndex = pathParts.indexOf("classes");
+    if (classesIndex !== -1 && pathParts[classesIndex + 1]) {
+      const id = pathParts[classesIndex + 1];
+      if (!ROUTE_CONFIG[id] && id.length > 20) {
+        return id as Id<"classes">;
+      }
+    }
+    return null;
+  }, [pathParts]);
+
   // Fetch data for dynamic entities
   const program = useQuery(
     api.programs.getProgramById,
@@ -131,6 +142,11 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
   const course = useQuery(
     api.courses.getCourseById,
     courseId ? { id: courseId } : "skip",
+  );
+
+  const classData = useQuery(
+    api.classes.getClassById,
+    classId ? { id: classId } : "skip",
   );
 
   // Stable translation function with useCallback
@@ -191,6 +207,22 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
       return segments;
     }
 
+    // If this is a class detail page and we have class data, show course name + group
+    if (classId && classData) {
+      const course = classData.course;
+      const nameEs = course?.nameEs || "";
+      const nameEn = course?.nameEn || "";
+      const courseName = locale === "es" ? nameEs || nameEn : nameEn || nameEs;
+      const groupNumber = classData.groupNumber;
+      const groupLabel = locale === "es" ? "Grupo" : "Group";
+
+      segments.push({
+        title: `${courseName} - ${groupLabel} ${groupNumber}`,
+        isCurrentPage: true,
+      });
+      return segments;
+    }
+
     // Otherwise, use standard route config
     const config = ROUTE_CONFIG[lastPart];
     const title = config
@@ -211,6 +243,8 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
     program,
     courseId,
     course,
+    classId,
+    classData,
     locale,
   ]);
 

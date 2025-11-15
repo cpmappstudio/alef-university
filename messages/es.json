@@ -11,7 +11,6 @@
   },
   "navigation": {
     "university": "Alef University",
-    "dashboard": "Tablero",
     "navigation": "Navegación",
     "playground": "Área de Pruebas",
     "models": "Modelos",
@@ -110,18 +109,6 @@
           {
             "title": "Gestión de Cursos",
             "url": "/admin/courses"
-          },
-          {
-            "title": "Gestión de Períodos",
-            "url": "/admin/periods"
-          },
-          {
-            "title": "Gestión de Secciones",
-            "url": "/admin/sections"
-          },
-          {
-            "title": "Gestión de Matrículas",
-            "url": "/admin/enrollments"
           }
         ]
       },
@@ -1048,6 +1035,57 @@
           "deleting": "Eliminando...",
           "success": "Curso eliminado exitosamente",
           "error": "Error al eliminar el curso"
+        }
+      }
+    },
+    "classes": {
+      "detail": {
+        "back": "Volver al Curso",
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "loading": "Cargando...",
+        "groupPrefix": "Grupo",
+        "info": {
+          "course": "Curso",
+          "professor": "Profesor",
+          "credits": "Créditos",
+          "enrolledStudents": "Estudiantes Inscritos"
+        },
+        "statusValues": {
+          "open": "Abierto",
+          "active": "Activo",
+          "grading": "Calificando",
+          "completed": "Completado"
+        },
+        "studentsTitle": "Estudiantes Inscritos",
+        "studentsDescription": "Ver y gestionar las calificaciones de los estudiantes de esta clase",
+        "filterStudentsPlaceholder": "Filtrar estudiantes...",
+        "columnsMenuLabel": "Columnas",
+        "emptyStudentsMessage": "No hay estudiantes inscritos en esta clase.",
+        "table": {
+          "student": "Estudiante",
+          "studentCode": "Código de Estudiante",
+          "enrollmentStatus": "Estado",
+          "percentageGrade": "Nota (%)",
+          "letterGrade": "Letra",
+          "gradePoints": "Puntos",
+          "enrollmentStatusValues": {
+            "enrolled": "Inscrito",
+            "dropped": "Retirado",
+            "withdrawn": "Abandonado",
+            "completed": "Completado",
+            "incomplete": "Incompleto",
+            "failed": "Reprobado"
+          }
+        },
+        "manageStudentsButton": "Gestionar Estudiantes",
+        "manageStudents": {
+          "searchPlaceholder": "Buscar estudiantes...",
+          "noStudents": "No se encontraron estudiantes",
+          "studentAdded": "Estudiante agregado exitosamente",
+          "studentRemoved": "Estudiante removido exitosamente",
+          "error": "Error al actualizar estudiantes",
+          "errorDescription": "No se pudo completar la operación. Por favor, intenta de nuevo."
         }
       }
     }

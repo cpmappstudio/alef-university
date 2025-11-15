@@ -195,11 +195,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain
-          items={navItems}
-          dashboardLabel={t("dashboard")}
-          navigationLabel={t("navigation")}
-        />
+        <NavMain items={navItems} navigationLabel={t("navigation")} />
       </SidebarContent>
       <SidebarFooter>
         <Link

@@ -47,6 +47,13 @@ export default function CourseDetailPage() {
     router.push(`/${locale}/admin/courses`);
   }, [router, locale]);
 
+  const handleRowClick = React.useCallback(
+    (classItem: any) => {
+      router.push(`/${locale}/admin/classes/${classItem._id}`);
+    },
+    [router, locale],
+  );
+
   const dateLocale = locale === "es" ? es : enUS;
 
   // Define columns for classes table
@@ -191,6 +198,7 @@ export default function CourseDetailPage() {
           filterPlaceholder={t("filterClassesPlaceholder")}
           columnsMenuLabel={t("columnsMenuLabel")}
           emptyMessage={t("emptyClassesMessage")}
+          onRowClick={handleRowClick}
         />
       </div>
     </>

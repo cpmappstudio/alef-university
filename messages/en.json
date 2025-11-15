@@ -11,7 +11,6 @@
   },
   "navigation": {
     "university": "Alef University",
-    "dashboard": "Dashboard",
     "navigation": "Navigation",
     "playground": "Playground",
     "models": "Models",
@@ -110,18 +109,6 @@
           {
             "title": "Course Management",
             "url": "/admin/courses"
-          },
-          {
-            "title": "Period Management",
-            "url": "/admin/periods"
-          },
-          {
-            "title": "Sections Management",
-            "url": "/admin/sections"
-          },
-          {
-            "title": "Enrollment Management",
-            "url": "/admin/enrollments"
           }
         ]
       },
@@ -1075,6 +1062,57 @@
           "deleting": "Deleting...",
           "success": "Course deleted successfully",
           "error": "Error deleting course"
+        }
+      }
+    },
+    "classes": {
+      "detail": {
+        "back": "Back to Course",
+        "edit": "Edit",
+        "delete": "Delete",
+        "loading": "Loading...",
+        "groupPrefix": "Group",
+        "info": {
+          "course": "Course",
+          "professor": "Professor",
+          "credits": "Credits",
+          "enrolledStudents": "Enrolled Students"
+        },
+        "statusValues": {
+          "open": "Open",
+          "active": "Active",
+          "grading": "Grading",
+          "completed": "Completed"
+        },
+        "studentsTitle": "Enrolled Students",
+        "studentsDescription": "View and manage student grades for this class",
+        "filterStudentsPlaceholder": "Filter students...",
+        "columnsMenuLabel": "Columns",
+        "emptyStudentsMessage": "No students enrolled in this class.",
+        "table": {
+          "student": "Student",
+          "studentCode": "Student Code",
+          "enrollmentStatus": "Status",
+          "percentageGrade": "Grade (%)",
+          "letterGrade": "Letter",
+          "gradePoints": "Points",
+          "enrollmentStatusValues": {
+            "enrolled": "Enrolled",
+            "dropped": "Dropped",
+            "withdrawn": "Withdrawn",
+            "completed": "Completed",
+            "incomplete": "Incomplete",
+            "failed": "Failed"
+          }
+        },
+        "manageStudentsButton": "Manage Students",
+        "manageStudents": {
+          "searchPlaceholder": "Search students...",
+          "noStudents": "No students found",
+          "studentAdded": "Student added successfully",
+          "studentRemoved": "Student removed successfully",
+          "error": "Error updating students",
+          "errorDescription": "Could not complete the operation. Please try again."
         }
       }
     }

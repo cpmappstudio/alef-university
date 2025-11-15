@@ -182,7 +182,7 @@ export const getClassesByProfessor = query({
 });
 
 /**
- * Get a single class by ID
+ * Get a single class by ID with enriched data
  */
 export const getClassById = query({
   args: {
@@ -197,15 +197,58 @@ export const getClassById = query({
     const classItem = await ctx.db.get(args.id);
     if (!classItem) return null;
 
-    // Get bimester to compute status
-    const bimester = await ctx.db.get(classItem.bimesterId);
+    // Get related data
+    const [course, bimester, professor] = await Promise.all([
+      ctx.db.get(classItem.courseId),
+      ctx.db.get(classItem.bimesterId),
+      ctx.db.get(classItem.professorId),
+    ]);
+
     if (!bimester) return null;
 
-    // Return class with computed status
+    // Return class with computed status and enriched data
     return {
       ...classItem,
       status: computeClassStatus(bimester),
+      course,
+      bimester,
+      professor,
     };
+  },
+});
+
+/**
+ * Get enrollments for a specific class with student details
+ */
+export const getClassEnrollments = query({
+  args: {
+    classId: v.id("classes"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return [];
+    }
+
+    // Get all enrollments for this class
+    const enrollments = await ctx.db
+      .query("class_enrollments")
+      .withIndex("by_class", (q) => q.eq("classId", args.classId))
+      .collect();
+
+    // Enrich with student details
+    const enrichedEnrollments = await Promise.all(
+      enrollments.map(async (enrollment) => {
+        const student = await ctx.db.get(enrollment.studentId);
+
+        return {
+          ...enrollment,
+          student,
+        };
+      }),
+    );
+
+    return enrichedEnrollments;
   },
 });
 
@@ -409,5 +452,123 @@ export const deleteAllClasses = mutation({
       message: `Deleted ${classes.length} classes`,
       count: classes.length,
     };
+  },
+});
+
+/**
+ * Add a student to a class
+ */
+export const addStudentToClass = mutation({
+  args: {
+    classId: v.id("classes"),
+    studentId: v.id("users"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    // Verify class exists
+    const classItem = await ctx.db.get(args.classId);
+    if (!classItem) {
+      throw new Error("Class not found");
+    }
+
+    // Verify student exists and is a student
+    const student = await ctx.db.get(args.studentId);
+    if (!student || student.role !== "student") {
+      throw new Error("Invalid student");
+    }
+
+    // Check if student is already enrolled
+    const existingEnrollment = await ctx.db
+      .query("class_enrollments")
+      .withIndex("by_class", (q) => q.eq("classId", args.classId))
+      .filter((q) => q.eq(q.field("studentId"), args.studentId))
+      .first();
+
+    if (existingEnrollment) {
+      throw new Error("Student is already enrolled in this class");
+    }
+
+    // Get user who is adding the student
+    const users = await ctx.db.query("users").collect();
+    const currentUser = users.find((u) => u.clerkId === identity.subject);
+    if (!currentUser) {
+      throw new Error("Current user not found");
+    }
+
+    // Create enrollment
+    const now = Date.now();
+    const enrollmentId = await ctx.db.insert("class_enrollments", {
+      classId: args.classId,
+      studentId: args.studentId,
+      courseId: classItem.courseId,
+      bimesterId: classItem.bimesterId,
+      professorId: classItem.professorId,
+      enrolledAt: now,
+      enrolledBy: currentUser._id,
+      status: "enrolled",
+      isRetake: false,
+      isAuditing: false,
+      countsForGPA: true,
+      countsForProgress: true,
+      createdAt: now,
+    });
+
+    return enrollmentId;
+  },
+});
+
+/**
+ * Remove a student from a class
+ */
+export const removeStudentFromClass = mutation({
+  args: {
+    classId: v.id("classes"),
+    studentId: v.id("users"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    // Find the enrollment
+    const enrollment = await ctx.db
+      .query("class_enrollments")
+      .withIndex("by_class", (q) => q.eq("classId", args.classId))
+      .filter((q) => q.eq(q.field("studentId"), args.studentId))
+      .first();
+
+    if (!enrollment) {
+      throw new Error("Student is not enrolled in this class");
+    }
+
+    // Delete the enrollment
+    await ctx.db.delete(enrollment._id);
+
+    return enrollment._id;
+  },
+});
+
+/**
+ * Get all students (for adding to classes)
+ */
+export const getAllStudents = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return [];
+    }
+
+    const students = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("role"), "student"))
+      .collect();
+
+    return students;
   },
 });
