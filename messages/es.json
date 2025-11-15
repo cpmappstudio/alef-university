@@ -163,7 +163,7 @@
         "bimestersRemaining": "{count} bimestre restante previsto",
         "excellent": "Excelente",
         "bimesters": "Bimestres",
-      "courses": "Cursos",
+        "courses": "Cursos",
         "subjects": "materias"
       },
       "program": {
@@ -486,7 +486,7 @@
         "academicManagement": "Gestión académica",
         "programs": "Programas",
         "bimesters": "Bimestres",
-      "courses": "Cursos"
+        "courses": "Cursos"
       },
       "overview": {
         "title": "Configuraciones",
@@ -773,7 +773,7 @@
         "credits": "Créditos Totales",
         "duration": "Duración",
         "bimesters": "Bimestres",
-      "courses": "Cursos",
+        "courses": "Cursos",
         "degree": "Título",
         "tuitionPerCredit": "Matrícula por Crédito",
         "courses": "Cursos del Programa",
@@ -1042,6 +1042,86 @@
         }
       }
     },
+    "professors": {
+      "table": {
+        "filterPlaceholder": "Buscar profesores...",
+        "columnsMenuLabel": "Columnas",
+        "emptyMessage": "No se encontraron profesores.",
+        "columns": {
+          "name": "Nombre",
+          "email": "Correo electrónico",
+          "phone": "Teléfono",
+          "country": "País",
+          "status": "Estado",
+          "emptyValue": "—"
+        },
+        "status": {
+          "active": "Activo",
+          "inactive": "Inactivo"
+        },
+        "roles": {
+          "student": "Estudiante",
+          "professor": "Profesor",
+          "admin": "Administrador",
+          "superadmin": "Superadministrador"
+        }
+      },
+      "form": {
+        "title": "Invitar profesor",
+        "titleEdit": "Editar profesor",
+        "description": "Envía una invitación por correo al profesor para que active su cuenta.",
+        "descriptionEdit": "Actualiza la información básica del profesor.",
+        "createProfessorButton": "Agregar profesor",
+        "sections": {
+          "general": "Información general",
+          "contact": "Información de contacto",
+          "status": "Estado"
+        },
+        "fields": {
+          "firstName": {
+            "label": "Nombre",
+            "placeholder": "Ej. Ana"
+          },
+          "lastName": {
+            "label": "Apellido",
+            "placeholder": "Ej. García"
+          },
+          "email": {
+            "label": "Correo electrónico",
+            "placeholder": "profesor@ejemplo.com",
+            "description": "La invitación se enviará a este correo."
+          },
+          "phone": {
+            "label": "Teléfono",
+            "placeholder": "+52 55 1234 5678",
+            "description": "Opcional. Facilita el contacto por parte de coordinación."
+          },
+          "country": {
+            "label": "País o región",
+            "placeholder": "Ej. México"
+          },
+          "isActive": {
+            "label": "Activo en la plataforma",
+            "description": "Los profesores inactivos no estarán disponibles para asignaciones."
+          }
+        },
+        "messages": {
+          "errors": {
+            "firstName": "Ingresa el nombre del profesor.",
+            "lastName": "Ingresa el apellido del profesor.",
+            "email": "Ingresa un correo válido.",
+            "emailInvalid": "El formato del correo no es válido.",
+            "generic": "No se pudo guardar la información. Intenta nuevamente."
+          }
+        },
+        "buttons": {
+          "cancel": "Cancelar",
+          "submit": "Agregar profesor",
+          "update": "Guardar cambios",
+          "loading": "Guardando..."
+        }
+      }
+    },
     "classes": {
       "detail": {
         "back": "Volver al Curso",
@@ -1095,4 +1175,3 @@
     }
   }
 }
-

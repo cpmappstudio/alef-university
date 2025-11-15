@@ -1,20 +1,24 @@
-import ProfessorTable from "@/components/professor/professor-table";
+/* Convex */
+import { fetchQuery } from "convex/nextjs";
+import { auth } from "@clerk/nextjs/server";
+import { api } from "@/convex/_generated/api";
 
-export default function ProfessorManagementPage() {
-  return (
-    <div className="space-y-6">
-      {/* Header Section */}
-      <div className="space-y-2">
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-          Professor Management
-        </h1>
-        <p className="text-muted-foreground text-base sm:text-lg">
-          View and manage all professors in the system.
-        </p>
-      </div>
+/* Components */
+import { ProfessorManagementClient } from "@/components/professor/professor-management-client";
 
-      {/* Main Content */}
-      <ProfessorTable />
-    </div>
-  );
+/* lib */
+import type { ProfessorDocument } from "@/lib/professors/types";
+
+export default async function ProfessorManagementPage() {
+  const authData = await auth();
+  const token = await authData.getToken({ template: "convex" });
+  const fetchOptions = token ? { token } : undefined;
+
+  const professors = ((await fetchQuery(
+    api.admin.getAllUsers,
+    { role: "professor" },
+    fetchOptions,
+  )) ?? []) as ProfessorDocument[];
+
+  return <ProfessorManagementClient professors={professors} />;
 }

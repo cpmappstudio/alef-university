@@ -67,15 +67,6 @@ export default defineSchema({
     // Contact
     phone: v.optional(v.string()),
     country: v.optional(v.string()),
-    address: v.optional(
-      v.object({
-        street: v.optional(v.string()),
-        city: v.optional(v.string()),
-        state: v.optional(v.string()),
-        zipCode: v.optional(v.string()),
-        country: v.optional(v.string()),
-      }),
-    ),
 
     // System fields
     role: v.union(
@@ -85,10 +76,6 @@ export default defineSchema({
       v.literal("superadmin"),
     ),
     isActive: v.boolean(),
-    createdBy: v.optional(v.id("users")),
-    createdAt: v.number(),
-    updatedAt: v.optional(v.number()),
-    lastLoginAt: v.optional(v.number()),
 
     // Student-specific
     studentProfile: v.optional(
@@ -112,16 +99,6 @@ export default defineSchema({
             v.literal("suspension"),
           ),
         ),
-      }),
-    ),
-
-    // Professor-specific
-    professorProfile: v.optional(
-      v.object({
-        employeeCode: v.string(),
-        title: v.optional(v.string()), // Dr., Prof., etc.
-        department: v.optional(v.string()),
-        hireDate: v.optional(v.number()),
       }),
     ),
   })

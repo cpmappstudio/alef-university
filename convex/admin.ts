@@ -1350,11 +1350,10 @@ export const adminUpdateProfessor = mutation({
     professorId: v.id("users"),
     firstName: v.string(),
     lastName: v.string(),
+    email: v.string(),
+    phone: v.optional(v.string()),
+    country: v.optional(v.string()),
     isActive: v.boolean(),
-    // Profile fields
-    title: v.optional(v.string()),
-    department: v.optional(v.string()),
-    // Add other fields from the form
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -1372,14 +1371,10 @@ export const adminUpdateProfessor = mutation({
     await ctx.db.patch(professorId, {
       firstName: rest.firstName,
       lastName: rest.lastName,
+      email: rest.email,
+      phone: rest.phone,
+      country: rest.country,
       isActive: rest.isActive,
-      professorProfile: {
-        employeeCode: professor.professorProfile?.employeeCode || "",
-        ...professor.professorProfile,
-        title: rest.title,
-        department: rest.department,
-      },
-      updatedAt: Date.now(),
     });
     return professorId;
   },

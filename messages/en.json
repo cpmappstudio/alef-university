@@ -1066,6 +1066,86 @@
         }
       }
     },
+    "professors": {
+      "table": {
+        "filterPlaceholder": "Search professors...",
+        "columnsMenuLabel": "Columns",
+        "emptyMessage": "No professors found.",
+        "columns": {
+          "name": "Name",
+          "email": "Email",
+          "phone": "Phone",
+          "country": "Country",
+          "status": "Status",
+          "emptyValue": "—"
+        },
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        },
+        "roles": {
+          "student": "Student",
+          "professor": "Professor",
+          "admin": "Administrator",
+          "superadmin": "Super Admin"
+        }
+      },
+      "form": {
+        "title": "Invite professor",
+        "titleEdit": "Edit professor",
+        "description": "Send an invitation to a new professor. They will receive an email with next steps.",
+        "descriptionEdit": "Update the professor profile and availability.",
+        "createProfessorButton": "Add Professor",
+        "sections": {
+          "general": "General information",
+          "contact": "Contact information",
+          "status": "Status"
+        },
+        "fields": {
+          "firstName": {
+            "label": "First name",
+            "placeholder": "E.g. Ana"
+          },
+          "lastName": {
+            "label": "Last name",
+            "placeholder": "E.g. García"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "professor@example.com",
+            "description": "We will send the invitation to this address."
+          },
+          "phone": {
+            "label": "Phone number",
+            "placeholder": "+1 305 123 4567",
+            "description": "Optional. Helps coordinators contact the professor quickly."
+          },
+          "country": {
+            "label": "Country or region",
+            "placeholder": "E.g. United States"
+          },
+          "isActive": {
+            "label": "Active in platform",
+            "description": "Inactive professors will not appear in assignment lists."
+          }
+        },
+        "messages": {
+          "errors": {
+            "firstName": "Enter the professor's first name.",
+            "lastName": "Enter the professor's last name.",
+            "email": "Enter a valid email.",
+            "emailInvalid": "The email format looks incorrect.",
+            "generic": "Unable to save the professor. Try again."
+          }
+        },
+        "buttons": {
+          "cancel": "Cancel",
+          "submit": "Add professor",
+          "update": "Save changes",
+          "loading": "Saving..."
+        }
+      }
+    },
     "classes": {
       "detail": {
         "back": "Back to Course",
