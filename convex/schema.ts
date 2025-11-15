@@ -322,27 +322,10 @@ export default defineSchema({
     groupNumber: v.string(), // "01", "02", etc.
 
     professorId: v.id("users"),
-
-    // Status tracking
-    status: v.union(
-      v.literal("draft"),
-      v.literal("open"),
-      v.literal("closed"),
-      v.literal("active"),
-      v.literal("grading"),
-      v.literal("completed"),
-    ),
-
-    gradesSubmitted: v.boolean(),
-    gradesSubmittedAt: v.optional(v.number()),
-
-    isActive: v.boolean(),
-    createdAt: v.number(),
-    updatedAt: v.optional(v.number()),
   })
     .index("by_course_bimester", ["courseId", "bimesterId"])
-    .index("by_bimester_status_active", ["bimesterId", "status", "isActive"])
-    .index("by_professor_bimester", ["professorId", "bimesterId", "isActive"])
+    .index("by_bimester", ["bimesterId"])
+    .index("by_professor_bimester", ["professorId", "bimesterId"])
     .index("by_course_bimester_group", [
       "courseId",
       "bimesterId",

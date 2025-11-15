@@ -231,9 +231,7 @@ export const deleteBimester = mutation({
     // Check if there are any classes associated with this bimester
     const classes = await ctx.db
       .query("classes")
-      .withIndex("by_bimester_status_active", (q) =>
-        q.eq("bimesterId", args.bimesterId),
-      )
+      .withIndex("by_bimester", (q) => q.eq("bimesterId", args.bimesterId))
       .collect();
 
     if (classes.length > 0) {

@@ -127,21 +127,6 @@ export default function CourseDetailPage() {
           );
         },
       },
-      {
-        accessorKey: "gradesSubmitted",
-        header: t("table.grades"),
-        cell: ({ row }) => {
-          return row.original.gradesSubmitted ? (
-            <Badge variant="default" className="text-xs">
-              {t("table.submitted")}
-            </Badge>
-          ) : (
-            <Badge variant="secondary" className="text-xs">
-              {t("table.pending")}
-            </Badge>
-          );
-        },
-      },
     ],
     [t, dateLocale],
   );

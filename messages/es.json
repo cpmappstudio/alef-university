@@ -993,9 +993,6 @@
           "professor": "Profesor",
           "students": "Estudiantes",
           "status": "Estado",
-          "grades": "Notas",
-          "submitted": "Entregadas",
-          "pending": "Pendientes",
           "statusValues": {
             "draft": "Borrador",
             "open": "Abierto",
@@ -1022,31 +1019,16 @@
             "professor": {
               "label": "Profesor",
               "placeholder": "Selecciona un profesor"
-            },
-            "status": {
-              "label": "Estado",
-              "placeholder": "Selecciona el estado inicial",
-              "description": "Define el estado inicial para esta clase"
-            }
-          },
-          "options": {
-            "status": {
-              "draft": "Borrador",
-              "open": "Abierto",
-              "closed": "Cerrado",
-              "active": "Activo",
-              "grading": "Calificando",
-              "completed": "Completado"
             }
           },
           "messages": {
+            "autoStatus": "El estado de la clase se calcula automáticamente según las fechas del bimestre. Será 'open' antes de que inicie el bimestre, 'active' durante el bimestre, 'grading' después de que termine el bimestre hasta la fecha límite de calificación, y 'completed' después de la fecha límite.",
             "noBimesters": "No hay bimestres disponibles. Crea al menos un bimestre antes de agregar una clase.",
             "noProfessors": "No hay profesores disponibles. Crea al menos un usuario profesor antes de agregar una clase.",
             "errors": {
               "bimesterRequired": "Por favor selecciona un bimestre",
               "groupNumberRequired": "Por favor ingresa un número de grupo",
               "professorRequired": "Por favor selecciona un profesor",
-              "statusRequired": "Por favor selecciona un estado",
               "generic": "Ocurrió un error al crear la clase"
             }
           },

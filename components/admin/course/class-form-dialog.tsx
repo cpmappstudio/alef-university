@@ -46,14 +46,12 @@ interface ClassFormState {
   bimesterId: string;
   groupNumber: string;
   professorId: string;
-  status: "draft" | "open" | "closed" | "active" | "grading" | "completed";
 }
 
 const createEmptyFormState = (): ClassFormState => ({
   bimesterId: "",
   groupNumber: "",
   professorId: "",
-  status: "draft",
 });
 
 export default function ClassFormDialog({
@@ -113,7 +111,7 @@ export default function ClassFormDialog({
     };
 
   const handleSelectChange =
-    (field: "bimesterId" | "professorId" | "status") => (value: string) => {
+    (field: "bimesterId" | "professorId") => (value: string) => {
       setFormState((prev) => ({
         ...prev,
         [field]: value as ClassFormState[typeof field],
@@ -140,11 +138,6 @@ export default function ClassFormDialog({
       return;
     }
 
-    if (!formState.status) {
-      setFormError(t("messages.errors.statusRequired"));
-      return;
-    }
-
     try {
       setIsSubmitting(true);
 
@@ -153,7 +146,6 @@ export default function ClassFormDialog({
         bimesterId: formState.bimesterId as Id<"bimesters">,
         groupNumber: formState.groupNumber.trim(),
         professorId: formState.professorId as Id<"users">,
-        status: formState.status,
       });
 
       handleDialogChange(false);
@@ -260,46 +252,11 @@ export default function ClassFormDialog({
                     </SelectContent>
                   </Select>
                 </Field>
-
-                <Field>
-                  <FieldLabel htmlFor="class-status">
-                    {t("fields.status.label")} *
-                  </FieldLabel>
-
-                  <Select
-                    value={formState.status}
-                    onValueChange={handleSelectChange("status")}
-                  >
-                    <SelectTrigger id="class-status">
-                      <SelectValue placeholder={t("fields.status.placeholder")} />
-                    </SelectTrigger>
-
-                    <SelectContent>
-                      <SelectItem value="draft">
-                        {t("options.status.draft")}
-                      </SelectItem>
-                      <SelectItem value="open">
-                        {t("options.status.open")}
-                      </SelectItem>
-                      <SelectItem value="closed">
-                        {t("options.status.closed")}
-                      </SelectItem>
-                      <SelectItem value="active">
-                        {t("options.status.active")}
-                      </SelectItem>
-                      <SelectItem value="grading">
-                        {t("options.status.grading")}
-                      </SelectItem>
-                      <SelectItem value="completed">
-                        {t("options.status.completed")}
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FieldDescription className="text-muted-foreground text-sm">
-                    {t("fields.status.description")}
-                  </FieldDescription>
-                </Field>
               </FieldGroup>
+
+              <FieldDescription className="text-muted-foreground">
+                {t("messages.autoStatus")}
+              </FieldDescription>
 
               {!isLoadingBimesters && !hasBimesters ? (
                 <FieldDescription className="text-muted-foreground">

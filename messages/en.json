@@ -1020,9 +1020,6 @@
           "professor": "Professor",
           "students": "Students",
           "status": "Status",
-          "grades": "Grades",
-          "submitted": "Submitted",
-          "pending": "Pending",
           "statusValues": {
             "draft": "Draft",
             "open": "Open",
@@ -1049,31 +1046,16 @@
             "professor": {
               "label": "Professor",
               "placeholder": "Select a professor"
-            },
-            "status": {
-              "label": "Status",
-              "placeholder": "Select initial status",
-              "description": "Set the initial status for this class"
-            }
-          },
-          "options": {
-            "status": {
-              "draft": "Draft",
-              "open": "Open",
-              "closed": "Closed",
-              "active": "Active",
-              "grading": "Grading",
-              "completed": "Completed"
             }
           },
           "messages": {
+            "autoStatus": "The class status is automatically computed based on the bimester dates. It will be 'open' before the bimester starts, 'active' during the bimester, 'grading' after the bimester ends until the grade deadline, and 'completed' after the deadline.",
             "noBimesters": "No bimesters available. Create at least one bimester before adding a class.",
             "noProfessors": "No professors available. Create at least one professor user before adding a class.",
             "errors": {
               "bimesterRequired": "Please select a bimester",
               "groupNumberRequired": "Please enter a group number",
               "professorRequired": "Please select a professor",
-              "statusRequired": "Please select a status",
               "generic": "An error occurred while creating the class"
             }
           },
