@@ -1,0 +1,73 @@
+# app_rules.mdc
+
+## Arquitectura y capas principales
+- El router principal usa Next.js App Router con un segmento `[locale]` que valida el idioma, llama a `setRequestLocale` y carga los mensajes de `next-intl` antes de renderizar cualquier contenido (ver `app/[locale]/layout.tsx:36`).
+- El mismo layout envuelve la app con `ThemeProvider`, `ClerkProvider`, `ConvexClientProvider` y `NextIntlClientProvider`, lo que garantiza que los componentes cliente tengan acceso consistente a tema, sesión de Clerk y Convex (ver `app/[locale]/layout.tsx:65` y `components/providers/convex-client-provider.tsx:1`).
+- El layout del segmento `(shell)` vuelve a confirmar el locale mediante `setupLocale`, inicializa el `SidebarProvider` y fija el `AppSidebar`/`DynamicBreadcrumb` que conforman la experiencia de dashboard (ver `app/[locale]/(shell)/layout.tsx:11`).
+- El segmento `(auth)` aloja las páginas públicas (`sign-in`, `sign-up`) renderizando los componentes de Clerk sin dependencias adicionales del shell (ver `app/[locale]/(auth)/sign-in/[[...sign-in]]/page.tsx:3`).
+- `generateStaticParams` publica todos los locales soportados en build time, por lo que cualquier nueva lengua debe registrarse en el routing central antes de añadir contenido (ver `app/[locale]/layout.tsx:91`).
+
+## Organización de carpetas y responsabilidades
+- `app/` sólo contiene layouts/páginas server que orquestan datos y los delegan a clientes; la página de programas es el ejemplo: obtiene datos en el servidor y renderiza el client component (ver `app/[locale]/(shell)/programs/page.tsx:14`).
+- `components/` se divide por dominio (`program`, `course`, etc.) y por primitives (`components/ui`, `components/forms`, `components/providers`). Todos los componentes interactivos declaran `use client` y consumen hooks/lógicas externas (ver `components/program/program-management-client.tsx:6`).
+- `lib/` concentra lógica pura y re utilizable: rutas (`lib/routes.ts:1`), helpers de programas (`lib/programs/utils.ts:63`), utilidades de formularios (`lib/forms/utils.ts:7`), helpers de tablas (`lib/table/utils.ts:1`), RBAC (`lib/rbac.ts:14`), exportadores y setup de locale.
+- `hooks/` aloja hooks de React que encapsulan patrones de estado o sincronización como `useDialogState`, `useProgramSelection`, `useIsMobile` y `useSyncUser` (ver `hooks/use-dialog-state.ts:1` y `hooks/use-program-selection.ts:6`).
+- `convex/` implementa el backend; cada archivo expone `query`/`mutation` con validaciones y chequeos de rol. La feature de programas se alimenta de `getAllPrograms`, `createProgram`, etc. definidos en `convex/programs.ts:1`.
+
+## Internacionalización y rutas
+- La configuración de idiomas se centraliza en `i18n/routing.ts:3` (lista de locales) y `i18n/request.ts:5` (carga perezosa de `messages/{locale}.json`). Cualquier idioma nuevo debe tocar ambos archivos.
+- `setupLocale` y `getLocaleFromPathname` encapsulan la lógica para fijar locale en layouts aislados y para que el middleware determine el idioma en O(1) (ver `lib/locale-setup.ts:14` y `lib/locale-setup.ts:32`).
+- Todas las rutas deben salir del objeto `ROUTES`, que normaliza los paths y provee `withLocale` para concatenar el prefijo idioma sin repetir lógica (ver `lib/routes.ts:9`). Los grupos de navegación se definen en `SIDEBAR_ROUTE_GROUPS` y se consumen en todo el UI (ver `lib/routes.ts:94`).
+- El `AppSidebar` aplica `SIDEBAR_ROUTE_GROUPS`, las traducciones `navigation.menu` y el rol del usuario para generar menús colapsables coherentes (ver `components/ui/app-sidebar.tsx:40`). Los enlaces deben venir de `route.withLocale(locale)` para evitar hardcodes.
+- `NavMain` es el wrapper que pinta cada grupo y marca como activo el elemento que coincide con la ruta sin locale (ver `components/ui/nav-main.tsx:25`).
+- `DynamicBreadcrumb` interpreta el `pathname`, detecta IDs dinámicos y usa `useQuery` de Convex para sustituirlos por nombres humanizados, manteniendo el breadcrumb sincronizado con la base de datos (ver `components/ui/dynamic-breadcrumb.tsx:87`).
+
+## Autenticación, autorización y sesión
+- El `middleware` combina Clerk y `next-intl` para forzar login, redirigir a la “home” según rol y bloquear rutas no autorizadas antes de llegar al React tree (ver `middleware.ts:42`).
+- Las reglas de roles viven en `lib/rbac.ts:14`, donde se normalizan los claims de Clerk y se mantienen las listas de rutas restringidas; al crear nuevas secciones admin/profesor hay que extender `ROUTE_RESTRICTIONS`.
+- `useSyncUser` crea/actualiza el usuario en Convex cada vez que la sesión de Clerk esté lista, manteniendo sincronizadas ambas bases (ver `hooks/use-sync-user.ts:8`).
+- El sidebar y otras vistas leen `user?.publicMetadata.role`, por lo que cualquier cambio en permisos debe reflejarse tanto en Clerk metadata como en las validaciones Convex (ver `components/ui/app-sidebar.tsx:51`).
+
+## Patrón server/client y acceso a Convex
+- Las páginas server obtienen los datos críticos mediante `fetchQuery` (o `action`s) aprovechando el token Convex que expone Clerk; el listado y el detalle de programas son puramente server y sólo renderizan clientes ya hidratados (ver `app/[locale]/(shell)/programs/page.tsx:14` y `app/[locale]/(shell)/programs/[programId]/page.tsx:18`).
+- Los componentes cliente reciben los datos iniciales pero dependen de `useQuery`/`useMutation` para mantenerse en tiempo real: `ProgramManagementClient` maneja filtros/exports, mientras que `ProgramDetailClient` re-suscribe al programa, cursos y categorías (ver `components/program/program-management-client.tsx:32` y `components/program/program-detail-client.tsx:42`).
+- Las acciones sobre cursos asociados usan `useMutation` para agregar o quitar registros y mantienen el estado local sincronizado para dar feedback inmediato (ver `components/program/program-detail-actions.tsx:31`).
+- Antes de borrar un programa se consulta Convex para contar dependencias, lo que permite alertar sobre cascadas (ver `components/program/program-delete-dialog.tsx:29`).
+- Recuerda que la lógica de permisos y validaciones “reales” vive en las funciones Convex (`convex/programs.ts:31`); los componentes cliente sólo muestran mensajes según el resultado.
+
+## Feature de programas como blueprint
+### Modelos y helpers
+- Los tipos y payloads que debe entender Convex viven en `lib/programs/types.ts:4` (documents, enums, config del formulario). Mantener aquí cualquier atributo nuevo evita duplicar tipos en componentes.
+- `PROGRAMS_TABLE_FILTER_COLUMN`, `createEmptyProgramFormState`, `validateProgramForm`, `buildProgramCreatePayload` y `buildProgramUpdatePayload` encapsulan estado inicial, validaciones y transformación antes de llamar a Convex (ver `lib/programs/utils.ts:63`, `lib/programs/utils.ts:79`, `lib/programs/utils.ts:112`, `lib/programs/utils.ts:168` y `lib/programs/utils.ts:215`).
+- `buildProgramDetailsPath`, `buildProgramExportTranslations` y `exportCourseTable` estandarizan navegación, textos y exportaciones, por lo que cualquier feature similar debería apoyarse en estos helpers en vez de reescribir URLs o PDFs (ver `lib/programs/utils.ts:254`, `lib/programs/utils.ts:278` y `lib/programs/utils.ts:317` junto a `lib/export-programs-pdf.ts:1`).
+
+### Formularios y acciones
+- `ProgramFormDialog` maneja los flujos de crear/editar usando `useDialogState`, `validateProgramForm` y los builders de payload; un botón externo sólo ofrece el trigger (ver `components/program/program-form-dialog.tsx:57`, `components/program/program-form-dialog.tsx:138` y `components/program/program-actions.tsx:13`).
+- Las utilidades de formularios convierten onChange/onValueChange en closures generados automáticamente (`lib/forms/utils.ts:7` y `lib/forms/utils.ts:20`), lo que evita duplicar handlers por campo.
+- La sección de selects de idioma/categoría y los campos localizados (ES/EN) se renderizan a través de componentes dedicados (`components/forms/language-category-section.tsx:15` y `components/forms/localized-field-group.tsx:37`), manteniendo UI consistente aunque cambien los campos.
+
+### Listado y tablas
+- Las columnas de la tabla usan helpers declarativos (`components/program/columns.tsx:14`) que a su vez reutilizan funciones genéricas de tablas para códigos, nombres, estados y numeric columns (ver `components/table/column-helpers.tsx:8`).
+- `CustomTable` implementa filtrado, ordenamiento, selección, export e incluso bloquea clicks en elementos interactivos usando `shouldHandleRowClick` (ver `components/ui/custom-table.tsx:43` y `lib/table/utils.ts:59`); cualquier nuevo listado debería usarlo antes de crear una tabla ad hoc.
+- Las filas localizadas comparten la lógica de `renderLocalizedField`/`buildSearchableField`, por lo que basta con declarar `language` en el row para heredar los badges bilingües (ver `components/ui/localized-fields.tsx:10` y `lib/table/types.ts:14`).
+
+### Detalle y exportación
+- `ProgramDetailInfo` encapsula la tarjeta principal con datos bilingües, estados y timestamps, y recibe callbacks para acciones superiores (ver `components/program/program-detail-info.tsx:1`).
+- `ProgramDetailClient` centraliza el router push/back, las columnas de cursos (`courseColumns`), el disparador de exportación PDF y los diálogos modales, todo en un mismo orquestador (ver `components/program/program-detail-client.tsx:90`).
+- Las acciones contextuales (gestionar cursos, borrar, exportar) comparten las mismas traducciones (tablas, forms, export) para que todo salga localizado sin duplicar strings; cualquier nueva acción debe pedir los `useTranslations` correspondientes como se hace allí.
+
+## Hooks y utilidades transversales
+- `useDialogState` permite que un mismo diálogo funcione en modo controlado/no controlado y sólo expone `{open,setOpen}` (ver `hooks/use-dialog-state.ts:11`).
+- `useProgramSelection` administra un `Set` de IDs con operaciones toggle/remove/reset listas para integrarse con checkboxes o pickers (ver `hooks/use-program-selection.ts:6`).
+- `useIsMobile` consulta `matchMedia` y escucha cambios para adaptar UI responsiva sin depender de CSS-only breakpoints (ver `hooks/use-mobile.ts:5`).
+- `useSyncUser` debe ejecutarse en el layout o provider superior para que el backend siempre conozca los metadatos del usuario autenticado (ver `hooks/use-sync-user.ts:8`).
+
+## Buenas prácticas al extender la app
+- Usa siempre `createRoute`/`ROUTES.*.withLocale` en vez de concatenar strings; garantiza prefijos correctos e integra automáticamente nuevas entradas al sidebar/breadcrumb (`lib/routes.ts:9` y `lib/routes.ts:94`).
+- Si un layout/página server necesita fijar el locale, llama a `setupLocale` en vez de repetir validaciones; mantén `getLocaleFromPathname` como única fuente en middleware/redirecciones (`lib/locale-setup.ts:14` y `middleware.ts:50`).
+- Separa lógica pura (validaciones, builders, mapeos) en `lib/` y deja `components/` únicamente para UI/herramientas de interacción; la dupla `validateProgramForm` + `ProgramFormDialog` es el ejemplo a seguir (`lib/programs/utils.ts:112` vs `components/program/program-form-dialog.tsx:138`).
+- Haz las cargas iniciales de Convex dentro de la página server usando el token de Clerk y entrega los resultados a componentes cliente que luego se “resuscriben” con `useQuery`; evita llamar Convex directamente desde server components sin token (ver `app/[locale]/(shell)/programs/page.tsx:14` y `components/program/program-detail-client.tsx:42`).
+- Marca cualquier componente que use hooks de Convex/Clerk/DOM con `"use client"` en la primera línea para no romper la frontera server/client (`components/program/program-management-client.tsx:6`).
+- Reutiliza los componentes de formularios/tablas existentes antes de crear nuevos; eso asegura estilos homogéneos y reduce bugs de accesibilidad (`components/forms/language-category-section.tsx:15` y `components/ui/custom-table.tsx:43`).
+- Cuando añadas nuevas secciones o ajustes de rol, actualiza simultáneamente `SIDEBAR_ROUTE_GROUPS` y la lógica del middleware/RBAC para evitar rutas accesibles sin menú o viceversa (`lib/routes.ts:94`, `components/ui/app-sidebar.tsx:66` y `middleware.ts:42`).
+- Las exportaciones y reportes deben salir de los helpers existentes (`lib/programs/utils.ts:278` y `lib/export-programs-pdf.ts:1`) para aprovechar la maquetación PDF e impedir divergencias en textos.

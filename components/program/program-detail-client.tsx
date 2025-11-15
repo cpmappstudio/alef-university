@@ -23,10 +23,16 @@ import { ROUTES } from "@/lib/routes";
 
 interface ProgramDetailClientProps {
   programId: Id<"programs">;
+  initialProgram?: Doc<"programs"> | null;
+  initialCourses?: Doc<"courses">[];
+  initialCategories?: Doc<"program_categories">[];
 }
 
 export default function ProgramDetailClient({
   programId,
+  initialProgram,
+  initialCourses,
+  initialCategories,
 }: ProgramDetailClientProps) {
   const router = useRouter();
   const locale = useLocale();
@@ -39,11 +45,15 @@ export default function ProgramDetailClient({
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
 
   // Fetch data with real-time updates from Convex
-  const program = useQuery(api.programs.getProgramById, { id: programId });
-  const courses = useQuery(api.courses.getCoursesByProgram, {
+  const programQuery = useQuery(api.programs.getProgramById, { id: programId });
+  const coursesQuery = useQuery(api.courses.getCoursesByProgram, {
     programId: programId,
   });
-  const categories = useQuery(api.programs.getProgramCategories, {});
+  const categoriesQuery = useQuery(api.programs.getProgramCategories, {});
+
+  const program = programQuery ?? initialProgram ?? null;
+  const courses = coursesQuery ?? initialCourses ?? [];
+  const categories = categoriesQuery ?? initialCategories ?? [];
 
   const categoryLabel = React.useMemo(() => {
     if (!program?.categoryId || !categories) return "";

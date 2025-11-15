@@ -1,3 +1,8 @@
+// ################################################################################
+// # File: page.tsx                                                               #
+// # Check: 11/15/2025                                                            #
+// ################################################################################
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
@@ -42,19 +47,14 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
 
-  // Solo validar y configurar en el layout raíz
-  // El middleware ya hace validación, pero esto es backup por si acaso
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
 
-  // Enable static rendering - Solo necesario aquí
   setRequestLocale(locale);
 
-  // Obtener mensajes para el locale
   const messages = await getMessages();
 
-  // Configurar localización de Clerk según el idioma
   const clerkLocalization = locale === "es" ? esES : enUS;
 
   return (
@@ -88,7 +88,6 @@ export default async function RootLayout({
   );
 }
 
-// Generar parámetros estáticos para build usando routing
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }

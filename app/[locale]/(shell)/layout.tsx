@@ -15,7 +15,6 @@ export default async function DashboardLayout({
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }) {
-  // Use helper para configuración de locale
   await setupLocale(params);
 
   return (
