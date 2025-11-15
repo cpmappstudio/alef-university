@@ -1,0 +1,206 @@
+"use client";
+
+import * as React from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import type { Id } from "@/convex/_generated/dataModel";
+import type { ColumnDef } from "@tanstack/react-table";
+import CustomTable from "@/components/ui/custom-table";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import CourseDetailInfo from "@/components/course/course-detail-info";
+import CourseDetailActions from "@/components/course/course-detail-actions";
+import { CourseFormDialog } from "@/components/course/course-form-dialog";
+import { CourseDeleteDialog } from "@/components/course/course-delete-dialog";
+import { format } from "date-fns";
+import { es, enUS } from "date-fns/locale";
+
+export default function CourseDetailPage() {
+  const params = useParams();
+  const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations("admin.courses.detail");
+
+  const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
+
+  const courseId = params.courseId as Id<"courses">;
+
+  const course = useQuery(api.courses.getCourseById, { id: courseId });
+  const classes = useQuery(api.classes.getClassesByCourse, { courseId });
+
+  const handleBack = React.useCallback(() => {
+    router.push(`/${locale}/admin/courses`);
+  }, [router, locale]);
+
+  const handleEdit = React.useCallback(() => {
+    setIsEditDialogOpen(true);
+  }, []);
+
+  const handleDelete = React.useCallback(() => {
+    setIsDeleteDialogOpen(true);
+  }, []);
+
+  const handleDeleteSuccess = React.useCallback(() => {
+    router.push(`/${locale}/admin/courses`);
+  }, [router, locale]);
+
+  const handleRowClick = React.useCallback(
+    (classItem: any) => {
+      router.push(`/${locale}/admin/classes/${classItem._id}`);
+    },
+    [router, locale],
+  );
+
+  const dateLocale = locale === "es" ? es : enUS;
+
+  // Define columns for classes table
+  const classColumns = React.useMemo<ColumnDef<any>[]>(
+    () => [
+      {
+        accessorKey: "groupNumber",
+        header: t("table.group"),
+        cell: ({ row }) => {
+          return (
+            <span className="font-medium">
+              {t("table.groupPrefix")} {row.original.groupNumber}
+            </span>
+          );
+        },
+      },
+      {
+        accessorKey: "bimester",
+        header: t("table.bimester"),
+        cell: ({ row }) => {
+          const bimester = row.original.bimester;
+          if (!bimester) return "—";
+          return (
+            <div className="flex flex-col text-xs sm:text-sm">
+              <span className="whitespace-nowrap">
+                {format(new Date(bimester.startDate), "PP", {
+                  locale: dateLocale,
+                })}
+              </span>
+              <span className="text-muted-foreground whitespace-nowrap">
+                {format(new Date(bimester.endDate), "PP", {
+                  locale: dateLocale,
+                })}
+              </span>
+            </div>
+          );
+        },
+      },
+      {
+        accessorKey: "professor",
+        header: t("table.professor"),
+        cell: ({ row }) => {
+          const professor = row.original.professor;
+          if (!professor) return "—";
+          return professor.name || professor.email;
+        },
+      },
+      {
+        accessorKey: "enrolledCount",
+        header: t("table.students"),
+        cell: ({ row }) => {
+          return (
+            <span className="text-center block">
+              {row.original.enrolledCount || 0}
+            </span>
+          );
+        },
+      },
+      {
+        accessorKey: "status",
+        header: t("table.status"),
+        cell: ({ row }) => {
+          const status = row.original.status as string;
+          const statusMap: Record<string, any> = {
+            draft: "secondary",
+            open: "default",
+            closed: "outline",
+            active: "default",
+            grading: "secondary",
+            completed: "outline",
+          };
+          const statusVariant = statusMap[status] || "secondary";
+
+          return (
+            <Badge variant={statusVariant} className="text-xs">
+              {t(`table.statusValues.${status}`)}
+            </Badge>
+          );
+        },
+      },
+    ],
+    [t, dateLocale],
+  );
+
+  // Prepare classes data
+  const classesData = React.useMemo(() => {
+    return classes || [];
+  }, [classes]);
+
+  if (!course) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-muted-foreground">{t("loading")}</p>
+      </div>
+    );
+  }
+
+  const isLoadingClasses = classes === undefined;
+
+  const nameEs = course.nameEs || "";
+  const nameEn = course.nameEn || "";
+  const courseName = locale === "es" ? nameEs || nameEn : nameEn || nameEs;
+
+  const courseWithId = course ? { ...course, _id: courseId } : null;
+
+  return (
+    <>
+      <CourseFormDialog
+        mode="edit"
+        course={courseWithId}
+        open={isEditDialogOpen}
+        onOpenChange={setIsEditDialogOpen}
+      />
+
+      <CourseDeleteDialog
+        courseId={courseId}
+        courseName={courseName}
+        open={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+        onSuccess={handleDeleteSuccess}
+      />
+
+      <CourseDetailInfo
+        course={course}
+        locale={locale}
+        onBack={handleBack}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
+
+      <Separator />
+
+      <CourseDetailActions courseId={courseId} />
+
+      <Separator />
+
+      <div className="space-y-4">
+        <CustomTable
+          columns={classColumns}
+          data={classesData}
+          filterColumn="groupNumber"
+          filterPlaceholder={t("filterClassesPlaceholder")}
+          columnsMenuLabel={t("columnsMenuLabel")}
+          emptyMessage={t("emptyClassesMessage")}
+          onRowClick={handleRowClick}
+        />
+      </div>
+    </>
+  );
+}

@@ -1,5 +1,0 @@
-export { default as ProfessorMetricsGrid } from './metrics-grid'
-export { default as CurrentSectionsCard } from './current-sections-card'
-export { default as UpcomingClosingDatesCard } from './upcoming-closing-dates-card'
-export * from './types'
-export * from './dashboard-data'

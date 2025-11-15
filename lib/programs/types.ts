@@ -4,36 +4,21 @@ import type { Id } from "@/convex/_generated/dataModel";
 export type Program = {
   _id?: Id<"programs">;
   _creationTime?: number;
-
   codeEs?: string | undefined;
-
   codeEn?: string | undefined;
-
   nameEs?: string | undefined;
-
   nameEn?: string | undefined;
-
   descriptionEs?: string | undefined;
-
   descriptionEn?: string | undefined;
-
   type?: "diploma" | "bachelor" | "master" | "doctorate";
-
   degree?: string | undefined;
-
   categoryId?: Id<"program_categories"> | undefined;
   language?: "es" | "en" | "both";
-
   totalCredits?: number;
-
   durationBimesters?: number;
-
   tuitionPerCredit?: number | undefined;
-
   isActive?: boolean;
-
   createdAt?: number;
-
   updatedAt?: number | undefined;
 };
 
