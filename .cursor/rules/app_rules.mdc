@@ -29,9 +29,10 @@
 - El sidebar y otras vistas leen `user?.publicMetadata.role`, por lo que cualquier cambio en permisos debe reflejarse tanto en Clerk metadata como en las validaciones Convex (ver `components/ui/app-sidebar.tsx:51`).
 
 ## Patrón server/client y acceso a Convex
-- Las páginas server obtienen los datos críticos mediante `fetchQuery` (o `action`s) aprovechando el token Convex que expone Clerk; el listado y el detalle de programas son puramente server y sólo renderizan clientes ya hidratados (ver `app/[locale]/(shell)/programs/page.tsx:14` y `app/[locale]/(shell)/programs/[programId]/page.tsx:18`).
-- Los componentes cliente reciben los datos iniciales pero dependen de `useQuery`/`useMutation` para mantenerse en tiempo real: `ProgramManagementClient` maneja filtros/exports, mientras que `ProgramDetailClient` re-suscribe al programa, cursos y categorías (ver `components/program/program-management-client.tsx:32` y `components/program/program-detail-client.tsx:42`).
-- Las acciones sobre cursos asociados usan `useMutation` para agregar o quitar registros y mantienen el estado local sincronizado para dar feedback inmediato (ver `components/program/program-detail-actions.tsx:31`).
+- Las páginas server obtienen los datos críticos mediante `fetchQuery` (o `action`s) aprovechando el token Convex que expone Clerk; programas y cursos siguen el mismo patrón (ver `app/[locale]/(shell)/programs/page.tsx:14` y `app/[locale]/(shell)/courses/page.tsx:1`).
+- Los componentes cliente reciben los datos iniciales pero dependen de `useQuery`/`useMutation` para mantenerse en tiempo real: `ProgramManagementClient` y `CourseManagementClient` hidratan rápidamente y luego se resuscriben (ver `components/program/program-management-client.tsx:6` y `components/course/course-management-client.tsx:5`).
+- Este patrón se replica en los detalles (`ProgramDetailClient`, `CourseDetailClient`), que cargan datos del server y luego se suscriben en vivo a Convex para reflejar cambios en cursos o clases asociados.
+- Las acciones sobre cursos asociados usan `useMutation` para agregar o quitar registros y mantienen el estado local sincronizado para dar feedback inmediato (ver `components/program/program-detail-actions.tsx:31` y `components/course/course-detail-actions.tsx:1`).
 - Antes de borrar un programa se consulta Convex para contar dependencias, lo que permite alertar sobre cascadas (ver `components/program/program-delete-dialog.tsx:29`).
 - Recuerda que la lógica de permisos y validaciones “reales” vive en las funciones Convex (`convex/programs.ts:31`); los componentes cliente sólo muestran mensajes según el resultado.
 
@@ -47,7 +48,8 @@
 - La sección de selects de idioma/categoría y los campos localizados (ES/EN) se renderizan a través de componentes dedicados (`components/forms/language-category-section.tsx:15` y `components/forms/localized-field-group.tsx:37`), manteniendo UI consistente aunque cambien los campos.
 
 ### Listado y tablas
-- Las columnas de la tabla usan helpers declarativos (`components/program/columns.tsx:14`) que a su vez reutilizan funciones genéricas de tablas para códigos, nombres, estados y numeric columns (ver `components/table/column-helpers.tsx:8`).
+- Las columnas de la tabla usan helpers declarativos (`components/program/columns.tsx:14`, `components/course/columns.tsx:1`) que a su vez reutilizan funciones genéricas de tablas para códigos, nombres, estados y numeric columns (ver `components/table/column-helpers.tsx:8`).
+- Para combinar traducciones de tablas y formularios se añadió `createCombinedTranslator` (`lib/table/utils.ts:28`), de modo que cualquier tabla puede mezclar namespaces sin replicar lógica (ver `components/course/course-management-client.tsx:18`).
 - `CustomTable` implementa filtrado, ordenamiento, selección, export e incluso bloquea clicks en elementos interactivos usando `shouldHandleRowClick` (ver `components/ui/custom-table.tsx:43` y `lib/table/utils.ts:59`); cualquier nuevo listado debería usarlo antes de crear una tabla ad hoc.
 - Las filas localizadas comparten la lógica de `renderLocalizedField`/`buildSearchableField`, por lo que basta con declarar `language` en el row para heredar los badges bilingües (ver `components/ui/localized-fields.tsx:10` y `lib/table/types.ts:14`).
 
@@ -66,7 +68,7 @@
 - Usa siempre `createRoute`/`ROUTES.*.withLocale` en vez de concatenar strings; garantiza prefijos correctos e integra automáticamente nuevas entradas al sidebar/breadcrumb (`lib/routes.ts:9` y `lib/routes.ts:94`).
 - Si un layout/página server necesita fijar el locale, llama a `setupLocale` en vez de repetir validaciones; mantén `getLocaleFromPathname` como única fuente en middleware/redirecciones (`lib/locale-setup.ts:14` y `middleware.ts:50`).
 - Separa lógica pura (validaciones, builders, mapeos) en `lib/` y deja `components/` únicamente para UI/herramientas de interacción; la dupla `validateProgramForm` + `ProgramFormDialog` es el ejemplo a seguir (`lib/programs/utils.ts:112` vs `components/program/program-form-dialog.tsx:138`).
-- Haz las cargas iniciales de Convex dentro de la página server usando el token de Clerk y entrega los resultados a componentes cliente que luego se “resuscriben” con `useQuery`; evita llamar Convex directamente desde server components sin token (ver `app/[locale]/(shell)/programs/page.tsx:14` y `components/program/program-detail-client.tsx:42`).
+- Haz las cargas iniciales de Convex dentro de la página server usando el token de Clerk y entrega los resultados a componentes cliente que luego se “resuscriben” con `useQuery`; evita llamar Convex directamente desde server components sin token (ver `app/[locale]/(shell)/programs/page.tsx:14`, `app/[locale]/(shell)/courses/page.tsx:1` y los respectivos clientes).
 - Marca cualquier componente que use hooks de Convex/Clerk/DOM con `"use client"` en la primera línea para no romper la frontera server/client (`components/program/program-management-client.tsx:6`).
 - Reutiliza los componentes de formularios/tablas existentes antes de crear nuevos; eso asegura estilos homogéneos y reduce bugs de accesibilidad (`components/forms/language-category-section.tsx:15` y `components/ui/custom-table.tsx:43`).
 - Cuando añadas nuevas secciones o ajustes de rol, actualiza simultáneamente `SIDEBAR_ROUTE_GROUPS` y la lógica del middleware/RBAC para evitar rutas accesibles sin menú o viceversa (`lib/routes.ts:94`, `components/ui/app-sidebar.tsx:66` y `middleware.ts:42`).
