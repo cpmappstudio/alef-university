@@ -1,3 +1,4 @@
+import type { Doc, Id } from "@/convex/_generated/dataModel";
 import type {
   Program,
   ProgramCreatePayload,
@@ -9,6 +10,48 @@ import type {
   ProgramTypeOption,
   ProgramUpdatePayload,
 } from "./types";
+
+type Translator = (key: string, ...args: unknown[]) => string;
+
+export type ProgramCategoryWithCount = Doc<"program_categories"> & {
+  programCount?: number;
+};
+
+export type ProgramExportTranslations = {
+  title: string;
+  generatedOn: string;
+  totalPrograms: string;
+  page: string;
+  of: string;
+  columns: {
+    code: string;
+    program: string;
+    type: string;
+    category: string;
+    language: string;
+    credits: string;
+    duration: string;
+    status: string;
+  };
+  types: {
+    diploma: string;
+    bachelor: string;
+    master: string;
+    doctorate: string;
+  };
+  languages: {
+    es: string;
+    en: string;
+    both: string;
+  };
+  status: {
+    active: string;
+    inactive: string;
+  };
+  emptyValue: string;
+};
+
+export const PROGRAMS_TABLE_FILTER_COLUMN = "program";
 
 export const INITIAL_PROGRAM_FORM_STATE: ProgramFormState = {
   language: "",
@@ -236,4 +279,66 @@ function safeNumberToString(value: number | null | undefined): string {
   return typeof value === "number" && Number.isFinite(value)
     ? String(value)
     : "";
+}
+
+export function createProgramCategoryLabelMap(
+  categories: ProgramCategoryWithCount[] | undefined | null,
+): Record<string, string> {
+  if (!categories?.length) {
+    return {};
+  }
+
+  return categories.reduce<Record<string, string>>((acc, category) => {
+    const trimmedName = category.name.trim();
+    acc[String(category._id)] = trimmedName || category.name;
+    return acc;
+  }, {});
+}
+
+export function buildProgramExportTranslations(
+  tableTranslations: Translator,
+  exportTranslations: Translator,
+): ProgramExportTranslations {
+  return {
+    title: exportTranslations("title"),
+    generatedOn: exportTranslations("generatedOn"),
+    totalPrograms: exportTranslations("totalPrograms"),
+    page: exportTranslations("page"),
+    of: exportTranslations("of"),
+    columns: {
+      code: tableTranslations("columns.code"),
+      program: tableTranslations("columns.program"),
+      type: tableTranslations("columns.type"),
+      category: tableTranslations("columns.category"),
+      language: tableTranslations("columns.language"),
+      credits: tableTranslations("columns.credits"),
+      duration: tableTranslations("columns.duration"),
+      status: tableTranslations("columns.status"),
+    },
+    types: {
+      diploma: tableTranslations("types.diploma"),
+      bachelor: tableTranslations("types.bachelor"),
+      master: tableTranslations("types.master"),
+      doctorate: tableTranslations("types.doctorate"),
+    },
+    languages: {
+      es: tableTranslations("languages.es"),
+      en: tableTranslations("languages.en"),
+      both: tableTranslations("languages.both"),
+    },
+    status: {
+      active: tableTranslations("status.active"),
+      inactive: tableTranslations("status.inactive"),
+    },
+    emptyValue: tableTranslations("columns.emptyValue"),
+  };
+}
+
+export function buildProgramDetailsPath(
+  locale: string,
+  programId: Id<"programs"> | string,
+): string {
+  const normalizedLocale = locale?.trim();
+  const localeSegment = normalizedLocale ? `/${normalizedLocale}` : "";
+  return `${localeSegment}/programs/${String(programId)}`;
 }

@@ -1,10 +1,6 @@
 import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { CirclePlusIcon, FileDownIcon, InfoIcon } from "lucide-react";
+
+import { CirclePlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import ProgramFormDialog from "./program-form-dialog";
 

@@ -25,6 +25,12 @@ import type { Doc } from "@/convex/_generated/dataModel";
 
 /* Lib */
 import { exportProgramsToPDF } from "@/lib/export-programs-pdf";
+import {
+  buildProgramDetailsPath,
+  buildProgramExportTranslations,
+  createProgramCategoryLabelMap,
+  PROGRAMS_TABLE_FILTER_COLUMN,
+} from "@/lib/programs/utils";
 
 export default function ProgramManagementPage() {
   const t = useTranslations("admin.programs.table");
@@ -34,26 +40,24 @@ export default function ProgramManagementPage() {
   const data = useQuery(api.programs.getAllPrograms, {});
   const categories = useQuery(api.programs.getProgramCategories, {});
 
-  const categoryLabels = React.useMemo(() => {
-    if (!categories) {
-      return {};
-    }
-
-    return categories.reduce<Record<string, string>>((acc, category) => {
-      const trimmedName = category.name.trim();
-      acc[String(category._id)] = trimmedName || category.name;
-      return acc;
-    }, {});
-  }, [categories]);
+  const categoryLabels = React.useMemo(
+    () => createProgramCategoryLabelMap(categories),
+    [categories],
+  );
 
   const columns = React.useMemo(
     () => programColumns(t, locale, categoryLabels),
     [t, locale, categoryLabels],
   );
 
+  const exportTranslations = React.useMemo(
+    () => buildProgramExportTranslations(t, tExport),
+    [t, tExport],
+  );
+
   const handleRowClick = React.useCallback(
     (program: Doc<"programs">) => {
-      router.push(`/${locale}/programs/${program._id}`);
+      router.push(buildProgramDetailsPath(locale, program._id));
     },
     [router, locale],
   );
@@ -64,45 +68,11 @@ export default function ProgramManagementPage() {
         programs: rows,
         categoryLabels,
         locale,
-        translations: {
-          title: tExport("title"),
-          generatedOn: tExport("generatedOn"),
-          totalPrograms: tExport("totalPrograms"),
-          page: tExport("page"),
-          of: tExport("of"),
-          columns: {
-            code: t("columns.code"),
-            program: t("columns.program"),
-            type: t("columns.type"),
-            category: t("columns.category"),
-            language: t("columns.language"),
-            credits: t("columns.credits"),
-            duration: t("columns.duration"),
-            status: t("columns.status"),
-          },
-          types: {
-            diploma: t("types.diploma"),
-            bachelor: t("types.bachelor"),
-            master: t("types.master"),
-            doctorate: t("types.doctorate"),
-          },
-          languages: {
-            es: t("languages.es"),
-            en: t("languages.en"),
-            both: t("languages.both"),
-          },
-          status: {
-            active: t("status.active"),
-            inactive: t("status.inactive"),
-          },
-          emptyValue: t("columns.emptyValue"),
-        },
+        translations: exportTranslations,
       });
     },
-    [categoryLabels, locale, t, tExport],
+    [categoryLabels, exportTranslations, locale],
   );
-
-  const filterColumnKey = "program";
 
   return (
     <>
@@ -111,7 +81,7 @@ export default function ProgramManagementPage() {
       <CustomTable
         columns={columns}
         data={data}
-        filterColumn={filterColumnKey}
+        filterColumn={PROGRAMS_TABLE_FILTER_COLUMN}
         filterPlaceholder={t("filterPlaceholder")}
         columnsMenuLabel={t("columnsMenuLabel")}
         emptyMessage={t("emptyMessage")}
