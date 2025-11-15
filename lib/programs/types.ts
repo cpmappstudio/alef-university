@@ -135,3 +135,5 @@ export type ProgramManagementClientProps = {
   programs: ProgramDocument[];
   categories: ProgramCategoryDocument[];
 };
+
+export type ProgramRow = Doc<"programs">;

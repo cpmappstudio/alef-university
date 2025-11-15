@@ -133,3 +133,11 @@ export type CourseProgramSummary = Pick<
   Doc<"programs">,
   "_id" | "nameEs" | "nameEn" | "codeEs" | "codeEn"
 >;
+
+export type CourseRow = Doc<"courses"> & {
+  programs?: Array<{
+    _id: string;
+    codeEs: string;
+    name: string;
+  }>;
+};

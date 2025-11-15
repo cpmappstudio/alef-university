@@ -1,15 +1,15 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-import type { Doc } from "@/convex/_generated/dataModel";
-import {
-  buildSearchableField,
-  renderLocalizedField,
-} from "@/components/ui/localized-fields";
 import type { Translator } from "@/lib/table/types";
-
-type ProgramRow = Doc<"programs">;
+import type { ProgramRow } from "@/lib/programs/types";
+import {
+  createLocalizedCodeColumn,
+  createLocalizedNameColumn,
+  createStatusColumn,
+  createNumericColumn,
+  createMappedColumn,
+} from "@/components/table/column-helpers";
 
 export const programColumns = (
   t: Translator,
@@ -31,59 +31,40 @@ export const programColumns = (
     both: t("languages.both"),
   };
 
-  const programHeader = t("columns.program");
-
   return [
-    {
-      id: "code",
-      accessorFn: (row) =>
-        buildSearchableField(row, "codeEs", "codeEn", locale),
-      header: t("columns.code"),
-      cell: ({ row }) =>
-        renderLocalizedField(
-          row.original,
-          "codeEs",
-          "codeEn",
-          locale,
-          emptyValue,
-        ),
-    },
+    createLocalizedCodeColumn<ProgramRow>(t, locale, emptyValue),
+    // Columna de nombre con ordenamiento (específica de programs)
     {
       id: "program",
       accessorFn: (row) =>
-        buildSearchableField(row, "nameEs", "nameEn", locale),
+        `${row.nameEs || ""} ${row.nameEn || ""}`.trim().toLowerCase(),
       header: ({ column }) => (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          {programHeader}
+          {t("columns.program")}
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       ),
-      cell: ({ row }) =>
-        renderLocalizedField(
-          row.original,
-          "nameEs",
-          "nameEn",
-          locale,
-          emptyValue,
-        ),
-    },
-    {
-      accessorKey: "type",
-      header: t("columns.type"),
       cell: ({ row }) => {
-        const value = row.getValue("type") as ProgramRow["type"] | undefined;
-        return value ? (typeLabels[value] ?? emptyValue) : emptyValue;
+        const nameEs = row.original.nameEs;
+        const nameEn = row.original.nameEn;
+        const name = locale === "es" ? nameEs || nameEn : nameEn || nameEs;
+        return name || emptyValue;
       },
     },
-
+    createMappedColumn<ProgramRow>(
+      "type",
+      t,
+      "columns.type",
+      typeLabels,
+      emptyValue,
+    ),
+    // Columna de categoría (específica por el categoryId)
     {
       accessorKey: "categoryId",
-
       header: t("columns.category"),
-
       cell: ({ row }) => {
         const categoryId = row.original.categoryId;
         if (!categoryId) {
@@ -100,46 +81,25 @@ export const programColumns = (
         return categoryKey;
       },
     },
-
-    {
-      accessorKey: "language",
-      header: t("columns.language"),
-      cell: ({ row }) => {
-        const value = row.getValue("language") as
-          | ProgramRow["language"]
-          | undefined;
-        return value ? (languageLabels[value] ?? emptyValue) : emptyValue;
-      },
-    },
-    {
-      accessorKey: "totalCredits",
-      header: () => <div className="text-right">{t("columns.credits")}</div>,
-      cell: ({ row }) => {
-        const value = row.getValue("totalCredits") as number | undefined;
-        return (
-          <div className="text-right font-medium">{value ?? emptyValue}</div>
-        );
-      },
-    },
-    {
-      accessorKey: "durationBimesters",
-      header: () => <div className="text-right">{t("columns.duration")}</div>,
-      cell: ({ row }) => {
-        const value = row.getValue("durationBimesters") as number | undefined;
-        return (
-          <div className="text-right font-medium">{value ?? emptyValue}</div>
-        );
-      },
-    },
-
-    {
-      accessorKey: "isActive",
-      header: t("columns.status"),
-      cell: ({ row }) => (
-        <span className="font-medium">
-          {row.original.isActive ? t("status.active") : t("status.inactive")}
-        </span>
-      ),
-    },
+    createMappedColumn<ProgramRow>(
+      "language",
+      t,
+      "columns.language",
+      languageLabels,
+      emptyValue,
+    ),
+    createNumericColumn<ProgramRow>(
+      "totalCredits",
+      t,
+      "columns.credits",
+      emptyValue,
+    ),
+    createNumericColumn<ProgramRow>(
+      "durationBimesters",
+      t,
+      "columns.duration",
+      emptyValue,
+    ),
+    createStatusColumn<ProgramRow>(t),
   ];
 };

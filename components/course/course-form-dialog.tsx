@@ -207,7 +207,7 @@ export function CourseFormDialog({
 
         // Add new programs
         for (const programId of newSet) {
-          if (!currentSet.has(programId)) {
+          if (!currentSet.has(programId as Id<"programs">)) {
             await addCourseToProgram({
               courseId: course._id,
               programId: programId as Id<"programs">,
@@ -218,8 +218,8 @@ export function CourseFormDialog({
         }
 
         // Remove old programs
-        for (const programId of currentSet) {
-          if (!newSet.has(programId)) {
+        for (const programId of currentPrograms) {
+          if (!newSet.has(programId as string)) {
             await removeCourseFromProgram({
               courseId: course._id,
               programId: programId as Id<"programs">,
