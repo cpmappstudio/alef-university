@@ -62,6 +62,19 @@ export const ROUTES = {
     root: createRoute("/settings"),
     account: createRoute("/settings/account"),
     accountCustomization: createRoute("/settings/account/customization"),
+    accountProfile: createRoute("/settings/account/profile"),
+    profile: createRoute("/settings/profile"),
+    university: createRoute("/settings/university"),
+    universityGeneral: createRoute("/settings/university/general"),
+    universityMembers: createRoute("/settings/university/members"),
+    universityRoles: createRoute("/settings/university/roles"),
+    academicManagement: createRoute("/settings/academic-management"),
+    academicManagementPrograms: createRoute(
+      "/settings/academic-management/programs",
+    ),
+    academicManagementCourses: createRoute(
+      "/settings/academic-management/courses",
+    ),
   },
   // Documentación
   docs: {

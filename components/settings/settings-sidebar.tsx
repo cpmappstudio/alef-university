@@ -68,10 +68,6 @@ export function SettingsSidebar() {
   const pathname = usePathname();
   const t = useTranslations("admin.settings.sidebar");
 
-  const basePath = React.useMemo(
-    () => normalizePath(ROUTES.settings.root.withLocale(locale)),
-    [locale],
-  );
   const normalizedPath = normalizePath(pathname);
 
   const accountLabel = t("account", { defaultMessage: "Account" });
@@ -87,7 +83,7 @@ export function SettingsSidebar() {
     defaultMessage: "Academic Management",
   });
   const programsLabel = t("programs", { defaultMessage: "Programs" });
-  const bimestersLabel = t("bimesters", { defaultMessage: "Bimesters" });
+  const coursesLabel = t("courses", { defaultMessage: "Courses" });
 
   const sections = React.useMemo<Section[]>(
     () => [
@@ -100,15 +96,15 @@ export function SettingsSidebar() {
           {
             id: "customization",
             label: customizationLabel,
-            href: `${basePath}/account/customization`,
+            href: ROUTES.settings.accountCustomization.withLocale(locale),
             icon: Palette,
           },
           {
             id: "profile",
             label: profileLabel,
-            href: `${basePath}/account/profile`,
+            href: ROUTES.settings.accountProfile.withLocale(locale),
             icon: IdCard,
-            aliases: [`${basePath}/profile`],
+            aliases: [ROUTES.settings.profile.withLocale(locale)],
           },
         ],
       },
@@ -120,23 +116,20 @@ export function SettingsSidebar() {
           {
             id: "general",
             label: generalLabel,
-            href: `${basePath}/university/general`,
+            href: ROUTES.settings.universityGeneral.withLocale(locale),
             icon: SlidersHorizontal,
-            aliases: [`${basePath}/general`],
           },
           {
             id: "members",
             label: membersLabel,
-            href: `${basePath}/university/members`,
+            href: ROUTES.settings.universityMembers.withLocale(locale),
             icon: Users,
-            aliases: [`${basePath}/members`],
           },
           {
             id: "roles",
             label: rolesLabel,
-            href: `${basePath}/university/roles`,
+            href: ROUTES.settings.universityRoles.withLocale(locale),
             icon: ShieldCheck,
-            aliases: [`${basePath}/roles`],
           },
         ],
       },
@@ -148,16 +141,14 @@ export function SettingsSidebar() {
           {
             id: "programs",
             label: programsLabel,
-            href: `${basePath}/academic-management/programs`,
+            href: ROUTES.settings.academicManagementPrograms.withLocale(locale),
             icon: Layers,
-            aliases: [`${basePath}/programs`],
           },
           {
-            id: "bimesters",
-            label: bimestersLabel,
-            href: `${basePath}/academic-management/bimesters`,
+            id: "courses",
+            label: coursesLabel,
+            href: ROUTES.settings.academicManagementCourses.withLocale(locale),
             icon: Calendar,
-            aliases: [`${basePath}/bimesters`],
           },
         ],
       },
@@ -165,15 +156,15 @@ export function SettingsSidebar() {
     [
       accountLabel,
       academicManagementLabel,
-      basePath,
       customizationLabel,
       generalLabel,
       membersLabel,
       profileLabel,
       programsLabel,
-      bimestersLabel,
+      coursesLabel,
       rolesLabel,
       universityLabel,
+      locale,
     ],
   );
 
@@ -189,6 +180,19 @@ export function SettingsSidebar() {
       // Check if it's a sub-path (but not just the base path)
       if (normalizedPath.startsWith(`${normalizedHref}/`)) {
         return true;
+      }
+
+      if (item.aliases?.length) {
+        for (const alias of item.aliases) {
+          const normalizedAlias = normalizePath(alias);
+          if (normalizedPath === normalizedAlias) {
+            return true;
+          }
+
+          if (normalizedPath.startsWith(`${normalizedAlias}/`)) {
+            return true;
+          }
+        }
       }
 
       return false;

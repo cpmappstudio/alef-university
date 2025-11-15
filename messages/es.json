@@ -162,7 +162,8 @@
         "almostGraduating": "Casi graduándote",
         "bimestersRemaining": "{count} bimestre restante previsto",
         "excellent": "Excelente",
-        "bimesters": "bimestres",
+        "bimesters": "Bimestres",
+      "courses": "Cursos",
         "subjects": "materias"
       },
       "program": {
@@ -484,7 +485,8 @@
         "roles": "Roles",
         "academicManagement": "Gestión académica",
         "programs": "Programas",
-        "bimesters": "Bimestres"
+        "bimesters": "Bimestres",
+      "courses": "Cursos"
       },
       "overview": {
         "title": "Configuraciones",
@@ -507,6 +509,7 @@
       },
       "categories": "Categorías",
       "bimesters": "Bimestres",
+      "courses": "Cursos",
       "categoriesPage": {
         "description": "Las categorías de programas ayudan a organizar los programas académicos en diferentes grupos. Cada programa debe ser asignado a una categoría. Las categorías se utilizan en todo el sistema para filtrar y organizar programas.",
         "table": {
@@ -769,7 +772,8 @@
         "language": "Idioma",
         "credits": "Créditos Totales",
         "duration": "Duración",
-        "bimesters": "bimestres",
+        "bimesters": "Bimestres",
+      "courses": "Cursos",
         "degree": "Título",
         "tuitionPerCredit": "Matrícula por Crédito",
         "courses": "Cursos del Programa",
@@ -1091,3 +1095,4 @@
     }
   }
 }
+

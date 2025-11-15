@@ -486,7 +486,8 @@
         "roles": "Roles",
         "academicManagement": "Academic Management",
         "programs": "Programs",
-        "bimesters": "Bimesters"
+        "bimesters": "Bimesters",
+        "courses": "Courses"
       },
       "overview": {
         "title": "Settings",

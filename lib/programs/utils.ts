@@ -60,6 +60,16 @@ export type ExportCourseTableOptions = {
   locale: string;
 };
 
+export type ProgramCourseExportOptions = {
+  program: Doc<"programs">;
+  courses: CourseForExport[];
+  locale: string;
+  detailTranslator: Translator;
+  tableTranslator: Translator;
+  courseFormTranslator: Translator;
+  exportTranslator: Translator;
+};
+
 export const PROGRAMS_TABLE_FILTER_COLUMN = "program";
 
 const INITIAL_PROGRAM_FORM_STATE: ProgramFormState = {
@@ -361,6 +371,60 @@ export function exportCourseTable({
         doctorate: string;
       },
     },
+  });
+}
+
+export function exportProgramCourses({
+  program,
+  courses,
+  locale,
+  detailTranslator,
+  tableTranslator,
+  courseFormTranslator,
+  exportTranslator,
+}: ProgramCourseExportOptions) {
+  const nameEs = program.nameEs || "";
+  const nameEn = program.nameEn || "";
+  const programName = locale === "es" ? nameEs || nameEn : nameEn || nameEs;
+
+  const translations: CourseExportTranslations = {
+    title: `${programName} - ${detailTranslator("courses")}`,
+    generatedOn: exportTranslator("generatedOn"),
+    totalPrograms: `${courses.length} ${detailTranslator("totalCourses")}`,
+    page: exportTranslator("page"),
+    of: exportTranslator("of"),
+    columns: {
+      code: tableTranslator("columns.code"),
+      program: tableTranslator("columns.course"),
+      type: tableTranslator("columns.category"),
+      category: tableTranslator("columns.emptyValue"),
+      language: tableTranslator("columns.language"),
+      credits: tableTranslator("columns.credits"),
+      duration: tableTranslator("columns.emptyValue"),
+      status: tableTranslator("columns.status"),
+    },
+    types: {
+      humanities: courseFormTranslator("options.categories.humanities"),
+      core: courseFormTranslator("options.categories.core"),
+      elective: courseFormTranslator("options.categories.elective"),
+      general: courseFormTranslator("options.categories.general"),
+    },
+    languages: {
+      es: tableTranslator("languages.es"),
+      en: tableTranslator("languages.en"),
+      both: tableTranslator("languages.both"),
+    },
+    status: {
+      active: tableTranslator("status.active"),
+      inactive: tableTranslator("status.inactive"),
+    },
+    emptyValue: tableTranslator("columns.emptyValue"),
+  };
+
+  exportCourseTable({
+    courses,
+    translations,
+    locale,
   });
 }
 

@@ -5,12 +5,13 @@
 
 "use client";
 
+/* hooks */
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import type { Doc, Id } from "@/convex/_generated/dataModel";
+
+/* components */
 import CustomTable from "@/components/ui/custom-table";
 import { Separator } from "@/components/ui/separator";
 import ProgramDetailInfo from "@/components/program/program-detail-info";
@@ -18,8 +19,12 @@ import ProgramDetailActions from "@/components/program/program-detail-actions";
 import { courseColumns } from "@/components/course/columns";
 import ProgramFormDialog from "@/components/program/program-form-dialog";
 import { ProgramDeleteDialog } from "@/components/program/program-delete-dialog";
-import { exportProgramsToPDF } from "@/lib/export-programs-pdf";
+
+/* lib */
+import { api } from "@/convex/_generated/api";
+import type { Doc, Id } from "@/convex/_generated/dataModel";
 import { ROUTES } from "@/lib/routes";
+import { exportProgramCourses } from "@/lib/programs/utils";
 
 interface ProgramDetailClientProps {
   programId: Id<"programs">;
@@ -101,77 +106,17 @@ export default function ProgramDetailClient({
     (rows: Doc<"courses">[]) => {
       if (!program) return;
 
-      const nameEs = program.nameEs || "";
-      const nameEn = program.nameEn || "";
-      const programName = locale === "es" ? nameEs || nameEn : nameEn || nameEs;
-
-      // Crear traducciones para categorías
-      const categoryLabels: Record<string, string> = {
-        humanities: tCourseForm("options.categories.humanities"),
-        core: tCourseForm("options.categories.core"),
-        elective: tCourseForm("options.categories.elective"),
-        general: tCourseForm("options.categories.general"),
-      };
-
-      // Convertir cursos a formato similar a programas para reutilizar la función
-      const coursesAsPrograms = rows.map((course) => ({
-        _id: course._id,
-        _creationTime: course._creationTime,
-        codeEs: course.codeEs,
-        codeEn: course.codeEn,
-        nameEs: course.nameEs,
-        nameEn: course.nameEn,
-        descriptionEs: course.descriptionEs,
-        descriptionEn: course.descriptionEn,
-        type: course.category as any, // Usamos category como type
-        language: course.language,
-        categoryId: undefined,
-        totalCredits: course.credits,
-        durationBimesters: undefined,
-        isActive: course.isActive,
-        createdAt: course.createdAt,
-      })) as any;
-
-      exportProgramsToPDF({
-        programs: coursesAsPrograms,
-        categoryLabels: categoryLabels,
+      exportProgramCourses({
+        program,
+        courses: rows,
         locale,
-        translations: {
-          title: `${programName} - ${t("courses")}`,
-          generatedOn: tExport("generatedOn"),
-          totalPrograms: `${rows.length} ${t("totalCourses")}`,
-          page: tExport("page"),
-          of: tExport("of"),
-          columns: {
-            code: tTable("columns.code"),
-            program: tTable("columns.course"),
-            type: tTable("columns.category"),
-            category: tTable("columns.emptyValue"),
-            language: tTable("columns.language"),
-            credits: tTable("columns.credits"),
-            duration: tTable("columns.emptyValue"),
-            status: tTable("columns.status"),
-          },
-          types: {
-            humanities: categoryLabels.humanities,
-            core: categoryLabels.core,
-            elective: categoryLabels.elective,
-            general: categoryLabels.general,
-          } as any,
-          languages: {
-            es: tTable("languages.es"),
-            en: tTable("languages.en"),
-            both: tTable("languages.both"),
-          },
-          status: {
-            active: tTable("status.active"),
-            inactive: tTable("status.inactive"),
-          },
-          emptyValue: tTable("columns.emptyValue"),
-        },
+        detailTranslator: t,
+        tableTranslator: tTable,
+        courseFormTranslator: tCourseForm,
+        exportTranslator: tExport,
       });
     },
-    [program, locale, t, tExport, tTable, tCourseForm],
+    [program, locale, t, tTable, tCourseForm, tExport],
   );
 
   if (!program) {
