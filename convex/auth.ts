@@ -229,8 +229,6 @@ export const getCurrentUser = query({
         ...user.studentProfile,
         program: program,
       };
-    } else if (user.role === "professor" && user.professorProfile) {
-      profileData = user.professorProfile;
     }
 
     return {
@@ -310,14 +308,6 @@ export const updateUserRole = mutation({
         ),
       }),
     ),
-    professorProfile: v.optional(
-      v.object({
-        employeeCode: v.string(),
-        title: v.optional(v.string()),
-        department: v.optional(v.string()),
-        hireDate: v.optional(v.number()),
-      }),
-    ),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -340,7 +330,6 @@ export const updateUserRole = mutation({
       role: args.role,
       isActive: args.isActive,
       studentProfile: args.studentProfile,
-      professorProfile: args.professorProfile,
     });
 
     return args.userId;
@@ -374,21 +363,12 @@ export const internalUpdateUserRoleUnsafe = internalMutation({
         ),
       }),
     ),
-    professorProfile: v.optional(
-      v.object({
-        employeeCode: v.string(),
-        title: v.optional(v.string()),
-        department: v.optional(v.string()),
-        hireDate: v.optional(v.number()),
-      }),
-    ),
   },
   handler: async (ctx, args) => {
     await ctx.db.patch(args.userId, {
       role: args.role,
       isActive: args.isActive,
       studentProfile: args.studentProfile,
-      professorProfile: args.professorProfile,
     });
     return args.userId;
   },
