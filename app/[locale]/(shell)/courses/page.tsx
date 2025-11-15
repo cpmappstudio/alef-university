@@ -20,5 +20,5 @@ export default async function CourseManagementPage() {
     fetchOptions,
   )) ?? []) as CourseDocument[];
 
-  return <CourseManagementClient courses={courses} />;
+  return <CourseManagementClient courses={courses ?? []} />;
 }

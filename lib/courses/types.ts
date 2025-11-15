@@ -147,3 +147,11 @@ export type CourseDocument = CourseRow;
 export type CourseManagementClientProps = {
   courses: CourseDocument[];
 };
+
+export type CourseClassRow = Doc<"classes"> & {
+  status?: "open" | "active" | "grading" | "completed";
+  enrolledCount?: number;
+  bimester?: Doc<"bimesters"> | null;
+  professor?: Doc<"users"> | null;
+  course?: Doc<"courses"> | null;
+};
