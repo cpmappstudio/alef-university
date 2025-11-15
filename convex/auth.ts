@@ -19,7 +19,7 @@ import {
 import { internal } from "./_generated/api";
 import { v, ConvexError } from "convex/values";
 import { getUserByClerkId } from "./helpers";
-import { roleValidator, addressValidator } from "./types";
+import { roleValidator } from "./types";
 
 /**
  * Create or update user from Clerk authentication
@@ -47,7 +47,6 @@ export const createOrUpdateUser = mutation({
     documentNumber: v.optional(v.string()),
     phone: v.optional(v.string()),
     country: v.optional(v.string()),
-    address: v.optional(addressValidator),
   },
   handler: async (ctx, args) => {
     const existingByClerkId = await ctx.db
@@ -72,17 +71,28 @@ export const createOrUpdateUser = mutation({
         documentNumber: args.documentNumber,
         phone: args.phone,
         country: args.country,
-        address: args.address,
-        updatedAt: Date.now(),
       });
       return existingByClerkId._id;
     }
 
-    if (existingByEmail && !existingByEmail.clerkId.startsWith("pending_")) {
-      throw new Error("Email address already exists");
-    }
+    if (existingByEmail) {
+      if (existingByEmail.clerkId && existingByEmail.clerkId !== args.clerkId) {
+        throw new Error("Email address already exists");
+      }
 
-    if (existingByEmail && existingByEmail.clerkId.startsWith("pending_")) {
+      await ctx.db.patch(existingByEmail._id, {
+        clerkId: args.clerkId,
+        email: args.email,
+        firstName: args.firstName,
+        lastName: args.lastName,
+        role: args.role ?? existingByEmail.role,
+        dateOfBirth: args.dateOfBirth,
+        nationality: args.nationality,
+        documentType: args.documentType,
+        documentNumber: args.documentNumber,
+        phone: args.phone,
+        country: args.country,
+      });
       return existingByEmail._id;
     }
 
@@ -92,15 +102,13 @@ export const createOrUpdateUser = mutation({
       firstName: args.firstName,
       lastName: args.lastName,
       role: args.role ?? "student",
-      isActive: args.clerkId.startsWith("pending_") ? false : true,
+      isActive: true,
       dateOfBirth: args.dateOfBirth,
       nationality: args.nationality,
       documentType: args.documentType,
       documentNumber: args.documentNumber,
       phone: args.phone,
       country: args.country,
-      address: args.address,
-      createdAt: Date.now(),
     });
 
     return userId;
@@ -127,7 +135,6 @@ export const internalCreateOrUpdateUser = internalMutation({
     documentNumber: v.optional(v.string()),
     phone: v.optional(v.string()),
     country: v.optional(v.string()),
-    address: v.optional(addressValidator),
   },
   handler: async (ctx, args) => {
     const existingByClerkId = await ctx.db
@@ -152,17 +159,28 @@ export const internalCreateOrUpdateUser = internalMutation({
         documentNumber: args.documentNumber,
         phone: args.phone,
         country: args.country,
-        address: args.address,
-        updatedAt: Date.now(),
       });
       return existingByClerkId._id;
     }
 
-    if (existingByEmail && !existingByEmail.clerkId.startsWith("pending_")) {
-      throw new Error("Email address already exists");
-    }
+    if (existingByEmail) {
+      if (existingByEmail.clerkId && existingByEmail.clerkId !== args.clerkId) {
+        throw new Error("Email address already exists");
+      }
 
-    if (existingByEmail && existingByEmail.clerkId.startsWith("pending_")) {
+      await ctx.db.patch(existingByEmail._id, {
+        clerkId: args.clerkId,
+        email: args.email,
+        firstName: args.firstName,
+        lastName: args.lastName,
+        role: args.role ?? existingByEmail.role,
+        dateOfBirth: args.dateOfBirth,
+        nationality: args.nationality,
+        documentType: args.documentType,
+        documentNumber: args.documentNumber,
+        phone: args.phone,
+        country: args.country,
+      });
       return existingByEmail._id;
     }
 
@@ -172,15 +190,13 @@ export const internalCreateOrUpdateUser = internalMutation({
       firstName: args.firstName,
       lastName: args.lastName,
       role: args.role ?? "student",
-      isActive: args.clerkId.startsWith("pending_") ? false : true,
+      isActive: true,
       dateOfBirth: args.dateOfBirth,
       nationality: args.nationality,
       documentType: args.documentType,
       documentNumber: args.documentNumber,
       phone: args.phone,
       country: args.country,
-      address: args.address,
-      createdAt: Date.now(),
     });
 
     return userId;
@@ -232,7 +248,6 @@ export const updateUserProfile = mutation({
   args: {
     phone: v.optional(v.string()),
     country: v.optional(v.string()),
-    address: v.optional(addressValidator),
     dateOfBirth: v.optional(v.number()),
     nationality: v.optional(v.string()),
     documentType: v.optional(
@@ -259,7 +274,6 @@ export const updateUserProfile = mutation({
     // Update user profile
     await ctx.db.patch(user._id, {
       ...args,
-      updatedAt: Date.now(),
     });
 
     return user._id;
@@ -327,7 +341,6 @@ export const updateUserRole = mutation({
       isActive: args.isActive,
       studentProfile: args.studentProfile,
       professorProfile: args.professorProfile,
-      updatedAt: Date.now(),
     });
 
     return args.userId;
@@ -376,7 +389,6 @@ export const internalUpdateUserRoleUnsafe = internalMutation({
       isActive: args.isActive,
       studentProfile: args.studentProfile,
       professorProfile: args.professorProfile,
-      updatedAt: Date.now(),
     });
     return args.userId;
   },
@@ -531,8 +543,6 @@ export const activatePendingUser = mutation({
     await ctx.db.patch(args.userId, {
       clerkId: args.clerkId,
       isActive: true,
-      updatedAt: Date.now(),
-      lastLoginAt: Date.now(),
     });
   },
 });
@@ -564,8 +574,6 @@ export const activatePendingUserInternal = internalMutation({
     await ctx.db.patch(args.userId, {
       clerkId: args.clerkId,
       isActive: true,
-      updatedAt: Date.now(),
-      lastLoginAt: Date.now(),
     });
   },
 });
@@ -583,102 +591,53 @@ export const handleClerkWebhook = internalMutation({
     lastName: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    console.log(
-      `Processing webhook event: ${args.eventType} for user ${args.email}`,
-    );
-
     switch (args.eventType) {
-      case "user.created":
-        // Check if user already exists by clerkId
-        const existingUserByClerkId = await ctx.db
+      case "user.created": {
+        const existingByClerkId = await ctx.db
           .query("users")
           .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.userId))
           .first();
 
-        if (existingUserByClerkId) {
-          console.log(`User with clerkId ${args.userId} already exists`);
-          return existingUserByClerkId._id;
+        if (existingByClerkId) {
+          return existingByClerkId._id;
         }
 
-        // Check if there's a pending user with this email
-        const pendingUser = await ctx.db
-          .query("users")
-          .withIndex("by_email", (q) => q.eq("email", args.email || ""))
-          .first();
+        const email = args.email ?? "";
+        const firstName = args.firstName ?? "";
+        const lastName = args.lastName ?? "";
 
-        if (pendingUser && pendingUser.clerkId.startsWith("pending_")) {
-          // Activate the pending user with real Clerk ID
-          console.log(`Activating pending user ${args.email}`);
-          await ctx.db.patch(pendingUser._id, {
-            clerkId: args.userId,
-            firstName: args.firstName || pendingUser.firstName,
-            lastName: args.lastName || pendingUser.lastName,
-            isActive: true,
-            updatedAt: Date.now(),
-            lastLoginAt: Date.now(),
-          });
-
-          // Update Clerk user with names from database
-          const clerkAPIKey = process.env.CLERK_SECRET_KEY;
-          if (clerkAPIKey) {
-            try {
-              await fetch(`https://api.clerk.com/v1/users/${args.userId}`, {
-                method: "PATCH",
-                headers: {
-                  Authorization: `Bearer ${clerkAPIKey}`,
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  first_name: args.firstName || pendingUser.firstName,
-                  last_name: args.lastName || pendingUser.lastName,
-                }),
-              });
-              console.log("Updated Clerk user with names from database");
-            } catch (error) {
-              console.error("Failed to update Clerk user:", error);
-            }
-          }
-
-          return pendingUser._id;
-        }
-
-        // If no pending user, create new user with default student role
-        console.log(`Creating new user ${args.email}`);
         const newUserId = await ctx.db.insert("users", {
           clerkId: args.userId,
-          email: args.email || "",
-          firstName: args.firstName || "",
-          lastName: args.lastName || "",
-          role: "student", // Default role
-          isActive: false, // Needs admin to activate and assign proper role
-          createdAt: Date.now(),
+          email,
+          firstName,
+          lastName,
+          role: "student",
+          isActive: true,
         });
 
         return newUserId;
+      }
 
-      case "user.updated":
-        // Update user information
+      case "user.updated": {
         const userToUpdate = await ctx.db
           .query("users")
           .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.userId))
           .first();
 
-        if (userToUpdate) {
-          console.log(`Updating user ${args.email}`);
-          await ctx.db.patch(userToUpdate._id, {
-            email: args.email || userToUpdate.email,
-            firstName: args.firstName || userToUpdate.firstName,
-            lastName: args.lastName || userToUpdate.lastName,
-            updatedAt: Date.now(),
-          });
-          return userToUpdate._id;
+        if (!userToUpdate) {
+          return null;
         }
 
-        console.log(`User ${args.email} not found for update`);
-        return null;
+        await ctx.db.patch(userToUpdate._id, {
+          email: args.email || userToUpdate.email,
+          firstName: args.firstName || userToUpdate.firstName,
+          lastName: args.lastName || userToUpdate.lastName,
+        });
+
+        return userToUpdate._id;
+      }
 
       default:
-        console.log(`Unhandled event type: ${args.eventType}`);
         return null;
     }
   },

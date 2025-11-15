@@ -22,7 +22,6 @@ import type { ActionCtx } from "./_generated/server";
 import { v, ConvexError } from "convex/values";
 import type { Doc } from "./_generated/dataModel";
 import type { Id } from "./_generated/dataModel";
-import { addressValidator } from "./types";
 import {
   getUserByClerkId,
   getActiveStudentsCount,
@@ -39,6 +38,104 @@ import {
   academicStandingValidator,
   enrollmentStatusValidator,
 } from "./types";
+
+type ClerkUserJSON = {
+  id: string;
+  email_addresses?: Array<{
+    id: string;
+    email_address: string;
+  }>;
+  primary_email_address_id?: string;
+  public_metadata?: Record<string, unknown>;
+};
+
+type CreateClerkUserParams = {
+  clerkAPIKey: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: "student" | "professor" | "admin";
+};
+
+const CLERK_API_BASE_URL = "https://api.clerk.com/v1";
+
+async function createClerkUserAccount({
+  clerkAPIKey,
+  email,
+  firstName,
+  lastName,
+  role,
+}: CreateClerkUserParams): Promise<ClerkUserJSON> {
+  const response = await fetch(`${CLERK_API_BASE_URL}/users`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${clerkAPIKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email_address: email,
+      first_name: firstName,
+      last_name: lastName,
+      public_metadata: {
+        role,
+      },
+      skip_password_creation: true,
+      skip_email_verification: true,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    throw new ConvexError(`Failed to create Clerk user: ${errorBody}`);
+  }
+
+  return response.json();
+}
+
+const resolvePrimaryEmail = (
+  clerkUser: ClerkUserJSON,
+  fallbackEmail: string,
+): string => {
+  const primaryId = clerkUser.primary_email_address_id;
+  if (primaryId && Array.isArray(clerkUser.email_addresses)) {
+    const primary = clerkUser.email_addresses.find(
+      (address) => address.id === primaryId,
+    );
+    if (primary?.email_address) {
+      return primary.email_address;
+    }
+  }
+  const first =
+    clerkUser.email_addresses && clerkUser.email_addresses[0]?.email_address;
+  return first ?? fallbackEmail;
+};
+
+async function updateClerkPublicMetadata(
+  clerkAPIKey: string,
+  clerkUserId: string,
+  metadata: Record<string, unknown>,
+): Promise<void> {
+  const response = await fetch(
+    `${CLERK_API_BASE_URL}/users/${clerkUserId}/metadata`,
+    {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${clerkAPIKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        public_metadata: metadata,
+      }),
+    },
+  );
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    console.error(
+      `Failed to update Clerk metadata for ${clerkUserId}: ${errorBody}`,
+    );
+  }
+}
 
 /**
  * Get all users with filtering options (Admin only)
@@ -1544,15 +1641,6 @@ export const adminUpdateStudent = mutation({
     documentNumber: v.optional(v.string()),
     phone: v.optional(v.string()),
     country: v.optional(v.string()),
-    address: v.optional(
-      v.object({
-        street: v.string(),
-        city: v.string(),
-        state: v.string(),
-        zipCode: v.string(),
-        country: v.string(),
-      }),
-    ),
     expectedGraduationDate: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
@@ -1579,9 +1667,7 @@ export const adminUpdateStudent = mutation({
       documentNumber: student.documentNumber,
       phone: student.phone,
       country: student.country,
-      address: student.address,
       studentProfile: student.studentProfile,
-      updatedAt: Date.now(),
     };
 
     // Add optional personal fields
@@ -1595,7 +1681,6 @@ export const adminUpdateStudent = mutation({
       updateObject.documentNumber = updates.documentNumber;
     if (updates.phone !== undefined) updateObject.phone = updates.phone;
     if (updates.country !== undefined) updateObject.country = updates.country;
-    if (updates.address !== undefined) updateObject.address = updates.address;
 
     // Build student profile
     updateObject.studentProfile = {
@@ -1647,7 +1732,6 @@ export const createUserWithClerk = action({
     documentNumber: v.optional(v.string()),
     phone: v.optional(v.string()),
     country: v.optional(v.string()),
-    address: v.optional(addressValidator), // Use the existing addressValidator
 
     // Student-specific profile (no changes needed here)
     studentProfile: v.optional(
@@ -1684,44 +1768,24 @@ export const createUserWithClerk = action({
       throw new Error("CLERK_SECRET_KEY environment variable is not set.");
     }
 
-    const appUrl =
-      process.env.NEXT_PUBLIC_APP_URL ||
-      process.env.APP_URL ||
-      "https://www.alefsru.com";
+    const clerkUser = await createClerkUserAccount({
+      clerkAPIKey,
+      email: args.email,
+      firstName: args.firstName,
+      lastName: args.lastName,
+      role: args.role,
+    });
 
-    // **STEP 1: CREATE INVITATION WITH FIRST/LAST NAME IN PUBLIC METADATA**
-    const invitationResponse = await fetch(
-      "https://api.clerk.com/v1/invitations",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${clerkAPIKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email_address: args.email,
-          public_metadata: {
-            role: args.role,
-            firstName: args.firstName,
-            lastName: args.lastName,
-          },
-          redirect_url: `${appUrl}/sign-up`,
-          ignore_existing: true,
-        }),
-      },
-    );
-
-    if (!invitationResponse.ok) {
-      const errorBody = await invitationResponse.text();
-      throw new Error(`Failed to create Clerk invitation: ${errorBody}`);
+    const clerkUserId = clerkUser.id;
+    if (!clerkUserId) {
+      throw new ConvexError("Clerk user id missing from response");
     }
 
-    // **STEP 2: CREATE PENDING USER IN CONVEX**
-    const pendingClerkId = `pending_${args.email}_${Date.now()}`;
+    const primaryEmail = resolvePrimaryEmail(clerkUser, args.email);
 
     const userId = await ctx.runMutation(api.auth.createOrUpdateUser, {
-      clerkId: pendingClerkId,
-      email: args.email,
+      clerkId: clerkUserId,
+      email: primaryEmail,
       firstName: args.firstName,
       lastName: args.lastName,
       role: args.role,
@@ -1731,24 +1795,32 @@ export const createUserWithClerk = action({
       documentNumber: args.documentNumber,
       phone: args.phone,
       country: args.country,
-      address: args.address,
     });
 
-    // **STEP 3: ADD ROLE-SPECIFIC PROFILE**
     if (args.studentProfile || args.professorProfile) {
       await ctx.runMutation(api.auth.updateUserRole, {
         userId,
         role: args.role,
-        isActive: false,
+        isActive: args.role === "student" ? false : true,
         studentProfile: args.studentProfile,
         professorProfile: args.professorProfile,
       });
     }
 
+    const mergedMetadata = {
+      ...(typeof clerkUser.public_metadata === "object" &&
+      clerkUser.public_metadata !== null
+        ? clerkUser.public_metadata
+        : {}),
+      role: args.role,
+      convexUserId: userId,
+    };
+
+    await updateClerkPublicMetadata(clerkAPIKey, clerkUserId, mergedMetadata);
+
     return {
       success: true,
-      message:
-        "Invitation sent successfully. User will be activated after accepting the invitation.",
+      message: "User created successfully in Clerk and Convex.",
     };
   },
 });
@@ -1797,7 +1869,7 @@ export const internalCreateUserWithClerk = internalAction({
   handler: async (
     ctx,
     args,
-  ): Promise<{ userId: any; invitationId: string; message: string }> => {
+  ): Promise<{ userId: any; clerkUserId: string; message: string }> => {
     // Check if user already exists
     const existingUser = await ctx.runQuery(
       internal.auth.getUserByEmailInternal,
@@ -1810,69 +1882,64 @@ export const internalCreateUserWithClerk = internalAction({
       throw new ConvexError("User with this email already exists");
     }
 
-    // Create pending user in Convex
-    const pendingClerkId = `pending_${Date.now()}_${Math.random().toString(36).substring(7)}`;
-    const userId = await ctx.runMutation(
-      internal.auth.internalCreateOrUpdateUser,
-      {
-        clerkId: pendingClerkId,
-        email: args.email,
-        firstName: args.firstName,
-        lastName: args.lastName,
-        role: args.role || "student",
-      },
-    );
-
-    // Update role and profile if provided
-    if (args.studentProfile || args.professorProfile) {
-      await ctx.runMutation(internal.auth.internalUpdateUserRoleUnsafe, {
-        userId: userId,
-        role: args.role || "student",
-        isActive: false, // Will be activated when they accept invitation
-        studentProfile: args.studentProfile,
-        professorProfile: args.professorProfile,
-      });
-    }
-
-    // Send Clerk invitation
     const clerkAPIKey = process.env.CLERK_SECRET_KEY;
     if (!clerkAPIKey) {
       throw new ConvexError("Clerk API key not configured");
     }
 
-    try {
-      const response = await fetch("https://api.clerk.com/v1/invitations", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${clerkAPIKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email_address: args.email,
-          public_metadata: {
-            role: args.role || "student",
-            convex_user_id: userId,
-          },
-          redirect_url: process.env.CLERK_REDIRECT_URL,
-        }),
-      });
+    const role = args.role || "student";
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new ConvexError(`Clerk invitation failed: ${errorText}`);
-      }
+    const clerkUser = await createClerkUserAccount({
+      clerkAPIKey,
+      email: args.email,
+      firstName: args.firstName,
+      lastName: args.lastName,
+      role,
+    });
 
-      const invitation = await response.json();
-
-      return {
-        userId,
-        invitationId: invitation.id,
-        message: "User created and invitation sent successfully",
-      };
-    } catch (error: any) {
-      // If Clerk invitation fails, delete the pending user
-      await ctx.runMutation(internal.seed.deleteUserById, { userId });
-      throw new ConvexError(`Failed to send invitation: ${error.message}`);
+    const clerkUserId = clerkUser.id;
+    if (!clerkUserId) {
+      throw new ConvexError("Clerk user id missing from response");
     }
+
+    const primaryEmail = resolvePrimaryEmail(clerkUser, args.email);
+
+    const userId = await ctx.runMutation(
+      internal.auth.internalCreateOrUpdateUser,
+      {
+        clerkId: clerkUserId,
+        email: primaryEmail,
+        firstName: args.firstName,
+        lastName: args.lastName,
+        role,
+      },
+    );
+
+    if (args.studentProfile || args.professorProfile) {
+      await ctx.runMutation(internal.auth.internalUpdateUserRoleUnsafe, {
+        userId,
+        role,
+        isActive: role === "student" ? false : true,
+        studentProfile: args.studentProfile,
+        professorProfile: args.professorProfile,
+      });
+    }
+
+    const mergedMetadata = {
+      ...(typeof clerkUser.public_metadata === "object" &&
+      clerkUser.public_metadata !== null
+        ? clerkUser.public_metadata
+        : {}),
+      role,
+      convexUserId: userId,
+    };
+
+    await updateClerkPublicMetadata(clerkAPIKey, clerkUserId, mergedMetadata);
+
+    return {
+      userId,
+      clerkUserId,
+      message: "User created successfully",
+    };
   },
 });

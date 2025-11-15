@@ -91,7 +91,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         title: translationSection?.title ?? sectionKey,
         url: sectionRoutes.base.withLocale(locale),
         icon: iconMap[iconKey],
-        isActive: options?.isActive ?? false,
+        isActive: options?.isActive ?? true,
         items: filteredItems.map(({ route, title }) => ({
           title,
           url: route.withLocale(locale),

@@ -1,4 +1,4 @@
-import StudentTable from "@/components/student/student-table";
+// import StudentTable from "@/components/student/student-table";
 
 export default function ProfessorManagementPage() {
   return (
@@ -14,7 +14,7 @@ export default function ProfessorManagementPage() {
       </div>
 
       {/* Main Content */}
-      <StudentTable />
+      {/*<StudentTable />*/}
     </div>
   );
 }
