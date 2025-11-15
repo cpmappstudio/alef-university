@@ -27,7 +27,6 @@ export default function ProgramDetailInfo({
   program,
   categoryLabel,
   locale,
-  onBack,
   onEdit,
   onDelete,
 }: ProgramDetailInfoProps) {

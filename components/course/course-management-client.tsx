@@ -4,6 +4,7 @@
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { useQuery } from "convex/react";
 
 /* components */
 import CustomTable from "@/components/ui/custom-table";
@@ -12,6 +13,7 @@ import CourseActions from "@/components/course/course-actions";
 import { courseColumnsWithPrograms } from "@/components/course/columns";
 
 /* lib */
+import { api } from "@/convex/_generated/api";
 import type {
   CourseDocument,
   CourseManagementClientProps,
@@ -25,6 +27,12 @@ export function CourseManagementClient({
   const tCourseForm = useTranslations("admin.courses.form");
   const locale = useLocale();
   const router = useRouter();
+
+  const liveCourses = useQuery(api.courses.getAllCourses, {});
+  const tableData = React.useMemo(
+    () => liveCourses ?? courses,
+    [liveCourses, courses],
+  );
 
   const columns = React.useMemo(() => {
     const combinedTranslator = (key: string, values?: Record<string, any>) => {
@@ -49,7 +57,7 @@ export function CourseManagementClient({
       <Separator />
       <CustomTable
         columns={columns}
-        data={courses}
+        data={tableData}
         filterColumn="name"
         filterPlaceholder={t("filterPlaceholder")}
         columnsMenuLabel={t("columnsMenuLabel")}
