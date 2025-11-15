@@ -498,9 +498,30 @@
         "members": "Members",
         "roles": "Roles",
         "academicManagement": "Academic Management",
-        "programs": "Programs"
+        "programs": "Programs",
+        "bimesters": "Bimesters"
+      },
+      "overview": {
+        "title": "Settings",
+        "welcome": "Welcome to Settings",
+        "description": "Manage your account, university, and academic management settings from one place.",
+        "links": {
+          "customization": "Customize the appearance and theme of the interface",
+          "profile": "Update your personal information and preferences",
+          "general": "Configure general university information",
+          "members": "Manage your organization members",
+          "roles": "Configure user roles and permissions",
+          "programs": "Manage academic program categories",
+          "bimesters": "Manage academic periods (bimesters)"
+        },
+        "needHelp": {
+          "title": "Need help?",
+          "description": "Check our documentation for help with system configuration.",
+          "button": "View Documentation"
+        }
       },
       "categories": "Categories",
+      "bimesters": "Bimesters",
       "categoriesPage": {
         "description": "Program categories help organize academic programs into different groups. Each program must be assigned to a category. Categories are used throughout the system to filter and organize programs.",
         "table": {
@@ -535,6 +556,57 @@
           "createError": "Failed to create category",
           "deleteSuccess": "Category deleted successfully",
           "deleteError": "Failed to delete category"
+        }
+      },
+      "bimestersPage": {
+        "description": "Bimesters are academic periods. Active status is determined automatically based on the current date. A bimester is active if the current date is within its date range.",
+        "table": {
+          "period": "Period",
+          "deadline": "Deadline",
+          "status": "Status",
+          "actions": "Actions",
+          "active": "Active",
+          "inactive": "Inactive",
+          "noBimesters": "No bimesters available. Create bimesters to organize your classes.",
+          "openMenu": "Open menu",
+          "edit": "Edit",
+          "delete": "Delete"
+        },
+        "dialog": {
+          "trigger": "New Bimester",
+          "title": "Create Bimester",
+          "description": "Create a new academic period (bimester) to manage your classes.",
+          "dateRangeLabel": "Bimester Period",
+          "selectDateRange": "Select date range",
+          "gradeDeadlineLabel": "Grade Deadline",
+          "selectDate": "Select date",
+          "cancel": "Cancel",
+          "create": "Create",
+          "creating": "Creating..."
+        },
+        "editDialog": {
+          "title": "Edit Bimester",
+          "description": "Modify the academic period dates.",
+          "update": "Update",
+          "updating": "Updating..."
+        },
+        "deleteDialog": {
+          "title": "Delete Bimester",
+          "description": "Are you sure you want to delete this bimester? This action cannot be undone. Cannot delete if it has associated classes.",
+          "cancel": "Cancel",
+          "delete": "Delete",
+          "deleting": "Deleting..."
+        },
+        "messages": {
+          "allDatesRequired": "All dates are required",
+          "createSuccess": "Bimester created successfully",
+          "createError": "Failed to create bimester",
+          "updateSuccess": "Bimester updated successfully",
+          "updateError": "Failed to update bimester",
+          "deleteSuccess": "Bimester deleted successfully",
+          "deleteError": "Failed to delete bimester",
+          "currentBimesterInfo": "Current bimester information retrieved",
+          "autoActivateError": "Failed to retrieve current bimester information"
         }
       }
     },
@@ -915,6 +987,112 @@
           "es": "Spanish",
           "en": "English",
           "both": "Bilingual"
+        }
+      },
+      "detail": {
+        "back": "Back to Courses",
+        "category": "Category",
+        "language": "Language",
+        "credits": "Credits",
+        "status": "Status",
+        "codeEs": "Code (Spanish)",
+        "codeEn": "Code (English)",
+        "nameEs": "Name (Spanish)",
+        "nameEn": "Name (English)",
+        "descriptionEs": "Description (Spanish)",
+        "descriptionEn": "Description (English)",
+        "createdAt": "Created at",
+        "updatedAt": "Updated at",
+        "edit": "Edit",
+        "delete": "Delete",
+        "classes": "Course Classes",
+        "classesDescription": "Manage the classes (sessions) for this course.",
+        "createClass": "Create Class",
+        "filterClassesPlaceholder": "Filter classes...",
+        "columnsMenuLabel": "Columns",
+        "emptyClassesMessage": "No classes assigned to this course.",
+        "loading": "Loading...",
+        "classesTitle": "Course Classes",
+        "table": {
+          "group": "Group",
+          "groupPrefix": "Group",
+          "bimester": "Bimester",
+          "professor": "Professor",
+          "students": "Students",
+          "status": "Status",
+          "grades": "Grades",
+          "submitted": "Submitted",
+          "pending": "Pending",
+          "statusValues": {
+            "draft": "Draft",
+            "open": "Open",
+            "closed": "Closed",
+            "active": "Active",
+            "grading": "Grading",
+            "completed": "Completed"
+          }
+        },
+        "classForm": {
+          "title": "Create Class",
+          "description": "Create a new class (session) for this course.",
+          "fields": {
+            "bimester": {
+              "label": "Bimester",
+              "placeholder": "Select a bimester",
+              "description": "Choose the bimester for this class"
+            },
+            "groupNumber": {
+              "label": "Group Number",
+              "placeholder": "e.g., 01, 02, A1",
+              "description": "Enter a unique group identifier for this class"
+            },
+            "professor": {
+              "label": "Professor",
+              "placeholder": "Select a professor"
+            },
+            "status": {
+              "label": "Status",
+              "placeholder": "Select initial status",
+              "description": "Set the initial status for this class"
+            }
+          },
+          "options": {
+            "status": {
+              "draft": "Draft",
+              "open": "Open",
+              "closed": "Closed",
+              "active": "Active",
+              "grading": "Grading",
+              "completed": "Completed"
+            }
+          },
+          "messages": {
+            "noBimesters": "No bimesters available. Create at least one bimester before adding a class.",
+            "noProfessors": "No professors available. Create at least one professor user before adding a class.",
+            "errors": {
+              "bimesterRequired": "Please select a bimester",
+              "groupNumberRequired": "Please enter a group number",
+              "professorRequired": "Please select a professor",
+              "statusRequired": "Please select a status",
+              "generic": "An error occurred while creating the class"
+            }
+          },
+          "buttons": {
+            "submit": "Create Class",
+            "loading": "Creating..."
+          }
+        },
+        "deleteDialog": {
+          "title": "Delete course?",
+          "description": "Are you sure you want to delete the course \"{courseName}\"?",
+          "warning": "Warning: Cascade deletion",
+          "cascadeInfo": "This course is associated with {count} program(s). All course-program relationships will be permanently deleted.",
+          "irreversible": "This action cannot be undone.",
+          "cancel": "Cancel",
+          "delete": "Delete course",
+          "deleting": "Deleting...",
+          "success": "Course deleted successfully",
+          "error": "Error deleting course"
         }
       }
     }

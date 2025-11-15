@@ -18,6 +18,7 @@ import {
   GraduationCap,
   Layers,
   Menu,
+  Calendar,
 } from "lucide-react";
 
 import {
@@ -85,6 +86,7 @@ export function SettingsSidebar() {
     defaultMessage: "Academic Management",
   });
   const programsLabel = t("programs", { defaultMessage: "Programs" });
+  const bimestersLabel = t("bimesters", { defaultMessage: "Bimesters" });
 
   const sections = React.useMemo<Section[]>(
     () => [
@@ -149,6 +151,13 @@ export function SettingsSidebar() {
             icon: Layers,
             aliases: [`${basePath}/programs`],
           },
+          {
+            id: "bimesters",
+            label: bimestersLabel,
+            href: `${basePath}/academic-management/bimesters`,
+            icon: Calendar,
+            aliases: [`${basePath}/bimesters`],
+          },
         ],
       },
     ],
@@ -161,6 +170,7 @@ export function SettingsSidebar() {
       membersLabel,
       profileLabel,
       programsLabel,
+      bimestersLabel,
       rolesLabel,
       universityLabel,
     ],

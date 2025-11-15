@@ -496,9 +496,30 @@
         "members": "Miembros",
         "roles": "Roles",
         "academicManagement": "Gestión académica",
-        "programs": "Programas"
+        "programs": "Programas",
+        "bimesters": "Bimestres"
+      },
+      "overview": {
+        "title": "Configuraciones",
+        "welcome": "Bienvenido a Configuraciones",
+        "description": "Gestiona las configuraciones de tu cuenta, universidad y gestión académica desde un solo lugar.",
+        "links": {
+          "customization": "Personaliza la apariencia y el tema de la interfaz",
+          "profile": "Actualiza tu información personal y preferencias",
+          "general": "Configura información general de la universidad",
+          "members": "Gestiona los miembros de tu organización",
+          "roles": "Configura roles y permisos de usuario",
+          "programs": "Administra categorías de programas académicos",
+          "bimesters": "Gestiona períodos académicos (bimestres)"
+        },
+        "needHelp": {
+          "title": "¿Necesitas ayuda?",
+          "description": "Consulta nuestra documentación para obtener ayuda con la configuración del sistema.",
+          "button": "Ver Documentación"
+        }
       },
       "categories": "Categorías",
+      "bimesters": "Bimestres",
       "categoriesPage": {
         "description": "Las categorías de programas ayudan a organizar los programas académicos en diferentes grupos. Cada programa debe ser asignado a una categoría. Las categorías se utilizan en todo el sistema para filtrar y organizar programas.",
         "table": {
@@ -533,6 +554,57 @@
           "createError": "Error al crear la categoría",
           "deleteSuccess": "Categoría eliminada exitosamente",
           "deleteError": "Error al eliminar la categoría"
+        }
+      },
+      "bimestersPage": {
+        "description": "Los bimestres son los períodos académicos. El estado activo se determina automáticamente según la fecha actual. Un bimestre está activo si la fecha actual está dentro de su rango de fechas.",
+        "table": {
+          "period": "Período",
+          "deadline": "Límite Notas",
+          "status": "Estado",
+          "actions": "Acciones",
+          "active": "Activo",
+          "inactive": "Inactivo",
+          "noBimesters": "No hay bimestres disponibles. Crea bimestres para organizar tus clases.",
+          "openMenu": "Abrir menú",
+          "edit": "Editar",
+          "delete": "Eliminar"
+        },
+        "dialog": {
+          "trigger": "Nuevo Bimestre",
+          "title": "Crear Bimestre",
+          "description": "Crea un nuevo período académico (bimestre) para gestionar tus clases.",
+          "dateRangeLabel": "Período del Bimestre",
+          "selectDateRange": "Seleccionar rango de fechas",
+          "gradeDeadlineLabel": "Fecha Límite para Notas",
+          "selectDate": "Seleccionar fecha",
+          "cancel": "Cancelar",
+          "create": "Crear",
+          "creating": "Creando..."
+        },
+        "editDialog": {
+          "title": "Editar Bimestre",
+          "description": "Modifica las fechas del período académico.",
+          "update": "Actualizar",
+          "updating": "Actualizando..."
+        },
+        "deleteDialog": {
+          "title": "Eliminar Bimestre",
+          "description": "¿Estás seguro de que deseas eliminar este bimestre? Esta acción no se puede deshacer. No se puede eliminar si tiene clases asociadas.",
+          "cancel": "Cancelar",
+          "delete": "Eliminar",
+          "deleting": "Eliminando..."
+        },
+        "messages": {
+          "allDatesRequired": "Todas las fechas son requeridas",
+          "createSuccess": "Bimestre creado exitosamente",
+          "createError": "Error al crear el bimestre",
+          "updateSuccess": "Bimestre actualizado exitosamente",
+          "updateError": "Error al actualizar el bimestre",
+          "deleteSuccess": "Bimestre eliminado exitosamente",
+          "deleteError": "Error al eliminar el bimestre",
+          "currentBimesterInfo": "Información del bimestre actual obtenida",
+          "autoActivateError": "Error al obtener información del bimestre actual"
         }
       }
     },
@@ -888,6 +960,112 @@
           "es": "Español",
           "en": "Inglés",
           "both": "Bilingüe"
+        }
+      },
+      "detail": {
+        "back": "Volver a Cursos",
+        "category": "Categoría",
+        "language": "Idioma",
+        "credits": "Créditos",
+        "status": "Estado",
+        "codeEs": "Código (Español)",
+        "codeEn": "Código (Inglés)",
+        "nameEs": "Nombre (Español)",
+        "nameEn": "Nombre (Inglés)",
+        "descriptionEs": "Descripción (Español)",
+        "descriptionEn": "Descripción (Inglés)",
+        "createdAt": "Creado el",
+        "updatedAt": "Actualizado el",
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "classes": "Clases del Curso",
+        "classesDescription": "Gestiona las clases (sesiones) de este curso.",
+        "createClass": "Crear Clase",
+        "filterClassesPlaceholder": "Filtrar clases...",
+        "columnsMenuLabel": "Columnas",
+        "emptyClassesMessage": "No hay clases asignadas a este curso.",
+        "loading": "Cargando...",
+        "classesTitle": "Clases del Curso",
+        "table": {
+          "group": "Grupo",
+          "groupPrefix": "Grupo",
+          "bimester": "Bimestre",
+          "professor": "Profesor",
+          "students": "Estudiantes",
+          "status": "Estado",
+          "grades": "Notas",
+          "submitted": "Entregadas",
+          "pending": "Pendientes",
+          "statusValues": {
+            "draft": "Borrador",
+            "open": "Abierto",
+            "closed": "Cerrado",
+            "active": "Activo",
+            "grading": "Calificando",
+            "completed": "Completado"
+          }
+        },
+        "classForm": {
+          "title": "Crear Clase",
+          "description": "Crear una nueva clase (sesión) para este curso.",
+          "fields": {
+            "bimester": {
+              "label": "Bimestre",
+              "placeholder": "Selecciona un bimestre",
+              "description": "Elige el bimestre para esta clase"
+            },
+            "groupNumber": {
+              "label": "Número de Grupo",
+              "placeholder": "ej., 01, 02, A1",
+              "description": "Ingresa un identificador único de grupo para esta clase"
+            },
+            "professor": {
+              "label": "Profesor",
+              "placeholder": "Selecciona un profesor"
+            },
+            "status": {
+              "label": "Estado",
+              "placeholder": "Selecciona el estado inicial",
+              "description": "Define el estado inicial para esta clase"
+            }
+          },
+          "options": {
+            "status": {
+              "draft": "Borrador",
+              "open": "Abierto",
+              "closed": "Cerrado",
+              "active": "Activo",
+              "grading": "Calificando",
+              "completed": "Completado"
+            }
+          },
+          "messages": {
+            "noBimesters": "No hay bimestres disponibles. Crea al menos un bimestre antes de agregar una clase.",
+            "noProfessors": "No hay profesores disponibles. Crea al menos un usuario profesor antes de agregar una clase.",
+            "errors": {
+              "bimesterRequired": "Por favor selecciona un bimestre",
+              "groupNumberRequired": "Por favor ingresa un número de grupo",
+              "professorRequired": "Por favor selecciona un profesor",
+              "statusRequired": "Por favor selecciona un estado",
+              "generic": "Ocurrió un error al crear la clase"
+            }
+          },
+          "buttons": {
+            "submit": "Crear Clase",
+            "loading": "Creando..."
+          }
+        },
+        "deleteDialog": {
+          "title": "¿Eliminar curso?",
+          "description": "¿Estás seguro de que deseas eliminar el curso \"{courseName}\"?",
+          "warning": "Advertencia: Eliminación en cascada",
+          "cascadeInfo": "Este curso está asociado a {count} programa(s). Todas las relaciones curso-programa serán eliminadas permanentemente.",
+          "irreversible": "Esta acción no se puede deshacer.",
+          "cancel": "Cancelar",
+          "delete": "Eliminar curso",
+          "deleting": "Eliminando...",
+          "success": "Curso eliminado exitosamente",
+          "error": "Error al eliminar el curso"
         }
       }
     }

@@ -15,6 +15,8 @@ import type {
 } from "convex/server";
 import type * as admin from "../admin.js";
 import type * as auth from "../auth.js";
+import type * as bimesters from "../bimesters.js";
+import type * as classes from "../classes.js";
 import type * as courses from "../courses.js";
 import type * as dashboard from "../dashboard.js";
 import type * as enrollments from "../enrollments.js";
@@ -27,6 +29,7 @@ import type * as reports from "../reports.js";
 import type * as seed from "../seed.js";
 import type * as students from "../students.js";
 import type * as types from "../types.js";
+import type * as users from "../users.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -39,6 +42,8 @@ import type * as types from "../types.js";
 declare const fullApi: ApiFromModules<{
   admin: typeof admin;
   auth: typeof auth;
+  bimesters: typeof bimesters;
+  classes: typeof classes;
   courses: typeof courses;
   dashboard: typeof dashboard;
   enrollments: typeof enrollments;
@@ -51,6 +56,7 @@ declare const fullApi: ApiFromModules<{
   seed: typeof seed;
   students: typeof students;
   types: typeof types;
+  users: typeof users;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

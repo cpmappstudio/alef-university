@@ -182,7 +182,26 @@ export default defineSchema({
     .index("by_language_active", ["language", "isActive"]), // Combined for efficiency
 
   /**
-   * Academic periods (bimesters)
+   * Bimesters - Academic periods
+   * Active status is computed automatically based on current date:
+   * A bimester is active if startDate <= now < endDate
+   */
+  bimesters: defineTable({
+    startDate: v.number(), // When the bimester starts
+    endDate: v.number(), // When the bimester ends
+    gradeDeadline: v.number(), // Deadline for professors to submit grades
+
+    isActive: v.boolean(), // Stored in DB but overridden in queries based on date range
+
+    createdAt: v.number(),
+    updatedAt: v.optional(v.number()),
+  })
+    .index("by_active", ["isActive"])
+    .index("by_start_date", ["startDate"])
+    .index("by_dates", ["startDate", "endDate"]),
+
+  /**
+   * DEPRECATED - Academic periods (use 'bimesters' table instead)
    */
   periods: defineTable({
     code: v.string(), // "2024-B2"
@@ -294,7 +313,101 @@ export default defineSchema({
     .index("by_program_required", ["programId", "isRequired", "isActive"]), // Added isActive for better filtering
 
   /**
-   * Course sections
+   * Classes - Simplified version of sections
+   * Represents a specific offering of a course in a period
+   */
+  classes: defineTable({
+    courseId: v.id("courses"),
+    bimesterId: v.id("bimesters"),
+    groupNumber: v.string(), // "01", "02", etc.
+
+    professorId: v.id("users"),
+
+    // Status tracking
+    status: v.union(
+      v.literal("draft"),
+      v.literal("open"),
+      v.literal("closed"),
+      v.literal("active"),
+      v.literal("grading"),
+      v.literal("completed"),
+    ),
+
+    gradesSubmitted: v.boolean(),
+    gradesSubmittedAt: v.optional(v.number()),
+
+    isActive: v.boolean(),
+    createdAt: v.number(),
+    updatedAt: v.optional(v.number()),
+  })
+    .index("by_course_bimester", ["courseId", "bimesterId"])
+    .index("by_bimester_status_active", ["bimesterId", "status", "isActive"])
+    .index("by_professor_bimester", ["professorId", "bimesterId", "isActive"])
+    .index("by_course_bimester_group", [
+      "courseId",
+      "bimesterId",
+      "groupNumber",
+    ]),
+
+  /**
+   * Class enrollments - Students enrolled in classes with their grades
+   * Separate table for efficient queries from both student and class perspectives
+   */
+  class_enrollments: defineTable({
+    classId: v.id("classes"),
+    studentId: v.id("users"),
+
+    // Reference data for easier queries
+    courseId: v.id("courses"),
+    bimesterId: v.id("bimesters"),
+    professorId: v.id("users"),
+
+    // Enrollment tracking
+    enrolledAt: v.number(),
+    enrolledBy: v.id("users"),
+
+    // Status
+    status: v.union(
+      v.literal("enrolled"),
+      v.literal("dropped"),
+      v.literal("withdrawn"),
+      v.literal("completed"),
+      v.literal("incomplete"),
+      v.literal("failed"),
+    ),
+    statusChangedAt: v.optional(v.number()),
+    statusChangedBy: v.optional(v.id("users")),
+    statusChangeReason: v.optional(v.string()),
+
+    // Grading
+    percentageGrade: v.optional(v.number()), // 0-100
+    letterGrade: v.optional(v.string()), // A, B+, C, etc.
+    gradePoints: v.optional(v.number()), // 4.0 scale
+    qualityPoints: v.optional(v.number()), // gradePoints * credits
+
+    gradedBy: v.optional(v.id("users")),
+    gradedAt: v.optional(v.number()),
+    gradeNotes: v.optional(v.string()),
+
+    // Academic tracking
+    isRetake: v.boolean(),
+    isAuditing: v.boolean(),
+    countsForGPA: v.boolean(),
+    countsForProgress: v.boolean(),
+
+    createdAt: v.number(),
+    updatedAt: v.optional(v.number()),
+  })
+    .index("by_class", ["classId"])
+    .index("by_student", ["studentId"])
+    .index("by_student_bimester", ["studentId", "bimesterId"])
+    .index("by_class_status", ["classId", "status"])
+    .index("by_student_status", ["studentId", "status"])
+    .index("by_course_bimester", ["courseId", "bimesterId"]),
+
+  /**
+   * DEPRECATED - Course sections (keeping for backwards compatibility)
+   * Use 'classes' table instead for new implementations
    */
   sections: defineTable({
     courseId: v.id("courses"),

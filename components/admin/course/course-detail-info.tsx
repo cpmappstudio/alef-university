@@ -2,63 +2,50 @@
 
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-
 import type { Doc } from "@/convex/_generated/dataModel";
 import {
   Card,
   CardAction,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  ArrowLeft,
-  GraduationCap,
-  PencilIcon,
-  Trash2Icon,
-  Award,
-  BookOpen,
-  BriefcaseBusiness,
-  ScrollText,
-} from "lucide-react";
+import { ArrowLeft, BookOpen, PencilIcon, Trash2Icon } from "lucide-react";
 
-interface ProgramDetailInfoProps {
-  program: Doc<"programs">;
-  categoryLabel: string;
+interface CourseDetailInfoProps {
+  course: Doc<"courses">;
   locale: string;
   onBack: () => void;
   onEdit: () => void;
   onDelete: () => void;
 }
 
-export default function ProgramDetailInfo({
-  program,
-  categoryLabel,
+export default function CourseDetailInfo({
+  course,
   locale,
   onBack,
   onEdit,
   onDelete,
-}: ProgramDetailInfoProps) {
-  const t = useTranslations("admin.programs.detail");
-  const tTable = useTranslations("admin.programs.table");
+}: CourseDetailInfoProps) {
+  const t = useTranslations("admin.courses.detail");
+  const tTable = useTranslations("admin.courses.table");
+  const tForm = useTranslations("admin.courses.form");
 
-  const codeEs = program.codeEs || "";
-  const codeEn = program.codeEn || "";
-  const nameEs = program.nameEs || "";
-  const nameEn = program.nameEn || "";
-  const descriptionEs = program.descriptionEs || "";
-  const descriptionEn = program.descriptionEn || "";
+  const codeEs = course.codeEs || "";
+  const codeEn = course.codeEn || "";
+  const nameEs = course.nameEs || "";
+  const nameEn = course.nameEn || "";
+  const descriptionEs = course.descriptionEs || "";
+  const descriptionEn = course.descriptionEn || "";
 
-  const programName = locale === "es" ? nameEs || nameEn : nameEn || nameEs;
-  const programCode = locale === "es" ? codeEs || codeEn : codeEn || codeEs;
+  const courseName = locale === "es" ? nameEs || nameEn : nameEn || nameEs;
+  const courseCode = locale === "es" ? codeEs || codeEn : codeEn || codeEs;
 
-  const typeLabels = {
-    diploma: tTable("types.diploma"),
-    bachelor: tTable("types.bachelor"),
-    master: tTable("types.master"),
-    doctorate: tTable("types.doctorate"),
+  const categoryLabels = {
+    humanities: tForm("options.categories.humanities"),
+    core: tForm("options.categories.core"),
+    elective: tForm("options.categories.elective"),
+    general: tForm("options.categories.general"),
   };
 
   const languageLabels = {
@@ -67,34 +54,14 @@ export default function ProgramDetailInfo({
     both: tTable("languages.both"),
   };
 
-  const typeIcons = {
-    diploma: ScrollText,
-    bachelor: BookOpen,
-    master: BriefcaseBusiness,
-    doctorate: Award,
-  };
-
-  const typeBadgeColors = {
-    diploma:
-      "bg-amber-500/20 text-amber-100 border-amber-300/30 hover:bg-amber-500/30",
-    bachelor:
-      "bg-blue-500/20 text-blue-100 border-blue-300/30 hover:bg-blue-500/30",
-    master:
-      "bg-purple-500/20 text-purple-100 border-purple-300/30 hover:bg-purple-500/30",
-    doctorate:
-      "bg-emerald-500/20 text-emerald-100 border-emerald-300/30 hover:bg-emerald-500/30",
-  };
-
-  const TypeIcon = typeIcons[program.type];
-
   return (
-    <Card className="bg-[radial-gradient(circle_at_top_right,_var(--color-fuzzy-wuzzy)_0%,_var(--color-deep-koamaru)_50%)] text-white border-0 shadow-lg">
+    <Card className="overflow-hidden  bg-[radial-gradient(circle_at_top_right,_var(--color-fuzzy-wuzzy)_0%,_var(--color-deep-koamaru)_50%)] text-white border-0 shadow-lg">
       <CardHeader className="pb-4">
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-          {/* Program Information */}
+          {/* Course Information */}
           <CardTitle className="flex items-center gap-3 text-xl mb-2">
-            <GraduationCap className="size-6 flex-shrink-0" />
-            <span className="truncate">{programName}</span>
+            <BookOpen className="size-6 flex-shrink-0" />
+            <span className="truncate text-pretty">{courseName}</span>
           </CardTitle>
 
           {/* Action Buttons */}
@@ -116,60 +83,46 @@ export default function ProgramDetailInfo({
         </div>
       </CardHeader>
 
-      {/* Program Details Grid */}
+      {/* Course Details Grid */}
       <CardContent className="pt-0">
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {/* Primary Information */}
-          <ProgramDetailItem
+          <CourseDetailItem
+            label={t("category")}
+            value={categoryLabels[course.category]}
+          />
+          <CourseDetailItem
             label={t("language")}
-            value={languageLabels[program.language]}
+            value={languageLabels[course.language]}
           />
-          <ProgramDetailItem
-            label={t("credits")}
-            value={`${program.totalCredits}`}
-          />
-          <ProgramDetailItem
-            label={t("duration")}
-            value={`${program.durationBimesters} ${t("bimesters")}`}
-          />
+          <CourseDetailItem label={t("credits")} value={`${course.credits}`} />
 
-          {/* Category and Status */}
-          {categoryLabel && (
-            <ProgramDetailItem label={t("category")} value={categoryLabel} />
-          )}
-          <ProgramDetailItem
+          {/* Status */}
+          <CourseDetailItem
             label={t("status")}
             value={
-              program.isActive
+              course.isActive
                 ? tTable("status.active")
                 : tTable("status.inactive")
             }
           />
 
-          {/* Financial Information */}
-          {program.tuitionPerCredit && (
-            <ProgramDetailItem
-              label={t("tuitionPerCredit")}
-              value={`$${program.tuitionPerCredit}`}
-            />
-          )}
-
           {/* Bilingual Codes */}
-          {codeEs && <ProgramDetailItem label={t("codeEs")} value={codeEs} />}
+          {codeEs && <CourseDetailItem label={t("codeEs")} value={codeEs} />}
           {codeEn && codeEs !== codeEn && (
-            <ProgramDetailItem label={t("codeEn")} value={codeEn} />
+            <CourseDetailItem label={t("codeEn")} value={codeEn} />
           )}
 
           {/* Bilingual Names */}
-          {nameEs && <ProgramDetailItem label={t("nameEs")} value={nameEs} />}
+          {nameEs && <CourseDetailItem label={t("nameEs")} value={nameEs} />}
           {nameEn && nameEs !== nameEn && (
-            <ProgramDetailItem label={t("nameEn")} value={nameEn} />
+            <CourseDetailItem label={t("nameEn")} value={nameEn} />
           )}
 
           {/* Timestamps */}
-          <ProgramDetailItem
+          <CourseDetailItem
             label={t("createdAt")}
-            value={new Date(program.createdAt).toLocaleDateString(
+            value={new Date(course.createdAt).toLocaleDateString(
               locale === "es" ? "es-ES" : "en-US",
               {
                 year: "numeric",
@@ -178,10 +131,10 @@ export default function ProgramDetailInfo({
               },
             )}
           />
-          {program.updatedAt && (
-            <ProgramDetailItem
+          {course.updatedAt && (
+            <CourseDetailItem
               label={t("updatedAt")}
-              value={new Date(program.updatedAt).toLocaleDateString(
+              value={new Date(course.updatedAt).toLocaleDateString(
                 locale === "es" ? "es-ES" : "en-US",
                 {
                   year: "numeric",
@@ -222,12 +175,12 @@ export default function ProgramDetailInfo({
 /**
  * Individual detail item component for the grid
  */
-interface ProgramDetailItemProps {
+interface CourseDetailItemProps {
   label: string;
   value: string;
 }
 
-function ProgramDetailItem({ label, value }: ProgramDetailItemProps) {
+function CourseDetailItem({ label, value }: CourseDetailItemProps) {
   return (
     <div>
       <div className="text-sm font-medium text-white/70">{label}</div>
