@@ -1,44 +1,11 @@
 import * as React from "react";
 
-type Language = "es" | "en" | "both";
-
-export type Translator = (
-  key: string,
-  values?: Record<string, unknown>,
-) => string;
-
-const LANGUAGE_TAGS: Record<Exclude<Language, "both">, string> = {
-  es: "ES",
-  en: "EN",
-};
-
-type LocalizedRow = {
-  language?: Language;
-};
-
-const getStringValue = <
-  Row extends Record<string, unknown>,
-  Key extends keyof Row,
->(
-  row: Row,
-  key: Key,
-): string => {
-  const value = row[key];
-  return typeof value === "string" ? value.trim() : "";
-};
-
-const pickPreferredValue = (
-  primary: string,
-  fallback: string,
-): string | null => {
-  if (primary) {
-    return primary;
-  }
-  if (fallback) {
-    return fallback;
-  }
-  return null;
-};
+import type { LocalizedRow } from "@/lib/table/types";
+import {
+  LANGUAGE_TAGS,
+  getStringValue,
+  pickPreferredValue,
+} from "@/lib/table/utils";
 
 export function renderLocalizedField<Row extends LocalizedRow>(
   row: Row,

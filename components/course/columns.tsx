@@ -5,8 +5,8 @@ import type { Doc } from "@/convex/_generated/dataModel";
 import {
   buildSearchableField,
   renderLocalizedField,
-  type Translator,
-} from "@/lib/table/localized-fields";
+} from "@/components/ui/localized-fields";
+import type { Translator } from "@/lib/table/types";
 
 type CourseRow = Doc<"courses"> & {
   programs?: Array<{

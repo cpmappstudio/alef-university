@@ -4,7 +4,6 @@ import * as React from "react";
 import { useTranslations } from "next-intl";
 
 import {
-  ColumnDef,
   ColumnFiltersState,
   flexRender,
   getCoreRowModel,
@@ -37,40 +36,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-const INTERACTIVE_TARGET_SELECTOR = [
-  "a",
-  "button",
-  "[role=button]",
-  "[role=menuitem]",
-  "[role=link]",
-  "[role=checkbox]",
-  "[role=switch]",
-  "[role=tab]",
-  "[role=option]",
-  "[role=listbox]",
-  "input",
-  "textarea",
-  "select",
-  "label",
-  "summary",
-  "[data-interactive]",
-  "[data-row-interactive]",
-  "[data-prevent-row-click]",
-  "[contenteditable]",
-].join(",");
-
-type CustomTableProps<TData> = {
-  data: TData[] | undefined;
-  columns: ColumnDef<TData, unknown>[];
-  filterColumn?: string;
-  filterPlaceholder?: string;
-  emptyMessage?: string;
-  columnsMenuLabel?: string;
-  exportButtonLabel?: string;
-  onExport?: (rows: TData[]) => void;
-  onRowClick?: (row: TData) => void;
-};
+import type { CustomTableProps } from "@/lib/table/types";
+import { shouldHandleRowClick } from "@/lib/table/utils";
 
 export default function CustomTable<TData>({
   data,
@@ -129,28 +96,7 @@ export default function CustomTable<TData>({
       event: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
       rowData: TData,
     ) => {
-      if (!onRowClick) {
-        return;
-      }
-
-      if (event.defaultPrevented) {
-        return;
-      }
-
-      const nativeEvent = event.nativeEvent;
-      const target = event.target;
-      const elementTarget = target instanceof Element ? target : null;
-
-      if (
-        nativeEvent.button !== 0 ||
-        nativeEvent.metaKey ||
-        nativeEvent.ctrlKey ||
-        nativeEvent.shiftKey ||
-        nativeEvent.altKey ||
-        elementTarget?.closest(INTERACTIVE_TARGET_SELECTOR) ||
-        (elementTarget instanceof HTMLElement &&
-          elementTarget.isContentEditable)
-      ) {
+      if (!onRowClick || !shouldHandleRowClick(event)) {
         return;
       }
 
