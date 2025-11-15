@@ -16,6 +16,7 @@ import { CourseFormDialog } from "@/components/course/course-form-dialog";
 import { CourseDeleteDialog } from "@/components/course/course-delete-dialog";
 import { format } from "date-fns";
 import { es, enUS } from "date-fns/locale";
+import { ROUTES } from "@/lib/routes";
 
 export default function CourseDetailPage() {
   const params = useParams();
@@ -32,7 +33,7 @@ export default function CourseDetailPage() {
   const classes = useQuery(api.classes.getClassesByCourse, { courseId });
 
   const handleBack = React.useCallback(() => {
-    router.push(`/${locale}/admin/courses`);
+    router.push(ROUTES.courses.root.withLocale(locale));
   }, [router, locale]);
 
   const handleEdit = React.useCallback(() => {
@@ -44,12 +45,12 @@ export default function CourseDetailPage() {
   }, []);
 
   const handleDeleteSuccess = React.useCallback(() => {
-    router.push(`/${locale}/admin/courses`);
+    router.push(ROUTES.courses.root.withLocale(locale));
   }, [router, locale]);
 
   const handleRowClick = React.useCallback(
     (classItem: any) => {
-      router.push(`/${locale}/admin/classes/${classItem._id}`);
+      router.push(ROUTES.classes.details(classItem._id).withLocale(locale));
     },
     [router, locale],
   );

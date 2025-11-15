@@ -122,7 +122,7 @@ export default function ProgramDetailActions({
   };
 
   return (
-    <div className="flex gap-2 mb-4 mt-4">
+    <div className="flex gap-2 my-4 ">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button variant="default" className="cursor-pointer">

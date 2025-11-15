@@ -4,7 +4,7 @@ export type Language = "es" | "en" | "both";
 
 export type Translator = (
   key: string,
-  values?: Record<string, unknown>,
+  values?: Record<string, string | number | Date>,
 ) => string;
 
 export type LocalizedRow = {

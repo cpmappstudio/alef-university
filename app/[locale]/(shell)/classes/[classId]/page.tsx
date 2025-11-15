@@ -12,6 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import ClassDetailInfo from "@/components/class/class-detail-info";
 import ClassDetailActions from "@/components/class/class-detail-actions";
+import { ROUTES } from "@/lib/routes";
 
 export default function ClassDetailPage() {
   const params = useParams();
@@ -26,7 +27,9 @@ export default function ClassDetailPage() {
 
   const handleBack = React.useCallback(() => {
     if (classData?.courseId) {
-      router.push(`/${locale}/admin/courses/${classData.courseId}`);
+      router.push(
+        ROUTES.courses.details(classData.courseId).withLocale(locale),
+      );
     } else {
       router.back();
     }

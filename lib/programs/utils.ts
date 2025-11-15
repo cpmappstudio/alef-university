@@ -1,8 +1,9 @@
 import type { Doc, Id } from "@/convex/_generated/dataModel";
-import type { useTranslations } from "next-intl";
 import type {
   Program,
+  ProgramCategoryDocument,
   ProgramCreatePayload,
+  ProgramExportRow,
   ProgramFormErrors,
   ProgramFormState,
   ProgramFormValidationMessages,
@@ -10,15 +11,21 @@ import type {
   ProgramLanguageOption,
   ProgramTypeOption,
   ProgramUpdatePayload,
-} from "./types";
+} from "@/lib/programs/types";
+import type { Translator } from "@/lib/table/types";
+import { exportProgramsToPDF } from "@/lib/export-programs-pdf";
+import {
+  getLocalizedFieldVisibility,
+  hasContent,
+  normalizeTextValue,
+  parsePositiveNumber,
+  safeNumberToString,
+} from "@/lib/forms/utils";
+import { ROUTES } from "@/lib/routes";
 
-type Translator = ReturnType<typeof useTranslations>;
+type CourseForExport = Doc<"courses">;
 
-export type ProgramCategoryWithCount = Doc<"program_categories"> & {
-  programCount?: number;
-};
-
-export type ProgramExportTranslations = {
+type CourseExportTranslations = {
   title: string;
   generatedOn: string;
   totalPrograms: string;
@@ -34,12 +41,7 @@ export type ProgramExportTranslations = {
     duration: string;
     status: string;
   };
-  types: {
-    diploma: string;
-    bachelor: string;
-    master: string;
-    doctorate: string;
-  };
+  types: Record<string, string>;
   languages: {
     es: string;
     en: string;
@@ -52,9 +54,15 @@ export type ProgramExportTranslations = {
   emptyValue: string;
 };
 
+export type ExportCourseTableOptions = {
+  courses: CourseForExport[];
+  translations: CourseExportTranslations;
+  locale: string;
+};
+
 export const PROGRAMS_TABLE_FILTER_COLUMN = "program";
 
-export const INITIAL_PROGRAM_FORM_STATE: ProgramFormState = {
+const INITIAL_PROGRAM_FORM_STATE: ProgramFormState = {
   language: "",
   type: "",
   categoryId: "",
@@ -82,7 +90,7 @@ export function createFormStateFromProgram(
   return {
     language: program.language ?? "",
     type: program.type ?? "",
-    categoryId: program.categoryId ?? "",
+    categoryId: program.categoryId ? String(program.categoryId) : "",
     codeEs: program.codeEs ?? "",
     nameEs: program.nameEs ?? "",
     descriptionEs: program.descriptionEs ?? "",
@@ -90,7 +98,7 @@ export function createFormStateFromProgram(
     nameEn: program.nameEn ?? "",
     descriptionEn: program.descriptionEn ?? "",
     durationBimesters: safeNumberToString(program.durationBimesters),
-    isActive: Boolean(program.isActive),
+    isActive: program.isActive ?? true,
   };
 }
 
@@ -98,10 +106,7 @@ export function getLanguageVisibility(language: ProgramFormState["language"]): {
   showSpanishFields: boolean;
   showEnglishFields: boolean;
 } {
-  return {
-    showSpanishFields: language === "es" || language === "both",
-    showEnglishFields: language === "en" || language === "both",
-  };
+  return getLocalizedFieldVisibility(language);
 }
 
 export function validateProgramForm(
@@ -109,9 +114,6 @@ export function validateProgramForm(
   messages: ProgramFormValidationMessages,
 ): ProgramFormValidationResult {
   const errors: ProgramFormErrors = {};
-  const { showSpanishFields, showEnglishFields } = getLanguageVisibility(
-    values.language,
-  );
 
   if (!isProgramLanguageOption(values.language)) {
     errors.language = messages.languageRequired;
@@ -124,6 +126,10 @@ export function validateProgramForm(
   if (!hasContent(values.categoryId)) {
     errors.categoryId = messages.categoryRequired;
   }
+
+  const { showSpanishFields, showEnglishFields } = getLanguageVisibility(
+    values.language,
+  );
 
   if (showSpanishFields) {
     if (!hasContent(values.codeEs)) {
@@ -170,37 +176,37 @@ export function buildProgramCreatePayload(
     throw new Error("Invalid program type");
   }
 
-  const durationBimesters = parsePositiveNumber(values.durationBimesters);
+  const categoryId = normalizeId(values.categoryId);
+  if (!categoryId) {
+    throw new Error("Program category is required");
+  }
 
+  const durationBimesters = parsePositiveNumber(values.durationBimesters);
   if (durationBimesters === null) {
-    throw new Error("Invalid numeric value for duration");
+    throw new Error("Duration must be a positive number");
   }
 
   const { showSpanishFields, showEnglishFields } = getLanguageVisibility(
     values.language,
   );
 
-  if (!hasContent(values.categoryId)) {
-    throw new Error("Invalid program category");
-  }
-
   return {
     language: values.language as ProgramLanguageOption,
     type: values.type as ProgramTypeOption,
-    categoryId: values.categoryId as ProgramCreatePayload["categoryId"],
+    categoryId: categoryId as Id<"program_categories">,
     durationBimesters,
     ...(showSpanishFields
       ? {
-          codeEs: normalize(values.codeEs),
-          nameEs: normalize(values.nameEs),
-          descriptionEs: normalize(values.descriptionEs),
+          codeEs: normalizeTextValue(values.codeEs),
+          nameEs: normalizeTextValue(values.nameEs),
+          descriptionEs: normalizeTextValue(values.descriptionEs),
         }
       : {}),
     ...(showEnglishFields
       ? {
-          codeEn: normalize(values.codeEn),
-          nameEn: normalize(values.nameEn),
-          descriptionEn: normalize(values.descriptionEn),
+          codeEn: normalizeTextValue(values.codeEn),
+          nameEn: normalizeTextValue(values.nameEn),
+          descriptionEn: normalizeTextValue(values.descriptionEn),
         }
       : {}),
   };
@@ -214,84 +220,57 @@ export function buildProgramUpdatePayload(
     throw new Error("Invalid program language");
   }
 
+  const categoryId = normalizeId(values.categoryId);
+  if (!categoryId) {
+    throw new Error("Program category is required");
+  }
+
   const { showSpanishFields, showEnglishFields } = getLanguageVisibility(
     values.language,
   );
 
-  if (!hasContent(values.categoryId)) {
-    throw new Error("Invalid program category");
-  }
-
   return {
     programId,
-    categoryId: values.categoryId as ProgramUpdatePayload["categoryId"],
+    categoryId: categoryId as Id<"program_categories">,
     language: values.language as ProgramLanguageOption,
     isActive: values.isActive,
     ...(showSpanishFields
       ? {
-          codeEs: normalize(values.codeEs),
-          nameEs: normalize(values.nameEs),
-          descriptionEs: normalize(values.descriptionEs),
+          codeEs: normalizeTextValue(values.codeEs),
+          nameEs: normalizeTextValue(values.nameEs),
+          descriptionEs: normalizeTextValue(values.descriptionEs),
         }
       : {}),
     ...(showEnglishFields
       ? {
-          codeEn: normalize(values.codeEn),
-          nameEn: normalize(values.nameEn),
-          descriptionEn: normalize(values.descriptionEn),
+          codeEn: normalizeTextValue(values.codeEn),
+          nameEn: normalizeTextValue(values.nameEn),
+          descriptionEn: normalizeTextValue(values.descriptionEn),
         }
       : {}),
   };
 }
 
-export function isProgramLanguageOption(
-  value: string,
-): value is ProgramLanguageOption {
-  return value === "es" || value === "en" || value === "both";
-}
-
-export function isProgramTypeOption(value: string): value is ProgramTypeOption {
-  return (
-    value === "diploma" ||
-    value === "bachelor" ||
-    value === "master" ||
-    value === "doctorate"
-  );
-}
-
-function hasContent(value: string): boolean {
-  return normalize(value) !== undefined;
-}
-
-function normalize(value: string): string | undefined {
-  const trimmed = value.trim();
-  return trimmed === "" ? undefined : trimmed;
-}
-
-function parsePositiveNumber(value: string): number | null {
-  const numeric = Number(value);
-  if (!Number.isFinite(numeric)) {
-    return null;
-  }
-  return numeric > 0 ? numeric : null;
-}
-
-function safeNumberToString(value: number | null | undefined): string {
-  return typeof value === "number" && Number.isFinite(value)
-    ? String(value)
-    : "";
+export function buildProgramDetailsPath(
+  locale: string,
+  programId: Id<"programs"> | string,
+) {
+  const normalizedId = String(programId);
+  return ROUTES.programs.details(normalizedId).withLocale(locale);
 }
 
 export function createProgramCategoryLabelMap(
-  categories: ProgramCategoryWithCount[] | undefined | null,
-): Record<string, string> {
-  if (!categories?.length) {
+  categories: ProgramCategoryDocument[] | undefined,
+) {
+  if (!categories || categories.length === 0) {
     return {};
   }
 
   return categories.reduce<Record<string, string>>((acc, category) => {
-    const trimmedName = category.name.trim();
-    acc[String(category._id)] = trimmedName || category.name;
+    const key = String(category._id);
+    const label = category.name?.trim();
+
+    acc[key] = label && label.length > 0 ? label : key;
     return acc;
   }, {});
 }
@@ -299,7 +278,7 @@ export function createProgramCategoryLabelMap(
 export function buildProgramExportTranslations(
   tableTranslations: Translator,
   exportTranslations: Translator,
-): ProgramExportTranslations {
+) {
   return {
     title: exportTranslations("title"),
     generatedOn: exportTranslations("generatedOn"),
@@ -335,11 +314,72 @@ export function buildProgramExportTranslations(
   };
 }
 
-export function buildProgramDetailsPath(
-  locale: string,
-  programId: Id<"programs"> | string,
-): string {
-  const normalizedLocale = locale?.trim();
-  const localeSegment = normalizedLocale ? `/${normalizedLocale}` : "";
-  return `${localeSegment}/programs/${String(programId)}`;
+export function exportCourseTable({
+  courses,
+  translations,
+  locale,
+}: ExportCourseTableOptions) {
+  const categoryIds = new Set<string>(
+    courses
+      .map((course) => course.category as string)
+      .filter((value): value is string => Boolean(value)),
+  );
+
+  const courseCategoryLabels: Record<string, string> = {};
+  for (const category of Object.keys(translations.types)) {
+    if (categoryIds.has(category)) {
+      courseCategoryLabels[category] = translations.types[category];
+    }
+  }
+
+  const coursesAsPrograms: ProgramExportRow[] = courses.map((course) => ({
+    _id: course._id,
+    _creationTime: course._creationTime,
+    codeEs: course.codeEs,
+    codeEn: course.codeEn,
+    nameEs: course.nameEs,
+    nameEn: course.nameEn,
+    descriptionEs: course.descriptionEs,
+    descriptionEn: course.descriptionEn,
+    type: course.category,
+    language: course.language,
+    totalCredits: course.credits,
+    isActive: course.isActive,
+    createdAt: course.createdAt,
+  }));
+
+  exportProgramsToPDF({
+    programs: coursesAsPrograms,
+    categoryLabels: courseCategoryLabels,
+    locale,
+    translations: {
+      ...translations,
+      types: translations.types as {
+        diploma: string;
+        bachelor: string;
+        master: string;
+        doctorate: string;
+      },
+    },
+  });
+}
+
+function normalizeId(value: string): string | null {
+  const trimmed = value.trim();
+  return trimmed === "" ? null : trimmed;
+}
+
+function isProgramLanguageOption(
+  value: string,
+): value is ProgramLanguageOption {
+  return value === "es" || value === "en" || value === "both";
+}
+
+function isProgramTypeOption(value: string): value is ProgramTypeOption {
+  return (
+    value === "diploma" ||
+    value === "bachelor" ||
+    value === "master" ||
+    value === "doctorate"
+  );
 }

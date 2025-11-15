@@ -10,6 +10,7 @@ import { api } from "@/convex/_generated/api";
 import type { Doc } from "@/convex/_generated/dataModel";
 import { Separator } from "@/components/ui/separator";
 import CourseActions from "@/components/course/course-actions";
+import { ROUTES } from "@/lib/routes";
 
 export default function CourseManagementPage() {
   const t = useTranslations("admin.courses.table");
@@ -34,7 +35,7 @@ export default function CourseManagementPage() {
 
   const handleRowClick = React.useCallback(
     (course: Doc<"courses">) => {
-      router.push(`/${locale}/admin/courses/${course._id}`);
+      router.push(ROUTES.courses.details(course._id).withLocale(locale));
     },
     [router, locale],
   );

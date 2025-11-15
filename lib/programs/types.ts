@@ -121,6 +121,15 @@ export type ProgramFormDialogProps = {
 
 export type ProgramDocument = Doc<"programs">;
 export type ProgramCategoryDocument = Doc<"program_categories">;
+type CourseDocument = Doc<"courses">;
+export type ProgramExportRow = Omit<
+  ProgramDocument,
+  "_id" | "type" | "durationBimesters"
+> & {
+  _id: ProgramDocument["_id"] | CourseDocument["_id"];
+  type?: ProgramDocument["type"] | CourseDocument["category"];
+  durationBimesters?: number | null;
+};
 
 export type ProgramManagementClientProps = {
   programs: ProgramDocument[];

@@ -20,6 +20,7 @@ import {
   Menu,
   Calendar,
 } from "lucide-react";
+import { ROUTES } from "@/lib/routes";
 
 import {
   Collapsible,
@@ -68,7 +69,7 @@ export function SettingsSidebar() {
   const t = useTranslations("admin.settings.sidebar");
 
   const basePath = React.useMemo(
-    () => normalizePath(`/${locale}/admin/settings`),
+    () => normalizePath(ROUTES.settings.root.withLocale(locale)),
     [locale],
   );
   const normalizedPath = normalizePath(pathname);

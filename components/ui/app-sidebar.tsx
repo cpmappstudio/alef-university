@@ -16,6 +16,7 @@ import { useUser } from "@clerk/nextjs";
 
 import { NavMain } from "@/components/ui/nav-main";
 import { UniversityLogo } from "@/components/ui/university-logo";
+import { ROUTES, SIDEBAR_ROUTE_GROUPS } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import {
   Sidebar,
@@ -28,14 +29,24 @@ import {
 import { UserButtonWrapper } from "./user-button-wrapper";
 import type { UserRole } from "@/convex/types";
 
+type NavigationMenuSection = {
+  title: string;
+  url?: string;
+  items?: Array<{ title: string; url?: string }>;
+};
+
+type NavigationMenuConfig = Partial<Record<string, NavigationMenuSection>>;
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   const { user } = useUser();
   const locale = useLocale();
   const pathname = usePathname();
   const t = useTranslations("navigation");
-  const settingsHref = `/${locale}/admin/settings/account/customization`;
-  const isSettingsActive = pathname.startsWith(`/${locale}/admin/settings`);
+  const settingsHref = ROUTES.settings.accountCustomization.withLocale(locale);
+  const isSettingsActive = pathname.startsWith(
+    ROUTES.settings.root.withLocale(locale),
+  );
 
   // Get user role from Clerk metadata
   const userRole = user?.publicMetadata?.role as UserRole | undefined;
@@ -54,34 +65,53 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   // Generar estructura de navegación basada en el rol del usuario
   const navItems = React.useMemo(() => {
-    const menuConfig = t.raw("menu") as Record<
-      string,
-      {
-        title: string;
-        url: string;
-        items: Array<{ title: string; url: string }>;
-      }
-    >;
+    const menuConfig = t.raw("menu") as NavigationMenuConfig;
 
-    const items = [];
+    const buildSection = (
+      sectionKey: keyof typeof SIDEBAR_ROUTE_GROUPS,
+      iconKey: keyof typeof iconMap,
+      options?: { isActive?: boolean; excludeProgress?: boolean },
+    ) => {
+      const sectionRoutes = SIDEBAR_ROUTE_GROUPS[sectionKey];
+      const translationSection = menuConfig[sectionKey];
+
+      const labeledItems = sectionRoutes.items.map((route, index) => ({
+        route,
+        title:
+          translationSection?.items?.[index]?.title ??
+          translationSection?.title ??
+          route.path,
+      }));
+
+      const filteredItems = options?.excludeProgress
+        ? labeledItems.filter(({ route }) => !route.path.includes("/progress"))
+        : labeledItems;
+
+      return {
+        title: translationSection?.title ?? sectionKey,
+        url: sectionRoutes.base.withLocale(locale),
+        icon: iconMap[iconKey],
+        isActive: options?.isActive ?? false,
+        items: filteredItems.map(({ route, title }) => ({
+          title,
+          url: route.withLocale(locale),
+        })),
+      };
+    };
+
+    const items: React.ComponentProps<typeof NavMain>["items"] = [];
 
     // Eliminar "Mi Cuenta" para todos los roles
     // Menús específicos por rol
     if (userRole === "student") {
       // Mi Estudio
       if (menuConfig.student) {
-        items.push({
-          title: menuConfig.student.title,
-          url: menuConfig.student.url,
-          icon: iconMap.student,
-          isActive: true, // Dashboard activo por defecto
-          items: menuConfig.student.items
-            .filter((item) => !item.url.includes("/progress")) // Ocultar enlaces de progress
-            .map((item) => ({
-              title: item.title,
-              url: item.url,
-            })),
-        });
+        items.push(
+          buildSection("student", "student", {
+            isActive: true, // Dashboard activo por defecto
+            excludeProgress: true,
+          }),
+        );
       }
 
       // Documentación para estudiantes - OCULTO
@@ -102,18 +132,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     if (userRole === "professor") {
       // Mis Clases
       if (menuConfig.professor) {
-        items.push({
-          title: menuConfig.professor.title,
-          url: menuConfig.professor.url,
-          icon: iconMap.professor,
-          isActive: true,
-          items: menuConfig.professor.items
-            .filter((item) => !item.url.includes("/progress")) // Ocultar enlaces de progress
-            .map((item) => ({
-              title: item.title,
-              url: item.url,
-            })),
-        });
+        items.push(
+          buildSection("professor", "professor", {
+            isActive: true,
+            excludeProgress: true,
+          }),
+        );
       }
 
       // Documentación para profesores - OCULTO
@@ -134,34 +158,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     if (userRole === "admin" || userRole === "superadmin") {
       // Administración Académica
       if (menuConfig.adminAcademic) {
-        items.push({
-          title: menuConfig.adminAcademic.title,
-          url: menuConfig.adminAcademic.url,
-          icon: iconMap.adminAcademic,
-          isActive: true,
-          items: menuConfig.adminAcademic.items
-            .filter((item) => !item.url.includes("/progress")) // Ocultar enlaces de progress
-            .map((item) => ({
-              title: item.title,
-              url: item.url,
-            })),
-        });
+        items.push(
+          buildSection("adminAcademic", "adminAcademic", {
+            isActive: true,
+            excludeProgress: true,
+          }),
+        );
       }
 
       // Administración Personal
       if (menuConfig.adminPersonal) {
-        items.push({
-          title: menuConfig.adminPersonal.title,
-          url: menuConfig.adminPersonal.url,
-          icon: iconMap.adminPersonal,
-          isActive: false,
-          items: menuConfig.adminPersonal.items
-            .filter((item) => !item.url.includes("/progress")) // Ocultar enlaces de progress
-            .map((item) => ({
-              title: item.title,
-              url: item.url,
-            })),
-        });
+        items.push(
+          buildSection("adminPersonal", "adminPersonal", {
+            excludeProgress: true,
+          }),
+        );
       }
 
       // Documentación para administradores - OCULTO

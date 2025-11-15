@@ -9,12 +9,13 @@ import type { Doc, Id } from "@/convex/_generated/dataModel";
 import CustomTable from "@/components/ui/custom-table";
 import { Separator } from "@/components/ui/separator";
 import ProgramDetailInfo from "@/components/program/program-detail-info";
-import ProgramDetailActions from "@/components/course/program-detail-actions";
+import ProgramDetailActions from "@/components/program/program-detail-actions";
 import { courseColumns } from "@/components/course/columns";
 import ProgramFormDialog from "@/components/program/program-form-dialog";
 import { ProgramDeleteDialog } from "@/components/program/program-delete-dialog";
 
 import { exportProgramsToPDF } from "@/lib/export-programs-pdf";
+import { ROUTES } from "@/lib/routes";
 
 export default function ProgramDetailPage() {
   const params = useParams();
@@ -56,12 +57,12 @@ export default function ProgramDetailPage() {
   }, [locale, tTable, tCourseForm]);
 
   const handleBack = React.useCallback(() => {
-    router.push(`/${locale}/admin/programs`);
+    router.push(ROUTES.programs.root.withLocale(locale));
   }, [router, locale]);
 
   const handleRowClick = React.useCallback(
     (course: any) => {
-      router.push(`/${locale}/admin/courses/${course._id}`);
+      router.push(ROUTES.courses.details(course._id).withLocale(locale));
     },
     [router, locale],
   );
@@ -75,7 +76,7 @@ export default function ProgramDetailPage() {
   }, []);
 
   const handleDeleteSuccess = React.useCallback(() => {
-    router.push(`/${locale}/admin/programs`);
+    router.push(ROUTES.programs.root.withLocale(locale));
   }, [router, locale]);
 
   const handleExport = React.useCallback(
