@@ -2,27 +2,17 @@
 
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-
 import type { Doc } from "@/convex/_generated/dataModel";
+import { GraduationCap, PencilIcon, Trash2Icon } from "lucide-react";
 import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  ArrowLeft,
-  GraduationCap,
-  PencilIcon,
-  Trash2Icon,
-  Award,
-  BookOpen,
-  BriefcaseBusiness,
-  ScrollText,
-} from "lucide-react";
+  GradientCard,
+  GradientCardHeader,
+  GradientCardContent,
+  GradientCardDetailGrid,
+  GradientCardDetailItem,
+  GradientCardDescriptions,
+  GradientCardDescriptionBlock,
+} from "@/components/ui/gradient-card";
 
 interface ProgramDetailInfoProps {
   program: Doc<"programs">;
@@ -52,7 +42,6 @@ export default function ProgramDetailInfo({
   const descriptionEn = program.descriptionEn || "";
 
   const programName = locale === "es" ? nameEs || nameEn : nameEn || nameEs;
-  const programCode = locale === "es" ? codeEs || codeEn : codeEn || codeEs;
 
   const typeLabels = {
     diploma: tTable("types.diploma"),
@@ -67,77 +56,56 @@ export default function ProgramDetailInfo({
     both: tTable("languages.both"),
   };
 
-  const typeIcons = {
-    diploma: ScrollText,
-    bachelor: BookOpen,
-    master: BriefcaseBusiness,
-    doctorate: Award,
-  };
-
-  const typeBadgeColors = {
-    diploma:
-      "bg-amber-500/20 text-amber-100 border-amber-300/30 hover:bg-amber-500/30",
-    bachelor:
-      "bg-blue-500/20 text-blue-100 border-blue-300/30 hover:bg-blue-500/30",
-    master:
-      "bg-purple-500/20 text-purple-100 border-purple-300/30 hover:bg-purple-500/30",
-    doctorate:
-      "bg-emerald-500/20 text-emerald-100 border-emerald-300/30 hover:bg-emerald-500/30",
-  };
-
-  const TypeIcon = typeIcons[program.type];
+  const actions = (
+    <>
+      <Button size="sm" onClick={onEdit} className="cursor-pointer">
+        <span className="hidden md:inline">{t("edit")}</span>
+        <PencilIcon className="h-4 w-4 md:ml-2" />
+      </Button>
+      <Button
+        variant="destructive"
+        size="sm"
+        onClick={onDelete}
+        className="cursor-pointer"
+      >
+        <span className="hidden md:inline">{t("delete")}</span>
+        <Trash2Icon className="h-4 w-4 md:ml-2" />
+      </Button>
+    </>
+  );
 
   return (
-    <Card className="bg-[radial-gradient(circle_at_top_right,_var(--color-fuzzy-wuzzy)_0%,_var(--color-deep-koamaru)_50%)] text-white border-0 shadow-lg">
-      <CardHeader className="pb-4">
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-          {/* Program Information */}
-          <CardTitle className="flex items-center gap-3 text-xl mb-2">
-            <GraduationCap className="size-6 flex-shrink-0" />
-            <span className="truncate">{programName}</span>
-          </CardTitle>
+    <GradientCard>
+      <GradientCardHeader
+        icon={<GraduationCap className="size-6" />}
+        title={programName}
+        actions={actions}
+      />
 
-          {/* Action Buttons */}
-          <CardAction className="flex gap-2">
-            <Button size="sm" onClick={onEdit} className="cursor-pointer">
-              <span className="hidden md:inline">{t("edit")}</span>
-              <PencilIcon className="h-4 w-4 md:ml-2" />
-            </Button>
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={onDelete}
-              className="cursor-pointer"
-            >
-              <span className="hidden md:inline">{t("delete")}</span>
-              <Trash2Icon className="h-4 w-4 md:ml-2" />
-            </Button>
-          </CardAction>
-        </div>
-      </CardHeader>
-
-      {/* Program Details Grid */}
-      <CardContent className="pt-0">
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <GradientCardContent>
+        <GradientCardDetailGrid>
           {/* Primary Information */}
-          <ProgramDetailItem
+          <GradientCardDetailItem
             label={t("language")}
             value={languageLabels[program.language]}
           />
-          <ProgramDetailItem
+          <GradientCardDetailItem
             label={t("credits")}
             value={`${program.totalCredits}`}
           />
-          <ProgramDetailItem
+          <GradientCardDetailItem
             label={t("duration")}
             value={`${program.durationBimesters} ${t("bimesters")}`}
           />
 
           {/* Category and Status */}
           {categoryLabel && (
-            <ProgramDetailItem label={t("category")} value={categoryLabel} />
+            <GradientCardDetailItem
+              label={t("category")}
+              value={categoryLabel}
+            />
           )}
-          <ProgramDetailItem
+          <GradientCardDetailItem
             label={t("status")}
             value={
               program.isActive
@@ -148,26 +116,30 @@ export default function ProgramDetailInfo({
 
           {/* Financial Information */}
           {program.tuitionPerCredit && (
-            <ProgramDetailItem
+            <GradientCardDetailItem
               label={t("tuitionPerCredit")}
               value={`$${program.tuitionPerCredit}`}
             />
           )}
 
           {/* Bilingual Codes */}
-          {codeEs && <ProgramDetailItem label={t("codeEs")} value={codeEs} />}
+          {codeEs && (
+            <GradientCardDetailItem label={t("codeEs")} value={codeEs} />
+          )}
           {codeEn && codeEs !== codeEn && (
-            <ProgramDetailItem label={t("codeEn")} value={codeEn} />
+            <GradientCardDetailItem label={t("codeEn")} value={codeEn} />
           )}
 
           {/* Bilingual Names */}
-          {nameEs && <ProgramDetailItem label={t("nameEs")} value={nameEs} />}
+          {nameEs && (
+            <GradientCardDetailItem label={t("nameEs")} value={nameEs} />
+          )}
           {nameEn && nameEs !== nameEn && (
-            <ProgramDetailItem label={t("nameEn")} value={nameEn} />
+            <GradientCardDetailItem label={t("nameEn")} value={nameEn} />
           )}
 
           {/* Timestamps */}
-          <ProgramDetailItem
+          <GradientCardDetailItem
             label={t("createdAt")}
             value={new Date(program.createdAt).toLocaleDateString(
               locale === "es" ? "es-ES" : "en-US",
@@ -179,7 +151,7 @@ export default function ProgramDetailInfo({
             )}
           />
           {program.updatedAt && (
-            <ProgramDetailItem
+            <GradientCardDetailItem
               label={t("updatedAt")}
               value={new Date(program.updatedAt).toLocaleDateString(
                 locale === "es" ? "es-ES" : "en-US",
@@ -191,47 +163,26 @@ export default function ProgramDetailInfo({
               )}
             />
           )}
-        </div>
+        </GradientCardDetailGrid>
 
         {/* Descriptions Section */}
         {(descriptionEs || descriptionEn) && (
-          <div className="mt-6 pt-6 border-t border-white/20 space-y-4">
+          <GradientCardDescriptions>
             {descriptionEs && (
-              <div>
-                <div className="text-sm font-medium text-white/70 mb-1">
-                  {t("descriptionEs")}
-                </div>
-                <div className="text-sm leading-relaxed">{descriptionEs}</div>
-              </div>
+              <GradientCardDescriptionBlock
+                label={t("descriptionEs")}
+                content={descriptionEs}
+              />
             )}
             {descriptionEn && (
-              <div>
-                <div className="text-sm font-medium text-white/70 mb-1">
-                  {t("descriptionEn")}
-                </div>
-                <div className="text-sm leading-relaxed">{descriptionEn}</div>
-              </div>
+              <GradientCardDescriptionBlock
+                label={t("descriptionEn")}
+                content={descriptionEn}
+              />
             )}
-          </div>
+          </GradientCardDescriptions>
         )}
-      </CardContent>
-    </Card>
-  );
-}
-
-/**
- * Individual detail item component for the grid
- */
-interface ProgramDetailItemProps {
-  label: string;
-  value: string;
-}
-
-function ProgramDetailItem({ label, value }: ProgramDetailItemProps) {
-  return (
-    <div>
-      <div className="text-sm font-medium text-white/70">{label}</div>
-      <div className="text-base font-semibold">{value}</div>
-    </div>
+      </GradientCardContent>
+    </GradientCard>
   );
 }

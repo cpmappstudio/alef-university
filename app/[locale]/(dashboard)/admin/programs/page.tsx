@@ -98,7 +98,7 @@ export default function ProgramManagementPage() {
   return (
     <>
       <ProgramActions />
-      <Separator className="" />
+      <Separator />
       <CustomTable
         columns={columns}
         data={data}
