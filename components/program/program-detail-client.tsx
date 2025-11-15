@@ -25,6 +25,7 @@ import { api } from "@/convex/_generated/api";
 import type { Doc, Id } from "@/convex/_generated/dataModel";
 import { ROUTES } from "@/lib/routes";
 import { exportProgramCourses } from "@/lib/programs/utils";
+import { createCombinedTranslator } from "@/lib/table/utils";
 
 interface ProgramDetailClientProps {
   programId: Id<"programs">;
@@ -66,18 +67,19 @@ export default function ProgramDetailClient({
     return category?.name || "";
   }, [program?.categoryId, categories]);
 
-  const columns = React.useMemo(() => {
-    // Create a combined translator that handles both table and course form translations
-    const combinedTranslator = (key: string, values?: Record<string, any>) => {
-      // If the key starts with "options.categories", use course form translations
-      if (key.startsWith("options.categories")) {
-        return tCourseForm(key, values);
-      }
-      // Otherwise use table translations
-      return tTable(key, values);
-    };
-    return courseColumns(combinedTranslator, locale);
-  }, [locale, tTable, tCourseForm]);
+  const tableTranslator = React.useMemo(
+    () =>
+      createCombinedTranslator(
+        [{ prefix: "options.categories", translator: tCourseForm }],
+        tTable,
+      ),
+    [tTable, tCourseForm],
+  );
+
+  const columns = React.useMemo(
+    () => courseColumns(tableTranslator, locale),
+    [tableTranslator, locale],
+  );
 
   const handleBack = React.useCallback(() => {
     router.push(ROUTES.programs.root.withLocale(locale));
@@ -159,7 +161,7 @@ export default function ProgramDetailClient({
         onDelete={handleDelete}
       />
 
-      <Separator />
+      {/*<Separator />*/}
 
       <ProgramDetailActions programId={programId} />
 

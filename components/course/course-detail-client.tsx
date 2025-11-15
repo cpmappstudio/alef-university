@@ -195,7 +195,7 @@ export function CourseDetailClient({
         onDelete={handleDelete}
       />
 
-      <Separator />
+      {/*<Separator />*/}
 
       <CourseDetailActions courseId={courseId} />
 

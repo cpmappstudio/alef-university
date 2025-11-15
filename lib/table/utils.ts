@@ -1,5 +1,5 @@
 import type React from "react";
-import type { Language } from "./types";
+import type { Language, Translator } from "./types";
 
 export const INTERACTIVE_TARGET_SELECTOR = [
   "a",
@@ -55,6 +55,22 @@ const pickPreferredValue = (
 };
 
 export { LANGUAGE_TAGS, getStringValue, pickPreferredValue };
+
+export type TranslatorMapping = {
+  prefix: string;
+  translator: Translator;
+};
+
+export function createCombinedTranslator(
+  mappings: TranslatorMapping[],
+  fallback: Translator,
+): Translator {
+  return (key: string, values?: Record<string, any>) => {
+    const mapping = mappings.find(({ prefix }) => key.startsWith(prefix));
+    const translator = mapping?.translator ?? fallback;
+    return translator(key, values);
+  };
+}
 
 export function shouldHandleRowClick(
   event: React.MouseEvent<HTMLElement, MouseEvent>,

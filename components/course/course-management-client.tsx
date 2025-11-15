@@ -19,6 +19,7 @@ import type {
   CourseManagementClientProps,
 } from "@/lib/courses/types";
 import { ROUTES } from "@/lib/routes";
+import { createCombinedTranslator } from "@/lib/table/utils";
 
 export function CourseManagementClient({
   courses,
@@ -34,15 +35,19 @@ export function CourseManagementClient({
     [liveCourses, courses],
   );
 
-  const columns = React.useMemo(() => {
-    const combinedTranslator = (key: string, values?: Record<string, any>) => {
-      if (key.startsWith("options.categories")) {
-        return tCourseForm(key, values);
-      }
-      return t(key, values);
-    };
-    return courseColumnsWithPrograms(combinedTranslator, locale);
-  }, [t, tCourseForm, locale]);
+  const tableTranslator = React.useMemo(
+    () =>
+      createCombinedTranslator(
+        [{ prefix: "options.categories", translator: tCourseForm }],
+        t,
+      ),
+    [t, tCourseForm],
+  );
+
+  const columns = React.useMemo(
+    () => courseColumnsWithPrograms(tableTranslator, locale),
+    [tableTranslator, locale],
+  );
 
   const handleRowClick = React.useCallback(
     (course: CourseDocument) => {
