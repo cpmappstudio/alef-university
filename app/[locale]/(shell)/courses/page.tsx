@@ -1,60 +1,24 @@
-"use client";
-
-import * as React from "react";
-import CustomTable from "@/components/ui/custom-table";
-import { courseColumnsWithPrograms } from "@/components/course/columns";
-import { useLocale, useTranslations } from "next-intl";
-import { useQuery } from "convex/react";
-import { useRouter } from "next/navigation";
+/* Convex */
+import { fetchQuery } from "convex/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { api } from "@/convex/_generated/api";
-import type { Doc } from "@/convex/_generated/dataModel";
-import { Separator } from "@/components/ui/separator";
-import CourseActions from "@/components/course/course-actions";
-import { ROUTES } from "@/lib/routes";
 
-export default function CourseManagementPage() {
-  const t = useTranslations("admin.courses.table");
-  const tCourseForm = useTranslations("admin.courses.form");
-  const locale = useLocale();
-  const router = useRouter();
+/* Components */
+import { CourseManagementClient } from "@/components/course/course-management-client";
 
-  const data = useQuery(api.courses.getAllCourses, {});
+/* lib */
+import type { CourseDocument } from "@/lib/courses/types";
 
-  const columns = React.useMemo(() => {
-    // Create a combined translator that handles both table and course form translations
-    const combinedTranslator = (key: string, values?: Record<string, any>) => {
-      // If the key starts with "options.categories", use course form translations
-      if (key.startsWith("options.categories")) {
-        return tCourseForm(key, values);
-      }
-      // Otherwise use table translations
-      return t(key, values);
-    };
-    return courseColumnsWithPrograms(combinedTranslator, locale);
-  }, [t, tCourseForm, locale]);
+export default async function CourseManagementPage() {
+  const authData = await auth();
+  const token = await authData.getToken({ template: "convex" });
+  const fetchOptions = token ? { token } : undefined;
 
-  const handleRowClick = React.useCallback(
-    (course: Doc<"courses">) => {
-      router.push(ROUTES.courses.details(course._id).withLocale(locale));
-    },
-    [router, locale],
-  );
+  const courses = ((await fetchQuery(
+    api.courses.getAllCourses,
+    {},
+    fetchOptions,
+  )) ?? []) as CourseDocument[];
 
-  const filterColumnKey = "name";
-
-  return (
-    <>
-      <CourseActions />
-      <Separator className="" />
-      <CustomTable
-        columns={columns}
-        data={data}
-        filterColumn={filterColumnKey}
-        filterPlaceholder={t("filterPlaceholder")}
-        columnsMenuLabel={t("columnsMenuLabel")}
-        emptyMessage={t("emptyMessage")}
-        onRowClick={handleRowClick}
-      />
-    </>
-  );
+  return <CourseManagementClient courses={courses} />;
 }

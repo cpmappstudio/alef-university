@@ -141,3 +141,9 @@ export type CourseRow = Doc<"courses"> & {
     name: string;
   }>;
 };
+
+export type CourseDocument = CourseRow;
+
+export type CourseManagementClientProps = {
+  courses: CourseDocument[];
+};
