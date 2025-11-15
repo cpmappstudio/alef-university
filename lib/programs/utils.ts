@@ -1,4 +1,5 @@
 import type { Doc, Id } from "@/convex/_generated/dataModel";
+import type { useTranslations } from "next-intl";
 import type {
   Program,
   ProgramCreatePayload,
@@ -11,7 +12,7 @@ import type {
   ProgramUpdatePayload,
 } from "./types";
 
-type Translator = (key: string, ...args: unknown[]) => string;
+type Translator = ReturnType<typeof useTranslations>;
 
 export type ProgramCategoryWithCount = Doc<"program_categories"> & {
   programCount?: number;

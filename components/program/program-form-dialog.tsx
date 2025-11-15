@@ -4,6 +4,7 @@ import * as React from "react";
 import { Loader2 } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -56,6 +57,7 @@ export default function ProgramFormDialog({
   onOpenChange,
 }: ProgramFormDialogProps) {
   const t = useTranslations("admin.programs.form");
+  const router = useRouter();
 
   const [internalOpen, setInternalOpen] = React.useState(false);
   const open = controlledOpen ?? internalOpen;
@@ -158,6 +160,7 @@ export default function ProgramFormDialog({
       }
 
       handleDialogChange(false);
+      router.refresh();
     } catch (error) {
       const message =
         error instanceof Error ? error.message : t("messages.errors.generic");

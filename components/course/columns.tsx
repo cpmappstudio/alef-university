@@ -2,6 +2,11 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import type { Doc } from "@/convex/_generated/dataModel";
+import {
+  buildSearchableField,
+  renderLocalizedField,
+  type Translator,
+} from "@/lib/table/localized-fields";
 
 type CourseRow = Doc<"courses"> & {
   programs?: Array<{
@@ -9,137 +14,6 @@ type CourseRow = Doc<"courses"> & {
     codeEs: string;
     name: string;
   }>;
-};
-
-type Translator = (key: string, values?: Record<string, any>) => string;
-
-const LANGUAGE_TAGS = {
-  es: "ES",
-  en: "EN",
-} as const;
-
-const getStringValue = <T extends keyof Doc<"courses">>(
-  row: Doc<"courses">,
-  key: T,
-): string => {
-  const value = row[key];
-  return typeof value === "string" ? value.trim() : "";
-};
-
-const pickPreferredValue = (
-  primary: string,
-  fallback: string,
-): string | null => {
-  if (primary) {
-    return primary;
-  }
-  if (fallback) {
-    return fallback;
-  }
-  return null;
-};
-
-const renderLocalizedField = (
-  row: Doc<"courses">,
-  esKey: keyof Doc<"courses">,
-  enKey: keyof Doc<"courses">,
-  locale: string,
-  emptyValue: string,
-) => {
-  const valueEs = getStringValue(row, esKey);
-  const valueEn = getStringValue(row, enKey);
-
-  if (row.language === "both") {
-    const items: Array<{ tag: string; value: string }> = [];
-
-    if (locale === "en") {
-      if (valueEn) {
-        items.push({ tag: LANGUAGE_TAGS.en, value: valueEn });
-      }
-      if (valueEs) {
-        items.push({ tag: LANGUAGE_TAGS.es, value: valueEs });
-      }
-    } else {
-      if (valueEs) {
-        items.push({ tag: LANGUAGE_TAGS.es, value: valueEs });
-      }
-      if (valueEn) {
-        items.push({ tag: LANGUAGE_TAGS.en, value: valueEn });
-      }
-    }
-
-    if (!items.length) {
-      return emptyValue;
-    }
-
-    return (
-      <div className="flex flex-col gap-0.5">
-        {items.map(({ tag, value }) => (
-          <span key={tag}>
-            <span className="font-semibold">{tag}:</span> {value}
-          </span>
-        ))}
-      </div>
-    );
-  }
-
-  if (row.language === "en") {
-    const preferredValue = getStringValue(row, enKey);
-    const fallbackValue = getStringValue(row, esKey);
-    return pickPreferredValue(preferredValue, fallbackValue) ?? emptyValue;
-  }
-
-  const preferredValue = getStringValue(row, esKey);
-  const fallbackValue = getStringValue(row, enKey);
-  return pickPreferredValue(preferredValue, fallbackValue) ?? emptyValue;
-};
-
-const buildSearchableField = (
-  row: Doc<"courses">,
-  esKey: keyof Doc<"courses">,
-  enKey: keyof Doc<"courses">,
-  locale: string,
-): string => {
-  const valueEs = getStringValue(row, esKey);
-  const valueEn = getStringValue(row, enKey);
-
-  if (row.language === "both") {
-    const parts: string[] = [];
-
-    if (locale === "en") {
-      if (valueEn) {
-        parts.push(`${LANGUAGE_TAGS.en}: ${valueEn}`);
-      }
-      if (valueEs) {
-        parts.push(`${LANGUAGE_TAGS.es}: ${valueEs}`);
-      }
-    } else {
-      if (valueEs) {
-        parts.push(`${LANGUAGE_TAGS.es}: ${valueEs}`);
-      }
-      if (valueEn) {
-        parts.push(`${LANGUAGE_TAGS.en}: ${valueEn}`);
-      }
-    }
-
-    return parts.join(" ");
-  }
-
-  if (row.language === "en") {
-    return (
-      pickPreferredValue(
-        getStringValue(row, enKey),
-        getStringValue(row, esKey),
-      ) ?? ""
-    );
-  }
-
-  return (
-    pickPreferredValue(
-      getStringValue(row, esKey),
-      getStringValue(row, enKey),
-    ) ?? ""
-  );
 };
 
 // Columns for course list page (with programs column)

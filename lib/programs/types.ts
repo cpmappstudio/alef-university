@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Id } from "@/convex/_generated/dataModel";
+import type { Doc, Id } from "@/convex/_generated/dataModel";
 
 export type Program = {
   _id?: Id<"programs">;
@@ -35,24 +35,15 @@ export type ProgramFormType = ProgramTypeOption | "";
 
 export type ProgramFormState = {
   language: ProgramFormLanguage;
-
   type: ProgramFormType;
-
   categoryId: string;
   codeEs: string;
-
   nameEs: string;
-
   descriptionEs: string;
-
   codeEn: string;
-
   nameEn: string;
-
   descriptionEn: string;
-
   durationBimesters: string;
-
   isActive: boolean;
 };
 
@@ -90,51 +81,31 @@ export type ProgramFormValidationResult = {
 
 export type ProgramCreatePayload = {
   codeEs?: string;
-
   codeEn?: string;
-
   nameEs?: string;
-
   nameEn?: string;
-
   descriptionEs?: string;
-
   descriptionEn?: string;
-
   categoryId: Id<"program_categories">;
   language: ProgramLanguageOption;
-
   type: ProgramTypeOption;
-
   durationBimesters: number;
-
   tuitionPerCredit?: number;
-
   degree?: string;
 };
 
 export type ProgramUpdatePayload = {
   programId: Id<"programs">;
-
   categoryId: Id<"program_categories">;
   language: ProgramLanguageOption;
-
   isActive: boolean;
-
   codeEs?: string;
-
   codeEn?: string;
-
   nameEs?: string;
-
   nameEn?: string;
-
   descriptionEs?: string;
-
   descriptionEn?: string;
-
   degree?: string;
-
   tuitionPerCredit?: number;
 };
 
@@ -146,4 +117,12 @@ export type ProgramFormDialogProps = {
   trigger?: ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+};
+
+export type ProgramDocument = Doc<"programs">;
+export type ProgramCategoryDocument = Doc<"program_categories">;
+
+export type ProgramManagementClientProps = {
+  programs: ProgramDocument[];
+  categories: ProgramCategoryDocument[];
 };
