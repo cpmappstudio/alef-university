@@ -1,8 +1,14 @@
+// ################################################################################
+// # File: custom-table.tsx                                                       #
+// # Check: 11/15/2025                                                            #
+// ################################################################################
 "use client";
 
+/* hooks */
 import * as React from "react";
 import { useTranslations } from "next-intl";
 
+/* components */
 import {
   ColumnFiltersState,
   flexRender,
@@ -14,20 +20,15 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-
 import { Columns3CogIcon, Download } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
-
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import { Input } from "@/components/ui/input";
-
 import {
   Table,
   TableBody,

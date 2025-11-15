@@ -48,6 +48,11 @@ import {
   getLanguageVisibility,
   validateProgramForm,
 } from "@/lib/programs/utils";
+import { useDialogState } from "@/hooks/use-dialog-state";
+import {
+  createInputChangeHandler,
+  createSelectChangeHandler,
+} from "@/lib/forms/handlers";
 
 export default function ProgramFormDialog({
   mode,
@@ -58,10 +63,10 @@ export default function ProgramFormDialog({
 }: ProgramFormDialogProps) {
   const t = useTranslations("admin.programs.form");
   const router = useRouter();
-
-  const [internalOpen, setInternalOpen] = React.useState(false);
-  const open = controlledOpen ?? internalOpen;
-  const setOpen = onOpenChange ?? setInternalOpen;
+  const { open, setOpen } = useDialogState({
+    controlledOpen,
+    onOpenChange,
+  });
 
   const [formState, setFormState] = React.useState<ProgramFormState>(
     createEmptyProgramFormState,
@@ -100,19 +105,13 @@ export default function ProgramFormDialog({
   };
 
   const handleInputChange =
-    (field: keyof ProgramFormState) =>
-    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const value = event.target.value;
-      setFormState((prev) => ({ ...prev, [field]: value }));
-    };
+    createInputChangeHandler<ProgramFormState>(setFormState);
 
-  const handleSelectChange =
-    (field: "language" | "type" | "categoryId") => (value: string) => {
-      setFormState((prev) => ({
-        ...prev,
-        [field]: value as ProgramFormState[typeof field],
-      }));
-    };
+  const selectChangeHandler =
+    createSelectChangeHandler<ProgramFormState>(setFormState);
+
+  const handleSelectChange = (field: "language" | "type" | "categoryId") =>
+    selectChangeHandler(field);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

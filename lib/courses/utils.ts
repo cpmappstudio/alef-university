@@ -8,6 +8,7 @@ import type {
   CourseLanguageOption,
   CourseCategoryOption,
   CourseUpdatePayload,
+  CourseProgramSummary,
 } from "./types";
 
 export const INITIAL_COURSE_FORM_STATE: CourseFormState = {
@@ -227,4 +228,26 @@ function safeNumberToString(value: number | null | undefined): string {
   return typeof value === "number" && Number.isFinite(value)
     ? String(value)
     : "";
+}
+
+export function getCourseProgramName(
+  program: CourseProgramSummary,
+  locale: string,
+  fallback = "-",
+): string {
+  if (locale === "es") {
+    return program.nameEs || program.nameEn || fallback;
+  }
+  return program.nameEn || program.nameEs || fallback;
+}
+
+export function getCourseProgramCode(
+  program: CourseProgramSummary,
+  locale: string,
+  fallback = "-",
+): string {
+  if (locale === "es") {
+    return program.codeEs || program.codeEn || fallback;
+  }
+  return program.codeEn || program.codeEs || fallback;
 }

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Id } from "@/convex/_generated/dataModel";
+import type { Doc, Id } from "@/convex/_generated/dataModel";
 
 export type Course = {
   _id: Id<"courses">;
@@ -128,3 +128,8 @@ export type CourseFormDialogProps = {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 };
+
+export type CourseProgramSummary = Pick<
+  Doc<"programs">,
+  "_id" | "nameEs" | "nameEn" | "codeEs" | "codeEn"
+>;

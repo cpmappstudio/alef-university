@@ -49,7 +49,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 
 import { api } from "@/convex/_generated/api";
-import type { Id, Doc } from "@/convex/_generated/dataModel";
+import type { Id } from "@/convex/_generated/dataModel";
 import {
   CourseFormDialogProps,
   CourseFormState,
@@ -60,9 +60,16 @@ import {
   buildCourseUpdatePayload,
   createEmptyCourseFormState,
   createFormStateFromCourse,
+  getCourseProgramCode,
+  getCourseProgramName,
   getLanguageVisibility,
   validateCourseForm,
 } from "@/lib/courses/utils";
+import { useDialogState } from "@/hooks/use-dialog-state";
+import {
+  createInputChangeHandler,
+  createSelectChangeHandler,
+} from "@/lib/forms/handlers";
 
 export function CourseFormDialog({
   mode,
@@ -74,10 +81,10 @@ export function CourseFormDialog({
 }: CourseFormDialogProps) {
   const t = useTranslations("admin.courses.form");
   const locale = useLocale();
-
-  const [internalOpen, setInternalOpen] = React.useState(false);
-  const open = controlledOpen ?? internalOpen;
-  const setOpen = onOpenChange ?? setInternalOpen;
+  const { open, setOpen } = useDialogState({
+    controlledOpen,
+    onOpenChange,
+  });
 
   const [formState, setFormState] = React.useState<CourseFormState>(
     createEmptyCourseFormState,
@@ -144,20 +151,6 @@ export function CourseFormDialog({
     }
   };
 
-  const getProgramName = (program: Doc<"programs">) => {
-    if (locale === "es") {
-      return program.nameEs || program.nameEn || "—";
-    }
-    return program.nameEn || program.nameEs || "—";
-  };
-
-  const getProgramCode = (program: Doc<"programs">) => {
-    if (locale === "es") {
-      return program.codeEs || program.codeEn || "—";
-    }
-    return program.codeEn || program.codeEs || "—";
-  };
-
   const toggleProgram = (programId: string) => {
     setSelectedPrograms((prev) => {
       const newSet = new Set(prev);
@@ -179,19 +172,13 @@ export function CourseFormDialog({
   };
 
   const handleInputChange =
-    (field: keyof CourseFormState) =>
-    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const value = event.target.value;
-      setFormState((prev) => ({ ...prev, [field]: value }));
-    };
+    createInputChangeHandler<CourseFormState>(setFormState);
 
-  const handleSelectChange =
-    (field: "language" | "category") => (value: string) => {
-      setFormState((prev) => ({
-        ...prev,
-        [field]: value as CourseFormState[typeof field],
-      }));
-    };
+  const selectChangeHandler =
+    createSelectChangeHandler<CourseFormState>(setFormState);
+
+  const handleSelectChange = (field: "language" | "category") =>
+    selectChangeHandler(field);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -411,7 +398,7 @@ export function CourseFormDialog({
                             return (
                               <CommandItem
                                 key={program._id}
-                                value={`${getProgramCode(program)} ${getProgramName(program)}`}
+                                value={`${getCourseProgramCode(program, locale)} ${getCourseProgramName(program, locale)}`}
                                 onSelect={() => toggleProgram(program._id)}
                                 className="cursor-pointer"
                               >
@@ -423,8 +410,8 @@ export function CourseFormDialog({
                                 />
                                 <div className="flex-1">
                                   <div className="font-medium">
-                                    {getProgramCode(program)} -{" "}
-                                    {getProgramName(program)}
+                                    {getCourseProgramCode(program, locale)} -{" "}
+                                    {getCourseProgramName(program, locale)}
                                   </div>
                                 </div>
                               </CommandItem>
@@ -449,7 +436,8 @@ export function CourseFormDialog({
                           variant="secondary"
                           className="gap-1"
                         >
-                          {getProgramCode(program)} - {getProgramName(program)}
+                          {getCourseProgramCode(program, locale)} -{" "}
+                          {getCourseProgramName(program, locale)}
                           <button
                             type="button"
                             onClick={() => removeProgram(programId)}

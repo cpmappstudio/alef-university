@@ -1,7 +1,14 @@
-import { Button } from "@/components/ui/button";
+// ################################################################################
+// # File: program-actions.tsx                                                    #
+// # Check: 11/15/2025                                                            #
+// ################################################################################
 
-import { CirclePlusIcon } from "lucide-react";
+/* hooks */
 import { useTranslations } from "next-intl";
+
+/* components */
+import { Button } from "@/components/ui/button";
+import { CirclePlusIcon } from "lucide-react";
 import ProgramFormDialog from "./program-form-dialog";
 
 export default function ProgramActions() {
@@ -17,23 +24,6 @@ export default function ProgramActions() {
           </Button>
         }
       />
-
-      {/*<div className="flex items-center gap-2">
-        <Button
-          className="cursor-pointer bg-white dark:bg-dark-gunmetal dark:text-white"
-          variant="secondary"
-        >
-          {t("actions.import")} <FileDownIcon />
-        </Button>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <InfoIcon className="size-4.5 text-muted-foreground hidden md:block" />
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Add to library</p>
-          </TooltipContent>
-        </Tooltip>
-      </div>*/}
     </div>
   );
 }
