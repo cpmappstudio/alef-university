@@ -1,12 +1,39 @@
+// ################################################################################
+// # File: program-form-dialog.tsx                                                #
+// # Check: 11/15/2025                                                            #
+// ################################################################################
 "use client";
 
+/* hooks */
 import * as React from "react";
-import { Loader2 } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { useDialogState } from "@/hooks/use-dialog-state";
 
+/* lib */
+import { api } from "@/convex/_generated/api";
+import {
+  ProgramFormDialogProps,
+  ProgramFormState,
+  ProgramFormValidationMessages,
+} from "@/lib/programs/types";
+import {
+  buildProgramCreatePayload,
+  buildProgramUpdatePayload,
+  createEmptyProgramFormState,
+  createFormStateFromProgram,
+  getLanguageVisibility,
+  validateProgramForm,
+} from "@/lib/programs/utils";
+import {
+  createInputChangeHandler,
+  createSelectChangeHandler,
+} from "@/lib/forms/utils";
+
+/* components */
+import { Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Field,
   FieldDescription,
@@ -23,36 +50,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-
-import { api } from "@/convex/_generated/api";
-import {
-  ProgramFormDialogProps,
-  ProgramFormState,
-  ProgramFormValidationMessages,
-} from "@/lib/programs/types";
-import {
-  buildProgramCreatePayload,
-  buildProgramUpdatePayload,
-  createEmptyProgramFormState,
-  createFormStateFromProgram,
-  getLanguageVisibility,
-  validateProgramForm,
-} from "@/lib/programs/utils";
-import { useDialogState } from "@/hooks/use-dialog-state";
-import {
-  createInputChangeHandler,
-  createSelectChangeHandler,
-} from "@/lib/forms/handlers";
+import { LanguageCategorySection } from "@/components/forms/language-category-section";
+import { LocalizedFieldGroup } from "@/components/forms/localized-field-group";
 
 export default function ProgramFormDialog({
   mode,
@@ -169,6 +169,24 @@ export default function ProgramFormDialog({
     }
   };
 
+  const languageOptions = [
+    { value: "es", label: t("options.languages.es") },
+    { value: "en", label: t("options.languages.en") },
+    { value: "both", label: t("options.languages.both") },
+  ];
+
+  const typeOptions = [
+    { value: "diploma", label: t("options.types.diploma") },
+    { value: "bachelor", label: t("options.types.bachelor") },
+    { value: "master", label: t("options.types.master") },
+    { value: "doctorate", label: t("options.types.doctorate") },
+  ];
+
+  const categoryOptions = categories.map((category) => ({
+    value: category._id,
+    label: category.name,
+  }));
+
   return (
     <Dialog open={open} onOpenChange={handleDialogChange}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
@@ -184,202 +202,104 @@ export default function ProgramFormDialog({
           </DialogHeader>
 
           <FieldGroup>
-            <FieldSet>
-              <FieldGroup>
-                <Field>
-                  <FieldLabel htmlFor="program-language">
-                    {t("fields.language.label")} *
-                  </FieldLabel>
-
-                  <Select
-                    value={formState.language}
-                    onValueChange={handleSelectChange("language")}
-                  >
-                    <SelectTrigger id="program-language">
-                      <SelectValue
-                        placeholder={t("fields.language.placeholder")}
-                      />
-                    </SelectTrigger>
-
-                    <SelectContent>
-                      <SelectItem value="es">
-                        {t("options.languages.es")}
-                      </SelectItem>
-
-                      <SelectItem value="en">
-                        {t("options.languages.en")}
-                      </SelectItem>
-
-                      <SelectItem value="both">
-                        {t("options.languages.both")}
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </Field>
-
-                <Field>
-                  <FieldLabel htmlFor="program-type">
-                    {t("fields.type.label")} *
-                  </FieldLabel>
-
-                  <Select
-                    value={formState.type}
-                    onValueChange={handleSelectChange("type")}
-                  >
-                    <SelectTrigger id="program-type">
-                      <SelectValue placeholder={t("fields.type.placeholder")} />
-                    </SelectTrigger>
-
-                    <SelectContent>
-                      <SelectItem value="diploma">
-                        {t("options.types.diploma")}
-                      </SelectItem>
-
-                      <SelectItem value="bachelor">
-                        {t("options.types.bachelor")}
-                      </SelectItem>
-
-                      <SelectItem value="master">
-                        {t("options.types.master")}
-                      </SelectItem>
-
-                      <SelectItem value="doctorate">
-                        {t("options.types.doctorate")}
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </Field>
-
-                <Field>
-                  <FieldLabel htmlFor="program-category">
-                    {t("fields.category.label")} *
-                  </FieldLabel>
-
-                  <Select
-                    value={formState.categoryId}
-                    onValueChange={handleSelectChange("categoryId")}
-                    disabled={isLoadingCategories || categories.length === 0}
-                  >
-                    <SelectTrigger id="program-category">
-                      <SelectValue
-                        placeholder={t("fields.category.placeholder")}
-                      />
-                    </SelectTrigger>
-
-                    <SelectContent>
-                      {categories.map((category) => (
-                        <SelectItem key={category._id} value={category._id}>
-                          {category.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </Field>
-              </FieldGroup>
-
-              {!isLoadingCategories && categories.length === 0 ? (
-                <FieldDescription className="text-muted-foreground">
-                  {t("messages.noCategories", {
-                    defaultMessage:
-                      "Create at least one program category before adding a program.",
-                  })}
-                </FieldDescription>
-              ) : null}
-
-              {!formState.language ? (
+            <LanguageCategorySection
+              fields={[
+                {
+                  id: "program-language",
+                  label: `${t("fields.language.label")} *`,
+                  placeholder: t("fields.language.placeholder"),
+                  value: formState.language,
+                  onValueChange: handleSelectChange("language"),
+                  options: languageOptions,
+                },
+                {
+                  id: "program-type",
+                  label: `${t("fields.type.label")} *`,
+                  placeholder: t("fields.type.placeholder"),
+                  value: formState.type,
+                  onValueChange: handleSelectChange("type"),
+                  options: typeOptions,
+                },
+                {
+                  id: "program-category",
+                  label: `${t("fields.category.label")} *`,
+                  placeholder: t("fields.category.placeholder"),
+                  value: formState.categoryId,
+                  onValueChange: handleSelectChange("categoryId"),
+                  options: categoryOptions,
+                  disabled: isLoadingCategories || categories.length === 0,
+                },
+              ]}
+              noCategoriesMessage={
+                !isLoadingCategories && categories.length === 0 ? (
+                  <FieldDescription className="text-muted-foreground">
+                    {t("messages.noCategories", {
+                      defaultMessage:
+                        "Create at least one program category before adding a program.",
+                    })}
+                  </FieldDescription>
+                ) : null
+              }
+              showLanguageHint={!formState.language}
+              languageHint={
                 <FieldDescription className="text-muted-foreground">
                   {t("messages.infoSelectLanguage")}
                 </FieldDescription>
-              ) : null}
-            </FieldSet>
+              }
+            />
 
-            {showSpanishFields ? (
-              <>
-                <FieldSeparator />
-                <FieldSet>
-                  <FieldGroup>
-                    <Field>
-                      <FieldLabel htmlFor="program-code-es">
-                        {t("fields.codeEs.label")} *
-                      </FieldLabel>
-                      <Input
-                        id="program-code-es"
-                        value={formState.codeEs}
-                        onChange={handleInputChange("codeEs")}
-                        placeholder={t("fields.codeEs.placeholder")}
-                      />
-                    </Field>
-                    <Field>
-                      <FieldLabel htmlFor="program-name-es">
-                        {t("fields.nameEs.label")} *
-                      </FieldLabel>
-                      <Input
-                        id="program-name-es"
-                        value={formState.nameEs}
-                        onChange={handleInputChange("nameEs")}
-                        placeholder={t("fields.nameEs.placeholder")}
-                      />
-                    </Field>
-                    <Field>
-                      <FieldLabel htmlFor="program-description-es">
-                        {t("fields.descriptionEs.label")} *
-                      </FieldLabel>
-                      <Textarea
-                        id="program-description-es"
-                        value={formState.descriptionEs}
-                        onChange={handleInputChange("descriptionEs")}
-                        placeholder={t("fields.descriptionEs.placeholder")}
-                        className="resize-none"
-                      />
-                    </Field>
-                  </FieldGroup>
-                </FieldSet>
-              </>
-            ) : null}
-
-            {showEnglishFields ? (
-              <>
-                <FieldSeparator />
-                <FieldSet>
-                  <FieldGroup>
-                    <Field>
-                      <FieldLabel htmlFor="program-code-en">
-                        {t("fields.codeEn.label")} *
-                      </FieldLabel>
-                      <Input
-                        id="program-code-en"
-                        value={formState.codeEn}
-                        onChange={handleInputChange("codeEn")}
-                        placeholder={t("fields.codeEn.placeholder")}
-                      />
-                    </Field>
-                    <Field>
-                      <FieldLabel htmlFor="program-name-en">
-                        {t("fields.nameEn.label")} *
-                      </FieldLabel>
-                      <Input
-                        id="program-name-en"
-                        value={formState.nameEn}
-                        onChange={handleInputChange("nameEn")}
-                        placeholder={t("fields.nameEn.placeholder")}
-                      />
-                    </Field>
-                    <Field>
-                      <FieldLabel htmlFor="program-description-en">
-                        {t("fields.descriptionEn.label")} *
-                      </FieldLabel>
-                      <Textarea
-                        id="program-description-en"
-                        value={formState.descriptionEn}
-                        onChange={handleInputChange("descriptionEn")}
-                        placeholder={t("fields.descriptionEn.placeholder")}
-                        className="resize-none"
-                      />
-                    </Field>
-                  </FieldGroup>
-                </FieldSet>
-              </>
-            ) : null}
+            <LocalizedFieldGroup
+              showSpanishFields={showSpanishFields}
+              showEnglishFields={showEnglishFields}
+              spanishFields={[
+                {
+                  id: "program-code-es",
+                  label: `${t("fields.codeEs.label")} *`,
+                  placeholder: t("fields.codeEs.placeholder"),
+                  value: formState.codeEs,
+                  onChange: handleInputChange("codeEs"),
+                },
+                {
+                  id: "program-name-es",
+                  label: `${t("fields.nameEs.label")} *`,
+                  placeholder: t("fields.nameEs.placeholder"),
+                  value: formState.nameEs,
+                  onChange: handleInputChange("nameEs"),
+                },
+                {
+                  id: "program-description-es",
+                  label: `${t("fields.descriptionEs.label")} *`,
+                  placeholder: t("fields.descriptionEs.placeholder"),
+                  value: formState.descriptionEs,
+                  onChange: handleInputChange("descriptionEs"),
+                  type: "textarea",
+                },
+              ]}
+              englishFields={[
+                {
+                  id: "program-code-en",
+                  label: `${t("fields.codeEn.label")} *`,
+                  placeholder: t("fields.codeEn.placeholder"),
+                  value: formState.codeEn,
+                  onChange: handleInputChange("codeEn"),
+                },
+                {
+                  id: "program-name-en",
+                  label: `${t("fields.nameEn.label")} *`,
+                  placeholder: t("fields.nameEn.placeholder"),
+                  value: formState.nameEn,
+                  onChange: handleInputChange("nameEn"),
+                },
+                {
+                  id: "program-description-en",
+                  label: `${t("fields.descriptionEn.label")} *`,
+                  placeholder: t("fields.descriptionEn.placeholder"),
+                  value: formState.descriptionEn,
+                  onChange: handleInputChange("descriptionEn"),
+                  type: "textarea",
+                },
+              ]}
+            />
 
             <FieldSeparator />
             <FieldSet>

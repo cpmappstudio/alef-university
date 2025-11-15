@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import type { Id } from "@/convex/_generated/dataModel";
-import ClassFormDialog from "./class-form-dialog";
+import ClassFormDialog from "../class/class-form-dialog";
 
 interface CourseDetailActionsProps {
   courseId: Id<"courses">;

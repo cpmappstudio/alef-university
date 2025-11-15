@@ -10,8 +10,8 @@ import type { ColumnDef } from "@tanstack/react-table";
 import CustomTable from "@/components/ui/custom-table";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import ClassDetailInfo from "@/components/course/class-detail-info";
-import ClassDetailActions from "@/components/course/class-detail-actions";
+import ClassDetailInfo from "@/components/class/class-detail-info";
+import ClassDetailActions from "@/components/class/class-detail-actions";
 
 export default function ClassDetailPage() {
   const params = useParams();
