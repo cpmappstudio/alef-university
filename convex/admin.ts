@@ -54,7 +54,7 @@ type CreateClerkUserParams = {
   email: string;
   firstName: string;
   lastName: string;
-  role: "student" | "professor" | "admin";
+  role: "student" | "professor" | "admin" | "superadmin";
 };
 
 const CLERK_API_BASE_URL = "https://api.clerk.com/v1";
@@ -497,7 +497,6 @@ export const updateStudentStanding = mutation({
         ...student.studentProfile,
         academicStanding: args.academicStanding,
       },
-      updatedAt: Date.now(),
     });
 
     // TODO: Log the academic standing change for audit trail
@@ -574,15 +573,14 @@ export const getSystemStatistics = query({
 
     // Get user registration trends (last 6 months)
     const sixMonthsAgo = Date.now() - 6 * 30 * 24 * 60 * 60 * 1000;
-    const recentUsers = await ctx.db
-      .query("users")
-      .filter((q) => q.gte(q.field("createdAt"), sixMonthsAgo))
-      .collect();
+    const recentUsers = (await ctx.db.query("users").collect()).filter(
+      (user) => user._creationTime >= sixMonthsAgo,
+    );
 
     // Group users by month
     const usersByMonth = recentUsers.reduce(
       (acc, user) => {
-        const date = new Date(user.createdAt);
+        const date = new Date(user._creationTime);
         const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
 
         if (!acc[monthKey]) {
@@ -696,7 +694,7 @@ export const getPendingActions = query({
       userActivations: inactiveUsers.map((user) => ({
         user,
         daysSinceRegistration: Math.floor(
-          (Date.now() - user.createdAt) / (24 * 60 * 60 * 1000),
+          (Date.now() - user._creationTime) / (24 * 60 * 60 * 1000),
         ),
       })),
       gradeSubmissions: sectionsNeedingGrades,
@@ -1748,16 +1746,6 @@ export const createUserWithClerk = action({
         ),
       }),
     ),
-
-    // Professor-specific profile (no changes needed here)
-    professorProfile: v.optional(
-      v.object({
-        employeeCode: v.string(),
-        title: v.optional(v.string()),
-        department: v.optional(v.string()),
-        hireDate: v.optional(v.number()),
-      }),
-    ),
   },
   handler: async (
     ctx: ActionCtx,
@@ -1797,13 +1785,12 @@ export const createUserWithClerk = action({
       country: args.country,
     });
 
-    if (args.studentProfile || args.professorProfile) {
+    if (args.studentProfile) {
       await ctx.runMutation(api.auth.updateUserRole, {
         userId,
         role: args.role,
         isActive: args.role === "student" ? false : true,
         studentProfile: args.studentProfile,
-        professorProfile: args.professorProfile,
       });
     }
 
@@ -1857,14 +1844,6 @@ export const internalCreateUserWithClerk = internalAction({
         ),
       }),
     ),
-    professorProfile: v.optional(
-      v.object({
-        employeeCode: v.string(),
-        title: v.optional(v.string()),
-        department: v.optional(v.string()),
-        hireDate: v.optional(v.number()),
-      }),
-    ),
   },
   handler: async (
     ctx,
@@ -1915,13 +1894,12 @@ export const internalCreateUserWithClerk = internalAction({
       },
     );
 
-    if (args.studentProfile || args.professorProfile) {
+    if (args.studentProfile) {
       await ctx.runMutation(internal.auth.internalUpdateUserRoleUnsafe, {
         userId,
         role,
         isActive: role === "student" ? false : true,
         studentProfile: args.studentProfile,
-        professorProfile: args.professorProfile,
       });
     }
 
