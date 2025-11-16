@@ -116,8 +116,8 @@ export function SettingsSidebar() {
       },
     ];
 
-    // Only show Academic Management for non-students
-    if (userRole !== "student") {
+    // Only show Academic Management for admin and superadmin
+    if (userRole === "admin" || userRole === "superadmin") {
       allSections.push({
         id: "academic-management",
         label: academicManagementLabel,
