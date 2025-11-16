@@ -16,9 +16,13 @@ const isPublicRoute = createRouteMatcher([
   "/sign-up(.*)",
 ]);
 
-const COMMON_AUTHENTICATED_ROUTES = createRouteMatcher([
-  "/:locale" + ROUTES.settings.root.path + "(.*)",
-  ROUTES.settings.root.path + "(.*)",
+const SETTINGS_ACCOUNT_ROUTES = createRouteMatcher([
+  "/:locale" + ROUTES.settings.accountCustomization.path,
+  ROUTES.settings.accountCustomization.path,
+  "/:locale" + ROUTES.settings.accountProfile.path,
+  ROUTES.settings.accountProfile.path,
+  "/:locale" + ROUTES.settings.profile.path,
+  ROUTES.settings.profile.path,
 ]);
 
 const STATIC_FILE_PATTERN =
@@ -85,10 +89,12 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       return NextResponse.redirect(new URL(roleHomePath, req.url));
     }
 
-    if (COMMON_AUTHENTICATED_ROUTES(req)) {
+    // Allow account settings for all authenticated users
+    if (SETTINGS_ACCOUNT_ROUTES(req)) {
       return intlMiddleware(req);
     }
 
+    // Check role-based access for all other routes (including academic management settings)
     const accessCheck = checkRoleAccess(req, userRole, userId);
 
     if (accessCheck === "denied" || accessCheck === "wrong-student") {

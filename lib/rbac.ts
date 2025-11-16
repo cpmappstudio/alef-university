@@ -24,6 +24,15 @@ const STUDENT_ALLOWED_ROUTES = createRouteMatcher([
 const ROUTE_RESTRICTIONS: RouteRestriction[] = [
   {
     matcher: createRouteMatcher([
+      "/:locale" + ROUTES.settings.academicManagementPrograms.path,
+      ROUTES.settings.academicManagementPrograms.path,
+      "/:locale" + ROUTES.settings.academicManagementCourses.path,
+      ROUTES.settings.academicManagementCourses.path,
+    ]),
+    allowedRoles: ADMIN_ROLES,
+  },
+  {
+    matcher: createRouteMatcher([
       "/:locale" + ROUTES.programs.root.path,
       ROUTES.programs.root.path,
     ]),
@@ -145,11 +154,22 @@ export function checkRoleAccess(
   userRole: UserRole,
   userId?: string,
 ): "allowed" | "denied" | "wrong-student" {
-  // Students can ONLY access their own profile and settings
+  // Students can ONLY access their own profile and account settings (not academic management)
   if (userRole === "student") {
-    // Allow settings routes
-    if (req.nextUrl.pathname.includes(ROUTES.settings.root.path)) {
+    // Allow only account settings routes for students
+    if (
+      req.nextUrl.pathname.includes(
+        ROUTES.settings.accountCustomization.path,
+      ) ||
+      req.nextUrl.pathname.includes(ROUTES.settings.accountProfile.path) ||
+      req.nextUrl.pathname.includes(ROUTES.settings.profile.path)
+    ) {
       return "allowed";
+    }
+
+    // Deny access to academic management settings
+    if (req.nextUrl.pathname.includes(ROUTES.settings.root.path)) {
+      return "denied";
     }
 
     // Check if accessing a student profile route
@@ -173,7 +193,26 @@ export function checkRoleAccess(
     return "denied";
   }
 
-  // For non-students, check route restrictions
+  // For professors: allow account settings, deny academic management
+  if (userRole === "professor") {
+    // Allow only account settings routes for professors
+    if (
+      req.nextUrl.pathname.includes(
+        ROUTES.settings.accountCustomization.path,
+      ) ||
+      req.nextUrl.pathname.includes(ROUTES.settings.accountProfile.path) ||
+      req.nextUrl.pathname.includes(ROUTES.settings.profile.path)
+    ) {
+      return "allowed";
+    }
+
+    // Deny access to academic management settings
+    if (req.nextUrl.pathname.includes(ROUTES.settings.root.path)) {
+      return "denied";
+    }
+  }
+
+  // For all roles, check route restrictions
   for (const restriction of ROUTE_RESTRICTIONS) {
     if (restriction.matcher(req)) {
       return restriction.allowedRoles.includes(userRole) ? "allowed" : "denied";
