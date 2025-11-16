@@ -136,6 +136,10 @@ export function exportStudentGradesToPDF({
     ["", "", `${translations.totalCredits}: ${totalCredits}`, "", ""],
   ];
 
+  // Variables to store positions for drawing lines after cells
+  let headerBottomY = 0;
+  let footerTopY = 0;
+
   // Generate table
   autoTable(doc, {
     head: headers,
@@ -200,24 +204,34 @@ export function exportStudentGradesToPDF({
     },
 
     didDrawCell: (data) => {
-      // Draw line under header row
-      if (data.section === "head" && data.row.index === 0) {
-        const cellBottom = data.cell.y + data.cell.height;
-        doc.setDrawColor(0, 0, 0);
-        doc.setLineWidth(0.5);
-        doc.line(14, cellBottom, pageWidth - 14, cellBottom);
+      // Store positions for drawing lines after all cells are drawn
+      if (
+        data.section === "head" &&
+        data.row.index === 0 &&
+        data.column.index === 0
+      ) {
+        headerBottomY = data.cell.y + data.cell.height;
       }
-
-      // Draw line above footer row
-      if (data.section === "foot" && data.row.index === 0) {
-        const cellTop = data.cell.y;
-        doc.setDrawColor(0, 0, 0);
-        doc.setLineWidth(0.25);
-        doc.line(14, cellTop, pageWidth - 14, cellTop);
+      if (
+        data.section === "foot" &&
+        data.row.index === 0 &&
+        data.column.index === 0
+      ) {
+        footerTopY = data.cell.y;
       }
     },
 
     didDrawPage: (data) => {
+      // Draw lines after all cells are drawn (so they appear on top)
+      if (headerBottomY > 0) {
+        doc.setFillColor(0, 0, 0);
+        doc.rect(14, headerBottomY, pageWidth - 14 - 14, 0.1, "F");
+      }
+      if (footerTopY > 0) {
+        doc.setFillColor(0, 0, 0);
+        doc.rect(14, footerTopY - 0.1, pageWidth - 14 - 14, 0.1, "F");
+      }
+
       // Add watermark in the center of the page with reduced opacity
       try {
         doc.saveGraphicsState();
