@@ -22,18 +22,20 @@ import { ROUTES } from "@/lib/routes";
 import { format } from "date-fns";
 import { es, enUS } from "date-fns/locale";
 import type { ColumnDef } from "@tanstack/react-table";
-import type { CourseClassRow } from "@/lib/courses/types";
+import type { CourseClassRow, CourseProgramSummary } from "@/lib/courses/types";
 
 interface CourseDetailClientProps {
   courseId: Id<"courses">;
   initialCourse?: Doc<"courses"> | null;
   initialClasses?: CourseClassRow[];
+  initialPrograms?: CourseProgramSummary[];
 }
 
 export function CourseDetailClient({
   courseId,
   initialCourse,
   initialClasses,
+  initialPrograms,
 }: CourseDetailClientProps) {
   const router = useRouter();
   const locale = useLocale();
@@ -44,14 +46,17 @@ export function CourseDetailClient({
 
   const courseQuery = useQuery(api.courses.getCourseById, { id: courseId });
   const classesQuery = useQuery(api.classes.getClassesByCourse, { courseId });
+  const programsQuery = useQuery(api.programs.getProgramsByCourse, {
+    courseId,
+  });
 
   const course = courseQuery ?? initialCourse ?? null;
   const classes =
     (classesQuery as CourseClassRow[] | undefined) ?? initialClasses ?? [];
-
-  const handleBack = React.useCallback(() => {
-    router.push(ROUTES.courses.root.withLocale(locale));
-  }, [router, locale]);
+  const programs =
+    (programsQuery as CourseProgramSummary[] | undefined) ??
+    initialPrograms ??
+    [];
 
   const handleEdit = React.useCallback(() => {
     setIsEditDialogOpen(true);
@@ -190,9 +195,9 @@ export function CourseDetailClient({
       <CourseDetailInfo
         course={course}
         locale={locale}
-        onBack={handleBack}
         onEdit={handleEdit}
         onDelete={handleDelete}
+        programs={programs}
       />
 
       {/*<Separator />*/}

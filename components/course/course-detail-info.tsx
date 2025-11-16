@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import type { Doc } from "@/convex/_generated/dataModel";
@@ -13,21 +14,23 @@ import {
   GradientCardDescriptions,
   GradientCardDescriptionBlock,
 } from "@/components/ui/gradient-card";
+import { ROUTES } from "@/lib/routes";
+import type { CourseProgramSummary } from "@/lib/courses/types";
 
 interface CourseDetailInfoProps {
   course: Doc<"courses">;
   locale: string;
-  onBack: () => void;
   onEdit: () => void;
   onDelete: () => void;
+  programs?: CourseProgramSummary[];
 }
 
 export default function CourseDetailInfo({
   course,
   locale,
-  onBack,
   onEdit,
   onDelete,
+  programs = [],
 }: CourseDetailInfoProps) {
   const t = useTranslations("admin.courses.detail");
   const tTable = useTranslations("admin.courses.table");
@@ -55,6 +58,7 @@ export default function CourseDetailInfo({
     en: tTable("languages.en"),
     both: tTable("languages.both"),
   };
+  const hasPrograms = programs.length > 0;
 
   const actions = (
     <>
@@ -150,6 +154,41 @@ export default function CourseDetailInfo({
             />
           )}
         </GradientCardDetailGrid>
+
+        {hasPrograms && (
+          <div className="mt-6 pt-6 border-t border-white/20">
+            <div className="flex flex-wrap gap-2">
+              {programs.map((program) => {
+                const programName =
+                  locale === "es"
+                    ? program.nameEs || program.nameEn || "-"
+                    : program.nameEn || program.nameEs || "-";
+                const programCode =
+                  locale === "es"
+                    ? program.codeEs || program.codeEn || ""
+                    : program.codeEn || program.codeEs || "";
+                const href = ROUTES.programs
+                  .details(program._id)
+                  .withLocale(locale);
+
+                return (
+                  <Link
+                    key={program._id}
+                    href={href}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/40 px-3 py-1 text-sm font-medium text-white transition hover:bg-white/10"
+                  >
+                    <span>{programName}</span>
+                    {programCode && (
+                      <span className="text-xs text-white/70">
+                        {programCode}
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Descriptions Section */}
         {(descriptionEs || descriptionEn) && (

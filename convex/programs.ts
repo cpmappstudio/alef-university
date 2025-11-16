@@ -1132,6 +1132,42 @@ export const getProgramStatistics = query({
   },
 });
 
+export const getProgramsByCourse = query({
+  args: {
+    courseId: v.id("courses"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return [];
+    }
+
+    const programLinks = await ctx.db
+      .query("program_courses")
+      .withIndex("by_course", (q) => q.eq("courseId", args.courseId))
+      .filter((q) => q.eq(q.field("isActive"), true))
+      .collect();
+
+    if (programLinks.length === 0) {
+      return [];
+    }
+
+    const programs = await Promise.all(
+      programLinks.map(async (link) => await ctx.db.get(link.programId)),
+    );
+
+    return programs
+      .filter((program): program is Doc<"programs"> => program !== null)
+      .map((program) => ({
+        _id: program._id,
+        nameEs: program.nameEs,
+        nameEn: program.nameEn,
+        codeEs: program.codeEs,
+        codeEn: program.codeEn,
+      }));
+  },
+});
+
 /**
  * Delete a program (Admin only)
  * Prevents deletion if students are enrolled in the program.

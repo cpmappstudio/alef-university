@@ -22,7 +22,7 @@ export default async function CourseDetailPage({
   const token = await authData.getToken({ template: "convex" });
   const fetchOptions = token ? { token } : undefined;
 
-  const [course, classes] = await Promise.all([
+  const [course, classes, programs] = await Promise.all([
     fetchQuery(
       api.courses.getCourseById,
       { id: params.courseId },
@@ -30,6 +30,11 @@ export default async function CourseDetailPage({
     ),
     fetchQuery(
       api.classes.getClassesByCourse,
+      { courseId: params.courseId },
+      fetchOptions,
+    ),
+    fetchQuery(
+      api.programs.getProgramsByCourse,
       { courseId: params.courseId },
       fetchOptions,
     ),
@@ -44,6 +49,7 @@ export default async function CourseDetailPage({
       courseId={params.courseId}
       initialCourse={course}
       initialClasses={(classes ?? []) as CourseClassRow[]}
+      initialPrograms={programs ?? []}
     />
   );
 }
