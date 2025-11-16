@@ -17,7 +17,7 @@ import ProgramActions from "@/components/program/program-actions";
 import { programColumns } from "@/components/program/columns";
 
 /* lib */
-import { exportProgramsToPDF } from "@/lib/export-programs-pdf";
+import { exportProgramsToPDF } from "@/lib/export/export-programs-pdf";
 import {
   buildProgramDetailsPath,
   buildProgramExportTranslations,

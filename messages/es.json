@@ -1299,6 +1299,15 @@
             "percentageGrade": "Nota (%)",
             "letterGrade": "Letra"
           }
+        },
+        "export": {
+          "title": "Historial Académico",
+          "studentName": "Estudiante",
+          "program": "Programa",
+          "generatedOn": "Generado el",
+          "totalCourses": "Total de Cursos",
+          "page": "Página",
+          "of": "de"
         }
       },
       "deleteDialog": {

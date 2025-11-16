@@ -13,7 +13,7 @@ import type {
   ProgramUpdatePayload,
 } from "@/lib/programs/types";
 import type { Translator } from "@/lib/table/types";
-import { exportProgramsToPDF } from "@/lib/export-programs-pdf";
+import { exportProgramsToPDF } from "@/lib/export/export-programs-pdf";
 import {
   getLocalizedFieldVisibility,
   hasContent,

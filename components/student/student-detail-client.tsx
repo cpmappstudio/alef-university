@@ -12,6 +12,8 @@ import type {
   StudentDetailClientProps,
   StudentDocument,
 } from "@/lib/students/types";
+import { exportStudentGradesToPDF } from "@/lib/export/export-student-grades-pdf";
+import { buildStudentExportTranslations } from "@/lib/students/utils";
 
 import { StudentFormDialog } from "@/components/student/student-form-dialog";
 import { StudentDetailInfo } from "@/components/student/student-detail-info";
@@ -19,6 +21,7 @@ import { StudentDeleteDialog } from "@/components/student/student-delete-dialog"
 import { Separator } from "@/components/ui/separator";
 import CustomTable from "@/components/ui/custom-table";
 import { studentGradeColumns } from "@/components/student/grade-columns";
+import type { StudentGradeRow } from "@/components/student/grade-columns";
 
 export function StudentDetailClient({
   studentId,
@@ -29,6 +32,7 @@ export function StudentDetailClient({
   const router = useRouter();
   const t = useTranslations("admin.students.detail");
   const tTable = useTranslations("admin.students.detail.table");
+  const tExport = useTranslations("admin.students.detail.export");
 
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
@@ -56,6 +60,8 @@ export function StudentDetailClient({
     [tTable, locale],
   );
 
+  const exportTranslations = buildStudentExportTranslations(tTable, tExport);
+
   const handleEdit = React.useCallback(() => {
     setIsEditDialogOpen(true);
   }, []);
@@ -67,6 +73,27 @@ export function StudentDetailClient({
   const handleDeleteSuccess = React.useCallback(() => {
     router.push(ROUTES.students.root.withLocale(locale));
   }, [router, locale]);
+
+  const handleExport = React.useCallback(
+    (rows: StudentGradeRow[]) => {
+      exportStudentGradesToPDF({
+        student: {
+          firstName: student?.firstName,
+          lastName: student?.lastName,
+          email: student?.email,
+        },
+        programName: program
+          ? locale === "es"
+            ? program.nameEs || program.nameEn
+            : program.nameEn || program.nameEs
+          : undefined,
+        grades: rows,
+        locale,
+        translations: exportTranslations,
+      });
+    },
+    [student, program, locale, exportTranslations],
+  );
 
   if (!student) {
     return (
@@ -111,6 +138,7 @@ export function StudentDetailClient({
         filterPlaceholder={t("filterCoursesPlaceholder")}
         columnsMenuLabel={t("columnsMenuLabel")}
         emptyMessage={t("emptyGradesMessage")}
+        onExport={handleExport}
       />
     </>
   );

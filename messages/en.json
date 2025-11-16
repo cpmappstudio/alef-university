@@ -1323,6 +1323,15 @@
             "percentageGrade": "Grade (%)",
             "letterGrade": "Letter"
           }
+        },
+        "export": {
+          "title": "Academic Transcript",
+          "studentName": "Student",
+          "program": "Program",
+          "generatedOn": "Generated on",
+          "totalCourses": "Total Courses",
+          "page": "Page",
+          "of": "of"
         }
       },
       "deleteDialog": {

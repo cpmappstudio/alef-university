@@ -7,6 +7,7 @@ import type {
   StudentUpdatePayload,
 } from "@/lib/students/types";
 import type { Id } from "@/convex/_generated/dataModel";
+import type { Translator } from "@/lib/table/types";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -111,3 +112,26 @@ export const buildStudentUpdatePayload = (
     ...buildStudentCreatePayload(state),
   };
 };
+
+export function buildStudentExportTranslations(
+  tableTranslations: Translator,
+  exportTranslations: Translator,
+) {
+  return {
+    title: exportTranslations("title"),
+    studentName: exportTranslations("studentName"),
+    program: exportTranslations("program"),
+    generatedOn: exportTranslations("generatedOn"),
+    totalCourses: exportTranslations("totalCourses"),
+    page: exportTranslations("page"),
+    of: exportTranslations("of"),
+    columns: {
+      courseCode: tableTranslations("columns.courseCode"),
+      courseName: tableTranslations("columns.courseName"),
+      credits: tableTranslations("columns.credits"),
+      percentageGrade: tableTranslations("columns.percentageGrade"),
+      letterGrade: tableTranslations("columns.letterGrade"),
+    },
+    emptyValue: tableTranslations("columns.emptyValue"),
+  };
+}
