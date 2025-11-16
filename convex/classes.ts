@@ -271,6 +271,47 @@ export const getClassEnrollments = query({
 });
 
 /**
+ * Get enrollments for a specific student with course details
+ */
+export const getStudentEnrollments = query({
+  args: {
+    studentId: v.id("users"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return [];
+    }
+
+    // Get all enrollments for this student
+    const enrollments = await ctx.db
+      .query("class_enrollments")
+      .withIndex("by_student", (q) => q.eq("studentId", args.studentId))
+      .collect();
+
+    // Enrich with course and bimester details
+    const enrichedEnrollments = await Promise.all(
+      enrollments.map(async (enrollment) => {
+        const [course, bimester, classItem] = await Promise.all([
+          ctx.db.get(enrollment.courseId),
+          ctx.db.get(enrollment.bimesterId),
+          ctx.db.get(enrollment.classId),
+        ]);
+
+        return {
+          ...enrollment,
+          course,
+          bimester,
+          class: classItem,
+        };
+      }),
+    );
+
+    return enrichedEnrollments;
+  },
+});
+
+/**
  * Create a new class
  */
 export const createClass = mutation({

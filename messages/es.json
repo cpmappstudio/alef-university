@@ -1286,7 +1286,20 @@
             "withdrawn": "Retirado"
           }
         },
-        "assignmentsPlaceholder": "Pronto verás las asignaciones del estudiante en esta sección."
+        "assignmentsPlaceholder": "Pronto verás las asignaciones del estudiante en esta sección.",
+        "filterCoursesPlaceholder": "Filtrar cursos...",
+        "columnsMenuLabel": "Columnas",
+        "emptyGradesMessage": "No se encontraron calificaciones para este estudiante.",
+        "table": {
+          "columns": {
+            "emptyValue": "—",
+            "courseCode": "Código del Curso",
+            "courseName": "Curso",
+            "credits": "Créditos",
+            "percentageGrade": "Nota (%)",
+            "letterGrade": "Letra"
+          }
+        }
       },
       "deleteDialog": {
         "title": "¿Eliminar estudiante?",

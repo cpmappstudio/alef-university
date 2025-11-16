@@ -17,6 +17,8 @@ import { StudentFormDialog } from "@/components/student/student-form-dialog";
 import { StudentDetailInfo } from "@/components/student/student-detail-info";
 import { StudentDeleteDialog } from "@/components/student/student-delete-dialog";
 import { Separator } from "@/components/ui/separator";
+import CustomTable from "@/components/ui/custom-table";
+import { studentGradeColumns } from "@/components/student/grade-columns";
 
 export function StudentDetailClient({
   studentId,
@@ -26,6 +28,7 @@ export function StudentDetailClient({
   const locale = useLocale();
   const router = useRouter();
   const t = useTranslations("admin.students.detail");
+  const tTable = useTranslations("admin.students.detail.table");
 
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
@@ -41,6 +44,17 @@ export function StudentDetailClient({
     programId ? { id: programId as Id<"programs"> } : "skip",
   );
   const program = programQuery ?? initialProgram ?? null;
+
+  // Get student enrollments (grades)
+  const enrollmentsQuery = useQuery(api.classes.getStudentEnrollments, {
+    studentId,
+  });
+  const enrollments = enrollmentsQuery ?? [];
+
+  const gradeColumns = React.useMemo(
+    () => studentGradeColumns(tTable, locale),
+    [tTable, locale],
+  );
 
   const handleEdit = React.useCallback(() => {
     setIsEditDialogOpen(true);
@@ -90,9 +104,14 @@ export function StudentDetailClient({
 
       <Separator />
 
-      <section className="space-y-2 text-sm text-muted-foreground">
-        <p>{t("assignmentsPlaceholder")}</p>
-      </section>
+      <CustomTable
+        columns={gradeColumns}
+        data={enrollments}
+        filterColumn="courseName"
+        filterPlaceholder={t("filterCoursesPlaceholder")}
+        columnsMenuLabel={t("columnsMenuLabel")}
+        emptyMessage={t("emptyGradesMessage")}
+      />
     </>
   );
 }

@@ -1310,7 +1310,20 @@
             "withdrawn": "Withdrawn"
           }
         },
-        "assignmentsPlaceholder": "Student assignments will appear here soon."
+        "assignmentsPlaceholder": "Student assignments will appear here soon.",
+        "filterCoursesPlaceholder": "Filter courses...",
+        "columnsMenuLabel": "Columns",
+        "emptyGradesMessage": "No grades found for this student.",
+        "table": {
+          "columns": {
+            "emptyValue": "—",
+            "courseCode": "Course Code",
+            "courseName": "Course",
+            "credits": "Credits",
+            "percentageGrade": "Grade (%)",
+            "letterGrade": "Letter"
+          }
+        }
       },
       "deleteDialog": {
         "title": "Delete student?",
