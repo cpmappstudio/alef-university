@@ -1,6 +1,7 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
 import type { Doc } from "./_generated/dataModel";
+import { calculateGradeInfo } from "./helpers";
 
 /**
  * Compute class status based on bimester dates
@@ -604,6 +605,12 @@ export const updateEnrollmentGrade = mutation({
       throw new Error("Class not found");
     }
 
+    // Get the course to get credits
+    const course = await ctx.db.get(classItem.courseId);
+    if (!course) {
+      throw new Error("Course not found");
+    }
+
     // Get the bimester to check if grades can be submitted
     const bimester = await ctx.db.get(classItem.bimesterId);
     if (!bimester) {
@@ -625,9 +632,15 @@ export const updateEnrollmentGrade = mutation({
       throw new Error("Current user not found");
     }
 
-    // Update the grade
+    // Calculate grade info (letter grade, grade points, quality points)
+    const gradeInfo = calculateGradeInfo(args.percentageGrade, course.credits);
+
+    // Update the grade with all calculated fields
     await ctx.db.patch(args.enrollmentId, {
       percentageGrade: args.percentageGrade,
+      letterGrade: gradeInfo.letterGrade,
+      gradePoints: gradeInfo.gradePoints,
+      qualityPoints: gradeInfo.qualityPoints,
       gradedBy: currentUser._id,
       gradedAt: now,
       updatedAt: now,
