@@ -202,9 +202,7 @@ export function ProfessorFormDialog({
                     autoComplete="email"
                     disabled={mode === "edit"}
                   />
-                  <FieldDescription className="text-muted-foreground">
-                    {t("fields.email.description")}
-                  </FieldDescription>
+
                   <FieldError>{fieldErrors.email}</FieldError>
                 </FieldContent>
               </Field>
