@@ -35,6 +35,7 @@ interface ExportStudentGradesPDFOptions {
     program: string;
     generatedOn: string;
     totalCourses: string;
+    totalCredits: string;
     page: string;
     of: string;
     columns: {
@@ -76,6 +77,12 @@ export function exportStudentGradesToPDF({
 
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
+
+  // Calculate total credits
+  const totalCredits = grades.reduce((sum, grade) => {
+    const credits = grade.course?.credits;
+    return sum + (credits !== undefined && credits !== null ? credits : 0);
+  }, 0);
 
   // Prepare table data
   const tableData = grades.map((grade) => {
@@ -124,10 +131,16 @@ export function exportStudentGradesToPDF({
     ],
   ];
 
+  // Footer row with total credits
+  const footerData = [
+    ["", "", `${translations.totalCredits}: ${totalCredits}`, "", ""],
+  ];
+
   // Generate table
   autoTable(doc, {
     head: headers,
     body: tableData,
+    foot: footerData,
     startY: 55,
     margin: { top: 55, right: 14, bottom: 25, left: 14 },
     styles: {
@@ -158,6 +171,16 @@ export function exportStudentGradesToPDF({
     alternateRowStyles: {
       fillColor: [255, 255, 255],
     },
+    footStyles: {
+      fillColor: [255, 255, 255],
+      textColor: [0, 0, 0],
+      fontSize: 9,
+      fontStyle: "bold",
+      halign: "left",
+      cellPadding: 3,
+      lineWidth: 0,
+      lineColor: [0, 0, 0],
+    },
     columnStyles: {
       0: { cellWidth: 25, halign: "left" }, // Course Code
       1: { cellWidth: 60, halign: "left" }, // Course Name
@@ -183,6 +206,14 @@ export function exportStudentGradesToPDF({
         doc.setDrawColor(0, 0, 0);
         doc.setLineWidth(0.5);
         doc.line(14, cellBottom, pageWidth - 14, cellBottom);
+      }
+
+      // Draw line above footer row
+      if (data.section === "foot" && data.row.index === 0) {
+        const cellTop = data.cell.y;
+        doc.setDrawColor(0, 0, 0);
+        doc.setLineWidth(0.25);
+        doc.line(14, cellTop, pageWidth - 14, cellTop);
       }
     },
 

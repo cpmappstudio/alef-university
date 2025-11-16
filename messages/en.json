@@ -1330,6 +1330,7 @@
           "program": "Program",
           "generatedOn": "Generated on",
           "totalCourses": "Total Courses",
+          "totalCredits": "Total",
           "page": "Page",
           "of": "of"
         }

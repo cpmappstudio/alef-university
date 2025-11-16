@@ -123,6 +123,7 @@ export function buildStudentExportTranslations(
     program: exportTranslations("program"),
     generatedOn: exportTranslations("generatedOn"),
     totalCourses: exportTranslations("totalCourses"),
+    totalCredits: exportTranslations("totalCredits"),
     page: exportTranslations("page"),
     of: exportTranslations("of"),
     columns: {
