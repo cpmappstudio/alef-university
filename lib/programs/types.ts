@@ -98,6 +98,8 @@ export type ProgramUpdatePayload = {
   programId: Id<"programs">;
   categoryId: Id<"program_categories">;
   language: ProgramLanguageOption;
+  type: ProgramTypeOption;
+  durationBimesters: number;
   isActive: boolean;
   codeEs?: string;
   codeEn?: string;

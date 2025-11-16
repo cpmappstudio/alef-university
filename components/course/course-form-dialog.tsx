@@ -160,7 +160,6 @@ export function CourseFormDialog({
   const languageOptions = [
     { value: "es", label: t("options.languages.es") },
     { value: "en", label: t("options.languages.en") },
-    { value: "both", label: t("options.languages.both") },
   ];
 
   const categoryOptions = [

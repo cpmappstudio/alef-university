@@ -497,10 +497,10 @@ export const updateProgram = mutation({
     degree: v.optional(v.string()),
     categoryId: v.id("program_categories"),
     language: languageValidator,
+    type: programTypeValidator,
+    durationBimesters: v.number(),
     tuitionPerCredit: v.optional(v.number()),
     isActive: v.boolean(),
-    // Note: Core fields like 'type', 'totalCredits', 'durationBimesters' are intentionally omitted
-    // as they should not be changed after a program is created to maintain data integrity.
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -562,6 +562,10 @@ export const updateProgram = mutation({
       }
     }
 
+    if (updates.durationBimesters <= 0) {
+      throw new ConvexError("Program duration must be a positive number");
+    }
+
     // Check for duplicate codes (excluding current program)
     const allPrograms = await ctx.db.query("programs").collect();
 
@@ -598,6 +602,8 @@ export const updateProgram = mutation({
       degree: updates.degree,
       categoryId: updates.categoryId,
       language: updates.language,
+      type: updates.type,
+      durationBimesters: updates.durationBimesters,
       tuitionPerCredit: updates.tuitionPerCredit,
       isActive: updates.isActive,
     };

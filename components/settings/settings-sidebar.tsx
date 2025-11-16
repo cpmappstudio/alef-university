@@ -108,31 +108,31 @@ export function SettingsSidebar() {
           },
         ],
       },
-      {
-        id: "university",
-        label: universityLabel,
-        icon: Building2,
-        items: [
-          {
-            id: "general",
-            label: generalLabel,
-            href: ROUTES.settings.universityGeneral.withLocale(locale),
-            icon: SlidersHorizontal,
-          },
-          {
-            id: "members",
-            label: membersLabel,
-            href: ROUTES.settings.universityMembers.withLocale(locale),
-            icon: Users,
-          },
-          {
-            id: "roles",
-            label: rolesLabel,
-            href: ROUTES.settings.universityRoles.withLocale(locale),
-            icon: ShieldCheck,
-          },
-        ],
-      },
+      // {
+      //   id: "university",
+      //   label: universityLabel,
+      //   icon: Building2,
+      //   items: [
+      //     {
+      //       id: "general",
+      //       label: generalLabel,
+      //       href: ROUTES.settings.universityGeneral.withLocale(locale),
+      //       icon: SlidersHorizontal,
+      //     },
+      //     {
+      //       id: "members",
+      //       label: membersLabel,
+      //       href: ROUTES.settings.universityMembers.withLocale(locale),
+      //       icon: Users,
+      //     },
+      //     {
+      //       id: "roles",
+      //       label: rolesLabel,
+      //       href: ROUTES.settings.universityRoles.withLocale(locale),
+      //       icon: ShieldCheck,
+      //     },
+      //   ],
+      // },
       {
         id: "academic-management",
         label: academicManagementLabel,

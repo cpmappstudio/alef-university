@@ -98,7 +98,7 @@ export function createFormStateFromProgram(
   }
 
   return {
-    language: program.language ?? "",
+    language: normalizeProgramFormLanguage(program.language),
     type: program.type ?? "",
     categoryId: program.categoryId ? String(program.categoryId) : "",
     codeEs: program.codeEs ?? "",
@@ -230,9 +230,18 @@ export function buildProgramUpdatePayload(
     throw new Error("Invalid program language");
   }
 
+  if (!isProgramTypeOption(values.type)) {
+    throw new Error("Invalid program type");
+  }
+
   const categoryId = normalizeId(values.categoryId);
   if (!categoryId) {
     throw new Error("Program category is required");
+  }
+
+  const durationBimesters = parsePositiveNumber(values.durationBimesters);
+  if (durationBimesters === null) {
+    throw new Error("Duration must be a positive number");
   }
 
   const { showSpanishFields, showEnglishFields } = getLanguageVisibility(
@@ -243,6 +252,8 @@ export function buildProgramUpdatePayload(
     programId,
     categoryId: categoryId as Id<"program_categories">,
     language: values.language as ProgramLanguageOption,
+    type: values.type as ProgramTypeOption,
+    durationBimesters,
     isActive: values.isActive,
     ...(showSpanishFields
       ? {
@@ -431,6 +442,15 @@ export function exportProgramCourses({
 function normalizeId(value: string): string | null {
   const trimmed = value.trim();
   return trimmed === "" ? null : trimmed;
+}
+
+function normalizeProgramFormLanguage(
+  language: Program["language"],
+): ProgramFormState["language"] {
+  if (!language) {
+    return "";
+  }
+  return language === "both" ? "es" : language;
 }
 
 function isProgramLanguageOption(

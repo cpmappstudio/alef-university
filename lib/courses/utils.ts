@@ -36,7 +36,7 @@ export function createFormStateFromCourse(
   }
 
   return {
-    language: course.language ?? "",
+    language: normalizeCourseFormLanguage(course.language),
     category: course.category ?? "",
     codeEs: course.codeEs ?? "",
     nameEs: course.nameEs ?? "",
@@ -228,6 +228,15 @@ function safeNumberToString(value: number | null | undefined): string {
   return typeof value === "number" && Number.isFinite(value)
     ? String(value)
     : "";
+}
+
+function normalizeCourseFormLanguage(
+  language: Course["language"],
+): CourseFormState["language"] {
+  if (!language) {
+    return "";
+  }
+  return language === "both" ? "es" : language;
 }
 
 export function getCourseProgramName(
