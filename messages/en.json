@@ -1352,18 +1352,9 @@
             "emptyValue": "—",
             "student": "Student",
             "studentCode": "Student Code",
-            "enrollmentStatus": "Status",
             "percentageGrade": "Grade (%)",
             "letterGrade": "Letter",
             "gradePoints": "Points"
-          },
-          "enrollmentStatusValues": {
-            "enrolled": "Enrolled",
-            "dropped": "Dropped",
-            "withdrawn": "Withdrawn",
-            "completed": "Completed",
-            "incomplete": "Incomplete",
-            "failed": "Failed"
           }
         },
         "manageStudentsButton": "Manage Students",

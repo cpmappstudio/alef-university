@@ -1,9 +1,12 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import type { Translator } from "@/lib/table/types";
-import type { ClassEnrollmentRow } from "@/lib/classes/types";
+import type {
+  ClassEnrollmentRow,
+  ClassWithRelations,
+} from "@/lib/classes/types";
 
 const createStudentColumn = (
   t: Translator,
@@ -41,36 +44,9 @@ const createStudentCodeColumn = (
     row.original.student?.studentProfile?.studentCode ?? emptyValue,
 });
 
-const createEnrollmentStatusColumn = (
-  t: Translator,
-): ColumnDef<ClassEnrollmentRow> => ({
-  accessorKey: "status",
-  header: t("columns.enrollmentStatus"),
-  cell: ({ row }) => {
-    const status = row.original.status ?? "enrolled";
-    const variants: Record<
-      string,
-      "default" | "secondary" | "outline" | "destructive"
-    > = {
-      enrolled: "default",
-      dropped: "secondary",
-      withdrawn: "outline",
-      completed: "default",
-      incomplete: "destructive",
-      failed: "destructive",
-    };
-
-    return (
-      <Badge variant={variants[status] ?? "secondary"} className="text-xs">
-        {t(`enrollmentStatusValues.${status}`)}
-      </Badge>
-    );
-  },
-});
-
 const createPercentageGradeColumn = (
   t: Translator,
-  emptyValue: string,
+  classStatus: ClassWithRelations["status"],
 ): ColumnDef<ClassEnrollmentRow> => ({
   accessorKey: "percentageGrade",
   header: () => (
@@ -78,9 +54,20 @@ const createPercentageGradeColumn = (
   ),
   cell: ({ row }) => {
     const grade = row.original.percentageGrade;
+    const isEditable = classStatus === "grading";
+
     return (
-      <div className="text-right font-mono">
-        {grade !== undefined && grade !== null ? `${grade}%` : emptyValue}
+      <div className="text-right">
+        <Input
+          type="number"
+          min="0"
+          max="100"
+          step="0.01"
+          defaultValue={grade ?? ""}
+          placeholder="0.00"
+          className={`w-20 text-right font-mono ${!isEditable ? "opacity-50 cursor-not-allowed" : ""}`}
+          disabled={!isEditable}
+        />
       </div>
     );
   },
@@ -119,14 +106,14 @@ const createGradePointsColumn = (
 
 export const classEnrollmentColumns = (
   t: Translator,
+  classStatus: ClassWithRelations["status"],
 ): ColumnDef<ClassEnrollmentRow>[] => {
   const emptyValue = t("columns.emptyValue");
 
   return [
     createStudentColumn(t, emptyValue),
     createStudentCodeColumn(t, emptyValue),
-    createEnrollmentStatusColumn(t),
-    createPercentageGradeColumn(t, emptyValue),
+    createPercentageGradeColumn(t, classStatus),
     createLetterGradeColumn(t, emptyValue),
     createGradePointsColumn(t, emptyValue),
   ];

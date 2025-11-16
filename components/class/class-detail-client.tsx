@@ -77,8 +77,8 @@ export function ClassDetailClient({
   }, [router, locale, classData?.courseId]);
 
   const studentColumns = React.useMemo(
-    () => classEnrollmentColumns(tTable),
-    [tTable],
+    () => classEnrollmentColumns(tTable, classData?.status ?? "open"),
+    [tTable, classData?.status],
   );
 
   if (!classData) {
