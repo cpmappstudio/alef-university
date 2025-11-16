@@ -30,6 +30,7 @@ export function ClassDetailClient({
   classId,
   initialClass,
   initialEnrollments,
+  userRole,
 }: ClassDetailClientProps) {
   const router = useRouter();
   const locale = useLocale();
@@ -146,15 +147,21 @@ export function ClassDetailClient({
         onBack={handleBack}
       />
 
-      <Separator />
+      {(userRole === "admin" || userRole === "superadmin") && (
+        <>
+          <Separator />
 
-      <ClassDetailActions
-        classId={classId}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+          <ClassDetailActions
+            classId={classId}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
 
-      <Separator />
+          <Separator />
+        </>
+      )}
+
+      {userRole !== "admin" && userRole !== "superadmin" && <Separator />}
 
       <CustomTable
         columns={studentColumns}

@@ -119,29 +119,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     }
 
     if (userRole === "professor") {
-      // Mis Clases
-      if (menuConfig.professor) {
-        items.push(
-          buildSection("professor", "professor", {
-            isActive: true,
-            excludeProgress: true,
-          }),
-        );
+      // For professors: only show Home link to their profile
+      if (userId) {
+        items.push({
+          title: t("home") || "Home",
+          url: ROUTES.professors.details(userId).withLocale(locale),
+          icon: Home,
+          isActive: true,
+          items: [],
+        });
       }
-
-      // Documentación para profesores - OCULTO
-      // if (menuConfig.professorDocs) {
-      //   items.push({
-      //     title: menuConfig.professorDocs.title,
-      //     url: menuConfig.professorDocs.url,
-      //     icon: iconMap.professorDocs,
-      //     isActive: false,
-      //     items: menuConfig.professorDocs.items.map(item => ({
-      //       title: item.title,
-      //       url: item.url,
-      //     })),
-      //   })
-      // }
     }
 
     if (userRole === "admin" || userRole === "superadmin") {

@@ -17,4 +17,5 @@ export type ClassDetailClientProps = {
   classId: Id<"classes">;
   initialClass?: ClassWithRelations | null;
   initialEnrollments?: ClassEnrollmentRow[];
+  userRole?: string | null;
 };
