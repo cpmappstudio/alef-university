@@ -134,7 +134,6 @@ export const generateTranscriptData = query({
         totalCreditsAttempted: overallGPA.attemptedCredits,
         totalCreditsEarned: overallGPA.earnedCredits,
         cumulativeGPA: overallGPA.gpa,
-        academicStanding: student.studentProfile.academicStanding,
       },
     };
   },
@@ -236,7 +235,6 @@ export const generateEnrollmentCertificate = query({
           (sum, e) => sum + (e.course?.credits || 0),
           0,
         ),
-        enrollmentStatus: student.studentProfile.status,
       },
     };
   },
@@ -623,13 +621,6 @@ export const generateCompletionCertificate = query({
       throw new ConvexError("Student not found or invalid profile");
     }
 
-    // Check if student has graduated
-    if (student.studentProfile.status !== "graduated") {
-      throw new ConvexError(
-        "Certificate can only be generated for graduated students",
-      );
-    }
-
     const program = await ctx.db.get(student.studentProfile.programId);
     if (!program) {
       throw new ConvexError("Program not found");
@@ -670,9 +661,7 @@ export const generateCompletionCertificate = query({
       academicSummary: {
         totalCreditsCompleted: academicProgress.creditsCompleted,
         cumulativeGPA: overallGPA.gpa,
-        programCompletionDate:
-          student.studentProfile.expectedGraduationDate || Date.now(),
-        academicStanding: student.studentProfile.academicStanding,
+        programCompletionDate: Date.now(),
       },
       graduationValidation,
       generatedAt: Date.now(),

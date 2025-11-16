@@ -1207,7 +1207,9 @@
           },
           "program": {
             "label": "Programa",
-            "placeholder": "Selecciona un programa"
+            "placeholder": "Selecciona un programa",
+            "searchPlaceholder": "Buscar programas...",
+            "noPrograms": "No se encontraron programas"
           },
           "enrollmentDate": {
             "label": "Fecha de inscripción",

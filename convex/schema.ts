@@ -1,39 +1,4 @@
-// ################################################################################
-// # File: schema.ts                                                              #
-// # Authors: Juan Camilo Narváez Tascón (github.com/ulvenforst)                  #
-// # Creation date: 08/17/2025                                                    #
-// # License: Apache License 2.0                                                  #
-// ################################################################################
-
-/**
- * ALEF UNIVERSITY: Student Information System (SIS)
- * Schema optimized for American grading system and bimester-based academic periods.
- *
- * PERFORMANCE NOTES (Convex Best Practices):
- * - Indexes are designed to avoid full table scans on tables > 1000 documents
- * - Compound indexes ordered by selectivity (most selective field first)
- * - No redundant indexes (if we have ["a", "b"], we don't need ["a"])
- * - Maximum 32 indexes per table (we use ~4-5 per table)
- * - Strategic denormalization in enrollments table for dashboard queries
- *
- * QUERY PATTERNS SUPPORTED:
- * - Student dashboard: Progress by category, GPA calculation, current enrollments
- * - Professor dashboard: Sections by period, grade submission, student lists
- * - Admin dashboard: Program management, enrollment statistics, user management
- * - Document generation: Transcripts, certificates with audit trail
- *
- * Tables:
- * 1. users - Students, professors, admins (indexed by role, clerk_id, email)
- * 2. programs - Academic programs (indexed by code, type, language)
- * 3. periods - Bimester periods (indexed by year, status, dates)
- * 4. courses - Course catalog (indexed by code, category, language)
- * 5. program_courses - Many-to-many relationship (indexed by program, course)
- * 6. sections - Course sections (indexed by CRN, period, professor)
- * 7. enrollments - Student enrollments with grades (indexed by student, section, period)
- * 8. program_requirements - Credit requirements (indexed by program, dates)
- * 9. announcements - Section announcements (indexed by section, type)
- * 10. document_logs - Certificate/transcript audit (indexed by user, type, date)
- */
+/* THIS NEEDS REFACTORING */
 
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
@@ -82,23 +47,6 @@ export default defineSchema({
       v.object({
         studentCode: v.string(), // Student ID number
         programId: v.id("programs"),
-        enrollmentDate: v.number(),
-        expectedGraduationDate: v.optional(v.number()),
-        status: v.union(
-          v.literal("active"),
-          v.literal("inactive"),
-          v.literal("on_leave"),
-          v.literal("graduated"),
-          v.literal("withdrawn"),
-        ),
-        // Academic standing
-        academicStanding: v.optional(
-          v.union(
-            v.literal("good_standing"),
-            v.literal("probation"),
-            v.literal("suspension"),
-          ),
-        ),
       }),
     ),
   })

@@ -1,14 +1,4 @@
-// ################################################################################
-// # File: professors.ts                                                         #
-// # Authors: Juan Camilo Narváez Tascón (github.com/ulvenforst)                  #
-// # Creation date: 08/23/2025                                                    #
-// # License: Apache License 2.0                                                  #
-// ################################################################################
-
-/**
- * Professor-specific queries and mutations
- * Handles professor's sections, grade submission, and teaching analytics
- */
+/* THIS NEEDS REFACTORING */
 
 import { query, mutation } from "./_generated/server";
 import { v, ConvexError } from "convex/values";

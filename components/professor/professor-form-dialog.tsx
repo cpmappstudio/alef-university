@@ -143,7 +143,7 @@ export function ProfessorFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleDialogChange}>
-      {dialogTrigger}
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
 
       <DialogContent className="sm:max-w-[560px] max-h-[90vh] overflow-y-auto">
         <form onSubmit={handleSubmit}>

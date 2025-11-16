@@ -1,14 +1,4 @@
-// ################################################################################
-// # File: programs.ts                                                           #
-// # Authors: Juan Camilo Narváez Tascón (github.com/ulvenforst)                  #
-// # Creation date: 08/23/2025                                                    #
-// # License: Apache License 2.0                                                  #
-// ################################################################################
-
-/**
- * Academic program management functions
- * Handles program creation, requirements, student assignments
- */
+/* THIS NEEDS REFACTORING */
 
 import { query, mutation, internalMutation } from "./_generated/server";
 import { v, ConvexError } from "convex/values";
@@ -796,22 +786,6 @@ export const setProgramRequirements = mutation({
 export const getProgramStudents = query({
   args: {
     programId: v.id("programs"),
-    status: v.optional(
-      v.union(
-        v.literal("active"),
-        v.literal("inactive"),
-        v.literal("on_leave"),
-        v.literal("graduated"),
-        v.literal("withdrawn"),
-      ),
-    ),
-    academicStanding: v.optional(
-      v.union(
-        v.literal("good_standing"),
-        v.literal("probation"),
-        v.literal("suspension"),
-      ),
-    ),
     includeProgress: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
@@ -839,24 +813,9 @@ export const getProgramStudents = query({
       .collect();
 
     // Filter students by program
-    let programStudents = allStudents.filter(
+    const programStudents = allStudents.filter(
       (student) => student.studentProfile?.programId === args.programId,
     );
-
-    // Apply status filter
-    if (args.status) {
-      programStudents = programStudents.filter(
-        (student) => student.studentProfile?.status === args.status,
-      );
-    }
-
-    // Apply academic standing filter
-    if (args.academicStanding) {
-      programStudents = programStudents.filter(
-        (student) =>
-          student.studentProfile?.academicStanding === args.academicStanding,
-      );
-    }
 
     // Get student details with progress if requested
     const studentDetails = await Promise.all(
@@ -880,34 +839,6 @@ export const getProgramStudents = query({
     // Calculate summary statistics
     const summary: any = {
       totalStudents: studentDetails.length,
-      byStatus: {
-        active: studentDetails.filter(
-          (s) => s.student.studentProfile?.status === "active",
-        ).length,
-        inactive: studentDetails.filter(
-          (s) => s.student.studentProfile?.status === "inactive",
-        ).length,
-        onLeave: studentDetails.filter(
-          (s) => s.student.studentProfile?.status === "on_leave",
-        ).length,
-        graduated: studentDetails.filter(
-          (s) => s.student.studentProfile?.status === "graduated",
-        ).length,
-        withdrawn: studentDetails.filter(
-          (s) => s.student.studentProfile?.status === "withdrawn",
-        ).length,
-      },
-      byStanding: {
-        goodStanding: studentDetails.filter(
-          (s) => s.student.studentProfile?.academicStanding === "good_standing",
-        ).length,
-        probation: studentDetails.filter(
-          (s) => s.student.studentProfile?.academicStanding === "probation",
-        ).length,
-        suspension: studentDetails.filter(
-          (s) => s.student.studentProfile?.academicStanding === "suspension",
-        ).length,
-      },
     };
 
     if (args.includeProgress) {
@@ -940,17 +871,6 @@ export const assignStudentToProgram = mutation({
     studentId: v.id("users"),
     programId: v.id("programs"),
     studentCode: v.string(),
-    enrollmentDate: v.optional(v.number()),
-    expectedGraduationDate: v.optional(v.number()),
-    status: v.optional(
-      v.union(
-        v.literal("active"),
-        v.literal("inactive"),
-        v.literal("on_leave"),
-        v.literal("graduated"),
-        v.literal("withdrawn"),
-      ),
-    ),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -973,7 +893,7 @@ export const assignStudentToProgram = mutation({
       throw new ConvexError("Program not found");
     }
 
-    // Check for duplicate student codeEs
+    // Check for duplicate student code
     const existingStudent = await ctx.db
       .query("users")
       .filter(
@@ -988,7 +908,7 @@ export const assignStudentToProgram = mutation({
     );
 
     if (duplicateCode) {
-      throw new ConvexError("Student codeEs already exists");
+      throw new ConvexError("Student code already exists");
     }
 
     // Update student with program assignment
@@ -996,10 +916,6 @@ export const assignStudentToProgram = mutation({
       studentProfile: {
         studentCode: args.studentCode,
         programId: args.programId,
-        enrollmentDate: args.enrollmentDate || Date.now(),
-        expectedGraduationDate: args.expectedGraduationDate,
-        status: args.status || "active",
-        academicStanding: "good_standing",
       },
       isActive: true, // Activate student when assigning to program
     });
@@ -1018,7 +934,6 @@ export const assignStudentToProgram = mutation({
 export const getProgramStatistics = query({
   args: {
     programId: v.optional(v.id("programs")),
-    includeTrends: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -1060,57 +975,11 @@ export const getProgramStatistics = query({
           (student) => student.studentProfile?.programId === program._id,
         );
 
-        // Calculate statistics
-        const activeStudents = programStudents.filter(
-          (s) => s.studentProfile?.status === "active",
-        );
-
-        const graduates = programStudents.filter(
-          (s) => s.studentProfile?.status === "graduated",
-        );
-
-        // Get enrollment trends if requested
-        let enrollmentTrends = null;
-        if (args.includeTrends) {
-          // Group students by enrollment month
-          const enrollmentsByMonth = programStudents.reduce(
-            (acc, student) => {
-              if (!student.studentProfile?.enrollmentDate) return acc;
-
-              const date = new Date(student.studentProfile.enrollmentDate);
-              const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
-
-              acc[monthKey] = (acc[monthKey] || 0) + 1;
-              return acc;
-            },
-            {} as Record<string, number>,
-          );
-
-          enrollmentTrends = Object.entries(enrollmentsByMonth)
-            .sort(([a], [b]) => a.localeCompare(b))
-            .map(([month, count]) => ({ month, enrollments: count }));
-        }
-
         return {
           program,
           statistics: {
             totalStudents: programStudents.length,
-            activeStudents: activeStudents.length,
-            graduates: graduates.length,
-            onLeave: programStudents.filter(
-              (s) => s.studentProfile?.status === "on_leave",
-            ).length,
-            withdrawn: programStudents.filter(
-              (s) => s.studentProfile?.status === "withdrawn",
-            ).length,
-            probation: programStudents.filter(
-              (s) => s.studentProfile?.academicStanding === "probation",
-            ).length,
-            suspension: programStudents.filter(
-              (s) => s.studentProfile?.academicStanding === "suspension",
-            ).length,
           },
-          trends: enrollmentTrends,
         };
       }),
     );
@@ -1123,14 +992,6 @@ export const getProgramStatistics = query({
             totalPrograms: programs.length,
             totalStudents: programStats.reduce(
               (sum, p) => sum + p.statistics.totalStudents,
-              0,
-            ),
-            totalActiveStudents: programStats.reduce(
-              (sum, p) => sum + p.statistics.activeStudents,
-              0,
-            ),
-            totalGraduates: programStats.reduce(
-              (sum, p) => sum + p.statistics.graduates,
               0,
             ),
           },

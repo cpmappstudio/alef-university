@@ -5,19 +5,10 @@ import type {
   StudentFormErrors,
   StudentFormState,
   StudentUpdatePayload,
-  StudentStatus,
 } from "@/lib/students/types";
 import type { Id } from "@/convex/_generated/dataModel";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-export const studentStatuses: StudentStatus[] = [
-  "active",
-  "inactive",
-  "on_leave",
-  "graduated",
-  "withdrawn",
-];
 
 export const createEmptyStudentFormState = (): StudentFormState => ({
   firstName: "",
@@ -31,8 +22,6 @@ export const createEmptyStudentFormState = (): StudentFormState => ({
   documentNumber: "",
   studentCode: "",
   programId: "",
-  enrollmentDate: "",
-  status: "active",
   isActive: true,
 });
 
@@ -56,14 +45,10 @@ export const createStudentFormStateFromDoc = (
     documentType: student.documentType ?? undefined,
     documentNumber: student.documentNumber ?? "",
     studentCode: student.studentProfile?.studentCode ?? "",
-    programId: (student.studentProfile?.programId as Id<"programs"> | undefined)
-      ?.toString() ?? "",
-    enrollmentDate: student.studentProfile?.enrollmentDate
-      ? new Date(student.studentProfile.enrollmentDate)
-          .toISOString()
-          .split("T")[0]
-      : "",
-    status: student.studentProfile?.status ?? "active",
+    programId:
+      (
+        student.studentProfile?.programId as Id<"programs"> | undefined
+      )?.toString() ?? "",
     isActive: student.isActive ?? true,
   };
 };
@@ -88,12 +73,6 @@ export const validateStudentForm = (
   if (!state.programId) {
     errors.programId = "programId";
   }
-  if (!state.enrollmentDate) {
-    errors.enrollmentDate = "enrollmentDate";
-  }
-  if (!state.status) {
-    errors.status = "status";
-  }
 
   return errors;
 };
@@ -101,10 +80,6 @@ export const validateStudentForm = (
 export const buildStudentCreatePayload = (
   state: StudentFormState,
 ): StudentCreatePayload => {
-  const enrollmentDate = state.enrollmentDate
-    ? new Date(state.enrollmentDate).getTime()
-    : Date.now();
-
   const dateOfBirth = state.dateOfBirth
     ? new Date(state.dateOfBirth).getTime()
     : undefined;
@@ -113,17 +88,15 @@ export const buildStudentCreatePayload = (
     firstName: state.firstName.trim(),
     lastName: state.lastName.trim(),
     email: state.email.trim(),
-    phone: normalizeTextValue(state.phone),
-    country: normalizeTextValue(state.country),
+    phone: normalizeTextValue(state.phone || ""),
+    country: normalizeTextValue(state.country || ""),
     dateOfBirth,
-    nationality: normalizeTextValue(state.nationality),
+    nationality: normalizeTextValue(state.nationality || ""),
     documentType: state.documentType,
-    documentNumber: normalizeTextValue(state.documentNumber),
+    documentNumber: normalizeTextValue(state.documentNumber || ""),
     studentProfile: {
       studentCode: state.studentCode.trim(),
       programId: state.programId as Id<"programs">,
-      enrollmentDate,
-      status: state.status ?? "active",
     },
     isActive: state.isActive,
   };

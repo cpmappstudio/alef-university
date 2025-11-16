@@ -1,18 +1,9 @@
 import type { ReactNode } from "react";
 import type { Doc, Id } from "@/convex/_generated/dataModel";
 
-export type StudentStatus =
-  | "active"
-  | "inactive"
-  | "on_leave"
-  | "graduated"
-  | "withdrawn";
-
 export type StudentProfile = {
   studentCode: string;
   programId: Id<"programs">;
-  enrollmentDate: number;
-  status: StudentStatus;
 };
 
 export type StudentDocument = Pick<
@@ -57,8 +48,6 @@ export type StudentFormState = {
   documentNumber?: string;
   studentCode: string;
   programId: string;
-  enrollmentDate: string;
-  status?: StudentStatus;
   isActive: boolean;
 };
 
@@ -67,9 +56,7 @@ export type StudentFormErrorKey =
   | "lastName"
   | "email"
   | "studentCode"
-  | "programId"
-  | "enrollmentDate"
-  | "status";
+  | "programId";
 
 export type StudentFormErrors = Partial<Record<StudentFormErrorKey, string>>;
 
@@ -94,8 +81,6 @@ export type StudentCreatePayload = {
   studentProfile: {
     studentCode: string;
     programId: Id<"programs">;
-    enrollmentDate: number;
-    status: StudentStatus;
   };
   isActive: boolean;
 };

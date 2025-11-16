@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Loader2 } from "lucide-react";
+import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useAction, useQuery } from "convex/react";
@@ -18,12 +18,19 @@ import {
   buildStudentUpdatePayload,
   createEmptyStudentFormState,
   createStudentFormStateFromDoc,
-  studentStatuses,
   validateStudentForm,
 } from "@/lib/students/utils";
 import { createInputChangeHandler } from "@/lib/forms/utils";
 
 import { Button } from "@/components/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import {
   Dialog,
   DialogContent,
@@ -44,13 +51,12 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Switch } from "@/components/ui/switch";
+import { cn } from "@/lib/utils";
 
 export function StudentFormDialog({
   mode,
@@ -70,6 +76,7 @@ export function StudentFormDialog({
   const [fieldErrors, setFieldErrors] = React.useState<StudentFormErrors>({});
   const [formError, setFormError] = React.useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [programOpen, setProgramOpen] = React.useState(false);
 
   const createStudent = useAction(api.users.createStudentWithClerk);
   const updateStudent = useAction(api.users.updateStudentWithClerk);
@@ -84,13 +91,6 @@ export function StudentFormDialog({
   }, [open, student]);
 
   const handleInputChange = createInputChangeHandler(setFormState);
-
-  const handleStatusChange = (value: string) => {
-    setFormState((prev) => ({
-      ...prev,
-      status: value as StudentFormState["status"],
-    }));
-  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -130,8 +130,8 @@ export function StudentFormDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       {trigger ? <DialogTrigger asChild>{trigger}</DialogTrigger> : null}
-      <DialogContent className="max-w-2xl">
-        <DialogHeader>
+      <DialogContent className="sm:max-w-[560px] max-h-[90vh] overflow-y-auto">
+        <DialogHeader className="hidden">
           <DialogTitle>
             {mode === "create" ? t("title") : t("titleEdit")}
           </DialogTitle>
@@ -199,9 +199,7 @@ export function StudentFormDialog({
                     value={formState.studentCode}
                     onChange={handleInputChange("studentCode")}
                   />
-                  <FieldDescription>
-                    {t("fields.studentCode.description")}
-                  </FieldDescription>
+
                   <FieldError>{fieldErrors.studentCode}</FieldError>
                 </FieldContent>
               </Field>
@@ -210,71 +208,99 @@ export function StudentFormDialog({
                   {t("fields.program.label")}
                 </FieldLabel>
                 <FieldContent>
-                  <Select
-                    value={formState.programId}
-                    onValueChange={(value) =>
-                      setFormState((prev) => ({ ...prev, programId: value }))
-                    }
-                  >
-                    <SelectTrigger id="student-program">
-                      <SelectValue
-                        placeholder={t("fields.program.placeholder")}
-                      />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {(programs ?? []).map((program) => {
-                        const label =
-                          locale === "es"
-                            ? program.nameEs || program.nameEn || ""
-                            : program.nameEn || program.nameEs || "";
-                        return (
-                          <SelectItem key={program._id} value={program._id}>
-                            {label}
-                          </SelectItem>
-                        );
-                      })}
-                    </SelectContent>
-                  </Select>
+                  <Popover open={programOpen} onOpenChange={setProgramOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={programOpen}
+                        className="w-full justify-between"
+                      >
+                        {formState.programId
+                          ? (() => {
+                              const selectedProgram = programs?.find(
+                                (p) => p._id === formState.programId,
+                              );
+                              if (!selectedProgram)
+                                return t("fields.program.placeholder");
+                              const code =
+                                locale === "es"
+                                  ? selectedProgram.codeEs ||
+                                    selectedProgram.codeEn
+                                  : selectedProgram.codeEn ||
+                                    selectedProgram.codeEs;
+                              const name =
+                                locale === "es"
+                                  ? selectedProgram.nameEs ||
+                                    selectedProgram.nameEn
+                                  : selectedProgram.nameEn ||
+                                    selectedProgram.nameEs;
+                              return `${code} - ${name}`;
+                            })()
+                          : t("fields.program.placeholder")}
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[500px] p-0" align="start">
+                      <Command>
+                        <CommandInput
+                          placeholder={t("fields.program.searchPlaceholder")}
+                          className="h-9"
+                        />
+                        <CommandList>
+                          <CommandEmpty>
+                            {t("fields.program.noPrograms")}
+                          </CommandEmpty>
+                          <CommandGroup>
+                            {(programs ?? []).map((program) => {
+                              const code =
+                                locale === "es"
+                                  ? program.codeEs || program.codeEn
+                                  : program.codeEn || program.codeEs;
+                              const name =
+                                locale === "es"
+                                  ? program.nameEs || program.nameEn
+                                  : program.nameEn || program.nameEs;
+                              const isSelected =
+                                formState.programId === program._id;
+                              return (
+                                <CommandItem
+                                  key={program._id}
+                                  value={`${code} ${name}`}
+                                  onSelect={() => {
+                                    setFormState((prev) => ({
+                                      ...prev,
+                                      programId: isSelected ? "" : program._id,
+                                    }));
+                                    setProgramOpen(false);
+                                  }}
+                                  className="cursor-pointer"
+                                >
+                                  <Check
+                                    className={cn(
+                                      "mr-2 h-4 w-4",
+                                      isSelected ? "opacity-100" : "opacity-0",
+                                    )}
+                                  />
+                                  <div className="flex-1">
+                                    <div className="font-medium">
+                                      {code} - {name}
+                                    </div>
+                                    {program.degree && (
+                                      <div className="text-sm text-muted-foreground">
+                                        {program.degree}
+                                      </div>
+                                    )}
+                                  </div>
+                                </CommandItem>
+                              );
+                            })}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                   <FieldError>{fieldErrors.programId}</FieldError>
-                </FieldContent>
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="student-enrollment-date">
-                  {t("fields.enrollmentDate.label")}
-                </FieldLabel>
-                <FieldContent>
-                  <Input
-                    id="student-enrollment-date"
-                    type="date"
-                    value={formState.enrollmentDate}
-                    onChange={handleInputChange("enrollmentDate")}
-                  />
-                  <FieldError>{fieldErrors.enrollmentDate}</FieldError>
-                </FieldContent>
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="student-status">
-                  {t("fields.status.label")}
-                </FieldLabel>
-                <FieldContent>
-                  <Select
-                    value={formState.status ?? "active"}
-                    onValueChange={handleStatusChange}
-                  >
-                    <SelectTrigger id="student-status">
-                      <SelectValue
-                        placeholder={t("fields.status.placeholder")}
-                      />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {studentStatuses.map((status) => (
-                        <SelectItem key={status} value={status}>
-                          {t(`fields.status.options.${status}`)}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FieldError>{fieldErrors.status}</FieldError>
                 </FieldContent>
               </Field>
             </FieldSet>

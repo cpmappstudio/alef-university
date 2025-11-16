@@ -1,3 +1,5 @@
+/* THIS NEED REFACTORING */
+
 import type { UserJSON } from "@clerk/backend";
 import { action, mutation, query, internalMutation } from "./_generated/server";
 import type { ActionCtx, MutationCtx } from "./_generated/server";
@@ -8,20 +10,9 @@ import type { UserRole } from "./types";
 import { roleValidator } from "./types";
 
 const ROLE_VALUES: UserRole[] = ["student", "professor", "admin", "superadmin"];
-const STUDENT_STATUS_VALUES = [
-  "active",
-  "inactive",
-  "on_leave",
-  "graduated",
-  "withdrawn",
-] as const;
-
-type StudentStatusPayload = (typeof STUDENT_STATUS_VALUES)[number];
 type StudentProfilePayload = {
   studentCode: string;
   programId: Id<"programs">;
-  enrollmentDate: number;
-  status: StudentStatusPayload;
 };
 
 type UserDocument = Doc<"users">;
@@ -318,10 +309,6 @@ export const upsertUser = mutation({
       v.object({
         studentCode: v.string(),
         programId: v.id("programs"),
-        enrollmentDate: v.number(),
-        status: v.union(
-          ...STUDENT_STATUS_VALUES.map((status) => v.literal(status)),
-        ),
       }),
     ),
   },
@@ -500,8 +487,6 @@ function sanitizeStudentProfile(
     studentProfile: {
       studentCode: profile.studentCode,
       programId: profile.programId,
-      enrollmentDate: profile.enrollmentDate,
-      status: profile.status,
     },
   };
 }
@@ -543,10 +528,6 @@ export const createStudentWithClerk = action({
     studentProfile: v.object({
       studentCode: v.string(),
       programId: v.id("programs"),
-      enrollmentDate: v.number(),
-      status: v.union(
-        ...STUDENT_STATUS_VALUES.map((status) => v.literal(status)),
-      ),
     }),
     isActive: v.boolean(),
   },
@@ -637,10 +618,6 @@ export const updateStudentWithClerk = action({
     studentProfile: v.object({
       studentCode: v.string(),
       programId: v.id("programs"),
-      enrollmentDate: v.number(),
-      status: v.union(
-        ...STUDENT_STATUS_VALUES.map((status) => v.literal(status)),
-      ),
     }),
     isActive: v.boolean(),
   },

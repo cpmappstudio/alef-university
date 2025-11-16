@@ -98,16 +98,6 @@ export function StudentDetailInfo({
             value={student.studentProfile?.studentCode ?? "—"}
           />
           <GradientCardDetailItem
-            label={t("info.enrollmentDate")}
-            value={
-              student.studentProfile?.enrollmentDate
-                ? new Date(
-                    student.studentProfile.enrollmentDate,
-                  ).toLocaleDateString(locale === "es" ? "es-ES" : "en-US")
-                : "—"
-            }
-          />
-          <GradientCardDetailItem
             label={t("info.program")}
             value={
               programName ? (
@@ -123,14 +113,6 @@ export function StudentDetailInfo({
               ) : (
                 "—"
               )
-            }
-          />
-          <GradientCardDetailItem
-            label={t("info.profileStatus")}
-            value={
-              student.studentProfile?.status
-                ? t(`info.profileStatusValues.${student.studentProfile.status}`)
-                : "—"
             }
           />
         </GradientCardDetailGrid>
