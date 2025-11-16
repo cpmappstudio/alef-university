@@ -105,7 +105,11 @@ export function ProfessorDetailClient({
             ? handleEdit
             : undefined
         }
-        onDelete={handleDelete}
+        onDelete={
+          userRole === "admin" || userRole === "superadmin"
+            ? handleDelete
+            : () => {}
+        }
         canDelete={userRole === "admin" || userRole === "superadmin"}
         userRole={userRole}
       />

@@ -20,7 +20,7 @@ interface StudentDetailInfoProps {
   student: StudentDocument;
   program?: Doc<"programs"> | null;
   onEdit?: () => void;
-  onDelete: () => void;
+  onDelete?: () => void;
   canDelete?: boolean;
   userRole?: string | null;
 }
@@ -60,7 +60,7 @@ export function StudentDetailInfo({
           <PencilIcon className="h-4 w-4 md:ml-2" />
         </Button>
       )}
-      {canDelete && (
+      {canDelete && onDelete && (
         <Button
           variant="destructive"
           size="sm"
