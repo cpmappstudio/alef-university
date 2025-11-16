@@ -1,6 +1,7 @@
 import { auth, createRouteMatcher } from "@clerk/nextjs/server";
 import type { NextRequest } from "next/server";
 import type { UserRole } from "@/convex/types";
+import { ROUTES } from "@/lib/routes";
 
 const KNOWN_ROLES = ["student", "professor", "admin", "superadmin"] as const;
 const ADMIN_ROLES = ["admin", "superadmin"] as const;
@@ -11,18 +12,56 @@ type RouteRestriction = {
   allowedRoles: readonly UserRole[];
 };
 
+// Routes accessible only to students (their own profile)
+const STUDENT_ALLOWED_ROUTES = createRouteMatcher([
+  "/:locale" + ROUTES.students.root.path + "/:studentId",
+  ROUTES.students.root.path + "/:studentId",
+  "/:locale" + ROUTES.settings.root.path + "(.*)",
+  ROUTES.settings.root.path + "(.*)",
+]);
+
 // Routes that must stay hidden from students.
 const ROUTE_RESTRICTIONS: RouteRestriction[] = [
   {
-    matcher: createRouteMatcher(["/:locale/programs", "/programs"]),
+    matcher: createRouteMatcher([
+      "/:locale" + ROUTES.programs.root.path,
+      ROUTES.programs.root.path,
+    ]),
     allowedRoles: PROFESSOR_ROLES,
   },
   {
-    matcher: createRouteMatcher(["/:locale/courses", "/courses"]),
+    matcher: createRouteMatcher([
+      "/:locale" + ROUTES.courses.root.path,
+      ROUTES.courses.root.path,
+    ]),
     allowedRoles: PROFESSOR_ROLES,
   },
   {
-    matcher: createRouteMatcher(["/:locale/classes", "/classes"]),
+    matcher: createRouteMatcher([
+      "/:locale" + ROUTES.classes.root.path,
+      ROUTES.classes.root.path,
+    ]),
+    allowedRoles: PROFESSOR_ROLES,
+  },
+  {
+    matcher: createRouteMatcher([
+      "/:locale" + ROUTES.professors.root.path,
+      ROUTES.professors.root.path,
+    ]),
+    allowedRoles: PROFESSOR_ROLES,
+  },
+  {
+    matcher: createRouteMatcher([
+      "/:locale" + ROUTES.enrollments.root.path,
+      ROUTES.enrollments.root.path,
+    ]),
+    allowedRoles: PROFESSOR_ROLES,
+  },
+  {
+    matcher: createRouteMatcher([
+      "/:locale" + ROUTES.students.root.path,
+      ROUTES.students.root.path,
+    ]),
     allowedRoles: PROFESSOR_ROLES,
   },
 ];
@@ -99,12 +138,42 @@ export function isStudent(userRole: UserRole | null): boolean {
 
 /**
  * Verifica acceso por rol en el contexto del middleware
- * @returns 'allowed' | 'denied'
+ * @returns 'allowed' | 'denied' | 'wrong-student'
  */
 export function checkRoleAccess(
   req: NextRequest,
   userRole: UserRole,
-): "allowed" | "denied" {
+  userId?: string,
+): "allowed" | "denied" | "wrong-student" {
+  // Students can ONLY access their own profile and settings
+  if (userRole === "student") {
+    // Allow settings routes
+    if (req.nextUrl.pathname.includes(ROUTES.settings.root.path)) {
+      return "allowed";
+    }
+
+    // Check if accessing a student profile route
+    if (STUDENT_ALLOWED_ROUTES(req)) {
+      // Extract studentId from URL
+      const pathParts = req.nextUrl.pathname.split("/");
+      const studentsIndex = pathParts.indexOf("students");
+
+      if (studentsIndex !== -1 && pathParts[studentsIndex + 1]) {
+        const studentIdFromUrl = pathParts[studentsIndex + 1];
+
+        // Students can only access their own profile
+        if (studentIdFromUrl === userId) {
+          return "allowed";
+        }
+        return "wrong-student";
+      }
+    }
+
+    // Students can't access any other routes
+    return "denied";
+  }
+
+  // For non-students, check route restrictions
   for (const restriction of ROUTE_RESTRICTIONS) {
     if (restriction.matcher(req)) {
       return restriction.allowedRoles.includes(userRole) ? "allowed" : "denied";

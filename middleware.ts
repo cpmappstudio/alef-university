@@ -4,6 +4,7 @@ import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { getLocaleFromPathname } from "./lib/locale-setup";
 import { checkRoleAccess, resolveRoleFromClaims } from "@/lib/rbac";
+import { ROUTES } from "@/lib/routes";
 import type { UserRole } from "@/convex/types";
 
 const intlMiddleware = createIntlMiddleware(routing);
@@ -16,28 +17,25 @@ const isPublicRoute = createRouteMatcher([
 ]);
 
 const COMMON_AUTHENTICATED_ROUTES = createRouteMatcher([
-  "/:locale/profile(.*)",
-  "/profile(.*)",
-  "/:locale/settings(.*)",
-  "/settings(.*)",
-  "/:locale/dashboard",
-  "/dashboard",
+  "/:locale" + ROUTES.settings.root.path + "(.*)",
+  ROUTES.settings.root.path + "(.*)",
 ]);
 
 const STATIC_FILE_PATTERN =
   /\.(jpg|jpeg|gif|png|svg|ico|webp|mp4|pdf|js|css|woff2?)$/i;
 
-const DEFAULT_PATHS: Record<UserRole, string> = {
-  admin: "/programs",
-  superadmin: "/programs",
-  professor: "/programs",
-  student: "/students",
+const DEFAULT_PATHS: Record<UserRole, (userId?: string) => string> = {
+  admin: () => ROUTES.programs.root.path,
+  superadmin: () => ROUTES.programs.root.path,
+  professor: () => ROUTES.programs.root.path,
+  student: (userId?: string) =>
+    userId ? ROUTES.students.details(userId).path : ROUTES.students.root.path,
 };
 
 const isLocaleEntryRoute = createRouteMatcher(["/", "/:locale"]);
 
-const getRoleHomePath = (locale: string, role: UserRole) =>
-  `/${locale}${DEFAULT_PATHS[role]}`;
+const getRoleHomePath = (locale: string, role: UserRole, userId?: string) =>
+  `/${locale}${DEFAULT_PATHS[role](userId)}`;
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   const { pathname, search } = req.nextUrl;
@@ -81,7 +79,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       return intlMiddleware(req);
     }
 
-    const roleHomePath = getRoleHomePath(locale, userRole);
+    const roleHomePath = getRoleHomePath(locale, userRole, userId);
 
     if (isLocaleEntryRoute(req) && !pathname.startsWith(roleHomePath)) {
       return NextResponse.redirect(new URL(roleHomePath, req.url));
@@ -91,8 +89,12 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       return intlMiddleware(req);
     }
 
-    if (checkRoleAccess(req, userRole) === "denied") {
-      console.warn(`[Security] Access denied for ${userRole} on ${pathname}`);
+    const accessCheck = checkRoleAccess(req, userRole, userId);
+
+    if (accessCheck === "denied" || accessCheck === "wrong-student") {
+      console.warn(
+        `[Security] Access ${accessCheck} for ${userRole} on ${pathname}`,
+      );
 
       if (!pathname.startsWith(roleHomePath)) {
         return NextResponse.redirect(new URL(roleHomePath, req.url));

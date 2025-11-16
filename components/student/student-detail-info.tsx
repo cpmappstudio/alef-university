@@ -21,6 +21,8 @@ interface StudentDetailInfoProps {
   program?: Doc<"programs"> | null;
   onEdit?: () => void;
   onDelete: () => void;
+  canDelete?: boolean;
+  userRole?: string | null;
 }
 
 export function StudentDetailInfo({
@@ -28,6 +30,8 @@ export function StudentDetailInfo({
   program,
   onEdit,
   onDelete,
+  canDelete = true,
+  userRole,
 }: StudentDetailInfoProps) {
   const t = useTranslations("admin.students.detail");
   const tTable = useTranslations("admin.students.table");
@@ -56,15 +60,17 @@ export function StudentDetailInfo({
           <PencilIcon className="h-4 w-4 md:ml-2" />
         </Button>
       )}
-      <Button
-        variant="destructive"
-        size="sm"
-        onClick={onDelete}
-        className="cursor-pointer"
-      >
-        <span className="hidden md:inline">{t("delete")}</span>
-        <Trash2Icon className="h-4 w-4 md:ml-2" />
-      </Button>
+      {canDelete && (
+        <Button
+          variant="destructive"
+          size="sm"
+          onClick={onDelete}
+          className="cursor-pointer"
+        >
+          <span className="hidden md:inline">{t("delete")}</span>
+          <Trash2Icon className="h-4 w-4 md:ml-2" />
+        </Button>
+      )}
     </>
   );
 
@@ -101,15 +107,22 @@ export function StudentDetailInfo({
             label={t("info.program")}
             value={
               programName ? (
-                <Link
-                  href={ROUTES.programs
-                    .details(program!._id)
-                    .withLocale(locale)}
-                  className="inline-flex items-center gap-1 text-white underline decoration-white/60"
-                >
-                  <GraduationCap className="h-3 w-3" />
-                  {programName}
-                </Link>
+                userRole === "student" ? (
+                  <span className="inline-flex items-center gap-1 text-white">
+                    <GraduationCap className="h-3 w-3" />
+                    {programName}
+                  </span>
+                ) : (
+                  <Link
+                    href={ROUTES.programs
+                      .details(program!._id)
+                      .withLocale(locale)}
+                    className="inline-flex items-center gap-1 text-white underline decoration-white/60"
+                  >
+                    <GraduationCap className="h-3 w-3" />
+                    {programName}
+                  </Link>
+                )
               ) : (
                 "—"
               )

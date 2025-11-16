@@ -138,7 +138,8 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
     if (professorsIndex !== -1 && pathParts[professorsIndex + 1]) {
       const id = pathParts[professorsIndex + 1];
       if (!ROUTE_CONFIG[id] && id.length > 20) {
-        return id as Id<"users">;
+        // Return as string (Clerk ID)
+        return id;
       }
     }
     return null;
@@ -149,7 +150,8 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
     if (studentsIndex !== -1 && pathParts[studentsIndex + 1]) {
       const id = pathParts[studentsIndex + 1];
       if (!ROUTE_CONFIG[id] && id.length > 20) {
-        return id as Id<"users">;
+        // Return as string (Clerk ID)
+        return id;
       }
     }
     return null;
@@ -172,13 +174,13 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
   );
 
   const professor = useQuery(
-    api.users.getUser,
-    professorId ? { userId: professorId } : "skip",
+    api.users.getUserByClerkId,
+    professorId ? { clerkId: professorId } : "skip",
   );
 
   const student = useQuery(
-    api.users.getUser,
-    studentId ? { userId: studentId } : "skip",
+    api.users.getUserByClerkId,
+    studentId ? { clerkId: studentId } : "skip",
   );
 
   // Stable translation function with useCallback

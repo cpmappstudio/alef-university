@@ -27,6 +27,7 @@ export function StudentDetailClient({
   studentId,
   initialStudent,
   initialProgram,
+  userRole,
 }: StudentDetailClientProps) {
   const locale = useLocale();
   const router = useRouter();
@@ -125,8 +126,14 @@ export function StudentDetailClient({
       <StudentDetailInfo
         student={student}
         program={program}
-        onEdit={handleEdit}
+        onEdit={
+          userRole === "admin" || userRole === "superadmin"
+            ? handleEdit
+            : undefined
+        }
         onDelete={handleDelete}
+        canDelete={userRole === "admin" || userRole === "superadmin"}
+        userRole={userRole}
       />
 
       <Separator />

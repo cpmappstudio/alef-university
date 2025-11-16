@@ -4,6 +4,8 @@ import * as React from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
+import type { UserRole } from "@/convex/types";
 import type { LucideIcon } from "lucide-react";
 import {
   ChevronDown,
@@ -67,8 +69,12 @@ export function SettingsSidebar() {
   const locale = useLocale();
   const pathname = usePathname();
   const t = useTranslations("admin.settings.sidebar");
+  const { user } = useUser();
 
   const normalizedPath = normalizePath(pathname);
+
+  // Get user role from Clerk metadata
+  const userRole = user?.publicMetadata?.role as UserRole | undefined;
 
   const accountLabel = t("account", { defaultMessage: "Account" });
   const customizationLabel = t("customization", {
@@ -85,8 +91,8 @@ export function SettingsSidebar() {
   const programsLabel = t("programs", { defaultMessage: "Programs" });
   const coursesLabel = t("courses", { defaultMessage: "Courses" });
 
-  const sections = React.useMemo<Section[]>(
-    () => [
+  const sections = React.useMemo<Section[]>(() => {
+    const allSections: Section[] = [
       {
         id: "account",
         label: accountLabel,
@@ -108,32 +114,11 @@ export function SettingsSidebar() {
           },
         ],
       },
-      // {
-      //   id: "university",
-      //   label: universityLabel,
-      //   icon: Building2,
-      //   items: [
-      //     {
-      //       id: "general",
-      //       label: generalLabel,
-      //       href: ROUTES.settings.universityGeneral.withLocale(locale),
-      //       icon: SlidersHorizontal,
-      //     },
-      //     {
-      //       id: "members",
-      //       label: membersLabel,
-      //       href: ROUTES.settings.universityMembers.withLocale(locale),
-      //       icon: Users,
-      //     },
-      //     {
-      //       id: "roles",
-      //       label: rolesLabel,
-      //       href: ROUTES.settings.universityRoles.withLocale(locale),
-      //       icon: ShieldCheck,
-      //     },
-      //   ],
-      // },
-      {
+    ];
+
+    // Only show Academic Management for non-students
+    if (userRole !== "student") {
+      allSections.push({
         id: "academic-management",
         label: academicManagementLabel,
         icon: GraduationCap,
@@ -151,22 +136,24 @@ export function SettingsSidebar() {
             icon: Calendar,
           },
         ],
-      },
-    ],
-    [
-      accountLabel,
-      academicManagementLabel,
-      customizationLabel,
-      generalLabel,
-      membersLabel,
-      profileLabel,
-      programsLabel,
-      coursesLabel,
-      rolesLabel,
-      universityLabel,
-      locale,
-    ],
-  );
+      });
+    }
+
+    return allSections;
+  }, [
+    accountLabel,
+    academicManagementLabel,
+    customizationLabel,
+    generalLabel,
+    membersLabel,
+    profileLabel,
+    programsLabel,
+    coursesLabel,
+    rolesLabel,
+    universityLabel,
+    locale,
+    userRole,
+  ]);
 
   const isItemActive = React.useCallback(
     (item: SectionItem) => {

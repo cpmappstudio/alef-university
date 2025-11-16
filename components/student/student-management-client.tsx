@@ -53,7 +53,7 @@ export function StudentManagementClient({
 
   const handleRowClick = React.useCallback(
     (student: StudentDocument) => {
-      router.push(ROUTES.students.details(student._id).withLocale(locale));
+      router.push(ROUTES.students.details(student.clerkId).withLocale(locale));
     },
     [router, locale],
   );

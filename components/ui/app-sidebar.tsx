@@ -9,6 +9,7 @@ import {
   Settings,
   UserCog,
   FileText,
+  Home,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
@@ -48,8 +49,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     ROUTES.settings.root.withLocale(locale),
   );
 
-  // Get user role from Clerk metadata
+  // Get user role and ID from Clerk
   const userRole = user?.publicMetadata?.role as UserRole | undefined;
+  const userId = user?.id;
 
   // Configuración de íconos para cada tipo de menú
   const iconMap = {
@@ -104,29 +106,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     // Eliminar "Mi Cuenta" para todos los roles
     // Menús específicos por rol
     if (userRole === "student") {
-      // Mi Estudio
-      if (menuConfig.student) {
-        items.push(
-          buildSection("student", "student", {
-            isActive: true, // Dashboard activo por defecto
-            excludeProgress: true,
-          }),
-        );
+      // For students: only show Home link to their profile
+      if (userId) {
+        items.push({
+          title: t("home") || "Home",
+          url: ROUTES.students.details(userId).withLocale(locale),
+          icon: Home,
+          isActive: true,
+          items: [],
+        });
       }
-
-      // Documentación para estudiantes - OCULTO
-      // if (menuConfig.studentDocs) {
-      //   items.push({
-      //     title: menuConfig.studentDocs.title,
-      //     url: menuConfig.studentDocs.url,
-      //     icon: iconMap.studentDocs,
-      //     isActive: false,
-      //     items: menuConfig.studentDocs.items.map(item => ({
-      //       title: item.title,
-      //       url: item.url,
-      //     })),
-      //   })
-      // }
     }
 
     if (userRole === "professor") {

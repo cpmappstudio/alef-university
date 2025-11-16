@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { Doc, Id } from "@/convex/_generated/dataModel";
+import type { UserRole } from "@/convex/types";
 
 export type StudentProfile = {
   studentCode: string;
@@ -32,6 +33,7 @@ export type StudentDetailClientProps = {
   studentId: Id<"users">;
   initialStudent?: Doc<"users"> | null;
   initialProgram?: Doc<"programs"> | null;
+  userRole?: UserRole | null;
 };
 
 export type StudentFormDialogMode = "create" | "edit";
