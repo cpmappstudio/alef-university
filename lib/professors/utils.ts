@@ -66,19 +66,19 @@ export const validateProfessorForm = (
 export const buildProfessorCreatePayload = (
   state: ProfessorFormState,
 ): ProfessorCreatePayload => ({
-  role: "professor",
   firstName: state.firstName.trim(),
   lastName: state.lastName.trim(),
   email: state.email.trim(),
   phone: normalizeTextValue(state.phone),
   country: normalizeTextValue(state.country),
+  isActive: state.isActive,
 });
 
 export const buildProfessorUpdatePayload = (
-  professorId: ProfessorUpdatePayload["professorId"],
+  professor: ProfessorDocument,
   state: ProfessorFormState,
 ): ProfessorUpdatePayload => ({
-  professorId,
+  clerkId: professor.clerkId,
   firstName: state.firstName.trim(),
   lastName: state.lastName.trim(),
   email: state.email.trim(),

@@ -15,7 +15,7 @@ export default async function ProfessorManagementPage() {
   const fetchOptions = token ? { token } : undefined;
 
   const professors = ((await fetchQuery(
-    api.admin.getAllUsers,
+    api.users.getAllUsers,
     { role: "professor" },
     fetchOptions,
   )) ?? []) as ProfessorDocument[];

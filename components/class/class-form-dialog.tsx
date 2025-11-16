@@ -244,9 +244,7 @@ export default function ClassFormDialog({
                       {professors.map((professor) => (
                         <SelectItem key={professor._id} value={professor._id}>
                           {professor.firstName} {professor.lastName}
-                          {professor.professorProfile?.employeeCode
-                            ? ` (${professor.professorProfile.employeeCode})`
-                            : ""}
+                          {professor.email ? ` (${professor.email})` : ""}
                         </SelectItem>
                       ))}
                     </SelectContent>

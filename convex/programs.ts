@@ -600,7 +600,6 @@ export const updateProgram = mutation({
       language: updates.language,
       tuitionPerCredit: updates.tuitionPerCredit,
       isActive: updates.isActive,
-      updatedAt: Date.now(),
     };
 
     await ctx.db.patch(programId, updatePayload);
@@ -997,7 +996,6 @@ export const assignStudentToProgram = mutation({
         academicStanding: "good_standing",
       },
       isActive: true, // Activate student when assigning to program
-      updatedAt: Date.now(),
     });
 
     return {

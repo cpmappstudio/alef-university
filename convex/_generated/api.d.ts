@@ -13,12 +13,10 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
-import type * as admin from "../admin.js";
 import type * as auth from "../auth.js";
 import type * as bimesters from "../bimesters.js";
 import type * as classes from "../classes.js";
 import type * as courses from "../courses.js";
-import type * as dashboard from "../dashboard.js";
 import type * as enrollments from "../enrollments.js";
 import type * as grades from "../grades.js";
 import type * as helpers from "../helpers.js";
@@ -26,7 +24,6 @@ import type * as http from "../http.js";
 import type * as professors from "../professors.js";
 import type * as programs from "../programs.js";
 import type * as reports from "../reports.js";
-import type * as seed from "../seed.js";
 import type * as students from "../students.js";
 import type * as types from "../types.js";
 import type * as users from "../users.js";
@@ -40,12 +37,10 @@ import type * as users from "../users.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
-  admin: typeof admin;
   auth: typeof auth;
   bimesters: typeof bimesters;
   classes: typeof classes;
   courses: typeof courses;
-  dashboard: typeof dashboard;
   enrollments: typeof enrollments;
   grades: typeof grades;
   helpers: typeof helpers;
@@ -53,7 +48,6 @@ declare const fullApi: ApiFromModules<{
   professors: typeof professors;
   programs: typeof programs;
   reports: typeof reports;
-  seed: typeof seed;
   students: typeof students;
   types: typeof types;
   users: typeof users;

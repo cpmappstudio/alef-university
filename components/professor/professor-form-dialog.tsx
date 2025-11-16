@@ -4,7 +4,7 @@ import * as React from "react";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useAction, useMutation } from "convex/react";
+import { useAction } from "convex/react";
 
 import { api } from "@/convex/_generated/api";
 import { useDialogState } from "@/hooks/use-dialog-state";
@@ -63,8 +63,8 @@ export function ProfessorFormDialog({
   const [formError, setFormError] = React.useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-  const createProfessor = useAction(api.admin.createUserWithClerk);
-  const updateProfessor = useMutation(api.admin.adminUpdateProfessor);
+  const createProfessor = useAction(api.users.createProfessorWithClerk);
+  const updateProfessor = useAction(api.users.updateProfessorWithClerk);
 
   const resetForm = React.useCallback(() => {
     setFormState(
@@ -118,8 +118,8 @@ export function ProfessorFormDialog({
     try {
       setIsSubmitting(true);
 
-      if (mode === "edit" && professor?._id) {
-        const payload = buildProfessorUpdatePayload(professor._id, formState);
+      if (mode === "edit" && professor) {
+        const payload = buildProfessorUpdatePayload(professor, formState);
         await updateProfessor(payload);
       } else {
         const payload = buildProfessorCreatePayload(formState);
@@ -143,7 +143,7 @@ export function ProfessorFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleDialogChange}>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      {dialogTrigger}
 
       <DialogContent className="sm:max-w-[560px] max-h-[90vh] overflow-y-auto">
         <form onSubmit={handleSubmit}>

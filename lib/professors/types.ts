@@ -79,6 +79,7 @@ export type SectionDetail = {
 export type ProfessorDocument = Pick<
   Doc<"users">,
   | "_id"
+  | "clerkId"
   | "firstName"
   | "lastName"
   | "email"
@@ -129,20 +130,14 @@ export type ProfessorFormDialogProps = {
 };
 
 export type ProfessorCreatePayload = {
-  role: "professor";
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone?: string;
-  country?: string;
-};
-
-export type ProfessorUpdatePayload = {
-  professorId: Id<"users">;
   firstName: string;
   lastName: string;
   email: string;
   phone?: string;
   country?: string;
   isActive: boolean;
+};
+
+export type ProfessorUpdatePayload = ProfessorCreatePayload & {
+  clerkId: string;
 };

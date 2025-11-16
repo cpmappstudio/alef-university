@@ -20,6 +20,7 @@ import { internal } from "./_generated/api";
 import { v, ConvexError } from "convex/values";
 import { getUserByClerkId } from "./helpers";
 import { roleValidator } from "./types";
+import { upsertUserRecord } from "./users";
 
 /**
  * Create or update user from Clerk authentication
@@ -49,69 +50,7 @@ export const createOrUpdateUser = mutation({
     country: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    const existingByClerkId = await ctx.db
-      .query("users")
-      .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.clerkId))
-      .first();
-
-    const existingByEmail = await ctx.db
-      .query("users")
-      .withIndex("by_email", (q) => q.eq("email", args.email))
-      .first();
-
-    if (existingByClerkId) {
-      await ctx.db.patch(existingByClerkId._id, {
-        email: args.email,
-        firstName: args.firstName,
-        lastName: args.lastName,
-        role: args.role,
-        dateOfBirth: args.dateOfBirth,
-        nationality: args.nationality,
-        documentType: args.documentType,
-        documentNumber: args.documentNumber,
-        phone: args.phone,
-        country: args.country,
-      });
-      return existingByClerkId._id;
-    }
-
-    if (existingByEmail) {
-      if (existingByEmail.clerkId && existingByEmail.clerkId !== args.clerkId) {
-        throw new Error("Email address already exists");
-      }
-
-      await ctx.db.patch(existingByEmail._id, {
-        clerkId: args.clerkId,
-        email: args.email,
-        firstName: args.firstName,
-        lastName: args.lastName,
-        role: args.role ?? existingByEmail.role,
-        dateOfBirth: args.dateOfBirth,
-        nationality: args.nationality,
-        documentType: args.documentType,
-        documentNumber: args.documentNumber,
-        phone: args.phone,
-        country: args.country,
-      });
-      return existingByEmail._id;
-    }
-
-    const userId = await ctx.db.insert("users", {
-      clerkId: args.clerkId,
-      email: args.email,
-      firstName: args.firstName,
-      lastName: args.lastName,
-      role: args.role ?? "student",
-      isActive: true,
-      dateOfBirth: args.dateOfBirth,
-      nationality: args.nationality,
-      documentType: args.documentType,
-      documentNumber: args.documentNumber,
-      phone: args.phone,
-      country: args.country,
-    });
-
-    return userId;
+    return await upsertUserRecord(ctx, args);
   },
 });
 
@@ -137,69 +76,7 @@ export const internalCreateOrUpdateUser = internalMutation({
     country: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    const existingByClerkId = await ctx.db
-      .query("users")
-      .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.clerkId))
-      .first();
-
-    const existingByEmail = await ctx.db
-      .query("users")
-      .withIndex("by_email", (q) => q.eq("email", args.email))
-      .first();
-
-    if (existingByClerkId) {
-      await ctx.db.patch(existingByClerkId._id, {
-        email: args.email,
-        firstName: args.firstName,
-        lastName: args.lastName,
-        role: args.role,
-        dateOfBirth: args.dateOfBirth,
-        nationality: args.nationality,
-        documentType: args.documentType,
-        documentNumber: args.documentNumber,
-        phone: args.phone,
-        country: args.country,
-      });
-      return existingByClerkId._id;
-    }
-
-    if (existingByEmail) {
-      if (existingByEmail.clerkId && existingByEmail.clerkId !== args.clerkId) {
-        throw new Error("Email address already exists");
-      }
-
-      await ctx.db.patch(existingByEmail._id, {
-        clerkId: args.clerkId,
-        email: args.email,
-        firstName: args.firstName,
-        lastName: args.lastName,
-        role: args.role ?? existingByEmail.role,
-        dateOfBirth: args.dateOfBirth,
-        nationality: args.nationality,
-        documentType: args.documentType,
-        documentNumber: args.documentNumber,
-        phone: args.phone,
-        country: args.country,
-      });
-      return existingByEmail._id;
-    }
-
-    const userId = await ctx.db.insert("users", {
-      clerkId: args.clerkId,
-      email: args.email,
-      firstName: args.firstName,
-      lastName: args.lastName,
-      role: args.role ?? "student",
-      isActive: true,
-      dateOfBirth: args.dateOfBirth,
-      nationality: args.nationality,
-      documentType: args.documentType,
-      documentNumber: args.documentNumber,
-      phone: args.phone,
-      country: args.country,
-    });
-
-    return userId;
+    return await upsertUserRecord(ctx, args);
   },
 });
 
@@ -555,70 +432,5 @@ export const activatePendingUserInternal = internalMutation({
       clerkId: args.clerkId,
       isActive: true,
     });
-  },
-});
-
-/**
- * INTERNAL: Handle Clerk webhook events
- * Called from http.ts webhook endpoint to process user events
- */
-export const handleClerkWebhook = internalMutation({
-  args: {
-    eventType: v.string(),
-    userId: v.string(),
-    email: v.optional(v.string()),
-    firstName: v.optional(v.string()),
-    lastName: v.optional(v.string()),
-  },
-  handler: async (ctx, args) => {
-    switch (args.eventType) {
-      case "user.created": {
-        const existingByClerkId = await ctx.db
-          .query("users")
-          .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.userId))
-          .first();
-
-        if (existingByClerkId) {
-          return existingByClerkId._id;
-        }
-
-        const email = args.email ?? "";
-        const firstName = args.firstName ?? "";
-        const lastName = args.lastName ?? "";
-
-        const newUserId = await ctx.db.insert("users", {
-          clerkId: args.userId,
-          email,
-          firstName,
-          lastName,
-          role: "student",
-          isActive: true,
-        });
-
-        return newUserId;
-      }
-
-      case "user.updated": {
-        const userToUpdate = await ctx.db
-          .query("users")
-          .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.userId))
-          .first();
-
-        if (!userToUpdate) {
-          return null;
-        }
-
-        await ctx.db.patch(userToUpdate._id, {
-          email: args.email || userToUpdate.email,
-          firstName: args.firstName || userToUpdate.firstName,
-          lastName: args.lastName || userToUpdate.lastName,
-        });
-
-        return userToUpdate._id;
-      }
-
-      default:
-        return null;
-    }
   },
 });

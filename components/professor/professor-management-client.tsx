@@ -27,7 +27,7 @@ export function ProfessorManagementClient({
   const locale = useLocale();
   const router = useRouter();
 
-  const liveProfessors = useQuery(api.admin.getAllUsers, {
+  const liveProfessors = useQuery(api.users.getAllUsers, {
     role: "professor",
   });
   const tableData = React.useMemo(
