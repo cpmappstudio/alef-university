@@ -382,18 +382,17 @@ export const deleteClass = mutation({
       throw new Error("Class not found");
     }
 
-    // Check if there are any enrollments
+    // Delete all enrollments for this class
     const enrollments = await ctx.db
       .query("class_enrollments")
       .withIndex("by_class", (q) => q.eq("classId", args.classId))
       .collect();
 
-    if (enrollments.length > 0) {
-      throw new Error(
-        "Cannot delete class with enrolled students. Please remove all enrollments first.",
-      );
+    for (const enrollment of enrollments) {
+      await ctx.db.delete(enrollment._id);
     }
 
+    // Delete the class
     await ctx.db.delete(args.classId);
 
     return args.classId;
