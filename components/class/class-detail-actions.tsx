@@ -121,7 +121,7 @@ export default function ClassDetailActions({
   return (
     <div className="flex flex-col sm:flex-row gap-2 my-4">
       {onEdit && (
-        <Button size="sm" onClick={onEdit} className="cursor-pointer">
+        <Button size="sm" onClick={onEdit} className="cursor-pointer h-9">
           {t("edit")}
           <PencilIcon className="h-4 w-4 md:ml-2" />
         </Button>
@@ -131,7 +131,7 @@ export default function ClassDetailActions({
           variant="destructive"
           size="sm"
           onClick={onDelete}
-          className="cursor-pointer"
+          className="cursor-pointer h-9"
         >
           {t("delete")}
           <Trash2Icon className="h-4 w-4 md:ml-2" />

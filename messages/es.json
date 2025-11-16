@@ -1324,12 +1324,15 @@
         "columnsMenuLabel": "Columnas",
         "emptyStudentsMessage": "No hay estudiantes inscritos en esta clase.",
         "table": {
-          "student": "Estudiante",
-          "studentCode": "Código de Estudiante",
-          "enrollmentStatus": "Estado",
-          "percentageGrade": "Nota (%)",
-          "letterGrade": "Letra",
-          "gradePoints": "Puntos",
+          "columns": {
+            "emptyValue": "—",
+            "student": "Estudiante",
+            "studentCode": "Código de Estudiante",
+            "enrollmentStatus": "Estado",
+            "percentageGrade": "Nota (%)",
+            "letterGrade": "Letra",
+            "gradePoints": "Puntos"
+          },
           "enrollmentStatusValues": {
             "enrolled": "Inscrito",
             "dropped": "Retirado",
