@@ -1317,7 +1317,7 @@
         "table": {
           "columns": {
             "emptyValue": "—",
-            "courseCode": "Course Code",
+            "courseCode": "Code",
             "courseName": "Course",
             "credits": "Credits",
             "percentageGrade": "Grade (%)",

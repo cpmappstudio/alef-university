@@ -1293,7 +1293,7 @@
         "table": {
           "columns": {
             "emptyValue": "—",
-            "courseCode": "Código del Curso",
+            "courseCode": "Código",
             "courseName": "Curso",
             "credits": "Créditos",
             "percentageGrade": "Nota (%)",
