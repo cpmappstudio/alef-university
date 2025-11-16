@@ -12,27 +12,24 @@ import { notFound } from "next/navigation";
 import type { ProfessorClassRow } from "@/lib/professors/types";
 
 interface ProfessorDetailPageProps {
-  params: {
+  params: Promise<{
     professorId: Id<"users">;
-  };
+  }>;
 }
 
 export default async function ProfessorDetailPage({
   params,
 }: ProfessorDetailPageProps) {
+  const { professorId } = await params;
   const authData = await auth();
   const token = await authData.getToken({ template: "convex" });
   const fetchOptions = token ? { token } : undefined;
 
   const [professor, classes] = await Promise.all([
-    fetchQuery(
-      api.users.getUser,
-      { userId: params.professorId },
-      fetchOptions,
-    ),
+    fetchQuery(api.users.getUser, { userId: professorId }, fetchOptions),
     fetchQuery(
       api.classes.getClassesByProfessor,
-      { professorId: params.professorId },
+      { professorId },
       fetchOptions,
     ),
   ]);
@@ -43,7 +40,7 @@ export default async function ProfessorDetailPage({
 
   return (
     <ProfessorDetailClient
-      professorId={params.professorId}
+      professorId={professorId}
       initialProfessor={professor}
       initialClasses={(classes ?? []) as ProfessorClassRow[]}
     />

@@ -1,20 +1,24 @@
-// import StudentTable from "@/components/student/student-table";
+/* Convex */
+import { fetchQuery } from "convex/nextjs";
+import { auth } from "@clerk/nextjs/server";
+import { api } from "@/convex/_generated/api";
 
-export default function ProfessorManagementPage() {
-  return (
-    <div className="space-y-6">
-      {/* Header Section */}
-      <div className="space-y-2">
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-          Student Management
-        </h1>
-        <p className="text-muted-foreground text-base sm:text-lg">
-          View and manage all students in the system.
-        </p>
-      </div>
+/* Components */
+import { StudentManagementClient } from "@/components/student/student-management-client";
 
-      {/* Main Content */}
-      {/*<StudentTable />*/}
-    </div>
-  );
+/* lib */
+import type { StudentDocument } from "@/lib/students/types";
+
+export default async function StudentManagementPage() {
+  const authData = await auth();
+  const token = await authData.getToken({ template: "convex" });
+  const fetchOptions = token ? { token } : undefined;
+
+  const students = ((await fetchQuery(
+    api.users.getAllUsers,
+    { role: "student" },
+    fetchOptions,
+  )) ?? []) as StudentDocument[];
+
+  return <StudentManagementClient students={students} />;
 }

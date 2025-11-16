@@ -812,9 +812,6 @@
         "descriptionEs": "Description (Spanish)",
         "descriptionEn": "Description (English)",
         "description": "Description",
-        "programsTitle": "Associated Programs",
-        "programsDescription": "This course belongs to the following programs. Select one to view its details.",
-        "programsEmpty": "This course is not currently associated with any programs.",
         "status": "Status",
         "createdAt": "Created At",
         "updatedAt": "Updated At",
@@ -1188,6 +1185,135 @@
         "deleting": "Deleting...",
         "success": "Professor deleted successfully",
         "error": "Unable to delete professor"
+      }
+    },
+    "students": {
+      "table": {
+        "filterPlaceholder": "Search students...",
+        "columnsMenuLabel": "Columns",
+        "emptyMessage": "No students found.",
+        "columns": {
+          "name": "Name",
+          "studentCode": "Student code",
+          "email": "Email",
+          "program": "Program",
+          "status": "Status",
+          "emptyValue": "-"
+        },
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        }
+      },
+      "form": {
+        "title": "Invite student",
+        "titleEdit": "Edit student",
+        "description": "Send an invitation to a student. They will receive instructions to activate their account.",
+        "descriptionEdit": "Update the student's profile and enrollment data.",
+        "createStudentButton": "Add student",
+        "fields": {
+          "firstName": {
+            "label": "First name",
+            "placeholder": "E.g. Laura"
+          },
+          "lastName": {
+            "label": "Last name",
+            "placeholder": "E.g. Gómez"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "student@example.com"
+          },
+          "studentCode": {
+            "label": "Student code",
+            "placeholder": "E.g. STU-2025-001",
+            "description": "Unique identifier used on transcripts and reports."
+          },
+          "program": {
+            "label": "Program",
+            "placeholder": "Select a program"
+          },
+          "enrollmentDate": {
+            "label": "Enrollment date",
+            "placeholder": "Select a date"
+          },
+          "status": {
+            "label": "Enrollment status",
+            "placeholder": "Select a status",
+            "options": {
+              "active": "Active",
+              "inactive": "Inactive",
+              "on_leave": "On leave",
+              "graduated": "Graduated",
+              "withdrawn": "Withdrawn"
+            }
+          },
+          "phone": {
+            "label": "Phone",
+            "placeholder": "+1 555 123 4567",
+            "description": "Optional contact information."
+          },
+          "country": {
+            "label": "Country",
+            "placeholder": "E.g. Mexico"
+          },
+          "isActive": {
+            "label": "Account active",
+            "description": "Inactive students cannot sign in to the platform."
+          }
+        },
+        "messages": {
+          "errors": {
+            "firstName": "Enter the student's first name.",
+            "lastName": "Enter the student's last name.",
+            "email": "Enter a valid email.",
+            "studentCode": "Enter the student code.",
+            "programId": "Select a program.",
+            "enrollmentDate": "Select the enrollment date.",
+            "status": "Select the enrollment status.",
+            "generic": "Unable to save the student. Try again."
+          }
+        },
+        "buttons": {
+          "cancel": "Cancel",
+          "submit": "Add student",
+          "update": "Save changes",
+          "loading": "Saving..."
+        }
+      },
+      "detail": {
+        "edit": "Edit",
+        "delete": "Delete",
+        "loading": "Loading student...",
+        "contact": {
+          "email": "Email",
+          "phone": "Phone"
+        },
+        "info": {
+          "fullName": "Full name",
+          "studentCode": "Student code",
+          "enrollmentDate": "Enrollment date",
+          "program": "Program",
+          "status": "Account status",
+          "profileStatus": "Enrollment status",
+          "profileStatusValues": {
+            "active": "Active",
+            "inactive": "Inactive",
+            "on_leave": "On leave",
+            "graduated": "Graduated",
+            "withdrawn": "Withdrawn"
+          }
+        },
+        "assignmentsPlaceholder": "Student assignments will appear here soon."
+      },
+      "deleteDialog": {
+        "title": "Delete student?",
+        "description": "This will permanently remove {studentName} and their access to the platform.",
+        "cancel": "Cancel",
+        "delete": "Delete student",
+        "deleting": "Deleting...",
+        "success": "Student deleted successfully",
+        "error": "Unable to delete student"
       }
     },
     "classes": {

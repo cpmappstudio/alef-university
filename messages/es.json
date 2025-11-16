@@ -788,9 +788,6 @@
         "descriptionEs": "Descripción (Español)",
         "descriptionEn": "Descripción (Inglés)",
         "description": "Descripción",
-        "programsTitle": "Programas asociados",
-        "programsDescription": "Este curso forma parte de los siguientes programas. Selecciona uno para ver sus detalles.",
-        "programsEmpty": "Este curso aún no está asociado a ningún programa.",
         "status": "Estado",
         "createdAt": "Creado el",
         "updatedAt": "Actualizado el",
@@ -1164,6 +1161,135 @@
         "deleting": "Eliminando...",
         "success": "Profesor eliminado correctamente",
         "error": "No se pudo eliminar al profesor"
+      }
+    },
+    "students": {
+      "table": {
+        "filterPlaceholder": "Buscar estudiantes...",
+        "columnsMenuLabel": "Columnas",
+        "emptyMessage": "No se encontraron estudiantes.",
+        "columns": {
+          "name": "Nombre",
+          "studentCode": "Código de estudiante",
+          "email": "Correo electrónico",
+          "program": "Programa",
+          "status": "Estado",
+          "emptyValue": "-"
+        },
+        "status": {
+          "active": "Activo",
+          "inactive": "Inactivo"
+        }
+      },
+      "form": {
+        "title": "Invitar estudiante",
+        "titleEdit": "Editar estudiante",
+        "description": "Envía una invitación para que el estudiante active su cuenta.",
+        "descriptionEdit": "Actualiza la información académica y de contacto del estudiante.",
+        "createStudentButton": "Agregar estudiante",
+        "fields": {
+          "firstName": {
+            "label": "Nombre",
+            "placeholder": "Ej. Laura"
+          },
+          "lastName": {
+            "label": "Apellido",
+            "placeholder": "Ej. Gómez"
+          },
+          "email": {
+            "label": "Correo electrónico",
+            "placeholder": "estudiante@ejemplo.com"
+          },
+          "studentCode": {
+            "label": "Código de estudiante",
+            "placeholder": "Ej. STU-2025-001",
+            "description": "Identificador que aparece en actas y certificados."
+          },
+          "program": {
+            "label": "Programa",
+            "placeholder": "Selecciona un programa"
+          },
+          "enrollmentDate": {
+            "label": "Fecha de inscripción",
+            "placeholder": "Selecciona una fecha"
+          },
+          "status": {
+            "label": "Estado académico",
+            "placeholder": "Selecciona un estado",
+            "options": {
+              "active": "Activo",
+              "inactive": "Inactivo",
+              "on_leave": "En permiso",
+              "graduated": "Graduado",
+              "withdrawn": "Retirado"
+            }
+          },
+          "phone": {
+            "label": "Teléfono",
+            "placeholder": "+52 55 1234 5678",
+            "description": "Opcional. Facilita la comunicación directa."
+          },
+          "country": {
+            "label": "País o región",
+            "placeholder": "Ej. México"
+          },
+          "isActive": {
+            "label": "Cuenta activa",
+            "description": "Los estudiantes inactivos no podrán iniciar sesión."
+          }
+        },
+        "messages": {
+          "errors": {
+            "firstName": "Ingresa el nombre del estudiante.",
+            "lastName": "Ingresa el apellido del estudiante.",
+            "email": "Ingresa un correo válido.",
+            "studentCode": "Ingresa el código del estudiante.",
+            "programId": "Selecciona un programa.",
+            "enrollmentDate": "Selecciona la fecha de inscripción.",
+            "status": "Selecciona el estado académico.",
+            "generic": "No se pudo guardar la información. Intenta nuevamente."
+          }
+        },
+        "buttons": {
+          "cancel": "Cancelar",
+          "submit": "Agregar estudiante",
+          "update": "Guardar cambios",
+          "loading": "Guardando..."
+        }
+      },
+      "detail": {
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "loading": "Cargando estudiante...",
+        "contact": {
+          "email": "Correo electrónico",
+          "phone": "Teléfono"
+        },
+        "info": {
+          "fullName": "Nombre completo",
+          "studentCode": "Código de estudiante",
+          "enrollmentDate": "Fecha de inscripción",
+          "program": "Programa",
+          "status": "Estado de la cuenta",
+          "profileStatus": "Estado académico",
+          "profileStatusValues": {
+            "active": "Activo",
+            "inactive": "Inactivo",
+            "on_leave": "En permiso",
+            "graduated": "Graduado",
+            "withdrawn": "Retirado"
+          }
+        },
+        "assignmentsPlaceholder": "Pronto verás las asignaciones del estudiante en esta sección."
+      },
+      "deleteDialog": {
+        "title": "¿Eliminar estudiante?",
+        "description": "Esta acción eliminará permanentemente a {studentName} y su acceso a la plataforma.",
+        "cancel": "Cancelar",
+        "delete": "Eliminar estudiante",
+        "deleting": "Eliminando...",
+        "success": "Estudiante eliminado correctamente",
+        "error": "No se pudo eliminar al estudiante"
       }
     },
     "classes": {

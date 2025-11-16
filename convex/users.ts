@@ -8,6 +8,21 @@ import type { UserRole } from "./types";
 import { roleValidator } from "./types";
 
 const ROLE_VALUES: UserRole[] = ["student", "professor", "admin", "superadmin"];
+const STUDENT_STATUS_VALUES = [
+  "active",
+  "inactive",
+  "on_leave",
+  "graduated",
+  "withdrawn",
+] as const;
+
+type StudentStatusPayload = (typeof STUDENT_STATUS_VALUES)[number];
+type StudentProfilePayload = {
+  studentCode: string;
+  programId: Id<"programs">;
+  enrollmentDate: number;
+  status: StudentStatusPayload;
+};
 
 type UserDocument = Doc<"users">;
 
@@ -247,6 +262,16 @@ export const upsertUser = mutation({
     phone: v.optional(v.string()),
     country: v.optional(v.string()),
     isActive: v.optional(v.boolean()),
+    studentProfile: v.optional(
+      v.object({
+        studentCode: v.string(),
+        programId: v.id("programs"),
+        enrollmentDate: v.number(),
+        status: v.union(
+          ...STUDENT_STATUS_VALUES.map((status) => v.literal(status)),
+        ),
+      }),
+    ),
   },
   handler: async (ctx, args) => {
     return await upsertUserRecord(ctx, args);
@@ -314,6 +339,7 @@ export type UserUpsertPayload = {
   phone?: string;
   country?: string;
   isActive?: boolean;
+  studentProfile?: StudentProfilePayload;
 };
 
 export async function upsertUserRecord(
@@ -329,6 +355,7 @@ export async function upsertUserRecord(
     ...payload,
     email,
   });
+  const studentProfileUpdate = sanitizeStudentProfile(payload.studentProfile);
 
   const existingByClerkId = await ctx.db
     .query("users")
@@ -338,6 +365,7 @@ export async function upsertUserRecord(
   if (existingByClerkId) {
     await ctx.db.patch(existingByClerkId._id, {
       ...sharedFields,
+      ...studentProfileUpdate,
       ...(payload.role ? { role: payload.role } : {}),
       ...(payload.isActive !== undefined ? { isActive: payload.isActive } : {}),
     });
@@ -360,6 +388,7 @@ export async function upsertUserRecord(
     await ctx.db.patch(existingByEmail._id, {
       clerkId: payload.clerkId,
       ...sharedFields,
+      ...studentProfileUpdate,
       ...(payload.role
         ? { role: payload.role }
         : { role: existingByEmail.role }),
@@ -373,6 +402,7 @@ export async function upsertUserRecord(
     role: payload.role ?? "student",
     isActive: payload.isActive ?? true,
     ...sharedFields,
+    ...studentProfileUpdate,
   });
 
   return userId;
@@ -407,6 +437,23 @@ function buildSharedFields(
   };
 }
 
+function sanitizeStudentProfile(
+  profile?: StudentProfilePayload,
+): Partial<Pick<UserDocument, "studentProfile">> {
+  if (!profile) {
+    return {};
+  }
+
+  return {
+    studentProfile: {
+      studentCode: profile.studentCode,
+      programId: profile.programId,
+      enrollmentDate: profile.enrollmentDate,
+      status: profile.status,
+    },
+  };
+}
+
 function buildPayloadFromClerk(data: UserJSON): UserUpsertPayload | null {
   const email = extractPrimaryEmail(data);
   if (!email) {
@@ -422,6 +469,178 @@ function buildPayloadFromClerk(data: UserJSON): UserUpsertPayload | null {
     isActive: true,
   };
 }
+
+export const createStudentWithClerk = action({
+  args: {
+    firstName: v.string(),
+    lastName: v.string(),
+    email: v.string(),
+    phone: v.optional(v.string()),
+    country: v.optional(v.string()),
+    dateOfBirth: v.optional(v.number()),
+    nationality: v.optional(v.string()),
+    documentType: v.optional(
+      v.union(
+        v.literal("passport"),
+        v.literal("national_id"),
+        v.literal("driver_license"),
+        v.literal("other"),
+      ),
+    ),
+    documentNumber: v.optional(v.string()),
+    studentProfile: v.object({
+      studentCode: v.string(),
+      programId: v.id("programs"),
+      enrollmentDate: v.number(),
+      status: v.union(
+        ...STUDENT_STATUS_VALUES.map((status) => v.literal(status)),
+      ),
+    }),
+    isActive: v.boolean(),
+  },
+  handler: async (
+    ctx,
+    args,
+  ): Promise<{ userId: Id<"users">; clerkId: string }> => {
+    await requireAdminForAction(ctx);
+    await ensureEmailAvailable(ctx, args.email);
+
+    const clerkAPIKey = process.env.CLERK_SECRET_KEY;
+    if (!clerkAPIKey) {
+      throw new ConvexError(
+        "CLERK_SECRET_KEY environment variable is not set.",
+      );
+    }
+
+    const response = await fetch("https://api.clerk.com/v1/users", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${clerkAPIKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email_address: [args.email],
+        first_name: args.firstName,
+        last_name: args.lastName,
+        public_metadata: {
+          role: "student",
+          studentCode: args.studentProfile.studentCode,
+        },
+        skip_password_checks: true,
+        skip_password_requirement: true,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.text();
+      throw new ConvexError(`Failed to create Clerk user: ${errorBody}`);
+    }
+
+    const clerkUser = (await response.json()) as UserJSON;
+    const email =
+      extractPrimaryEmail(clerkUser) ??
+      args.email ??
+      clerkUser.email_addresses?.[0]?.email_address ??
+      "";
+
+    const userId = (await ctx.runMutation(api.users.upsertUser, {
+      clerkId: clerkUser.id,
+      email,
+      firstName: args.firstName,
+      lastName: args.lastName,
+      role: "student",
+      phone: args.phone,
+      country: args.country,
+      dateOfBirth: args.dateOfBirth,
+      nationality: args.nationality,
+      documentType: args.documentType,
+      documentNumber: args.documentNumber,
+      studentProfile: args.studentProfile,
+      isActive: args.isActive,
+    })) as Id<"users">;
+
+    return { userId, clerkId: clerkUser.id };
+  },
+});
+
+export const updateStudentWithClerk = action({
+  args: {
+    clerkId: v.string(),
+    firstName: v.string(),
+    lastName: v.string(),
+    email: v.string(),
+    phone: v.optional(v.string()),
+    country: v.optional(v.string()),
+    dateOfBirth: v.optional(v.number()),
+    nationality: v.optional(v.string()),
+    documentType: v.optional(
+      v.union(
+        v.literal("passport"),
+        v.literal("national_id"),
+        v.literal("driver_license"),
+        v.literal("other"),
+      ),
+    ),
+    documentNumber: v.optional(v.string()),
+    studentProfile: v.object({
+      studentCode: v.string(),
+      programId: v.id("programs"),
+      enrollmentDate: v.number(),
+      status: v.union(
+        ...STUDENT_STATUS_VALUES.map((status) => v.literal(status)),
+      ),
+    }),
+    isActive: v.boolean(),
+  },
+  handler: async (ctx, args): Promise<{ clerkId: string }> => {
+    await requireAdminForAction(ctx);
+
+    const clerkAPIKey = process.env.CLERK_SECRET_KEY;
+    if (!clerkAPIKey) {
+      throw new ConvexError(
+        "CLERK_SECRET_KEY environment variable is not set.",
+      );
+    }
+
+    const response = await fetch(
+      `https://api.clerk.com/v1/users/${args.clerkId}`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${clerkAPIKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          first_name: args.firstName,
+          last_name: args.lastName,
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      const errorBody = await response.text();
+      throw new ConvexError(`Failed to update Clerk user: ${errorBody}`);
+    }
+
+    await ctx.runMutation(api.users.upsertUser, {
+      clerkId: args.clerkId,
+      email: args.email,
+      firstName: args.firstName,
+      lastName: args.lastName,
+      role: "student",
+      phone: args.phone,
+      country: args.country,
+      dateOfBirth: args.dateOfBirth,
+      nationality: args.nationality,
+      documentType: args.documentType,
+      documentNumber: args.documentNumber,
+      studentProfile: args.studentProfile,
+      isActive: args.isActive,
+    });
+
+    return { clerkId: args.clerkId };
+  },
+});
 
 function extractPrimaryEmail(data: UserJSON): string | null {
   const primaryId = data.primary_email_address_id;

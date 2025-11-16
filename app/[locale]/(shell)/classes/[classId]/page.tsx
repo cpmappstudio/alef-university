@@ -13,25 +13,22 @@ import type {
 } from "@/lib/classes/types";
 
 interface ClassDetailPageProps {
-  params: {
+  params: Promise<{
     classId: Id<"classes">;
-  };
+  }>;
 }
 
 export default async function ClassDetailPage({
   params,
 }: ClassDetailPageProps) {
+  const { classId } = await params;
   const authData = await auth();
   const token = await authData.getToken({ template: "convex" });
   const fetchOptions = token ? { token } : undefined;
 
   const [classData, enrollments] = await Promise.all([
-    fetchQuery(api.classes.getClassById, { id: params.classId }, fetchOptions),
-    fetchQuery(
-      api.classes.getClassEnrollments,
-      { classId: params.classId },
-      fetchOptions,
-    ),
+    fetchQuery(api.classes.getClassById, { id: classId }, fetchOptions),
+    fetchQuery(api.classes.getClassEnrollments, { classId }, fetchOptions),
   ]);
 
   if (!classData) {
@@ -40,7 +37,7 @@ export default async function ClassDetailPage({
 
   return (
     <ClassDetailClient
-      classId={params.classId}
+      classId={classId}
       initialClass={classData as ClassWithRelations}
       initialEnrollments={(enrollments ?? []) as ClassEnrollmentRow[]}
     />

@@ -1,0 +1,98 @@
+"use client";
+
+import * as React from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+import { useQuery } from "convex/react";
+
+import { api } from "@/convex/_generated/api";
+import type { Id } from "@/convex/_generated/dataModel";
+import { ROUTES } from "@/lib/routes";
+import type {
+  StudentDetailClientProps,
+  StudentDocument,
+} from "@/lib/students/types";
+
+import { StudentFormDialog } from "@/components/student/student-form-dialog";
+import { StudentDetailInfo } from "@/components/student/student-detail-info";
+import { StudentDeleteDialog } from "@/components/student/student-delete-dialog";
+import { Separator } from "@/components/ui/separator";
+
+export function StudentDetailClient({
+  studentId,
+  initialStudent,
+  initialProgram,
+}: StudentDetailClientProps) {
+  const locale = useLocale();
+  const router = useRouter();
+  const t = useTranslations("admin.students.detail");
+
+  const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
+
+  const studentQuery = useQuery(api.users.getUser, { userId: studentId });
+  const student = (studentQuery ??
+    initialStudent ??
+    null) as StudentDocument | null;
+
+  const programId = student?.studentProfile?.programId;
+  const programQuery = useQuery(
+    api.programs.getProgramById,
+    programId ? { id: programId as Id<"programs"> } : "skip",
+  );
+  const program = programQuery ?? initialProgram ?? null;
+
+  const handleEdit = React.useCallback(() => {
+    setIsEditDialogOpen(true);
+  }, []);
+
+  const handleDelete = React.useCallback(() => {
+    setIsDeleteDialogOpen(true);
+  }, []);
+
+  const handleDeleteSuccess = React.useCallback(() => {
+    router.push(ROUTES.students.root.withLocale(locale));
+  }, [router, locale]);
+
+  if (!student) {
+    return (
+      <div className="flex h-64 items-center justify-center">
+        <p className="text-muted-foreground">{t("loading")}</p>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <StudentFormDialog
+        mode="edit"
+        student={student}
+        open={isEditDialogOpen}
+        onOpenChange={setIsEditDialogOpen}
+      />
+      <StudentDeleteDialog
+        studentId={student._id as Id<"users">}
+        studentName={
+          `${student.firstName ?? ""} ${student.lastName ?? ""}`.trim() ||
+          student.email
+        }
+        open={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+        onSuccess={handleDeleteSuccess}
+      />
+
+      <StudentDetailInfo
+        student={student}
+        program={program}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
+
+      <Separator />
+
+      <section className="space-y-2 text-sm text-muted-foreground">
+        <p>{t("assignmentsPlaceholder")}</p>
+      </section>
+    </>
+  );
+}

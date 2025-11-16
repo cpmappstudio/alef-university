@@ -30,7 +30,7 @@ interface GradientCardContentProps {
 
 interface GradientCardDetailItemProps {
   label: string;
-  value: string;
+  value: React.ReactNode;
 }
 
 /**
@@ -60,7 +60,9 @@ export function GradientCardHeader({
   actions,
 }: GradientCardHeaderProps) {
   if (children) {
-    return <CardHeader className={cn("pb-4", className)}>{children}</CardHeader>;
+    return (
+      <CardHeader className={cn("pb-4", className)}>{children}</CardHeader>
+    );
   }
 
   return (
@@ -88,7 +90,9 @@ export function GradientCardContent({
   children,
   className,
 }: GradientCardContentProps) {
-  return <CardContent className={cn("pt-0", className)}>{children}</CardContent>;
+  return (
+    <CardContent className={cn("pt-0", className)}>{children}</CardContent>
+  );
 }
 
 /**
@@ -139,7 +143,9 @@ export function GradientCardDescriptions({
   className?: string;
 }) {
   return (
-    <div className={cn("mt-6 pt-6 border-t border-white/20 space-y-4", className)}>
+    <div
+      className={cn("mt-6 pt-6 border-t border-white/20 space-y-4", className)}
+    >
       {children}
     </div>
   );

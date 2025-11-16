@@ -9,29 +9,22 @@ import ProgramDetailClient from "@/components/program/program-detail-client";
 import { notFound } from "next/navigation";
 
 interface ProgramDetailPageProps {
-  params: {
+  params: Promise<{
     programId: Id<"programs">;
-  };
+  }>;
 }
 
 export default async function ProgramDetailPage({
   params,
 }: ProgramDetailPageProps) {
+  const { programId } = await params;
   const authData = await auth();
   const token = await authData.getToken({ template: "convex" });
   const fetchOptions = token ? { token } : undefined;
 
   const [program, courses, categories] = await Promise.all([
-    fetchQuery(
-      api.programs.getProgramById,
-      { id: params.programId },
-      fetchOptions,
-    ),
-    fetchQuery(
-      api.courses.getCoursesByProgram,
-      { programId: params.programId },
-      fetchOptions,
-    ),
+    fetchQuery(api.programs.getProgramById, { id: programId }, fetchOptions),
+    fetchQuery(api.courses.getCoursesByProgram, { programId }, fetchOptions),
     fetchQuery(api.programs.getProgramCategories, {}, fetchOptions),
   ]);
 
@@ -41,7 +34,7 @@ export default async function ProgramDetailPage({
 
   return (
     <ProgramDetailClient
-      programId={params.programId}
+      programId={programId}
       initialProgram={program}
       initialCourses={courses ?? []}
       initialCategories={categories ?? []}
