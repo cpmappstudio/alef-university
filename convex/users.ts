@@ -256,7 +256,7 @@ export const upsertUser = mutation({
 export const deleteUser = mutation({
   args: { userId: v.id("users") },
   handler: async (ctx, args) => {
-    await ctx.db.patch(args.userId, { isActive: false });
+    await ctx.db.delete(args.userId);
     return args.userId;
   },
 });
@@ -292,7 +292,7 @@ export const deleteFromClerk = internalMutation({
       return null;
     }
 
-    await ctx.db.patch(existing._id, { isActive: false });
+    await ctx.db.delete(existing._id);
     return existing._id;
   },
 });

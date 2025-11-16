@@ -23,7 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Student } from "../types";
-import { useMutation, useQuery, useAction } from "convex/react";
+import { useMutation, useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 
@@ -86,9 +86,9 @@ export function StudentFormDialog({
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState("general");
 
-  const adminCreateStudent = useAction(api.admin.createUserWithClerk);
+  const adminCreateStudent = useMutation(api.admin.createUserWithClerk);
   const adminUpdateStudent = useMutation(api.admin.adminUpdateStudent);
-  const deleteUser = useMutation(api.auth.deleteUser);
+  const deleteUser = useMutation(api.users.deleteUser);
 
   // Fetch programs for the dropdown
   const programs = useQuery(api.programs.getAllPrograms, { isActive: true });
