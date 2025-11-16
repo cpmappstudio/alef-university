@@ -39,7 +39,9 @@ export function ProfessorManagementClient({
 
   const handleRowClick = React.useCallback(
     (professor: ProfessorDocument) => {
-      router.push(ROUTES.professors.details(professor._id).withLocale(locale));
+      router.push(
+        ROUTES.professors.details(professor.clerkId).withLocale(locale),
+      );
     },
     [router, locale],
   );
