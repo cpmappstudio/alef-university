@@ -1120,6 +1120,31 @@
           "update": "Guardar cambios",
           "loading": "Guardando..."
         }
+      },
+      "detail": {
+        "back": "Volver a Profesores",
+        "edit": "Editar",
+        "loading": "Cargando profesor...",
+        "assignedClassesTitle": "Clases asignadas",
+        "assignedClassesDescription": "Revisa las clases actualmente asignadas a este profesor.",
+        "filterClassesPlaceholder": "Filtrar clases...",
+        "columnsMenuLabel": "Columnas",
+        "emptyClassesMessage": "Este profesor aún no tiene clases asignadas.",
+        "contact": {
+          "email": "Correo electrónico",
+          "phone": "Teléfono",
+          "country": "País"
+        },
+        "meta": {
+          "clerkId": "ID de Clerk"
+        },
+        "table": {
+          "course": "Curso",
+          "group": "Grupo",
+          "bimester": "Bimestre",
+          "status": "Estado",
+          "students": "Estudiantes"
+        }
       }
     },
     "classes": {

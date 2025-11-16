@@ -1144,6 +1144,31 @@
           "update": "Save changes",
           "loading": "Saving..."
         }
+      },
+      "detail": {
+        "back": "Back to Professors",
+        "edit": "Edit",
+        "loading": "Loading professor...",
+        "assignedClassesTitle": "Assigned Classes",
+        "assignedClassesDescription": "Review the classes currently assigned to this professor.",
+        "filterClassesPlaceholder": "Filter classes...",
+        "columnsMenuLabel": "Columns",
+        "emptyClassesMessage": "No classes assigned yet.",
+        "contact": {
+          "email": "Email",
+          "phone": "Phone",
+          "country": "Country"
+        },
+        "meta": {
+          "clerkId": "Clerk ID"
+        },
+        "table": {
+          "course": "Course",
+          "group": "Group",
+          "bimester": "Bimester",
+          "status": "Status",
+          "students": "Students"
+        }
       }
     },
     "classes": {

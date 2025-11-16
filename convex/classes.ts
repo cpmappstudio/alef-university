@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
+import type { Doc } from "./_generated/dataModel";
 
 /**
  * Compute class status based on bimester dates
@@ -136,6 +137,31 @@ export const getClassesByProfessor = query({
       return [];
     }
 
+    const mapWithRelations = async (
+      classItem: Doc<"classes">,
+      bimester: Doc<"bimesters"> | null,
+    ) => {
+      const [course, professor, enrollments] = await Promise.all([
+        ctx.db.get(classItem.courseId),
+        ctx.db.get(classItem.professorId),
+        ctx.db
+          .query("class_enrollments")
+          .withIndex("by_class", (q) => q.eq("classId", classItem._id))
+          .collect(),
+      ]);
+
+      const status = bimester ? computeClassStatus(bimester) : "open";
+
+      return {
+        ...classItem,
+        status,
+        course: course ?? null,
+        bimester: bimester ?? null,
+        professor: professor ?? null,
+        enrolledCount: enrollments.length,
+      };
+    };
+
     if (args.bimesterId) {
       const bimesterId = args.bimesterId;
       const classes = await ctx.db
@@ -149,11 +175,9 @@ export const getClassesByProfessor = query({
       const bimester = await ctx.db.get(bimesterId);
       if (!bimester) return [];
 
-      // Return classes with computed status
-      return classes.map((classItem) => ({
-        ...classItem,
-        status: computeClassStatus(bimester),
-      }));
+      return Promise.all(
+        classes.map((classItem) => mapWithRelations(classItem, bimester)),
+      );
     }
 
     // Get all classes for professor across all bimesters
@@ -164,20 +188,13 @@ export const getClassesByProfessor = query({
       )
       .collect();
 
-    // Enrich with computed status
-    const enrichedClasses = await Promise.all(
+    // Enrich with computed status and relations
+    return Promise.all(
       classes.map(async (classItem) => {
         const bimester = await ctx.db.get(classItem.bimesterId);
-        const status = bimester ? computeClassStatus(bimester) : "open";
-
-        return {
-          ...classItem,
-          status,
-        };
+        return mapWithRelations(classItem, bimester);
       }),
     );
-
-    return enrichedClasses;
   },
 });
 

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { Doc, Id } from "@/convex/_generated/dataModel";
+import type { ClassWithRelations } from "@/lib/classes/types";
 
 export type TeachingHistorySection = {
   _id: Id<"sections">;
@@ -91,6 +92,16 @@ export type ProfessorDocument = Pick<
 
 export type ProfessorManagementClientProps = {
   professors: ProfessorDocument[];
+};
+
+export type ProfessorClassRow = ClassWithRelations & {
+  enrolledCount?: number;
+};
+
+export type ProfessorDetailClientProps = {
+  professorId: Id<"users">;
+  initialProfessor?: Doc<"users"> | null;
+  initialClasses?: ProfessorClassRow[];
 };
 
 export type ProfessorFormState = {
