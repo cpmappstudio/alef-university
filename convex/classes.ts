@@ -574,6 +574,70 @@ export const removeStudentFromClass = mutation({
 });
 
 /**
+ * Update percentage grade for a class enrollment
+ */
+export const updateEnrollmentGrade = mutation({
+  args: {
+    enrollmentId: v.id("class_enrollments"),
+    percentageGrade: v.number(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    // Validate grade range
+    if (args.percentageGrade < 0 || args.percentageGrade > 100) {
+      throw new Error("Grade must be between 0 and 100");
+    }
+
+    // Get the enrollment
+    const enrollment = await ctx.db.get(args.enrollmentId);
+    if (!enrollment) {
+      throw new Error("Enrollment not found");
+    }
+
+    // Get the class to check bimester
+    const classItem = await ctx.db.get(enrollment.classId);
+    if (!classItem) {
+      throw new Error("Class not found");
+    }
+
+    // Get the bimester to check if grades can be submitted
+    const bimester = await ctx.db.get(classItem.bimesterId);
+    if (!bimester) {
+      throw new Error("Bimester not found");
+    }
+
+    // Check if we're in the grading period
+    const now = Date.now();
+    const status = computeClassStatus(bimester);
+
+    if (status !== "grading") {
+      throw new Error("Grades can only be updated during the grading period");
+    }
+
+    // Get current user
+    const users = await ctx.db.query("users").collect();
+    const currentUser = users.find((u) => u.clerkId === identity.subject);
+    if (!currentUser) {
+      throw new Error("Current user not found");
+    }
+
+    // Update the grade
+    await ctx.db.patch(args.enrollmentId, {
+      percentageGrade: args.percentageGrade,
+      gradedBy: currentUser._id,
+      gradedAt: now,
+      updatedAt: now,
+    });
+
+    return args.enrollmentId;
+  },
+});
+
+/**
  * Get all students (for adding to classes)
  */
 export const getAllStudents = query({

@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Input } from "@/components/ui/input";
 import type { Translator } from "@/lib/table/types";
@@ -7,6 +8,7 @@ import type {
   ClassEnrollmentRow,
   ClassWithRelations,
 } from "@/lib/classes/types";
+import type { Id } from "@/convex/_generated/dataModel";
 
 const createStudentColumn = (
   t: Translator,
@@ -47,6 +49,7 @@ const createStudentCodeColumn = (
 const createPercentageGradeColumn = (
   t: Translator,
   classStatus: ClassWithRelations["status"],
+  onGradeChange: (enrollmentId: Id<"class_enrollments">, grade: number) => void,
 ): ColumnDef<ClassEnrollmentRow> => ({
   accessorKey: "percentageGrade",
   header: () => (
@@ -55,6 +58,36 @@ const createPercentageGradeColumn = (
   cell: ({ row }) => {
     const grade = row.original.percentageGrade;
     const isEditable = classStatus === "grading";
+    const enrollmentId = row.original._id;
+
+    const [localValue, setLocalValue] = React.useState(
+      grade !== undefined && grade !== null ? grade.toString() : "",
+    );
+
+    // Update local value when grade prop changes
+    React.useEffect(() => {
+      setLocalValue(
+        grade !== undefined && grade !== null ? grade.toString() : "",
+      );
+    }, [grade]);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setLocalValue(e.target.value);
+    };
+
+    const handleBlur = () => {
+      if (localValue === "") return;
+
+      const numericValue = parseFloat(localValue);
+      if (!isNaN(numericValue) && numericValue >= 0 && numericValue <= 100) {
+        onGradeChange(enrollmentId, numericValue);
+      } else {
+        // Reset to original value if invalid
+        setLocalValue(
+          grade !== undefined && grade !== null ? grade.toString() : "",
+        );
+      }
+    };
 
     return (
       <div className="text-right">
@@ -63,7 +96,9 @@ const createPercentageGradeColumn = (
           min="0"
           max="100"
           step="0.01"
-          defaultValue={grade ?? ""}
+          value={localValue}
+          onChange={handleChange}
+          onBlur={handleBlur}
           placeholder="0.00"
           className={`w-20 text-right font-mono ${!isEditable ? "opacity-50 cursor-not-allowed" : ""}`}
           disabled={!isEditable}
@@ -107,13 +142,14 @@ const createGradePointsColumn = (
 export const classEnrollmentColumns = (
   t: Translator,
   classStatus: ClassWithRelations["status"],
+  onGradeChange: (enrollmentId: Id<"class_enrollments">, grade: number) => void,
 ): ColumnDef<ClassEnrollmentRow>[] => {
   const emptyValue = t("columns.emptyValue");
 
   return [
     createStudentColumn(t, emptyValue),
     createStudentCodeColumn(t, emptyValue),
-    createPercentageGradeColumn(t, classStatus),
+    createPercentageGradeColumn(t, classStatus, onGradeChange),
     createLetterGradeColumn(t, emptyValue),
     createGradePointsColumn(t, emptyValue),
   ];

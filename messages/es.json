@@ -1323,6 +1323,10 @@
         "filterStudentsPlaceholder": "Filtrar estudiantes...",
         "columnsMenuLabel": "Columnas",
         "emptyStudentsMessage": "No hay estudiantes inscritos en esta clase.",
+        "gradeUpdated": "Nota actualizada",
+        "gradeUpdatedDescription": "La nota del estudiante se ha guardado exitosamente.",
+        "gradeUpdateError": "Error al actualizar nota",
+        "gradeUpdateErrorDescription": "No se pudo actualizar la nota. Por favor, intenta de nuevo.",
         "table": {
           "columns": {
             "emptyValue": "—",

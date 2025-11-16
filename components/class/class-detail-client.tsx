@@ -4,7 +4,8 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { useQuery } from "convex/react";
+import { useQuery, useMutation } from "convex/react";
+import { toast } from "sonner";
 
 /* components */
 import CustomTable from "@/components/ui/custom-table";
@@ -23,6 +24,7 @@ import type {
   ClassEnrollmentRow,
   ClassWithRelations,
 } from "@/lib/classes/types";
+import type { Id } from "@/convex/_generated/dataModel";
 
 export function ClassDetailClient({
   classId,
@@ -33,6 +35,8 @@ export function ClassDetailClient({
   const locale = useLocale();
   const t = useTranslations("admin.classes.detail");
   const tTable = useTranslations("admin.classes.detail.table");
+
+  const updateGrade = useMutation(api.classes.updateEnrollmentGrade);
 
   const classQuery = useQuery(api.classes.getClassById, { id: classId });
   const enrollmentsQuery = useQuery(api.classes.getClassEnrollments, {
@@ -76,9 +80,36 @@ export function ClassDetailClient({
     }
   }, [router, locale, classData?.courseId]);
 
+  const handleGradeChange = React.useCallback(
+    async (enrollmentId: Id<"class_enrollments">, grade: number) => {
+      try {
+        await updateGrade({
+          enrollmentId,
+          percentageGrade: grade,
+        });
+        toast.success(t("gradeUpdated"), {
+          description: t("gradeUpdatedDescription"),
+        });
+      } catch (error) {
+        toast.error(t("gradeUpdateError"), {
+          description:
+            error instanceof Error
+              ? error.message
+              : t("gradeUpdateErrorDescription"),
+        });
+      }
+    },
+    [updateGrade, t],
+  );
+
   const studentColumns = React.useMemo(
-    () => classEnrollmentColumns(tTable, classData?.status ?? "open"),
-    [tTable, classData?.status],
+    () =>
+      classEnrollmentColumns(
+        tTable,
+        classData?.status ?? "open",
+        handleGradeChange,
+      ),
+    [tTable, classData?.status, handleGradeChange],
   );
 
   if (!classData) {

@@ -1347,6 +1347,10 @@
         "filterStudentsPlaceholder": "Filter students...",
         "columnsMenuLabel": "Columns",
         "emptyStudentsMessage": "No students enrolled in this class.",
+        "gradeUpdated": "Grade updated",
+        "gradeUpdatedDescription": "The student's grade has been saved successfully.",
+        "gradeUpdateError": "Error updating grade",
+        "gradeUpdateErrorDescription": "Could not update the grade. Please try again.",
         "table": {
           "columns": {
             "emptyValue": "—",
