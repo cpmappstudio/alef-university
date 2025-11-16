@@ -1162,13 +1162,29 @@
         "meta": {
           "clerkId": "Clerk ID"
         },
+        "info": {
+          "fullName": "Full name",
+          "status": "Status",
+          "role": "Role",
+          "unknown": "Not specified"
+        },
         "table": {
           "course": "Course",
           "group": "Group",
           "bimester": "Bimester",
           "status": "Status",
           "students": "Students"
-        }
+        },
+        "delete": "Delete"
+      },
+      "deleteDialog": {
+        "title": "Delete professor?",
+        "description": "This will permanently remove {professorName} and their access to the platform.",
+        "cancel": "Cancel",
+        "delete": "Delete professor",
+        "deleting": "Deleting...",
+        "success": "Professor deleted successfully",
+        "error": "Unable to delete professor"
       }
     },
     "classes": {

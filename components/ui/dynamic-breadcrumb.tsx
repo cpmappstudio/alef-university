@@ -133,6 +133,17 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
     return null;
   }, [pathParts]);
 
+  const professorId = useMemo(() => {
+    const professorsIndex = pathParts.indexOf("professors");
+    if (professorsIndex !== -1 && pathParts[professorsIndex + 1]) {
+      const id = pathParts[professorsIndex + 1];
+      if (!ROUTE_CONFIG[id] && id.length > 20) {
+        return id as Id<"users">;
+      }
+    }
+    return null;
+  }, [pathParts]);
+
   // Fetch data for dynamic entities
   const program = useQuery(
     api.programs.getProgramById,
@@ -147,6 +158,11 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
   const classData = useQuery(
     api.classes.getClassById,
     classId ? { id: classId } : "skip",
+  );
+
+  const professor = useQuery(
+    api.users.getUser,
+    professorId ? { userId: professorId } : "skip",
   );
 
   // Stable translation function with useCallback
@@ -223,6 +239,22 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
       return segments;
     }
 
+    // Professor detail page: prefix with "Prof." + full name
+    if (professorId && professor) {
+      const fullName = [professor.firstName, professor.lastName]
+        .filter(Boolean)
+        .join(" ")
+        .trim();
+      const displayName = fullName || professor.email || professor.clerkId;
+      const prefix = locale === "es" ? "Prof." : "Prof.";
+
+      segments.push({
+        title: `${prefix} ${displayName}`.trim(),
+        isCurrentPage: true,
+      });
+      return segments;
+    }
+
     // Otherwise, use standard route config
     const config = ROUTE_CONFIG[lastPart];
     const title = config
@@ -246,6 +278,8 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
     classId,
     classData,
     locale,
+    professorId,
+    professor,
   ]);
 
   return (

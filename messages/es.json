@@ -1138,13 +1138,29 @@
         "meta": {
           "clerkId": "ID de Clerk"
         },
+        "info": {
+          "fullName": "Nombre completo",
+          "status": "Estado",
+          "role": "Rol",
+          "unknown": "No especificado"
+        },
         "table": {
           "course": "Curso",
           "group": "Grupo",
           "bimester": "Bimestre",
           "status": "Estado",
           "students": "Estudiantes"
-        }
+        },
+        "delete": "Eliminar"
+      },
+      "deleteDialog": {
+        "title": "¿Eliminar profesor?",
+        "description": "Esta acción eliminará permanentemente a {professorName} y su acceso a la plataforma.",
+        "cancel": "Cancelar",
+        "delete": "Eliminar profesor",
+        "deleting": "Eliminando...",
+        "success": "Profesor eliminado correctamente",
+        "error": "No se pudo eliminar al profesor"
       }
     },
     "classes": {
