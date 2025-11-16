@@ -237,6 +237,58 @@ export const updateProfessorWithClerk = action({
   },
 });
 
+export const deleteUserWithClerk = action({
+  args: {
+    userId: v.id("users"),
+  },
+  handler: async (
+    ctx,
+    args,
+  ): Promise<{ userId: Id<"users">; clerkId: string | null }> => {
+    await requireAdminForAction(ctx);
+
+    const user = await ctx.runQuery(api.users.getUser, {
+      userId: args.userId,
+    });
+
+    if (!user) {
+      throw new ConvexError("User not found");
+    }
+
+    const clerkId = user.clerkId ?? null;
+
+    if (clerkId) {
+      const clerkAPIKey = process.env.CLERK_SECRET_KEY;
+      if (!clerkAPIKey) {
+        throw new ConvexError(
+          "CLERK_SECRET_KEY environment variable is not set.",
+        );
+      }
+
+      const response = await fetch(
+        `https://api.clerk.com/v1/users/${clerkId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${clerkAPIKey}`,
+          },
+        },
+      );
+
+      if (!response.ok && response.status !== 404) {
+        const errorBody = await response.text();
+        throw new ConvexError(`Failed to delete Clerk user: ${errorBody}`);
+      }
+    }
+
+    await ctx.runMutation(api.users.deleteUser, {
+      userId: args.userId,
+    });
+
+    return { userId: args.userId, clerkId };
+  },
+});
+
 /** ------------------------------------------------------------------
  * Mutations used within Convex
  * ------------------------------------------------------------------ */

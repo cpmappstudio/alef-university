@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useTranslations } from "next-intl";
-import { useMutation } from "convex/react";
+import { useAction } from "convex/react";
 import { Loader2 } from "lucide-react";
 
 import {
@@ -36,7 +36,7 @@ export function StudentDeleteDialog({
 }: StudentDeleteDialogProps) {
   const t = useTranslations("admin.students.deleteDialog");
   const [isDeleting, setIsDeleting] = React.useState(false);
-  const deleteUser = useMutation(api.users.deleteUser);
+  const deleteUser = useAction(api.users.deleteUserWithClerk);
 
   const handleDelete = async () => {
     try {
