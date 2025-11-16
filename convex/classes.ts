@@ -331,6 +331,7 @@ export const createClass = mutation({
 export const updateClass = mutation({
   args: {
     classId: v.id("classes"),
+    bimesterId: v.optional(v.id("bimesters")),
     groupNumber: v.optional(v.string()),
     professorId: v.optional(v.id("users")),
   },
@@ -347,6 +348,9 @@ export const updateClass = mutation({
 
     const updates: any = {};
 
+    if (args.bimesterId !== undefined) {
+      updates.bimesterId = args.bimesterId;
+    }
     if (args.groupNumber !== undefined) {
       updates.groupNumber = args.groupNumber;
     }

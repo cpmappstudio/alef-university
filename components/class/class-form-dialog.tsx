@@ -36,7 +36,9 @@ import { api } from "@/convex/_generated/api";
 import type { Id } from "@/convex/_generated/dataModel";
 
 interface ClassFormDialogProps {
+  mode: "create" | "edit";
   courseId: Id<"courses">;
+  classId?: Id<"classes">;
   trigger?: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -55,7 +57,9 @@ const createEmptyFormState = (): ClassFormState => ({
 });
 
 export default function ClassFormDialog({
+  mode,
   courseId,
+  classId,
   trigger,
   open: controlledOpen,
   onOpenChange,
@@ -82,11 +86,26 @@ export default function ClassFormDialog({
   const isLoadingUsers = usersQuery === undefined;
 
   const createClass = useMutation(api.classes.createClass);
+  const updateClass = useMutation(api.classes.updateClass);
+
+  // Get class data when in edit mode
+  const classData = useQuery(
+    api.classes.getClassById,
+    mode === "edit" && classId && open ? { id: classId } : "skip",
+  );
 
   const resetForm = React.useCallback(() => {
-    setFormState(createEmptyFormState());
+    if (mode === "edit" && classData) {
+      setFormState({
+        bimesterId: classData.bimesterId,
+        groupNumber: classData.groupNumber,
+        professorId: classData.professorId,
+      });
+    } else {
+      setFormState(createEmptyFormState());
+    }
     setFormError(null);
-  }, []);
+  }, [mode, classData]);
 
   React.useEffect(() => {
     if (open) {
@@ -141,12 +160,21 @@ export default function ClassFormDialog({
     try {
       setIsSubmitting(true);
 
-      await createClass({
-        courseId,
-        bimesterId: formState.bimesterId as Id<"bimesters">,
-        groupNumber: formState.groupNumber.trim(),
-        professorId: formState.professorId as Id<"users">,
-      });
+      if (mode === "edit" && classId) {
+        await updateClass({
+          classId,
+          bimesterId: formState.bimesterId as Id<"bimesters">,
+          groupNumber: formState.groupNumber.trim(),
+          professorId: formState.professorId as Id<"users">,
+        });
+      } else {
+        await createClass({
+          courseId,
+          bimesterId: formState.bimesterId as Id<"bimesters">,
+          groupNumber: formState.groupNumber.trim(),
+          professorId: formState.professorId as Id<"users">,
+        });
+      }
 
       handleDialogChange(false);
     } catch (error) {
@@ -168,8 +196,12 @@ export default function ClassFormDialog({
       <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-background border-border shadow-2xl">
         <form onSubmit={handleSubmit}>
           <DialogHeader className="hidden">
-            <DialogTitle>{t("title")}</DialogTitle>
-            <DialogDescription>{t("description")}</DialogDescription>
+            <DialogTitle>
+              {mode === "edit" ? t("titleEdit") : t("title")}
+            </DialogTitle>
+            <DialogDescription>
+              {mode === "edit" ? t("descriptionEdit") : t("description")}
+            </DialogDescription>
           </DialogHeader>
 
           <FieldGroup>
@@ -294,6 +326,8 @@ export default function ClassFormDialog({
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     {t("buttons.loading")}
                   </>
+                ) : mode === "edit" ? (
+                  t("buttons.update")
                 ) : (
                   t("buttons.submit")
                 )}

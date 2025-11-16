@@ -995,7 +995,9 @@
         },
         "classForm": {
           "title": "Crear Clase",
+          "titleEdit": "Editar Clase",
           "description": "Crear una nueva clase (sesión) para este curso.",
+          "descriptionEdit": "Editar la información de la clase.",
           "fields": {
             "bimester": {
               "label": "Bimestre",
@@ -1025,6 +1027,7 @@
           },
           "buttons": {
             "submit": "Crear Clase",
+            "update": "Actualizar Clase",
             "loading": "Creando..."
           }
         },
@@ -1306,7 +1309,8 @@
           "course": "Curso",
           "professor": "Profesor",
           "credits": "Créditos",
-          "enrolledStudents": "Estudiantes Inscritos"
+          "enrolledStudents": "Estudiantes Inscritos",
+          "group": "Grupo"
         },
         "statusValues": {
           "open": "Abierto",
@@ -1343,6 +1347,18 @@
           "studentRemoved": "Estudiante removido exitosamente",
           "error": "Error al actualizar estudiantes",
           "errorDescription": "No se pudo completar la operación. Por favor, intenta de nuevo."
+        },
+        "deleteDialog": {
+          "title": "¿Eliminar clase?",
+          "description": "¿Estás seguro de que deseas eliminar la clase \"{className}\"?",
+          "warning": "Advertencia: Eliminación en cascada",
+          "enrollmentsInfo": "Esta clase tiene {count} inscripción/es de estudiante(s). Todas las inscripciones serán eliminadas permanentemente.",
+          "irreversible": "Esta acción no se puede deshacer.",
+          "cancel": "Cancelar",
+          "delete": "Eliminar clase",
+          "deleting": "Eliminando...",
+          "success": "Clase eliminada exitosamente",
+          "error": "Error al eliminar la clase"
         }
       }
     }

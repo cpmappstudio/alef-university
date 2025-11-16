@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import { Users, Check } from "lucide-react";
+import { Users, Check, PencilIcon, Trash2Icon } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -26,10 +26,14 @@ import { Badge } from "@/components/ui/badge";
 
 interface ClassDetailActionsProps {
   classId: Id<"classes">;
+  onEdit?: () => void;
+  onDelete?: () => void;
 }
 
 export default function ClassDetailActions({
   classId,
+  onEdit,
+  onDelete,
 }: ClassDetailActionsProps) {
   const t = useTranslations("admin.classes.detail");
   const locale = useLocale();
@@ -115,7 +119,24 @@ export default function ClassDetailActions({
   };
 
   return (
-    <div className="flex gap-2 my-4">
+    <div className="flex flex-col sm:flex-row gap-2 my-4">
+      {onEdit && (
+        <Button size="sm" onClick={onEdit} className="cursor-pointer">
+          {t("edit")}
+          <PencilIcon className="h-4 w-4 md:ml-2" />
+        </Button>
+      )}
+      {onDelete && (
+        <Button
+          variant="destructive"
+          size="sm"
+          onClick={onDelete}
+          className="cursor-pointer"
+        >
+          {t("delete")}
+          <Trash2Icon className="h-4 w-4 md:ml-2" />
+        </Button>
+      )}
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button variant="default" className="cursor-pointer">

@@ -21,8 +21,6 @@ interface ClassDetailInfoProps {
   enrolledCount: number;
   locale: string;
   onBack: () => void;
-  onEdit?: () => void;
-  onDelete?: () => void;
 }
 
 export default function ClassDetailInfo({
@@ -30,8 +28,6 @@ export default function ClassDetailInfo({
   enrolledCount,
   locale,
   onBack,
-  onEdit,
-  onDelete,
 }: ClassDetailInfoProps) {
   const t = useTranslations("admin.classes.detail");
   const dateLocale = locale === "es" ? es : enUS;

@@ -1019,7 +1019,9 @@
         },
         "classForm": {
           "title": "Create Class",
+          "titleEdit": "Edit Class",
           "description": "Create a new class (session) for this course.",
+          "descriptionEdit": "Edit the class information.",
           "fields": {
             "bimester": {
               "label": "Bimester",
@@ -1049,6 +1051,7 @@
           },
           "buttons": {
             "submit": "Create Class",
+            "update": "Update Class",
             "loading": "Creating..."
           }
         },
@@ -1330,7 +1333,8 @@
           "course": "Course",
           "professor": "Professor",
           "credits": "Credits",
-          "enrolledStudents": "Enrolled Students"
+          "enrolledStudents": "Enrolled Students",
+          "group": "Group"
         },
         "statusValues": {
           "open": "Open",
@@ -1367,6 +1371,18 @@
           "studentRemoved": "Student removed successfully",
           "error": "Error updating students",
           "errorDescription": "Could not complete the operation. Please try again."
+        },
+        "deleteDialog": {
+          "title": "Delete class?",
+          "description": "Are you sure you want to delete the class \"{className}\"?",
+          "warning": "Warning: Cascade deletion",
+          "enrollmentsInfo": "This class has {count} student enrollment(s). All enrollments will be permanently deleted.",
+          "irreversible": "This action cannot be undone.",
+          "cancel": "Cancel",
+          "delete": "Delete class",
+          "deleting": "Deleting...",
+          "success": "Class deleted successfully",
+          "error": "Error deleting class"
         }
       }
     }
