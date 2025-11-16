@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 
 /* lib */
 import type { ProfessorClassRow } from "@/lib/professors/types";
+import { getCurrentUserRole } from "@/lib/rbac";
 
 interface ProfessorDetailPageProps {
   params: Promise<{
@@ -25,13 +26,14 @@ export default async function ProfessorDetailPage({
   const token = await authData.getToken({ template: "convex" });
   const fetchOptions = token ? { token } : undefined;
 
-  const [professor, classes] = await Promise.all([
+  const [professor, classes, userRole] = await Promise.all([
     fetchQuery(api.users.getUser, { userId: professorId }, fetchOptions),
     fetchQuery(
       api.classes.getClassesByProfessor,
       { professorId },
       fetchOptions,
     ),
+    getCurrentUserRole(),
   ]);
 
   if (!professor) {
@@ -43,6 +45,7 @@ export default async function ProfessorDetailPage({
       professorId={professorId}
       initialProfessor={professor}
       initialClasses={(classes ?? []) as ProfessorClassRow[]}
+      userRole={userRole}
     />
   );
 }

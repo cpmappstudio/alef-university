@@ -20,6 +20,16 @@ const STUDENT_ALLOWED_ROUTES = createRouteMatcher([
   ROUTES.settings.root.path + "(.*)",
 ]);
 
+// Routes accessible to professors (their own profile and classes)
+const PROFESSOR_ALLOWED_ROUTES = createRouteMatcher([
+  "/:locale" + ROUTES.professors.root.path + "/:professorId",
+  ROUTES.professors.root.path + "/:professorId",
+  "/:locale" + ROUTES.classes.root.path + "/:classId",
+  ROUTES.classes.root.path + "/:classId",
+  "/:locale" + ROUTES.settings.root.path + "(.*)",
+  ROUTES.settings.root.path + "(.*)",
+]);
+
 // Routes that must stay hidden from students.
 const ROUTE_RESTRICTIONS: RouteRestriction[] = [
   {
@@ -47,15 +57,15 @@ const ROUTE_RESTRICTIONS: RouteRestriction[] = [
   },
   {
     matcher: createRouteMatcher([
-      "/:locale" + ROUTES.classes.root.path,
-      ROUTES.classes.root.path,
+      "/:locale" + ROUTES.classes.root.path + "/:classId",
+      ROUTES.classes.root.path + "/:classId",
     ]),
     allowedRoles: PROFESSOR_ROLES,
   },
   {
     matcher: createRouteMatcher([
-      "/:locale" + ROUTES.professors.root.path,
-      ROUTES.professors.root.path,
+      "/:locale" + ROUTES.professors.root.path + "/:professorId",
+      ROUTES.professors.root.path + "/:professorId",
     ]),
     allowedRoles: PROFESSOR_ROLES,
   },
@@ -193,7 +203,7 @@ export function checkRoleAccess(
     return "denied";
   }
 
-  // For professors: allow account settings, deny academic management
+  // For professors: allow only their own profile, their classes, and account settings
   if (userRole === "professor") {
     // Allow only account settings routes for professors
     if (
@@ -208,6 +218,40 @@ export function checkRoleAccess(
 
     // Deny access to academic management settings
     if (req.nextUrl.pathname.includes(ROUTES.settings.root.path)) {
+      return "denied";
+    }
+
+    // Check if accessing a professor profile route
+    if (PROFESSOR_ALLOWED_ROUTES(req)) {
+      const pathParts = req.nextUrl.pathname.split("/");
+
+      // Check professor profile access
+      const professorsIndex = pathParts.indexOf("professors");
+      if (professorsIndex !== -1 && pathParts[professorsIndex + 1]) {
+        const professorIdFromUrl = pathParts[professorsIndex + 1];
+
+        // Professors can only access their own profile
+        if (professorIdFromUrl === userId) {
+          return "allowed";
+        }
+        return "denied";
+      }
+
+      // Check class access - allow all classes for now
+      // TODO: Verify professor is assigned to the specific class
+      const classesIndex = pathParts.indexOf("classes");
+      if (classesIndex !== -1 && pathParts[classesIndex + 1]) {
+        return "allowed";
+      }
+    }
+
+    // Professors can't access programs, courses, students, enrollments lists
+    if (
+      req.nextUrl.pathname.includes(ROUTES.programs.root.path) ||
+      req.nextUrl.pathname.includes(ROUTES.courses.root.path) ||
+      req.nextUrl.pathname.includes(ROUTES.students.root.path) ||
+      req.nextUrl.pathname.includes(ROUTES.enrollments.root.path)
+    ) {
       return "denied";
     }
   }

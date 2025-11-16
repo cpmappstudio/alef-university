@@ -17,12 +17,16 @@ interface ProfessorDetailInfoProps {
   professor: Doc<"users">;
   onEdit?: () => void;
   onDelete: () => void;
+  canDelete?: boolean;
+  userRole?: string | null;
 }
 
 export function ProfessorDetailInfo({
   professor,
   onEdit,
   onDelete,
+  canDelete = true,
+  userRole,
 }: ProfessorDetailInfoProps) {
   const tDetail = useTranslations("admin.professors.detail");
   const tTable = useTranslations("admin.professors.table");
@@ -50,15 +54,17 @@ export function ProfessorDetailInfo({
           <PencilIcon className="h-4 w-4 md:ml-2" />
         </Button>
       )}
-      <Button
-        variant="destructive"
-        size="sm"
-        onClick={onDelete}
-        className="cursor-pointer"
-      >
-        <span className="hidden md:inline">{tDetail("delete")}</span>
-        <Trash2Icon className="h-4 w-4 md:ml-2" />
-      </Button>
+      {canDelete && (
+        <Button
+          variant="destructive"
+          size="sm"
+          onClick={onDelete}
+          className="cursor-pointer"
+        >
+          <span className="hidden md:inline">{tDetail("delete")}</span>
+          <Trash2Icon className="h-4 w-4 md:ml-2" />
+        </Button>
+      )}
     </>
   );
 

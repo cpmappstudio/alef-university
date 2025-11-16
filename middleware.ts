@@ -31,7 +31,10 @@ const STATIC_FILE_PATTERN =
 const DEFAULT_PATHS: Record<UserRole, (userId?: string) => string> = {
   admin: () => ROUTES.programs.root.path,
   superadmin: () => ROUTES.programs.root.path,
-  professor: () => ROUTES.programs.root.path,
+  professor: (userId?: string) =>
+    userId
+      ? ROUTES.professors.details(userId).path
+      : ROUTES.professors.root.path,
   student: (userId?: string) =>
     userId ? ROUTES.students.details(userId).path : ROUTES.students.root.path,
 };

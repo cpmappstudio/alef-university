@@ -102,6 +102,7 @@ export type ProfessorDetailClientProps = {
   professorId: Id<"users">;
   initialProfessor?: Doc<"users"> | null;
   initialClasses?: ProfessorClassRow[];
+  userRole?: string | null;
 };
 
 export type ProfessorFormState = {

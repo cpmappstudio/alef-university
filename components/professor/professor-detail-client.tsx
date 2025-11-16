@@ -24,6 +24,7 @@ export function ProfessorDetailClient({
   professorId,
   initialProfessor,
   initialClasses,
+  userRole,
 }: ProfessorDetailClientProps) {
   const locale = useLocale();
   const router = useRouter();
@@ -99,8 +100,14 @@ export function ProfessorDetailClient({
 
       <ProfessorDetailInfo
         professor={professor}
-        onEdit={handleEdit}
+        onEdit={
+          userRole === "admin" || userRole === "superadmin"
+            ? handleEdit
+            : undefined
+        }
         onDelete={handleDelete}
+        canDelete={userRole === "admin" || userRole === "superadmin"}
+        userRole={userRole}
       />
 
       <Separator />
