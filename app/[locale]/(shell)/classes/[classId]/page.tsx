@@ -6,15 +6,17 @@ import type { Id } from "@/convex/_generated/dataModel";
 
 /* Components */
 import { ClassDetailClient } from "@/components/class/class-detail-client";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import type {
   ClassEnrollmentRow,
   ClassWithRelations,
 } from "@/lib/classes/types";
 import { getCurrentUserRole } from "@/lib/rbac";
+import { ROUTES } from "@/lib/routes";
 
 interface ClassDetailPageProps {
   params: Promise<{
+    locale: string;
     classId: Id<"classes">;
   }>;
 }
@@ -22,8 +24,9 @@ interface ClassDetailPageProps {
 export default async function ClassDetailPage({
   params,
 }: ClassDetailPageProps) {
-  const { classId } = await params;
+  const { locale, classId } = await params;
   const authData = await auth();
+  const { userId } = authData;
   const token = await authData.getToken({ template: "convex" });
   const fetchOptions = token ? { token } : undefined;
 
@@ -35,6 +38,21 @@ export default async function ClassDetailPage({
 
   if (!classData) {
     notFound();
+  }
+
+  // Professors can only view classes they are assigned to
+  if (userRole === "professor" && userId) {
+    // Get professor's Convex ID from Clerk ID
+    const professor = await fetchQuery(
+      api.users.getUserByClerkId,
+      { clerkId: userId },
+      fetchOptions,
+    );
+
+    // If professor doesn't exist or is not assigned to this class, redirect to their profile
+    if (!professor || classData.professorId !== professor._id) {
+      redirect(ROUTES.professors.details(userId).withLocale(locale));
+    }
   }
 
   return (
