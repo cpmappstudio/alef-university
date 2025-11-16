@@ -1057,6 +1057,7 @@
           "description": "Are you sure you want to delete the course \"{courseName}\"?",
           "warning": "Warning: Cascade deletion",
           "cascadeInfo": "This course is associated with {count} program(s). All course-program relationships will be permanently deleted.",
+          "classesInfo": "This course has {count} class(es). All classes and their enrollments will be permanently deleted.",
           "irreversible": "This action cannot be undone.",
           "cancel": "Cancel",
           "delete": "Delete course",

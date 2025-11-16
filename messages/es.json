@@ -1033,6 +1033,7 @@
           "description": "¿Estás seguro de que deseas eliminar el curso \"{courseName}\"?",
           "warning": "Advertencia: Eliminación en cascada",
           "cascadeInfo": "Este curso está asociado a {count} programa(s). Todas las relaciones curso-programa serán eliminadas permanentemente.",
+          "classesInfo": "Este curso tiene {count} clase(s). Todas las clases y sus inscripciones serán eliminadas permanentemente.",
           "irreversible": "Esta acción no se puede deshacer.",
           "cancel": "Cancelar",
           "delete": "Eliminar curso",

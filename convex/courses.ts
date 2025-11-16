@@ -1176,6 +1176,28 @@ export const removeCourseFromProgram = mutation({
 });
 
 /**
+ * Get classes count for a course
+ */
+export const getCourseClasses = query({
+  args: {
+    courseId: v.id("courses"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new ConvexError("Not authenticated");
+    }
+
+    const classes = await ctx.db
+      .query("classes")
+      .withIndex("by_course_bimester", (q) => q.eq("courseId", args.courseId))
+      .collect();
+
+    return classes.length;
+  },
+});
+
+/**
  * Delete a course (Admin only)
  * This prevents deletion if there are any enrollments associated with the course.
  */
@@ -1206,7 +1228,7 @@ export const deleteCourse = mutation({
       );
     }
 
-    // Also, check for sections
+    // Check for sections
     const sections = await ctx.db
       .query("sections")
       .withIndex("by_course_period", (q) => q.eq("courseId", args.courseId))
@@ -1218,6 +1240,38 @@ export const deleteCourse = mutation({
       );
     }
 
+    // Delete all classes associated with this course
+    const classes = await ctx.db
+      .query("classes")
+      .withIndex("by_course_bimester", (q) => q.eq("courseId", args.courseId))
+      .collect();
+
+    // Delete all class_enrollments for each class
+    for (const classDoc of classes) {
+      const classEnrollments = await ctx.db
+        .query("class_enrollments")
+        .withIndex("by_class", (q) => q.eq("classId", classDoc._id))
+        .collect();
+
+      for (const enrollment of classEnrollments) {
+        await ctx.db.delete(enrollment._id);
+      }
+
+      // Delete the class itself
+      await ctx.db.delete(classDoc._id);
+    }
+
+    // Delete all program_courses associations
+    const programCourses = await ctx.db
+      .query("program_courses")
+      .withIndex("by_course", (q) => q.eq("courseId", args.courseId))
+      .collect();
+
+    for (const programCourse of programCourses) {
+      await ctx.db.delete(programCourse._id);
+    }
+
+    // Finally, delete the course
     await ctx.db.delete(args.courseId);
 
     return { success: true };

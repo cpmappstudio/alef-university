@@ -44,7 +44,14 @@ export function CourseDeleteDialog({
     open ? { courseId } : "skip",
   );
 
+  // Get classes count for this course
+  const classesCount = useQuery(
+    api.courses.getCourseClasses,
+    open ? { courseId } : "skip",
+  );
+
   const programCount = programAssociations?.length ?? 0;
+  const totalClasses = classesCount ?? 0;
 
   const handleDelete = async () => {
     try {
@@ -70,13 +77,18 @@ export function CourseDeleteDialog({
             <div className="space-y-3">
               <div>{t("description", { courseName })}</div>
 
-              {programCount > 0 && (
+              {(programCount > 0 || totalClasses > 0) && (
                 <div className="rounded-md bg-destructive/10 border border-destructive/20 p-3">
                   <div className="text-sm font-semibold text-destructive mb-1">
                     ⚠️ {t("warning")}
                   </div>
-                  <div className="text-sm text-muted-foreground">
-                    {t("cascadeInfo", { count: programCount })}
+                  <div className="text-sm text-muted-foreground space-y-1">
+                    {programCount > 0 && (
+                      <div>{t("cascadeInfo", { count: programCount })}</div>
+                    )}
+                    {totalClasses > 0 && (
+                      <div>{t("classesInfo", { count: totalClasses })}</div>
+                    )}
                   </div>
                 </div>
               )}
