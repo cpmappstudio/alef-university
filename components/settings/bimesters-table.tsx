@@ -34,6 +34,7 @@ import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 interface Bimester {
   _id: Id<"bimesters">;
   _creationTime: number;
+  name: string;
   startDate: number;
   endDate: number;
   gradeDeadline: number;
@@ -109,6 +110,9 @@ export function BimestersTable({ bimesters, isLoading }: BimestersTableProps) {
         <TableHeader>
           <TableRow>
             <TableHead className="text-xs sm:text-sm">
+              {tPage("table.name")}
+            </TableHead>
+            <TableHead className="text-xs sm:text-sm">
               {tPage("table.period")}
             </TableHead>
             <TableHead className="text-xs sm:text-sm">
@@ -126,6 +130,9 @@ export function BimestersTable({ bimesters, isLoading }: BimestersTableProps) {
           {bimesters.map((bimester) => (
             <TableRow key={bimester._id}>
               <TableCell className="font-medium text-xs sm:text-sm">
+                {bimester.name}
+              </TableCell>
+              <TableCell className="text-xs sm:text-sm">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:gap-1">
                   <span className="whitespace-nowrap">
                     {format(new Date(bimester.startDate), "PP", {
@@ -220,6 +227,7 @@ export function BimestersTable({ bimesters, isLoading }: BimestersTableProps) {
       {bimesterToEdit && (
         <BimesterEditDialog
           bimesterId={bimesterToEdit._id}
+          initialName={bimesterToEdit.name}
           initialStartDate={bimesterToEdit.startDate}
           initialEndDate={bimesterToEdit.endDate}
           initialGradeDeadline={bimesterToEdit.gradeDeadline}

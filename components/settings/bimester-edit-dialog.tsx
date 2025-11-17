@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
 import { Calendar } from "@/components/ui/calendar";
@@ -31,6 +32,7 @@ import type { Id } from "@/convex/_generated/dataModel";
 
 interface BimesterEditDialogProps {
   bimesterId: Id<"bimesters">;
+  initialName: string;
   initialStartDate: number;
   initialEndDate: number;
   initialGradeDeadline: number;
@@ -40,6 +42,7 @@ interface BimesterEditDialogProps {
 
 export function BimesterEditDialog({
   bimesterId,
+  initialName,
   initialStartDate,
   initialEndDate,
   initialGradeDeadline,
@@ -48,6 +51,7 @@ export function BimesterEditDialog({
 }: BimesterEditDialogProps) {
   const tPage = useTranslations("admin.settings.bimestersPage");
   const locale = useLocale();
+  const [name, setName] = React.useState(initialName);
   const [dateRange, setDateRange] = React.useState<DateRange | undefined>({
     from: new Date(initialStartDate),
     to: new Date(initialEndDate),
@@ -63,16 +67,28 @@ export function BimesterEditDialog({
   // Reset form when dialog opens
   React.useEffect(() => {
     if (open) {
+      setName(initialName);
       setDateRange({
         from: new Date(initialStartDate),
         to: new Date(initialEndDate),
       });
       setGradeDeadline(new Date(initialGradeDeadline));
     }
-  }, [open, initialStartDate, initialEndDate, initialGradeDeadline]);
+  }, [
+    open,
+    initialName,
+    initialStartDate,
+    initialEndDate,
+    initialGradeDeadline,
+  ]);
 
   const handleUpdateBimester = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!name.trim()) {
+      toast.error(tPage("messages.nameRequired"));
+      return;
+    }
 
     if (!dateRange?.from || !dateRange?.to || !gradeDeadline) {
       toast.error(tPage("messages.allDatesRequired"));
@@ -83,6 +99,7 @@ export function BimesterEditDialog({
       setIsUpdating(true);
       await updateBimester({
         bimesterId,
+        name: name.trim(),
         startDate: dateRange.from.getTime(),
         endDate: dateRange.to.getTime(),
         gradeDeadline: gradeDeadline.getTime(),
@@ -112,6 +129,20 @@ export function BimesterEditDialog({
           <FieldGroup>
             <FieldSet>
               <FieldGroup>
+                {/* Name Field */}
+                <Field>
+                  <FieldLabel htmlFor="name">
+                    {tPage("dialog.nameLabel")} *
+                  </FieldLabel>
+                  <Input
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder={tPage("dialog.namePlaceholder")}
+                    disabled={isUpdating}
+                  />
+                </Field>
+
                 {/* Date Range Picker */}
                 <Field>
                   <FieldLabel htmlFor="date-range">

@@ -112,6 +112,7 @@ export default defineSchema({
    * A bimester is active if startDate <= now < endDate
    */
   bimesters: defineTable({
+    name: v.string(), // Name or identifier for the bimester
     startDate: v.number(), // When the bimester starts
     endDate: v.number(), // When the bimester ends
     gradeDeadline: v.number(), // Deadline for professors to submit grades

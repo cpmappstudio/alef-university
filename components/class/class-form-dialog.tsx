@@ -226,9 +226,19 @@ export default function ClassFormDialog({
                     <SelectContent>
                       {bimesters.map((bimester) => (
                         <SelectItem key={bimester._id} value={bimester._id}>
-                          {new Date(bimester.startDate).toLocaleDateString()} -{" "}
-                          {new Date(bimester.endDate).toLocaleDateString()}
-                          {bimester.isActive ? " (Active)" : ""}
+                          <div className="flex items-center gap-2">
+                            <span>
+                              {new Date(
+                                bimester.startDate,
+                              ).toLocaleDateString()}{" "}
+                              -{" "}
+                              {new Date(bimester.endDate).toLocaleDateString()}
+                              {bimester.isActive ? " (Active)" : ""}
+                            </span>
+                            <span className="text-xs text-muted-foreground">
+                              • {bimester.name}
+                            </span>
+                          </div>
                         </SelectItem>
                       ))}
                     </SelectContent>

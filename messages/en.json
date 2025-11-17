@@ -559,6 +559,7 @@
       "bimestersPage": {
         "description": "Bimesters are academic periods. Active status is determined automatically based on the current date. A bimester is active if the current date is within its date range.",
         "table": {
+          "name": "Name",
           "period": "Period",
           "deadline": "Deadline",
           "status": "Status",
@@ -574,6 +575,8 @@
           "trigger": "New Bimester",
           "title": "Create Bimester",
           "description": "Create a new academic period (bimester) to manage your classes.",
+          "nameLabel": "Name",
+          "namePlaceholder": "e.g., Bimester 1 2024",
           "dateRangeLabel": "Bimester Period",
           "selectDateRange": "Select date range",
           "gradeDeadlineLabel": "Grade Deadline",
@@ -601,6 +604,7 @@
           "classesAssociatedDescription": "{count, plural, =1 {There is 1 class} other {There are # classes}} currently associated with this bimester. You must delete or reassign them before deletion."
         },
         "messages": {
+          "nameRequired": "Name is required",
           "allDatesRequired": "All dates are required",
           "createSuccess": "Bimester created successfully",
           "createError": "Failed to create bimester",

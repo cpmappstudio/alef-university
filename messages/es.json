@@ -560,6 +560,7 @@
       "bimestersPage": {
         "description": "Los bimestres son los períodos académicos. El estado activo se determina automáticamente según la fecha actual. Un bimestre está activo si la fecha actual está dentro de su rango de fechas.",
         "table": {
+          "name": "Nombre",
           "period": "Período",
           "deadline": "Límite Notas",
           "status": "Estado",
@@ -575,6 +576,8 @@
           "trigger": "Nuevo Bimestre",
           "title": "Crear Bimestre",
           "description": "Crea un nuevo período académico (bimestre) para gestionar tus clases.",
+          "nameLabel": "Nombre",
+          "namePlaceholder": "ej., Bimestre 1 2024",
           "dateRangeLabel": "Período del Bimestre",
           "selectDateRange": "Seleccionar rango de fechas",
           "gradeDeadlineLabel": "Fecha Límite para Notas",
@@ -602,6 +605,7 @@
           "classesAssociatedDescription": "{count, plural, =1 {Hay 1 clase} other {Hay # clases}} actualmente asociada(s) con este bimestre. Debes eliminarlas o reasignarlas antes de eliminarlo."
         },
         "messages": {
+          "nameRequired": "El nombre es requerido",
           "allDatesRequired": "Todas las fechas son requeridas",
           "createSuccess": "Bimestre creado exitosamente",
           "createError": "Error al crear el bimestre",

@@ -77,10 +77,11 @@ export default function ClassDetailInfo({
 
       <div className="space-y-1">
         <p className="text-sm text-muted-foreground">{t("info.bimester")}</p>
-        <p className="font-medium">
+        <p className="font-medium">{bimester?.name || "—"}</p>
+        <p className="text-xs text-muted-foreground">
           {bimester
             ? `${format(new Date(bimester.startDate), "P", { locale: dateLocale })} - ${format(new Date(bimester.endDate), "P", { locale: dateLocale })}`
-            : "—"}
+            : ""}
         </p>
         {bimester?.isActive && (
           <p className="text-xs text-muted-foreground">{t("info.active")}</p>

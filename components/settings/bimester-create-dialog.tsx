@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
 import { Calendar } from "@/components/ui/calendar";
@@ -33,6 +34,7 @@ export function BimesterCreateDialog() {
   const tPage = useTranslations("admin.settings.bimestersPage");
   const locale = useLocale();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const [name, setName] = React.useState("");
   const [dateRange, setDateRange] = React.useState<DateRange | undefined>(
     undefined,
   );
@@ -47,6 +49,11 @@ export function BimesterCreateDialog() {
   const handleCreateBimester = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!name.trim()) {
+      toast.error(tPage("messages.nameRequired"));
+      return;
+    }
+
     if (!dateRange?.from || !dateRange?.to || !gradeDeadline) {
       toast.error(tPage("messages.allDatesRequired"));
       return;
@@ -55,12 +62,14 @@ export function BimesterCreateDialog() {
     try {
       setIsCreating(true);
       await createBimester({
+        name: name.trim(),
         startDate: dateRange.from.getTime(),
         endDate: dateRange.to.getTime(),
         gradeDeadline: gradeDeadline.getTime(),
       });
       toast.success(tPage("messages.createSuccess"));
       setIsDialogOpen(false);
+      setName("");
       setDateRange(undefined);
       setGradeDeadline(undefined);
     } catch (error) {
@@ -90,6 +99,20 @@ export function BimesterCreateDialog() {
           <FieldGroup>
             <FieldSet>
               <FieldGroup>
+                {/* Name Field */}
+                <Field>
+                  <FieldLabel htmlFor="name">
+                    {tPage("dialog.nameLabel")} *
+                  </FieldLabel>
+                  <Input
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder={tPage("dialog.namePlaceholder")}
+                    disabled={isCreating}
+                  />
+                </Field>
+
                 {/* Date Range Picker */}
                 <Field>
                   <FieldLabel htmlFor="date-range">

@@ -75,6 +75,7 @@ export const getBimesterById = query({
  */
 export const createBimester = mutation({
   args: {
+    name: v.string(),
     startDate: v.number(),
     endDate: v.number(),
     gradeDeadline: v.number(),
@@ -111,6 +112,7 @@ export const createBimester = mutation({
     const now = Date.now();
 
     const bimesterId = await ctx.db.insert("bimesters", {
+      name: args.name,
       startDate: args.startDate,
       endDate: args.endDate,
       gradeDeadline: args.gradeDeadline,
@@ -128,6 +130,7 @@ export const createBimester = mutation({
 export const updateBimester = mutation({
   args: {
     bimesterId: v.id("bimesters"),
+    name: v.optional(v.string()),
     startDate: v.optional(v.number()),
     endDate: v.optional(v.number()),
     gradeDeadline: v.optional(v.number()),
@@ -143,6 +146,7 @@ export const updateBimester = mutation({
       throw new Error("Bimester not found");
     }
 
+    const newName = args.name ?? existingBimester.name;
     const newStartDate = args.startDate ?? existingBimester.startDate;
     const newEndDate = args.endDate ?? existingBimester.endDate;
     const newGradeDeadline =
@@ -175,6 +179,7 @@ export const updateBimester = mutation({
     const now = Date.now();
 
     await ctx.db.patch(args.bimesterId, {
+      name: newName,
       startDate: newStartDate,
       endDate: newEndDate,
       gradeDeadline: newGradeDeadline,
