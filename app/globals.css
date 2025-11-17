@@ -148,6 +148,7 @@
 /* CLERK */
 .cl-menuButtonEllipsis,
 .cl-navbar,
+.cl-navbarMobileMenuRow,
 .cl-profileSectionPrimaryButton__emailAddresses,
 .cl-profileSectionPrimaryButton__profile {
   display: none !important;
@@ -158,19 +159,23 @@
 .cl-cardBox.shadow-sm {
   box-shadow: none;
 }
-
 .cl-rootBox.cl-userProfile-root {
   width: 100%;
-  display: flex;
   box-shadow: none;
 }
-
 .cl-rootBox.cl-userProfile-root .cl-cardBox {
   width: 100%;
-  max-width: 750px;
+  max-width: 500px;
   /*max-height: 428px;*/
 }
-
 .cl-scrollBox {
   background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+.cl-pageScrollBox {
+  padding: 0;
+}
+.cl-headerTitle {
+  font-size: 20px;
 }
