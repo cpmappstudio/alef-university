@@ -40,6 +40,9 @@ import {
 import type { CustomTableProps } from "@/lib/table/types";
 import { shouldHandleRowClick } from "@/lib/table/utils";
 
+// Configuration
+const PAGE_SIZE = 25;
+
 export default function CustomTable<TData>({
   data,
   columns,
@@ -73,6 +76,11 @@ export default function CustomTable<TData>({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    initialState: {
+      pagination: {
+        pageSize: PAGE_SIZE,
+      },
+    },
     state: {
       sorting,
       columnFilters,

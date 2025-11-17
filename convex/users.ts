@@ -327,9 +327,29 @@ export const upsertUser = mutation({
   },
 });
 
+/**
+ * Delete a user from the database with cascade delete for related records.
+ *
+ * Cascade delete removes:
+ * - All class_enrollments (student grades and enrollment records)
+ *
+ * @param userId - The Convex ID of the user to delete
+ * @returns The deleted user's ID
+ */
 export const deleteUser = mutation({
   args: { userId: v.id("users") },
   handler: async (ctx, args) => {
+    // Cascade delete: Remove all class enrollments (grades) for this student
+    const classEnrollments = await ctx.db
+      .query("class_enrollments")
+      .withIndex("by_student", (q) => q.eq("studentId", args.userId))
+      .collect();
+
+    for (const enrollment of classEnrollments) {
+      await ctx.db.delete(enrollment._id);
+    }
+
+    // Delete the user
     await ctx.db.delete(args.userId);
     return args.userId;
   },
