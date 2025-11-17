@@ -145,8 +145,8 @@ export type ProfessorCreatePayload = {
   firstName: string;
   lastName: string;
   email: string;
-  phone?: string;
-  country?: string;
+  phone: string;
+  country: string;
   isActive: boolean;
 };
 

@@ -69,8 +69,8 @@ export const buildProfessorCreatePayload = (
   firstName: state.firstName.trim(),
   lastName: state.lastName.trim(),
   email: state.email.trim(),
-  phone: normalizeTextValue(state.phone),
-  country: normalizeTextValue(state.country),
+  phone: state.phone.trim(),
+  country: state.country.trim(),
   isActive: state.isActive,
 });
 
@@ -82,7 +82,7 @@ export const buildProfessorUpdatePayload = (
   firstName: state.firstName.trim(),
   lastName: state.lastName.trim(),
   email: state.email.trim(),
-  phone: normalizeTextValue(state.phone),
-  country: normalizeTextValue(state.country),
+  phone: state.phone.trim(),
+  country: state.country.trim(),
   isActive: state.isActive,
 });

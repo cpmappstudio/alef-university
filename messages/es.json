@@ -1270,7 +1270,8 @@
         "loading": "Cargando estudiante...",
         "contact": {
           "email": "Correo electrónico",
-          "phone": "Teléfono"
+          "phone": "Teléfono",
+          "country": "País"
         },
         "info": {
           "fullName": "Nombre completo",

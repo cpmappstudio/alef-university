@@ -89,12 +89,15 @@ export const buildStudentCreatePayload = (
     firstName: state.firstName.trim(),
     lastName: state.lastName.trim(),
     email: state.email.trim(),
-    phone: normalizeTextValue(state.phone || ""),
-    country: normalizeTextValue(state.country || ""),
+    phone: state.phone.trim(),
+    country: state.country.trim(),
     dateOfBirth,
-    nationality: normalizeTextValue(state.nationality || ""),
+    nationality: (state.nationality ?? "").trim(),
     documentType: state.documentType,
-    documentNumber: normalizeTextValue(state.documentNumber || ""),
+    documentNumber:
+      state.documentNumber && state.documentNumber.trim() !== ""
+        ? state.documentNumber.trim()
+        : undefined,
     studentProfile: {
       studentCode: state.studentCode.trim(),
       programId: state.programId as Id<"programs">,

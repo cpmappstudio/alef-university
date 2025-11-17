@@ -411,6 +411,34 @@ export type UserUpsertPayload = {
   studentProfile?: StudentProfilePayload;
 };
 
+/**
+ * Helper function to filter out undefined values from an object.
+ * This prevents undefined values from overwriting existing data during patch operations.
+ */
+function filterUndefinedValues<T extends Record<string, any>>(
+  obj: T,
+): Partial<T> {
+  const result: any = {};
+  for (const [key, value] of Object.entries(obj)) {
+    if (value !== undefined) {
+      result[key] = value;
+    }
+  }
+  return result;
+}
+
+/**
+ * Helper function to ensure optional string fields are created as empty strings
+ * instead of being omitted from the document during insert operations.
+ */
+function normalizeFieldsForInsert(fields: SharedFields): SharedFields {
+  return {
+    ...fields,
+    phone: fields.phone ?? "",
+    country: fields.country ?? "",
+  };
+}
+
 export async function upsertUserRecord(
   ctx: MutationCtx,
   payload: UserUpsertPayload,
@@ -432,12 +460,18 @@ export async function upsertUserRecord(
     .first();
 
   if (existingByClerkId) {
-    await ctx.db.patch(existingByClerkId._id, {
-      ...sharedFields,
-      ...studentProfileUpdate,
-      ...(payload.role ? { role: payload.role } : {}),
-      ...(payload.isActive !== undefined ? { isActive: payload.isActive } : {}),
-    });
+    // Filter undefined values to prevent overwriting existing fields with undefined
+    await ctx.db.patch(
+      existingByClerkId._id,
+      filterUndefinedValues({
+        ...sharedFields,
+        ...studentProfileUpdate,
+        ...(payload.role ? { role: payload.role } : {}),
+        ...(payload.isActive !== undefined
+          ? { isActive: payload.isActive }
+          : {}),
+      }),
+    );
     return existingByClerkId._id;
   }
 
@@ -454,23 +488,31 @@ export async function upsertUserRecord(
       throw new ConvexError("Email address already exists");
     }
 
-    await ctx.db.patch(existingByEmail._id, {
-      clerkId: payload.clerkId,
-      ...sharedFields,
-      ...studentProfileUpdate,
-      ...(payload.role
-        ? { role: payload.role }
-        : { role: existingByEmail.role }),
-      ...(payload.isActive !== undefined ? { isActive: payload.isActive } : {}),
-    });
+    // Filter undefined values to prevent overwriting existing fields with undefined
+    await ctx.db.patch(
+      existingByEmail._id,
+      filterUndefinedValues({
+        clerkId: payload.clerkId,
+        ...sharedFields,
+        ...studentProfileUpdate,
+        ...(payload.role
+          ? { role: payload.role }
+          : { role: existingByEmail.role }),
+        ...(payload.isActive !== undefined
+          ? { isActive: payload.isActive }
+          : {}),
+      }),
+    );
     return existingByEmail._id;
   }
 
+  // For inserts, normalize fields to ensure optional fields are created as empty strings
+  const normalizedFields = normalizeFieldsForInsert(sharedFields);
   const userId = await ctx.db.insert("users", {
     clerkId: payload.clerkId,
     role: payload.role ?? "student",
     isActive: payload.isActive ?? true,
-    ...sharedFields,
+    ...normalizedFields,
     ...studentProfileUpdate,
   });
 

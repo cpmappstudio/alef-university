@@ -36,12 +36,18 @@ export const professorColumns = (
     {
       accessorKey: "phone",
       header: t("columns.phone"),
-      cell: ({ row }) => row.original.phone ?? emptyValue,
+      cell: ({ row }) => {
+        const phone = row.original.phone;
+        return phone && phone.trim() !== "" ? phone : "—";
+      },
     },
     {
       accessorKey: "country",
       header: t("columns.country"),
-      cell: ({ row }) => row.original.country ?? emptyValue,
+      cell: ({ row }) => {
+        const country = row.original.country;
+        return country && country.trim() !== "" ? country : "—";
+      },
     },
     createStatusColumn<ProfessorDocument>(t),
   ];

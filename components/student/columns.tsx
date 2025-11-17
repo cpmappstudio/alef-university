@@ -9,7 +9,7 @@ export const studentColumns = (
   t: Translator,
   programLabels?: Record<string, string>,
 ): ColumnDef<StudentDocument>[] => {
-  const emptyValue = t("columns.emptyValue");
+  const emptyValue = "—";
 
   return [
     {

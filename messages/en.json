@@ -1269,7 +1269,8 @@
         "loading": "Loading student...",
         "contact": {
           "email": "Email",
-          "phone": "Phone"
+          "phone": "Phone",
+          "country": "Country"
         },
         "info": {
           "fullName": "Full name",

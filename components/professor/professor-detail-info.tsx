@@ -88,11 +88,19 @@ export function ProfessorDetailInfo({
           />
           <GradientCardDetailItem
             label={tDetail("contact.phone")}
-            value={professor.phone ?? "—"}
+            value={
+              professor.phone && professor.phone.trim() !== ""
+                ? professor.phone
+                : "—"
+            }
           />
           <GradientCardDetailItem
             label={tDetail("contact.country")}
-            value={professor.country ?? tDetail("info.unknown")}
+            value={
+              professor.country && professor.country.trim() !== ""
+                ? professor.country
+                : "—"
+            }
           />
           <GradientCardDetailItem
             label={tDetail("info.status")}

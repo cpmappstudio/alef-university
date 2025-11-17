@@ -74,10 +74,10 @@ export type StudentCreatePayload = {
   firstName: string;
   lastName: string;
   email: string;
-  phone?: string;
-  country?: string;
+  phone: string;
+  country: string;
   dateOfBirth?: number;
-  nationality?: string;
+  nationality: string;
   documentType?: "passport" | "national_id" | "driver_license" | "other";
   documentNumber?: string;
   studentProfile: {

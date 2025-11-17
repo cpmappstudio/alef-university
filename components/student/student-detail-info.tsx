@@ -93,7 +93,9 @@ export function StudentDetailInfo({
           />
           <GradientCardDetailItem
             label={t("contact.phone")}
-            value={student.phone ?? "—"}
+            value={
+              student.phone && student.phone.trim() !== "" ? student.phone : "—"
+            }
           />
           <GradientCardDetailItem
             label={t("info.status")}
@@ -102,6 +104,14 @@ export function StudentDetailInfo({
           <GradientCardDetailItem
             label={t("info.studentCode")}
             value={student.studentProfile?.studentCode ?? "—"}
+          />
+          <GradientCardDetailItem
+            label={t("contact.country")}
+            value={
+              student.country && student.country.trim() !== ""
+                ? student.country
+                : "—"
+            }
           />
           <GradientCardDetailItem
             label={t("info.program")}
