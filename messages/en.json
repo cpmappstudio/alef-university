@@ -749,8 +749,7 @@
             "descriptionEn": "English description is required.",
             "durationBimesters": "Duration must be a number greater than zero.",
             "generic": "The program could not be created. Please try again.",
-            "codeEsExists": "This Spanish code already exists. Please use a different code.",
-            "codeEnExists": "This English code already exists. Please use a different code."
+            "codeExists": "This program code already exists (in any language). Please use a different code."
           },
           "success": "Program created successfully.",
           "noCategories": "Create at least one program category before adding a program."
@@ -1112,7 +1111,8 @@
             "lastName": "Enter the professor's last name.",
             "email": "Enter a valid email.",
             "emailInvalid": "The email format looks incorrect.",
-            "generic": "Unable to save the professor. Try again."
+            "generic": "Unable to save the professor. Try again.",
+            "emailExists": "This email is already registered in the system."
           }
         },
         "buttons": {

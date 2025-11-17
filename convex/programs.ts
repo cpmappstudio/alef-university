@@ -102,11 +102,11 @@ export const getProgramById = query({
 });
 
 /**
- * Check if a Spanish program code already exists
+ * Check if a program code already exists in any language field (codeEs or codeEn)
  */
-export const checkProgramCodeEsExists = query({
+export const checkProgramCodeExists = query({
   args: {
-    codeEs: v.string(),
+    code: v.string(),
     excludeProgramId: v.optional(v.id("programs")),
   },
   handler: async (ctx, args) => {
@@ -115,55 +115,25 @@ export const checkProgramCodeEsExists = query({
       return false;
     }
 
-    const trimmedCode = args.codeEs.trim();
+    const trimmedCode = args.code.trim();
     if (trimmedCode === "") {
       return false;
     }
 
-    const programs = await ctx.db
-      .query("programs")
-      .filter((q) => q.eq(q.field("codeEs"), trimmedCode))
-      .collect();
+    // Check if the code exists in either codeEs or codeEn fields
+    const allPrograms = await ctx.db.query("programs").collect();
 
-    // If we're excluding a program (edit mode), filter it out
-    if (args.excludeProgramId) {
-      return programs.some((p) => p._id !== args.excludeProgramId);
-    }
+    const duplicatePrograms = allPrograms.filter((p) => {
+      // Exclude the program we're editing (if any)
+      if (args.excludeProgramId && p._id === args.excludeProgramId) {
+        return false;
+      }
 
-    return programs.length > 0;
-  },
-});
+      // Check if code matches either Spanish or English code
+      return p.codeEs === trimmedCode || p.codeEn === trimmedCode;
+    });
 
-/**
- * Check if an English program code already exists
- */
-export const checkProgramCodeEnExists = query({
-  args: {
-    codeEn: v.string(),
-    excludeProgramId: v.optional(v.id("programs")),
-  },
-  handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      return false;
-    }
-
-    const trimmedCode = args.codeEn.trim();
-    if (trimmedCode === "") {
-      return false;
-    }
-
-    const programs = await ctx.db
-      .query("programs")
-      .filter((q) => q.eq(q.field("codeEn"), trimmedCode))
-      .collect();
-
-    // If we're excluding a program (edit mode), filter it out
-    if (args.excludeProgramId) {
-      return programs.some((p) => p._id !== args.excludeProgramId);
-    }
-
-    return programs.length > 0;
+    return duplicatePrograms.length > 0;
   },
 });
 
@@ -389,20 +359,28 @@ export const createProgram = mutation({
       }
     }
 
-    // Check for duplicate codes
+    // Check for duplicate codes (codes must be unique globally across all language fields)
     const allPrograms = await ctx.db.query("programs").collect();
 
     if (args.codeEs) {
-      const duplicateCode = allPrograms.find((p) => p.codeEs === args.codeEs);
+      const duplicateCode = allPrograms.find(
+        (p) => p.codeEs === args.codeEs || p.codeEn === args.codeEs,
+      );
       if (duplicateCode) {
-        throw new ConvexError(`Program codeEs "${args.codeEs}" already exists`);
+        throw new ConvexError(
+          `Program code "${args.codeEs}" already exists in another program`,
+        );
       }
     }
 
     if (args.codeEn) {
-      const duplicateCodeEn = allPrograms.find((p) => p.codeEn === args.codeEn);
+      const duplicateCodeEn = allPrograms.find(
+        (p) => p.codeEs === args.codeEn || p.codeEn === args.codeEn,
+      );
       if (duplicateCodeEn) {
-        throw new ConvexError(`Program codeEs "${args.codeEn}" already exists`);
+        throw new ConvexError(
+          `Program code "${args.codeEn}" already exists in another program`,
+        );
       }
     }
 

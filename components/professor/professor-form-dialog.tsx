@@ -4,7 +4,7 @@ import * as React from "react";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useAction } from "convex/react";
+import { useAction, useQuery } from "convex/react";
 
 import { api } from "@/convex/_generated/api";
 import { useDialogState } from "@/hooks/use-dialog-state";
@@ -66,6 +66,14 @@ export function ProfessorFormDialog({
   const createProfessor = useAction(api.users.createProfessorWithClerk);
   const updateProfessor = useAction(api.users.updateProfessorWithClerk);
 
+  // Real-time validation for duplicate email (only in create mode)
+  const emailExists = useQuery(
+    api.users.checkEmailExists,
+    mode === "create" && formState.email.trim() !== ""
+      ? { email: formState.email.trim() }
+      : "skip",
+  );
+
   const resetForm = React.useCallback(() => {
     setFormState(
       mode === "edit"
@@ -113,6 +121,16 @@ export function ProfessorFormDialog({
         .join("\n");
       setFormError(summary);
       return;
+    }
+
+    // Check for duplicate email in create mode
+    if (mode === "create") {
+      if (emailExists) {
+        setFieldErrors({
+          email: t("messages.errors.emailExists"),
+        });
+        return;
+      }
     }
 
     try {
@@ -202,7 +220,13 @@ export function ProfessorFormDialog({
                     autoComplete="email"
                     disabled={mode === "edit"}
                   />
-
+                  {mode === "create" &&
+                    formState.email.trim() !== "" &&
+                    emailExists && (
+                      <FieldError>
+                        {t("messages.errors.emailExists")}
+                      </FieldError>
+                    )}
                   <FieldError>{fieldErrors.email}</FieldError>
                 </FieldContent>
               </Field>

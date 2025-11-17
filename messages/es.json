@@ -750,8 +750,7 @@
             "descriptionEn": "La descripción en inglés es obligatoria.",
             "durationBimesters": "La duración debe ser un número mayor que cero.",
             "generic": "No se pudo crear el programa. Intenta nuevamente.",
-            "codeEsExists": "Este código en español ya existe. Por favor, use un código diferente.",
-            "codeEnExists": "Este código en inglés ya existe. Por favor, use un código diferente."
+            "codeExists": "Este código de programa ya existe (en cualquier idioma). Por favor, use un código diferente."
           },
           "success": "Programa creado correctamente.",
           "noCategories": "Crea al menos una categoría de programas antes de agregar un programa."
@@ -1113,7 +1112,8 @@
             "lastName": "Ingresa el apellido del profesor.",
             "email": "Ingresa un correo válido.",
             "emailInvalid": "El formato del correo no es válido.",
-            "generic": "No se pudo guardar la información. Intenta nuevamente."
+            "generic": "No se pudo guardar la información. Intenta nuevamente.",
+            "emailExists": "Este correo ya está registrado en el sistema."
           }
         },
         "buttons": {

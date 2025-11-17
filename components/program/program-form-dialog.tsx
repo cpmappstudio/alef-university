@@ -81,17 +81,18 @@ export default function ProgramFormDialog({
   const updateProgram = useMutation(api.programs.updateProgram);
 
   // Real-time validation for duplicate codes (only in create mode)
+  // Checks if code exists in ANY language field of ANY program
   const codeEsExists = useQuery(
-    api.programs.checkProgramCodeEsExists,
+    api.programs.checkProgramCodeExists,
     mode === "create" && formState.codeEs.trim() !== ""
-      ? { codeEs: formState.codeEs.trim() }
+      ? { code: formState.codeEs.trim() }
       : "skip",
   );
 
   const codeEnExists = useQuery(
-    api.programs.checkProgramCodeEnExists,
+    api.programs.checkProgramCodeExists,
     mode === "create" && formState.codeEn.trim() !== ""
-      ? { codeEn: formState.codeEn.trim() }
+      ? { code: formState.codeEn.trim() }
       : "skip",
   );
 
@@ -140,11 +141,11 @@ export default function ProgramFormDialog({
     // Check for duplicate codes in create mode
     if (mode === "create") {
       if (codeEsExists) {
-        setFormError(t("messages.errors.codeEsExists"));
+        setFormError(t("messages.errors.codeExists"));
         return;
       }
       if (codeEnExists) {
-        setFormError(t("messages.errors.codeEnExists"));
+        setFormError(t("messages.errors.codeExists"));
         return;
       }
     }
@@ -288,7 +289,7 @@ export default function ProgramFormDialog({
                     mode === "create" &&
                     formState.codeEs.trim() !== "" &&
                     codeEsExists
-                      ? t("messages.errors.codeEsExists")
+                      ? t("messages.errors.codeExists")
                       : undefined,
                 },
                 {
@@ -318,7 +319,7 @@ export default function ProgramFormDialog({
                     mode === "create" &&
                     formState.codeEn.trim() !== "" &&
                     codeEnExists
-                      ? t("messages.errors.codeEnExists")
+                      ? t("messages.errors.codeExists")
                       : undefined,
                 },
                 {
