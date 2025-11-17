@@ -115,6 +115,22 @@ export function CourseFormDialog({
     formState.language,
   );
 
+  // Real-time validation for duplicate codes (only in create mode)
+  // Checks if code exists in ANY language field of ANY course
+  const codeEsExists = useQuery(
+    api.courses.checkCourseCodeExists,
+    mode === "create" && formState.codeEs.trim() !== ""
+      ? { code: formState.codeEs.trim() }
+      : "skip",
+  );
+
+  const codeEnExists = useQuery(
+    api.courses.checkCourseCodeExists,
+    mode === "create" && formState.codeEn.trim() !== ""
+      ? { code: formState.codeEn.trim() }
+      : "skip",
+  );
+
   // Initialize selected programs when course programs are loaded
   React.useEffect(() => {
     if (mode === "edit" && coursePrograms && open) {
@@ -172,6 +188,18 @@ export function CourseFormDialog({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setFormError(null);
+
+    // Check for duplicate codes in create mode
+    if (mode === "create") {
+      if (codeEsExists) {
+        setFormError(t("messages.errors.codeExists"));
+        return;
+      }
+      if (codeEnExists) {
+        setFormError(t("messages.errors.codeExists"));
+        return;
+      }
+    }
 
     const validationMessages: CourseFormValidationMessages = {
       languageRequired: t("messages.errors.language"),
@@ -403,6 +431,12 @@ export function CourseFormDialog({
                   placeholder: t("fields.codeEs.placeholder"),
                   value: formState.codeEs,
                   onChange: handleInputChange("codeEs"),
+                  error:
+                    mode === "create" &&
+                    formState.codeEs.trim() !== "" &&
+                    codeEsExists
+                      ? t("messages.errors.codeExists")
+                      : undefined,
                 },
                 {
                   id: "course-name-es",
@@ -427,6 +461,12 @@ export function CourseFormDialog({
                   placeholder: t("fields.codeEn.placeholder"),
                   value: formState.codeEn,
                   onChange: handleInputChange("codeEn"),
+                  error:
+                    mode === "create" &&
+                    formState.codeEn.trim() !== "" &&
+                    codeEnExists
+                      ? t("messages.errors.codeExists")
+                      : undefined,
                 },
                 {
                   id: "course-name-en",

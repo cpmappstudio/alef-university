@@ -908,7 +908,8 @@
             "nameEn": "El nombre en inglés es obligatorio.",
             "descriptionEn": "La descripción en inglés es obligatoria.",
             "credits": "Los créditos deben ser un número mayor que cero.",
-            "generic": "No se pudo crear el curso. Intenta nuevamente."
+            "generic": "No se pudo crear el curso. Intenta nuevamente.",
+            "codeExists": "Este código de curso ya existe (en cualquier idioma). Por favor, use un código diferente."
           },
           "success": "Curso creado correctamente.",
           "successAssociation": "Curso asociado al programa correctamente."

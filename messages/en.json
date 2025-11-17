@@ -907,7 +907,8 @@
             "nameEn": "English name is required.",
             "descriptionEn": "English description is required.",
             "credits": "Credits must be a positive number.",
-            "generic": "Could not create course. Please try again."
+            "generic": "Could not create course. Please try again.",
+            "codeExists": "This course code already exists (in any language). Please use a different code."
           },
           "success": "Course created successfully.",
           "successAssociation": "Course associated with program successfully."

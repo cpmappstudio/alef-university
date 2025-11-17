@@ -138,6 +138,42 @@ export const getAllCourses = query({
 });
 
 /**
+ * Check if a course code already exists in any language field (codeEs or codeEn)
+ */
+export const checkCourseCodeExists = query({
+  args: {
+    code: v.string(),
+    excludeCourseId: v.optional(v.id("courses")),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return false;
+    }
+
+    const trimmedCode = args.code.trim();
+    if (trimmedCode === "") {
+      return false;
+    }
+
+    // Check if the code exists in either codeEs or codeEn fields
+    const allCourses = await ctx.db.query("courses").collect();
+
+    const duplicateCourses = allCourses.filter((c) => {
+      // Exclude the course we're editing (if any)
+      if (args.excludeCourseId && c._id === args.excludeCourseId) {
+        return false;
+      }
+
+      // Check if code matches either Spanish or English code
+      return c.codeEs === trimmedCode || c.codeEn === trimmedCode;
+    });
+
+    return duplicateCourses.length > 0;
+  },
+});
+
+/**
  * Create new course (Admin only)
  */
 export const createCourse = mutation({
@@ -182,21 +218,30 @@ export const createCourse = mutation({
     // Check for duplicate course codes (scan all courses since we removed the index)
     const allCourses = await ctx.db.query("courses").collect();
 
+    // Check for duplicate codes (codes must be unique globally across all language fields)
     if (args.codeEs) {
       const duplicateCode = allCourses.find(
-        (c) => c.codeEs?.toLowerCase() === args.codeEs!.toLowerCase(),
+        (c) =>
+          c.codeEs?.toLowerCase() === args.codeEs!.toLowerCase() ||
+          c.codeEn?.toLowerCase() === args.codeEs!.toLowerCase(),
       );
       if (duplicateCode) {
-        throw new ConvexError("Spanish course codeEs already exists");
+        throw new ConvexError(
+          `Course code "${args.codeEs}" already exists in another course`,
+        );
       }
     }
 
     if (args.codeEn) {
       const duplicateCodeEn = allCourses.find(
-        (c) => c.codeEn?.toLowerCase() === args.codeEn!.toLowerCase(),
+        (c) =>
+          c.codeEs?.toLowerCase() === args.codeEn!.toLowerCase() ||
+          c.codeEn?.toLowerCase() === args.codeEn!.toLowerCase(),
       );
       if (duplicateCodeEn) {
-        throw new ConvexError("English course codeEs already exists");
+        throw new ConvexError(
+          `Course code "${args.codeEn}" already exists in another course`,
+        );
       }
     }
 
@@ -295,21 +340,30 @@ export const internalCreateCourse = internalMutation({
     // Check for duplicate course codes (scan all courses since we removed the index)
     const allCourses = await ctx.db.query("courses").collect();
 
+    // Check for duplicate codes (codes must be unique globally across all language fields)
     if (args.codeEs) {
       const duplicateCode = allCourses.find(
-        (c) => c.codeEs?.toLowerCase() === args.codeEs!.toLowerCase(),
+        (c) =>
+          c.codeEs?.toLowerCase() === args.codeEs!.toLowerCase() ||
+          c.codeEn?.toLowerCase() === args.codeEs!.toLowerCase(),
       );
       if (duplicateCode) {
-        throw new ConvexError("Spanish course codeEs already exists");
+        throw new ConvexError(
+          `Course code "${args.codeEs}" already exists in another course`,
+        );
       }
     }
 
     if (args.codeEn) {
       const duplicateCodeEn = allCourses.find(
-        (c) => c.codeEn?.toLowerCase() === args.codeEn!.toLowerCase(),
+        (c) =>
+          c.codeEs?.toLowerCase() === args.codeEn!.toLowerCase() ||
+          c.codeEn?.toLowerCase() === args.codeEn!.toLowerCase(),
       );
       if (duplicateCodeEn) {
-        throw new ConvexError("English course codeEs already exists");
+        throw new ConvexError(
+          `Course code "${args.codeEn}" already exists in another course`,
+        );
       }
     }
 
@@ -402,14 +456,18 @@ export const updateCourse = mutation({
     // Check for duplicate codes (excluding current course)
     const allCourses = await ctx.db.query("courses").collect();
 
+    // Check for duplicate codes (codes must be unique globally across all language fields)
     if (args.codeEs !== undefined) {
       const duplicateCode = allCourses.find(
         (c) =>
           c._id !== args.courseId &&
-          c.codeEs?.toLowerCase() === args.codeEs!.toLowerCase(),
+          (c.codeEs?.toLowerCase() === args.codeEs!.toLowerCase() ||
+            c.codeEn?.toLowerCase() === args.codeEs!.toLowerCase()),
       );
       if (duplicateCode) {
-        throw new ConvexError("Spanish course codeEs already exists");
+        throw new ConvexError(
+          `Course code "${args.codeEs}" already exists in another course`,
+        );
       }
     }
 
@@ -417,10 +475,13 @@ export const updateCourse = mutation({
       const duplicateCodeEn = allCourses.find(
         (c) =>
           c._id !== args.courseId &&
-          c.codeEn?.toLowerCase() === args.codeEn!.toLowerCase(),
+          (c.codeEs?.toLowerCase() === args.codeEn!.toLowerCase() ||
+            c.codeEn?.toLowerCase() === args.codeEn!.toLowerCase()),
       );
       if (duplicateCodeEn) {
-        throw new ConvexError("English course codeEs already exists");
+        throw new ConvexError(
+          `Course code "${args.codeEn}" already exists in another course`,
+        );
       }
     }
 
