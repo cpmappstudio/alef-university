@@ -489,6 +489,11 @@
         "bimesters": "Bimestres",
         "courses": "Cursos"
       },
+      "profileDetails": {
+        "title": "Detalles del Perfil",
+        "name": "Nombre",
+        "email": "Correo electrónico"
+      },
       "overview": {
         "title": "Configuraciones",
         "welcome": "Bienvenido a Configuraciones",

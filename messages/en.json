@@ -490,6 +490,11 @@
         "bimesters": "Bimesters",
         "courses": "Courses"
       },
+      "profileDetails": {
+        "title": "Profile Details",
+        "name": "Name",
+        "email": "Email"
+      },
       "overview": {
         "title": "Settings",
         "welcome": "Welcome to Settings",
