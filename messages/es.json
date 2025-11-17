@@ -1347,6 +1347,8 @@
         "info": {
           "course": "Curso",
           "professor": "Profesor",
+          "bimester": "Bimestre",
+          "active": "Activo",
           "credits": "Créditos",
           "enrolledStudents": "Estudiantes Inscritos",
           "group": "Grupo"

@@ -58,7 +58,7 @@ export default function ClassDetailInfo({
   const statusVariant = statusMap[status] || "secondary";
 
   return (
-    <div className="grid mb-4 gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid mb-4 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
       <div className="space-y-1">
         <p className="text-sm text-muted-foreground">{t("info.course")}</p>
         <p className="font-medium">{courseName}</p>
@@ -73,6 +73,18 @@ export default function ClassDetailInfo({
         <p className="text-xs text-muted-foreground">
           {professor?.email || ""}
         </p>
+      </div>
+
+      <div className="space-y-1">
+        <p className="text-sm text-muted-foreground">{t("info.bimester")}</p>
+        <p className="font-medium">
+          {bimester
+            ? `${format(new Date(bimester.startDate), "P", { locale: dateLocale })} - ${format(new Date(bimester.endDate), "P", { locale: dateLocale })}`
+            : "—"}
+        </p>
+        {bimester?.isActive && (
+          <p className="text-xs text-muted-foreground">{t("info.active")}</p>
+        )}
       </div>
 
       <div className="space-y-1">
