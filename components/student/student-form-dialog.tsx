@@ -82,6 +82,21 @@ export function StudentFormDialog({
   const updateStudent = useAction(api.users.updateStudentWithClerk);
   const programs = useQuery(api.programs.getAllPrograms, { isActive: true });
 
+  // Real-time validation for duplicates (only in create mode)
+  const studentCodeExists = useQuery(
+    api.users.checkStudentCodeExists,
+    mode === "create" && formState.studentCode.trim() !== ""
+      ? { studentCode: formState.studentCode.trim() }
+      : "skip",
+  );
+
+  const emailExists = useQuery(
+    api.users.checkEmailExists,
+    mode === "create" && formState.email.trim() !== ""
+      ? { email: formState.email.trim() }
+      : "skip",
+  );
+
   React.useEffect(() => {
     if (open) {
       setFormState(createStudentFormStateFromDoc(student));
@@ -107,6 +122,22 @@ export function StudentFormDialog({
       );
       setFieldErrors(mappedErrors);
       return;
+    }
+
+    // Check for duplicates in create mode
+    if (mode === "create") {
+      if (studentCodeExists) {
+        setFieldErrors({
+          studentCode: t("messages.errors.studentCodeExists"),
+        });
+        return;
+      }
+      if (emailExists) {
+        setFieldErrors({
+          email: t("messages.errors.emailExists"),
+        });
+        return;
+      }
     }
 
     setIsSubmitting(true);
@@ -181,6 +212,13 @@ export function StudentFormDialog({
                     onChange={handleInputChange("email")}
                     disabled={mode === "edit"}
                   />
+                  {mode === "create" &&
+                    formState.email.trim() !== "" &&
+                    emailExists && (
+                      <FieldError>
+                        {t("messages.errors.emailExists")}
+                      </FieldError>
+                    )}
                   <FieldError>{fieldErrors.email}</FieldError>
                 </FieldContent>
               </Field>
@@ -199,7 +237,13 @@ export function StudentFormDialog({
                     value={formState.studentCode}
                     onChange={handleInputChange("studentCode")}
                   />
-
+                  {mode === "create" &&
+                    formState.studentCode.trim() !== "" &&
+                    studentCodeExists && (
+                      <FieldError>
+                        {t("messages.errors.studentCodeExists")}
+                      </FieldError>
+                    )}
                   <FieldError>{fieldErrors.studentCode}</FieldError>
                 </FieldContent>
               </Field>

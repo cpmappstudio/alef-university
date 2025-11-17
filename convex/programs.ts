@@ -101,6 +101,72 @@ export const getProgramById = query({
   },
 });
 
+/**
+ * Check if a Spanish program code already exists
+ */
+export const checkProgramCodeEsExists = query({
+  args: {
+    codeEs: v.string(),
+    excludeProgramId: v.optional(v.id("programs")),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return false;
+    }
+
+    const trimmedCode = args.codeEs.trim();
+    if (trimmedCode === "") {
+      return false;
+    }
+
+    const programs = await ctx.db
+      .query("programs")
+      .filter((q) => q.eq(q.field("codeEs"), trimmedCode))
+      .collect();
+
+    // If we're excluding a program (edit mode), filter it out
+    if (args.excludeProgramId) {
+      return programs.some((p) => p._id !== args.excludeProgramId);
+    }
+
+    return programs.length > 0;
+  },
+});
+
+/**
+ * Check if an English program code already exists
+ */
+export const checkProgramCodeEnExists = query({
+  args: {
+    codeEn: v.string(),
+    excludeProgramId: v.optional(v.id("programs")),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return false;
+    }
+
+    const trimmedCode = args.codeEn.trim();
+    if (trimmedCode === "") {
+      return false;
+    }
+
+    const programs = await ctx.db
+      .query("programs")
+      .filter((q) => q.eq(q.field("codeEn"), trimmedCode))
+      .collect();
+
+    // If we're excluding a program (edit mode), filter it out
+    if (args.excludeProgramId) {
+      return programs.some((p) => p._id !== args.excludeProgramId);
+    }
+
+    return programs.length > 0;
+  },
+});
+
 export const getProgramCategories = query({
   args: {},
 

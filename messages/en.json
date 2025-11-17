@@ -471,7 +471,6 @@
       "periodInfo": "Period {current} of {total}"
     }
   },
-
   "admin": {
     "settings": {
       "sidebar": {
@@ -608,83 +607,51 @@
       "table": {
         "actions": {
           "create": "Create Program",
-
           "import": "Import Programs"
         },
-
         "columns": {
           "code": "Code",
-
           "program": "Program",
-
           "course": "Course",
-
           "type": "Type",
-
           "category": "Category",
-
           "language": "Language",
-
           "credits": "Credits",
-
           "duration": "Bimesters",
-
           "tuitionPerCredit": "Tuition per Credit",
-
           "status": "Status",
-
           "emptyValue": "—",
-
           "notAvailable": "N/A"
         },
-
         "types": {
           "diploma": "Diploma",
-
           "bachelor": "Bachelor",
-
           "master": "Master",
-
           "doctorate": "Doctorate"
         },
-
         "languages": {
           "es": "Spanish",
-
           "en": "English",
-
           "both": "Bilingual"
         },
-
         "status": {
           "active": "Active",
-
           "inactive": "Inactive"
         },
-
         "aria": {
           "selectAll": "Select all rows",
-
           "selectRow": "Select row",
-
           "openMenu": "Open menu"
         },
-
         "menu": {
           "label": "Actions",
-
           "copyProgramCode": "Copy program code",
-
           "viewDetails": "View details"
         },
-
         "columnsMenuLabel": "Columns",
-
         "filterPlaceholder": "Filter programs...",
-
         "emptyMessage": "No programs available."
       },
-
       "form": {
         "title": "Create program",
         "titleEdit": "Edit program",
@@ -698,13 +665,11 @@
           "academics": "Academic details",
           "status": "Status"
         },
-
         "fields": {
           "language": {
             "label": "Program language",
             "placeholder": "Select a language"
           },
-
           "type": {
             "label": "Program type",
             "placeholder": "Select a program type"
@@ -783,7 +748,9 @@
             "nameEn": "English name is required.",
             "descriptionEn": "English description is required.",
             "durationBimesters": "Duration must be a number greater than zero.",
-            "generic": "The program could not be created. Please try again."
+            "generic": "The program could not be created. Please try again.",
+            "codeEsExists": "This Spanish code already exists. Please use a different code.",
+            "codeEnExists": "This English code already exists. Please use a different code."
           },
           "success": "Program created successfully.",
           "noCategories": "Create at least one program category before adding a program."
@@ -1283,7 +1250,9 @@
             "programId": "Select a program.",
             "enrollmentDate": "Select the enrollment date.",
             "status": "Select the enrollment status.",
-            "generic": "Unable to save the student. Try again."
+            "generic": "Unable to save the student. Try again.",
+            "emailExists": "This email is already registered.",
+            "studentCodeExists": "This student code is already in use."
           }
         },
         "buttons": {

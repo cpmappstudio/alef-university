@@ -29,6 +29,7 @@ export type LocalizedFieldConfig = {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
   type?: "input" | "textarea";
+  error?: string;
 };
 
 export type LocalizedFieldGroupProps = {

@@ -537,6 +537,28 @@ function buildPayloadFromClerk(data: UserJSON): UserUpsertPayload | null {
   };
 }
 
+/**
+ * Check if a student code already exists
+ */
+export const checkStudentCodeExists = query({
+  args: {
+    studentCode: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const existing = await ctx.db
+      .query("users")
+      .filter((q) =>
+        q.and(
+          q.eq(q.field("role"), "student"),
+          q.eq(q.field("studentProfile.studentCode"), args.studentCode),
+        ),
+      )
+      .first();
+
+    return !!existing;
+  },
+});
+
 export const createStudentWithClerk = action({
   args: {
     firstName: v.string(),
@@ -567,6 +589,17 @@ export const createStudentWithClerk = action({
   ): Promise<{ userId: Id<"users">; clerkId: string }> => {
     await requireAdminForAction(ctx);
     await ensureEmailAvailable(ctx, args.email);
+
+    // Check if student code already exists
+    const studentCodeExists = await ctx.runQuery(
+      api.users.checkStudentCodeExists,
+      { studentCode: args.studentProfile.studentCode },
+    );
+    if (studentCodeExists) {
+      throw new ConvexError(
+        `Student code "${args.studentProfile.studentCode}" already exists`,
+      );
+    }
 
     const clerkAPIKey = process.env.CLERK_SECRET_KEY;
     if (!clerkAPIKey) {

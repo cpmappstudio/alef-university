@@ -4,6 +4,8 @@ import * as React from "react";
 
 import {
   Field,
+  FieldContent,
+  FieldError,
   FieldGroup,
   FieldLabel,
   FieldSet,
@@ -22,13 +24,16 @@ function renderFields(fields: LocalizedFieldConfig[]) {
     return (
       <Field key={field.id}>
         <FieldLabel htmlFor={field.id}>{field.label}</FieldLabel>
-        <Component
-          id={field.id}
-          value={field.value}
-          onChange={field.onChange}
-          placeholder={field.placeholder}
-          className={field.type === "textarea" ? "resize-none" : undefined}
-        />
+        <FieldContent>
+          <Component
+            id={field.id}
+            value={field.value}
+            onChange={field.onChange}
+            placeholder={field.placeholder}
+            className={field.type === "textarea" ? "resize-none" : undefined}
+          />
+          {field.error && <FieldError>{field.error}</FieldError>}
+        </FieldContent>
       </Field>
     );
   });

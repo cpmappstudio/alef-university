@@ -80,6 +80,21 @@ export default function ProgramFormDialog({
   const createProgram = useMutation(api.programs.createProgram);
   const updateProgram = useMutation(api.programs.updateProgram);
 
+  // Real-time validation for duplicate codes (only in create mode)
+  const codeEsExists = useQuery(
+    api.programs.checkProgramCodeEsExists,
+    mode === "create" && formState.codeEs.trim() !== ""
+      ? { codeEs: formState.codeEs.trim() }
+      : "skip",
+  );
+
+  const codeEnExists = useQuery(
+    api.programs.checkProgramCodeEnExists,
+    mode === "create" && formState.codeEn.trim() !== ""
+      ? { codeEn: formState.codeEn.trim() }
+      : "skip",
+  );
+
   const { showSpanishFields, showEnglishFields } = getLanguageVisibility(
     formState.language,
   );
@@ -120,6 +135,18 @@ export default function ProgramFormDialog({
     if (!isLoadingCategories && categories.length === 0) {
       setFormError(t("messages.noCategories"));
       return;
+    }
+
+    // Check for duplicate codes in create mode
+    if (mode === "create") {
+      if (codeEsExists) {
+        setFormError(t("messages.errors.codeEsExists"));
+        return;
+      }
+      if (codeEnExists) {
+        setFormError(t("messages.errors.codeEnExists"));
+        return;
+      }
     }
 
     const validationMessages: ProgramFormValidationMessages = {
@@ -257,6 +284,12 @@ export default function ProgramFormDialog({
                   placeholder: t("fields.codeEs.placeholder"),
                   value: formState.codeEs,
                   onChange: handleInputChange("codeEs"),
+                  error:
+                    mode === "create" &&
+                    formState.codeEs.trim() !== "" &&
+                    codeEsExists
+                      ? t("messages.errors.codeEsExists")
+                      : undefined,
                 },
                 {
                   id: "program-name-es",
@@ -281,6 +314,12 @@ export default function ProgramFormDialog({
                   placeholder: t("fields.codeEn.placeholder"),
                   value: formState.codeEn,
                   onChange: handleInputChange("codeEn"),
+                  error:
+                    mode === "create" &&
+                    formState.codeEn.trim() !== "" &&
+                    codeEnExists
+                      ? t("messages.errors.codeEnExists")
+                      : undefined,
                 },
                 {
                   id: "program-name-en",
