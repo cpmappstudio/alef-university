@@ -214,6 +214,35 @@ export const createProgramCategory = mutation({
 });
 
 /**
+ * Get programs by category
+ */
+export const getProgramsByCategory = query({
+  args: {
+    categoryId: v.id("program_categories"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new ConvexError("Not authenticated");
+    }
+
+    const user = await getUserByClerkId(ctx.db, identity.subject);
+
+    if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
+      throw new ConvexError("Unauthorized: Admin access required");
+    }
+
+    const programs = await ctx.db
+      .query("programs")
+      .filter((q) => q.eq(q.field("categoryId"), args.categoryId))
+      .collect();
+
+    return programs;
+  },
+});
+
+/**
  * Delete a program category
  */
 export const deleteProgramCategory = mutation({

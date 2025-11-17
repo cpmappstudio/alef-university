@@ -538,10 +538,15 @@
         },
         "deleteDialog": {
           "title": "Delete Category",
-          "description": "Are you sure you want to delete this category? This action cannot be undone.",
+          "description": "Are you sure you want to delete the category \"{categoryName}\"?",
           "cancel": "Cancel",
           "delete": "Delete",
-          "deleting": "Deleting..."
+          "deleting": "Deleting...",
+          "irreversible": "This action cannot be undone.",
+          "errorWithPrograms": "Cannot delete category with programs assigned",
+          "errorWithProgramsDescription": "This category has {count, plural, =1 {1 program} other {# programs}} assigned. Please reassign them to another category before deleting.",
+          "programsUsing": "Programs using this category",
+          "programsUsingDescription": "{count, plural, =1 {There is 1 program} other {There are # programs}} currently using this category. You must reassign them before deletion."
         },
         "messages": {
           "nameRequired": "Category name is required",
@@ -585,10 +590,15 @@
         },
         "deleteDialog": {
           "title": "Delete Bimester",
-          "description": "Are you sure you want to delete this bimester? This action cannot be undone. Cannot delete if it has associated classes.",
+          "description": "Are you sure you want to delete the bimester period \"{bimesterPeriod}\"?",
           "cancel": "Cancel",
           "delete": "Delete",
-          "deleting": "Deleting..."
+          "deleting": "Deleting...",
+          "irreversible": "This action cannot be undone.",
+          "errorWithClasses": "Cannot delete bimester with associated classes",
+          "errorWithClassesDescription": "This bimester has {count, plural, =1 {1 class} other {# classes}} associated. Please delete or reassign them before deleting the bimester.",
+          "classesAssociated": "Classes associated with this bimester",
+          "classesAssociatedDescription": "{count, plural, =1 {There is 1 class} other {There are # classes}} currently associated with this bimester. You must delete or reassign them before deletion."
         },
         "messages": {
           "allDatesRequired": "All dates are required",
@@ -822,7 +832,11 @@
         "delete": "Delete program",
         "deleting": "Deleting...",
         "success": "Program deleted successfully",
-        "error": "Error deleting program"
+        "error": "Error deleting program",
+        "errorWithStudents": "Cannot delete program with enrolled students",
+        "errorWithStudentsDescription": "This program has {count, plural, =1 {1 student} other {# students}} enrolled. Please reassign them to another program before deleting.",
+        "studentsEnrolled": "Students enrolled",
+        "studentsEnrolledDescription": "{count, plural, =1 {There is 1 student} other {There are # students}} currently enrolled in this program. You must reassign them before deletion."
       }
     },
     "courses": {

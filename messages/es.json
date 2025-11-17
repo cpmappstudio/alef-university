@@ -539,10 +539,15 @@
         },
         "deleteDialog": {
           "title": "Eliminar Categoría",
-          "description": "¿Estás seguro de que deseas eliminar esta categoría? Esta acción no se puede deshacer.",
+          "description": "¿Estás seguro de que deseas eliminar la categoría \"{categoryName}\"?",
           "cancel": "Cancelar",
           "delete": "Eliminar",
-          "deleting": "Eliminando..."
+          "deleting": "Eliminando...",
+          "irreversible": "Esta acción no se puede deshacer.",
+          "errorWithPrograms": "No se puede eliminar la categoría con programas asignados",
+          "errorWithProgramsDescription": "Esta categoría tiene {count, plural, =1 {1 programa} other {# programas}} asignado(s). Por favor, reasígnalos a otra categoría antes de eliminarlo.",
+          "programsUsing": "Programas usando esta categoría",
+          "programsUsingDescription": "{count, plural, =1 {Hay 1 programa} other {Hay # programas}} actualmente usando esta categoría. Debes reasignarlos antes de eliminarlo."
         },
         "messages": {
           "nameRequired": "El nombre de la categoría es requerido",
@@ -586,10 +591,15 @@
         },
         "deleteDialog": {
           "title": "Eliminar Bimestre",
-          "description": "¿Estás seguro de que deseas eliminar este bimestre? Esta acción no se puede deshacer. No se puede eliminar si tiene clases asociadas.",
+          "description": "¿Estás seguro de que deseas eliminar el período bimestral \"{bimesterPeriod}\"?",
           "cancel": "Cancelar",
           "delete": "Eliminar",
-          "deleting": "Eliminando..."
+          "deleting": "Eliminando...",
+          "irreversible": "Esta acción no se puede deshacer.",
+          "errorWithClasses": "No se puede eliminar el bimestre con clases asociadas",
+          "errorWithClassesDescription": "Este bimestre tiene {count, plural, =1 {1 clase} other {# clases}} asociada(s). Por favor, elimínalas o reasígnalas antes de eliminar el bimestre.",
+          "classesAssociated": "Clases asociadas con este bimestre",
+          "classesAssociatedDescription": "{count, plural, =1 {Hay 1 clase} other {Hay # clases}} actualmente asociada(s) con este bimestre. Debes eliminarlas o reasignarlas antes de eliminarlo."
         },
         "messages": {
           "allDatesRequired": "Todas las fechas son requeridas",
@@ -823,7 +833,11 @@
         "delete": "Eliminar programa",
         "deleting": "Eliminando...",
         "success": "Programa eliminado exitosamente",
-        "error": "Error al eliminar el programa"
+        "error": "Error al eliminar el programa",
+        "errorWithStudents": "No se puede eliminar el programa con estudiantes inscritos",
+        "errorWithStudentsDescription": "Este programa tiene {count, plural, =1 {1 estudiante} other {# estudiantes}} inscrito(s). Por favor, reasígnalos a otro programa antes de eliminarlo.",
+        "studentsEnrolled": "Estudiantes inscritos",
+        "studentsEnrolledDescription": "{count, plural, =1 {Hay 1 estudiante} other {Hay # estudiantes}} actualmente inscrito(s) en este programa. Debes reasignarlos antes de eliminarlo."
       }
     },
     "courses": {

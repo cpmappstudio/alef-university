@@ -94,6 +94,7 @@ export function CategoriesTable({
               <TableCell>
                 <CategoryDeleteDialog
                   categoryId={category._id}
+                  categoryName={category.name}
                   isDeleting={deletingCategoryId === category._id}
                   onDelete={handleDeleteCategory}
                 />

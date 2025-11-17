@@ -41,7 +41,7 @@ import type { CustomTableProps } from "@/lib/table/types";
 import { shouldHandleRowClick } from "@/lib/table/utils";
 
 // Configuration
-const PAGE_SIZE = 25;
+const PAGE_SIZE = 70;
 
 export default function CustomTable<TData>({
   data,

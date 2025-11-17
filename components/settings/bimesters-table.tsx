@@ -165,7 +165,7 @@ export function BimestersTable({ bimesters, isLoading }: BimestersTableProps) {
                       <span className="sr-only ">
                         {tPage("table.openMenu")}
                       </span>
-                      <MoreHorizontal className="h-4 text-black dark:text-white w-4" />
+                      <MoreHorizontal className="h-4 text-black dark:text-white  w-4" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
@@ -200,6 +200,17 @@ export function BimestersTable({ bimesters, isLoading }: BimestersTableProps) {
       {bimesterToDelete && (
         <BimesterDeleteDialog
           bimesterId={bimesterToDelete}
+          bimesterPeriod={(() => {
+            const bimester = bimesters.find((b) => b._id === bimesterToDelete);
+            if (!bimester) return "";
+            const start = format(new Date(bimester.startDate), "PP", {
+              locale: dateLocale,
+            });
+            const end = format(new Date(bimester.endDate), "PP", {
+              locale: dateLocale,
+            });
+            return `${start} - ${end}`;
+          })()}
           isDeleting={deletingBimesterId === bimesterToDelete}
           onDelete={handleDeleteBimester}
           open={isDeleteDialogOpen}

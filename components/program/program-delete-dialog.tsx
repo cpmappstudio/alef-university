@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useTranslations } from "next-intl";
 import { useMutation, useQuery } from "convex/react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Users } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -44,7 +44,14 @@ export function ProgramDeleteDialog({
     open ? { programId } : "skip",
   );
 
+  // Get students enrolled in this program
+  const studentsData = useQuery(
+    api.programs.getProgramStudents,
+    open ? { programId, includeProgress: false } : "skip",
+  );
+
   const courseCount = courses?.length ?? 0;
+  const studentCount = studentsData?.students?.length ?? 0;
 
   const handleDelete = async () => {
     try {
@@ -54,8 +61,21 @@ export function ProgramDeleteDialog({
       onOpenChange(false);
       onSuccess();
     } catch (error) {
-      const message = error instanceof Error ? error.message : t("error");
-      toast.error(message);
+      if (error instanceof Error) {
+        // Check if it's the enrolled students error
+        if (error.message.includes("enrolled students")) {
+          toast.error(t("errorWithStudents"), {
+            description: t("errorWithStudentsDescription", {
+              count: studentCount,
+            }),
+            duration: 5000,
+          });
+        } else {
+          toast.error(error.message);
+        }
+      } else {
+        toast.error(t("error"));
+      }
     } finally {
       setIsDeleting(false);
     }
@@ -70,9 +90,23 @@ export function ProgramDeleteDialog({
             <div className="space-y-3">
               <div>{t("description", { programName })}</div>
 
-              {courseCount > 0 && (
+              {studentCount > 0 && (
                 <div className="rounded-md bg-destructive/10 border border-destructive/20 p-3">
-                  <div className="text-sm font-semibold text-destructive mb-1">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-destructive mb-1">
+                    <Users className="h-4 w-4" />
+                    {t("studentsEnrolled")}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    {t("studentsEnrolledDescription", {
+                      count: studentCount,
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {courseCount > 0 && (
+                <div className="rounded-md bg-amber-500/10 border border-amber-500/20 p-3">
+                  <div className="text-sm font-semibold text-amber-600 dark:text-amber-400 mb-1">
                     ⚠️ {t("warning")}
                   </div>
                   <div className="text-sm text-muted-foreground">
@@ -93,8 +127,8 @@ export function ProgramDeleteDialog({
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={handleDelete}
-            disabled={isDeleting}
-            className="bg-destructive text-white cursor-pointer hover:bg-destructive/90"
+            disabled={isDeleting || studentCount > 0}
+            className="bg-destructive text-white cursor-pointer hover:bg-destructive/90 disabled:cursor-not-allowed"
           >
             {isDeleting ? (
               <>
