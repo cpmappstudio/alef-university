@@ -144,3 +144,33 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* CLERK */
+.cl-menuButtonEllipsis,
+.cl-navbar,
+.cl-profileSectionPrimaryButton__emailAddresses,
+.cl-profileSectionPrimaryButton__profile {
+  display: none !important;
+}
+.cl-cardBox.border {
+  border: none !important;
+}
+.cl-cardBox.shadow-sm {
+  box-shadow: none;
+}
+
+.cl-rootBox.cl-userProfile-root {
+  width: 100%;
+  display: flex;
+  box-shadow: none;
+}
+
+.cl-rootBox.cl-userProfile-root .cl-cardBox {
+  width: 100%;
+  max-width: 750px;
+  /*max-height: 428px;*/
+}
+
+.cl-scrollBox {
+  background-color: transparent;
+}

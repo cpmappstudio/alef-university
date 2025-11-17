@@ -17,12 +17,12 @@ const isPublicRoute = createRouteMatcher([
 ]);
 
 const SETTINGS_ACCOUNT_ROUTES = createRouteMatcher([
-  "/:locale" + ROUTES.settings.accountCustomization.path,
-  ROUTES.settings.accountCustomization.path,
-  "/:locale" + ROUTES.settings.accountProfile.path,
-  ROUTES.settings.accountProfile.path,
-  "/:locale" + ROUTES.settings.profile.path,
-  ROUTES.settings.profile.path,
+  "/:locale" + ROUTES.settings.accountCustomization.path + "(.*)",
+  ROUTES.settings.accountCustomization.path + "(.*)",
+  "/:locale" + ROUTES.settings.accountProfile.path + "(.*)",
+  ROUTES.settings.accountProfile.path + "(.*)",
+  "/:locale" + ROUTES.settings.profile.path + "(.*)",
+  ROUTES.settings.profile.path + "(.*)",
 ]);
 
 const STATIC_FILE_PATTERN =

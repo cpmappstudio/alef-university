@@ -3,6 +3,7 @@
 import * as React from "react";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ROUTES } from "@/lib/routes";
 
 interface UserButtonWrapperProps {
   showName?: boolean;
@@ -41,6 +42,7 @@ export function UserButtonWrapper({
   return (
     <div className="w-full" style={containerStyle}>
       <UserButton
+        userProfileUrl={ROUTES.settings.accountProfile.path}
         appearance={{
           elements: {
             userButtonBox: {
