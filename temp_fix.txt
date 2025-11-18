@@ -1,0 +1,6 @@
+  const handleExport = React.useCallback(
+    (rows: ProfessorDocument[]) => {
+      exportProfessorsToJSONL(rows);
+    },
+    [],
+  );

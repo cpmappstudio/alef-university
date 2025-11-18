@@ -2,6 +2,21 @@ import type { ReactNode } from "react";
 import type { Doc, Id } from "@/convex/_generated/dataModel";
 import type { ClassWithRelations } from "@/lib/classes/types";
 
+/**
+ * Type for JSONL export of professors
+ */
+export type ProfessorJSONLExport = {
+  // Required
+  firstName: string;
+  lastName: string;
+  email: string;
+  isActive: boolean;
+
+  // Optional
+  phone?: string;
+  country?: string;
+};
+
 export type TeachingHistorySection = {
   _id: Id<"sections">;
   courseCode: string;

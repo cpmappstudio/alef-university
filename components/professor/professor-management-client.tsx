@@ -13,6 +13,7 @@ import type {
   ProfessorManagementClientProps,
 } from "@/lib/professors/types";
 import { ROUTES } from "@/lib/routes";
+import { exportProfessorsToJSONL } from "@/lib/professors/utils";
 
 /* components */
 import { professorColumns } from "@/components/professor/columns";
@@ -46,6 +47,10 @@ export function ProfessorManagementClient({
     [router, locale],
   );
 
+  const handleExport = React.useCallback((rows: ProfessorDocument[]) => {
+    exportProfessorsToJSONL(rows);
+  }, []);
+
   return (
     <>
       <ProfessorActions />
@@ -62,6 +67,7 @@ export function ProfessorManagementClient({
           defaultMessage: "No professors found.",
         })}
         onRowClick={handleRowClick}
+        onExport={handleExport}
       />
     </>
   );

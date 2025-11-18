@@ -1,5 +1,26 @@
 import type { ReactNode } from "react";
 import type { Doc, Id } from "@/convex/_generated/dataModel";
+
+/**
+ * Type for JSONL export of students
+ */
+export type StudentJSONLExport = {
+  // Obligatorios
+  firstName: string;
+  lastName: string;
+  email: string;
+  studentCode: string;
+  programCode: string; // Código del programa (no ID)
+  isActive: boolean;
+
+  // Opcionales
+  phone?: string;
+  country?: string;
+  dateOfBirth?: number; // timestamp
+  nationality?: string;
+  documentType?: "passport" | "national_id" | "driver_license" | "other";
+  documentNumber?: string;
+};
 import type { UserRole } from "@/convex/types";
 
 export type StudentProfile = {
