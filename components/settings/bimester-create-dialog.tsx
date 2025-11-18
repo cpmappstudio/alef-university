@@ -196,6 +196,7 @@ export function BimesterCreateDialog() {
                           (dateRange?.to ? date < dateRange.to : false)
                         }
                         locale={dateLocale}
+                        captionLayout={"dropdown"}
                       />
                     </PopoverContent>
                   </Popover>
