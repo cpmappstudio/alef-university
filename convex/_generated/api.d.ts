@@ -14,6 +14,7 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as bimesters from "../bimesters.js";
+import type * as class_enrollments from "../class_enrollments.js";
 import type * as classes from "../classes.js";
 import type * as courses from "../courses.js";
 import type * as enrollments from "../enrollments.js";
@@ -37,6 +38,7 @@ import type * as users from "../users.js";
  */
 declare const fullApi: ApiFromModules<{
   bimesters: typeof bimesters;
+  class_enrollments: typeof class_enrollments;
   classes: typeof classes;
   courses: typeof courses;
   enrollments: typeof enrollments;

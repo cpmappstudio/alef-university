@@ -743,6 +743,132 @@ export const updateEnrollmentGrade = mutation({
 });
 
 /**
+ * Update enrollment status
+ * Used for bulk imports where we need to set status to "completed" without grade period validation
+ */
+export const updateEnrollmentStatus = mutation({
+  args: {
+    enrollmentId: v.id("class_enrollments"),
+    status: v.union(
+      v.literal("enrolled"),
+      v.literal("dropped"),
+      v.literal("withdrawn"),
+      v.literal("completed"),
+      v.literal("incomplete"),
+      v.literal("failed"),
+    ),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    // Get the enrollment
+    const enrollment = await ctx.db.get(args.enrollmentId);
+    if (!enrollment) {
+      throw new Error("Enrollment not found");
+    }
+
+    // Get current user
+    const users = await ctx.db.query("users").collect();
+    const currentUser = users.find((u) => u.clerkId === identity.subject);
+    if (!currentUser) {
+      throw new Error("Current user not found");
+    }
+
+    const now = Date.now();
+
+    // Update the status
+    await ctx.db.patch(args.enrollmentId, {
+      status: args.status,
+      statusChangedAt: now,
+      statusChangedBy: currentUser._id,
+      updatedAt: now,
+    });
+
+    return args.enrollmentId;
+  },
+});
+
+/**
+ * Update enrollment grade without grading period validation
+ * Used for bulk imports of historical data
+ */
+export const updateEnrollmentGradeForImport = mutation({
+  args: {
+    enrollmentId: v.id("class_enrollments"),
+    percentageGrade: v.number(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    // Validate grade range
+    if (args.percentageGrade < 0 || args.percentageGrade > 100) {
+      throw new Error("Grade must be between 0 and 100");
+    }
+
+    // Get the enrollment
+    const enrollment = await ctx.db.get(args.enrollmentId);
+    if (!enrollment) {
+      throw new Error("Enrollment not found");
+    }
+
+    // Get the class
+    const classItem = await ctx.db.get(enrollment.classId);
+    if (!classItem) {
+      throw new Error("Class not found");
+    }
+
+    // Get credits from program_courses association
+    let credits = 3; // default fallback
+    if (classItem.programId) {
+      const programCourse = await ctx.db
+        .query("program_courses")
+        .withIndex("by_program_course", (q) =>
+          q
+            .eq("programId", classItem.programId)
+            .eq("courseId", enrollment.courseId),
+        )
+        .filter((q) => q.eq(q.field("isActive"), true))
+        .first();
+
+      if (programCourse) {
+        credits = programCourse.credits;
+      }
+    }
+
+    // Get current user
+    const users = await ctx.db.query("users").collect();
+    const currentUser = users.find((u) => u.clerkId === identity.subject);
+    if (!currentUser) {
+      throw new Error("Current user not found");
+    }
+
+    const now = Date.now();
+
+    // Calculate grade info (letter grade, grade points, quality points)
+    const gradeInfo = calculateGradeInfo(args.percentageGrade, credits);
+
+    // Update the grade with all calculated fields
+    await ctx.db.patch(args.enrollmentId, {
+      percentageGrade: args.percentageGrade,
+      letterGrade: gradeInfo.letterGrade,
+      gradePoints: gradeInfo.gradePoints,
+      qualityPoints: gradeInfo.qualityPoints,
+      gradedBy: currentUser._id,
+      gradedAt: now,
+      updatedAt: now,
+    });
+
+    return args.enrollmentId;
+  },
+});
+
+/**
  * Get all students (for adding to classes)
  */
 export const getAllStudents = query({
