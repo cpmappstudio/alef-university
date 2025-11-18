@@ -157,6 +157,7 @@ export function BimesterCreateDialog() {
                         numberOfMonths={2}
                         disabled={isCreating}
                         locale={dateLocale}
+                        captionLayout={"dropdown"}
                       />
                     </PopoverContent>
                   </Popover>
