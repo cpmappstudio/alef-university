@@ -5,6 +5,29 @@ import {
 } from "@/components/ui/localized-fields";
 import type { Translator } from "@/lib/table/types";
 
+// Helper genérico para columna de búsqueda combinada (invisible, solo para filtrado)
+export const createSearchColumn = <T extends Record<string, any>>(
+  locale: string,
+  fields: Array<{ esKey: string; enKey: string }>,
+): ColumnDef<T> => ({
+  id: "search",
+  accessorFn: (row) => {
+    return fields
+      .map(({ esKey, enKey }) =>
+        buildSearchableField(row, esKey, enKey, locale),
+      )
+      .join(" ")
+      .toLowerCase();
+  },
+  enableHiding: false,
+  enableSorting: false,
+  enableColumnFilter: true,
+  // No definir header ni cell para que la columna sea invisible
+  meta: {
+    filterOnly: true, // Metadato para indicar que es solo para filtrado
+  },
+});
+
 // Helper genérico para columna de código localizado
 export const createLocalizedCodeColumn = <T extends Record<string, any>>(
   t: Translator,

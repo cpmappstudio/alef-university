@@ -9,6 +9,7 @@ import {
   createStatusColumn,
   createNumericColumn,
   createMappedColumn,
+  createSearchColumn,
 } from "@/components/table/column-helpers";
 
 export const programColumns = (
@@ -32,6 +33,10 @@ export const programColumns = (
   };
 
   return [
+    createSearchColumn<ProgramRow>(locale, [
+      { esKey: "codeEs", enKey: "codeEn" },
+      { esKey: "nameEs", enKey: "nameEn" },
+    ]),
     createLocalizedCodeColumn<ProgramRow>(t, locale, emptyValue),
     // Columna de nombre con ordenamiento (específica de programs)
     {

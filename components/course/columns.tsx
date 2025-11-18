@@ -9,6 +9,7 @@ import {
   createLocalizedNameColumn,
   createStatusColumn,
   createMappedColumn,
+  createSearchColumn,
 } from "@/components/table/column-helpers";
 import { Badge } from "@/components/ui/badge";
 
@@ -100,6 +101,10 @@ const createCourseColumns = (
   const categoryLabels = createCategoryLabels(t);
 
   const columns: ColumnDef<CourseRow>[] = [
+    createSearchColumn<CourseRow>(locale, [
+      { esKey: "codeEs", enKey: "codeEn" },
+      { esKey: "nameEs", enKey: "nameEn" },
+    ]),
     createLocalizedCodeColumn(t, locale, emptyValue),
     createLocalizedNameColumn("name", t, locale, emptyValue, "columns.course"),
   ];

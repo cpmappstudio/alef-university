@@ -663,7 +663,7 @@
           "viewDetails": "View details"
         },
         "columnsMenuLabel": "Columns",
-        "filterPlaceholder": "Filter programs...",
+        "filterPlaceholder": "Search by code or name...",
         "emptyMessage": "No programs available."
       },
       "form": {
@@ -936,7 +936,7 @@
       "table": {
         "title": "Course Management",
         "description": "View and manage all academic courses in the system.",
-        "filterPlaceholder": "Filter courses...",
+        "filterPlaceholder": "Search by code or name...",
         "columnsMenuLabel": "Columns",
         "emptyMessage": "No courses found.",
         "actions": {

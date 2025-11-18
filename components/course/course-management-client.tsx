@@ -71,7 +71,7 @@ export function CourseManagementClient({
       <CustomTable
         columns={columns}
         data={tableData}
-        filterColumn="name"
+        filterColumn="search"
         filterPlaceholder={t("filterPlaceholder")}
         columnsMenuLabel={t("columnsMenuLabel")}
         emptyMessage={t("emptyMessage")}

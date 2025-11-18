@@ -22,7 +22,6 @@ import {
   buildProgramDetailsPath,
   buildProgramExportTranslations,
   createProgramCategoryLabelMap,
-  PROGRAMS_TABLE_FILTER_COLUMN,
 } from "@/lib/programs/utils";
 import type {
   ProgramDocument,
@@ -70,7 +69,7 @@ export default function ProgramManagementClient({
       <CustomTable
         columns={columns}
         data={programs}
-        filterColumn={PROGRAMS_TABLE_FILTER_COLUMN}
+        filterColumn="search"
         filterPlaceholder={t("filterPlaceholder")}
         columnsMenuLabel={t("columnsMenuLabel")}
         emptyMessage={t("emptyMessage")}

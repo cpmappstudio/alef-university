@@ -59,7 +59,9 @@ export default function CustomTable<TData>({
     [],
   );
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
+    React.useState<VisibilityState>({
+      search: false, // Ocultar columna de búsqueda (solo para filtrado)
+    });
   const [rowSelection, setRowSelection] = React.useState({});
 
   const t = useTranslations("common");

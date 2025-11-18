@@ -664,7 +664,7 @@
           "viewDetails": "Ver detalles"
         },
         "columnsMenuLabel": "Columnas",
-        "filterPlaceholder": "Filtrar programas...",
+        "filterPlaceholder": "Buscar por código o nombre...",
         "emptyMessage": "No hay programas disponibles."
       },
       "form": {
@@ -937,7 +937,7 @@
       "table": {
         "title": "Gestión de Cursos",
         "description": "Ver y gestionar todos los cursos académicos en el sistema.",
-        "filterPlaceholder": "Filtrar cursos...",
+        "filterPlaceholder": "Buscar por código o nombre...",
         "columnsMenuLabel": "Columnas",
         "emptyMessage": "No se encontraron cursos.",
         "actions": {

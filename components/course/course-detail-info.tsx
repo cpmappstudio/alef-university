@@ -187,7 +187,7 @@ export default function CourseDetailInfo({
                     {credits !== undefined && (
                       <Badge
                         variant="outline"
-                        className="ml-1 text-xs text-white border-white/40"
+                        className="ml-1 rounded-full text-xs text-white border-white/40"
                       >
                         {credits} {locale === "es" ? "créditos" : "credits"}
                       </Badge>
