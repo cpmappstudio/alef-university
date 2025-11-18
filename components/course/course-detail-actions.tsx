@@ -20,6 +20,7 @@ export default function CourseDetailActions({
   return (
     <div className="flex gap-2 my-4 ">
       <ClassFormDialog
+        mode="create"
         courseId={courseId}
         open={isCreateDialogOpen}
         onOpenChange={setIsCreateDialogOpen}
