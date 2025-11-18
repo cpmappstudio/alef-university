@@ -6,8 +6,29 @@ import type {
   StudentFormState,
   StudentUpdatePayload,
 } from "@/lib/students/types";
-import type { Id } from "@/convex/_generated/dataModel";
+import type { Doc, Id } from "@/convex/_generated/dataModel";
 import type { Translator } from "@/lib/table/types";
+
+/**
+ * Type for JSONL export of students
+ */
+export type StudentJSONLExport = {
+  // Obligatorios
+  firstName: string;
+  lastName: string;
+  email: string;
+  studentCode: string;
+  programCode: string; // Código del programa (no ID)
+  isActive: boolean;
+
+  // Opcionales
+  phone?: string;
+  country?: string;
+  dateOfBirth?: number; // timestamp
+  nationality?: string;
+  documentType?: "passport" | "national_id" | "driver_license" | "other";
+  documentNumber?: string;
+};
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -138,4 +159,75 @@ export function buildStudentExportTranslations(
     },
     emptyValue: tableTranslations("columns.emptyValue"),
   };
+}
+
+/**
+ * Export students to JSONL format
+ * Each line is a valid JSON object representing a student
+ */
+export function exportStudentsToJSONL(
+  students: StudentDocument[],
+  programs: Doc<"programs">[],
+  locale: string,
+): void {
+  // Create map of programId → programCode
+  const programCodeMap = new Map<string, string>();
+  programs.forEach((program) => {
+    const code =
+      locale === "es"
+        ? program.codeEs || program.codeEn
+        : program.codeEn || program.codeEs;
+    programCodeMap.set(program._id, code || "");
+  });
+
+  // Convert each student to JSONL format
+  const lines = students.map((student) => {
+    const programCode =
+      programCodeMap.get(student.studentProfile?.programId || "") || "";
+
+    const data: StudentJSONLExport = {
+      firstName: student.firstName || "",
+      lastName: student.lastName || "",
+      email: student.email || "",
+      studentCode: student.studentProfile?.studentCode || "",
+      programCode,
+      isActive: student.isActive ?? true,
+      phone: student.phone || undefined,
+      country: student.country || undefined,
+      dateOfBirth: student.dateOfBirth || undefined,
+      nationality: student.nationality || undefined,
+      documentType: student.documentType || undefined,
+      documentNumber: student.documentNumber || undefined,
+    };
+
+    // Remove undefined values for cleaner JSONL
+    Object.keys(data).forEach((key) => {
+      if (data[key as keyof StudentJSONLExport] === undefined) {
+        delete data[key as keyof StudentJSONLExport];
+      }
+    });
+
+    return JSON.stringify(data);
+  });
+
+  // Join lines with newline character
+  const jsonlContent = lines.join("\n");
+
+  // Create blob and download
+  const blob = new Blob([jsonlContent], { type: "application/x-ndjson" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+
+  // Generate filename with current date
+  const dateStr = new Date().toISOString().split("T")[0];
+  link.download = `students_export_${dateStr}.jsonl`;
+
+  // Trigger download
+  document.body.appendChild(link);
+  link.click();
+
+  // Cleanup
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 }

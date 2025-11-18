@@ -11,6 +11,7 @@ import type {
   StudentManagementClientProps,
 } from "@/lib/students/types";
 import { ROUTES } from "@/lib/routes";
+import { exportStudentsToJSONL } from "@/lib/students/utils";
 
 import { studentColumns } from "@/components/student/columns";
 import { StudentActions } from "@/components/student/student-actions";
@@ -58,6 +59,18 @@ export function StudentManagementClient({
     [router, locale],
   );
 
+  const handleExport = React.useCallback(
+    (rows: StudentDocument[]) => {
+      if (!programs || programs.length === 0) {
+        console.error("No programs available for export");
+        return;
+      }
+
+      exportStudentsToJSONL(rows, programs, locale);
+    },
+    [programs, locale],
+  );
+
   return (
     <>
       <StudentActions />
@@ -70,6 +83,7 @@ export function StudentManagementClient({
         columnsMenuLabel={t("columnsMenuLabel")}
         emptyMessage={t("emptyMessage")}
         onRowClick={handleRowClick}
+        onExport={handleExport}
       />
     </>
   );
