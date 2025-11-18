@@ -577,7 +577,7 @@
           "title": "Crear Bimestre",
           "description": "Crea un nuevo período académico (bimestre) para gestionar tus clases.",
           "nameLabel": "Nombre",
-          "namePlaceholder": "ej., Bimestre 1 2024",
+          "namePlaceholder": "ej., 2025 Bimestre IV",
           "dateRangeLabel": "Período del Bimestre",
           "selectDateRange": "Seleccionar rango de fechas",
           "gradeDeadlineLabel": "Fecha Límite para Notas",

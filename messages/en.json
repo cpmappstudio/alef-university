@@ -576,7 +576,7 @@
           "title": "Create Bimester",
           "description": "Create a new academic period (bimester) to manage your classes.",
           "nameLabel": "Name",
-          "namePlaceholder": "e.g., Bimester 1 2024",
+          "namePlaceholder": "e.g., 2025 Bimester IV",
           "dateRangeLabel": "Bimester Period",
           "selectDateRange": "Select date range",
           "gradeDeadlineLabel": "Grade Deadline",
