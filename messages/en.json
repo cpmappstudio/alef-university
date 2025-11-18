@@ -1181,6 +1181,32 @@
         "deleting": "Deleting...",
         "success": "Professor deleted successfully",
         "error": "Unable to delete professor"
+      },
+      "import": {
+        "triggerButton": "Import professors",
+        "title": "Import professors from JSONL",
+        "description": "Upload a JSONL file with professor information. Each line must be a valid JSON object.",
+        "fileRequirements": "Only .jsonl files are accepted. The file must contain the fields: firstName, lastName, email, isActive.",
+        "startImport": "Start import",
+        "states": {
+          "reading": "Reading file...",
+          "importing": "Importing professors..."
+        },
+        "results": {
+          "success": "Successful",
+          "errors": "Errors",
+          "errorDetails": "Error details"
+        },
+        "actions": {
+          "importMore": "Import more",
+          "close": "Close"
+        },
+        "errors": {
+          "invalidFileType": "Only .jsonl files are allowed",
+          "emptyFile": "The file is empty",
+          "invalidJSON": "Format error on line {line}",
+          "importFailed": "Import failed. Please try again."
+        }
       }
     },
     "students": {

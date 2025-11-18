@@ -1182,6 +1182,32 @@
         "deleting": "Eliminando...",
         "success": "Profesor eliminado correctamente",
         "error": "No se pudo eliminar al profesor"
+      },
+      "import": {
+        "triggerButton": "Importar profesores",
+        "title": "Importar profesores desde JSONL",
+        "description": "Carga un archivo JSONL con la información de los profesores. Cada línea debe ser un objeto JSON válido.",
+        "fileRequirements": "Solo se aceptan archivos .jsonl. El archivo debe contener los campos: firstName, lastName, email, isActive.",
+        "startImport": "Iniciar importación",
+        "states": {
+          "reading": "Leyendo archivo...",
+          "importing": "Importando profesores..."
+        },
+        "results": {
+          "success": "Exitosos",
+          "errors": "Errores",
+          "errorDetails": "Detalles de errores"
+        },
+        "actions": {
+          "importMore": "Importar más",
+          "close": "Cerrar"
+        },
+        "errors": {
+          "invalidFileType": "Solo se permiten archivos .jsonl",
+          "emptyFile": "El archivo está vacío",
+          "invalidJSON": "Error de formato en la línea {line}",
+          "importFailed": "La importación falló. Por favor, intenta de nuevo."
+        }
       }
     },
     "students": {

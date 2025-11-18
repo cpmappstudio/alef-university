@@ -971,3 +971,70 @@ export const importStudentsFromJSONL = action({
     return results;
   },
 });
+
+export const importProfessorsFromJSONL = action({
+  args: {
+    professors: v.array(
+      v.object({
+        firstName: v.string(),
+        lastName: v.string(),
+        email: v.string(),
+        isActive: v.boolean(),
+        phone: v.optional(v.string()),
+        country: v.optional(v.string()),
+      }),
+    ),
+  },
+  handler: async (ctx, args): Promise<ImportResult[]> => {
+    await requireAdminForAction(ctx);
+
+    const results: ImportResult[] = [];
+
+    for (const professor of args.professors) {
+      try {
+        // 1. Check if email already exists
+        const emailExists = await ctx.runQuery(api.users.checkEmailExists, {
+          email: professor.email,
+        });
+
+        if (emailExists) {
+          results.push({
+            studentCode: "", // Not applicable for professors
+            email: professor.email,
+            status: "error",
+            error: `Email "${professor.email}" already exists`,
+          });
+          continue;
+        }
+
+        // 2. Create professor using existing flow
+        await ctx.runAction(api.users.createProfessorWithClerk, {
+          firstName: professor.firstName,
+          lastName: professor.lastName,
+          email: professor.email,
+          phone: professor.phone,
+          country: professor.country,
+          isActive: professor.isActive,
+        });
+
+        results.push({
+          studentCode: "", // Not applicable for professors
+          email: professor.email,
+          status: "success",
+        });
+      } catch (error) {
+        results.push({
+          studentCode: "", // Not applicable for professors
+          email: professor.email,
+          status: "error",
+          error:
+            error instanceof Error
+              ? error.message
+              : "Unknown error during import",
+        });
+      }
+    }
+
+    return results;
+  },
+});
