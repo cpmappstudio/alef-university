@@ -19,7 +19,7 @@ export default function CourseActions() {
         }
       />
       <CourseImportDialog />
-      <ClassEnrollmentImportDialog />
+      {/* <ClassEnrollmentImportDialog /> */}
     </div>
   );
 }
