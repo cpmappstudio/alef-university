@@ -1428,9 +1428,9 @@ export const importCoursesFromJSONL = action({
       v.object({
         language: v.union(v.literal("es"), v.literal("en")),
         category: courseCategoryValidator,
-        credits: v.number(),
         isActive: v.boolean(),
         programCodes: v.optional(v.array(v.string())),
+        programCredits: v.optional(v.record(v.string(), v.number())),
         codeEs: v.optional(v.string()),
         nameEs: v.optional(v.string()),
         descriptionEs: v.optional(v.string()),
@@ -1520,14 +1520,22 @@ export const importCoursesFromJSONL = action({
           }
         }
 
-        // 3. Resolve programCodes to programIds if provided
-        let programIds: string[] = [];
-        if (course.programCodes && course.programCodes.length > 0) {
+        // 3. Resolve programCredits to programIds and credits mapping
+        const programCreditsMap: Array<{ programId: string; credits: number }> =
+          [];
+
+        // Support both old format (programCodes) and new format (programCredits)
+        if (
+          course.programCredits &&
+          Object.keys(course.programCredits).length > 0
+        ) {
           const allPrograms = await ctx.runQuery(api.programs.getAllPrograms, {
             isActive: true,
           });
 
-          for (const programCode of course.programCodes) {
+          for (const [programCode, credits] of Object.entries(
+            course.programCredits,
+          )) {
             const program = allPrograms.find(
               (p) => p.codeEs === programCode || p.codeEn === programCode,
             );
@@ -1538,19 +1546,32 @@ export const importCoursesFromJSONL = action({
                 status: "error",
                 error: `Program with code "${programCode}" not found`,
               });
-              programIds = []; // Reset to prevent partial creation
+              programCreditsMap.length = 0;
               break;
             }
-            programIds.push(program._id);
+            programCreditsMap.push({ programId: program._id, credits });
           }
 
-          // If we couldn't resolve all programs, skip this course
-          if (programIds.length !== course.programCodes.length) {
+          if (
+            programCreditsMap.length !==
+            Object.keys(course.programCredits).length
+          ) {
             continue;
           }
         }
 
-        // 4. Create course using existing mutation
+        // Validate that we have at least one program
+        if (programCreditsMap.length === 0) {
+          results.push({
+            courseCode,
+            status: "error",
+            error:
+              "At least one program with credits is required (programCredits field)",
+          });
+          continue;
+        }
+
+        // 4. Create course using existing mutation (without credits field)
         const courseId = await ctx.runMutation(api.courses.createCourse, {
           codeEs: course.codeEs,
           codeEn: course.codeEn,
@@ -1558,7 +1579,6 @@ export const importCoursesFromJSONL = action({
           nameEn: course.nameEn,
           descriptionEs: course.descriptionEs,
           descriptionEn: course.descriptionEn,
-          credits: course.credits,
           language: course.language,
           category: course.category,
         });
@@ -1579,14 +1599,14 @@ export const importCoursesFromJSONL = action({
           });
         }
 
-        // 6. Associate course with programs
-        for (const programId of programIds) {
+        // 6. Associate course with programs using specific credits for each
+        for (const { programId, credits } of programCreditsMap) {
           await ctx.runMutation(api.courses.addCourseToProgram, {
             courseId,
             programId: programId as any,
             isRequired: false,
             categoryOverride: undefined,
-            credits: course.credits || 3, // Default to 3 credits if not specified
+            credits,
           });
         }
 

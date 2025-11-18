@@ -289,12 +289,24 @@ export function exportCoursesToJSONL(
         })
         .filter((code) => code !== "") || [];
 
+    // Build programCredits object: key is program code, value is credits
+    const programCredits: Record<string, number> = {};
+    if (course.programs && course.programs.length > 0) {
+      course.programs.forEach((program) => {
+        const programCode = program.codeEs;
+        if (programCode && program.credits !== undefined) {
+          programCredits[programCode] = program.credits;
+        }
+      });
+    }
+
     const data: CourseJSONLExport = {
       language: course.language === "both" ? "es" : course.language,
       category: course.category,
-      credits: course.credits ?? course.programs?.[0]?.credits ?? 3, // Use first program's credits or default to 3
       isActive: course.isActive ?? true,
       programCodes: programCodes.length > 0 ? programCodes : undefined,
+      programCredits:
+        Object.keys(programCredits).length > 0 ? programCredits : undefined,
     };
 
     // Add language-specific fields based on course language

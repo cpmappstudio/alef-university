@@ -141,7 +141,16 @@ export function CourseImportDialog() {
           {state === "idle" && (
             <div className="space-y-3">
               <Alert>
-                <AlertDescription>{t("fileRequirements")}</AlertDescription>
+                <AlertDescription>
+                  {t("fileRequirements")}
+                  <br />
+                  <span className="text-xs mt-1 block">
+                    Required format: JSONL with programCredits object (e.g.,{" "}
+                    {"{"}
+                    "programCredits": {'{"02D":3,"01D":4}'}
+                    {"}"})
+                  </span>
+                </AlertDescription>
               </Alert>
 
               <div className="flex items-center gap-2">

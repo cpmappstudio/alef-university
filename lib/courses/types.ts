@@ -8,11 +8,13 @@ export type CourseJSONLExport = {
   // Always present
   language: "es" | "en";
   category: "humanities" | "core" | "elective" | "general";
-  credits: number;
   isActive: boolean;
 
   // Optional: array of program codes (can be empty or absent)
   programCodes?: string[];
+
+  // Optional: credits per program code (new format)
+  programCredits?: Record<string, number>;
 
   // Conditional (depending on language)
   codeEs?: string;
