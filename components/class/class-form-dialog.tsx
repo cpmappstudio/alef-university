@@ -48,12 +48,14 @@ interface ClassFormState {
   bimesterId: string;
   groupNumber: string;
   professorId: string;
+  programId: string;
 }
 
 const createEmptyFormState = (): ClassFormState => ({
   bimesterId: "",
   groupNumber: "",
   professorId: "",
+  programId: "",
 });
 
 export default function ClassFormDialog({
@@ -94,12 +96,21 @@ export default function ClassFormDialog({
     mode === "edit" && classId && open ? { id: classId } : "skip",
   );
 
+  // Get course programs to select from
+  const courseProgramsQuery = useQuery(
+    api.courses.getCoursePrograms,
+    open ? { courseId } : "skip",
+  );
+  const coursePrograms = courseProgramsQuery ?? [];
+  const isLoadingPrograms = courseProgramsQuery === undefined;
+
   const resetForm = React.useCallback(() => {
     if (mode === "edit" && classData) {
       setFormState({
         bimesterId: classData.bimesterId,
         groupNumber: classData.groupNumber,
         professorId: classData.professorId,
+        programId: classData.programId || "",
       });
     } else {
       setFormState(createEmptyFormState());
@@ -130,7 +141,7 @@ export default function ClassFormDialog({
     };
 
   const handleSelectChange =
-    (field: "bimesterId" | "professorId") => (value: string) => {
+    (field: "bimesterId" | "professorId" | "programId") => (value: string) => {
       setFormState((prev) => ({
         ...prev,
         [field]: value as ClassFormState[typeof field],
@@ -157,6 +168,11 @@ export default function ClassFormDialog({
       return;
     }
 
+    if (!formState.programId) {
+      setFormError(t("messages.errors.programRequired"));
+      return;
+    }
+
     try {
       setIsSubmitting(true);
 
@@ -166,6 +182,7 @@ export default function ClassFormDialog({
           bimesterId: formState.bimesterId as Id<"bimesters">,
           groupNumber: formState.groupNumber.trim(),
           professorId: formState.professorId as Id<"users">,
+          programId: formState.programId as Id<"programs">,
         });
       } else {
         await createClass({
@@ -173,6 +190,7 @@ export default function ClassFormDialog({
           bimesterId: formState.bimesterId as Id<"bimesters">,
           groupNumber: formState.groupNumber.trim(),
           professorId: formState.professorId as Id<"users">,
+          programId: formState.programId as Id<"programs">,
         });
       }
 
@@ -189,6 +207,15 @@ export default function ClassFormDialog({
   const activeBimesters = bimesters.filter((b) => b.isActive);
   const hasBimesters = bimesters.length > 0;
   const hasProfessors = professors.length > 0;
+  const hasPrograms = coursePrograms.length > 0;
+
+  const selectedProgramCredits = React.useMemo(() => {
+    if (!formState.programId) return null;
+    const program = coursePrograms.find(
+      (p) => p.programId === formState.programId,
+    );
+    return program?.credits;
+  }, [formState.programId, coursePrograms]);
 
   return (
     <Dialog open={open} onOpenChange={handleDialogChange}>
@@ -292,6 +319,52 @@ export default function ClassFormDialog({
                     </SelectContent>
                   </Select>
                 </Field>
+
+                <Field>
+                  <FieldLabel htmlFor="class-program">
+                    {t("fields.program.label")} *
+                  </FieldLabel>
+
+                  <Select
+                    value={formState.programId}
+                    onValueChange={handleSelectChange("programId")}
+                    disabled={isLoadingPrograms || !hasPrograms}
+                  >
+                    <SelectTrigger id="class-program">
+                      <SelectValue
+                        placeholder={t("fields.program.placeholder")}
+                      />
+                    </SelectTrigger>
+
+                    <SelectContent>
+                      {coursePrograms.map((program) => (
+                        <SelectItem
+                          key={program.programId}
+                          value={program.programId}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span>
+                              {program.programCode} - {program.programName}
+                            </span>
+                            <span className="text-xs text-muted-foreground">
+                              • {program.credits}{" "}
+                              {program.credits === 1 ? "credit" : "credits"}
+                            </span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  {selectedProgramCredits !== null &&
+                    selectedProgramCredits !== undefined && (
+                      <FieldDescription className="text-muted-foreground text-sm">
+                        {t("fields.program.description", {
+                          credits: selectedProgramCredits,
+                        })}
+                      </FieldDescription>
+                    )}
+                </Field>
               </FieldGroup>
 
               <FieldDescription className="text-muted-foreground">
@@ -307,6 +380,12 @@ export default function ClassFormDialog({
               {!isLoadingUsers && !hasProfessors ? (
                 <FieldDescription className="text-muted-foreground">
                   {t("messages.noProfessors")}
+                </FieldDescription>
+              ) : null}
+
+              {!isLoadingPrograms && !hasPrograms ? (
+                <FieldDescription className="text-muted-foreground">
+                  {t("messages.noPrograms")}
                 </FieldDescription>
               ) : null}
             </FieldSet>
@@ -327,8 +406,10 @@ export default function ClassFormDialog({
                   isSubmitting ||
                   isLoadingBimesters ||
                   isLoadingUsers ||
+                  isLoadingPrograms ||
                   !hasBimesters ||
-                  !hasProfessors
+                  !hasProfessors ||
+                  !hasPrograms
                 }
               >
                 {isSubmitting ? (

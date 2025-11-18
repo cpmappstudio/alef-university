@@ -26,12 +26,14 @@ import { Badge } from "@/components/ui/badge";
 
 interface ClassDetailActionsProps {
   classId: Id<"classes">;
+  programId?: Id<"programs">;
   onEdit?: () => void;
   onDelete?: () => void;
 }
 
 export default function ClassDetailActions({
   classId,
+  programId,
   onEdit,
   onDelete,
 }: ClassDetailActionsProps) {
@@ -43,8 +45,17 @@ export default function ClassDetailActions({
   );
   const [isUpdating, setIsUpdating] = React.useState(false);
 
-  // Get all students
-  const allStudents = useQuery(api.classes.getAllStudents, {});
+  // Get students from the program
+  const programStudentsData = useQuery(
+    api.programs.getProgramStudents,
+    programId ? { programId, includeProgress: false } : "skip",
+  );
+
+  // Extract students from the response
+  const allStudents = React.useMemo(() => {
+    if (!programStudentsData?.students) return [];
+    return programStudentsData.students.map((s) => s.student);
+  }, [programStudentsData]);
 
   // Get students already enrolled in this class
   const classEnrollments = useQuery(api.classes.getClassEnrollments, {
@@ -158,7 +169,7 @@ export default function ClassDetailActions({
             <CommandList>
               <CommandEmpty>{t("manageStudents.noStudents")}</CommandEmpty>
               <CommandGroup>
-                {allStudents?.map((student) => {
+                {allStudents.map((student) => {
                   const isEnrolled = selectedStudents.has(student._id);
                   return (
                     <CommandItem

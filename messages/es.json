@@ -998,6 +998,7 @@
         "table": {
           "group": "Grupo",
           "groupPrefix": "Grupo",
+          "program": "Programa",
           "bimester": "Bimestre",
           "professor": "Profesor",
           "students": "Estudiantes",
@@ -1030,16 +1031,23 @@
             "professor": {
               "label": "Profesor",
               "placeholder": "Selecciona un profesor"
+            },
+            "program": {
+              "label": "Programa",
+              "placeholder": "Selecciona un programa",
+              "description": "Esta clase usará {credits} créditos del programa seleccionado"
             }
           },
           "messages": {
             "autoStatus": "El estado de la clase se calcula automáticamente según las fechas del bimestre. Será 'open' antes de que inicie el bimestre, 'active' durante el bimestre, 'grading' después de que termine el bimestre hasta la fecha límite de calificación, y 'completed' después de la fecha límite.",
             "noBimesters": "No hay bimestres disponibles. Crea al menos un bimestre antes de agregar una clase.",
             "noProfessors": "No hay profesores disponibles. Crea al menos un usuario profesor antes de agregar una clase.",
+            "noPrograms": "Este curso no está asociado con ningún programa. Por favor asócialo con al menos un programa primero.",
             "errors": {
               "bimesterRequired": "Por favor selecciona un bimestre",
               "groupNumberRequired": "Por favor ingresa un número de grupo",
               "professorRequired": "Por favor selecciona un profesor",
+              "programRequired": "Por favor selecciona un programa",
               "generic": "Ocurrió un error al crear la clase"
             }
           },
@@ -1433,6 +1441,7 @@
           "professor": "Profesor",
           "bimester": "Bimestre",
           "active": "Activo",
+          "program": "Programa",
           "credits": "Créditos",
           "enrolledStudents": "Estudiantes Inscritos",
           "group": "Grupo"

@@ -91,6 +91,32 @@ export function CourseDetailClient({
         ),
       },
       {
+        accessorKey: "program",
+        header: t("table.program"),
+        cell: ({ row }) => {
+          const program = row.original.program;
+          if (!program) return "-";
+          const programName =
+            locale === "es"
+              ? program.nameEs || program.nameEn
+              : program.nameEn || program.nameEs;
+          const programCode =
+            locale === "es"
+              ? program.codeEs || program.codeEn
+              : program.codeEn || program.codeEs;
+          return (
+            <div className="flex flex-col text-xs sm:text-sm">
+              <span className="font-medium">{programName || "-"}</span>
+              {programCode && (
+                <span className="text-muted-foreground text-xs">
+                  {programCode}
+                </span>
+              )}
+            </div>
+          );
+        },
+      },
+      {
         accessorKey: "bimester",
         header: t("table.bimester"),
         cell: ({ row }) => {
@@ -159,7 +185,7 @@ export function CourseDetailClient({
         },
       },
     ],
-    [t, dateLocale],
+    [t, dateLocale, locale],
   );
 
   if (!course) {

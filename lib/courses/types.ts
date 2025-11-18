@@ -180,6 +180,7 @@ export type CourseClassRow = Doc<"classes"> & {
   bimester?: Doc<"bimesters"> | null;
   professor?: Doc<"users"> | null;
   course?: Doc<"courses"> | null;
+  program?: Doc<"programs"> | null;
 };
 
 export type ProgramCourseAssociation = {

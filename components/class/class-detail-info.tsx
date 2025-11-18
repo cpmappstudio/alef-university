@@ -17,6 +17,8 @@ interface ClassDetailInfoProps {
     course: Doc<"courses"> | null;
     bimester: Doc<"bimesters"> | null;
     professor: Doc<"users"> | null;
+    program?: Doc<"programs"> | null;
+    credits?: number;
   };
   enrolledCount: number;
   locale: string;
@@ -35,6 +37,7 @@ export default function ClassDetailInfo({
   const course = classData.course;
   const bimester = classData.bimester;
   const professor = classData.professor;
+  const program = classData.program;
   const status = classData.status;
 
   const courseName =
@@ -46,6 +49,16 @@ export default function ClassDetailInfo({
     locale === "es"
       ? course?.codeEs || course?.codeEn || "—"
       : course?.codeEn || course?.codeEs || "—";
+
+  const programName =
+    locale === "es"
+      ? program?.nameEs || program?.nameEn
+      : program?.nameEn || program?.nameEs;
+
+  const programCode =
+    locale === "es"
+      ? program?.codeEs || program?.codeEn
+      : program?.codeEn || program?.codeEs;
 
   const statusMap: Record<string, any> = {
     draft: "secondary",
@@ -89,8 +102,16 @@ export default function ClassDetailInfo({
       </div>
 
       <div className="space-y-1">
+        <p className="text-sm text-muted-foreground">{t("info.program")}</p>
+        <p className="font-medium">{programName || "—"}</p>
+        {programCode && (
+          <p className="text-xs text-muted-foreground">{programCode}</p>
+        )}
+      </div>
+
+      <div className="space-y-1">
         <p className="text-sm text-muted-foreground">{t("info.credits")}</p>
-        <p className="font-medium">{course?.credits || "—"}</p>
+        <p className="font-medium">{classData.credits ?? "—"}</p>
       </div>
 
       <div className="space-y-1">

@@ -64,10 +64,11 @@ export const getClassesByCourse = query({
     // Enrich with related data and compute status
     const enrichedClasses = await Promise.all(
       classes.map(async (classItem) => {
-        const [course, bimester, professor] = await Promise.all([
+        const [course, bimester, professor, program] = await Promise.all([
           ctx.db.get(classItem.courseId),
           ctx.db.get(classItem.bimesterId),
           ctx.db.get(classItem.professorId),
+          classItem.programId ? ctx.db.get(classItem.programId) : null,
         ]);
 
         // Count enrolled students
@@ -85,6 +86,7 @@ export const getClassesByCourse = query({
           course,
           bimester,
           professor,
+          program,
           enrolledCount: enrollments.length,
         };
       }),
@@ -216,13 +218,32 @@ export const getClassById = query({
     if (!classItem) return null;
 
     // Get related data
-    const [course, bimester, professor] = await Promise.all([
+    const [course, bimester, professor, program] = await Promise.all([
       ctx.db.get(classItem.courseId),
       ctx.db.get(classItem.bimesterId),
       ctx.db.get(classItem.professorId),
+      classItem.programId ? ctx.db.get(classItem.programId) : null,
     ]);
 
     if (!bimester) return null;
+
+    // Get credits from program_courses association using class's programId
+    let credits: number | undefined = undefined;
+    if (classItem.programId && classItem.courseId) {
+      const programCourse = await ctx.db
+        .query("program_courses")
+        .withIndex("by_program_course", (q) =>
+          q
+            .eq("programId", classItem.programId)
+            .eq("courseId", classItem.courseId),
+        )
+        .filter((q) => q.eq(q.field("isActive"), true))
+        .first();
+
+      if (programCourse) {
+        credits = programCourse.credits;
+      }
+    }
 
     // Return class with computed status and enriched data
     return {
@@ -231,6 +252,8 @@ export const getClassById = query({
       course,
       bimester,
       professor,
+      program,
+      credits,
     };
   },
 });
@@ -289,7 +312,7 @@ export const getStudentEnrollments = query({
       .withIndex("by_student", (q) => q.eq("studentId", args.studentId))
       .collect();
 
-    // Enrich with course and bimester details
+    // Enrich with course, bimester, class, and credits details
     const enrichedEnrollments = await Promise.all(
       enrollments.map(async (enrollment) => {
         const [course, bimester, classItem] = await Promise.all([
@@ -298,11 +321,30 @@ export const getStudentEnrollments = query({
           ctx.db.get(enrollment.classId),
         ]);
 
+        // Get credits from program_courses association using class's programId
+        let credits: number | undefined = undefined;
+        if (classItem && classItem.programId) {
+          const programCourse = await ctx.db
+            .query("program_courses")
+            .withIndex("by_program_course", (q) =>
+              q
+                .eq("programId", classItem.programId)
+                .eq("courseId", enrollment.courseId),
+            )
+            .filter((q) => q.eq(q.field("isActive"), true))
+            .first();
+
+          if (programCourse) {
+            credits = programCourse.credits;
+          }
+        }
+
         return {
           ...enrollment,
           course,
           bimester,
           class: classItem,
+          credits,
         };
       }),
     );
@@ -320,6 +362,7 @@ export const createClass = mutation({
     bimesterId: v.id("bimesters"),
     groupNumber: v.string(),
     professorId: v.id("users"),
+    programId: v.id("programs"),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -360,6 +403,7 @@ export const createClass = mutation({
       bimesterId: args.bimesterId,
       groupNumber: args.groupNumber,
       professorId: args.professorId,
+      programId: args.programId,
     });
 
     console.log("Class created with ID:", classId);
@@ -376,6 +420,7 @@ export const updateClass = mutation({
     bimesterId: v.optional(v.id("bimesters")),
     groupNumber: v.optional(v.string()),
     professorId: v.optional(v.id("users")),
+    programId: v.optional(v.id("programs")),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -398,6 +443,9 @@ export const updateClass = mutation({
     }
     if (args.professorId !== undefined) {
       updates.professorId = args.professorId;
+    }
+    if (args.programId !== undefined) {
+      updates.programId = args.programId;
     }
 
     await ctx.db.patch(args.classId, updates);

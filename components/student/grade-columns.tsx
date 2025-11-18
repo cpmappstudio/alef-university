@@ -8,6 +8,7 @@ export type StudentGradeRow = Doc<"class_enrollments"> & {
   course: Doc<"courses"> | null;
   bimester: Doc<"bimesters"> | null;
   class: Doc<"classes"> | null;
+  credits?: number;
 };
 
 const createCourseCodeColumn = (
@@ -57,8 +58,8 @@ const createCreditsColumn = (
   accessorKey: "credits",
   header: () => <div className="text-center">{t("columns.credits")}</div>,
   cell: ({ row }) => {
-    const course = row.original.course;
-    const credits = course?.credits;
+    // Credits come from program_courses association via class programId
+    const credits = row.original.credits;
 
     return (
       <div className="text-center font-medium">

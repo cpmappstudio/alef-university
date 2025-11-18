@@ -252,6 +252,7 @@ export default defineSchema({
     groupNumber: v.string(), // "01", "02", etc.
 
     professorId: v.id("users"),
+    programId: v.id("programs"), // Program context for credits calculation
   })
     .index("by_course_bimester", ["courseId", "bimesterId"])
     .index("by_bimester", ["bimesterId"])

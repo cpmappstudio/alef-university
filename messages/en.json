@@ -997,6 +997,7 @@
         "table": {
           "group": "Group",
           "groupPrefix": "Group",
+          "program": "Program",
           "bimester": "Bimester",
           "professor": "Professor",
           "students": "Students",
@@ -1029,16 +1030,23 @@
             "professor": {
               "label": "Professor",
               "placeholder": "Select a professor"
+            },
+            "program": {
+              "label": "Program",
+              "placeholder": "Select a program",
+              "description": "This class will use {credits} credits from the selected program"
             }
           },
           "messages": {
             "autoStatus": "The class status is automatically computed based on the bimester dates. It will be 'open' before the bimester starts, 'active' during the bimester, 'grading' after the bimester ends until the grade deadline, and 'completed' after the deadline.",
             "noBimesters": "No bimesters available. Create at least one bimester before adding a class.",
             "noProfessors": "No professors available. Create at least one professor user before adding a class.",
+            "noPrograms": "This course is not associated with any programs. Please associate it with at least one program first.",
             "errors": {
               "bimesterRequired": "Please select a bimester",
               "groupNumberRequired": "Please enter a group number",
               "professorRequired": "Please select a professor",
+              "programRequired": "Please select a program",
               "generic": "An error occurred while creating the class"
             }
           },
@@ -1432,6 +1440,7 @@
           "professor": "Professor",
           "bimester": "Bimester",
           "active": "Active",
+          "program": "Program",
           "credits": "Credits",
           "enrolledStudents": "Enrolled Students",
           "group": "Group"

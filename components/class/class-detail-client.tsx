@@ -153,6 +153,7 @@ export function ClassDetailClient({
 
           <ClassDetailActions
             classId={classId}
+            programId={classData.programId}
             onEdit={handleEdit}
             onDelete={handleDelete}
           />
