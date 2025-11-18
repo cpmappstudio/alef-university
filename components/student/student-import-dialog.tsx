@@ -132,7 +132,7 @@ export function StudentImportDialog() {
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh]">
-        <DialogHeader>
+        <DialogHeader className="hidden">
           <DialogTitle>{t("title")}</DialogTitle>
           <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
@@ -193,32 +193,6 @@ export function StudentImportDialog() {
           {/* Results Section */}
           {state === "completed" && results.length > 0 && (
             <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center gap-2 p-3 bg-green-50 dark:bg-green-950 rounded-md">
-                  <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400" />
-                  <div>
-                    <p className="text-sm font-medium text-green-900 dark:text-green-100">
-                      {t("results.success")}
-                    </p>
-                    <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-                      {successCount}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-950 rounded-md">
-                  <XCircle className="h-5 w-5 text-red-600 dark:text-red-400" />
-                  <div>
-                    <p className="text-sm font-medium text-red-900 dark:text-red-100">
-                      {t("results.errors")}
-                    </p>
-                    <p className="text-2xl font-bold text-red-600 dark:text-red-400">
-                      {errorCount}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
               {errorCount > 0 && (
                 <div className="space-y-2">
                   <h4 className="text-sm font-medium">
@@ -253,9 +227,6 @@ export function StudentImportDialog() {
                   className="flex-1"
                 >
                   {t("actions.importMore")}
-                </Button>
-                <Button onClick={handleClose} className="flex-1">
-                  {t("actions.close")}
                 </Button>
               </div>
             </div>
