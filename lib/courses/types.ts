@@ -1,6 +1,29 @@
 import type { ReactNode } from "react";
 import type { Doc, Id } from "@/convex/_generated/dataModel";
 
+/**
+ * Type for JSONL export of courses
+ */
+export type CourseJSONLExport = {
+  // Always present
+  language: "es" | "en";
+  category: "humanities" | "core" | "elective" | "general";
+  credits: number;
+  isActive: boolean;
+
+  // Optional: array of program codes (can be empty or absent)
+  programCodes?: string[];
+
+  // Conditional (depending on language)
+  codeEs?: string;
+  nameEs?: string;
+  descriptionEs?: string;
+
+  codeEn?: string;
+  nameEn?: string;
+  descriptionEn?: string;
+};
+
 export type Course = {
   _id: Id<"courses">;
   _creationTime?: number;

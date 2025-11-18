@@ -20,6 +20,7 @@ import type {
 } from "@/lib/courses/types";
 import { ROUTES } from "@/lib/routes";
 import { createCombinedTranslator } from "@/lib/table/utils";
+import { exportCoursesToJSONL } from "@/lib/courses/utils";
 
 export function CourseManagementClient({
   courses,
@@ -56,6 +57,13 @@ export function CourseManagementClient({
     [router, locale],
   );
 
+  const handleExport = React.useCallback(
+    (rows: CourseDocument[]) => {
+      exportCoursesToJSONL(rows, locale);
+    },
+    [locale],
+  );
+
   return (
     <>
       <CourseActions />
@@ -68,6 +76,7 @@ export function CourseManagementClient({
         columnsMenuLabel={t("columnsMenuLabel")}
         emptyMessage={t("emptyMessage")}
         onRowClick={handleRowClick}
+        onExport={handleExport}
       />
     </>
   );

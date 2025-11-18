@@ -9,7 +9,10 @@ import type {
   CourseCategoryOption,
   CourseUpdatePayload,
   CourseProgramSummary,
+  CourseJSONLExport,
+  CourseDocument,
 } from "./types";
+import type { Doc } from "@/convex/_generated/dataModel";
 
 export const INITIAL_COURSE_FORM_STATE: CourseFormState = {
   language: "",
@@ -259,4 +262,73 @@ export function getCourseProgramCode(
     return program.codeEs || program.codeEn || fallback;
   }
   return program.codeEn || program.codeEs || fallback;
+}
+
+/**
+ * Export courses to JSONL format
+ * Each line is a valid JSON object representing a course
+ */
+export function exportCoursesToJSONL(
+  courses: CourseDocument[],
+  locale: string,
+): void {
+  // Convert each course to JSONL format
+  const lines = courses.map((course) => {
+    // Get program codes for this course
+    const programCodes =
+      course.programs
+        ?.map((program) => {
+          return program.codeEs || "";
+        })
+        .filter((code) => code !== "") || [];
+
+    const data: CourseJSONLExport = {
+      language: course.language === "both" ? "es" : course.language,
+      category: course.category,
+      credits: course.credits,
+      isActive: course.isActive ?? true,
+      programCodes: programCodes.length > 0 ? programCodes : undefined,
+    };
+
+    // Add language-specific fields based on course language
+    if (course.language === "es") {
+      data.codeEs = course.codeEs || "";
+      data.nameEs = course.nameEs || "";
+      data.descriptionEs = course.descriptionEs || "";
+    } else if (course.language === "en") {
+      data.codeEn = course.codeEn || "";
+      data.nameEn = course.nameEn || "";
+      data.descriptionEn = course.descriptionEn || "";
+    }
+
+    // Remove undefined values for cleaner JSONL
+    Object.keys(data).forEach((key) => {
+      if (data[key as keyof CourseJSONLExport] === undefined) {
+        delete data[key as keyof CourseJSONLExport];
+      }
+    });
+
+    return JSON.stringify(data);
+  });
+
+  // Join lines with newline character
+  const jsonlContent = lines.join("\n");
+
+  // Create blob and download
+  const blob = new Blob([jsonlContent], { type: "application/x-ndjson" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+
+  // Generate filename with current date
+  const dateStr = new Date().toISOString().split("T")[0];
+  link.download = `courses_export_${dateStr}.jsonl`;
+
+  // Trigger download
+  document.body.appendChild(link);
+  link.click();
+
+  // Cleanup
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 }
