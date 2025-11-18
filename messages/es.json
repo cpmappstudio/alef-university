@@ -1248,7 +1248,7 @@
     },
     "students": {
       "table": {
-        "filterPlaceholder": "Buscar estudiantes...",
+        "filterPlaceholder": "Buscar por nombre o código...",
         "columnsMenuLabel": "Columnas",
         "emptyMessage": "No se encontraron estudiantes.",
         "columns": {

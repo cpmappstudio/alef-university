@@ -1,7 +1,10 @@
 "use client";
 
 import type { ColumnDef } from "@tanstack/react-table";
-import { createStatusColumn } from "@/components/table/column-helpers";
+import {
+  createStatusColumn,
+  createSearchColumn,
+} from "@/components/table/column-helpers";
 import type { Translator } from "@/lib/table/types";
 import type { StudentDocument } from "@/lib/students/types";
 
@@ -12,6 +15,20 @@ export const studentColumns = (
   const emptyValue = "—";
 
   return [
+    {
+      id: "search",
+      accessorFn: (row) => {
+        const name = `${row.firstName ?? ""} ${row.lastName ?? ""}`.trim();
+        const code = row.studentProfile?.studentCode ?? "";
+        return `${name} ${code}`.toLowerCase();
+      },
+      enableHiding: false,
+      enableSorting: false,
+      enableColumnFilter: true,
+      meta: {
+        filterOnly: true,
+      },
+    },
     {
       id: "name",
       accessorFn: (row) =>
