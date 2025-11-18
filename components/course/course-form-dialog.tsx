@@ -96,12 +96,18 @@ export function CourseFormDialog({
     resetSelection,
   } = useProgramSelection(mode === "create" ? programId : undefined);
 
+  // State for creditsOverride per program
+  const [programCredits, setProgramCredits] = React.useState<
+    Map<string, number | undefined>
+  >(new Map());
+
   const createCourse = useMutation(api.courses.createCourse);
   const updateCourse = useMutation(api.courses.updateCourse);
   const addCourseToProgram = useMutation(api.courses.addCourseToProgram);
   const removeCourseFromProgram = useMutation(
     api.courses.removeCourseFromProgram,
   );
+  const updateCourseInProgram = useMutation(api.courses.updateCourseInProgram);
 
   const allPrograms = useQuery(api.programs.getAllPrograms, {});
 
@@ -131,7 +137,7 @@ export function CourseFormDialog({
       : "skip",
   );
 
-  // Initialize selected programs when course programs are loaded
+  // Initialize selected programs and credits when course programs are loaded
   React.useEffect(() => {
     if (mode === "edit" && coursePrograms && open) {
       const programIds = new Set(coursePrograms.map((cp) => cp.programId));
@@ -142,7 +148,19 @@ export function CourseFormDialog({
   const resetForm = React.useCallback(() => {
     setFormState(createFormStateFromCourse(course));
     setFormError(null);
-  }, [course]);
+    // Load existing credits when in edit mode
+    if (mode === "edit" && coursePrograms) {
+      const creditsMap = new Map<string, number | undefined>();
+      coursePrograms.forEach((cp) => {
+        if (cp.credits !== undefined) {
+          creditsMap.set(cp.programId, cp.credits);
+        }
+      });
+      setProgramCredits(creditsMap);
+    } else {
+      setProgramCredits(new Map());
+    }
+  }, [course, mode, coursePrograms]);
 
   React.useEffect(() => {
     if (open) {
@@ -173,6 +191,20 @@ export function CourseFormDialog({
   const handleSelectChange = (field: "language" | "category") =>
     selectChangeHandler(field);
 
+  const handleProgramCreditsChange = (programId: string, value: string) => {
+    const newMap = new Map(programCredits);
+    if (value === "") {
+      // Remove credits if empty (will be validated on submit)
+      newMap.delete(programId);
+    } else {
+      const credits = parseInt(value, 10);
+      if (!isNaN(credits) && credits > 0) {
+        newMap.set(programId, credits);
+      }
+    }
+    setProgramCredits(newMap);
+  };
+
   const languageOptions = [
     { value: "es", label: t("options.languages.es") },
     { value: "en", label: t("options.languages.en") },
@@ -201,6 +233,21 @@ export function CourseFormDialog({
       }
     }
 
+    // Validate that all selected programs have credits assigned
+    if (selectedPrograms.size > 0) {
+      for (const programId of selectedPrograms) {
+        const credits = programCredits.get(programId);
+        if (!credits || credits <= 0) {
+          setFormError(
+            locale === "es"
+              ? "Debes asignar créditos válidos (mayor a 0) a todos los programas seleccionados"
+              : "You must assign valid credits (greater than 0) to all selected programs",
+          );
+          return;
+        }
+      }
+    }
+
     const validationMessages: CourseFormValidationMessages = {
       languageRequired: t("messages.errors.language"),
       categoryRequired: t("messages.errors.category"),
@@ -210,7 +257,6 @@ export function CourseFormDialog({
       codeEnRequired: t("messages.errors.codeEn"),
       nameEnRequired: t("messages.errors.nameEn"),
       descriptionEnRequired: t("messages.errors.descriptionEn"),
-      creditsPositive: t("messages.errors.credits"),
     };
 
     const validation = validateCourseForm(formState, validationMessages);
@@ -240,13 +286,21 @@ export function CourseFormDialog({
               programId: programId as Id<"programs">,
               isRequired: false,
               categoryOverride: undefined,
+              credits: programCredits.get(programId)!,
+            });
+          } else {
+            // Update existing program association with new credits
+            await updateCourseInProgram({
+              courseId: course._id,
+              programId: programId as Id<"programs">,
+              credits: programCredits.get(programId)!,
             });
           }
         }
 
-        // Remove old programs
-        for (const programId of currentPrograms) {
-          if (!newSet.has(programId as string)) {
+        // Remove programs no longer selected
+        for (const programId of currentSet) {
+          if (!newSet.has(programId)) {
             await removeCourseFromProgram({
               courseId: course._id,
               programId: programId as Id<"programs">,
@@ -265,6 +319,7 @@ export function CourseFormDialog({
               programId: programId as Id<"programs">,
               isRequired: false,
               categoryOverride: undefined,
+              credits: programCredits.get(programId)!,
             });
           }
         }
@@ -392,30 +447,66 @@ export function CourseFormDialog({
                 </Popover>
 
                 {selectedPrograms.size > 0 && (
-                  <div className="flex flex-wrap gap-2 mt-2">
+                  <div className="mt-4 space-y-3">
+                    <div className="text-sm font-medium text-foreground">
+                      {t("fields.programs.selected")} ({selectedPrograms.size})
+                    </div>
                     {Array.from(selectedPrograms).map((programId) => {
                       const program = allPrograms?.find(
                         (p) => p._id === programId,
                       );
                       if (!program) return null;
+                      const overrideCredits = programCredits.get(programId);
                       return (
-                        <Badge
+                        <div
                           key={programId}
-                          variant="secondary"
-                          className="gap-1"
+                          className="flex items-center gap-3 p-3 rounded-lg border border-border bg-muted/50"
                         >
-                          {getCourseProgramCode(program, locale)} -{" "}
-                          {getCourseProgramName(program, locale)}
+                          <div className="flex-1">
+                            <div className="font-medium text-sm">
+                              {getCourseProgramCode(program, locale)} -{" "}
+                              {getCourseProgramName(program, locale)}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Input
+                              type="number"
+                              min="1"
+                              placeholder="3"
+                              value={overrideCredits ?? ""}
+                              onChange={(e) =>
+                                handleProgramCreditsChange(
+                                  programId,
+                                  e.target.value,
+                                )
+                              }
+                              className="w-20 h-8 text-sm"
+                              required
+                            />
+                            <span className="text-xs text-muted-foreground whitespace-nowrap">
+                              {locale === "es" ? "créditos" : "credits"}
+                            </span>
+                          </div>
                           <button
                             type="button"
-                            onClick={() => removeProgram(programId)}
-                            className="ml-1 rounded-full hover:bg-muted"
+                            onClick={() => {
+                              removeProgram(programId);
+                              const newMap = new Map(programCredits);
+                              newMap.delete(programId);
+                              setProgramCredits(newMap);
+                            }}
+                            className="p-1 rounded-full hover:bg-destructive/10 text-destructive"
                           >
-                            <X className="h-3 w-3" />
+                            <X className="h-4 w-4" />
                           </button>
-                        </Badge>
+                        </div>
                       );
                     })}
+                    <p className="text-xs text-muted-foreground">
+                      {locale === "es"
+                        ? "* Los créditos son obligatorios para cada programa"
+                        : "* Credits are required for each program"}
+                    </p>
                   </div>
                 )}
               </Field>
@@ -432,10 +523,8 @@ export function CourseFormDialog({
                   value: formState.codeEs,
                   onChange: handleInputChange("codeEs"),
                   error:
-                    mode === "create" &&
-                    formState.codeEs.trim() !== "" &&
-                    codeEsExists
-                      ? t("messages.errors.codeExists")
+                    mode === "create" && codeEsExists
+                      ? t("messages.errors.codeEsExists")
                       : undefined,
                 },
                 {
@@ -462,10 +551,8 @@ export function CourseFormDialog({
                   value: formState.codeEn,
                   onChange: handleInputChange("codeEn"),
                   error:
-                    mode === "create" &&
-                    formState.codeEn.trim() !== "" &&
-                    codeEnExists
-                      ? t("messages.errors.codeExists")
+                    mode === "create" && codeEnExists
+                      ? t("messages.errors.codeEnExists")
                       : undefined,
                 },
                 {
@@ -485,24 +572,6 @@ export function CourseFormDialog({
                 },
               ]}
             />
-
-            <FieldSeparator />
-            <FieldSet>
-              <FieldGroup>
-                <Field>
-                  <FieldLabel htmlFor="course-credits">
-                    {t("fields.credits.label")} *
-                  </FieldLabel>
-                  <Input
-                    id="course-credits"
-                    value={formState.credits}
-                    onChange={handleInputChange("credits")}
-                    placeholder={t("fields.credits.placeholder")}
-                    inputMode="numeric"
-                  />
-                </Field>
-              </FieldGroup>
-            </FieldSet>
 
             <FieldSeparator />
             {formError ? (

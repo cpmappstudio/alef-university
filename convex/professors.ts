@@ -287,7 +287,10 @@ export const submitGrades = mutation({
       // Calculate derived grade values
       const letterGrade = calculateLetterGrade(gradeSubmission.percentageGrade);
       const gradePoints = calculateGradePoints(gradeSubmission.percentageGrade);
-      const qualityPoints = calculateQualityPoints(gradePoints, course.credits);
+      const qualityPoints = calculateQualityPoints(
+        gradePoints,
+        course.credits ?? 3,
+      );
 
       const finalStatus =
         gradeSubmission.percentageGrade >= 65 ? "completed" : "failed";
@@ -387,7 +390,10 @@ export const updateGrade = mutation({
     // Calculate derived grade values
     const letterGrade = calculateLetterGrade(args.percentageGrade);
     const gradePoints = calculateGradePoints(args.percentageGrade);
-    const qualityPoints = calculateQualityPoints(gradePoints, course.credits);
+    const qualityPoints = calculateQualityPoints(
+      gradePoints,
+      course.credits ?? 3,
+    );
 
     const finalStatus = args.percentageGrade >= 65 ? "completed" : "failed";
 

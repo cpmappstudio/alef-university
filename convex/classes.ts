@@ -674,7 +674,10 @@ export const updateEnrollmentGrade = mutation({
     }
 
     // Calculate grade info (letter grade, grade points, quality points)
-    const gradeInfo = calculateGradeInfo(args.percentageGrade, course.credits);
+    const gradeInfo = calculateGradeInfo(
+      args.percentageGrade,
+      course.credits ?? 3,
+    );
 
     // Update the grade with all calculated fields
     await ctx.db.patch(args.enrollmentId, {

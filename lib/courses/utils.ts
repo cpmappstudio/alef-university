@@ -23,7 +23,7 @@ export const INITIAL_COURSE_FORM_STATE: CourseFormState = {
   codeEn: "",
   nameEn: "",
   descriptionEn: "",
-  credits: "",
+  // credits is now per-program, not a global field
   isActive: true,
 };
 
@@ -47,7 +47,10 @@ export function createFormStateFromCourse(
     codeEn: course.codeEn ?? "",
     nameEn: course.nameEn ?? "",
     descriptionEn: course.descriptionEn ?? "",
-    credits: safeNumberToString(course.credits),
+    // credits is now per-program, only include for backwards compatibility
+    ...(course.credits !== undefined
+      ? { credits: safeNumberToString(course.credits) }
+      : {}),
     isActive: Boolean(course.isActive),
   };
 }
@@ -103,9 +106,7 @@ export function validateCourseForm(
     }
   }
 
-  if (parsePositiveNumber(values.credits) === null) {
-    errors.credits = messages.creditsPositive;
-  }
+  // Credits are now assigned per program, not validated here
 
   return {
     errors,
@@ -124,20 +125,19 @@ export function buildCourseCreatePayload(
     throw new Error("Invalid course category");
   }
 
-  const credits = parsePositiveNumber(values.credits);
-
-  if (credits === null) {
-    throw new Error("Invalid numeric value for credits");
-  }
+  // Credits are now per-program, not a global field
+  // Only include if provided (for backwards compatibility)
+  const parsedCredits = values.credits
+    ? parsePositiveNumber(values.credits)
+    : null;
 
   const { showSpanishFields, showEnglishFields } = getLanguageVisibility(
     values.language,
   );
 
-  return {
+  const payload: CourseCreatePayload = {
     language: values.language as CourseLanguageOption,
     category: values.category as CourseCategoryOption,
-    credits,
     ...(showSpanishFields
       ? {
           codeEs: normalize(values.codeEs),
@@ -153,6 +153,13 @@ export function buildCourseCreatePayload(
         }
       : {}),
   };
+
+  // Only include credits if it's a valid number
+  if (parsedCredits !== null && parsedCredits !== undefined) {
+    payload.credits = parsedCredits;
+  }
+
+  return payload;
 }
 
 export function buildCourseUpdatePayload(
@@ -285,7 +292,7 @@ export function exportCoursesToJSONL(
     const data: CourseJSONLExport = {
       language: course.language === "both" ? "es" : course.language,
       category: course.category,
-      credits: course.credits,
+      credits: course.credits ?? course.programs?.[0]?.credits ?? 3, // Use first program's credits or default to 3
       isActive: course.isActive ?? true,
       programCodes: programCodes.length > 0 ? programCodes : undefined,
     };

@@ -103,6 +103,7 @@ export default function ProgramDetailActions({
           courseId: courseId as Id<"courses">,
           programId,
           isRequired: true,
+          credits: 3, // Default credits - can be adjusted later
         });
         setSelectedCourses((prev) => {
           const newSet = new Set(prev);

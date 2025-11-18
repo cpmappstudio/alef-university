@@ -144,19 +144,22 @@ export async function calculateGPA(
     const course = await db.get(enrollment.courseId);
     if (!course) continue;
 
-    attemptedCredits += course.credits;
+    attemptedCredits += course.credits ?? 3;
 
     if (
       enrollment.percentageGrade !== undefined &&
       enrollment.percentageGrade !== null
     ) {
-      totalCredits += course.credits;
+      totalCredits += course.credits ?? 3;
 
       const gradePoints = calculateGradePoints(enrollment.percentageGrade);
-      totalQualityPoints += calculateQualityPoints(gradePoints, course.credits);
+      totalQualityPoints += calculateQualityPoints(
+        gradePoints,
+        course.credits ?? 3,
+      );
 
       if (isPassingGrade(enrollment.percentageGrade)) {
-        earnedCredits += course.credits;
+        earnedCredits += course.credits ?? 3;
       }
     }
   }
@@ -340,7 +343,7 @@ export async function calculateAcademicProgress(
           .first();
 
         const category = programCourse?.categoryOverride || course.category;
-        creditsByCategory[category].completed += course.credits;
+        creditsByCategory[category].completed += course.credits ?? 3;
       }
     } else if (
       enrollment.status === "enrolled" ||
@@ -727,6 +730,7 @@ export async function getProgramCourses(
     course: Doc<"courses">;
     isRequired: boolean;
     category: CourseCategory;
+    credits: number;
   }>
 > {
   const programCourses = await db
@@ -743,6 +747,7 @@ export async function getProgramCourses(
         course,
         isRequired: pc.isRequired,
         category: (pc.categoryOverride || course.category) as CourseCategory,
+        credits: pc.credits,
       });
     }
   }

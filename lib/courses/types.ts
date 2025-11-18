@@ -37,7 +37,7 @@ export type Course = {
   descriptionEs?: string | undefined;
   descriptionEn?: string | undefined;
 
-  credits: number;
+  credits?: number; // Deprecated: credits now assigned per program
 
   language: "es" | "en" | "both";
 
@@ -73,7 +73,7 @@ export type CourseFormState = {
   nameEn: string;
   descriptionEn: string;
 
-  credits: string;
+  credits?: string; // Deprecated: credits are now per-program
 
   isActive: boolean;
 };
@@ -100,7 +100,7 @@ export type CourseFormValidationMessages = {
   codeEnRequired: string;
   nameEnRequired: string;
   descriptionEnRequired: string;
-  creditsPositive: string;
+  creditsPositive?: string; // Deprecated: credits now assigned per program
 };
 
 export type CourseFormValidationResult = {
@@ -121,7 +121,7 @@ export type CourseCreatePayload = {
   language: CourseLanguageOption;
   category: CourseCategoryOption;
 
-  credits: number;
+  credits?: number; // Deprecated: credits are now per-program
 };
 
 export type CourseUpdatePayload = {
@@ -155,13 +155,16 @@ export type CourseFormDialogProps = {
 export type CourseProgramSummary = Pick<
   Doc<"programs">,
   "_id" | "nameEs" | "nameEn" | "codeEs" | "codeEn"
->;
+> & {
+  credits?: number;
+};
 
 export type CourseRow = Doc<"courses"> & {
   programs?: Array<{
     _id: string;
     codeEs: string;
     name: string;
+    credits: number; // Credits assigned to this course for this specific program
   }>;
 };
 
@@ -177,4 +180,17 @@ export type CourseClassRow = Doc<"classes"> & {
   bimester?: Doc<"bimesters"> | null;
   professor?: Doc<"users"> | null;
   course?: Doc<"courses"> | null;
+};
+
+export type ProgramCourseAssociation = {
+  programId: Id<"programs">;
+  courseId: Id<"courses">;
+  isRequired: boolean;
+  categoryOverride?: "humanities" | "core" | "elective" | "general";
+  credits: number; // Required: credits must be specified per program
+};
+
+export type CourseWithEffectiveCredits = Course & {
+  effectiveCredits?: number;
+  hasCreditsOverride?: boolean;
 };

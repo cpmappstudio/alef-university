@@ -891,7 +891,8 @@
             "description": "Select the programs this course will belong to (optional).",
             "placeholder": "Select programs...",
             "search": "Search programs...",
-            "noPrograms": "No programs found."
+            "noPrograms": "No programs found.",
+            "selected": "Selected Programs"
           }
         },
         "options": {
@@ -974,6 +975,7 @@
         "language": "Language",
         "credits": "Credits",
         "status": "Status",
+        "programs": "Associated Programs",
         "codeEs": "Code (Spanish)",
         "codeEn": "Code (English)",
         "nameEs": "Name (Spanish)",

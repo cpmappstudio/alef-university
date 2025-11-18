@@ -735,10 +735,7 @@ export const getProgramDetails = query({
         requiredCourses: programCourses.filter((pc) => pc.isRequired).length,
         electives: programCourses.filter((pc) => !pc.isRequired).length,
         enrolledStudents: enrolledStudents.length,
-        totalCredits: programCourses.reduce(
-          (sum, pc) => sum + pc.course.credits,
-          0,
-        ),
+        totalCredits: programCourses.reduce((sum, pc) => sum + pc.credits, 0),
       },
     };
   },
@@ -1093,17 +1090,26 @@ export const getProgramsByCourse = query({
     }
 
     const programs = await Promise.all(
-      programLinks.map(async (link) => await ctx.db.get(link.programId)),
+      programLinks.map(async (link) => {
+        const program = await ctx.db.get(link.programId);
+        return { program, link };
+      }),
     );
 
     return programs
-      .filter((program): program is Doc<"programs"> => program !== null)
-      .map((program) => ({
-        _id: program._id,
-        nameEs: program.nameEs,
-        nameEn: program.nameEn,
-        codeEs: program.codeEs,
-        codeEn: program.codeEn,
+      .filter(
+        (
+          item,
+        ): item is { program: Doc<"programs">; link: Doc<"program_courses"> } =>
+          item.program !== null,
+      )
+      .map((item) => ({
+        _id: item.program._id,
+        nameEs: item.program.nameEs,
+        nameEn: item.program.nameEn,
+        codeEs: item.program.codeEs,
+        codeEn: item.program.codeEn,
+        credits: item.link.credits,
       }));
   },
 });
@@ -1176,7 +1182,8 @@ async function recalculateProgramCredits(
     if (pc.isActive) {
       const course = await db.get(pc.courseId);
       if (course && course.isActive) {
-        totalCredits += course.credits;
+        // Credits are now defined per program, not per course
+        totalCredits += pc.credits;
       }
     }
   }

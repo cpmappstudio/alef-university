@@ -8,9 +8,9 @@ import {
   createLocalizedCodeColumn,
   createLocalizedNameColumn,
   createStatusColumn,
-  createNumericColumn,
   createMappedColumn,
 } from "@/components/table/column-helpers";
+import { Badge } from "@/components/ui/badge";
 
 const createCategoryLabels = (
   t: Translator,
@@ -49,6 +49,48 @@ const createProgramsColumn = (
   },
 });
 
+// Columna de créditos - muestra el rango de créditos por programa
+const createCreditsColumn = (
+  t: Translator,
+  emptyValue: string,
+): ColumnDef<CourseRow> => ({
+  id: "credits",
+  header: t("columns.credits"),
+  cell: ({ row }) => {
+    const course = row.original;
+
+    // Check if credits is directly on the course (from program-specific query)
+    if (course.credits !== undefined) {
+      return <span>{course.credits}</span>;
+    }
+
+    // Otherwise, check programs array (from general courses query)
+    const programs = course.programs;
+
+    if (!programs || programs.length === 0) {
+      return <span className="text-muted-foreground">{emptyValue}</span>;
+    }
+
+    // Get all unique credit values from programs
+    const uniqueCredits = new Set(programs.map((p) => p.credits));
+
+    if (uniqueCredits.size === 1) {
+      return <span>{Array.from(uniqueCredits)[0]}</span>;
+    }
+
+    // Show range of credits if they vary
+    return (
+      <div className="flex items-center gap-1">
+        <span className="text-sm">
+          {Array.from(uniqueCredits)
+            .sort((a, b) => a - b)
+            .join(", ")}
+        </span>
+      </div>
+    );
+  },
+});
+
 const createCourseColumns = (
   t: Translator,
   locale: string,
@@ -74,7 +116,7 @@ const createCourseColumns = (
       categoryLabels,
       emptyValue,
     ),
-    createNumericColumn("credits", t, "columns.credits", emptyValue),
+    createCreditsColumn(t, emptyValue),
     createStatusColumn(t),
   );
 

@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/gradient-card";
 import { ROUTES } from "@/lib/routes";
 import type { CourseProgramSummary } from "@/lib/courses/types";
+import { Badge } from "@/components/ui/badge";
 
 interface CourseDetailInfoProps {
   course: Doc<"courses">;
@@ -97,10 +98,6 @@ export default function CourseDetailInfo({
             label={t("language")}
             value={languageLabels[course.language]}
           />
-          <GradientCardDetailItem
-            label={t("credits")}
-            value={`${course.credits}`}
-          />
 
           {/* Status */}
           <GradientCardDetailItem
@@ -157,6 +154,9 @@ export default function CourseDetailInfo({
 
         {hasPrograms && (
           <div className="mt-6 pt-6 border-t border-white/20">
+            <h3 className="text-sm font-semibold text-white/90 mb-3">
+              {t("programs")}
+            </h3>
             <div className="flex flex-wrap gap-2">
               {programs.map((program) => {
                 const programName =
@@ -170,18 +170,27 @@ export default function CourseDetailInfo({
                 const href = ROUTES.programs
                   .details(program._id)
                   .withLocale(locale);
+                const credits = program.credits;
 
                 return (
                   <Link
                     key={program._id}
                     href={href}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/40 px-3 py-1 text-sm font-medium text-white transition hover:bg-white/10"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/40 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-white/10"
                   >
                     <span>{programName}</span>
                     {programCode && (
                       <span className="text-xs text-white/70">
                         {programCode}
                       </span>
+                    )}
+                    {credits !== undefined && (
+                      <Badge
+                        variant="outline"
+                        className="ml-1 text-xs text-white border-white/40"
+                      >
+                        {credits} {locale === "es" ? "créditos" : "credits"}
+                      </Badge>
                     )}
                   </Link>
                 );

@@ -892,7 +892,8 @@
             "description": "Selecciona los programas a los que pertenecerá este curso (opcional).",
             "placeholder": "Seleccionar programas...",
             "search": "Buscar programas...",
-            "noPrograms": "No se encontraron programas."
+            "noPrograms": "No se encontraron programas.",
+            "selected": "Programas Seleccionados"
           }
         },
         "options": {
@@ -975,6 +976,7 @@
         "language": "Idioma",
         "credits": "Créditos",
         "status": "Estado",
+        "programs": "Programas Asociados",
         "codeEs": "Código (Español)",
         "codeEn": "Código (Inglés)",
         "nameEs": "Nombre (Español)",

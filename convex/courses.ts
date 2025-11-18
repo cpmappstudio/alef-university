@@ -122,6 +122,7 @@ export const getAllCourses = query({
               _id: program._id,
               codeEs: program.codeEs || program.codeEn || "N/A",
               name: program.nameEs || program.nameEn || "N/A",
+              credits: assoc.credits,
             };
           }),
         );
@@ -184,7 +185,7 @@ export const createCourse = mutation({
     nameEn: v.optional(v.string()), // Required when language is "en" or "both"
     descriptionEs: v.optional(v.string()), // Required when language is "es" or "both"
     descriptionEn: v.optional(v.string()), // Required when language is "en" or "both"
-    credits: v.number(),
+    credits: v.optional(v.number()), // Deprecated: credits are now per-program
     language: languageValidator,
     category: courseCategoryValidator,
   },
@@ -245,10 +246,7 @@ export const createCourse = mutation({
       }
     }
 
-    // Validate credits
-    if (args.credits <= 0) {
-      throw new ConvexError("Credits must be greater than 0");
-    }
+    // Credits are now per-program, not validated here
 
     // Create course
     const courseId = await ctx.db.insert("courses", {
@@ -295,11 +293,16 @@ export const getCoursesByProgram = query({
       .withIndex("by_program_course", (q) => q.eq("programId", args.programId))
       .collect();
 
-    // Get the actual course documents
+    // Get the actual course documents with credits from association
     const courses = await Promise.all(
       programCourses.map(async (pc) => {
         const course = await ctx.db.get(pc.courseId);
-        return course;
+        if (!course) return null;
+        // Include credits from the program_courses association
+        return {
+          ...course,
+          credits: pc.credits,
+        };
       }),
     );
 
@@ -634,6 +637,7 @@ export const getCoursePrograms = query({
           programName: program.nameEs,
           isRequired: assoc.isRequired,
           categoryOverride: assoc.categoryOverride,
+          credits: assoc.credits,
           associationId: assoc._id,
         };
       }),
@@ -1085,6 +1089,7 @@ export const addCourseToProgram = mutation({
     programId: v.id("programs"),
     isRequired: v.boolean(),
     categoryOverride: v.optional(courseCategoryValidator),
+    credits: v.number(), // Required: credits must be specified per program
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -1122,6 +1127,7 @@ export const addCourseToProgram = mutation({
       programId: args.programId,
       isRequired: args.isRequired,
       categoryOverride: args.categoryOverride,
+      credits: args.credits,
       isActive: true,
       createdAt: Date.now(),
     });
@@ -1145,6 +1151,7 @@ export const internalAddCourseToProgram = internalMutation({
     programId: v.id("programs"),
     isRequired: v.boolean(),
     categoryOverride: v.optional(courseCategoryValidator),
+    credits: v.number(), // Required: credits must be specified per program
   },
   handler: async (ctx, args) => {
     // Check if association already exists
@@ -1172,6 +1179,7 @@ export const internalAddCourseToProgram = internalMutation({
       programId: args.programId,
       isRequired: args.isRequired,
       categoryOverride: args.categoryOverride,
+      credits: args.credits,
       isActive: true,
       createdAt: Date.now(),
     });
@@ -1186,6 +1194,75 @@ export const internalAddCourseToProgram = internalMutation({
     );
 
     return associationId;
+  },
+});
+
+/**
+ * Update course-program association (Admin only)
+ */
+export const updateCourseInProgram = mutation({
+  args: {
+    courseId: v.id("courses"),
+    programId: v.id("programs"),
+    isRequired: v.optional(v.boolean()),
+    categoryOverride: v.optional(courseCategoryValidator),
+    credits: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new ConvexError("Not authenticated");
+    }
+
+    const user = await getUserByClerkId(ctx.db, identity.subject);
+    if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
+      throw new ConvexError("Admin access required");
+    }
+
+    const association = await ctx.db
+      .query("program_courses")
+      .withIndex("by_program_course", (q) =>
+        q.eq("programId", args.programId).eq("courseId", args.courseId),
+      )
+      .first();
+
+    if (!association) {
+      throw new ConvexError("Course is not associated with this program");
+    }
+
+    // Build update object with only provided fields
+    const updateData: {
+      isRequired?: boolean;
+      categoryOverride?: typeof args.categoryOverride;
+      credits?: number;
+    } = {};
+
+    if (args.isRequired !== undefined) {
+      updateData.isRequired = args.isRequired;
+    }
+    if (args.categoryOverride !== undefined) {
+      updateData.categoryOverride = args.categoryOverride;
+    }
+    if (args.credits !== undefined) {
+      updateData.credits = args.credits;
+    }
+
+    await ctx.db.patch(association._id, updateData);
+
+    // Recalculate total credits for the program if credits changed
+    if (args.credits !== undefined) {
+      await ctx.scheduler.runAfter(
+        0,
+        internal.programs.internalRecalculateProgramCredits,
+        {
+          programId: args.programId,
+        },
+      );
+    }
+
+    return {
+      message: "Course association updated successfully",
+    };
   },
 });
 
@@ -1509,6 +1586,7 @@ export const importCoursesFromJSONL = action({
             programId: programId as any,
             isRequired: false,
             categoryOverride: undefined,
+            credits: course.credits || 3, // Default to 3 credits if not specified
           });
         }
 

@@ -189,7 +189,7 @@ export default defineSchema({
     descriptionEs: v.optional(v.string()), // Required when language is "es" or "both"
     descriptionEn: v.optional(v.string()), // Required when language is "en" or "both"
 
-    credits: v.number(),
+    credits: v.optional(v.number()), // Deprecated: credits now assigned per program via program_courses.creditsOverride
 
     language: v.union(v.literal("es"), v.literal("en"), v.literal("both")),
 
@@ -227,6 +227,10 @@ export default defineSchema({
         v.literal("general"),
       ),
     ),
+
+    // Credits for this course in this specific program (required - courses have different
+    // credit values per program, not a single global value)
+    credits: v.number(),
 
     // Is this course required for this program?
     isRequired: v.boolean(),
