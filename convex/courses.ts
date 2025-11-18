@@ -10,7 +10,7 @@
  * Handles course catalog, section creation, and course-program relationships
  */
 
-import { query, mutation, internalMutation } from "./_generated/server";
+import { query, mutation, internalMutation, action } from "./_generated/server";
 import { v, ConvexError } from "convex/values";
 import type { Doc } from "./_generated/dataModel";
 import {
@@ -25,7 +25,7 @@ import {
   sectionStatusValidator,
   scheduleSessionValidator,
 } from "./types";
-import { internal } from "./_generated/api";
+import { internal, api } from "./_generated/api";
 
 /**
  * Get all courses with filtering options
@@ -1336,5 +1336,198 @@ export const deleteCourse = mutation({
     await ctx.db.delete(args.courseId);
 
     return { success: true };
+  },
+});
+
+type CourseImportResult = {
+  courseCode: string;
+  status: "success" | "error";
+  error?: string;
+};
+
+export const importCoursesFromJSONL = action({
+  args: {
+    courses: v.array(
+      v.object({
+        language: v.union(v.literal("es"), v.literal("en")),
+        category: courseCategoryValidator,
+        credits: v.number(),
+        isActive: v.boolean(),
+        programCodes: v.optional(v.array(v.string())),
+        codeEs: v.optional(v.string()),
+        nameEs: v.optional(v.string()),
+        descriptionEs: v.optional(v.string()),
+        codeEn: v.optional(v.string()),
+        nameEn: v.optional(v.string()),
+        descriptionEn: v.optional(v.string()),
+      }),
+    ),
+  },
+  handler: async (ctx, args): Promise<CourseImportResult[]> => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new ConvexError("Not authenticated");
+    }
+
+    const user = await ctx.runQuery(api.users.getUserByClerkId, {
+      clerkId: identity.subject,
+    });
+    if (!user || (user.role !== "admin" && user.role !== "superadmin")) {
+      throw new ConvexError("Admin access required");
+    }
+
+    const results: CourseImportResult[] = [];
+
+    for (const course of args.courses) {
+      const courseCode = course.codeEs || course.codeEn || "UNKNOWN";
+
+      try {
+        // 1. Validate language-specific fields
+        if (course.language === "es") {
+          if (!course.codeEs || !course.nameEs || !course.descriptionEs) {
+            results.push({
+              courseCode,
+              status: "error",
+              error:
+                "Spanish fields (codeEs, nameEs, descriptionEs) are required when language is Spanish",
+            });
+            continue;
+          }
+        } else if (course.language === "en") {
+          if (!course.codeEn || !course.nameEn || !course.descriptionEn) {
+            results.push({
+              courseCode,
+              status: "error",
+              error:
+                "English fields (codeEn, nameEn, descriptionEn) are required when language is English",
+            });
+            continue;
+          }
+        }
+
+        // 2. Check for duplicate course codes
+        const existingCourses = await ctx.runQuery(
+          api.courses.getAllCourses,
+          {},
+        );
+
+        if (course.codeEs) {
+          const duplicateEs = existingCourses.find(
+            (c) =>
+              c.codeEs?.toLowerCase() === course.codeEs!.toLowerCase() ||
+              c.codeEn?.toLowerCase() === course.codeEs!.toLowerCase(),
+          );
+          if (duplicateEs) {
+            results.push({
+              courseCode,
+              status: "error",
+              error: `Course code "${course.codeEs}" already exists`,
+            });
+            continue;
+          }
+        }
+
+        if (course.codeEn) {
+          const duplicateEn = existingCourses.find(
+            (c) =>
+              c.codeEs?.toLowerCase() === course.codeEn!.toLowerCase() ||
+              c.codeEn?.toLowerCase() === course.codeEn!.toLowerCase(),
+          );
+          if (duplicateEn) {
+            results.push({
+              courseCode,
+              status: "error",
+              error: `Course code "${course.codeEn}" already exists`,
+            });
+            continue;
+          }
+        }
+
+        // 3. Resolve programCodes to programIds if provided
+        let programIds: string[] = [];
+        if (course.programCodes && course.programCodes.length > 0) {
+          const allPrograms = await ctx.runQuery(api.programs.getAllPrograms, {
+            isActive: true,
+          });
+
+          for (const programCode of course.programCodes) {
+            const program = allPrograms.find(
+              (p) => p.codeEs === programCode || p.codeEn === programCode,
+            );
+
+            if (!program) {
+              results.push({
+                courseCode,
+                status: "error",
+                error: `Program with code "${programCode}" not found`,
+              });
+              programIds = []; // Reset to prevent partial creation
+              break;
+            }
+            programIds.push(program._id);
+          }
+
+          // If we couldn't resolve all programs, skip this course
+          if (programIds.length !== course.programCodes.length) {
+            continue;
+          }
+        }
+
+        // 4. Create course using existing mutation
+        const courseId = await ctx.runMutation(api.courses.createCourse, {
+          codeEs: course.codeEs,
+          codeEn: course.codeEn,
+          nameEs: course.nameEs,
+          nameEn: course.nameEn,
+          descriptionEs: course.descriptionEs,
+          descriptionEn: course.descriptionEn,
+          credits: course.credits,
+          language: course.language,
+          category: course.category,
+        });
+
+        // 5. Update isActive if false (createCourse defaults to true)
+        if (!course.isActive && courseId) {
+          await ctx.runMutation(api.courses.updateCourse, {
+            courseId,
+            language: course.language,
+            category: course.category,
+            isActive: false,
+            codeEs: course.codeEs,
+            codeEn: course.codeEn,
+            nameEs: course.nameEs,
+            nameEn: course.nameEn,
+            descriptionEs: course.descriptionEs,
+            descriptionEn: course.descriptionEn,
+          });
+        }
+
+        // 6. Associate course with programs
+        for (const programId of programIds) {
+          await ctx.runMutation(api.courses.addCourseToProgram, {
+            courseId,
+            programId: programId as any,
+            isRequired: false,
+            categoryOverride: undefined,
+          });
+        }
+
+        results.push({
+          courseCode,
+          status: "success",
+        });
+      } catch (error) {
+        results.push({
+          courseCode,
+          status: "error",
+          error:
+            error instanceof Error
+              ? error.message
+              : "Unknown error during import",
+        });
+      }
+    }
+
+    return results;
   },
 });

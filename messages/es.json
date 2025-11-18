@@ -1060,6 +1060,32 @@
           "success": "Curso eliminado exitosamente",
           "error": "Error al eliminar el curso"
         }
+      },
+      "import": {
+        "triggerButton": "Importar cursos",
+        "title": "Importar cursos desde JSONL",
+        "description": "Carga un archivo JSONL con la información de los cursos. Cada línea debe ser un objeto JSON válido.",
+        "fileRequirements": "Solo se aceptan archivos .jsonl. El archivo debe contener los campos: language, category, credits, isActive, y campos específicos del idioma (codeEs/nameEs/descriptionEs o codeEn/nameEn/descriptionEn).",
+        "startImport": "Iniciar importación",
+        "states": {
+          "reading": "Leyendo archivo...",
+          "importing": "Importando cursos..."
+        },
+        "results": {
+          "success": "Exitosos",
+          "errors": "Errores",
+          "errorDetails": "Detalles de errores"
+        },
+        "actions": {
+          "importMore": "Importar más",
+          "close": "Cerrar"
+        },
+        "errors": {
+          "invalidFileType": "Solo se permiten archivos .jsonl",
+          "emptyFile": "El archivo está vacío",
+          "invalidJSON": "Error de formato en la línea {line}",
+          "importFailed": "La importación falló. Por favor, intenta de nuevo."
+        }
       }
     },
     "professors": {
