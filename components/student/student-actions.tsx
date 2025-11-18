@@ -4,6 +4,7 @@ import * as React from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { StudentFormDialog } from "@/components/student/student-form-dialog";
+import { StudentImportDialog } from "@/components/student/student-import-dialog";
 import { CirclePlusIcon } from "lucide-react";
 
 export function StudentActions() {
@@ -19,6 +20,7 @@ export function StudentActions() {
           </Button>
         }
       />
+      <StudentImportDialog />
     </div>
   );
 }

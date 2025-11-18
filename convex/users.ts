@@ -820,3 +820,154 @@ async function ensureEmailAvailable(ctx: ActionCtx, email: string) {
     throw new ConvexError("Email address already exists");
   }
 }
+
+/** ------------------------------------------------------------------
+ * Batch Import
+ * ------------------------------------------------------------------ */
+
+type StudentImportRow = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  studentCode: string;
+  programCode: string;
+  isActive: boolean;
+  phone?: string;
+  country?: string;
+  dateOfBirth?: number;
+  nationality?: string;
+  documentType?: "passport" | "national_id" | "driver_license" | "other";
+  documentNumber?: string;
+};
+
+type ImportResult = {
+  studentCode: string;
+  email: string;
+  status: "success" | "error";
+  error?: string;
+};
+
+export const importStudentsFromJSONL = action({
+  args: {
+    students: v.array(
+      v.object({
+        firstName: v.string(),
+        lastName: v.string(),
+        email: v.string(),
+        studentCode: v.string(),
+        programCode: v.string(),
+        isActive: v.boolean(),
+        phone: v.optional(v.string()),
+        country: v.optional(v.string()),
+        dateOfBirth: v.optional(v.number()),
+        nationality: v.optional(v.string()),
+        documentType: v.optional(
+          v.union(
+            v.literal("passport"),
+            v.literal("national_id"),
+            v.literal("driver_license"),
+            v.literal("other"),
+          ),
+        ),
+        documentNumber: v.optional(v.string()),
+      }),
+    ),
+  },
+  handler: async (ctx, args): Promise<ImportResult[]> => {
+    await requireAdminForAction(ctx);
+
+    const results: ImportResult[] = [];
+
+    for (const student of args.students) {
+      try {
+        // 1. Resolve programCode to programId
+        const programs = await ctx.runQuery(api.programs.getAllPrograms, {
+          isActive: true,
+        });
+
+        const program = programs.find(
+          (p) =>
+            p.codeEs === student.programCode ||
+            p.codeEn === student.programCode,
+        );
+
+        if (!program) {
+          results.push({
+            studentCode: student.studentCode,
+            email: student.email,
+            status: "error",
+            error: `Program with code "${student.programCode}" not found`,
+          });
+          continue;
+        }
+
+        // 2. Check if student code already exists
+        const studentCodeExists = await ctx.runQuery(
+          api.users.checkStudentCodeExists,
+          { studentCode: student.studentCode },
+        );
+
+        if (studentCodeExists) {
+          results.push({
+            studentCode: student.studentCode,
+            email: student.email,
+            status: "error",
+            error: `Student code "${student.studentCode}" already exists`,
+          });
+          continue;
+        }
+
+        // 3. Check if email already exists
+        const emailExists = await ctx.runQuery(api.users.checkEmailExists, {
+          email: student.email,
+        });
+
+        if (emailExists) {
+          results.push({
+            studentCode: student.studentCode,
+            email: student.email,
+            status: "error",
+            error: `Email "${student.email}" already exists`,
+          });
+          continue;
+        }
+
+        // 4. Create student using existing flow
+        await ctx.runAction(api.users.createStudentWithClerk, {
+          firstName: student.firstName,
+          lastName: student.lastName,
+          email: student.email,
+          phone: student.phone,
+          country: student.country,
+          dateOfBirth: student.dateOfBirth,
+          nationality: student.nationality,
+          documentType: student.documentType,
+          documentNumber: student.documentNumber,
+          studentProfile: {
+            studentCode: student.studentCode,
+            programId: program._id,
+          },
+          isActive: student.isActive,
+        });
+
+        results.push({
+          studentCode: student.studentCode,
+          email: student.email,
+          status: "success",
+        });
+      } catch (error) {
+        results.push({
+          studentCode: student.studentCode,
+          email: student.email,
+          status: "error",
+          error:
+            error instanceof Error
+              ? error.message
+              : "Unknown error during import",
+        });
+      }
+    }
+
+    return results;
+  },
+});

@@ -1338,6 +1338,32 @@
         "deleting": "Deleting...",
         "success": "Student deleted successfully",
         "error": "Unable to delete student"
+      },
+      "import": {
+        "triggerButton": "Import students",
+        "title": "Import students from JSONL",
+        "description": "Upload a JSONL file with student information. Each line must be a valid JSON object.",
+        "fileRequirements": "Only .jsonl files are accepted. The file must contain the fields: firstName, lastName, email, studentCode, programCode, isActive.",
+        "startImport": "Start import",
+        "states": {
+          "reading": "Reading file...",
+          "importing": "Importing students..."
+        },
+        "results": {
+          "success": "Successful",
+          "errors": "Errors",
+          "errorDetails": "Error details"
+        },
+        "actions": {
+          "importMore": "Import more",
+          "close": "Close"
+        },
+        "errors": {
+          "invalidFileType": "Only .jsonl files are allowed",
+          "emptyFile": "The file is empty",
+          "invalidJSON": "Format error on line {line}",
+          "importFailed": "Import failed. Please try again."
+        }
       }
     },
     "classes": {
