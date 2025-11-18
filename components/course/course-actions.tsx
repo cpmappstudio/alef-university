@@ -3,6 +3,7 @@ import { CirclePlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { CourseFormDialog } from "./course-form-dialog";
 import { CourseImportDialog } from "./course-import-dialog";
+import { ClassEnrollmentImportDialog } from "@/components/class-enrollment/class-enrollment-import-dialog";
 
 export default function CourseActions() {
   const t = useTranslations("admin.courses.table");
@@ -18,6 +19,7 @@ export default function CourseActions() {
         }
       />
       <CourseImportDialog />
+      <ClassEnrollmentImportDialog />
     </div>
   );
 }

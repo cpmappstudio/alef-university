@@ -1,9 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { useTranslations } from "next-intl";
 import { useAction } from "convex/react";
-import { Upload, CheckCircle2, XCircle, Loader2, AlertCircle } from "lucide-react";
+import {
+  Upload,
+  CheckCircle2,
+  XCircle,
+  Loader2,
+  AlertCircle,
+} from "lucide-react";
 
 import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
@@ -18,7 +23,10 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { parseJSONL, validateClassEnrollment } from "@/lib/class-enrollments/utils";
+import {
+  parseJSONL,
+  validateClassEnrollment,
+} from "@/lib/class-enrollments/utils";
 import type { ClassEnrollmentJSONL } from "@/lib/class-enrollments/types";
 
 type ImportState = "idle" | "uploading" | "processing" | "completed";
@@ -41,7 +49,6 @@ type ImportResult = {
 };
 
 export function ClassEnrollmentImportDialog() {
-  const t = useTranslations("admin.classEnrollments.import");
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState<ImportState>("idle");
   const [file, setFile] = React.useState<File | null>(null);
@@ -49,7 +56,9 @@ export function ClassEnrollmentImportDialog() {
   const [progress, setProgress] = React.useState(0);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
-  const importAction = useAction(api.class_enrollments.importClassEnrollmentsFromJSONL);
+  const importAction = useAction(
+    api.class_enrollments.importClassEnrollmentsFromJSONL,
+  );
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -83,7 +92,9 @@ export function ClassEnrollmentImportDialog() {
       try {
         classes = parseJSONL(content);
       } catch (error) {
-        alert(error instanceof Error ? error.message : "Failed to parse JSONL file");
+        alert(
+          error instanceof Error ? error.message : "Failed to parse JSONL file",
+        );
         setState("idle");
         return;
       }
@@ -99,7 +110,9 @@ export function ClassEnrollmentImportDialog() {
       for (let i = 0; i < classes.length; i++) {
         const validation = validateClassEnrollment(classes[i]);
         if (!validation.valid) {
-          validationErrors.push(`Line ${i + 1}: ${validation.errors.join(", ")}`);
+          validationErrors.push(
+            `Line ${i + 1}: ${validation.errors.join(", ")}`,
+          );
         }
       }
 
@@ -165,7 +178,8 @@ export function ClassEnrollmentImportDialog() {
               <Alert>
                 <AlertCircle className="h-4 w-4" />
                 <AlertDescription>
-                  Upload a .jsonl file where each line represents a class with enrolled students and their grades.
+                  Upload a .jsonl file where each line represents a class with
+                  enrolled students and their grades.
                 </AlertDescription>
               </Alert>
 
@@ -205,7 +219,9 @@ export function ClassEnrollmentImportDialog() {
               <div className="flex items-center gap-3">
                 <Loader2 className="h-5 w-5 animate-spin" />
                 <span className="text-sm font-medium">
-                  {state === "uploading" ? "Reading file..." : "Importing classes and enrollments..."}
+                  {state === "uploading"
+                    ? "Reading file..."
+                    : "Importing classes and enrollments..."}
                 </span>
               </div>
               <Progress value={progress} className="w-full" />
@@ -220,23 +236,33 @@ export function ClassEnrollmentImportDialog() {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 <div className="p-3 bg-muted rounded-md">
-                  <p className="text-xs text-muted-foreground">Classes Processed</p>
-                  <p className="text-2xl font-bold">{result.classesProcessed}</p>
+                  <p className="text-xs text-muted-foreground">
+                    Classes Processed
+                  </p>
+                  <p className="text-2xl font-bold">
+                    {result.classesProcessed}
+                  </p>
                 </div>
                 <div className="p-3 bg-green-50 dark:bg-green-950 rounded-md">
-                  <p className="text-xs text-muted-foreground">Classes Created</p>
+                  <p className="text-xs text-muted-foreground">
+                    Classes Created
+                  </p>
                   <p className="text-2xl font-bold text-green-600 dark:text-green-400">
                     {result.classesCreated}
                   </p>
                 </div>
                 <div className="p-3 bg-blue-50 dark:bg-blue-950 rounded-md">
-                  <p className="text-xs text-muted-foreground">Enrollments Created</p>
+                  <p className="text-xs text-muted-foreground">
+                    Enrollments Created
+                  </p>
                   <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                     {result.enrollmentsCreated}
                   </p>
                 </div>
                 <div className="p-3 bg-orange-50 dark:bg-orange-950 rounded-md">
-                  <p className="text-xs text-muted-foreground">Enrollments Updated</p>
+                  <p className="text-xs text-muted-foreground">
+                    Enrollments Updated
+                  </p>
                   <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">
                     {result.enrollmentsUpdated}
                   </p>
@@ -308,10 +334,7 @@ export function ClassEnrollmentImportDialog() {
                 >
                   Import More
                 </Button>
-                <Button
-                  onClick={handleClose}
-                  className="flex-1"
-                >
+                <Button onClick={handleClose} className="flex-1">
                   Done
                 </Button>
               </div>

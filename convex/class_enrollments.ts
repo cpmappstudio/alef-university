@@ -90,8 +90,8 @@ export const importClassEnrollmentsFromJSONL = action({
     // Pre-load all programs, courses, bimesters, and users into memory for fast lookup
     const [allPrograms, allCourses, allBimesters, allUsers] = await Promise.all(
       [
-        ctx.runQuery(api.programs.getAllPrograms),
-        ctx.runQuery(api.courses.getAllCourses),
+        ctx.runQuery(api.programs.getAllPrograms, {}),
+        ctx.runQuery(api.courses.getAllCourses, {}),
         ctx.runQuery(api.bimesters.getAllBimesters),
         ctx.runQuery(api.users.getAllUsers, {}),
       ],

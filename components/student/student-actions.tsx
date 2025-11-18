@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { StudentFormDialog } from "@/components/student/student-form-dialog";
 import { StudentImportDialog } from "@/components/student/student-import-dialog";
-import { ClassEnrollmentImportDialog } from "@/components/class-enrollment/class-enrollment-import-dialog";
 import { CirclePlusIcon } from "lucide-react";
 
 export function StudentActions() {
@@ -22,7 +21,6 @@ export function StudentActions() {
         }
       />
       <StudentImportDialog />
-      <ClassEnrollmentImportDialog />
     </div>
   );
 }
