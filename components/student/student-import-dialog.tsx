@@ -127,8 +127,8 @@ export function StudentImportDialog() {
           variant="outline"
           className="cursor-pointer bg-white dark:bg-dark-gunmetal"
         >
-          <Upload className="mr-2 h-4 w-4" />
           {t("triggerButton")}
+          <Upload className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh]">
