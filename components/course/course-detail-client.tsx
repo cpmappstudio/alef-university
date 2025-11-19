@@ -121,21 +121,8 @@ export function CourseDetailClient({
         header: t("table.bimester"),
         cell: ({ row }) => {
           const bimester = row.original.bimester;
-          if (!bimester?.startDate || !bimester?.endDate) return "-";
-          return (
-            <div className="flex flex-col text-xs sm:text-sm">
-              <span className="whitespace-nowrap">
-                {format(new Date(bimester.startDate), "PP", {
-                  locale: dateLocale,
-                })}
-              </span>
-              <span className="text-muted-foreground whitespace-nowrap">
-                {format(new Date(bimester.endDate), "PP", {
-                  locale: dateLocale,
-                })}
-              </span>
-            </div>
-          );
+          if (!bimester?.name) return "-";
+          return <span className="text-xs sm:text-sm">{bimester.name}</span>;
         },
       },
       {
