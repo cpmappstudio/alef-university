@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Table } from "@tanstack/react-table";
-import { ListFilter, X } from "lucide-react";
+import { ListFilter, X, ChevronRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import type { FilterConfig } from "@/lib/table/types";
 
 interface DataTableFiltersProps<TData> {
@@ -30,6 +31,22 @@ export function DataTableFilters<TData>({
   filterConfigs,
   filtersMenuLabel = "Filters",
 }: DataTableFiltersProps<TData>) {
+  const [openSubMenus, setOpenSubMenus] = React.useState<
+    Record<string, boolean>
+  >({});
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  // Detect mobile viewport
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   // Check if any filters are active
   const hasActiveFilters = React.useMemo(() => {
     return filterConfigs.some((config) => {
@@ -66,6 +83,13 @@ export function DataTableFilters<TData>({
     return filterValue.includes(value);
   };
 
+  const toggleSubMenu = (configId: string) => {
+    setOpenSubMenus((prev) => ({
+      ...prev,
+      [configId]: !prev[configId],
+    }));
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -90,7 +114,52 @@ export function DataTableFilters<TData>({
 
           const filterValue = (column.getFilterValue() as string[]) ?? [];
           const hasActiveFilters = filterValue.length > 0;
+          const isOpen = openSubMenus[config.id];
 
+          // Mobile: render as collapsible section
+          if (isMobile) {
+            return (
+              <div key={config.id} className="border-b last:border-b-0">
+                <Button
+                  variant="ghost"
+                  className="w-full text-black dark:text-white justify-between px-2 py-1.5 h-auto font-normal hover:bg-accent"
+                  onClick={() => toggleSubMenu(config.id)}
+                >
+                  <span className="flex items-center gap-2">
+                    {config.label}
+                    {hasActiveFilters && (
+                      <Badge variant="secondary" className="h-5 px-1.5">
+                        {filterValue.length}
+                      </Badge>
+                    )}
+                  </span>
+                  <ChevronRight
+                    className={cn(
+                      "h-4 w-4 transition-transform",
+                      isOpen && "rotate-90",
+                    )}
+                  />
+                </Button>
+                {isOpen && (
+                  <div className="pl-4 pb-2">
+                    {config.options.map((option) => (
+                      <DropdownMenuCheckboxItem
+                        key={option.value}
+                        checked={isValueSelected(config.id, option.value)}
+                        onCheckedChange={() =>
+                          toggleFilterValue(config.id, option.value)
+                        }
+                      >
+                        {option.label}
+                      </DropdownMenuCheckboxItem>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          }
+
+          // Desktop: render as submenu
           return (
             <DropdownMenuSub key={config.id}>
               <DropdownMenuSubTrigger className="flex items-center justify-between">
