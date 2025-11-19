@@ -11,6 +11,7 @@ import {
   createMappedColumn,
   createSearchColumn,
 } from "@/components/table/column-helpers";
+import { createMultiSelectFilterFn } from "@/lib/table/filter-configs";
 
 export const programColumns = (
   t: Translator,
@@ -31,6 +32,8 @@ export const programColumns = (
     en: t("languages.en"),
     both: t("languages.both"),
   };
+
+  const multiSelectFilter = createMultiSelectFilterFn<ProgramRow>();
 
   return [
     createSearchColumn<ProgramRow>(locale, [
@@ -59,13 +62,17 @@ export const programColumns = (
         return name || emptyValue;
       },
     },
-    createMappedColumn<ProgramRow>(
-      "type",
-      t,
-      "columns.type",
-      typeLabels,
-      emptyValue,
-    ),
+    {
+      ...createMappedColumn<ProgramRow>(
+        "type",
+        t,
+        "columns.type",
+        typeLabels,
+        emptyValue,
+      ),
+      filterFn: multiSelectFilter,
+      enableColumnFilter: true,
+    },
     // Columna de categoría (específica por el categoryId)
     {
       accessorKey: "categoryId",
@@ -85,14 +92,20 @@ export const programColumns = (
 
         return categoryKey;
       },
+      filterFn: multiSelectFilter,
+      enableColumnFilter: true,
     },
-    createMappedColumn<ProgramRow>(
-      "language",
-      t,
-      "columns.language",
-      languageLabels,
-      emptyValue,
-    ),
+    {
+      ...createMappedColumn<ProgramRow>(
+        "language",
+        t,
+        "columns.language",
+        languageLabels,
+        emptyValue,
+      ),
+      filterFn: multiSelectFilter,
+      enableColumnFilter: true,
+    },
     createNumericColumn<ProgramRow>(
       "totalCredits",
       t,
@@ -105,6 +118,10 @@ export const programColumns = (
       "columns.duration",
       emptyValue,
     ),
-    createStatusColumn<ProgramRow>(t),
+    {
+      ...createStatusColumn<ProgramRow>(t),
+      filterFn: multiSelectFilter,
+      enableColumnFilter: true,
+    },
   ];
 };

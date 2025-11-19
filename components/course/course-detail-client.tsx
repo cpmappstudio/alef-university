@@ -7,7 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useQuery } from "convex/react";
 
 /* components */
-import CustomTable from "@/components/ui/custom-table";
+import CustomTable from "@/components/table/custom-table";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import CourseDetailInfo from "@/components/course/course-detail-info";

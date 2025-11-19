@@ -8,7 +8,7 @@ import { useQuery, useMutation } from "convex/react";
 import { toast } from "sonner";
 
 /* components */
-import CustomTable from "@/components/ui/custom-table";
+import CustomTable from "@/components/table/custom-table";
 import { Separator } from "@/components/ui/separator";
 import ClassDetailInfo from "@/components/class/class-detail-info";
 import ClassDetailActions from "@/components/class/class-detail-actions";

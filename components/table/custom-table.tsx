@@ -22,6 +22,7 @@ import {
 } from "@tanstack/react-table";
 import { Columns3CogIcon, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { DataTableFilters } from "@/components/table/data-table-filters";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -51,6 +52,8 @@ export default function CustomTable<TData>({
   emptyMessage = "No results.",
   columnsMenuLabel = "Columns",
   exportButtonLabel,
+  filterConfigs,
+  filtersMenuLabel = "Filters",
   onExport,
   onRowClick,
 }: CustomTableProps<TData>) {
@@ -142,6 +145,14 @@ export default function CustomTable<TData>({
           />
         ) : null}
         <div className="ml-auto flex items-center gap-2">
+          {filterConfigs && filterConfigs.length > 0 && (
+            <DataTableFilters
+              table={table}
+              filterConfigs={filterConfigs}
+              filtersMenuLabel={filtersMenuLabel}
+            />
+          )}
+
           <Button
             variant="outline"
             className="bg-white dark:bg-dark-gunmetal disabled:opacity-50 disabled:cursor-not-allowed"
@@ -153,10 +164,10 @@ export default function CustomTable<TData>({
           </Button>
 
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger asChild className="hidden md:flex">
               <Button
                 variant="outline"
-                className="bg-white dark:bg-dark-gunmetal cursor-pointer"
+                className="bg-white dark:bg-dark-gunmetal cursor-pointer "
               >
                 <span className="hidden md:block mr-1">{columnsMenuLabel}</span>
                 <Columns3CogIcon />

@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 /* components */
 import { Separator } from "@/components/ui/separator";
-import CustomTable from "@/components/ui/custom-table";
+import CustomTable from "@/components/table/custom-table";
 import ProgramActions from "@/components/program/program-actions";
 import { programColumns } from "@/components/program/columns";
 
@@ -27,6 +27,7 @@ import type {
   ProgramDocument,
   ProgramManagementClientProps,
 } from "@/lib/programs/types";
+import { createProgramFilters } from "@/lib/table/filter-configs";
 
 export default function ProgramManagementClient({
   programs,
@@ -45,6 +46,11 @@ export default function ProgramManagementClient({
   const columns = React.useMemo(
     () => programColumns(t, locale, categoryLabels),
     [t, locale, categoryLabels],
+  );
+
+  const filterConfigs = React.useMemo(
+    () => createProgramFilters(t, categories),
+    [t, categories],
   );
 
   const exportTranslations = buildProgramExportTranslations(t, tExport);
@@ -72,6 +78,8 @@ export default function ProgramManagementClient({
         filterColumn="search"
         filterPlaceholder={t("filterPlaceholder")}
         columnsMenuLabel={t("columnsMenuLabel")}
+        filterConfigs={filterConfigs}
+        filtersMenuLabel={t("filters.title") || "Filters"}
         emptyMessage={t("emptyMessage")}
         onRowClick={handleRowClick}
         onExport={handleExport}

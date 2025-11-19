@@ -664,7 +664,19 @@
         },
         "columnsMenuLabel": "Columns",
         "filterPlaceholder": "Search by code or name...",
-        "emptyMessage": "No programs available."
+        "emptyMessage": "No programs available.",
+        "filters": {
+          "title": "Filters",
+          "type": "Type",
+          "category": "Category",
+          "language": "Language",
+          "status": "Status",
+          "program": "Program"
+        },
+        "statusValues": {
+          "active": "Active",
+          "inactive": "Inactive"
+        }
       },
       "form": {
         "title": "Create program",
@@ -936,7 +948,7 @@
       "table": {
         "title": "Course Management",
         "description": "View and manage all academic courses in the system.",
-        "filterPlaceholder": "Search by code or name...",
+        "filterPlaceholder": "Search by code, name or program...",
         "columnsMenuLabel": "Columns",
         "emptyMessage": "No courses found.",
         "actions": {
@@ -967,6 +979,16 @@
           "es": "Spanish",
           "en": "English",
           "both": "Bilingual"
+        },
+        "filters": {
+          "title": "Filters",
+          "category": "Category",
+          "status": "Status",
+          "program": "Program"
+        },
+        "statusValues": {
+          "active": "Active",
+          "inactive": "Inactive"
         }
       },
       "detail": {
@@ -1247,7 +1269,7 @@
     },
     "students": {
       "table": {
-        "filterPlaceholder": "Search by name or code...",
+        "filterPlaceholder": "Search by name, code or program...",
         "columnsMenuLabel": "Columns",
         "emptyMessage": "No students found.",
         "columns": {
@@ -1259,6 +1281,14 @@
           "emptyValue": "-"
         },
         "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        },
+        "filters": {
+          "title": "Filters",
+          "status": "Status"
+        },
+        "statusValues": {
           "active": "Active",
           "inactive": "Inactive"
         }

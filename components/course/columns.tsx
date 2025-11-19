@@ -12,6 +12,7 @@ import {
   createSearchColumn,
 } from "@/components/table/column-helpers";
 import { Badge } from "@/components/ui/badge";
+import { createMultiSelectFilterFn } from "@/lib/table/filter-configs";
 
 const createCategoryLabels = (
   t: Translator,
@@ -99,12 +100,35 @@ const createCourseColumns = (
 ): ColumnDef<CourseRow>[] => {
   const emptyValue = t("columns.emptyValue");
   const categoryLabels = createCategoryLabels(t);
+  const multiSelectFilter = createMultiSelectFilterFn<CourseRow>();
 
   const columns: ColumnDef<CourseRow>[] = [
-    createSearchColumn<CourseRow>(locale, [
-      { esKey: "codeEs", enKey: "codeEn" },
-      { esKey: "nameEs", enKey: "nameEn" },
-    ]),
+    {
+      id: "search",
+      accessorFn: (row) => {
+        // Search by code and name
+        const codeEs = row.codeEs || "";
+        const codeEn = row.codeEn || "";
+        const nameEs = row.nameEs || "";
+        const nameEn = row.nameEn || "";
+        const code = locale === "es" ? codeEs || codeEn : codeEn || codeEs;
+        const name = locale === "es" ? nameEs || nameEn : nameEn || nameEs;
+
+        // Add program names to search
+        const programNames =
+          row.programs && row.programs.length > 0
+            ? row.programs.map((p) => p.name).join(" ")
+            : "";
+
+        return `${code} ${name} ${programNames}`.toLowerCase();
+      },
+      enableHiding: false,
+      enableSorting: false,
+      enableColumnFilter: true,
+      meta: {
+        filterOnly: true,
+      },
+    },
     createLocalizedCodeColumn(t, locale, emptyValue),
     createLocalizedNameColumn("name", t, locale, emptyValue, "columns.course"),
   ];
@@ -114,15 +138,23 @@ const createCourseColumns = (
   }
 
   columns.push(
-    createMappedColumn(
-      "category",
-      t,
-      "columns.category",
-      categoryLabels,
-      emptyValue,
-    ),
+    {
+      ...createMappedColumn(
+        "category",
+        t,
+        "columns.category",
+        categoryLabels,
+        emptyValue,
+      ),
+      filterFn: multiSelectFilter,
+      enableColumnFilter: true,
+    },
     createCreditsColumn(t, emptyValue),
-    createStatusColumn(t),
+    {
+      ...createStatusColumn(t),
+      filterFn: multiSelectFilter,
+      enableColumnFilter: true,
+    },
   );
 
   return columns;

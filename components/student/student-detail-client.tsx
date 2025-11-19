@@ -19,7 +19,7 @@ import { StudentFormDialog } from "@/components/student/student-form-dialog";
 import { StudentDetailInfo } from "@/components/student/student-detail-info";
 import { StudentDeleteDialog } from "@/components/student/student-delete-dialog";
 import { Separator } from "@/components/ui/separator";
-import CustomTable from "@/components/ui/custom-table";
+import CustomTable from "@/components/table/custom-table";
 import { studentGradeColumns } from "@/components/student/grade-columns";
 import type { StudentGradeRow } from "@/components/student/grade-columns";
 

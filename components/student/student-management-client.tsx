@@ -15,8 +15,9 @@ import { exportStudentsToJSONL } from "@/lib/students/utils";
 
 import { studentColumns } from "@/components/student/columns";
 import { StudentActions } from "@/components/student/student-actions";
-import CustomTable from "@/components/ui/custom-table";
+import CustomTable from "@/components/table/custom-table";
 import { Separator } from "@/components/ui/separator";
+import { createStudentFilters } from "@/lib/table/filter-configs";
 
 export function StudentManagementClient({
   students,
@@ -52,6 +53,10 @@ export function StudentManagementClient({
     [t, programLabels],
   );
 
+  const filterConfigs = React.useMemo(() => {
+    return createStudentFilters(t);
+  }, [t]);
+
   const handleRowClick = React.useCallback(
     (student: StudentDocument) => {
       router.push(ROUTES.students.details(student.clerkId).withLocale(locale));
@@ -81,6 +86,8 @@ export function StudentManagementClient({
         filterColumn="search"
         filterPlaceholder={t("filterPlaceholder")}
         columnsMenuLabel={t("columnsMenuLabel")}
+        filterConfigs={filterConfigs}
+        filtersMenuLabel={t("filters.title") || "Filters"}
         emptyMessage={t("emptyMessage")}
         onRowClick={handleRowClick}
         onExport={handleExport}

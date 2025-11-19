@@ -12,7 +12,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useQuery } from "convex/react";
 
 /* components */
-import CustomTable from "@/components/ui/custom-table";
+import CustomTable from "@/components/table/custom-table";
 import { Separator } from "@/components/ui/separator";
 import ProgramDetailInfo from "@/components/program/program-detail-info";
 import ProgramDetailActions from "@/components/program/program-detail-actions";

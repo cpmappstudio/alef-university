@@ -18,7 +18,7 @@ import { exportProfessorsToJSONL } from "@/lib/professors/utils";
 /* components */
 import { professorColumns } from "@/components/professor/columns";
 import { ProfessorActions } from "@/components/professor/professor-actions";
-import CustomTable from "@/components/ui/custom-table";
+import CustomTable from "@/components/table/custom-table";
 import { Separator } from "@/components/ui/separator";
 
 export function ProfessorManagementClient({

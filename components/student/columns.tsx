@@ -7,12 +7,14 @@ import {
 } from "@/components/table/column-helpers";
 import type { Translator } from "@/lib/table/types";
 import type { StudentDocument } from "@/lib/students/types";
+import { createMultiSelectFilterFn } from "@/lib/table/filter-configs";
 
 export const studentColumns = (
   t: Translator,
   programLabels?: Record<string, string>,
 ): ColumnDef<StudentDocument>[] => {
   const emptyValue = "—";
+  const multiSelectFilter = createMultiSelectFilterFn<StudentDocument>();
 
   return [
     {
@@ -20,7 +22,12 @@ export const studentColumns = (
       accessorFn: (row) => {
         const name = `${row.firstName ?? ""} ${row.lastName ?? ""}`.trim();
         const code = row.studentProfile?.studentCode ?? "";
-        return `${name} ${code}`.toLowerCase();
+        const programId = row.studentProfile?.programId;
+        const programName =
+          programId && programLabels
+            ? (programLabels[programId.toString()] ?? "")
+            : "";
+        return `${name} ${code} ${programName}`.toLowerCase();
       },
       enableHiding: false,
       enableSorting: false,
@@ -57,7 +64,8 @@ export const studentColumns = (
       ),
     },
     {
-      accessorKey: "program",
+      id: "programId",
+      accessorFn: (row) => row.studentProfile?.programId ?? "",
       header: t("columns.program"),
       cell: ({ row }) => {
         const programId = row.original.studentProfile?.programId;
@@ -66,6 +74,10 @@ export const studentColumns = (
         return programLabels?.[idString] ?? `${idString.slice(0, 8)}…`;
       },
     },
-    createStatusColumn<StudentDocument>(t),
+    {
+      ...createStatusColumn<StudentDocument>(t),
+      filterFn: multiSelectFilter,
+      enableColumnFilter: true,
+    },
   ];
 };

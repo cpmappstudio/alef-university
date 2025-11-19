@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "convex/react";
 
 /* components */
-import CustomTable from "@/components/ui/custom-table";
+import CustomTable from "@/components/table/custom-table";
 import { Separator } from "@/components/ui/separator";
 import CourseActions from "@/components/course/course-actions";
 import { courseColumnsWithPrograms } from "@/components/course/columns";
@@ -21,6 +21,7 @@ import type {
 import { ROUTES } from "@/lib/routes";
 import { createCombinedTranslator } from "@/lib/table/utils";
 import { exportCoursesToJSONL } from "@/lib/courses/utils";
+import { createCourseFilters } from "@/lib/table/filter-configs";
 
 export function CourseManagementClient({
   courses,
@@ -50,6 +51,11 @@ export function CourseManagementClient({
     [tableTranslator, locale],
   );
 
+  const filterConfigs = React.useMemo(
+    () => createCourseFilters(tableTranslator),
+    [tableTranslator],
+  );
+
   const handleRowClick = React.useCallback(
     (course: CourseDocument) => {
       router.push(ROUTES.courses.details(course._id).withLocale(locale));
@@ -74,6 +80,8 @@ export function CourseManagementClient({
         filterColumn="search"
         filterPlaceholder={t("filterPlaceholder")}
         columnsMenuLabel={t("columnsMenuLabel")}
+        filterConfigs={filterConfigs}
+        filtersMenuLabel={t("filters.title") || "Filters"}
         emptyMessage={t("emptyMessage")}
         onRowClick={handleRowClick}
         onExport={handleExport}

@@ -9,7 +9,7 @@ import { api } from "@/convex/_generated/api";
 import type { Id } from "@/convex/_generated/dataModel";
 import { ROUTES } from "@/lib/routes";
 import { Separator } from "@/components/ui/separator";
-import CustomTable from "@/components/ui/custom-table";
+import CustomTable from "@/components/table/custom-table";
 import { ProfessorFormDialog } from "@/components/professor/professor-form-dialog";
 import { ProfessorDetailInfo } from "@/components/professor/professor-detail-info";
 import { professorClassesColumns } from "@/components/professor/professor-classes-columns";
