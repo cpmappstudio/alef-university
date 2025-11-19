@@ -14,6 +14,7 @@ import { ProfessorFormDialog } from "@/components/professor/professor-form-dialo
 import { ProfessorDetailInfo } from "@/components/professor/professor-detail-info";
 import { professorClassesColumns } from "@/components/professor/professor-classes-columns";
 import { ProfessorDeleteDialog } from "@/components/professor/professor-delete-dialog";
+import { createProfessorClassFilters } from "@/lib/table/filter-configs";
 import type {
   ProfessorClassRow,
   ProfessorDetailClientProps,
@@ -46,6 +47,11 @@ export function ProfessorDetailClient({
   const columns = React.useMemo(
     () => professorClassesColumns(tDetail, tClassDetail, locale),
     [tDetail, tClassDetail, locale],
+  );
+
+  const filterConfigs = React.useMemo(
+    () => createProfessorClassFilters(tDetail),
+    [tDetail],
   );
   const displayName = React.useMemo(() => {
     if (!professor) return "";
@@ -120,9 +126,12 @@ export function ProfessorDetailClient({
         <CustomTable
           columns={columns}
           data={assignedClasses}
-          filterColumn="course"
+          filterColumn="search"
           filterPlaceholder={tDetail("filterClassesPlaceholder")}
           columnsMenuLabel={tDetail("columnsMenuLabel")}
+          filterConfigs={filterConfigs}
+          filtersMenuLabel={tDetail("filters.title") || "Filters"}
+          initialSorting={[{ id: "status", desc: false }]}
           emptyMessage={tDetail("emptyClassesMessage")}
           onRowClick={handleRowClick}
         />

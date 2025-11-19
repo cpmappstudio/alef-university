@@ -1205,7 +1205,7 @@
         "loading": "Loading professor...",
         "assignedClassesTitle": "Assigned Classes",
         "assignedClassesDescription": "Review the classes currently assigned to this professor.",
-        "filterClassesPlaceholder": "Filter classes...",
+        "filterClassesPlaceholder": "Search by course or bimester...",
         "columnsMenuLabel": "Columns",
         "emptyClassesMessage": "No classes assigned yet.",
         "contact": {
@@ -1228,6 +1228,16 @@
           "bimester": "Bimester",
           "status": "Status",
           "students": "Students"
+        },
+        "filters": {
+          "title": "Filters",
+          "status": "Status"
+        },
+        "statusValues": {
+          "open": "Open",
+          "active": "Active",
+          "grading": "Grading",
+          "completed": "Completed"
         },
         "delete": "Delete"
       },

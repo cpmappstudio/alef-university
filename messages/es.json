@@ -1206,7 +1206,7 @@
         "loading": "Cargando profesor...",
         "assignedClassesTitle": "Clases asignadas",
         "assignedClassesDescription": "Revisa las clases actualmente asignadas a este profesor.",
-        "filterClassesPlaceholder": "Filtrar clases...",
+        "filterClassesPlaceholder": "Buscar por curso o bimestre...",
         "columnsMenuLabel": "Columnas",
         "emptyClassesMessage": "Este profesor aún no tiene clases asignadas.",
         "contact": {
@@ -1229,6 +1229,16 @@
           "bimester": "Bimestre",
           "status": "Estado",
           "students": "Estudiantes"
+        },
+        "filters": {
+          "title": "Filtros",
+          "status": "Estado"
+        },
+        "statusValues": {
+          "open": "Abierta",
+          "active": "Activa",
+          "grading": "Calificando",
+          "completed": "Completada"
         },
         "delete": "Eliminar"
       },

@@ -54,10 +54,13 @@ export default function CustomTable<TData>({
   exportButtonLabel,
   filterConfigs,
   filtersMenuLabel = "Filters",
+  initialSorting,
   onExport,
   onRowClick,
 }: CustomTableProps<TData>) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [sorting, setSorting] = React.useState<SortingState>(
+    initialSorting ?? [],
+  );
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
@@ -85,6 +88,7 @@ export default function CustomTable<TData>({
       pagination: {
         pageSize: PAGE_SIZE,
       },
+      sorting: initialSorting,
     },
     state: {
       sorting,

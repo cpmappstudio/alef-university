@@ -119,6 +119,25 @@ export function createStudentFilters(t: Translator): FilterConfig[] {
 }
 
 /**
+ * Creates filter configurations for professor's assigned classes table
+ */
+export function createProfessorClassFilters(t: Translator): FilterConfig[] {
+  return [
+    {
+      id: "status",
+      label: t("filters.status"),
+      type: "multi",
+      options: [
+        { value: "open", label: t("statusValues.open") },
+        { value: "active", label: t("statusValues.active") },
+        { value: "grading", label: t("statusValues.grading") },
+        { value: "completed", label: t("statusValues.completed") },
+      ],
+    },
+  ];
+}
+
+/**
  * Helper to create filter function for multi-select filters
  */
 export function createMultiSelectFilterFn<TData = unknown>() {

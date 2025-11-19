@@ -1,4 +1,4 @@
-import type { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef, SortingState } from "@tanstack/react-table";
 
 export type Language = "es" | "en" | "both";
 
@@ -33,6 +33,7 @@ export type CustomTableProps<TData> = {
   exportButtonLabel?: string;
   filterConfigs?: FilterConfig[]; // New prop for filter configurations
   filtersMenuLabel?: string; // Label for filters button
+  initialSorting?: SortingState; // Initial sorting state
   onExport?: (rows: TData[]) => void;
   onRowClick?: (row: TData) => void;
 };
