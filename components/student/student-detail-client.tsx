@@ -77,6 +77,17 @@ export function StudentDetailClient({
 
   const handleExport = React.useCallback(
     (rows: StudentGradeRow[]) => {
+      // Map the rows to include credits in the course object for PDF export
+      const mappedGrades = rows.map((row) => ({
+        ...row,
+        course: row.course
+          ? {
+              ...row.course,
+              credits: row.credits, // Credits from program_courses via class programId
+            }
+          : null,
+      }));
+
       exportStudentGradesToPDF({
         student: {
           firstName: student?.firstName,
@@ -88,7 +99,7 @@ export function StudentDetailClient({
             ? program.nameEs || program.nameEn
             : program.nameEn || program.nameEs
           : undefined,
-        grades: rows,
+        grades: mappedGrades,
         locale,
         translations: exportTranslations,
       });
