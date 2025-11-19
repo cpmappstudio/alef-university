@@ -1012,7 +1012,7 @@
         "classes": "Clases del Curso",
         "classesDescription": "Gestiona las clases (sesiones) de este curso.",
         "createClass": "Crear Clase",
-        "filterClassesPlaceholder": "Filtrar clases...",
+        "filterClassesPlaceholder": "Buscar por programa, bimestre o profesor...",
         "columnsMenuLabel": "Columnas",
         "emptyClassesMessage": "No hay clases asignadas a este curso.",
         "loading": "Cargando...",
@@ -1033,6 +1033,10 @@
             "grading": "Calificando",
             "completed": "Completado"
           }
+        },
+        "filters": {
+          "title": "Filtros",
+          "status": "Estado"
         },
         "classForm": {
           "title": "Crear Clase",

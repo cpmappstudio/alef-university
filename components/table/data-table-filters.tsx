@@ -192,7 +192,7 @@ export function DataTableFilters<TData>({
             <DropdownMenuSeparator />
             <Button
               variant="ghost"
-              className="w-full justify-start text-sm font-normal"
+              className="w-full text-black dark:text-white justify-start text-sm font-normal"
               onClick={clearAllFilters}
             >
               <X className="mr-2 h-4 w-4" />

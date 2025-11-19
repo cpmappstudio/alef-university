@@ -1011,7 +1011,7 @@
         "classes": "Course Classes",
         "classesDescription": "Manage the classes (sessions) for this course.",
         "createClass": "Create Class",
-        "filterClassesPlaceholder": "Filter classes...",
+        "filterClassesPlaceholder": "Search by program, bimester, or professor...",
         "columnsMenuLabel": "Columns",
         "emptyClassesMessage": "No classes assigned to this course.",
         "loading": "Loading...",
@@ -1032,6 +1032,10 @@
             "grading": "Grading",
             "completed": "Completed"
           }
+        },
+        "filters": {
+          "title": "Filters",
+          "status": "Status"
         },
         "classForm": {
           "title": "Create Class",

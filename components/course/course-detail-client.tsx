@@ -23,6 +23,7 @@ import { format } from "date-fns";
 import { es, enUS } from "date-fns/locale";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { CourseClassRow, CourseProgramSummary } from "@/lib/courses/types";
+import { createMultiSelectFilterFn } from "@/lib/table/filter-configs";
 
 interface CourseDetailClientProps {
   courseId: Id<"courses">;
@@ -81,6 +82,46 @@ export function CourseDetailClient({
 
   const classColumns = React.useMemo<ColumnDef<CourseClassRow>[]>(
     () => [
+      {
+        id: "search",
+        accessorFn: (row) => {
+          // Program name and code
+          const program = row.program;
+          const programName = program
+            ? locale === "es"
+              ? program.nameEs || program.nameEn
+              : program.nameEn || program.nameEs
+            : "";
+          const programCode = program
+            ? locale === "es"
+              ? program.codeEs || program.codeEn
+              : program.codeEn || program.codeEs
+            : "";
+
+          // Bimester name
+          const bimesterName = row.bimester?.name || "";
+
+          // Professor name
+          const professor = row.professor;
+          const professorName = professor
+            ? [professor.firstName, professor.lastName]
+                .filter(Boolean)
+                .join(" ")
+                .trim()
+            : "";
+
+          // Combine all searchable fields
+          return `${programName} ${programCode} ${bimesterName} ${professorName}`
+            .toLowerCase()
+            .trim();
+        },
+        enableHiding: false,
+        enableSorting: false,
+        enableColumnFilter: true,
+        meta: {
+          filterOnly: true,
+        },
+      },
       {
         accessorKey: "groupNumber",
         header: t("table.group"),
@@ -150,6 +191,7 @@ export function CourseDetailClient({
       {
         accessorKey: "status",
         header: t("table.status"),
+        filterFn: createMultiSelectFilterFn(),
         cell: ({ row }) => {
           const status = row.original.status || "draft";
           const statusMap: Record<string, "secondary" | "default" | "outline"> =
@@ -174,6 +216,23 @@ export function CourseDetailClient({
     ],
     [t, dateLocale, locale],
   );
+
+  const filterConfigs = React.useMemo(() => {
+    return [
+      {
+        id: "status",
+        label: t("filters.status"),
+        type: "multi" as const,
+        options: [
+          { value: "draft", label: t("table.statusValues.draft") },
+          { value: "open", label: t("table.statusValues.open") },
+          { value: "active", label: t("table.statusValues.active") },
+          { value: "grading", label: t("table.statusValues.grading") },
+          { value: "completed", label: t("table.statusValues.completed") },
+        ],
+      },
+    ];
+  }, [t]);
 
   if (!course) {
     return (
@@ -222,9 +281,11 @@ export function CourseDetailClient({
       <CustomTable
         columns={classColumns}
         data={classes}
-        filterColumn="groupNumber"
+        filterColumn="search"
         filterPlaceholder={t("filterClassesPlaceholder")}
         columnsMenuLabel={t("columnsMenuLabel")}
+        filterConfigs={filterConfigs}
+        filtersMenuLabel={t("filters.title") || "Filters"}
         emptyMessage={t("emptyClassesMessage")}
         onRowClick={handleRowClick}
       />
