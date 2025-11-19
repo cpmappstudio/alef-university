@@ -52,9 +52,7 @@ const createPercentageGradeColumn = (
   onGradeChange: (enrollmentId: Id<"class_enrollments">, grade: number) => void,
 ): ColumnDef<ClassEnrollmentRow> => ({
   accessorKey: "percentageGrade",
-  header: () => (
-    <div className="text-right">{t("columns.percentageGrade")}</div>
-  ),
+  header: () => <div className="text-left">{t("columns.percentageGrade")}</div>,
   cell: ({ row }) => {
     const grade = row.original.percentageGrade;
     const isEditable = classStatus === "grading";
