@@ -1439,6 +1439,7 @@
           "course": "Course",
           "professor": "Professor",
           "bimester": "Bimester",
+          "gradingDates": "Grading Dates",
           "active": "Active",
           "program": "Program",
           "credits": "Credits",

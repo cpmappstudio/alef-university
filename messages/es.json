@@ -1440,6 +1440,7 @@
           "course": "Curso",
           "professor": "Profesor",
           "bimester": "Bimestre",
+          "gradingDates": "Fechas de Calificación",
           "active": "Activo",
           "program": "Programa",
           "credits": "Créditos",

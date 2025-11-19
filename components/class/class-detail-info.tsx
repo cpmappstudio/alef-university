@@ -102,6 +102,17 @@ export default function ClassDetailInfo({
       </div>
 
       <div className="space-y-1">
+        <p className="text-sm text-muted-foreground">
+          {t("info.gradingDates")}
+        </p>
+        <p className="font-medium">
+          {bimester
+            ? `${format(new Date(bimester.endDate), "P", { locale: dateLocale })} - ${format(new Date(bimester.gradeDeadline), "P", { locale: dateLocale })}`
+            : "—"}
+        </p>
+      </div>
+
+      <div className="space-y-1">
         <p className="text-sm text-muted-foreground">{t("info.program")}</p>
         <p className="font-medium">{programName || "—"}</p>
         {programCode && (
