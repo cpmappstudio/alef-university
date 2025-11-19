@@ -26,16 +26,16 @@ export default function ProfileSettingsPage() {
             <table className="w-full">
               <tbody>
                 <tr className="border-b">
-                  <td className="text-sm font-medium py-3 pr-8 w-[220px]">
+                  <td className="text-[13px] font-medium py-3 pr-8 w-[200px]">
                     {tProfile("name")}
                   </td>
-                  <td className="text-base py-3">{displayName}</td>
+                  <td className="text-sm py-3">{displayName}</td>
                 </tr>
                 <tr className="border-b">
-                  <td className="text-sm font-medium py-3 pr-8 w-[220px]">
+                  <td className="text-[13px] font-medium py-3 pr-8 w-[200px]">
                     {tProfile("email")}
                   </td>
-                  <td className="text-base py-3">{email}</td>
+                  <td className="text-sm py-3">{email}</td>
                 </tr>
               </tbody>
             </table>
