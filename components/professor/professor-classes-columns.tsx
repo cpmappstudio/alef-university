@@ -1,7 +1,5 @@
 "use client";
 import type { ColumnDef } from "@tanstack/react-table";
-import { format } from "date-fns";
-import { es, enUS } from "date-fns/locale";
 
 import { Badge } from "@/components/ui/badge";
 import type { Translator } from "@/lib/table/types";
@@ -29,27 +27,6 @@ const formatCourseCode = (row: ProfessorClassRow, locale: string) => {
       : course.codeEn || course.codeEs;
 
   return preferredCode ?? "";
-};
-
-const formatBimesterRange = (
-  row: ProfessorClassRow,
-  locale: string,
-): string => {
-  const bimester = row.bimester;
-  if (!bimester?.startDate || !bimester?.endDate) {
-    return "-";
-  }
-
-  const localeObject = locale === "es" ? es : enUS;
-
-  const start = format(new Date(bimester.startDate), "MMM d", {
-    locale: localeObject,
-  });
-  const end = format(new Date(bimester.endDate), "MMM d, yyyy", {
-    locale: localeObject,
-  });
-
-  return `${start} – ${end}`;
 };
 
 export const professorClassesColumns = (
@@ -91,13 +68,13 @@ export const professorClassesColumns = (
       cell: ({ row }) => row.original.groupNumber ?? "-",
     },
     {
-      id: "bimester",
+      accessorKey: "bimester",
       header: tDetail("table.bimester"),
-      cell: ({ row }) => (
-        <span className="text-sm text-muted-foreground">
-          {formatBimesterRange(row.original, locale)}
-        </span>
-      ),
+      cell: ({ row }) => {
+        const bimester = row.original.bimester;
+        if (!bimester?.name) return "-";
+        return <span className="text-xs sm:text-sm">{bimester.name}</span>;
+      },
     },
     {
       id: "status",
