@@ -836,6 +836,15 @@
           "errorDescription": "Could not update courses. Please try again.",
           "courseAdded": "Course added to program",
           "courseRemoved": "Course removed from program"
+        },
+        "courseRemoveDialog": {
+          "title": "Remove course from program?",
+          "description": "You are about to remove {courseName} from this program.",
+          "warning": "Warning",
+          "warningDescription": "This action will remove the course from the program. Students who are already enrolled in this course will not be affected, but the course will no longer be available for new enrollments in this program.",
+          "cancel": "Cancel",
+          "remove": "Remove course",
+          "removing": "Removing..."
         }
       },
       "deleteDialog": {
@@ -1523,6 +1532,15 @@
           "studentRemoved": "Student removed successfully",
           "error": "Error updating students",
           "errorDescription": "Could not complete the operation. Please try again."
+        },
+        "studentRemoveDialog": {
+          "title": "Remove student from class?",
+          "description": "You are about to remove {studentName} from this class.",
+          "warning": "Warning",
+          "warningDescription": "This action will remove the student from the class. All grades and progress associated with this student in this class will be lost.",
+          "cancel": "Cancel",
+          "remove": "Remove student",
+          "removing": "Removing..."
         },
         "deleteDialog": {
           "title": "Delete class?",
