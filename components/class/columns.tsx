@@ -78,7 +78,14 @@ const createPercentageGradeColumn = (
 
       const numericValue = parseFloat(localValue);
       if (!isNaN(numericValue) && numericValue >= 0 && numericValue <= 100) {
-        onGradeChange(enrollmentId, numericValue);
+        // Only trigger change if value actually changed
+        const currentGrade =
+          grade !== undefined && grade !== null ? grade : null;
+        const newGrade = numericValue;
+
+        if (currentGrade !== newGrade) {
+          onGradeChange(enrollmentId, numericValue);
+        }
       } else {
         // Reset to original value if invalid
         setLocalValue(
