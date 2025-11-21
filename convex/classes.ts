@@ -370,7 +370,7 @@ export const createClass = mutation({
       throw new Error("Not authenticated");
     }
 
-    // Check if class with same course, bimester, and group already exists
+    // Check if class with same course, bimester, group, and program already exists
     const existing = await ctx.db
       .query("classes")
       .withIndex("by_course_bimester_group", (q) =>
@@ -379,6 +379,7 @@ export const createClass = mutation({
           .eq("bimesterId", args.bimesterId)
           .eq("groupNumber", args.groupNumber),
       )
+      .filter((q) => q.eq(q.field("programId"), args.programId))
       .first();
 
     if (existing) {
@@ -461,6 +462,65 @@ export const updateClass = mutation({
     const existingClass = await ctx.db.get(args.classId);
     if (!existingClass) {
       throw new Error("Class not found");
+    }
+
+    // Determine final values after update
+    const finalCourseId = existingClass.courseId;
+    const finalBimesterId = args.bimesterId ?? existingClass.bimesterId;
+    const finalGroupNumber = args.groupNumber ?? existingClass.groupNumber;
+    const finalProgramId = args.programId ?? existingClass.programId;
+
+    // Check if the update would create a duplicate (excluding the current class)
+    const duplicate = await ctx.db
+      .query("classes")
+      .withIndex("by_course_bimester_group", (q) =>
+        q
+          .eq("courseId", finalCourseId)
+          .eq("bimesterId", finalBimesterId)
+          .eq("groupNumber", finalGroupNumber),
+      )
+      .filter((q) =>
+        q.and(
+          q.eq(q.field("programId"), finalProgramId),
+          q.neq(q.field("_id"), args.classId),
+        ),
+      )
+      .first();
+
+    if (duplicate) {
+      // Get details for error message
+      const course = await ctx.db.get(duplicate.courseId);
+      const courseName = course?.nameEs || course?.nameEn || "Unknown Course";
+      const courseCode = course?.codeEs || course?.codeEn || "";
+
+      const bimester = await ctx.db.get(duplicate.bimesterId);
+      const bimesterName = bimester?.name || "Unknown Bimester";
+
+      const program = await ctx.db.get(duplicate.programId);
+      const programName =
+        program?.nameEs || program?.nameEn || "Unknown Program";
+      const programCode = program?.codeEs || program?.codeEn || "";
+
+      const professor = await ctx.db.get(duplicate.professorId);
+      const professorName = professor
+        ? `${professor.firstName || ""} ${professor.lastName || ""}`.trim() ||
+          professor.email ||
+          "Unknown Professor"
+        : "Unknown Professor";
+
+      const createdAt = duplicate._creationTime
+        ? new Date(duplicate._creationTime).toLocaleString()
+        : "Unknown date";
+
+      throw new Error(
+        `Cannot update: This class already exists:\n` +
+          `Course: ${courseCode ? courseCode + " - " : ""}${courseName}\n` +
+          `Program: ${programCode ? programCode + " - " : ""}${programName}\n` +
+          `Bimester: ${bimesterName}\n` +
+          `Group: ${duplicate.groupNumber}\n` +
+          `Professor: ${professorName}\n` +
+          `Created: ${createdAt}`,
+      );
     }
 
     const updates: any = {};
