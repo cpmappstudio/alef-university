@@ -382,8 +382,38 @@ export const createClass = mutation({
       .first();
 
     if (existing) {
+      // Get details for error message
+      const course = await ctx.db.get(existing.courseId);
+      const courseName = course?.nameEs || course?.nameEn || "Unknown Course";
+      const courseCode = course?.codeEs || course?.codeEn || "";
+
+      const bimester = await ctx.db.get(existing.bimesterId);
+      const bimesterName = bimester?.name || "Unknown Bimester";
+
+      const program = await ctx.db.get(existing.programId);
+      const programName =
+        program?.nameEs || program?.nameEn || "Unknown Program";
+      const programCode = program?.codeEs || program?.codeEn || "";
+
+      const professor = await ctx.db.get(existing.professorId);
+      const professorName = professor
+        ? `${professor.firstName || ""} ${professor.lastName || ""}`.trim() ||
+          professor.email ||
+          "Unknown Professor"
+        : "Unknown Professor";
+
+      const createdAt = existing._creationTime
+        ? new Date(existing._creationTime).toLocaleString()
+        : "Unknown date";
+
       throw new Error(
-        "A class with this course, bimester, and group number already exists",
+        `This class already exists:\n` +
+          `Course: ${courseCode ? courseCode + " - " : ""}${courseName}\n` +
+          `Program: ${programCode ? programCode + " - " : ""}${programName}\n` +
+          `Bimester: ${bimesterName}\n` +
+          `Group: ${existing.groupNumber}\n` +
+          `Professor: ${professorName}\n` +
+          `Created: ${createdAt}`,
       );
     }
 
