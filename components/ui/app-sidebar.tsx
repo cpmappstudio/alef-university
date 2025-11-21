@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/sidebar";
 import { UserButtonWrapper } from "./user-button-wrapper";
 import type { UserRole } from "@/convex/types";
+import packageJson from "@/package.json";
 
 type NavigationMenuSection = {
   title: string;
@@ -200,6 +201,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           {state !== "collapsed" && <span>{t("settings")}</span>}
         </Link>
         <UniversityLogo />
+        {state !== "collapsed" && (
+          <div className="px-2 py-1 text-center">
+            <span className="text-xs text-muted-foreground">
+              v{packageJson.version}
+            </span>
+          </div>
+        )}
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
