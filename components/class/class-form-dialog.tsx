@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Loader2 } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -67,6 +67,7 @@ export default function ClassFormDialog({
   onOpenChange,
 }: ClassFormDialogProps) {
   const t = useTranslations("admin.courses.detail.classForm");
+  const locale = useLocale();
 
   const [internalOpen, setInternalOpen] = React.useState(false);
   const open = controlledOpen ?? internalOpen;
@@ -337,22 +338,41 @@ export default function ClassFormDialog({
                     </SelectTrigger>
 
                     <SelectContent>
-                      {coursePrograms.map((program) => (
-                        <SelectItem
-                          key={program.programId}
-                          value={program.programId}
-                        >
-                          <div className="flex items-center gap-2">
-                            <span>
-                              {program.programCode} - {program.programName}
-                            </span>
-                            <span className="text-xs text-muted-foreground">
-                              • {program.credits}{" "}
-                              {program.credits === 1 ? "credit" : "credits"}
-                            </span>
-                          </div>
-                        </SelectItem>
-                      ))}
+                      {coursePrograms.map((program) => {
+                        const programCode =
+                          locale === "es"
+                            ? program.programCodeEs ||
+                              program.programCodeEn ||
+                              "-"
+                            : program.programCodeEn ||
+                              program.programCodeEs ||
+                              "-";
+                        const programName =
+                          locale === "es"
+                            ? program.programNameEs ||
+                              program.programNameEn ||
+                              "-"
+                            : program.programNameEn ||
+                              program.programNameEs ||
+                              "-";
+
+                        return (
+                          <SelectItem
+                            key={program.programId}
+                            value={program.programId}
+                          >
+                            <div className="flex items-center gap-2">
+                              <span>
+                                {programCode} - {programName}
+                              </span>
+                              <span className="text-xs text-muted-foreground">
+                                • {program.credits}{" "}
+                                {program.credits === 1 ? "credit" : "credits"}
+                              </span>
+                            </div>
+                          </SelectItem>
+                        );
+                      })}
                     </SelectContent>
                   </Select>
 

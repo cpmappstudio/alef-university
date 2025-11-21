@@ -254,10 +254,13 @@ export function getCourseProgramName(
   locale: string,
   fallback = "-",
 ): string {
+  const nameEs = program.nameEs?.trim() || "";
+  const nameEn = program.nameEn?.trim() || "";
+
   if (locale === "es") {
-    return program.nameEs || program.nameEn || fallback;
+    return nameEs || nameEn || fallback;
   }
-  return program.nameEn || program.nameEs || fallback;
+  return nameEn || nameEs || fallback;
 }
 
 export function getCourseProgramCode(
@@ -265,10 +268,13 @@ export function getCourseProgramCode(
   locale: string,
   fallback = "-",
 ): string {
+  const codeEs = program.codeEs?.trim() || "";
+  const codeEn = program.codeEn?.trim() || "";
+
   if (locale === "es") {
-    return program.codeEs || program.codeEn || fallback;
+    return codeEs || codeEn || fallback;
   }
-  return program.codeEn || program.codeEs || fallback;
+  return codeEn || codeEs || fallback;
 }
 
 /**

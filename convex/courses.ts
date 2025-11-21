@@ -633,8 +633,10 @@ export const getCoursePrograms = query({
 
         return {
           programId: assoc.programId,
-          programCode: program.codeEs,
-          programName: program.nameEs,
+          programCodeEs: program.codeEs,
+          programCodeEn: program.codeEn,
+          programNameEs: program.nameEs,
+          programNameEn: program.nameEn,
           isRequired: assoc.isRequired,
           categoryOverride: assoc.categoryOverride,
           credits: assoc.credits,
