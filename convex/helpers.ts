@@ -65,7 +65,8 @@ export function calculateLetterGrade(percentageGrade: number): string {
   if (percentageGrade >= 73) return "C";
   if (percentageGrade >= 70) return "C-";
   if (percentageGrade >= 67) return "D+";
-  if (percentageGrade >= 65) return "D";
+  if (percentageGrade >= 63) return "D";
+  if (percentageGrade >= 60) return "D-";
   return "F";
 }
 
@@ -74,7 +75,7 @@ export function calculateLetterGrade(percentageGrade: number): string {
  */
 export function calculateGradePoints(percentageGrade: number): number {
   if (percentageGrade >= 97) return 4.0; // A+
-  if (percentageGrade >= 93) return 4.0; // A
+  if (percentageGrade >= 93) return 3.9; // A
   if (percentageGrade >= 90) return 3.7; // A-
   if (percentageGrade >= 87) return 3.3; // B+
   if (percentageGrade >= 83) return 3.0; // B
@@ -83,7 +84,8 @@ export function calculateGradePoints(percentageGrade: number): number {
   if (percentageGrade >= 73) return 2.0; // C
   if (percentageGrade >= 70) return 1.7; // C-
   if (percentageGrade >= 67) return 1.3; // D+
-  if (percentageGrade >= 65) return 1.0; // D
+  if (percentageGrade >= 63) return 1.0; // D
+  if (percentageGrade >= 60) return 0.7; // D-
   return 0.0; // F
 }
 
@@ -98,10 +100,10 @@ export function calculateQualityPoints(
 }
 
 /**
- * Determine if grade is passing (D or better, >= 65%)
+ * Determine if grade is passing (D- or better, >= 60%)
  */
 export function isPassingGrade(percentageGrade: number): boolean {
-  return percentageGrade >= 65;
+  return percentageGrade >= 60;
 }
 
 /**

@@ -210,7 +210,7 @@ export interface GradeSummary {
  */
 export const GRADE_SCALE = {
   "A+": { min: 97, max: 100, points: 4.0 },
-  A: { min: 93, max: 96.99, points: 4.0 },
+  A: { min: 93, max: 96.99, points: 3.9 },
   "A-": { min: 90, max: 92.99, points: 3.7 },
   "B+": { min: 87, max: 89.99, points: 3.3 },
   B: { min: 83, max: 86.99, points: 3.0 },
@@ -219,8 +219,9 @@ export const GRADE_SCALE = {
   C: { min: 73, max: 76.99, points: 2.0 },
   "C-": { min: 70, max: 72.99, points: 1.7 },
   "D+": { min: 67, max: 69.99, points: 1.3 },
-  D: { min: 65, max: 66.99, points: 1.0 },
-  F: { min: 0, max: 64.99, points: 0.0 },
+  D: { min: 63, max: 66.99, points: 1.0 },
+  "D-": { min: 60, max: 62.99, points: 0.7 },
+  F: { min: 0, max: 59.99, points: 0.0 },
 } as const;
 
 export type LetterGrade = keyof typeof GRADE_SCALE;
