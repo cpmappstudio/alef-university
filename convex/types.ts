@@ -69,7 +69,7 @@ export const courseCategoryValidator = v.union(
   v.literal("humanities"),
   v.literal("core"),
   v.literal("elective"),
-  v.literal("general"),
+  v.literal("dmp"),
 );
 export type CourseCategory = Infer<typeof courseCategoryValidator>;
 
@@ -345,7 +345,7 @@ export interface AcademicProgress {
     humanities: { required: number; completed: number };
     core: { required: number; completed: number };
     elective: { required: number; completed: number };
-    general: { required: number; completed: number };
+    dmp: { required: number; completed: number };
   };
   gpa: number;
   cgpa: number;
@@ -612,10 +612,10 @@ export interface SystemNotification {
   id: string;
   userId: Id<"users">;
   type:
-    | "grade_posted"
-    | "enrollment_confirmed"
-    | "deadline_reminder"
-    | "announcement";
+  | "grade_posted"
+  | "enrollment_confirmed"
+  | "deadline_reminder"
+  | "announcement";
   title: string;
   message: string;
   relatedId?: string; // ID of related entity

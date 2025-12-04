@@ -207,17 +207,17 @@ export function buildProgramCreatePayload(
     durationBimesters,
     ...(showSpanishFields
       ? {
-          codeEs: normalizeTextValue(values.codeEs),
-          nameEs: normalizeTextValue(values.nameEs),
-          descriptionEs: normalizeTextValue(values.descriptionEs),
-        }
+        codeEs: normalizeTextValue(values.codeEs),
+        nameEs: normalizeTextValue(values.nameEs),
+        descriptionEs: normalizeTextValue(values.descriptionEs),
+      }
       : {}),
     ...(showEnglishFields
       ? {
-          codeEn: normalizeTextValue(values.codeEn),
-          nameEn: normalizeTextValue(values.nameEn),
-          descriptionEn: normalizeTextValue(values.descriptionEn),
-        }
+        codeEn: normalizeTextValue(values.codeEn),
+        nameEn: normalizeTextValue(values.nameEn),
+        descriptionEn: normalizeTextValue(values.descriptionEn),
+      }
       : {}),
   };
 }
@@ -257,17 +257,17 @@ export function buildProgramUpdatePayload(
     isActive: values.isActive,
     ...(showSpanishFields
       ? {
-          codeEs: normalizeTextValue(values.codeEs),
-          nameEs: normalizeTextValue(values.nameEs),
-          descriptionEs: normalizeTextValue(values.descriptionEs),
-        }
+        codeEs: normalizeTextValue(values.codeEs),
+        nameEs: normalizeTextValue(values.nameEs),
+        descriptionEs: normalizeTextValue(values.descriptionEs),
+      }
       : {}),
     ...(showEnglishFields
       ? {
-          codeEn: normalizeTextValue(values.codeEn),
-          nameEn: normalizeTextValue(values.nameEn),
-          descriptionEn: normalizeTextValue(values.descriptionEn),
-        }
+        codeEn: normalizeTextValue(values.codeEn),
+        nameEn: normalizeTextValue(values.nameEn),
+        descriptionEn: normalizeTextValue(values.descriptionEn),
+      }
       : {}),
   };
 }
@@ -418,7 +418,7 @@ export function exportProgramCourses({
       humanities: courseFormTranslator("options.categories.humanities"),
       core: courseFormTranslator("options.categories.core"),
       elective: courseFormTranslator("options.categories.elective"),
-      general: courseFormTranslator("options.categories.general"),
+      dmp: courseFormTranslator("options.categories.dmp"),
     },
     languages: {
       es: tableTranslator("languages.es"),

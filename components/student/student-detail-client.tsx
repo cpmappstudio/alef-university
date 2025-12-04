@@ -13,7 +13,10 @@ import type {
   StudentDocument,
 } from "@/lib/students/types";
 import { exportStudentGradesToPDF } from "@/lib/export/export-student-grades-pdf";
-import { buildStudentExportTranslations } from "@/lib/students/utils";
+import {
+  buildStudentExportTranslations,
+  calculateStudentGradeStats,
+} from "@/lib/students/utils";
 
 import { StudentFormDialog } from "@/components/student/student-form-dialog";
 import { StudentDetailInfo } from "@/components/student/student-detail-info";
@@ -56,6 +59,11 @@ export function StudentDetailClient({
   });
   const enrollments = enrollmentsQuery ?? [];
 
+  const gradeStats = React.useMemo(
+    () => calculateStudentGradeStats(enrollments),
+    [enrollments],
+  );
+
   const gradeColumns = React.useMemo(
     () => studentGradeColumns(tTable, locale),
     [tTable, locale],
@@ -82,9 +90,9 @@ export function StudentDetailClient({
         ...row,
         course: row.course
           ? {
-              ...row.course,
-              credits: row.credits, // Credits from program_courses via class programId
-            }
+            ...row.course,
+            credits: row.credits, // Credits from program_courses via class programId
+          }
           : null,
       }));
 
@@ -137,6 +145,7 @@ export function StudentDetailClient({
       <StudentDetailInfo
         student={student}
         program={program}
+        gradeStats={gradeStats}
         onEdit={
           userRole === "admin" || userRole === "superadmin"
             ? handleEdit
@@ -145,7 +154,7 @@ export function StudentDetailClient({
         onDelete={
           userRole === "admin" || userRole === "superadmin"
             ? handleDelete
-            : () => {}
+            : () => { }
         }
         canDelete={userRole === "admin" || userRole === "superadmin"}
         userRole={userRole}

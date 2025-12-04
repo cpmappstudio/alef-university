@@ -214,7 +214,7 @@ export function CourseFormDialog({
     { value: "humanities", label: t("options.categories.humanities") },
     { value: "core", label: t("options.categories.core") },
     { value: "elective", label: t("options.categories.elective") },
-    { value: "general", label: t("options.categories.general") },
+    { value: "dmp", label: t("options.categories.dmp") },
   ];
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

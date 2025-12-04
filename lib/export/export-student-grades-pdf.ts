@@ -7,6 +7,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { ALEF_LOGO_BASE64 } from "./ALEF_LOGO_BASE64";
 import { ALEF_WATER_BASE64 } from "./ALEF_WATER_BASE64";
+import { calculateStudentGradeStats } from "@/lib/students/utils";
 
 interface StudentGradeRow {
   course: {
@@ -36,6 +37,10 @@ interface ExportStudentGradesPDFOptions {
     generatedOn: string;
     totalCourses: string;
     totalCredits: string;
+    enrolledCredits: string;
+    approvedCredits: string;
+    approvedPercentage: string;
+    semesterAverage: string;
     page: string;
     of: string;
     columns: {
@@ -78,31 +83,32 @@ export function exportStudentGradesToPDF({
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
 
-  // Calculate total credits
-  const totalCredits = grades.reduce((sum, grade) => {
-    const credits = grade.course?.credits;
-    return sum + (credits !== undefined && credits !== null ? credits : 0);
-  }, 0);
+  // Calculate grade statistics using shared utility
+  const gradeRows = grades.map((grade) => ({
+    credits: grade.course?.credits,
+    percentageGrade: grade.percentageGrade,
+  }));
+  const stats = calculateStudentGradeStats(gradeRows);
 
   // Prepare table data
   const tableData = grades.map((grade) => {
     const course = grade.course;
     const code = course
       ? getLocalizedValue(
-          course.codeEs,
-          course.codeEn,
-          locale,
-          translations.emptyValue,
-        )
+        course.codeEs,
+        course.codeEn,
+        locale,
+        translations.emptyValue,
+      )
       : translations.emptyValue;
 
     const name = course
       ? getLocalizedValue(
-          course.nameEs,
-          course.nameEn,
-          locale,
-          translations.emptyValue,
-        )
+        course.nameEs,
+        course.nameEn,
+        locale,
+        translations.emptyValue,
+      )
       : translations.emptyValue;
 
     const credits =
@@ -131,9 +137,16 @@ export function exportStudentGradesToPDF({
     ],
   ];
 
-  // Footer row with total credits
+  // Footer row with grade summary - single cell with stacked content
+  const summaryText = [
+    `${translations.enrolledCredits}: ${stats.enrolledCredits}`,
+    `${translations.approvedCredits}: ${stats.approvedCredits}`,
+    `${translations.approvedPercentage}: ${stats.approvedPercentage}%`,
+    `${translations.semesterAverage}: ${stats.semesterAverage}%`,
+  ].join("   •   ");
+
   const footerData = [
-    ["", "", `${translations.totalCredits}: ${totalCredits}`, "", ""],
+    [{ content: summaryText, colSpan: 5, styles: { halign: "left" } }],
   ];
 
   // Variables to store positions for drawing lines after cells
@@ -149,7 +162,7 @@ export function exportStudentGradesToPDF({
     margin: { top: 55, right: 14, bottom: 25, left: 14 },
     styles: {
       font: "times",
-      fontSize: 9,
+      fontSize: 10,
       cellPadding: 3,
       lineColor: [0, 0, 0],
       lineWidth: 0,
@@ -159,7 +172,7 @@ export function exportStudentGradesToPDF({
     headStyles: {
       fillColor: [255, 255, 255],
       textColor: [0, 0, 0],
-      fontSize: 9,
+      fontSize: 10,
       fontStyle: "bold",
       halign: "left",
       valign: "middle",
@@ -169,7 +182,7 @@ export function exportStudentGradesToPDF({
     },
     bodyStyles: {
       fillColor: [255, 255, 255],
-      fontSize: 9,
+      fontSize: 10,
       lineWidth: 0,
     },
     alternateRowStyles: {
@@ -181,7 +194,7 @@ export function exportStudentGradesToPDF({
       fontSize: 9,
       fontStyle: "bold",
       halign: "left",
-      cellPadding: 3,
+      cellPadding: 4,
       lineWidth: 0,
       lineColor: [0, 0, 0],
     },

@@ -113,7 +113,7 @@ export const getMyProgress = query({
       humanities: [] as any[],
       core: [] as any[],
       elective: [] as any[],
-      general: [] as any[],
+      dmp: [] as any[],
     };
 
     for (const { course, isRequired, category } of programCourses) {
@@ -128,10 +128,10 @@ export const getMyProgress = query({
         isCompleted,
         grade: enrollment
           ? {
-              percentageGrade: enrollment.percentageGrade,
-              letterGrade: enrollment.letterGrade,
-              gradePoints: enrollment.gradePoints,
-            }
+            percentageGrade: enrollment.percentageGrade,
+            letterGrade: enrollment.letterGrade,
+            gradePoints: enrollment.gradePoints,
+          }
           : null,
       });
     }

@@ -51,7 +51,7 @@ export default function CourseDetailInfo({
     humanities: tForm("options.categories.humanities"),
     core: tForm("options.categories.core"),
     elective: tForm("options.categories.elective"),
-    general: tForm("options.categories.general"),
+    dmp: tForm("options.categories.dmp"),
   };
 
   const languageLabels = {

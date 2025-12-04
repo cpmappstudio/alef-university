@@ -198,7 +198,7 @@ export default defineSchema({
       v.literal("humanities"),
       v.literal("core"),
       v.literal("elective"),
-      v.literal("general"),
+      v.literal("dmp"),
     ),
 
     isActive: v.boolean(),
@@ -224,7 +224,7 @@ export default defineSchema({
         v.literal("humanities"),
         v.literal("core"),
         v.literal("elective"),
-        v.literal("general"),
+        v.literal("dmp"),
       ),
     ),
 
@@ -477,7 +477,7 @@ export default defineSchema({
         minPerCategory: v.optional(v.number()),
         description: v.optional(v.string()),
       }),
-      general: v.object({
+      dmp: v.object({
         required: v.number(),
         description: v.optional(v.string()),
       }),

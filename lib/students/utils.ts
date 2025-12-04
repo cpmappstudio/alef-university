@@ -6,11 +6,64 @@ import type {
   StudentFormState,
   StudentUpdatePayload,
   StudentJSONLExport,
+  StudentGradeStats,
 } from "@/lib/students/types";
 import type { Doc, Id } from "@/convex/_generated/dataModel";
 import type { Translator } from "@/lib/table/types";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PASSING_GRADE = 60;
+
+type GradeRow = {
+  credits?: number;
+  percentageGrade?: number | null;
+};
+
+export function calculateStudentGradeStats(grades: GradeRow[]): StudentGradeStats {
+  const stats = grades.reduce(
+    (acc, grade) => {
+      const credits = grade.credits ?? 0;
+      acc.enrolledCredits += credits;
+
+      if (
+        grade.percentageGrade !== undefined &&
+        grade.percentageGrade !== null
+      ) {
+        acc.totalGradedCredits += credits;
+        acc.weightedGradeSum += grade.percentageGrade * credits;
+
+        if (grade.percentageGrade >= PASSING_GRADE) {
+          acc.approvedCredits += credits;
+        }
+      }
+
+      return acc;
+    },
+    {
+      enrolledCredits: 0,
+      approvedCredits: 0,
+      totalGradedCredits: 0,
+      weightedGradeSum: 0,
+    },
+  );
+
+  const approvedPercentage =
+    stats.enrolledCredits > 0
+      ? Math.round((stats.approvedCredits / stats.enrolledCredits) * 100)
+      : 0;
+
+  const semesterAverage =
+    stats.totalGradedCredits > 0
+      ? Math.round((stats.weightedGradeSum / stats.totalGradedCredits) * 10) / 10
+      : 0;
+
+  return {
+    enrolledCredits: stats.enrolledCredits,
+    approvedCredits: stats.approvedCredits,
+    approvedPercentage,
+    semesterAverage,
+  };
+}
 
 export const createEmptyStudentFormState = (): StudentFormState => ({
   firstName: "",
@@ -128,6 +181,10 @@ export function buildStudentExportTranslations(
     generatedOn: exportTranslations("generatedOn"),
     totalCourses: exportTranslations("totalCourses"),
     totalCredits: exportTranslations("totalCredits"),
+    enrolledCredits: exportTranslations("enrolledCredits"),
+    approvedCredits: exportTranslations("approvedCredits"),
+    approvedPercentage: exportTranslations("approvedPercentage"),
+    semesterAverage: exportTranslations("semesterAverage"),
     page: exportTranslations("page"),
     of: exportTranslations("of"),
     columns: {

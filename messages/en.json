@@ -926,7 +926,7 @@
             "humanities": "Humanities",
             "core": "Core",
             "elective": "Elective",
-            "general": "General"
+            "dmp": "DMP"
           }
         },
         "buttons": {
@@ -977,7 +977,7 @@
             "humanities": "Humanities",
             "core": "Core",
             "elective": "Elective",
-            "general": "General"
+            "dmp": "DMP"
           }
         },
         "status": {
@@ -1411,6 +1411,9 @@
           "enrollmentDate": "Enrollment date",
           "program": "Program",
           "status": "Account status",
+          "approvedCredits": "Approved credits",
+          "approvedPercentage": "% Approved credits",
+          "average": "Average",
           "profileStatus": "Enrollment status",
           "profileStatusValues": {
             "active": "Active",
@@ -1441,6 +1444,10 @@
           "generatedOn": "Generated on",
           "totalCourses": "Total Courses",
           "totalCredits": "Total",
+          "enrolledCredits": "Enrolled Cr.",
+          "approvedCredits": "Approved Cr.",
+          "approvedPercentage": "% Approved Cr.",
+          "semesterAverage": "Average",
           "page": "Page",
           "of": "of"
         }

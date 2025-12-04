@@ -927,7 +927,7 @@
             "humanities": "Humanidades",
             "core": "Núcleo",
             "elective": "Electiva",
-            "general": "General"
+            "dmp": "DMP"
           }
         },
         "buttons": {
@@ -978,7 +978,7 @@
             "humanities": "Humanidades",
             "core": "Núcleo",
             "elective": "Electiva",
-            "general": "General"
+            "dmp": "DMP"
           }
         },
         "status": {
@@ -1412,6 +1412,9 @@
           "enrollmentDate": "Fecha de inscripción",
           "program": "Programa",
           "status": "Estado de la cuenta",
+          "approvedCredits": "Créditos aprobados",
+          "approvedPercentage": "% Créditos aprobados",
+          "average": "Promedio",
           "profileStatus": "Estado académico",
           "profileStatusValues": {
             "active": "Activo",
@@ -1442,6 +1445,10 @@
           "generatedOn": "Generado el",
           "totalCourses": "Total de Cursos",
           "totalCredits": "Total",
+          "enrolledCredits": "Créd. Matriculados",
+          "approvedCredits": "Créd. Aprobados",
+          "approvedPercentage": "% Créd. Aprobados",
+          "semesterAverage": "Promedio",
           "page": "Página",
           "of": "de"
         }

@@ -111,3 +111,10 @@ export type StudentCreatePayload = {
 export type StudentUpdatePayload = StudentCreatePayload & {
   clerkId: string;
 };
+
+export type StudentGradeStats = {
+  enrolledCredits: number;
+  approvedCredits: number;
+  approvedPercentage: number;
+  semesterAverage: number;
+};

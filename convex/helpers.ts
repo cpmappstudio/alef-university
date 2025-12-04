@@ -317,8 +317,8 @@ export async function calculateAcademicProgress(
       required: requirements.requirements.elective.required,
       completed: 0,
     },
-    general: {
-      required: requirements.requirements.general.required,
+    dmp: {
+      required: requirements.requirements.dmp.required,
       completed: 0,
     },
   };

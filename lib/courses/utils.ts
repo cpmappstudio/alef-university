@@ -140,17 +140,17 @@ export function buildCourseCreatePayload(
     category: values.category as CourseCategoryOption,
     ...(showSpanishFields
       ? {
-          codeEs: normalize(values.codeEs),
-          nameEs: normalize(values.nameEs),
-          descriptionEs: normalize(values.descriptionEs),
-        }
+        codeEs: normalize(values.codeEs),
+        nameEs: normalize(values.nameEs),
+        descriptionEs: normalize(values.descriptionEs),
+      }
       : {}),
     ...(showEnglishFields
       ? {
-          codeEn: normalize(values.codeEn),
-          nameEn: normalize(values.nameEn),
-          descriptionEn: normalize(values.descriptionEn),
-        }
+        codeEn: normalize(values.codeEn),
+        nameEn: normalize(values.nameEn),
+        descriptionEn: normalize(values.descriptionEn),
+      }
       : {}),
   };
 
@@ -185,17 +185,17 @@ export function buildCourseUpdatePayload(
     isActive: values.isActive,
     ...(showSpanishFields
       ? {
-          codeEs: normalize(values.codeEs),
-          nameEs: normalize(values.nameEs),
-          descriptionEs: normalize(values.descriptionEs),
-        }
+        codeEs: normalize(values.codeEs),
+        nameEs: normalize(values.nameEs),
+        descriptionEs: normalize(values.descriptionEs),
+      }
       : {}),
     ...(showEnglishFields
       ? {
-          codeEn: normalize(values.codeEn),
-          nameEn: normalize(values.nameEn),
-          descriptionEn: normalize(values.descriptionEn),
-        }
+        codeEn: normalize(values.codeEn),
+        nameEn: normalize(values.nameEn),
+        descriptionEn: normalize(values.descriptionEn),
+      }
       : {}),
   };
 }
@@ -213,7 +213,7 @@ export function isCourseCategoryOption(
     value === "humanities" ||
     value === "core" ||
     value === "elective" ||
-    value === "general"
+    value === "dmp"
   );
 }
 

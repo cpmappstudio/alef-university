@@ -13,12 +13,13 @@ import {
   GradientCardDetailItem,
   GradientCardHeader,
 } from "@/components/ui/gradient-card";
-import type { StudentDocument } from "@/lib/students/types";
+import type { StudentDocument, StudentGradeStats } from "@/lib/students/types";
 import { ROUTES } from "@/lib/routes";
 
 interface StudentDetailInfoProps {
   student: StudentDocument;
   program?: Doc<"programs"> | null;
+  gradeStats?: StudentGradeStats | null;
   onEdit?: () => void;
   onDelete?: () => void;
   canDelete?: boolean;
@@ -28,6 +29,7 @@ interface StudentDetailInfoProps {
 export function StudentDetailInfo({
   student,
   program,
+  gradeStats,
   onEdit,
   onDelete,
   canDelete = true,
@@ -83,10 +85,10 @@ export function StudentDetailInfo({
       />
       <GradientCardContent>
         <GradientCardDetailGrid>
-          <GradientCardDetailItem
+          {/* <GradientCardDetailItem
             label={t("info.fullName")}
             value={displayName}
-          />
+          /> */}
           <GradientCardDetailItem
             label={t("contact.email")}
             value={student.email ?? "—"}
@@ -138,6 +140,22 @@ export function StudentDetailInfo({
               )
             }
           />
+          {gradeStats && (
+            <>
+              <GradientCardDetailItem
+                label={t("info.approvedCredits")}
+                value={`${gradeStats.approvedCredits} `}
+              />
+              <GradientCardDetailItem
+                label={t("info.approvedPercentage")}
+                value={`${gradeStats.approvedPercentage}%`}
+              />
+              <GradientCardDetailItem
+                label={t("info.average")}
+                value={`${gradeStats.semesterAverage}%`}
+              />
+            </>
+          )}
         </GradientCardDetailGrid>
       </GradientCardContent>
     </GradientCard>

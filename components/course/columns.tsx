@@ -20,7 +20,7 @@ const createCategoryLabels = (
   humanities: t("options.categories.humanities"),
   core: t("options.categories.core"),
   elective: t("options.categories.elective"),
-  general: t("options.categories.general"),
+  dmp: t("options.categories.dmp"),
 });
 
 // Columna de programas (específica de courses)

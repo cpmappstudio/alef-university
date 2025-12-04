@@ -7,7 +7,7 @@ import type { Doc, Id } from "@/convex/_generated/dataModel";
 export type CourseJSONLExport = {
   // Always present
   language: "es" | "en";
-  category: "humanities" | "core" | "elective" | "general";
+  category: "humanities" | "core" | "elective" | "dmp";
   isActive: boolean;
 
   // Optional: array of program codes (can be empty or absent)
@@ -43,7 +43,7 @@ export type Course = {
 
   language: "es" | "en" | "both";
 
-  category: "humanities" | "core" | "elective" | "general";
+  category: "humanities" | "core" | "elective" | "dmp";
 
   syllabus?: string;
 
@@ -58,7 +58,7 @@ export type CourseCategoryOption =
   | "humanities"
   | "core"
   | "elective"
-  | "general";
+  | "dmp";
 
 export type CourseFormLanguage = CourseLanguageOption | "";
 export type CourseFormCategory = CourseCategoryOption | "";
@@ -189,7 +189,7 @@ export type ProgramCourseAssociation = {
   programId: Id<"programs">;
   courseId: Id<"courses">;
   isRequired: boolean;
-  categoryOverride?: "humanities" | "core" | "elective" | "general";
+  categoryOverride?: "humanities" | "core" | "elective" | "dmp";
   credits: number; // Required: credits must be specified per program
 };
 

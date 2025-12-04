@@ -723,7 +723,7 @@ export const getProgramDetails = query({
       humanities: programCourses.filter((pc) => pc.category === "humanities"),
       core: programCourses.filter((pc) => pc.category === "core"),
       elective: programCourses.filter((pc) => pc.category === "elective"),
-      general: programCourses.filter((pc) => pc.category === "general"),
+      dmp: programCourses.filter((pc) => pc.category === "dmp"),
     };
 
     return {
@@ -761,7 +761,7 @@ export const setProgramRequirements = mutation({
         minPerCategory: v.optional(v.number()),
         description: v.optional(v.string()),
       }),
-      general: v.object({
+      dmp: v.object({
         required: v.number(),
         description: v.optional(v.string()),
       }),
@@ -796,7 +796,7 @@ export const setProgramRequirements = mutation({
       args.requirements.humanities.required +
       args.requirements.core.required +
       args.requirements.elective.required +
-      args.requirements.general.required;
+      args.requirements.dmp.required;
 
     if (totalRequired !== args.requirements.total) {
       throw new ConvexError(
@@ -1059,12 +1059,12 @@ export const getProgramStatistics = query({
       summary: args.programId
         ? null
         : {
-            totalPrograms: programs.length,
-            totalStudents: programStats.reduce(
-              (sum, p) => sum + p.statistics.totalStudents,
-              0,
-            ),
-          },
+          totalPrograms: programs.length,
+          totalStudents: programStats.reduce(
+            (sum, p) => sum + p.statistics.totalStudents,
+            0,
+          ),
+        },
     };
   },
 });
