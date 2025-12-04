@@ -17,6 +17,7 @@ import { useUser } from "@clerk/nextjs";
 
 import { NavMain } from "@/components/ui/nav-main";
 import { UniversityLogo } from "@/components/ui/university-logo";
+import { VersionChangelog } from "@/components/ui/version-changelog";
 import { ROUTES, SIDEBAR_ROUTE_GROUPS } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import {
@@ -29,7 +30,6 @@ import {
 } from "@/components/ui/sidebar";
 import { UserButtonWrapper } from "./user-button-wrapper";
 import type { UserRole } from "@/convex/types";
-import packageJson from "@/package.json";
 
 type NavigationMenuSection = {
   title: string;
@@ -191,7 +191,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           className={cn(
             "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors",
             isSettingsActive &&
-              "bg-sidebar-accent text-sidebar-accent-foreground",
+            "bg-sidebar-accent text-sidebar-accent-foreground",
             state === "collapsed" && "justify-center px-0",
           )}
           aria-label={t("settings")}
@@ -203,9 +203,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <UniversityLogo />
         {state !== "collapsed" && (
           <div className="px-2 py-1 text-center">
-            <span className="text-xs text-muted-foreground">
-              v{packageJson.version}
-            </span>
+            <VersionChangelog />
           </div>
         )}
       </SidebarFooter>

@@ -9,6 +9,13 @@
     "system": "System",
     "export": "Export"
   },
+  "changelog": {
+    "title": "Changelog",
+    "description": "History of system updates and improvements",
+    "viewChangelog": "View changelog",
+    "viewMilestone": "View details on GitHub",
+    "current": "Current"
+  },
   "navigation": {
     "university": "Alef University",
     "navigation": "Navigation",
