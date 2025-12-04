@@ -29,6 +29,7 @@ const CHANGELOG: ChangelogEntry[] = [
                 "Dashboard de estudiante muestra créditos y calificación promedio",
                 "Edición de categorías por curso (cambio de General a DMP)",
                 "Créditos no se calculan cuando está reprobado o pendiente por calificar",
+                "Se agregó la columna de búsqueda en la tabla de calificaciones (el filtro de búsqueda ahora sirve para estudiantes)",
             ],
             en: [
                 "Increased font size in grades PDF",
@@ -36,6 +37,7 @@ const CHANGELOG: ChangelogEntry[] = [
                 "Student dashboard shows credits and average grade",
                 "Course category editing (changed General to DMP)",
                 "Credits not calculated when failed or pending grading",
+                "Added search column in grades table (search filter now works for students)",
             ],
         },
     }

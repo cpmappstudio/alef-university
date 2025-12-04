@@ -11,6 +11,32 @@ export type StudentGradeRow = Doc<"class_enrollments"> & {
   credits?: number;
 };
 
+const createSearchColumn = (locale: string): ColumnDef<StudentGradeRow> => ({
+  id: "search",
+  accessorFn: (row) => {
+    const course = row.course;
+    if (!course) return "";
+
+    const courseName =
+      locale === "es"
+        ? course.nameEs || course.nameEn
+        : course.nameEn || course.nameEs;
+
+    const courseCode =
+      locale === "es"
+        ? course.codeEs || course.codeEn
+        : course.codeEn || course.codeEs;
+
+    return `${courseName} ${courseCode}`.toLowerCase().trim();
+  },
+  enableHiding: false,
+  enableSorting: false,
+  enableColumnFilter: true,
+  meta: {
+    filterOnly: true,
+  },
+});
+
 const createCourseCodeColumn = (
   t: Translator,
   locale: string,
@@ -110,6 +136,7 @@ export const studentGradeColumns = (
   const emptyValue = t("columns.emptyValue");
 
   return [
+    createSearchColumn(locale),
     createCourseCodeColumn(t, locale, emptyValue),
     createCourseNameColumn(t, locale, emptyValue),
     createCreditsColumn(t, emptyValue),

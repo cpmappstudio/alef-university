@@ -165,7 +165,7 @@ export function StudentDetailClient({
       <CustomTable
         columns={gradeColumns}
         data={enrollments}
-        filterColumn="courseName"
+        filterColumn="search"
         filterPlaceholder={t("filterCoursesPlaceholder")}
         columnsMenuLabel={t("columnsMenuLabel")}
         emptyMessage={t("emptyGradesMessage")}
