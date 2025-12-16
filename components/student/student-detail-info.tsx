@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import type { Doc } from "@/convex/_generated/dataModel";
 import { GraduationCap, PencilIcon, Trash2Icon, UserRound } from "lucide-react";
 import Link from "next/link";
+import { PolarAngleAxis, RadialBar, RadialBarChart } from "recharts";
 import {
   GradientCard,
   GradientCardContent,
@@ -13,8 +14,45 @@ import {
   GradientCardDetailItem,
   GradientCardHeader,
 } from "@/components/ui/gradient-card";
+import { ChartContainer, type ChartConfig } from "@/components/ui/chart";
 import type { StudentDocument, StudentGradeStats } from "@/lib/students/types";
 import { ROUTES } from "@/lib/routes";
+
+const chartConfig = {
+  approved: {
+    label: "Approved",
+    color: "hsl(var(--chart-2))",
+  },
+} satisfies ChartConfig;
+
+function CreditsProgressChart({
+  approved,
+  total,
+}: {
+  approved: number;
+  total: number;
+}) {
+  const percentage = Math.min((approved / total) * 100, 100);
+
+  const chartData = [{ name: "approved", value: percentage, fill: "#22c55e" }];
+
+  return (
+    <ChartContainer config={chartConfig} className="h-8 w-8">
+      <RadialBarChart
+        data={chartData}
+        startAngle={90}
+        endAngle={-270}
+        innerRadius={10}
+        outerRadius={16}
+        cx="50%"
+        cy="50%"
+      >
+        <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
+        <RadialBar dataKey="value" background cornerRadius={4} />
+      </RadialBarChart>
+    </ChartContainer>
+  );
+}
 
 interface StudentDetailInfoProps {
   student: StudentDocument;
@@ -144,12 +182,21 @@ export function StudentDetailInfo({
             <>
               <GradientCardDetailItem
                 label={t("info.approvedCredits")}
-                value={`${gradeStats.approvedCredits} `}
+                value={
+                  <div className="flex items-center gap-2">
+                    <span>
+                      {gradeStats.approvedCredits}/
+                      {program?.totalCredits ?? "—"}
+                    </span>
+                    {program?.totalCredits && program.totalCredits > 0 && (
+                      <CreditsProgressChart
+                        approved={gradeStats.approvedCredits}
+                        total={program.totalCredits}
+                      />
+                    )}
+                  </div>
+                }
               />
-              {/*<GradientCardDetailItem
-                label={t("info.approvedPercentage")}
-                value={`${gradeStats.approvedPercentage}%`}
-              />*/}
               <GradientCardDetailItem
                 label={t("info.average")}
                 value={`${gradeStats.semesterAverage}%`}
