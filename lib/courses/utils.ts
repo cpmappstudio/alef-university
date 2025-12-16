@@ -13,6 +13,19 @@ import type {
   CourseDocument,
 } from "./types";
 import type { Doc } from "@/convex/_generated/dataModel";
+import type { Translator } from "@/lib/table/types";
+
+/**
+ * Creates a mapping of course category keys to their translated labels
+ */
+export const createCategoryLabels = (
+  t: Translator,
+): Record<Doc<"courses">["category"], string> => ({
+  humanities: t("options.categories.humanities"),
+  core: t("options.categories.core"),
+  elective: t("options.categories.elective"),
+  dmp: t("options.categories.dmp"),
+});
 
 export const INITIAL_COURSE_FORM_STATE: CourseFormState = {
   language: "",
@@ -140,17 +153,17 @@ export function buildCourseCreatePayload(
     category: values.category as CourseCategoryOption,
     ...(showSpanishFields
       ? {
-        codeEs: normalize(values.codeEs),
-        nameEs: normalize(values.nameEs),
-        descriptionEs: normalize(values.descriptionEs),
-      }
+          codeEs: normalize(values.codeEs),
+          nameEs: normalize(values.nameEs),
+          descriptionEs: normalize(values.descriptionEs),
+        }
       : {}),
     ...(showEnglishFields
       ? {
-        codeEn: normalize(values.codeEn),
-        nameEn: normalize(values.nameEn),
-        descriptionEn: normalize(values.descriptionEn),
-      }
+          codeEn: normalize(values.codeEn),
+          nameEn: normalize(values.nameEn),
+          descriptionEn: normalize(values.descriptionEn),
+        }
       : {}),
   };
 
@@ -185,17 +198,17 @@ export function buildCourseUpdatePayload(
     isActive: values.isActive,
     ...(showSpanishFields
       ? {
-        codeEs: normalize(values.codeEs),
-        nameEs: normalize(values.nameEs),
-        descriptionEs: normalize(values.descriptionEs),
-      }
+          codeEs: normalize(values.codeEs),
+          nameEs: normalize(values.nameEs),
+          descriptionEs: normalize(values.descriptionEs),
+        }
       : {}),
     ...(showEnglishFields
       ? {
-        codeEn: normalize(values.codeEn),
-        nameEn: normalize(values.nameEn),
-        descriptionEn: normalize(values.descriptionEn),
-      }
+          codeEn: normalize(values.codeEn),
+          nameEn: normalize(values.nameEn),
+          descriptionEn: normalize(values.descriptionEn),
+        }
       : {}),
   };
 }

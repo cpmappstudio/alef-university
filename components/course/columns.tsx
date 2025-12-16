@@ -13,15 +13,7 @@ import {
 } from "@/components/table/column-helpers";
 import { Badge } from "@/components/ui/badge";
 import { createMultiSelectFilterFn } from "@/lib/table/filter-configs";
-
-const createCategoryLabels = (
-  t: Translator,
-): Record<Doc<"courses">["category"], string> => ({
-  humanities: t("options.categories.humanities"),
-  core: t("options.categories.core"),
-  elective: t("options.categories.elective"),
-  dmp: t("options.categories.dmp"),
-});
+import { createCategoryLabels } from "@/lib/courses/utils";
 
 // Columna de programas (específica de courses)
 const createProgramsColumn = (

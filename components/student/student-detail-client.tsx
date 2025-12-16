@@ -37,6 +37,7 @@ export function StudentDetailClient({
   const t = useTranslations("admin.students.detail");
   const tTable = useTranslations("admin.students.detail.table");
   const tExport = useTranslations("admin.students.detail.export");
+  const tCourseForm = useTranslations("admin.courses.form");
 
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
@@ -65,8 +66,8 @@ export function StudentDetailClient({
   );
 
   const gradeColumns = React.useMemo(
-    () => studentGradeColumns(tTable, locale),
-    [tTable, locale],
+    () => studentGradeColumns(tTable, tCourseForm, locale),
+    [tTable, tCourseForm, locale],
   );
 
   const exportTranslations = buildStudentExportTranslations(tTable, tExport);
@@ -90,9 +91,9 @@ export function StudentDetailClient({
         ...row,
         course: row.course
           ? {
-            ...row.course,
-            credits: row.credits, // Credits from program_courses via class programId
-          }
+              ...row.course,
+              credits: row.credits, // Credits from program_courses via class programId
+            }
           : null,
       }));
 
@@ -154,7 +155,7 @@ export function StudentDetailClient({
         onDelete={
           userRole === "admin" || userRole === "superadmin"
             ? handleDelete
-            : () => { }
+            : () => {}
         }
         canDelete={userRole === "admin" || userRole === "superadmin"}
         userRole={userRole}

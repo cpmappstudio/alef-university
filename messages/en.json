@@ -1439,6 +1439,7 @@
             "emptyValue": "—",
             "courseCode": "Code",
             "courseName": "Course",
+            "category": "Category",
             "credits": "Credits",
             "percentageGrade": "Grade (%)",
             "letterGrade": "Letter"

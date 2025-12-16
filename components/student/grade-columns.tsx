@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import type { Translator } from "@/lib/table/types";
 import type { Doc } from "@/convex/_generated/dataModel";
+import { createCategoryLabels } from "@/lib/courses/utils";
 
 export type StudentGradeRow = Doc<"class_enrollments"> & {
   course: Doc<"courses"> | null;
@@ -129,8 +130,31 @@ const createLetterGradeColumn = (
   },
 });
 
+const createCategoryColumn = (
+  t: Translator,
+  tCourseForm: Translator,
+  emptyValue: string,
+): ColumnDef<StudentGradeRow> => ({
+  id: "category",
+  accessorFn: (row) => row.course?.category,
+  header: t("columns.category"),
+  cell: ({ row }) => {
+    const course = row.original.course;
+    if (!course || !course.category) return emptyValue;
+
+    const categoryLabels = createCategoryLabels(tCourseForm);
+    const label = categoryLabels[course.category] || course.category;
+
+    return <span>{label}</span>;
+  },
+  meta: {
+    exportable: false,
+  },
+});
+
 export const studentGradeColumns = (
   t: Translator,
+  tCourseForm: Translator,
   locale: string,
 ): ColumnDef<StudentGradeRow>[] => {
   const emptyValue = t("columns.emptyValue");
@@ -139,6 +163,7 @@ export const studentGradeColumns = (
     createSearchColumn(locale),
     createCourseCodeColumn(t, locale, emptyValue),
     createCourseNameColumn(t, locale, emptyValue),
+    createCategoryColumn(t, tCourseForm, emptyValue),
     createCreditsColumn(t, emptyValue),
     createPercentageGradeColumn(t, emptyValue),
     createLetterGradeColumn(t, emptyValue),
