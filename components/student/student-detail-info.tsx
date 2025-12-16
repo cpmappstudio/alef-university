@@ -146,10 +146,10 @@ export function StudentDetailInfo({
                 label={t("info.approvedCredits")}
                 value={`${gradeStats.approvedCredits} `}
               />
-              <GradientCardDetailItem
+              {/*<GradientCardDetailItem
                 label={t("info.approvedPercentage")}
                 value={`${gradeStats.approvedPercentage}%`}
-              />
+              />*/}
               <GradientCardDetailItem
                 label={t("info.average")}
                 value={`${gradeStats.semesterAverage}%`}
