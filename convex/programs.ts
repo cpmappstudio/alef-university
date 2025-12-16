@@ -327,6 +327,7 @@ export const createProgram = mutation({
     degree: v.optional(v.string()),
     categoryId: v.id("program_categories"),
     language: languageValidator,
+    totalCredits: v.number(),
     durationBimesters: v.number(),
     tuitionPerCredit: v.optional(v.number()),
   },
@@ -346,7 +347,10 @@ export const createProgram = mutation({
       throw new ConvexError("Invalid program category");
     }
 
-    // Validate duration
+    // Validate totalCredits and duration
+    if (args.totalCredits <= 0) {
+      throw new ConvexError("Total credits must be greater than 0");
+    }
     if (args.durationBimesters <= 0) {
       throw new ConvexError("Duration must be greater than 0");
     }
@@ -413,8 +417,6 @@ export const createProgram = mutation({
       }
     }
 
-    // Create program with totalCredits initialized to 0
-    // Credits will be automatically calculated from associated courses
     const programId = await ctx.db.insert("programs", {
       codeEs: args.codeEs,
       codeEn: args.codeEn,
@@ -426,7 +428,7 @@ export const createProgram = mutation({
       degree: args.degree,
       categoryId: args.categoryId,
       language: args.language,
-      totalCredits: 0,
+      totalCredits: args.totalCredits,
       durationBimesters: args.durationBimesters,
       tuitionPerCredit: args.tuitionPerCredit,
       isActive: true,
@@ -449,6 +451,7 @@ export const internalCreateProgram = internalMutation({
     degree: v.optional(v.string()),
     categoryId: v.id("program_categories"),
     language: languageValidator,
+    totalCredits: v.number(),
     durationBimesters: v.number(),
     tuitionPerCredit: v.optional(v.number()),
   },
@@ -458,7 +461,10 @@ export const internalCreateProgram = internalMutation({
       throw new ConvexError("Invalid program category");
     }
 
-    // Validate duration
+    // Validate totalCredits and duration
+    if (args.totalCredits <= 0) {
+      throw new ConvexError("Total credits must be greater than 0");
+    }
     if (args.durationBimesters <= 0) {
       throw new ConvexError("Duration must be greater than 0");
     }
@@ -517,8 +523,6 @@ export const internalCreateProgram = internalMutation({
       }
     }
 
-    // Create program with totalCredits initialized to 0
-    // Credits will be automatically calculated from associated courses
     const programId = await ctx.db.insert("programs", {
       codeEs: args.codeEs,
       codeEn: args.codeEn,
@@ -530,7 +534,7 @@ export const internalCreateProgram = internalMutation({
       degree: args.degree,
       categoryId: args.categoryId,
       language: args.language,
-      totalCredits: 0,
+      totalCredits: args.totalCredits,
       durationBimesters: args.durationBimesters,
       tuitionPerCredit: args.tuitionPerCredit,
       isActive: true,
@@ -561,6 +565,7 @@ export const updateProgram = mutation({
     categoryId: v.id("program_categories"),
     language: languageValidator,
     type: programTypeValidator,
+    totalCredits: v.number(),
     durationBimesters: v.number(),
     tuitionPerCredit: v.optional(v.number()),
     isActive: v.boolean(),
@@ -625,6 +630,10 @@ export const updateProgram = mutation({
       }
     }
 
+    if (updates.totalCredits <= 0) {
+      throw new ConvexError("Total credits must be a positive number");
+    }
+
     if (updates.durationBimesters <= 0) {
       throw new ConvexError("Program duration must be a positive number");
     }
@@ -666,6 +675,7 @@ export const updateProgram = mutation({
       categoryId: updates.categoryId,
       language: updates.language,
       type: updates.type,
+      totalCredits: updates.totalCredits,
       durationBimesters: updates.durationBimesters,
       tuitionPerCredit: updates.tuitionPerCredit,
       isActive: updates.isActive,
@@ -1059,12 +1069,12 @@ export const getProgramStatistics = query({
       summary: args.programId
         ? null
         : {
-          totalPrograms: programs.length,
-          totalStudents: programStats.reduce(
-            (sum, p) => sum + p.statistics.totalStudents,
-            0,
-          ),
-        },
+            totalPrograms: programs.length,
+            totalStudents: programStats.reduce(
+              (sum, p) => sum + p.statistics.totalStudents,
+              0,
+            ),
+          },
     };
   },
 });

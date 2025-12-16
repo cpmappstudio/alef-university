@@ -43,6 +43,7 @@ export type ProgramFormState = {
   codeEn: string;
   nameEn: string;
   descriptionEn: string;
+  totalCredits: string;
   durationBimesters: string;
   isActive: boolean;
 };
@@ -57,6 +58,7 @@ export type ProgramFormErrorKey =
   | "codeEn"
   | "nameEn"
   | "descriptionEn"
+  | "totalCredits"
   | "durationBimesters";
 
 export type ProgramFormErrors = Partial<Record<ProgramFormErrorKey, string>>;
@@ -71,6 +73,7 @@ export type ProgramFormValidationMessages = {
   codeEnRequired: string;
   nameEnRequired: string;
   descriptionEnRequired: string;
+  totalCreditsPositive: string;
   durationBimestersPositive: string;
 };
 
@@ -89,6 +92,7 @@ export type ProgramCreatePayload = {
   categoryId: Id<"program_categories">;
   language: ProgramLanguageOption;
   type: ProgramTypeOption;
+  totalCredits: number;
   durationBimesters: number;
   tuitionPerCredit?: number;
   degree?: string;
@@ -99,6 +103,7 @@ export type ProgramUpdatePayload = {
   categoryId: Id<"program_categories">;
   language: ProgramLanguageOption;
   type: ProgramTypeOption;
+  totalCredits: number;
   durationBimesters: number;
   isActive: boolean;
   codeEs?: string;

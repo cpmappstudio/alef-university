@@ -160,6 +160,7 @@ export default function ProgramFormDialog({
       codeEnRequired: t("messages.errors.codeEn"),
       nameEnRequired: t("messages.errors.nameEn"),
       descriptionEnRequired: t("messages.errors.descriptionEn"),
+      totalCreditsPositive: t("messages.errors.totalCredits"),
       durationBimestersPositive: t("messages.errors.durationBimesters"),
     };
 
@@ -344,6 +345,21 @@ export default function ProgramFormDialog({
             <FieldSet>
               <FieldGroup>
                 <Field>
+                  <FieldLabel htmlFor="program-total-credits">
+                    {t("fields.totalCredits.label")} *
+                  </FieldLabel>
+                  <Input
+                    id="program-total-credits"
+                    value={formState.totalCredits}
+                    onChange={handleInputChange("totalCredits")}
+                    placeholder={t("fields.totalCredits.placeholder")}
+                    inputMode="numeric"
+                  />
+                  <FieldDescription className="text-muted-foreground text-sm">
+                    {t("fields.totalCredits.description")}
+                  </FieldDescription>
+                </Field>
+                <Field>
                   <FieldLabel htmlFor="program-duration">
                     {t("fields.durationBimesters.label")} *
                   </FieldLabel>
@@ -359,9 +375,6 @@ export default function ProgramFormDialog({
                   </FieldDescription>
                 </Field>
               </FieldGroup>
-              <FieldDescription className="text-muted-foreground">
-                {t("messages.infoAutoCredits")}
-              </FieldDescription>
             </FieldSet>
 
             <FieldSeparator />

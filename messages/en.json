@@ -737,7 +737,8 @@
           },
           "totalCredits": {
             "label": "Total credits",
-            "placeholder": "E.g. 240"
+            "placeholder": "E.g. 240",
+            "description": "Total number of credits required to complete the program"
           },
           "durationBimesters": {
             "label": "Duration (bimesters)",
@@ -780,6 +781,7 @@
             "codeEn": "English code is required.",
             "nameEn": "English name is required.",
             "descriptionEn": "English description is required.",
+            "totalCredits": "Total credits must be a number greater than zero.",
             "durationBimesters": "Duration must be a number greater than zero.",
             "generic": "The program could not be created. Please try again.",
             "codeExists": "This program code already exists (in any language). Please use a different code."

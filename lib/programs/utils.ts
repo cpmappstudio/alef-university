@@ -82,6 +82,7 @@ const INITIAL_PROGRAM_FORM_STATE: ProgramFormState = {
   codeEn: "",
   nameEn: "",
   descriptionEn: "",
+  totalCredits: "",
   durationBimesters: "",
   isActive: true,
 };
@@ -107,6 +108,7 @@ export function createFormStateFromProgram(
     codeEn: program.codeEn ?? "",
     nameEn: program.nameEn ?? "",
     descriptionEn: program.descriptionEn ?? "",
+    totalCredits: safeNumberToString(program.totalCredits),
     durationBimesters: safeNumberToString(program.durationBimesters),
     isActive: program.isActive ?? true,
   };
@@ -165,6 +167,10 @@ export function validateProgramForm(
     }
   }
 
+  if (parsePositiveNumber(values.totalCredits) === null) {
+    errors.totalCredits = messages.totalCreditsPositive;
+  }
+
   if (parsePositiveNumber(values.durationBimesters) === null) {
     errors.durationBimesters = messages.durationBimestersPositive;
   }
@@ -191,6 +197,11 @@ export function buildProgramCreatePayload(
     throw new Error("Program category is required");
   }
 
+  const totalCredits = parsePositiveNumber(values.totalCredits);
+  if (totalCredits === null) {
+    throw new Error("Total credits must be a positive number");
+  }
+
   const durationBimesters = parsePositiveNumber(values.durationBimesters);
   if (durationBimesters === null) {
     throw new Error("Duration must be a positive number");
@@ -204,20 +215,21 @@ export function buildProgramCreatePayload(
     language: values.language as ProgramLanguageOption,
     type: values.type as ProgramTypeOption,
     categoryId: categoryId as Id<"program_categories">,
+    totalCredits,
     durationBimesters,
     ...(showSpanishFields
       ? {
-        codeEs: normalizeTextValue(values.codeEs),
-        nameEs: normalizeTextValue(values.nameEs),
-        descriptionEs: normalizeTextValue(values.descriptionEs),
-      }
+          codeEs: normalizeTextValue(values.codeEs),
+          nameEs: normalizeTextValue(values.nameEs),
+          descriptionEs: normalizeTextValue(values.descriptionEs),
+        }
       : {}),
     ...(showEnglishFields
       ? {
-        codeEn: normalizeTextValue(values.codeEn),
-        nameEn: normalizeTextValue(values.nameEn),
-        descriptionEn: normalizeTextValue(values.descriptionEn),
-      }
+          codeEn: normalizeTextValue(values.codeEn),
+          nameEn: normalizeTextValue(values.nameEn),
+          descriptionEn: normalizeTextValue(values.descriptionEn),
+        }
       : {}),
   };
 }
@@ -239,6 +251,11 @@ export function buildProgramUpdatePayload(
     throw new Error("Program category is required");
   }
 
+  const totalCredits = parsePositiveNumber(values.totalCredits);
+  if (totalCredits === null) {
+    throw new Error("Total credits must be a positive number");
+  }
+
   const durationBimesters = parsePositiveNumber(values.durationBimesters);
   if (durationBimesters === null) {
     throw new Error("Duration must be a positive number");
@@ -253,21 +270,22 @@ export function buildProgramUpdatePayload(
     categoryId: categoryId as Id<"program_categories">,
     language: values.language as ProgramLanguageOption,
     type: values.type as ProgramTypeOption,
+    totalCredits,
     durationBimesters,
     isActive: values.isActive,
     ...(showSpanishFields
       ? {
-        codeEs: normalizeTextValue(values.codeEs),
-        nameEs: normalizeTextValue(values.nameEs),
-        descriptionEs: normalizeTextValue(values.descriptionEs),
-      }
+          codeEs: normalizeTextValue(values.codeEs),
+          nameEs: normalizeTextValue(values.nameEs),
+          descriptionEs: normalizeTextValue(values.descriptionEs),
+        }
       : {}),
     ...(showEnglishFields
       ? {
-        codeEn: normalizeTextValue(values.codeEn),
-        nameEn: normalizeTextValue(values.nameEn),
-        descriptionEn: normalizeTextValue(values.descriptionEn),
-      }
+          codeEn: normalizeTextValue(values.codeEn),
+          nameEn: normalizeTextValue(values.nameEn),
+          descriptionEn: normalizeTextValue(values.descriptionEn),
+        }
       : {}),
   };
 }
