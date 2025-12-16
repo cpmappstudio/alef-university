@@ -19,7 +19,9 @@ type GradeRow = {
   percentageGrade?: number | null;
 };
 
-export function calculateStudentGradeStats(grades: GradeRow[]): StudentGradeStats {
+export function calculateStudentGradeStats(
+  grades: GradeRow[],
+): StudentGradeStats {
   const stats = grades.reduce(
     (acc, grade) => {
       const credits = grade.credits ?? 0;
@@ -30,7 +32,8 @@ export function calculateStudentGradeStats(grades: GradeRow[]): StudentGradeStat
         grade.percentageGrade !== null
       ) {
         acc.totalGradedCredits += credits;
-        acc.weightedGradeSum += grade.percentageGrade * credits;
+        // acc.weightedGradeSum += grade.percentageGrade * credits;
+        acc.totalPercentageGradeSum += grade.percentageGrade;
 
         if (grade.percentageGrade >= PASSING_GRADE) {
           acc.approvedCredits += credits;
@@ -43,7 +46,8 @@ export function calculateStudentGradeStats(grades: GradeRow[]): StudentGradeStat
       enrolledCredits: 0,
       approvedCredits: 0,
       totalGradedCredits: 0,
-      weightedGradeSum: 0,
+      // weightedGradeSum: 0,
+      totalPercentageGradeSum: 0,
     },
   );
 
@@ -54,7 +58,9 @@ export function calculateStudentGradeStats(grades: GradeRow[]): StudentGradeStat
 
   const semesterAverage =
     stats.totalGradedCredits > 0
-      ? Math.round((stats.weightedGradeSum / stats.totalGradedCredits) * 10) / 10
+      ? Math.round(
+          (stats.totalPercentageGradeSum / stats.totalGradedCredits) * 10,
+        ) / 10
       : 0;
 
   return {
