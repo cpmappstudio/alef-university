@@ -19,6 +19,15 @@ import packageJson from "@/package.json";
 // Changelog data - update this when releasing new versions
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "2.0.0-alpha.6",
+    date: "2025-12-18",
+    milestoneUrl: "https://github.com/cpmappstudio/alef-university/milestone/3",
+    changes: {
+      es: ["Corrección de errores en el cálculo de promedio de ponderado"],
+      en: ["Fix errors in weighted average calculation"],
+    },
+  },
+  {
     version: "2.0.0-alpha.5",
     date: "2025-12-16",
     milestoneUrl: "https://github.com/cpmappstudio/alef-university/milestone/3",

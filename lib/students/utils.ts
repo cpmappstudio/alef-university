@@ -32,8 +32,8 @@ export function calculateStudentGradeStats(
         grade.percentageGrade !== null
       ) {
         acc.totalGradedCredits += credits;
-        // acc.weightedGradeSum += grade.percentageGrade * credits;
         acc.totalPercentageGradeSum += grade.percentageGrade;
+        acc.gradedCoursesCount += 1;
 
         if (grade.percentageGrade >= PASSING_GRADE) {
           acc.approvedCredits += credits;
@@ -46,8 +46,8 @@ export function calculateStudentGradeStats(
       enrolledCredits: 0,
       approvedCredits: 0,
       totalGradedCredits: 0,
-      // weightedGradeSum: 0,
       totalPercentageGradeSum: 0,
+      gradedCoursesCount: 0,
     },
   );
 
@@ -57,9 +57,9 @@ export function calculateStudentGradeStats(
       : 0;
 
   const semesterAverage =
-    stats.totalGradedCredits > 0
+    stats.gradedCoursesCount > 0
       ? Math.round(
-          (stats.totalPercentageGradeSum / stats.totalGradedCredits) * 10,
+          (stats.totalPercentageGradeSum / stats.gradedCoursesCount) * 10,
         ) / 10
       : 0;
 
