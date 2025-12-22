@@ -152,20 +152,34 @@ const createCategoryColumn = (
   },
 });
 
+interface StudentGradeColumnsOptions {
+  showCategory?: boolean;
+}
+
 export const studentGradeColumns = (
   t: Translator,
   tCourseForm: Translator,
   locale: string,
+  options: StudentGradeColumnsOptions = {},
 ): ColumnDef<StudentGradeRow>[] => {
+  const { showCategory = true } = options;
   const emptyValue = t("columns.emptyValue");
 
-  return [
+  const columns: ColumnDef<StudentGradeRow>[] = [
     createSearchColumn(locale),
     createCourseCodeColumn(t, locale, emptyValue),
     createCourseNameColumn(t, locale, emptyValue),
-    createCategoryColumn(t, tCourseForm, emptyValue),
+  ];
+
+  if (showCategory) {
+    columns.push(createCategoryColumn(t, tCourseForm, emptyValue));
+  }
+
+  columns.push(
     createCreditsColumn(t, emptyValue),
     createPercentageGradeColumn(t, emptyValue),
     createLetterGradeColumn(t, emptyValue),
-  ];
+  );
+
+  return columns;
 };

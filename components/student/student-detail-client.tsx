@@ -65,9 +65,14 @@ export function StudentDetailClient({
     [enrollments],
   );
 
+  const showCategoryColumn = program?.type === "bachelor";
+
   const gradeColumns = React.useMemo(
-    () => studentGradeColumns(tTable, tCourseForm, locale),
-    [tTable, tCourseForm, locale],
+    () =>
+      studentGradeColumns(tTable, tCourseForm, locale, {
+        showCategory: showCategoryColumn,
+      }),
+    [tTable, tCourseForm, locale, showCategoryColumn],
   );
 
   const exportTranslations = buildStudentExportTranslations(tTable, tExport);

@@ -59,8 +59,8 @@ export function calculateStudentGradeStats(
   const semesterAverage =
     stats.gradedCoursesCount > 0
       ? Math.round(
-          (stats.totalPercentageGradeSum / stats.gradedCoursesCount) * 10,
-        ) / 10
+          (stats.totalPercentageGradeSum / stats.gradedCoursesCount) * 100,
+        ) / 100
       : 0;
 
   return {
