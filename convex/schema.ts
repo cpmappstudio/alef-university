@@ -94,6 +94,16 @@ export default defineSchema({
     totalCredits: v.number(),
     durationBimesters: v.number(),
 
+    // Credit distribution by category (only for bachelor programs)
+    creditsByCategory: v.optional(
+      v.object({
+        humanities: v.number(),
+        core: v.number(),
+        elective: v.number(),
+        dmp: v.number(),
+      }),
+    ),
+
     // Costs (optional for financial module)
     tuitionPerCredit: v.optional(v.number()),
 

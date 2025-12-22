@@ -74,6 +74,17 @@ export const courseCategoryValidator = v.union(
 export type CourseCategory = Infer<typeof courseCategoryValidator>;
 
 /**
+ * Credits by category validator (for bachelor programs)
+ */
+export const creditsByCategoryValidator = v.object({
+  humanities: v.number(),
+  core: v.number(),
+  elective: v.number(),
+  dmp: v.number(),
+});
+export type CreditsByCategory = Infer<typeof creditsByCategoryValidator>;
+
+/**
  * Enrollment status validator
  */
 export const enrollmentStatusValidator = v.union(
@@ -612,10 +623,10 @@ export interface SystemNotification {
   id: string;
   userId: Id<"users">;
   type:
-  | "grade_posted"
-  | "enrollment_confirmed"
-  | "deadline_reminder"
-  | "announcement";
+    | "grade_posted"
+    | "enrollment_confirmed"
+    | "deadline_reminder"
+    | "announcement";
   title: string;
   message: string;
   relatedId?: string; // ID of related entity

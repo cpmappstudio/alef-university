@@ -1,5 +1,7 @@
 import type { Doc, Id } from "@/convex/_generated/dataModel";
 import type {
+  CreditsByCategory,
+  CreditsByCategoryPayload,
   Program,
   ProgramCategoryDocument,
   ProgramCreatePayload,
@@ -72,6 +74,13 @@ export type ProgramCourseExportOptions = {
 
 export const PROGRAMS_TABLE_FILTER_COLUMN = "program";
 
+const INITIAL_CREDITS_BY_CATEGORY: CreditsByCategory = {
+  humanities: "",
+  core: "",
+  elective: "",
+  dmp: "",
+};
+
 const INITIAL_PROGRAM_FORM_STATE: ProgramFormState = {
   language: "",
   type: "",
@@ -85,6 +94,7 @@ const INITIAL_PROGRAM_FORM_STATE: ProgramFormState = {
   totalCredits: "",
   durationBimesters: "",
   isActive: true,
+  creditsByCategory: { ...INITIAL_CREDITS_BY_CATEGORY },
 };
 
 export function createEmptyProgramFormState(): ProgramFormState {
@@ -97,6 +107,15 @@ export function createFormStateFromProgram(
   if (!program) {
     return createEmptyProgramFormState();
   }
+
+  const creditsByCategory: CreditsByCategory = program.creditsByCategory
+    ? {
+        humanities: safeNumberToString(program.creditsByCategory.humanities),
+        core: safeNumberToString(program.creditsByCategory.core),
+        elective: safeNumberToString(program.creditsByCategory.elective),
+        dmp: safeNumberToString(program.creditsByCategory.dmp),
+      }
+    : { ...INITIAL_CREDITS_BY_CATEGORY };
 
   return {
     language: normalizeProgramFormLanguage(program.language),
@@ -111,6 +130,7 @@ export function createFormStateFromProgram(
     totalCredits: safeNumberToString(program.totalCredits),
     durationBimesters: safeNumberToString(program.durationBimesters),
     isActive: program.isActive ?? true,
+    creditsByCategory,
   };
 }
 
@@ -167,8 +187,34 @@ export function validateProgramForm(
     }
   }
 
-  if (parsePositiveNumber(values.totalCredits) === null) {
-    errors.totalCredits = messages.totalCreditsPositive;
+  // For bachelor programs, validate credits by category
+  if (values.type === "bachelor") {
+    const humanitiesCredits = parseNonNegativeNumber(
+      values.creditsByCategory.humanities,
+    );
+    const coreCredits = parseNonNegativeNumber(values.creditsByCategory.core);
+    const electiveCredits = parseNonNegativeNumber(
+      values.creditsByCategory.elective,
+    );
+    const dmpCredits = parseNonNegativeNumber(values.creditsByCategory.dmp);
+
+    if (humanitiesCredits === null) {
+      errors.humanitiesCredits = messages.humanitiesCreditsPositive;
+    }
+    if (coreCredits === null) {
+      errors.coreCredits = messages.coreCreditsPositive;
+    }
+    if (electiveCredits === null) {
+      errors.electiveCredits = messages.electiveCreditsPositive;
+    }
+    if (dmpCredits === null) {
+      errors.dmpCredits = messages.dmpCreditsPositive;
+    }
+  } else {
+    // For non-bachelor programs, validate total credits directly
+    if (parsePositiveNumber(values.totalCredits) === null) {
+      errors.totalCredits = messages.totalCreditsPositive;
+    }
   }
 
   if (parsePositiveNumber(values.durationBimesters) === null) {
@@ -179,6 +225,58 @@ export function validateProgramForm(
     errors,
     isValid: Object.keys(errors).length === 0,
   };
+}
+
+function parseNonNegativeNumber(value: string): number | null {
+  const trimmed = value.trim();
+  if (trimmed === "") return null;
+  const num = Number(trimmed);
+  if (isNaN(num) || num < 0) return null;
+  return num;
+}
+
+type CreditsResult = {
+  totalCredits: number;
+  creditsByCategory?: CreditsByCategoryPayload;
+};
+
+function calculateCreditsFromFormState(
+  values: ProgramFormState,
+): CreditsResult {
+  if (values.type === "bachelor") {
+    const humanities = parseNonNegativeNumber(
+      values.creditsByCategory.humanities,
+    );
+    const core = parseNonNegativeNumber(values.creditsByCategory.core);
+    const elective = parseNonNegativeNumber(values.creditsByCategory.elective);
+    const dmp = parseNonNegativeNumber(values.creditsByCategory.dmp);
+
+    if (
+      humanities === null ||
+      core === null ||
+      elective === null ||
+      dmp === null
+    ) {
+      throw new Error("All category credits must be valid numbers");
+    }
+
+    const totalCredits = humanities + core + elective + dmp;
+    if (totalCredits <= 0) {
+      throw new Error("Total credits must be greater than 0");
+    }
+
+    return {
+      totalCredits,
+      creditsByCategory: { humanities, core, elective, dmp },
+    };
+  }
+
+  const totalCredits = parsePositiveNumber(values.totalCredits);
+  if (totalCredits === null) {
+    throw new Error("Total credits must be a positive number");
+  }
+
+  return { totalCredits };
 }
 
 export function buildProgramCreatePayload(
@@ -197,10 +295,8 @@ export function buildProgramCreatePayload(
     throw new Error("Program category is required");
   }
 
-  const totalCredits = parsePositiveNumber(values.totalCredits);
-  if (totalCredits === null) {
-    throw new Error("Total credits must be a positive number");
-  }
+  const { totalCredits, creditsByCategory } =
+    calculateCreditsFromFormState(values);
 
   const durationBimesters = parsePositiveNumber(values.durationBimesters);
   if (durationBimesters === null) {
@@ -217,6 +313,7 @@ export function buildProgramCreatePayload(
     categoryId: categoryId as Id<"program_categories">,
     totalCredits,
     durationBimesters,
+    ...(creditsByCategory ? { creditsByCategory } : {}),
     ...(showSpanishFields
       ? {
           codeEs: normalizeTextValue(values.codeEs),
@@ -251,10 +348,8 @@ export function buildProgramUpdatePayload(
     throw new Error("Program category is required");
   }
 
-  const totalCredits = parsePositiveNumber(values.totalCredits);
-  if (totalCredits === null) {
-    throw new Error("Total credits must be a positive number");
-  }
+  const { totalCredits, creditsByCategory } =
+    calculateCreditsFromFormState(values);
 
   const durationBimesters = parsePositiveNumber(values.durationBimesters);
   if (durationBimesters === null) {
@@ -273,6 +368,7 @@ export function buildProgramUpdatePayload(
     totalCredits,
     durationBimesters,
     isActive: values.isActive,
+    ...(creditsByCategory ? { creditsByCategory } : {}),
     ...(showSpanishFields
       ? {
           codeEs: normalizeTextValue(values.codeEs),
@@ -382,7 +478,7 @@ export function exportCourseTable({
     descriptionEn: course.descriptionEn,
     type: course.category,
     language: course.language,
-    totalCredits: course.credits,
+    totalCredits: course.credits ?? 0,
     isActive: course.isActive,
     createdAt: course.createdAt,
   }));

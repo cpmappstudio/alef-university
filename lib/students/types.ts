@@ -112,9 +112,17 @@ export type StudentUpdatePayload = StudentCreatePayload & {
   clerkId: string;
 };
 
+export type CreditsByCategory = {
+  humanities: number;
+  core: number;
+  elective: number;
+  dmp: number;
+};
+
 export type StudentGradeStats = {
   enrolledCredits: number;
   approvedCredits: number;
   approvedPercentage: number;
   semesterAverage: number;
+  approvedCreditsByCategory?: CreditsByCategory;
 };

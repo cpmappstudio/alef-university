@@ -741,6 +741,12 @@
             "placeholder": "Ej. 240",
             "description": "Número total de créditos requeridos para completar el programa"
           },
+          "creditsByCategory": {
+            "humanities": "Humanidades",
+            "core": "Troncales",
+            "elective": "Electivas",
+            "dmp": "DMP"
+          },
           "durationBimesters": {
             "label": "Duración (bimestres)",
             "placeholder": "Ej. 8",
@@ -784,6 +790,10 @@
             "descriptionEn": "La descripción en inglés es obligatoria.",
             "totalCredits": "Los créditos totales deben ser un número mayor que cero.",
             "durationBimesters": "La duración debe ser un número mayor que cero.",
+            "humanitiesCredits": "Los créditos de humanidades deben ser un número mayor o igual a cero.",
+            "coreCredits": "Los créditos troncales deben ser un número mayor o igual a cero.",
+            "electiveCredits": "Los créditos electivos deben ser un número mayor o igual a cero.",
+            "dmpCredits": "Los créditos DMP deben ser un número mayor o igual a cero.",
             "generic": "No se pudo crear el programa. Intenta nuevamente.",
             "codeExists": "Este código de programa ya existe (en cualquier idioma). Por favor, use un código diferente."
           },
@@ -1422,6 +1432,7 @@
           "program": "Programa",
           "status": "Estado de la cuenta",
           "approvedCredits": "Créditos aprobados",
+          "totalCredits": "Total",
           "approvedPercentage": "% Créditos aprobados",
           "average": "Promedio",
           "profileStatus": "Estado académico",

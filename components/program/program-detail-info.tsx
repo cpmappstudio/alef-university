@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import type { Doc } from "@/convex/_generated/dataModel";
 import { GraduationCap, PencilIcon, Trash2Icon } from "lucide-react";
+import { Pie, PieChart } from "recharts";
 import {
   GradientCard,
   GradientCardHeader,
@@ -13,6 +14,86 @@ import {
   GradientCardDescriptions,
   GradientCardDescriptionBlock,
 } from "@/components/ui/gradient-card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  type ChartConfig,
+} from "@/components/ui/chart";
+
+const chartConfig = {
+  credits: {
+    label: "Credits",
+  },
+  humanities: {
+    label: "Humanities",
+    color: "var(--chart-1)",
+  },
+  core: {
+    label: "Core",
+    color: "var(--chart-2)",
+  },
+  elective: {
+    label: "Electives",
+    color: "var(--chart-3)",
+  },
+  dmp: {
+    label: "DMP",
+    color: "var(--chart-4)",
+  },
+} satisfies ChartConfig;
+
+function CreditsPieChart({
+  creditsByCategory,
+}: {
+  creditsByCategory: {
+    humanities: number;
+    core: number;
+    elective: number;
+    dmp: number;
+  };
+}) {
+  const chartData = [
+    {
+      category: "humanities",
+      credits: creditsByCategory.humanities,
+      fill: "var(--color-humanities)",
+    },
+    {
+      category: "core",
+      credits: creditsByCategory.core,
+      fill: "var(--color-core)",
+    },
+    {
+      category: "elective",
+      credits: creditsByCategory.elective,
+      fill: "var(--color-elective)",
+    },
+    {
+      category: "dmp",
+      credits: creditsByCategory.dmp,
+      fill: "var(--color-dmp)",
+    },
+  ].filter((item) => item.credits > 0);
+
+  return (
+    <ChartContainer config={chartConfig} className="h-10 w-10">
+      <PieChart>
+        <ChartTooltip
+          cursor={false}
+          content={<ChartTooltipContent hideLabel />}
+        />
+        <Pie
+          data={chartData}
+          dataKey="credits"
+          nameKey="category"
+          innerRadius={8}
+          outerRadius={18}
+        />
+      </PieChart>
+    </ChartContainer>
+  );
+}
 
 interface ProgramDetailInfoProps {
   program: Doc<"programs">;
@@ -90,7 +171,16 @@ export default function ProgramDetailInfo({
           />
           <GradientCardDetailItem
             label={t("credits")}
-            value={`${program.totalCredits}`}
+            value={
+              <div className="flex items-center gap-2">
+                <span>{program.totalCredits}</span>
+                {program.type === "bachelor" && program.creditsByCategory && (
+                  <CreditsPieChart
+                    creditsByCategory={program.creditsByCategory}
+                  />
+                )}
+              </div>
+            }
           />
           <GradientCardDetailItem
             label={t("duration")}

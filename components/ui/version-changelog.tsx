@@ -19,6 +19,25 @@ import packageJson from "@/package.json";
 // Changelog data - update this when releasing new versions
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "2.0.0-alpha.7",
+    date: "2025-12-22",
+    milestoneUrl: "https://github.com/cpmappstudio/alef-university/milestone/4",
+    changes: {
+      es: [
+        "Gráficas de progreso de créditos por categoría (Humanities, Core, Elective, DMP) en el perfil del estudiante para programas de licenciatura",
+        "Distribución de créditos por categoría en la creación y edición de programas de licenciatura",
+        "Visualización de distribución de créditos por categoría en el detalle del programa",
+        "Columna de categoría en la tabla de calificaciones solo visible para programas de licenciatura",
+      ],
+      en: [
+        "Credits progress charts by category (Humanities, Core, Elective, DMP) in student profile for bachelor programs",
+        "Credits distribution by category in bachelor program creation and editing",
+        "Credits distribution visualization in program detail view",
+        "Category column in grades table only visible for bachelor programs",
+      ],
+    },
+  },
+  {
     version: "2.0.0-alpha.6",
     date: "2025-12-18",
     milestoneUrl: "https://github.com/cpmappstudio/alef-university/milestone/3",

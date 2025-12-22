@@ -312,7 +312,7 @@ export const getStudentEnrollments = query({
       .withIndex("by_student", (q) => q.eq("studentId", args.studentId))
       .collect();
 
-    // Enrich with course, bimester, class, and credits details
+    // Enrich with course, bimester, class, credits, and category details
     const enrichedEnrollments = await Promise.all(
       enrollments.map(async (enrollment) => {
         const [course, bimester, classItem] = await Promise.all([
@@ -321,8 +321,15 @@ export const getStudentEnrollments = query({
           ctx.db.get(enrollment.classId),
         ]);
 
-        // Get credits from program_courses association using class's programId
+        // Get credits and category from program_courses association using class's programId
         let credits: number | undefined = undefined;
+        let effectiveCategory:
+          | "humanities"
+          | "core"
+          | "elective"
+          | "dmp"
+          | undefined = undefined;
+
         if (classItem && classItem.programId) {
           const programCourse = await ctx.db
             .query("program_courses")
@@ -336,7 +343,15 @@ export const getStudentEnrollments = query({
 
           if (programCourse) {
             credits = programCourse.credits;
+            // Use categoryOverride if set, otherwise fall back to course's category
+            effectiveCategory =
+              programCourse.categoryOverride ?? course?.category;
           }
+        }
+
+        // Fallback to course category if no program_courses entry found
+        if (!effectiveCategory && course) {
+          effectiveCategory = course.category;
         }
 
         return {
@@ -345,6 +360,7 @@ export const getStudentEnrollments = query({
           bimester,
           class: classItem,
           credits,
+          effectiveCategory,
         };
       }),
     );

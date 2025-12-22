@@ -16,6 +16,12 @@ export type Program = {
   language?: "es" | "en" | "both";
   totalCredits?: number;
   durationBimesters?: number;
+  creditsByCategory?: {
+    humanities: number;
+    core: number;
+    elective: number;
+    dmp: number;
+  };
   tuitionPerCredit?: number | undefined;
   isActive?: boolean;
   createdAt?: number;
@@ -33,6 +39,13 @@ export type ProgramTypeOption = "diploma" | "bachelor" | "master" | "doctorate";
 export type ProgramFormLanguage = ProgramLanguageOption | "";
 export type ProgramFormType = ProgramTypeOption | "";
 
+export type CreditsByCategory = {
+  humanities: string;
+  core: string;
+  elective: string;
+  dmp: string;
+};
+
 export type ProgramFormState = {
   language: ProgramFormLanguage;
   type: ProgramFormType;
@@ -46,6 +59,7 @@ export type ProgramFormState = {
   totalCredits: string;
   durationBimesters: string;
   isActive: boolean;
+  creditsByCategory: CreditsByCategory;
 };
 
 export type ProgramFormErrorKey =
@@ -59,7 +73,11 @@ export type ProgramFormErrorKey =
   | "nameEn"
   | "descriptionEn"
   | "totalCredits"
-  | "durationBimesters";
+  | "durationBimesters"
+  | "humanitiesCredits"
+  | "coreCredits"
+  | "electiveCredits"
+  | "dmpCredits";
 
 export type ProgramFormErrors = Partial<Record<ProgramFormErrorKey, string>>;
 
@@ -75,11 +93,22 @@ export type ProgramFormValidationMessages = {
   descriptionEnRequired: string;
   totalCreditsPositive: string;
   durationBimestersPositive: string;
+  humanitiesCreditsPositive: string;
+  coreCreditsPositive: string;
+  electiveCreditsPositive: string;
+  dmpCreditsPositive: string;
 };
 
 export type ProgramFormValidationResult = {
   errors: ProgramFormErrors;
   isValid: boolean;
+};
+
+export type CreditsByCategoryPayload = {
+  humanities: number;
+  core: number;
+  elective: number;
+  dmp: number;
 };
 
 export type ProgramCreatePayload = {
@@ -96,6 +125,7 @@ export type ProgramCreatePayload = {
   durationBimesters: number;
   tuitionPerCredit?: number;
   degree?: string;
+  creditsByCategory?: CreditsByCategoryPayload;
 };
 
 export type ProgramUpdatePayload = {
@@ -114,6 +144,7 @@ export type ProgramUpdatePayload = {
   descriptionEn?: string;
   degree?: string;
   tuitionPerCredit?: number;
+  creditsByCategory?: CreditsByCategoryPayload;
 };
 
 export type ProgramFormDialogMode = "create" | "edit";

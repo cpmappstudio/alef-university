@@ -7,6 +7,7 @@ import type {
   StudentUpdatePayload,
   StudentJSONLExport,
   StudentGradeStats,
+  CreditsByCategory,
 } from "@/lib/students/types";
 import type { Doc, Id } from "@/convex/_generated/dataModel";
 import type { Translator } from "@/lib/table/types";
@@ -17,11 +18,19 @@ const PASSING_GRADE = 60;
 type GradeRow = {
   credits?: number;
   percentageGrade?: number | null;
+  effectiveCategory?: "humanities" | "core" | "elective" | "dmp";
 };
 
 export function calculateStudentGradeStats(
   grades: GradeRow[],
 ): StudentGradeStats {
+  const approvedCreditsByCategory: CreditsByCategory = {
+    humanities: 0,
+    core: 0,
+    elective: 0,
+    dmp: 0,
+  };
+
   const stats = grades.reduce(
     (acc, grade) => {
       const credits = grade.credits ?? 0;
@@ -37,6 +46,10 @@ export function calculateStudentGradeStats(
 
         if (grade.percentageGrade >= PASSING_GRADE) {
           acc.approvedCredits += credits;
+
+          if (grade.effectiveCategory) {
+            approvedCreditsByCategory[grade.effectiveCategory] += credits;
+          }
         }
       }
 
@@ -68,6 +81,7 @@ export function calculateStudentGradeStats(
     approvedCredits: stats.approvedCredits,
     approvedPercentage,
     semesterAverage,
+    approvedCreditsByCategory,
   };
 }
 

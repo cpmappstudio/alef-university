@@ -740,6 +740,12 @@
             "placeholder": "E.g. 240",
             "description": "Total number of credits required to complete the program"
           },
+          "creditsByCategory": {
+            "humanities": "Humanities",
+            "core": "Core",
+            "elective": "Electives",
+            "dmp": "DMP"
+          },
           "durationBimesters": {
             "label": "Duration (bimesters)",
             "placeholder": "E.g. 8",
@@ -783,6 +789,10 @@
             "descriptionEn": "English description is required.",
             "totalCredits": "Total credits must be a number greater than zero.",
             "durationBimesters": "Duration must be a number greater than zero.",
+            "humanitiesCredits": "Humanities credits must be a number greater than or equal to zero.",
+            "coreCredits": "Core credits must be a number greater than or equal to zero.",
+            "electiveCredits": "Elective credits must be a number greater than or equal to zero.",
+            "dmpCredits": "DMP credits must be a number greater than or equal to zero.",
             "generic": "The program could not be created. Please try again.",
             "codeExists": "This program code already exists (in any language). Please use a different code."
           },
@@ -1421,6 +1431,7 @@
           "program": "Program",
           "status": "Account status",
           "approvedCredits": "Approved credits",
+          "totalCredits": "Total",
           "approvedPercentage": "% Approved credits",
           "average": "Average",
           "profileStatus": "Enrollment status",

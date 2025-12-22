@@ -12,7 +12,7 @@ import {
 import {
   programTypeValidator,
   languageValidator,
-  courseCategoryValidator,
+  creditsByCategoryValidator,
 } from "./types";
 
 /**
@@ -330,6 +330,7 @@ export const createProgram = mutation({
     totalCredits: v.number(),
     durationBimesters: v.number(),
     tuitionPerCredit: v.optional(v.number()),
+    creditsByCategory: v.optional(creditsByCategoryValidator),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -430,6 +431,7 @@ export const createProgram = mutation({
       language: args.language,
       totalCredits: args.totalCredits,
       durationBimesters: args.durationBimesters,
+      creditsByCategory: args.creditsByCategory,
       tuitionPerCredit: args.tuitionPerCredit,
       isActive: true,
       createdAt: Date.now(),
@@ -569,6 +571,7 @@ export const updateProgram = mutation({
     durationBimesters: v.number(),
     tuitionPerCredit: v.optional(v.number()),
     isActive: v.boolean(),
+    creditsByCategory: v.optional(creditsByCategoryValidator),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -677,6 +680,7 @@ export const updateProgram = mutation({
       type: updates.type,
       totalCredits: updates.totalCredits,
       durationBimesters: updates.durationBimesters,
+      creditsByCategory: args.creditsByCategory,
       tuitionPerCredit: updates.tuitionPerCredit,
       isActive: updates.isActive,
     };

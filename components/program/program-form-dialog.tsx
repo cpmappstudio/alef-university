@@ -14,6 +14,7 @@ import { useDialogState } from "@/hooks/use-dialog-state";
 /* lib */
 import { api } from "@/convex/_generated/api";
 import {
+  CreditsByCategory,
   ProgramFormDialogProps,
   ProgramFormState,
   ProgramFormValidationMessages,
@@ -129,6 +130,32 @@ export default function ProgramFormDialog({
   const handleSelectChange = (field: "language" | "type" | "categoryId") =>
     selectChangeHandler(field);
 
+  const handleCategoryCreditsChange =
+    (field: keyof CreditsByCategory) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      setFormState((prev) => ({
+        ...prev,
+        creditsByCategory: {
+          ...prev.creditsByCategory,
+          [field]: value,
+        },
+      }));
+    };
+
+  const isBachelor = formState.type === "bachelor";
+
+  const calculatedTotalCredits = React.useMemo(() => {
+    if (!isBachelor) return 0;
+    const { humanities, core, elective, dmp } = formState.creditsByCategory;
+    const sum =
+      (parseInt(humanities) || 0) +
+      (parseInt(core) || 0) +
+      (parseInt(elective) || 0) +
+      (parseInt(dmp) || 0);
+    return sum;
+  }, [isBachelor, formState.creditsByCategory]);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setFormError(null);
@@ -162,6 +189,10 @@ export default function ProgramFormDialog({
       descriptionEnRequired: t("messages.errors.descriptionEn"),
       totalCreditsPositive: t("messages.errors.totalCredits"),
       durationBimestersPositive: t("messages.errors.durationBimesters"),
+      humanitiesCreditsPositive: t("messages.errors.humanitiesCredits"),
+      coreCreditsPositive: t("messages.errors.coreCredits"),
+      electiveCreditsPositive: t("messages.errors.electiveCredits"),
+      dmpCreditsPositive: t("messages.errors.dmpCredits"),
     };
 
     const validation = validateProgramForm(formState, validationMessages);
@@ -344,21 +375,86 @@ export default function ProgramFormDialog({
             <FieldSeparator />
             <FieldSet>
               <FieldGroup>
-                <Field>
-                  <FieldLabel htmlFor="program-total-credits">
-                    {t("fields.totalCredits.label")} *
-                  </FieldLabel>
-                  <Input
-                    id="program-total-credits"
-                    value={formState.totalCredits}
-                    onChange={handleInputChange("totalCredits")}
-                    placeholder={t("fields.totalCredits.placeholder")}
-                    inputMode="numeric"
-                  />
-                  <FieldDescription className="text-muted-foreground text-sm">
-                    {t("fields.totalCredits.description")}
-                  </FieldDescription>
-                </Field>
+                {isBachelor ? (
+                  <>
+                    <div className="grid grid-cols-2 gap-4">
+                      <Field>
+                        <FieldLabel htmlFor="program-humanities-credits">
+                          {t("fields.creditsByCategory.humanities")} *
+                        </FieldLabel>
+                        <Input
+                          id="program-humanities-credits"
+                          type="number"
+                          min="0"
+                          value={formState.creditsByCategory.humanities}
+                          onChange={handleCategoryCreditsChange("humanities")}
+                          placeholder="0"
+                        />
+                      </Field>
+                      <Field>
+                        <FieldLabel htmlFor="program-core-credits">
+                          {t("fields.creditsByCategory.core")} *
+                        </FieldLabel>
+                        <Input
+                          id="program-core-credits"
+                          type="number"
+                          min="0"
+                          value={formState.creditsByCategory.core}
+                          onChange={handleCategoryCreditsChange("core")}
+                          placeholder="0"
+                        />
+                      </Field>
+                      <Field>
+                        <FieldLabel htmlFor="program-elective-credits">
+                          {t("fields.creditsByCategory.elective")} *
+                        </FieldLabel>
+                        <Input
+                          id="program-elective-credits"
+                          type="number"
+                          min="0"
+                          value={formState.creditsByCategory.elective}
+                          onChange={handleCategoryCreditsChange("elective")}
+                          placeholder="0"
+                        />
+                      </Field>
+                      <Field>
+                        <FieldLabel htmlFor="program-dmp-credits">
+                          {t("fields.creditsByCategory.dmp")} *
+                        </FieldLabel>
+                        <Input
+                          id="program-dmp-credits"
+                          type="number"
+                          min="0"
+                          value={formState.creditsByCategory.dmp}
+                          onChange={handleCategoryCreditsChange("dmp")}
+                          placeholder="0"
+                        />
+                      </Field>
+                    </div>
+                    <Field>
+                      <FieldLabel>{t("fields.totalCredits.label")}</FieldLabel>
+                      <div className="text-2xl font-bold text-primary">
+                        {calculatedTotalCredits}
+                      </div>
+                    </Field>
+                  </>
+                ) : (
+                  <Field>
+                    <FieldLabel htmlFor="program-total-credits">
+                      {t("fields.totalCredits.label")} *
+                    </FieldLabel>
+                    <Input
+                      id="program-total-credits"
+                      value={formState.totalCredits}
+                      onChange={handleInputChange("totalCredits")}
+                      placeholder={t("fields.totalCredits.placeholder")}
+                      inputMode="numeric"
+                    />
+                    <FieldDescription className="text-muted-foreground text-sm">
+                      {t("fields.totalCredits.description")}
+                    </FieldDescription>
+                  </Field>
+                )}
                 <Field>
                   <FieldLabel htmlFor="program-duration">
                     {t("fields.durationBimesters.label")} *

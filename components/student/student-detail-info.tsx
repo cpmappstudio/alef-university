@@ -4,7 +4,13 @@ import * as React from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import type { Doc } from "@/convex/_generated/dataModel";
-import { GraduationCap, PencilIcon, Trash2Icon, UserRound } from "lucide-react";
+import {
+  ChevronDown,
+  GraduationCap,
+  PencilIcon,
+  Trash2Icon,
+  UserRound,
+} from "lucide-react";
 import Link from "next/link";
 import { PolarAngleAxis, RadialBar, RadialBarChart } from "recharts";
 import {
@@ -14,8 +20,22 @@ import {
   GradientCardDetailItem,
   GradientCardHeader,
 } from "@/components/ui/gradient-card";
-import { ChartContainer, type ChartConfig } from "@/components/ui/chart";
-import type { StudentDocument, StudentGradeStats } from "@/lib/students/types";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  type ChartConfig,
+} from "@/components/ui/chart";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import type {
+  StudentDocument,
+  StudentGradeStats,
+  CreditsByCategory,
+} from "@/lib/students/types";
 import { ROUTES } from "@/lib/routes";
 
 const chartConfig = {
@@ -25,32 +45,143 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+const categoryColors = {
+  humanities: "#f97316",
+  core: "#22c55e",
+  elective: "#3b82f6",
+  dmp: "#a855f7",
+} as const;
+
 function CreditsProgressChart({
   approved,
   total,
+  color = "#22c55e",
+  size = "normal",
+  label,
 }: {
   approved: number;
   total: number;
+  color?: string;
+  size?: "normal" | "small";
+  label?: string;
 }) {
-  const percentage = Math.min((approved / total) * 100, 100);
+  const percentage = total > 0 ? Math.min((approved / total) * 100, 100) : 0;
 
-  const chartData = [{ name: "approved", value: percentage, fill: "#22c55e" }];
+  const chartData = [{ name: "approved", value: percentage, fill: color }];
+
+  const isSmall = size === "small";
+  const containerClass = isSmall ? "h-6 w-6" : "h-8 w-8";
+  const innerRadius = isSmall ? 6 : 10;
+  const outerRadius = isSmall ? 12 : 16;
+  const showTooltip = !!label && isSmall;
 
   return (
-    <ChartContainer config={chartConfig} className="h-8 w-8">
+    <ChartContainer config={chartConfig} className={containerClass}>
       <RadialBarChart
         data={chartData}
         startAngle={90}
         endAngle={-270}
-        innerRadius={10}
-        outerRadius={16}
+        innerRadius={innerRadius}
+        outerRadius={outerRadius}
         cx="50%"
         cy="50%"
       >
         <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
-        <RadialBar dataKey="value" background cornerRadius={4} />
+        {showTooltip && (
+          <ChartTooltip
+            cursor={false}
+            wrapperStyle={{ zIndex: 1000 }}
+            content={
+              <ChartTooltipContent
+                hideLabel
+                formatter={() => (
+                  <div className="flex items-center gap-1">
+                    <span className="text-muted-foreground">{label}</span>
+                    <span className="text-foreground font-mono font-medium tabular-nums">
+                      {approved}/{total}
+                    </span>
+                  </div>
+                )}
+              />
+            }
+          />
+        )}
+        <RadialBar dataKey="value" background cornerRadius={isSmall ? 2 : 4} />
       </RadialBarChart>
     </ChartContainer>
+  );
+}
+
+function CategoryCreditsPopover({
+  approvedByCategory,
+  requiredByCategory,
+  categoryLabels,
+  totalApproved,
+  totalRequired,
+}: {
+  approvedByCategory: CreditsByCategory;
+  requiredByCategory: CreditsByCategory;
+  categoryLabels: Record<string, string>;
+  totalApproved: number;
+  totalRequired: number;
+}) {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const categories = [
+    { key: "humanities" as const, color: categoryColors.humanities },
+    { key: "core" as const, color: categoryColors.core },
+    { key: "elective" as const, color: categoryColors.elective },
+    { key: "dmp" as const, color: categoryColors.dmp },
+  ].filter((cat) => requiredByCategory[cat.key] > 0);
+
+  return (
+    <div className="flex items-center gap-1">
+      <span>
+        {totalApproved}/{totalRequired}
+      </span>
+      {totalRequired > 0 && (
+        <CreditsProgressChart approved={totalApproved} total={totalRequired} />
+      )}
+      <Popover open={isOpen} onOpenChange={setIsOpen}>
+        <PopoverTrigger asChild>
+          <button
+            type="button"
+            className="text-white/70 hover:text-white transition-colors p-0.5 cursor-pointer"
+          >
+            <ChevronDown
+              className={`h-4 w-4 transition-transform duration-200 ${
+                isOpen ? "rotate-180" : ""
+              }`}
+            />
+          </button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-3" align="start">
+          <div className="flex flex-col gap-2">
+            {categories.map((cat) => (
+              <div
+                key={cat.key}
+                className="flex items-center justify-between gap-4"
+              >
+                <span className="text-muted-foreground text-sm">
+                  {categoryLabels[cat.key]}
+                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-foreground font-mono text-sm font-medium tabular-nums">
+                    {approvedByCategory[cat.key]}/{requiredByCategory[cat.key]}
+                  </span>
+                  <CreditsProgressChart
+                    approved={approvedByCategory[cat.key]}
+                    total={requiredByCategory[cat.key]}
+                    color={cat.color}
+                    size="small"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </PopoverContent>
+      </Popover>
+    </div>
   );
 }
 
@@ -75,7 +206,15 @@ export function StudentDetailInfo({
 }: StudentDetailInfoProps) {
   const t = useTranslations("admin.students.detail");
   const tTable = useTranslations("admin.students.table");
+  const tCategories = useTranslations("admin.courses.form.options.categories");
   const locale = useLocale();
+
+  const categoryLabels = {
+    humanities: tCategories("humanities"),
+    core: tCategories("core"),
+    elective: tCategories("elective"),
+    dmp: tCategories("dmp"),
+  };
 
   const fullName = `${student.firstName ?? ""} ${student.lastName ?? ""}`
     .trim()
@@ -183,18 +322,30 @@ export function StudentDetailInfo({
               <GradientCardDetailItem
                 label={t("info.approvedCredits")}
                 value={
-                  <div className="flex items-center gap-2">
-                    <span>
-                      {gradeStats.approvedCredits}/
-                      {program?.totalCredits ?? "—"}
-                    </span>
-                    {program?.totalCredits && program.totalCredits > 0 && (
-                      <CreditsProgressChart
-                        approved={gradeStats.approvedCredits}
-                        total={program.totalCredits}
-                      />
-                    )}
-                  </div>
+                  program?.type === "bachelor" &&
+                  program.creditsByCategory &&
+                  gradeStats.approvedCreditsByCategory ? (
+                    <CategoryCreditsPopover
+                      approvedByCategory={gradeStats.approvedCreditsByCategory}
+                      requiredByCategory={program.creditsByCategory}
+                      categoryLabels={categoryLabels}
+                      totalApproved={gradeStats.approvedCredits}
+                      totalRequired={program.totalCredits ?? 0}
+                    />
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <span>
+                        {gradeStats.approvedCredits}/
+                        {program?.totalCredits ?? "—"}
+                      </span>
+                      {program?.totalCredits && program.totalCredits > 0 && (
+                        <CreditsProgressChart
+                          approved={gradeStats.approvedCredits}
+                          total={program.totalCredits}
+                        />
+                      )}
+                    </div>
+                  )
                 }
               />
               <GradientCardDetailItem
