@@ -28,6 +28,7 @@ interface ExportStudentGradesPDFOptions {
     email?: string;
   };
   programName?: string;
+  programTotalCredits?: number;
   grades: StudentGradeRow[];
   locale: string;
   translations: {
@@ -69,6 +70,7 @@ const getLocalizedValue = (
 export function exportStudentGradesToPDF({
   student,
   programName,
+  programTotalCredits,
   grades,
   locale,
   translations,
@@ -95,20 +97,20 @@ export function exportStudentGradesToPDF({
     const course = grade.course;
     const code = course
       ? getLocalizedValue(
-        course.codeEs,
-        course.codeEn,
-        locale,
-        translations.emptyValue,
-      )
+          course.codeEs,
+          course.codeEn,
+          locale,
+          translations.emptyValue,
+        )
       : translations.emptyValue;
 
     const name = course
       ? getLocalizedValue(
-        course.nameEs,
-        course.nameEn,
-        locale,
-        translations.emptyValue,
-      )
+          course.nameEs,
+          course.nameEn,
+          locale,
+          translations.emptyValue,
+        )
       : translations.emptyValue;
 
     const credits =
@@ -138,12 +140,8 @@ export function exportStudentGradesToPDF({
   ];
 
   // Footer row with grade summary - single cell with stacked content
-  const summaryText = [
-    `${translations.enrolledCredits}: ${stats.enrolledCredits}`,
-    `${translations.approvedCredits}: ${stats.approvedCredits}`,
-    `${translations.approvedPercentage}: ${stats.approvedPercentage}%`,
-    `${translations.semesterAverage}: ${stats.semesterAverage}%`,
-  ].join("   •   ");
+  const approvedSummary = `${translations.approvedCredits}: ${stats.approvedCredits}/${programTotalCredits ?? stats.enrolledCredits}`;
+  const summaryText = `${approvedSummary} • ${translations.semesterAverage}: ${stats.semesterAverage}%`;
 
   const footerData = [
     [{ content: summaryText, colSpan: 5, styles: { halign: "left" } }],

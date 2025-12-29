@@ -113,6 +113,7 @@ export function StudentDetailClient({
             ? program.nameEs || program.nameEn
             : program.nameEn || program.nameEs
           : undefined,
+        programTotalCredits: program?.totalCredits ?? undefined,
         grades: mappedGrades,
         locale,
         translations: exportTranslations,
