@@ -19,6 +19,21 @@ import packageJson from "@/package.json";
 // Changelog data - update this when releasing new versions
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "2.0.0-alpha.8",
+    date: "2026-01-23",
+    milestoneUrl: "https://github.com/cpmappstudio/alef-university/milestone/5",
+    changes: {
+      es: [
+        "Corrección: los créditos totales del programa ya no se sobrescriben al añadir/quitar cursos",
+        "Corrección: la actualización de notas ahora usa los créditos correctos desde la asociación programa-curso",
+      ],
+      en: [
+        "Fix: program total credits no longer overwritten when adding/removing courses",
+        "Fix: grade updates now use correct credits from program-course association",
+      ],
+    },
+  },
+  {
     version: "2.0.0-alpha.7",
     date: "2025-12-22",
     milestoneUrl: "https://github.com/cpmappstudio/alef-university/milestone/4",

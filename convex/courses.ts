@@ -511,24 +511,6 @@ export const updateCourse = mutation({
 
     await ctx.db.patch(args.courseId, updateData);
 
-    // If credits changed, recalculate total credits for all programs using this course
-    if (args.credits !== undefined && args.credits !== course.credits) {
-      const programCourses = await ctx.db
-        .query("program_courses")
-        .withIndex("by_course", (q) => q.eq("courseId", args.courseId))
-        .collect();
-
-      for (const pc of programCourses) {
-        await ctx.scheduler.runAfter(
-          0,
-          internal.programs.internalRecalculateProgramCredits,
-          {
-            programId: pc.programId,
-          },
-        );
-      }
-    }
-
     return { message: "Course updated successfully" };
   },
 });
@@ -1134,15 +1116,6 @@ export const addCourseToProgram = mutation({
       createdAt: Date.now(),
     });
 
-    // Recalculate total credits for the program
-    await ctx.scheduler.runAfter(
-      0,
-      internal.programs.internalRecalculateProgramCredits,
-      {
-        programId: args.programId,
-      },
-    );
-
     return associationId;
   },
 });
@@ -1185,15 +1158,6 @@ export const internalAddCourseToProgram = internalMutation({
       isActive: true,
       createdAt: Date.now(),
     });
-
-    // Recalculate total credits for the program
-    await ctx.scheduler.runAfter(
-      0,
-      internal.programs.internalRecalculateProgramCredits,
-      {
-        programId: args.programId,
-      },
-    );
 
     return associationId;
   },
@@ -1251,17 +1215,6 @@ export const updateCourseInProgram = mutation({
 
     await ctx.db.patch(association._id, updateData);
 
-    // Recalculate total credits for the program if credits changed
-    if (args.credits !== undefined) {
-      await ctx.scheduler.runAfter(
-        0,
-        internal.programs.internalRecalculateProgramCredits,
-        {
-          programId: args.programId,
-        },
-      );
-    }
-
     return {
       message: "Course association updated successfully",
     };
@@ -1299,15 +1252,6 @@ export const removeCourseFromProgram = mutation({
     }
 
     await ctx.db.delete(association._id);
-
-    // Recalculate total credits for the program
-    await ctx.scheduler.runAfter(
-      0,
-      internal.programs.internalRecalculateProgramCredits,
-      {
-        programId: args.programId,
-      },
-    );
 
     return {
       message: "Course removed from program successfully",

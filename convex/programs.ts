@@ -3,7 +3,6 @@
 import { query, mutation, internalMutation } from "./_generated/server";
 import { v, ConvexError } from "convex/values";
 import type { Doc, Id } from "./_generated/dataModel";
-import type { DatabaseReader, DatabaseWriter } from "./_generated/server";
 import {
   getUserByClerkId,
   getProgramCourses,
@@ -1173,50 +1172,5 @@ export const deleteProgram = mutation({
     // Delete the program itself
     await ctx.db.delete(args.programId);
     return { success: true };
-  },
-});
-
-/**
- * Internal function to recalculate total credits for a program
- * based on associated courses
- */
-async function recalculateProgramCredits(
-  db: DatabaseReader & DatabaseWriter,
-  programId: Id<"programs">,
-): Promise<number> {
-  // Get all active courses associated with this program
-  const programCourses = await db
-    .query("program_courses")
-    .withIndex("by_program_course", (q) => q.eq("programId", programId))
-    .collect();
-
-  // Get the course details and sum up credits
-  let totalCredits = 0;
-  for (const pc of programCourses) {
-    if (pc.isActive) {
-      const course = await db.get(pc.courseId);
-      if (course && course.isActive) {
-        // Credits are now defined per program, not per course
-        totalCredits += pc.credits;
-      }
-    }
-  }
-
-  // Update the program with the new total credits
-  await db.patch(programId, { totalCredits });
-
-  return totalCredits;
-}
-
-/**
- * Internal mutation to recalculate program credits
- * This can be called from other mutations
- */
-export const internalRecalculateProgramCredits = internalMutation({
-  args: {
-    programId: v.id("programs"),
-  },
-  handler: async (ctx, args) => {
-    return await recalculateProgramCredits(ctx.db, args.programId);
   },
 });
