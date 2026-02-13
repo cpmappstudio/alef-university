@@ -9,6 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
 
 interface GradientCardProps {
   children?: React.ReactNode;
@@ -102,10 +107,25 @@ export function GradientCardDetailItem({
   label,
   value,
 }: GradientCardDetailItemProps) {
+  const isStringValue = typeof value === "string";
+
   return (
-    <div>
+    <div className="min-w-0">
       <div className="text-sm font-medium text-white/70">{label}</div>
-      <div className="text-base font-semibold">{value}</div>
+      {isStringValue ? (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="text-base font-semibold truncate">{value}</div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{value}</p>
+          </TooltipContent>
+        </Tooltip>
+      ) : (
+        <div className="text-base font-semibold min-w-0 overflow-hidden">
+          {value}
+        </div>
+      )}
     </div>
   );
 }
