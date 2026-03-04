@@ -361,32 +361,36 @@ async function lookupGoogleBooksByIsbn(
   timeoutMs: number,
   apiKey?: string,
 ): Promise<MetadataCandidate[]> {
-  const candidates: MetadataCandidate[] = [];
+  const candidateBatches = await Promise.all(
+    isbns.map(async (isbn) => {
+      const query = `isbn:${isbn}`;
+      const volumes = await lookupGoogleBooksByQuery(query, timeoutMs, apiKey);
+      if (volumes.length === 0) {
+        return null;
+      }
 
-  for (const isbn of isbns) {
-    const query = `isbn:${isbn}`;
-    const volumes = await lookupGoogleBooksByQuery(query, timeoutMs, apiKey);
-    if (volumes.length === 0) {
-      continue;
-    }
+      const metadata = metadataFromGoogleVolume(volumes[0]);
+      if (!metadata.isbn13 && isbn.length === 13) {
+        metadata.isbn13 = isbn;
+      }
+      if (!metadata.isbn10 && isbn.length === 10) {
+        metadata.isbn10 = isbn;
+      }
 
-    const metadata = metadataFromGoogleVolume(volumes[0]);
-    if (!metadata.isbn13 && isbn.length === 13) {
-      metadata.isbn13 = isbn;
-    }
-    if (!metadata.isbn10 && isbn.length === 10) {
-      metadata.isbn10 = isbn;
-    }
+      const candidate: MetadataCandidate = {
+        source: "google_books",
+        matchedBy: "isbn",
+        confidence: 0.94,
+        metadata,
+      };
 
-    candidates.push({
-      source: "google_books",
-      matchedBy: "isbn",
-      confidence: 0.94,
-      metadata,
-    });
-  }
+      return candidate;
+    }),
+  );
 
-  return candidates;
+  return candidateBatches.filter((candidate): candidate is MetadataCandidate =>
+    Boolean(candidate),
+  );
 }
 
 async function searchGoogleBooksByQuery(
@@ -432,20 +436,21 @@ export async function lookupCatalogMetadata(
   args: CatalogLookupArgs,
 ): Promise<MetadataCandidate[]> {
   const timeoutMs = args.timeoutMs ?? 9000;
-  const tasks: Array<Promise<MetadataCandidate[]>> = [];
+  const isbnTasks: Array<Promise<MetadataCandidate[]>> = [];
+  const queryTasks: Array<Promise<MetadataCandidate[]>> = [];
   const title = args.title ? normalizeWhitespace(args.title) : undefined;
   const author = args.author ? normalizeWhitespace(args.author) : undefined;
 
   if (args.includeOpenLibrary) {
-    tasks.push(lookupOpenLibraryByIsbn(args.isbns, timeoutMs));
-    tasks.push(searchOpenLibraryByQuery(title, author, timeoutMs));
+    isbnTasks.push(lookupOpenLibraryByIsbn(args.isbns, timeoutMs));
+    queryTasks.push(searchOpenLibraryByQuery(title, author, timeoutMs));
   }
 
   if (args.includeGoogleBooks) {
-    tasks.push(
+    isbnTasks.push(
       lookupGoogleBooksByIsbn(args.isbns, timeoutMs, args.googleBooksApiKey),
     );
-    tasks.push(
+    queryTasks.push(
       searchGoogleBooksByQuery(
         title,
         author,
@@ -455,6 +460,12 @@ export async function lookupCatalogMetadata(
     );
   }
 
-  const batches = await Promise.all(tasks);
-  return batches.flat();
+  const isbnBatches = await Promise.all(isbnTasks);
+  const isbnCandidates = isbnBatches.flat();
+  if (isbnCandidates.length > 0) {
+    return isbnCandidates;
+  }
+
+  const queryBatches = await Promise.all(queryTasks);
+  return queryBatches.flat();
 }

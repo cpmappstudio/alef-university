@@ -50,6 +50,34 @@ function removeContextWindowWarnings(warnings: string[]): string[] {
   );
 }
 
+function hasNonIsbnMetadata(candidate: MetadataCandidate): boolean {
+  const metadata = candidate.metadata;
+
+  return Boolean(
+    metadata.title ||
+      metadata.subtitle ||
+      metadata.authors?.length ||
+      metadata.publishers?.length ||
+      metadata.publishedYear ||
+      metadata.edition ||
+      metadata.abstract ||
+      metadata.language ||
+      metadata.categories?.length,
+  );
+}
+
+function hasUsableIsbnCatalogMatch(
+  catalogCandidates: MetadataCandidate[],
+): boolean {
+  return catalogCandidates.some(
+    (candidate) =>
+      candidate.matchedBy === "isbn" &&
+      (candidate.source === "openlibrary" ||
+        candidate.source === "google_books") &&
+      hasNonIsbnMetadata(candidate),
+  );
+}
+
 function defaultOptions(
   options?: MetadataExtractionPipelineOptions,
 ): Required<MetadataExtractionPipelineOptions> {
@@ -104,6 +132,10 @@ export async function extractBookMetadataFromPdf(args: {
   });
 
   if (!resolvedOptions.includeOpenAI || preliminaryResult.status === "ok") {
+    return preliminaryResult;
+  }
+
+  if (hasUsableIsbnCatalogMatch(catalogCandidates)) {
     return preliminaryResult;
   }
 
