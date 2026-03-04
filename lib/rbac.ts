@@ -30,6 +30,11 @@ const PROFESSOR_ALLOWED_ROUTES = createRouteMatcher([
   ROUTES.settings.root.path + "(.*)",
 ]);
 
+const LIBRARY_ALLOWED_ROUTES = createRouteMatcher([
+  "/:locale" + ROUTES.library.root.path + "(.*)",
+  ROUTES.library.root.path + "(.*)",
+]);
+
 // Routes that must stay hidden from students.
 const ROUTE_RESTRICTIONS: RouteRestriction[] = [
   {
@@ -95,18 +100,27 @@ const asUserRole = (value: unknown): UserRole | null => {
   return null;
 };
 
+const getRoleFromMetadata = (metadata: unknown): UserRole | null => {
+  if (!metadata || typeof metadata !== "object") {
+    return null;
+  }
+
+  const roleCandidate = (metadata as Record<string, unknown>).role;
+  return asUserRole(roleCandidate);
+};
+
 export function resolveRoleFromClaims(
   claims: Record<string, unknown> | null | undefined,
 ): UserRole | null {
   if (!claims) return null;
 
-  const typedClaims = claims as Record<string, any>;
+  const typedClaims = claims as Record<string, unknown>;
 
   return (
     asUserRole(typedClaims.orgRole) ??
-    asUserRole(typedClaims.publicMetadata?.role) ??
-    asUserRole(typedClaims.privateMetadata?.role) ??
-    asUserRole(typedClaims.metadata?.role) ??
+    getRoleFromMetadata(typedClaims.publicMetadata) ??
+    getRoleFromMetadata(typedClaims.privateMetadata) ??
+    getRoleFromMetadata(typedClaims.metadata) ??
     null
   );
 }
@@ -182,6 +196,10 @@ export function checkRoleAccess(
       return "denied";
     }
 
+    if (LIBRARY_ALLOWED_ROUTES(req)) {
+      return "allowed";
+    }
+
     // Check if accessing a student profile route
     if (STUDENT_ALLOWED_ROUTES(req)) {
       // Extract studentId from URL
@@ -219,6 +237,10 @@ export function checkRoleAccess(
     // Deny access to academic management settings
     if (req.nextUrl.pathname.includes(ROUTES.settings.root.path)) {
       return "denied";
+    }
+
+    if (LIBRARY_ALLOWED_ROUTES(req)) {
+      return "allowed";
     }
 
     // Check if accessing a professor profile route

@@ -2,7 +2,7 @@
  * Script to convert courses.xlsx to courses.jsonl
  *
  * Usage:
- *   npx tsx scripts/excel-to-jsonl.ts
+ *   pnpm exec tsx scripts/excel-to-jsonl.ts
  *
  * Input: public/data/courses.xlsx
  * Output: public/data/courses.jsonl

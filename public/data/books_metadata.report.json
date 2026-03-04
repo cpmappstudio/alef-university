@@ -1,0 +1,49 @@
+{
+  "generatedAt": "2026-03-04T15:24:47.416Z",
+  "config": {
+    "inputDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/sample",
+    "outputFile": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/data/books_metadata.jsonl",
+    "reportFile": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/data/books_metadata.report.json",
+    "concurrency": 4,
+    "timeoutMs": 9000,
+    "includeCatalog": true,
+    "includeOpenLibrary": true,
+    "includeGoogleBooks": true,
+    "includeOpenAI": true,
+    "openAIModel": "gpt-4.1-mini",
+    "openAITimeoutMs": 180000,
+    "dryRun": false,
+    "maxFiles": 7
+  },
+  "totalFiles": 7,
+  "processed": 7,
+  "ok": 5,
+  "needsReview": 2,
+  "failed": 0,
+  "averageConfidence": 0.8931142857142856,
+  "topReviewCandidates": [
+    {
+      "fileName": "Albright_Reviewed.pdf",
+      "status": "needs_review",
+      "confidence": 0.8019999999999999,
+      "missingFields": [],
+      "warnings": [
+        "No valid ISBN found in PDF binary content.",
+        "OpenAI input sampled to 12 pages from 13 total pages.",
+        "OpenAI note: The metadata is extracted directly from the textual content and contextual clues within the review. Specific details such as ISBN and edition are not available in the provided content."
+      ]
+    },
+    {
+      "fileName": "Diez de Velasco.pdf",
+      "status": "needs_review",
+      "confidence": 0.9849999999999999,
+      "missingFields": [],
+      "warnings": [
+        "No authors found in filename or PDF info dictionary.",
+        "No valid ISBN found in PDF binary content.",
+        "OpenAI input sampled to 12 pages from 1208 total pages.",
+        "OpenAI note: La información fue extraída de las páginas proporcionadas, particularmente en las páginas 3, 5, 6 y 10. Contiene referencias bibliográficas y datos legales como ISBN y depósito legal."
+      ]
+    }
+  ]
+}

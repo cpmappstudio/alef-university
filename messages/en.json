@@ -39,6 +39,7 @@
     "academicAdmin": "Academic Administration",
     "personalAdmin": "Personal Administration",
     "adminDocs": "Documentation",
+    "library": "Library",
     "menu": {
       "profile": {
         "title": "My Account",
@@ -145,6 +146,20 @@
           {
             "title": "System Guides",
             "url": "/docs/admin/guides"
+          }
+        ]
+      },
+      "library": {
+        "title": "Library",
+        "url": "/library",
+        "items": [
+          {
+            "title": "My Books",
+            "url": "/library/my-books"
+          },
+          {
+            "title": "All Books",
+            "url": "/library/all-books"
           }
         ]
       }
@@ -476,6 +491,180 @@
       "newerPeriod": "Newer Period",
       "olderPeriod": "Older Period",
       "periodInfo": "Period {current} of {total}"
+    }
+  },
+  "library": {
+    "allBooks": {
+      "emptyMessage": "No books found for the selected filters."
+    },
+    "myBooks": {
+      "emptyMessage": "No books in your personal shelf yet."
+    },
+    "grid": {
+      "searchPlaceholder": "Search by title, author, ISBN or category...",
+      "results": "{count, plural, =0 {No books} one {# book} other {# books}}",
+      "unknownAuthor": "Unknown author",
+      "openBook": "Open book",
+      "viewDetails": "View details",
+      "favoriteOn": "Remove from My Books",
+      "favoriteOff": "Save to My Books",
+      "favoriteError": "Unable to update My Books."
+    },
+    "filters": {
+      "title": "Filters",
+      "status": "Status",
+      "language": "Language",
+      "category": "Category",
+      "statusValues": {
+        "ok": "Ready",
+        "needs_review": "Needs review",
+        "failed": "Failed"
+      },
+      "languageValues": {
+        "es": "Spanish",
+        "en": "English"
+      }
+    },
+    "detail": {
+      "loading": "Loading book details...",
+      "unknown": "—",
+      "edit": "Edit",
+      "delete": "Delete",
+      "openPdf": "Open PDF",
+      "clickCoverToOpen": "Click the cover to open the PDF.",
+      "pdfUnavailable": "PDF preview is not available.",
+      "warningsTitle": "Extraction warnings",
+      "statusValues": {
+        "ok": "Ready",
+        "needs_review": "Needs review",
+        "failed": "Failed"
+      },
+      "fields": {
+        "title": "Title",
+        "subtitle": "Subtitle",
+        "authors": "Authors",
+        "publishers": "Publisher(s)",
+        "publishedYear": "Year",
+        "edition": "Edition",
+        "language": "Language",
+        "languagePlaceholder": "Select language",
+        "status": "Status",
+        "confidence": "Confidence",
+        "categories": "Categories",
+        "isbn10": "ISBN-10",
+        "isbn13": "ISBN-13",
+        "file": "File",
+        "fileSize": "File size",
+        "createdAt": "Created at",
+        "updatedAt": "Updated at",
+        "abstract": "Abstract"
+      },
+      "editDialog": {
+        "title": "Edit library book",
+        "description": "Update this book metadata and save your changes.",
+        "commaSeparated": "Comma-separated",
+        "pdfLabel": "PDF file",
+        "pdfCurrent": "Current file: {fileName}",
+        "pdfSelected": "Replacement selected: {fileName}",
+        "clearSelectedPdf": "Keep current PDF",
+        "pdfInvalidType": "Only PDF files (.pdf) are allowed.",
+        "uploadError": "Unable to upload replacement PDF.",
+        "cancel": "Cancel",
+        "save": "Save changes",
+        "saving": "Saving...",
+        "success": "Book updated successfully.",
+        "error": "Unable to update the book."
+      },
+      "deleteDialog": {
+        "title": "Delete book",
+        "description": "Are you sure you want to delete \"{bookTitle}\"?",
+        "warning": "Warning",
+        "fileInfo": "File: {fileName}",
+        "pdfInfo": "The uploaded PDF file and all extracted metadata will be removed.",
+        "irreversible": "This action cannot be undone.",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "deleting": "Deleting...",
+        "success": "Book deleted successfully.",
+        "error": "Unable to delete the book."
+      },
+      "related": {
+        "title": "Related books",
+        "description": "Books with similar categories you might find useful.",
+        "loading": "Loading related books...",
+        "empty": "No related books found yet."
+      }
+    },
+    "actions": {
+      "importMetadata": "Upload books",
+      "dialogTitle": "Upload library books",
+      "dialogDescription": "Upload one or more PDFs to extract metadata automatically, review it, and save books.",
+      "aiAssistance": {
+        "label": "AI assistance",
+        "enabledHint": "Metadata is extracted automatically and fields are prefilled.",
+        "disabledHint": "No automatic metadata extraction. Only the PDF is uploaded."
+      },
+      "pdfLabel": "PDF files",
+      "pdfHint": "Metadata extraction starts automatically after selecting a file.",
+      "pdfHintAiEnabled": "Metadata extraction starts automatically after selecting files.",
+      "pdfHintAiDisabled": "Only PDFs are uploaded. You can complete metadata manually if needed.",
+      "selectedFiles": "{count, plural, one {# file selected} other {# files selected}}",
+      "noFilesSelected": "Select one or more PDF files to start.",
+      "duplicateSkipped": "{count, plural, one {1 duplicate file was skipped.} other {# duplicate files were skipped.}}",
+      "bookNumber": "Book {index}",
+      "extracting": "Extracting metadata...",
+      "extractingPhases": {
+        "analyzing": "Phase 1/4: Analyzing cover and first pages",
+        "catalogLookup": "Phase 2/4: Looking up catalogs (ISBN, title, and author)",
+        "aiRefinement": "Phase 3/4: Refining metadata and filling missing fields",
+        "finalizing": "Phase 4/4: Validating results and preparing form"
+      },
+      "states": {
+        "extraction": {
+          "not_requested": "AI disabled",
+          "pending": "Queued for extraction",
+          "extracting": "Extracting metadata",
+          "completed": "Metadata extracted",
+          "failed": "Extraction failed"
+        },
+        "saving": "Saving",
+        "saved": "Saved",
+        "saveFailed": "Save failed"
+      },
+      "extractingProgress": "Processing book... {progress}%",
+      "extractError": "Unable to extract metadata from this PDF.",
+      "reviewRecommended": "Extraction needs manual review before saving.",
+      "invalidType": "Only PDF files (.pdf) are allowed.",
+      "fileTooLarge": "The file exceeds the {maxSizeMb} MB limit.",
+      "selectPdfFirst": "Select a PDF file to continue.",
+      "uploadError": "Unable to upload the PDF to storage.",
+      "save": "Save book",
+      "saveBulk": "Save books",
+      "saving": "Saving...",
+      "saved": "Book saved successfully.",
+      "saveError": "Unable to save the book.",
+      "saveBulkError": "{successCount} books were saved and {failureCount} failed.",
+      "closeBlockedWhileProcessing": "Wait until processing finishes before closing this dialog.",
+      "cancel": "Cancel",
+      "confidence": "Confidence",
+      "commaSeparated": "Comma-separated",
+      "warningsTitle": "Extraction warnings",
+      "fields": {
+        "title": "Title",
+        "subtitle": "Subtitle",
+        "authors": "Authors",
+        "publishers": "Publisher(s)",
+        "publishedYear": "Year",
+        "edition": "Edition",
+        "isbn10": "ISBN-10",
+        "isbn13": "ISBN-13",
+        "categories": "Categories",
+        "status": "Status",
+        "confidence": "Confidence (0-1)",
+        "language": "Language",
+        "languagePlaceholder": "Select language",
+        "abstract": "Abstract"
+      }
     }
   },
   "admin": {

@@ -616,6 +616,56 @@ export default defineSchema({
     .index("by_requested_for_type", ["requestedFor", "documentType", "status"]) // Combined index
     .index("by_generated", ["generatedAt"]),
 
+  /**
+   * Digital library books uploaded by admins
+   */
+  library_books: defineTable({
+    storageId: v.id("_storage"),
+    fileName: v.string(),
+    fileSizeBytes: v.number(),
+
+    title: v.string(),
+    subtitle: v.optional(v.string()),
+    authors: v.array(v.string()),
+    publishers: v.array(v.string()),
+    publishedYear: v.optional(v.number()),
+    edition: v.optional(v.string()),
+    isbn10: v.optional(v.string()),
+    isbn13: v.optional(v.string()),
+    abstract: v.optional(v.string()),
+    language: v.optional(v.string()),
+    categories: v.array(v.string()),
+
+    status: v.union(
+      v.literal("ok"),
+      v.literal("needs_review"),
+      v.literal("failed"),
+    ),
+    confidence: v.number(),
+    extractionWarnings: v.array(v.string()),
+
+    createdBy: v.id("users"),
+    createdAt: v.number(),
+    updatedAt: v.optional(v.number()),
+  })
+    .index("by_created_at", ["createdAt"])
+    .index("by_created_by_and_created_at", ["createdBy", "createdAt"])
+    .index("by_storage_id", ["storageId"])
+    .index("by_isbn13", ["isbn13"])
+    .index("by_isbn10", ["isbn10"]),
+
+  /**
+   * User favorites for library books (personal shelf)
+   */
+  library_book_favorites: defineTable({
+    userId: v.id("users"),
+    bookId: v.id("library_books"),
+    createdAt: v.number(),
+  })
+    .index("by_user_id_and_book_id", ["userId", "bookId"])
+    .index("by_user_id_and_created_at", ["userId", "createdAt"])
+    .index("by_book_id_and_created_at", ["bookId", "createdAt"]),
+
   systemLogs: defineTable({
     entityId: v.optional(v.string()),
     entityType: v.string(), // "enrollment", "professor", "student", "course", "program"

@@ -1,6 +1,6 @@
 # Welcome to your Convex + Next.js + Clerk app
 
-This is a [Convex](https://convex.dev/) project created with [`npm create convex`](https://www.npmjs.com/package/create-convex).
+This is a [Convex](https://convex.dev/) project created with [`pnpm create convex`](https://www.npmjs.com/package/create-convex).
 
 After the initial setup (<2 minutes) you'll have a working full-stack app using:
 
@@ -12,17 +12,17 @@ After the initial setup (<2 minutes) you'll have a working full-stack app using:
 
 ## Get started
 
-If you just cloned this codebase and didn't use `npm create convex`, run:
+If you just cloned this codebase and didn't use `pnpm create convex`, run:
 
 ```
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 If you're reading this README on GitHub and want to use this template, run:
 
 ```
-npm create convex@latest -- -t nextjs-clerk
+pnpm dlx create-convex@latest -t nextjs-clerk
 ```
 
 Then:

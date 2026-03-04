@@ -400,9 +400,8 @@ CLERK_SECRET_KEY=your-clerk-secret-key
 **Database Deployment**
 ```bash
 # Schema deployment with Convex
-npx convex deploy
+pnpm exec convex deploy
 # Automatic index creation and optimization
 ```
 
 The system is production-ready with comprehensive validation, audit trails, and performance optimizations suitable for academic institution requirements.
-

@@ -16,6 +16,7 @@ import type * as enrollments from "../enrollments.js";
 import type * as grades from "../grades.js";
 import type * as helpers from "../helpers.js";
 import type * as http from "../http.js";
+import type * as library from "../library.js";
 import type * as migrations from "../migrations.js";
 import type * as professors from "../professors.js";
 import type * as programs from "../programs.js";
@@ -47,6 +48,7 @@ declare const fullApi: ApiFromModules<{
   grades: typeof grades;
   helpers: typeof helpers;
   http: typeof http;
+  library: typeof library;
   migrations: typeof migrations;
   professors: typeof professors;
   programs: typeof programs;

@@ -47,6 +47,11 @@ const getRoleHomePath = (locale: string, role: UserRole, userId?: string) =>
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   const { pathname, search } = req.nextUrl;
 
+  // API/TRPC requests should bypass i18n rewrites. Each endpoint handles auth/role checks itself.
+  if (pathname.startsWith("/api") || pathname.startsWith("/trpc")) {
+    return NextResponse.next();
+  }
+
   // Skip static asset requests
   if (STATIC_FILE_PATTERN.test(pathname)) {
     return NextResponse.next();

@@ -2,7 +2,7 @@
  * Script to convert class_enrollments.xlsx to class_enrollments.jsonl
  *
  * Usage:
- *   npx tsx scripts/class-enrollments-excel-to-jsonl.ts
+ *   pnpm exec tsx scripts/class-enrollments-excel-to-jsonl.ts
  *
  * Input: public/data/class_enrollments.xlsx
  * Output: public/data/class_enrollments.jsonl
@@ -155,7 +155,9 @@ function main() {
 
     // Write to file
     fs.writeFileSync(OUTPUT_FILE, jsonlContent, "utf-8");
-    console.log(`✅ Successfully wrote ${classesMap.size} lines to ${OUTPUT_FILE}\n`);
+    console.log(
+      `✅ Successfully wrote ${classesMap.size} lines to ${OUTPUT_FILE}\n`,
+    );
 
     // Verify file
     const fileSize = fs.statSync(OUTPUT_FILE).size;

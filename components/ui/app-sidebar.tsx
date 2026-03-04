@@ -10,6 +10,7 @@ import {
   UserCog,
   FileText,
   Home,
+  Library,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
@@ -39,6 +40,18 @@ type NavigationMenuSection = {
 
 type NavigationMenuConfig = Partial<Record<string, NavigationMenuSection>>;
 
+const SIDEBAR_ICON_MAP = {
+  profile: User,
+  student: BookOpen,
+  studentDocs: FileText,
+  professor: GraduationCap,
+  professorDocs: FileText,
+  adminAcademic: Settings,
+  adminPersonal: UserCog,
+  adminDocs: FileText,
+  library: Library,
+} as const;
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   const { user } = useUser();
@@ -54,25 +67,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const userRole = user?.publicMetadata?.role as UserRole | undefined;
   const userId = user?.id;
 
-  // Configuración de íconos para cada tipo de menú
-  const iconMap = {
-    profile: User,
-    student: BookOpen,
-    studentDocs: FileText,
-    professor: GraduationCap,
-    professorDocs: FileText,
-    adminAcademic: Settings,
-    adminPersonal: UserCog,
-    adminDocs: FileText,
-  } as const;
-
   // Generar estructura de navegación basada en el rol del usuario
   const navItems = React.useMemo(() => {
     const menuConfig = t.raw("menu") as NavigationMenuConfig;
 
     const buildSection = (
       sectionKey: keyof typeof SIDEBAR_ROUTE_GROUPS,
-      iconKey: keyof typeof iconMap,
+      iconKey: keyof typeof SIDEBAR_ICON_MAP,
       options?: { isActive?: boolean; excludeProgress?: boolean },
     ) => {
       const sectionRoutes = SIDEBAR_ROUTE_GROUPS[sectionKey];
@@ -93,7 +94,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       return {
         title: translationSection?.title ?? sectionKey,
         url: sectionRoutes.base.withLocale(locale),
-        icon: iconMap[iconKey],
+        icon: SIDEBAR_ICON_MAP[iconKey],
         isActive: options?.isActive ?? true,
         items: filteredItems.map(({ route, title }) => ({
           title,
@@ -117,6 +118,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           items: [],
         });
       }
+
+      if (menuConfig.library) {
+        items.push(buildSection("library", "library"));
+      }
     }
 
     if (userRole === "professor") {
@@ -129,6 +134,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           isActive: true,
           items: [],
         });
+      }
+
+      if (menuConfig.library) {
+        items.push(buildSection("library", "library"));
       }
     }
 
@@ -152,6 +161,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         );
       }
 
+      if (menuConfig.library) {
+        items.push(buildSection("library", "library"));
+      }
+
       // Documentación para administradores - OCULTO
       // if (menuConfig.adminDocs) {
       //   items.push({
@@ -168,7 +181,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     }
 
     return items;
-  }, [t, userRole]);
+  }, [locale, t, userId, userRole]);
 
   return (
     <Sidebar
@@ -191,7 +204,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           className={cn(
             "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors",
             isSettingsActive &&
-            "bg-sidebar-accent text-sidebar-accent-foreground",
+              "bg-sidebar-accent text-sidebar-accent-foreground",
             state === "collapsed" && "justify-center px-0",
           )}
           aria-label={t("settings")}

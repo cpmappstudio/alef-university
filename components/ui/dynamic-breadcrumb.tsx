@@ -81,6 +81,20 @@ const ROUTE_CONFIG: Record<string, RouteConfig> = {
     fallback: "Student Management",
     parent: "users",
   },
+  library: {
+    title: "menu.library.title",
+    fallback: "Library",
+  },
+  "my-books": {
+    title: "menu.library.items.0.title",
+    fallback: "My Books",
+    parent: "library",
+  },
+  "all-books": {
+    title: "menu.library.items.1.title",
+    fallback: "All Books",
+    parent: "library",
+  },
   profile: { title: "profile", fallback: "Profile" },
 };
 
@@ -157,6 +171,17 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
     return null;
   }, [pathParts]);
 
+  const libraryBookId = useMemo(() => {
+    const libraryIndex = pathParts.indexOf("library");
+    if (libraryIndex !== -1 && pathParts[libraryIndex + 1]) {
+      const id = pathParts[libraryIndex + 1];
+      if (!ROUTE_CONFIG[id] && id.length > 20) {
+        return id as Id<"library_books">;
+      }
+    }
+    return null;
+  }, [pathParts]);
+
   // Fetch data for dynamic entities
   const program = useQuery(
     api.programs.getProgramById,
@@ -183,16 +208,21 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
     studentId ? { clerkId: studentId } : "skip",
   );
 
+  const libraryBook = useQuery(
+    api.library.getLibraryBookById,
+    libraryBookId ? { id: libraryBookId } : "skip",
+  );
+
   // Stable translation function with useCallback
   const getTranslation = useCallback(
     (key: string, fallback: string) => {
       try {
         // Handle nested keys like "menu.student.title"
         if (key.includes(".")) {
-          const result = t.raw(key as any);
+          const result = t.raw(key as never);
           return result || fallback;
         }
-        return t(key as any) || fallback;
+        return t(key as never) || fallback;
       } catch {
         return fallback;
       }
@@ -288,6 +318,14 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
       return segments;
     }
 
+    if (libraryBookId && libraryBook) {
+      segments.push({
+        title: libraryBook.title || (locale === "es" ? "Libro" : "Book"),
+        isCurrentPage: true,
+      });
+      return segments;
+    }
+
     // Otherwise, use standard route config
     const config = ROUTE_CONFIG[lastPart];
     const title = config
@@ -315,6 +353,8 @@ export const DynamicBreadcrumb = memo(function DynamicBreadcrumb() {
     professor,
     studentId,
     student,
+    libraryBookId,
+    libraryBook,
   ]);
 
   return (

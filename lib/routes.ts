@@ -57,6 +57,12 @@ export const ROUTES = {
     root: createRoute("/enrollments"),
     details: (id: string) => createRoute(`/enrollments/${id}`),
   },
+  library: {
+    root: createRoute("/library"),
+    myBooks: createRoute("/library/my-books"),
+    allBooks: createRoute("/library/all-books"),
+    details: (id: string) => createRoute(`/library/${id}`),
+  },
   // Configuración
   settings: {
     root: createRoute("/settings"),
@@ -97,7 +103,8 @@ export type SidebarRouteGroupKey =
   | "professorDocs"
   | "adminAcademic"
   | "adminPersonal"
-  | "adminDocs";
+  | "adminDocs"
+  | "library";
 
 type RouteGroup = {
   base: RouteDefinition;
@@ -132,6 +139,10 @@ export const SIDEBAR_ROUTE_GROUPS: Record<SidebarRouteGroupKey, RouteGroup> = {
   adminDocs: {
     base: ROUTES.docs.managementRoot,
     items: [ROUTES.docs.managementManual, ROUTES.docs.managementGuides],
+  },
+  library: {
+    base: ROUTES.library.root,
+    items: [ROUTES.library.myBooks, ROUTES.library.allBooks],
   },
 };
 
