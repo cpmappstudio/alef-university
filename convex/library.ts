@@ -290,7 +290,8 @@ export const deleteUnusedLibraryUpload = mutation({
       .first();
 
     if (existingBook) {
-      throw new ConvexError("Storage file is already linked to a library book");
+      // Idempotent cleanup: if already linked, do nothing.
+      return null;
     }
 
     await ctx.storage.delete(args.storageId);
@@ -619,7 +620,6 @@ export const getRelatedLibraryBooks = query({
     });
 
     const selectedBooks: Array<Doc<"library_books">> = [];
-    const selectedBookIds = new Set<Id<"library_books">>();
 
     for (const entry of scoredCandidates) {
       if (entry.sharedCategories === 0) {
@@ -627,25 +627,9 @@ export const getRelatedLibraryBooks = query({
       }
 
       selectedBooks.push(entry.candidate);
-      selectedBookIds.add(entry.candidate._id);
 
       if (selectedBooks.length >= normalizedLimit) {
         break;
-      }
-    }
-
-    if (selectedBooks.length < normalizedLimit) {
-      for (const entry of scoredCandidates) {
-        if (selectedBookIds.has(entry.candidate._id)) {
-          continue;
-        }
-
-        selectedBooks.push(entry.candidate);
-        selectedBookIds.add(entry.candidate._id);
-
-        if (selectedBooks.length >= normalizedLimit) {
-          break;
-        }
       }
     }
 

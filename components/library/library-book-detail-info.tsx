@@ -24,6 +24,12 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Toggle } from "@/components/ui/toggle";
 
+const LOCAL_TITLE_WARNING =
+  "No title found in filename or PDF info dictionary.";
+const LOCAL_AUTHORS_WARNING =
+  "No authors found in filename or PDF info dictionary.";
+const LOCAL_ISBN_WARNING = "No valid ISBN found in PDF binary content.";
+
 function formatFileSize(bytes: number): string {
   if (bytes < 1024) {
     return `${bytes} B`;
@@ -45,6 +51,37 @@ function formatDate(value: number, locale: string): string {
       day: "numeric",
     },
   );
+}
+
+function resolveDisplayWarnings(book: LibraryBookDetailRecord): string[] {
+  const warnings = book.extractionWarnings ?? [];
+
+  return warnings.filter((warning) => {
+    const normalizedWarning = warning.trim().toLowerCase();
+
+    if (
+      normalizedWarning === LOCAL_TITLE_WARNING.toLowerCase() &&
+      Boolean(book.title)
+    ) {
+      return false;
+    }
+
+    if (
+      normalizedWarning === LOCAL_AUTHORS_WARNING.toLowerCase() &&
+      Boolean(book.authors.length)
+    ) {
+      return false;
+    }
+
+    if (
+      normalizedWarning === LOCAL_ISBN_WARNING.toLowerCase() &&
+      Boolean(book.isbn10 || book.isbn13)
+    ) {
+      return false;
+    }
+
+    return true;
+  });
 }
 
 interface LibraryBookDetailInfoProps {
@@ -74,7 +111,10 @@ export function LibraryBookDetailInfo({
   const [coverVisible, setCoverVisible] = React.useState(
     Boolean(book.coverUrl),
   );
-  const extractionWarnings = book.extractionWarnings ?? [];
+  const extractionWarnings = React.useMemo(
+    () => resolveDisplayWarnings(book),
+    [book],
+  );
 
   const unknownValue = t("unknown");
   const authorsLabel =

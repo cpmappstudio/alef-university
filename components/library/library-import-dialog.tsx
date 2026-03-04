@@ -700,7 +700,8 @@ export function LibraryImportDialog() {
 
     if (failureCount === 0) {
       toast.success(t("saved"));
-      handleDialogChange(false);
+      setOpen(false);
+      resetState();
       return;
     }
 
@@ -710,14 +711,7 @@ export function LibraryImportDialog() {
         failureCount,
       }),
     );
-  }, [
-    createLibraryBook,
-    ensureStorageId,
-    handleDialogChange,
-    items,
-    t,
-    updateItem,
-  ]);
+  }, [createLibraryBook, ensureStorageId, items, resetState, t, updateItem]);
 
   const canSave =
     !saving &&

@@ -14,6 +14,12 @@ const REQUIRED_FIELDS: Array<keyof CandidateMetadata> = [
   "categories",
 ];
 
+const LOCAL_TITLE_WARNING =
+  "No title found in filename or PDF info dictionary.";
+const LOCAL_AUTHORS_WARNING =
+  "No authors found in filename or PDF info dictionary.";
+const LOCAL_ISBN_WARNING = "No valid ISBN found in PDF binary content.";
+
 function sourceWeight(source: MetadataCandidate["source"]): number {
   if (source === "openlibrary") return 0.36;
   if (source === "google_books") return 0.32;
@@ -73,6 +79,45 @@ function uniqueStrings(values: string[]): string[] {
   }
 
   return output;
+}
+
+function isContradictoryWarning(
+  warning: string,
+  metadata: CandidateMetadata,
+): boolean {
+  const normalizedWarning = warning.trim().toLowerCase();
+
+  if (
+    normalizedWarning === LOCAL_TITLE_WARNING.toLowerCase() &&
+    Boolean(metadata.title)
+  ) {
+    return true;
+  }
+
+  if (
+    normalizedWarning === LOCAL_AUTHORS_WARNING.toLowerCase() &&
+    Boolean(metadata.authors?.length)
+  ) {
+    return true;
+  }
+
+  if (
+    normalizedWarning === LOCAL_ISBN_WARNING.toLowerCase() &&
+    Boolean(metadata.isbn10 || metadata.isbn13)
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+function resolveWarningsForFinalMetadata(
+  warnings: string[],
+  metadata: CandidateMetadata,
+): string[] {
+  return uniqueStrings(warnings).filter(
+    (warning) => !isContradictoryWarning(warning, metadata),
+  );
 }
 
 function normalizeText(value?: string): string {
@@ -444,7 +489,10 @@ export function mergeMetadataCandidates(args: {
     diagnostics: {
       extractedIsbns: args.local.extractedIsbns,
       usedIsbn: merged.isbn13 ?? merged.isbn10,
-      warnings: [...args.local.warnings, ...(args.extraWarnings ?? [])],
+      warnings: resolveWarningsForFinalMetadata(
+        [...args.local.warnings, ...(args.extraWarnings ?? [])],
+        merged,
+      ),
     },
   };
 }
