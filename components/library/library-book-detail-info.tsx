@@ -92,6 +92,7 @@ interface LibraryBookDetailInfoProps {
   onFavoriteToggle: () => void;
   favoriteOnLabel: string;
   favoriteOffLabel: string;
+  showExtractionWarnings?: boolean;
   onEdit?: () => void;
   onDelete?: () => void;
 }
@@ -104,6 +105,7 @@ export function LibraryBookDetailInfo({
   onFavoriteToggle,
   favoriteOnLabel,
   favoriteOffLabel,
+  showExtractionWarnings = false,
   onEdit,
   onDelete,
 }: LibraryBookDetailInfoProps) {
@@ -270,7 +272,7 @@ export function LibraryBookDetailInfo({
               />
             </GradientCardDetailGrid>
 
-            {extractionWarnings.length > 0 && (
+            {showExtractionWarnings && extractionWarnings.length > 0 && (
               <div className="rounded-md border border-amber-300/40 bg-amber-200/10 p-3 text-sm text-amber-100">
                 <p className="font-semibold">{t("warningsTitle")}</p>
                 <ul className="mt-2 space-y-1">

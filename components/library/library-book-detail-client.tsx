@@ -146,6 +146,7 @@ export function LibraryBookDetailClient({
         onFavoriteToggle={handleFavoriteToggle}
         favoriteOnLabel={tGrid("favoriteOn")}
         favoriteOffLabel={tGrid("favoriteOff")}
+        showExtractionWarnings={canManage}
         onEdit={canManage ? handleEdit : undefined}
         onDelete={canManage ? handleDelete : undefined}
       />

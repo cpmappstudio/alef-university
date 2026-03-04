@@ -124,6 +124,16 @@ function normalizeText(value?: string): string {
   return value?.replace(/\s+/g, " ").trim().toLowerCase() ?? "";
 }
 
+function titleTokenCount(value?: string): number {
+  if (!value) {
+    return 0;
+  }
+
+  return normalizeText(value)
+    .split(/[^a-z0-9]+/i)
+    .filter((token) => token.length >= 3).length;
+}
+
 function tokenSimilarity(a?: string, b?: string): number {
   const aTokens = new Set(
     normalizeText(a)
@@ -186,6 +196,55 @@ function hasAuthorOverlap(
   }
 
   return false;
+}
+
+function isExternalCatalogQueryCandidate(
+  candidate: MetadataCandidate,
+): boolean {
+  return (
+    candidate.matchedBy === "query" &&
+    (candidate.source === "openlibrary" || candidate.source === "google_books")
+  );
+}
+
+function isLowDistinctivenessTitle(title?: string): boolean {
+  return titleTokenCount(title) < 3;
+}
+
+function sanitizeWeakQueryCandidate(args: {
+  candidate: MetadataCandidate;
+  localMetadata: CandidateMetadata;
+}): MetadataCandidate {
+  const { candidate, localMetadata } = args;
+
+  if (!isExternalCatalogQueryCandidate(candidate)) {
+    return candidate;
+  }
+
+  const localTitle = localMetadata.title;
+  if (!localTitle || !candidate.metadata.title) {
+    return candidate;
+  }
+
+  const hasLocalCorroboration =
+    hasAuthorOverlap(localMetadata.authors, candidate.metadata.authors) ||
+    (Boolean(localMetadata.publishedYear) &&
+      localMetadata.publishedYear === candidate.metadata.publishedYear) ||
+    (Boolean(localMetadata.isbn13) &&
+      localMetadata.isbn13 === candidate.metadata.isbn13) ||
+    (Boolean(localMetadata.isbn10) &&
+      localMetadata.isbn10 === candidate.metadata.isbn10);
+
+  if (hasLocalCorroboration || !isLowDistinctivenessTitle(localTitle)) {
+    return candidate;
+  }
+
+  // For generic titles without local corroboration, keep only title-level hint.
+  return {
+    ...candidate,
+    confidence: Math.min(candidate.confidence, 0.42),
+    metadata: {},
+  };
 }
 
 function adjustConfidenceByTitleAgreement(
@@ -266,11 +325,20 @@ function mergeArrayField(
     return { value: undefined, evidence: undefined };
   }
 
-  const topCandidates = ranked.slice(0, 3);
-  const merged = uniqueStrings(
-    topCandidates.flatMap((candidate) => candidate.metadata[field] ?? []),
-  );
   const winner = ranked[0];
+  const shouldUseWinnerOnly =
+    isExternalCatalogQueryCandidate(winner) ||
+    (field === "categories" &&
+      winner.source === "openai" &&
+      winner.confidence >= 0.8);
+
+  const merged = shouldUseWinnerOnly
+    ? uniqueStrings(winner.metadata[field] ?? [])
+    : uniqueStrings(
+        ranked
+          .slice(0, 3)
+          .flatMap((candidate) => candidate.metadata[field] ?? []),
+      );
 
   return {
     value: merged.length > 0 ? merged : undefined,
@@ -279,7 +347,13 @@ function mergeArrayField(
       field,
       value: merged.length > 0 ? merged : undefined,
       confidence: winner.confidence,
-      note: "merged_top_candidates",
+      note: shouldUseWinnerOnly
+        ? field === "categories" &&
+          winner.source === "openai" &&
+          winner.confidence >= 0.8
+          ? "top_openai_candidate"
+          : "matched_by_query_top_candidate"
+        : "merged_top_candidates",
     },
   };
 }
@@ -317,12 +391,19 @@ export function mergeMetadataCandidates(args: {
   extraWarnings?: string[];
 }): BookMetadataResult {
   const allCandidates = [args.local.candidate, ...args.catalogCandidates];
-  const adjustedCandidates = allCandidates.map((candidate) =>
-    adjustConfidenceByTitleAgreement(
-      candidate,
-      args.local.candidate.metadata.title,
-    ),
-  );
+  const adjustedCandidates = allCandidates
+    .map((candidate) =>
+      adjustConfidenceByTitleAgreement(
+        candidate,
+        args.local.candidate.metadata.title,
+      ),
+    )
+    .map((candidate) =>
+      sanitizeWeakQueryCandidate({
+        candidate,
+        localMetadata: args.local.candidate.metadata,
+      }),
+    );
   const evidence: SourceEvidence[] = [];
 
   const merged: CandidateMetadata = {};
@@ -459,7 +540,16 @@ export function mergeMetadataCandidates(args: {
       return false;
     }
 
-    return tokenSimilarity(localTitle, candidate.metadata.title) >= 0.3;
+    const hasLocalCorroboration =
+      hasAuthorOverlap(localAuthors, candidate.metadata.authors) ||
+      (Boolean(localPublishedYear) &&
+        localPublishedYear === candidate.metadata.publishedYear);
+
+    if (!hasLocalCorroboration) {
+      return false;
+    }
+
+    return tokenSimilarity(localTitle, candidate.metadata.title) >= 0.45;
   });
 
   let status: BookMetadataResult["status"] = "needs_review";

@@ -47,6 +47,11 @@ type OpenAIMetadataPayload = {
   notes: string | null;
 };
 
+type OpenAISingleAttemptResult = {
+  candidate: MetadataCandidate | null;
+  warnings: string[];
+};
+
 function normalizeWhitespace(value: string): string {
   return value.replace(/\s+/g, " ").trim();
 }
@@ -255,6 +260,40 @@ function sanitizePayload(
   };
 }
 
+function hasCandidateData(candidate: MetadataCandidate | null): boolean {
+  if (!candidate) {
+    return false;
+  }
+
+  const metadata = candidate.metadata;
+  return Boolean(
+    metadata.title ||
+      metadata.subtitle ||
+      metadata.authors?.length ||
+      metadata.publishers?.length ||
+      metadata.publishedYear ||
+      metadata.edition ||
+      metadata.isbn10 ||
+      metadata.isbn13 ||
+      metadata.abstract ||
+      metadata.language ||
+      metadata.categories?.length,
+  );
+}
+
+function hasUnreadablePdfWarning(warnings: string[]): boolean {
+  const unreadableSignals = [
+    "could not be read",
+    "no content",
+    "no bibliographic metadata extracted",
+  ];
+
+  return warnings.some((warning) => {
+    const normalized = warning.toLowerCase();
+    return unreadableSignals.some((signal) => normalized.includes(signal));
+  });
+}
+
 function buildRequestBody(args: {
   fileId: string;
   model: string;
@@ -301,6 +340,11 @@ function buildRequestBody(args: {
     "- The file may contain only selected pages; never infer hidden pages.",
     "- Do not invent missing fields.",
     "- If unknown, return null (or [] for arrays).",
+    "- Keep title/subtitle/authors/publishers in the original document language. Never translate proper nouns.",
+    "- Keep abstract and categories in the same language as the source pages. Do not translate to English unless the source is English.",
+    "- Only return an abstract when the PDF explicitly contains summary-like content; otherwise return null.",
+    "- For edition, extract the exact edition phrase when present (e.g., '1ª edición, noviembre 2005', 'Second edition').",
+    "- For categories, use concise domain labels from the document language (max 5).",
     "- Keep abstract concise (max 1200 chars).",
     "- For language, return ISO-639-1 when possible (e.g., en, es).",
     "- Confidence must be 0..1 and reflect certainty of the overall extraction.",
@@ -308,6 +352,7 @@ function buildRequestBody(args: {
 
   return {
     model: args.model,
+    temperature: 0,
     input: [
       {
         role: "user",
@@ -398,43 +443,23 @@ async function deleteUploadedFile(
   }
 }
 
-export async function extractMetadataWithOpenAI(args: {
+async function extractMetadataFromBuffer(args: {
+  apiKey: string;
   fileName: string;
   fileBuffer: Buffer;
   model: string;
   timeoutMs: number;
-  sampleMaxPages?: number;
-}): Promise<OpenAIExtractionResult> {
+}): Promise<OpenAISingleAttemptResult> {
   const warnings: string[] = [];
-  const apiKey = process.env.OPENAI_API_KEY;
-
-  if (!apiKey) {
-    warnings.push("OPENAI_API_KEY is not configured.");
-    return { candidate: null, warnings };
-  }
-
-  const sampledInput = await preparePdfBufferForOpenAI({
-    fileBuffer: args.fileBuffer,
-    sampleMaxPages: args.sampleMaxPages ?? OPENAI_DEFAULT_SAMPLE_MAX_PAGES,
-  });
-  warnings.push(...sampledInput.warnings);
-
-  if (sampledInput.buffer.byteLength > OPENAI_MAX_FILE_BYTES) {
-    warnings.push(
-      "PDF size exceeds OpenAI 50MB per-file limit even after sampling.",
-    );
-    return { candidate: null, warnings };
-  }
-
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), args.timeoutMs);
   let uploadedFileId: string | null = null;
 
   try {
     const uploaded = await uploadPdfToOpenAI({
-      apiKey,
+      apiKey: args.apiKey,
       fileName: args.fileName,
-      fileBuffer: sampledInput.buffer,
+      fileBuffer: args.fileBuffer,
       timeoutMs: args.timeoutMs,
     });
 
@@ -454,7 +479,7 @@ export async function extractMetadataWithOpenAI(args: {
     const response = await fetch(OPENAI_RESPONSES_API_URL, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${args.apiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(requestBody),
@@ -514,7 +539,74 @@ export async function extractMetadataWithOpenAI(args: {
   } finally {
     clearTimeout(timeout);
     if (uploadedFileId) {
-      await deleteUploadedFile(apiKey, uploadedFileId);
+      await deleteUploadedFile(args.apiKey, uploadedFileId);
     }
   }
+}
+
+export async function extractMetadataWithOpenAI(args: {
+  fileName: string;
+  fileBuffer: Buffer;
+  model: string;
+  timeoutMs: number;
+  sampleMaxPages?: number;
+}): Promise<OpenAIExtractionResult> {
+  const warnings: string[] = [];
+  const apiKey = process.env.OPENAI_API_KEY;
+
+  if (!apiKey) {
+    warnings.push("OPENAI_API_KEY is not configured.");
+    return { candidate: null, warnings };
+  }
+
+  const sampledInput = await preparePdfBufferForOpenAI({
+    fileBuffer: args.fileBuffer,
+    sampleMaxPages: args.sampleMaxPages ?? OPENAI_DEFAULT_SAMPLE_MAX_PAGES,
+  });
+  warnings.push(...sampledInput.warnings);
+
+  if (sampledInput.buffer.byteLength > OPENAI_MAX_FILE_BYTES) {
+    warnings.push(
+      "PDF size exceeds OpenAI 50MB per-file limit even after sampling.",
+    );
+    return { candidate: null, warnings };
+  }
+  const sampledAttempt = await extractMetadataFromBuffer({
+    apiKey,
+    fileName: args.fileName,
+    fileBuffer: sampledInput.buffer,
+    model: args.model,
+    timeoutMs: args.timeoutMs,
+  });
+  warnings.push(...sampledAttempt.warnings);
+
+  const shouldRetryWithoutSampling =
+    sampledInput.sampled &&
+    args.fileBuffer.byteLength <= OPENAI_MAX_FILE_BYTES &&
+    (hasUnreadablePdfWarning(sampledAttempt.warnings) ||
+      !hasCandidateData(sampledAttempt.candidate));
+
+  if (!shouldRetryWithoutSampling) {
+    return { candidate: sampledAttempt.candidate, warnings };
+  }
+
+  warnings.push(
+    "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+  );
+
+  const fullAttempt = await extractMetadataFromBuffer({
+    apiKey,
+    fileName: args.fileName,
+    fileBuffer: args.fileBuffer,
+    model: args.model,
+    timeoutMs: args.timeoutMs,
+  });
+  warnings.push(...fullAttempt.warnings);
+
+  return {
+    candidate: hasCandidateData(fullAttempt.candidate)
+      ? fullAttempt.candidate
+      : sampledAttempt.candidate,
+    warnings,
+  };
 }
