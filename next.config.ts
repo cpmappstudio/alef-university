@@ -27,6 +27,7 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
+    domains: ["books.google.com"],
     remotePatterns: [
       {
         protocol: "https",
