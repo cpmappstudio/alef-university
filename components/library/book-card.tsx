@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "next-intl";
 
@@ -40,11 +41,12 @@ export function BookCard({
         <div className="relative overflow-hidden rounded-md border bg-muted/40 shadow-sm transition-transform duration-200 group-hover:scale-[1.01]">
           <div className="aspect-[2/3] w-full">
             {coverVisible && book.coverUrl ? (
-              <img
+              <Image
                 src={book.coverUrl}
                 alt={book.title}
-                className="h-full w-full object-cover"
-                loading="lazy"
+                fill
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1536px) 20vw, 16vw"
+                className="object-cover"
                 onError={() => setCoverVisible(false)}
               />
             ) : (

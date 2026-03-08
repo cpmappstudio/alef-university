@@ -11,8 +11,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-type LibraryViewMode = "grid" | "collections";
+import type { LibraryViewMode } from "@/lib/library/view-mode";
 
 type LibraryViewToggleProps = {
   value: LibraryViewMode;

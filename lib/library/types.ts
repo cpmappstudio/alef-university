@@ -2,6 +2,7 @@ import type {
   BookMetadataResult,
   CandidateMetadata,
 } from "@/lib/books-metadata/types";
+import type { LibraryViewMode } from "@/lib/library/view-mode";
 
 export type LibraryBookStatus = BookMetadataResult["status"];
 
@@ -70,11 +71,20 @@ export type LibraryCollectionBookOption = Pick<
   isAssigned: boolean;
 };
 
+export type LibraryCatalogFilterOption = {
+  value: string;
+  label: string;
+};
+
+export type LibraryCatalogFilterOptions = {
+  languages: LibraryCatalogFilterOption[];
+  categories: LibraryCatalogFilterOption[];
+};
+
 export type LibraryCollectionBrowserRecord = {
   currentCollection?: LibraryCollectionBreadcrumb;
   breadcrumbs: LibraryCollectionBreadcrumb[];
   childCollections: LibraryCollectionRecord[];
-  books: LibraryBookRecord[];
 };
 
 export type LibraryRawMetadataRecord = Partial<BookMetadataResult> & {
@@ -82,7 +92,7 @@ export type LibraryRawMetadataRecord = Partial<BookMetadataResult> & {
 };
 
 export type LibraryCatalogClientProps = {
-  books: LibraryBookRecord[];
+  initialBooks: LibraryBookRecord[];
   scope: LibraryScope;
-  initialCollectionBrowser?: LibraryCollectionBrowserRecord;
+  initialViewMode?: LibraryViewMode;
 };

@@ -10,11 +10,17 @@ export default async function LibraryMyBooksPage() {
   const token = await authData.getToken({ template: "convex" });
   const fetchOptions = token ? { token } : undefined;
 
-  const books = ((await fetchQuery(
-    api.library.getMyLibraryBooks,
-    {},
+  const initialPage = await fetchQuery(
+    api.library.getMyLibraryBooksPage,
+    {
+      paginationOpts: {
+        numItems: 24,
+        cursor: null,
+      },
+    },
     fetchOptions,
-  )) ?? []) as LibraryBookRecord[];
+  );
+  const initialBooks = (initialPage?.page ?? []) as LibraryBookRecord[];
 
-  return <LibraryGridClient books={books} scope="my" />;
+  return <LibraryGridClient initialBooks={initialBooks} scope="my" />;
 }

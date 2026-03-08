@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import {
   EllipsisVertical,
   PencilIcon,
@@ -108,14 +109,15 @@ export function LibraryCollectionCard({
               return (
                 <div
                   key={previewBook.id}
-                  className="h-full min-h-0 overflow-hidden rounded-md border border-border/50 bg-background/70 dark:bg-black/10"
+                  className="relative h-full min-h-0 overflow-hidden rounded-md border border-border/50 bg-background/70 dark:bg-black/10"
                 >
                   {previewBook.coverUrl ? (
-                    <img
+                    <Image
                       src={previewBook.coverUrl}
                       alt={previewBook.title}
-                      className="h-full w-full object-cover"
-                      loading="lazy"
+                      fill
+                      sizes="(max-width: 1024px) 10vw, 8vw"
+                      className="object-cover"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center px-1.5 text-center text-[9px] font-medium leading-tight text-muted-foreground">

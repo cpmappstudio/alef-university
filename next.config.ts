@@ -1,8 +1,12 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
-const serverActionBodySizeLimit =
-  process.env.NEXT_SERVER_ACTIONS_BODY_LIMIT ?? "1024mb";
+type ServerActionBodySizeLimit = NonNullable<
+  NonNullable<NextConfig["experimental"]>["serverActions"]
+>["bodySizeLimit"];
+
+const serverActionBodySizeLimit = (process.env.NEXT_SERVER_ACTIONS_BODY_LIMIT ??
+  "1024mb") satisfies string;
 
 const nextConfig: NextConfig = {
   eslint: {
@@ -19,8 +23,17 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     serverActions: {
-      bodySizeLimit: serverActionBodySizeLimit,
+      bodySizeLimit: serverActionBodySizeLimit as ServerActionBodySizeLimit,
     },
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "books.google.com",
+        pathname: "/books/content",
+      },
+    ],
   },
 };
 

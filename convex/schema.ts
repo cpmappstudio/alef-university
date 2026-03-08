@@ -623,6 +623,9 @@ export default defineSchema({
     storageId: v.id("_storage"),
     fileName: v.string(),
     fileSizeBytes: v.number(),
+    searchText: v.optional(v.string()),
+    languageKey: v.optional(v.string()),
+    primaryCategoryKey: v.optional(v.string()),
 
     title: v.string(),
     subtitle: v.optional(v.string()),
@@ -652,7 +655,17 @@ export default defineSchema({
     .index("by_created_by_and_created_at", ["createdBy", "createdAt"])
     .index("by_storage_id", ["storageId"])
     .index("by_isbn13", ["isbn13"])
-    .index("by_isbn10", ["isbn10"]),
+    .index("by_isbn10", ["isbn10"])
+    .index("by_status_and_created_at", ["status", "createdAt"])
+    .index("by_language_key_and_created_at", ["languageKey", "createdAt"])
+    .index("by_primary_category_key_and_created_at", [
+      "primaryCategoryKey",
+      "createdAt",
+    ])
+    .searchIndex("search_text", {
+      searchField: "searchText",
+      filterFields: ["status", "languageKey", "primaryCategoryKey"],
+    }),
 
   /**
    * Hierarchical library collections used as folder-like organization.
@@ -661,6 +674,7 @@ export default defineSchema({
     name: v.string(),
     normalizedName: v.string(),
     parentId: v.optional(v.id("library_collections")),
+    bookCount: v.optional(v.number()),
     createdBy: v.id("users"),
     createdAt: v.number(),
     updatedAt: v.optional(v.number()),
@@ -675,13 +689,42 @@ export default defineSchema({
   library_book_collections: defineTable({
     bookId: v.id("library_books"),
     collectionId: v.id("library_collections"),
+    searchText: v.optional(v.string()),
+    bookCreatedAt: v.optional(v.number()),
     createdBy: v.id("users"),
     createdAt: v.number(),
   })
     .index("by_book_id_and_collection_id", ["bookId", "collectionId"])
     .index("by_collection_id_and_book_id", ["collectionId", "bookId"])
     .index("by_collection_id_and_created_at", ["collectionId", "createdAt"])
-    .index("by_book_id_and_created_at", ["bookId", "createdAt"]),
+    .index("by_collection_id_and_book_created_at", [
+      "collectionId",
+      "bookCreatedAt",
+    ])
+    .index("by_book_id_and_created_at", ["bookId", "createdAt"])
+    .searchIndex("search_text", {
+      searchField: "searchText",
+      filterFields: ["collectionId"],
+    }),
+
+  /**
+   * Derived visibility of books inside each collection subtree.
+   * One row per unique (collection, book) pair, with a reference count
+   * to support the same book being linked through multiple descendants.
+   */
+  library_collection_book_rollups: defineTable({
+    collectionId: v.id("library_collections"),
+    bookId: v.id("library_books"),
+    referenceCount: v.number(),
+    bookCreatedAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_collection_id_and_book_id", ["collectionId", "bookId"])
+    .index("by_collection_id_and_book_created_at", [
+      "collectionId",
+      "bookCreatedAt",
+    ])
+    .index("by_book_id_and_collection_id", ["bookId", "collectionId"]),
 
   /**
    * User favorites for library books (personal shelf)
@@ -690,10 +733,54 @@ export default defineSchema({
     userId: v.id("users"),
     bookId: v.id("library_books"),
     createdAt: v.number(),
+    searchText: v.optional(v.string()),
+    status: v.optional(
+      v.union(v.literal("ok"), v.literal("needs_review"), v.literal("failed")),
+    ),
+    languageKey: v.optional(v.string()),
+    primaryCategoryKey: v.optional(v.string()),
   })
     .index("by_user_id_and_book_id", ["userId", "bookId"])
     .index("by_user_id_and_created_at", ["userId", "createdAt"])
-    .index("by_book_id_and_created_at", ["bookId", "createdAt"]),
+    .index("by_user_id_and_status_and_created_at", [
+      "userId",
+      "status",
+      "createdAt",
+    ])
+    .index("by_user_id_and_language_key_and_created_at", [
+      "userId",
+      "languageKey",
+      "createdAt",
+    ])
+    .index("by_user_id_and_primary_category_key_and_created_at", [
+      "userId",
+      "primaryCategoryKey",
+      "createdAt",
+    ])
+    .index("by_book_id_and_created_at", ["bookId", "createdAt"])
+    .searchIndex("search_text", {
+      searchField: "searchText",
+      filterFields: ["userId", "status", "languageKey", "primaryCategoryKey"],
+    }),
+
+  /**
+   * Lightweight facet tables used to populate server-driven library filters.
+   */
+  library_language_facets: defineTable({
+    key: v.string(),
+    label: v.string(),
+    bookCount: v.number(),
+  })
+    .index("by_key", ["key"])
+    .index("by_book_count", ["bookCount"]),
+
+  library_primary_category_facets: defineTable({
+    key: v.string(),
+    label: v.string(),
+    bookCount: v.number(),
+  })
+    .index("by_key", ["key"])
+    .index("by_book_count", ["bookCount"]),
 
   systemLogs: defineTable({
     entityId: v.optional(v.string()),

@@ -289,13 +289,16 @@ export function LibraryImportDialog() {
   const deleteUnusedLibraryUpload = useMutation(
     api.library.deleteUnusedLibraryUpload,
   );
-  const collectionTree = useQuery(api.library.getLibraryCollectionsTree, {});
 
   const [open, setOpen] = React.useState(false);
   const [aiAssistanceEnabled, setAiAssistanceEnabled] = React.useState(false);
   const [items, setItems] = React.useState<LibraryImportItem[]>([]);
   const [expandedItems, setExpandedItems] = React.useState<string[]>([]);
   const [saving, setSaving] = React.useState(false);
+  const collectionTree = useQuery(
+    api.library.getLibraryCollectionsTree,
+    open ? {} : "skip",
+  );
 
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
 

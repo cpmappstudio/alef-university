@@ -128,7 +128,10 @@ export function LibraryBookFormDialog({
     api.library.deleteUnusedLibraryUpload,
   );
   const updateLibraryBook = useMutation(api.library.updateLibraryBook);
-  const collectionTree = useQuery(api.library.getLibraryCollectionsTree, {});
+  const collectionTree = useQuery(
+    api.library.getLibraryCollectionsTree,
+    open ? {} : "skip",
+  );
 
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [formError, setFormError] = React.useState<string | null>(null);

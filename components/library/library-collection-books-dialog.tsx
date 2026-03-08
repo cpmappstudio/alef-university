@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Loader2 } from "lucide-react";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation, usePaginatedQuery } from "convex/react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -27,6 +27,9 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
+const INITIAL_PAGE_SIZE = 24;
+const LOAD_MORE_PAGE_SIZE = 24;
+
 type LibraryCollectionBooksDialogProps = {
   collectionId: string;
   collectionName: string;
@@ -34,21 +37,13 @@ type LibraryCollectionBooksDialogProps = {
   onOpenChange: (open: boolean) => void;
 };
 
-function matchesBookSearch(
+type PendingSelectionMap = Record<string, boolean>;
+
+function matchesCurrentSelection(
   option: LibraryCollectionBookOption,
-  searchValue: string,
+  pendingSelections: PendingSelectionMap,
 ) {
-  const normalizedSearch = searchValue.trim().toLowerCase();
-
-  if (!normalizedSearch) {
-    return true;
-  }
-
-  return [option.title, option.authors.join(" ")]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase()
-    .includes(normalizedSearch);
+  return pendingSelections[option.id] ?? option.isAssigned;
 }
 
 export function LibraryCollectionBooksDialog({
@@ -59,81 +54,61 @@ export function LibraryCollectionBooksDialog({
 }: LibraryCollectionBooksDialogProps) {
   const t = useTranslations("library.collections.booksDialog");
   const tLibrary = useTranslations("library");
-  const syncLibraryCollectionBooks = useMutation(
-    api.library.syncLibraryCollectionBooks,
-  );
-  const bookOptions = useQuery(
-    api.library.getLibraryCollectionBookOptions,
-    open
-      ? {
-          collectionId: collectionId as Id<"library_collections">,
-        }
-      : "skip",
+  const updateLibraryCollectionBooks = useMutation(
+    api.library.updateLibraryCollectionBooks,
   );
 
   const [searchValue, setSearchValue] = React.useState("");
-  const [selectedBookIds, setSelectedBookIds] = React.useState<string[]>([]);
+  const [pendingSelections, setPendingSelections] =
+    React.useState<PendingSelectionMap>({});
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [isSelectionHydrated, setIsSelectionHydrated] = React.useState(false);
+  const deferredSearchValue = React.useDeferredValue(searchValue.trim());
 
   React.useEffect(() => {
     if (!open) {
       setSearchValue("");
-      setSelectedBookIds([]);
+      setPendingSelections({});
       setIsSubmitting(false);
-      setIsSelectionHydrated(false);
       return;
     }
 
     setSearchValue("");
-    setSelectedBookIds([]);
+    setPendingSelections({});
     setIsSubmitting(false);
-    setIsSelectionHydrated(false);
   }, [collectionId, open]);
 
-  React.useEffect(() => {
-    if (!open || bookOptions === undefined || isSelectionHydrated) {
-      return;
-    }
-
-    setSelectedBookIds(
-      bookOptions
-        .filter((option) => option.isAssigned)
-        .map((option) => option.id),
-    );
-    setIsSelectionHydrated(true);
-  }, [bookOptions, isSelectionHydrated, open]);
-
-  const filteredBookOptions = React.useMemo(
-    () =>
-      (bookOptions ?? []).filter((option) =>
-        matchesBookSearch(option, searchValue),
-      ),
-    [bookOptions, searchValue],
+  const {
+    results: bookOptions,
+    status,
+    loadMore,
+  } = usePaginatedQuery(
+    api.library.getLibraryCollectionBookOptions,
+    open
+      ? {
+          collectionId: collectionId as Id<"library_collections">,
+          search: deferredSearchValue || undefined,
+        }
+      : "skip",
+    { initialNumItems: INITIAL_PAGE_SIZE },
   );
 
-  const selectedBookIdSet = React.useMemo(
-    () => new Set(selectedBookIds),
-    [selectedBookIds],
-  );
-
-  const totalBookCount = React.useMemo(
-    () => bookOptions?.length ?? 0,
-    [bookOptions],
+  const pendingChangeCount = React.useMemo(
+    () => Object.keys(pendingSelections).length,
+    [pendingSelections],
   );
 
   const toggleBookSelection = React.useCallback(
-    (bookId: string, checked: boolean) => {
-      setSelectedBookIds((current) => {
-        const next = new Set(current);
+    (option: LibraryCollectionBookOption, checked: boolean) => {
+      setPendingSelections((current) => {
+        const next = { ...current };
 
-        if (checked) {
-          next.add(bookId);
-        } else {
-          next.delete(bookId);
+        if (checked === option.isAssigned) {
+          delete next[option.id];
+          return next;
         }
 
-        return [...next];
+        next[option.id] = checked;
+        return next;
       });
     },
     [],
@@ -143,12 +118,25 @@ export function LibraryCollectionBooksDialog({
     async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
+      const addBookIds = Object.entries(pendingSelections)
+        .filter(([, checked]) => checked)
+        .map(([bookId]) => bookId as Id<"library_books">);
+      const removeBookIds = Object.entries(pendingSelections)
+        .filter(([, checked]) => !checked)
+        .map(([bookId]) => bookId as Id<"library_books">);
+
+      if (addBookIds.length === 0 && removeBookIds.length === 0) {
+        onOpenChange(false);
+        return;
+      }
+
       try {
         setIsSubmitting(true);
 
-        await syncLibraryCollectionBooks({
+        await updateLibraryCollectionBooks({
           collectionId: collectionId as Id<"library_collections">,
-          bookIds: selectedBookIds as Id<"library_books">[],
+          addBookIds,
+          removeBookIds,
         });
 
         toast.success(t("success", { name: collectionName }));
@@ -163,18 +151,14 @@ export function LibraryCollectionBooksDialog({
         setIsSubmitting(false);
       }
     },
-    [
-      collectionId,
-      collectionName,
-      onOpenChange,
-      selectedBookIds,
-      syncLibraryCollectionBooks,
-      t,
-    ],
+    [collectionId, collectionName, onOpenChange, pendingSelections, t, updateLibraryCollectionBooks],
   );
 
-  const hasBookOptions = (bookOptions?.length ?? 0) > 0;
-  const hasFilteredBookOptions = filteredBookOptions.length > 0;
+  const isLoadingFirstPage = status === "LoadingFirstPage";
+  const canLoadMore = status === "CanLoadMore";
+  const hasBookOptions = bookOptions.length > 0;
+  const emptyMessage =
+    deferredSearchValue.length > 0 ? t("empty") : t("emptyLibrary");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -204,39 +188,35 @@ export function LibraryCollectionBooksDialog({
                     value={searchValue}
                     onChange={(event) => setSearchValue(event.target.value)}
                     placeholder={t("searchPlaceholder")}
-                    disabled={isSubmitting || bookOptions === undefined}
+                    disabled={isSubmitting}
                   />
                   <FieldDescription>
-                    {t("selectedCount", { count: selectedBookIds.length })}{" "}
-                    {bookOptions !== undefined
-                      ? `• ${t("totalCount", { count: totalBookCount })}`
-                      : ""}
+                    {t("pendingChanges", { count: pendingChangeCount })}
                   </FieldDescription>
                 </Field>
               </FieldGroup>
 
               <div className="overflow-hidden rounded-md border">
-                {bookOptions === undefined ? (
+                {isLoadingFirstPage ? (
                   <div className="flex min-h-56 items-center justify-center px-4 py-10 text-sm text-muted-foreground">
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     {t("loading")}
                   </div>
                 ) : !hasBookOptions ? (
                   <div className="px-4 py-10 text-center text-sm text-muted-foreground">
-                    {t("emptyLibrary")}
-                  </div>
-                ) : !hasFilteredBookOptions ? (
-                  <div className="px-4 py-10 text-center text-sm text-muted-foreground">
-                    {t("empty")}
+                    {emptyMessage}
                   </div>
                 ) : (
                   <div className="divide-y">
-                    {filteredBookOptions.map((option) => {
+                    {bookOptions.map((option) => {
                       const authorsLabel =
                         option.authors.length > 0
                           ? option.authors.join(", ")
                           : tLibrary("grid.unknownAuthor");
-                      const isChecked = selectedBookIdSet.has(option.id);
+                      const isChecked = matchesCurrentSelection(
+                        option,
+                        pendingSelections,
+                      );
 
                       return (
                         <label
@@ -249,7 +229,7 @@ export function LibraryCollectionBooksDialog({
                             checked={isChecked}
                             disabled={isSubmitting}
                             onCheckedChange={(checked) =>
-                              toggleBookSelection(option.id, checked === true)
+                              toggleBookSelection(option, checked === true)
                             }
                             className="mt-0.5"
                           />
@@ -268,6 +248,19 @@ export function LibraryCollectionBooksDialog({
                   </div>
                 )}
               </div>
+
+              {canLoadMore && (
+                <div className="flex justify-center">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => loadMore(LOAD_MORE_PAGE_SIZE)}
+                    disabled={isSubmitting}
+                  >
+                    {t("loadMore")}
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
 
@@ -280,10 +273,7 @@ export function LibraryCollectionBooksDialog({
             >
               {t("cancel")}
             </Button>
-            <Button
-              type="submit"
-              disabled={isSubmitting || bookOptions === undefined}
-            >
+            <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

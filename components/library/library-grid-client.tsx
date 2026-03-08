@@ -3,54 +3,39 @@
 import * as React from "react";
 import { useTranslations } from "next-intl";
 import { useUser } from "@clerk/nextjs";
-import { useQuery } from "convex/react";
-import {
-  ColumnDef,
-  ColumnFiltersState,
-  getCoreRowModel,
-  getFilteredRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import { ChevronDownIcon, DotIcon } from "lucide-react";
+import { usePaginatedQuery, useQuery } from "convex/react";
 
 import { api } from "@/convex/_generated/api";
 import type { Id } from "@/convex/_generated/dataModel";
-import { DataTableFilters } from "@/components/table/data-table-filters";
-import { BookCard } from "@/components/library/book-card";
 import { LibraryActions } from "@/components/library/library-actions";
+import { LibraryBookGrid } from "@/components/library/library-book-grid";
 import { LibraryCollectionBooksDialog } from "@/components/library/library-collection-books-dialog";
-import { LibraryCollectionCard } from "@/components/library/library-collection-card";
 import { LibraryCollectionDeleteDialog } from "@/components/library/library-collection-delete-dialog";
 import { LibraryCollectionFormDialog } from "@/components/library/library-collection-form-dialog";
+import { LibraryCollectionsBrowser } from "@/components/library/library-collections-browser";
+import { LibraryFiltersMenu } from "@/components/library/library-filters-menu";
 import { LibraryViewToggle } from "@/components/library/library-view-toggle";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { createLibraryFilters } from "@/lib/library/filter-configs";
 import type {
   LibraryBookRecord,
   LibraryCatalogClientProps,
+  LibraryCatalogFilterOptions,
   LibraryCollectionBrowserRecord,
-  LibraryCollectionTreeNode,
 } from "@/lib/library/types";
-import { createMultiSelectFilterFn } from "@/lib/table/filter-configs";
+import {
+  buildLibraryViewModeCookieValue,
+  LIBRARY_VIEW_MODE_COOKIE_NAME,
+  LIBRARY_VIEW_MODE_STORAGE_KEY,
+  parseLibraryViewMode,
+  type LibraryViewMode,
+} from "@/lib/library/view-mode";
 
-const VIEW_MODE_STORAGE_KEY = "library:all-books:view-mode";
-
-type LibraryViewMode = "grid" | "collections";
+const GRID_PAGE_SIZE = 24;
+const EMPTY_FILTER_OPTIONS: LibraryCatalogFilterOptions = {
+  languages: [],
+  categories: [],
+};
 
 type EditableCollectionState = {
   id: string;
@@ -108,7 +93,6 @@ function normalizeCollectionBrowser(
     return {
       breadcrumbs: [],
       childCollections: [],
-      books: [],
     };
   }
 
@@ -116,14 +100,13 @@ function normalizeCollectionBrowser(
     currentCollection: browser.currentCollection,
     breadcrumbs: browser.breadcrumbs ?? [],
     childCollections: browser.childCollections ?? [],
-    books: (browser.books ?? []).map((book) => normalizeLiveBook(book)),
   };
 }
 
 export function LibraryGridClient({
-  books,
+  initialBooks,
   scope,
-  initialCollectionBrowser,
+  initialViewMode = "grid",
 }: LibraryCatalogClientProps) {
   const t = useTranslations("library");
   const { user } = useUser();
@@ -131,7 +114,9 @@ export function LibraryGridClient({
   const userRole = user?.publicMetadata?.role as string | undefined;
   const canManageLibrary = userRole === "admin" || userRole === "superadmin";
 
-  const [viewMode, setViewMode] = React.useState<LibraryViewMode>("grid");
+  const [viewMode, setViewMode] = React.useState<LibraryViewMode>(
+    scope === "all" ? initialViewMode : "grid",
+  );
   const [activeCollectionId, setActiveCollectionId] = React.useState<
     string | null
   >(null);
@@ -141,14 +126,36 @@ export function LibraryGridClient({
     React.useState<CollectionBooksState | null>(null);
   const [collectionToDelete, setCollectionToDelete] =
     React.useState<DeletableCollectionState | null>(null);
+  const [gridSearchValue, setGridSearchValue] = React.useState("");
+  const [collectionSearchValue, setCollectionSearchValue] = React.useState("");
+  const [selectedStatuses, setSelectedStatuses] = React.useState<
+    LibraryBookRecord["status"][]
+  >([]);
+  const [selectedLanguages, setSelectedLanguages] = React.useState<string[]>(
+    [],
+  );
+  const [selectedCategories, setSelectedCategories] = React.useState<string[]>(
+    [],
+  );
 
   React.useEffect(() => {
     if (scope !== "all" || typeof window === "undefined") {
       return;
     }
 
-    const persistedMode = window.localStorage.getItem(VIEW_MODE_STORAGE_KEY);
-    if (persistedMode === "grid" || persistedMode === "collections") {
+    const cookieValue = document.cookie
+      .split("; ")
+      .find((entry) => entry.startsWith(`${LIBRARY_VIEW_MODE_COOKIE_NAME}=`))
+      ?.split("=")[1];
+
+    if (parseLibraryViewMode(cookieValue)) {
+      return;
+    }
+
+    const persistedMode = parseLibraryViewMode(
+      window.localStorage.getItem(LIBRARY_VIEW_MODE_STORAGE_KEY),
+    );
+    if (persistedMode) {
       setViewMode(persistedMode);
     }
   }, [scope]);
@@ -158,44 +165,85 @@ export function LibraryGridClient({
       return;
     }
 
-    window.localStorage.setItem(VIEW_MODE_STORAGE_KEY, viewMode);
+    window.localStorage.setItem(LIBRARY_VIEW_MODE_STORAGE_KEY, viewMode);
+    document.cookie = buildLibraryViewModeCookieValue(viewMode);
   }, [scope, viewMode]);
 
-  const liveAllBooks = useQuery(
-    api.library.getAllLibraryBooks,
-    scope === "all" ? {} : "skip",
+  const deferredGridSearch = React.useDeferredValue(gridSearchValue.trim());
+  const deferredCollectionSearch = React.useDeferredValue(
+    collectionSearchValue.trim(),
   );
-  const liveMyBooks = useQuery(
-    api.library.getMyLibraryBooks,
-    scope === "my" ? {} : "skip",
+
+  const gridQueryArgs = React.useMemo(
+    () => ({
+      search: deferredGridSearch || undefined,
+      statuses: selectedStatuses.length > 0 ? selectedStatuses : undefined,
+      languages: selectedLanguages.length > 0 ? selectedLanguages : undefined,
+      categories:
+        selectedCategories.length > 0 ? selectedCategories : undefined,
+    }),
+    [
+      deferredGridSearch,
+      selectedCategories,
+      selectedLanguages,
+      selectedStatuses,
+    ],
   );
-  const liveCollectionBrowser = useQuery(
-    api.library.getLibraryCollectionBrowser,
-    scope === "all" && viewMode === "collections"
+  const isInitialGridQuery =
+    !gridQueryArgs.search &&
+    !gridQueryArgs.statuses &&
+    !gridQueryArgs.languages &&
+    !gridQueryArgs.categories;
+
+  const allBooksPage = usePaginatedQuery(
+    api.library.getAllLibraryBooksPage,
+    scope === "all" && viewMode === "grid" ? gridQueryArgs : "skip",
+    { initialNumItems: GRID_PAGE_SIZE },
+  );
+  const myBooksPage = usePaginatedQuery(
+    api.library.getMyLibraryBooksPage,
+    scope === "my" ? gridQueryArgs : "skip",
+    { initialNumItems: GRID_PAGE_SIZE },
+  );
+  const collectionBooksPage = usePaginatedQuery(
+    api.library.getLibraryCollectionBooksPage,
+    scope === "all" && viewMode === "collections" && activeCollectionId
       ? {
-          collectionId: activeCollectionId
-            ? (activeCollectionId as Id<"library_collections">)
-            : undefined,
+          collectionId: activeCollectionId as Id<"library_collections">,
+          search: deferredCollectionSearch || undefined,
         }
       : "skip",
+    { initialNumItems: GRID_PAGE_SIZE },
+  );
+  const gridPage = scope === "my" ? myBooksPage : allBooksPage;
+
+  const catalogFilterOptions = useQuery(
+    api.library.getLibraryCatalogFilterOptions,
+    scope === "my" || viewMode === "grid" ? {} : "skip",
+  );
+  const collectionBrowserQueryArgs = React.useMemo(() => {
+    if (scope !== "all" || viewMode !== "collections") {
+      return "skip" as const;
+    }
+
+    return activeCollectionId
+      ? {
+          collectionId: activeCollectionId as Id<"library_collections">,
+        }
+      : {};
+  }, [activeCollectionId, scope, viewMode]);
+  const liveCollectionBrowser = useQuery(
+    api.library.getLibraryCollectionBrowser,
+    collectionBrowserQueryArgs,
   );
   const collectionTree = useQuery(
     api.library.getLibraryCollectionsTree,
-    scope === "all" ? {} : "skip",
+    scope === "all" && viewMode === "collections" ? {} : "skip",
   );
 
-  const liveBooks = scope === "my" ? liveMyBooks : liveAllBooks;
-  const resolvedBooks = React.useMemo(() => {
-    if (!liveBooks) {
-      return books;
-    }
-
-    return liveBooks.map((book) => normalizeLiveBook(book));
-  }, [books, liveBooks]);
-
   const rootCollectionBrowser = React.useMemo(
-    () => normalizeCollectionBrowser(initialCollectionBrowser),
-    [initialCollectionBrowser],
+    () => normalizeCollectionBrowser(undefined),
+    [],
   );
   const [collectionBrowser, setCollectionBrowser] = React.useState(
     rootCollectionBrowser,
@@ -237,82 +285,6 @@ export function LibraryGridClient({
     }
   }, [activeCollectionId, liveCollectionBrowser, scope, viewMode]);
 
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
-
-  const multiSelectFilter = React.useMemo(
-    () => createMultiSelectFilterFn<LibraryBookRecord>(),
-    [],
-  );
-
-  const columns = React.useMemo<ColumnDef<LibraryBookRecord>[]>(
-    () => [
-      {
-        id: "search",
-        accessorFn: (row) =>
-          [
-            row.title,
-            row.subtitle,
-            row.authors.join(" "),
-            row.publishers.join(" "),
-            row.categories.join(" "),
-            row.isbn10,
-            row.isbn13,
-            row.fileName,
-          ]
-            .filter(Boolean)
-            .join(" ")
-            .toLowerCase(),
-        enableSorting: false,
-        enableHiding: false,
-        enableColumnFilter: true,
-      },
-      {
-        id: "status",
-        accessorFn: (row) => row.status,
-        filterFn: multiSelectFilter,
-        enableColumnFilter: true,
-      },
-      {
-        id: "language",
-        accessorFn: (row) => (row.language ?? "").toLowerCase(),
-        filterFn: multiSelectFilter,
-        enableColumnFilter: true,
-      },
-      {
-        id: "category",
-        accessorFn: (row) => row.categories[0] ?? "",
-        filterFn: multiSelectFilter,
-        enableColumnFilter: true,
-      },
-    ],
-    [multiSelectFilter],
-  );
-
-  const table = useReactTable({
-    data: resolvedBooks,
-    columns,
-    onColumnFiltersChange: setColumnFilters,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    state: {
-      columnFilters,
-    },
-  });
-
-  const filteredBooks = table
-    .getFilteredRowModel()
-    .rows.map((row) => row.original);
-
-  const filters = React.useMemo(
-    () => createLibraryFilters(t, resolvedBooks),
-    [resolvedBooks, t],
-  );
-
-  const searchColumn = table.getColumn("search");
-  const [collectionSearchValue, setCollectionSearchValue] = React.useState("");
-
   const getStatusLabel = React.useCallback(
     (status: LibraryBookRecord["status"]) =>
       t(`filters.statusValues.${status}`),
@@ -335,63 +307,125 @@ export function LibraryGridClient({
         return t("filters.languageValues.en");
       }
 
-      return normalized.toUpperCase();
+      return language?.trim() || normalized.toUpperCase();
     },
     [t],
   );
 
-  const filteredCollectionBrowser = React.useMemo(() => {
-    const normalizedSearch = collectionSearchValue.trim().toLowerCase();
+  const resolvedFilterOptions =
+    React.useMemo<LibraryCatalogFilterOptions>(() => {
+      const source = catalogFilterOptions ?? EMPTY_FILTER_OPTIONS;
 
-    if (!normalizedSearch) {
-      return collectionBrowser;
-    }
+      return {
+        languages: source.languages.map((option) => ({
+          value: option.value,
+          label: getLanguageLabel(option.label) ?? option.label,
+        })),
+        categories: source.categories,
+      };
+    }, [catalogFilterOptions, getLanguageLabel]);
 
-    const collectionMatches = collectionBrowser.childCollections.filter(
-      (collection) => collection.name.toLowerCase().includes(normalizedSearch),
-    );
+  const liveGridBooks = React.useMemo(
+    () => gridPage.results.map((book) => normalizeLiveBook(book)),
+    [gridPage.results],
+  );
+  const shouldUseInitialBooks =
+    isInitialGridQuery &&
+    gridPage.status === "LoadingFirstPage" &&
+    initialBooks.length > 0;
+  const gridBooks = shouldUseInitialBooks ? initialBooks : liveGridBooks;
+  const isGridLoadingFirstPage =
+    gridPage.status === "LoadingFirstPage" && !shouldUseInitialBooks;
+  const isGridLoadingMore = gridPage.status === "LoadingMore";
+  const canLoadMoreGridBooks = gridPage.status === "CanLoadMore";
+  const isGridExhausted = gridPage.status === "Exhausted";
+  const gridResultsLabel = isGridExhausted
+    ? t("grid.results", { count: gridBooks.length })
+    : t("grid.showingResults", { count: gridBooks.length });
 
-    const bookMatches = collectionBrowser.books.filter((book) =>
+  const collectionBooks = React.useMemo(
+    () => collectionBooksPage.results.map((book) => normalizeLiveBook(book)),
+    [collectionBooksPage.results],
+  );
+  const isCollectionBooksLoadingFirstPage =
+    collectionBooksPage.status === "LoadingFirstPage" &&
+    Boolean(activeCollectionId);
+  const isCollectionBooksLoadingMore =
+    collectionBooksPage.status === "LoadingMore";
+  const canLoadMoreCollectionBooks =
+    collectionBooksPage.status === "CanLoadMore";
+
+  const filterSections = React.useMemo(
+    () =>
       [
-        book.title,
-        book.subtitle,
-        book.authors.join(" "),
-        book.publishers.join(" "),
-        book.categories.join(" "),
-        book.isbn10,
-        book.isbn13,
-        book.fileName,
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase()
-        .includes(normalizedSearch),
-    );
+        {
+          id: "status",
+          label: t("filters.status"),
+          options: [
+            { value: "ok", label: t("filters.statusValues.ok") },
+            {
+              value: "needs_review",
+              label: t("filters.statusValues.needs_review"),
+            },
+            { value: "failed", label: t("filters.statusValues.failed") },
+          ],
+          values: selectedStatuses,
+          onChange: (values: string[]) =>
+            setSelectedStatuses(values as LibraryBookRecord["status"][]),
+        },
+        {
+          id: "language",
+          label: t("filters.language"),
+          options: resolvedFilterOptions.languages,
+          values: selectedLanguages,
+          onChange: setSelectedLanguages,
+        },
+        {
+          id: "category",
+          label: t("filters.category"),
+          options: resolvedFilterOptions.categories,
+          values: selectedCategories,
+          onChange: setSelectedCategories,
+        },
+      ].filter((section) => section.options.length > 0),
+    [
+      resolvedFilterOptions.categories,
+      resolvedFilterOptions.languages,
+      selectedCategories,
+      selectedLanguages,
+      selectedStatuses,
+      t,
+    ],
+  );
 
-    return {
-      ...collectionBrowser,
-      childCollections: collectionMatches,
-      books: bookMatches,
-    };
-  }, [collectionBrowser, collectionSearchValue]);
+  const handleEditCollection = React.useCallback(
+    (collection: { id: string; name: string }) => {
+      setCollectionToEdit(collection);
+    },
+    [],
+  );
 
-  const collectionChildrenMap = React.useMemo(() => {
-    const map = new Map<string, LibraryCollectionTreeNode[]>();
+  const handleEditBooksInCollection = React.useCallback(
+    (collection: { id: string; name: string }) => {
+      setCollectionToEditBooks(collection);
+    },
+    [],
+  );
 
-    for (const collection of collectionTree ?? []) {
-      const key = collection.parentId ?? "__root__";
-      const siblings = map.get(key) ?? [];
-      siblings.push(collection);
-      map.set(key, siblings);
-    }
+  const handleDeleteCollection = React.useCallback(
+    (collection: { id: string; name: string; bookCount: number }) => {
+      const childCount = collectionTree?.filter(
+        (item) => item.parentId === collection.id,
+      ).length;
 
-    return map;
-  }, [collectionTree]);
-
-  const getCollectionChildren = React.useCallback(
-    (collectionId?: string) =>
-      collectionChildrenMap.get(collectionId ?? "__root__") ?? [],
-    [collectionChildrenMap],
+      setCollectionToDelete({
+        id: collection.id,
+        name: collection.name,
+        bookCount: collection.bookCount,
+        childCount: childCount ?? 0,
+      });
+    },
+    [collectionTree],
   );
 
   const handleOpenCollection = React.useCallback((collectionId: string) => {
@@ -418,7 +452,6 @@ export function LibraryGridClient({
           },
         ],
         childCollections: [],
-        books: [],
       };
     });
   }, []);
@@ -430,112 +463,69 @@ export function LibraryGridClient({
     [],
   );
 
-  const handleEditCollection = React.useCallback(
-    (collection: { id: string; name: string }) => {
-      setCollectionToEdit({
-        id: collection.id,
-        name: collection.name,
-      });
-    },
-    [],
-  );
-
-  const handleEditBooksInCollection = React.useCallback(
-    (collection: { id: string; name: string }) => {
-      setCollectionToEditBooks({
-        id: collection.id,
-        name: collection.name,
-      });
-    },
-    [],
-  );
-
-  const handleDeleteCollection = React.useCallback(
-    (collection: { id: string; name: string; bookCount: number }) => {
-      setCollectionToDelete({
-        id: collection.id,
-        name: collection.name,
-        bookCount: collection.bookCount,
-        childCount: getCollectionChildren(collection.id).length,
-      });
-    },
-    [getCollectionChildren],
-  );
-
   const handleOpenRoot = React.useCallback(() => {
     setActiveCollectionId(null);
-    setCollectionBrowser(rootCollectionBrowser);
-  }, [rootCollectionBrowser]);
-
-  const renderBookGrid = React.useCallback(
-    (items: LibraryBookRecord[]) => {
-      if (items.length === 0) {
-        return (
-          <div className="rounded-md border border-dashed p-8 text-center text-sm text-muted-foreground">
-            {scope === "my"
-              ? t("myBooks.emptyMessage")
-              : t("allBooks.emptyMessage")}
-          </div>
-        );
+    setCollectionBrowser((current) => {
+      if (!activeCollectionId) {
+        return liveCollectionBrowser
+          ? normalizeCollectionBrowser(liveCollectionBrowser)
+          : current;
       }
 
-      return (
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-          {items.map((book) => (
-            <BookCard
-              key={book.id}
-              book={book}
-              statusLabel={getStatusLabel(book.status)}
-              languageLabel={getLanguageLabel(book.language)}
-              unknownAuthorLabel={t("grid.unknownAuthor")}
-              openBookLabel={t("grid.viewDetails")}
-            />
-          ))}
-        </div>
-      );
-    },
-    [getLanguageLabel, getStatusLabel, scope, t],
-  );
+      return rootCollectionBrowser;
+    });
+  }, [activeCollectionId, liveCollectionBrowser, rootCollectionBrowser]);
+
+  const handleClearGridFilters = React.useCallback(() => {
+    setSelectedStatuses([]);
+    setSelectedLanguages([]);
+    setSelectedCategories([]);
+  }, []);
 
   const currentCollectionName = collectionBrowser.currentCollection?.name;
   const isCollectionBrowserLoading =
     scope === "all" &&
     viewMode === "collections" &&
-    activeCollectionId !== null &&
     liveCollectionBrowser === undefined;
 
-  if (scope === "my") {
-    return (
-      <>
-        <div className="flex items-center gap-2 py-4">
-          <Input
-            placeholder={t("grid.searchPlaceholder")}
-            value={(searchColumn?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              searchColumn?.setFilterValue(event.target.value)
-            }
-            className="min-w-0 flex-1 bg-white dark:bg-dark-gunmetal"
+  const gridControls = (
+    <div className="flex items-center gap-2 py-4">
+      <Input
+        placeholder={t("grid.searchPlaceholder")}
+        value={viewMode === "grid" ? gridSearchValue : collectionSearchValue}
+        onChange={(event) => {
+          if (viewMode === "grid") {
+            setGridSearchValue(event.target.value);
+            return;
+          }
+
+          setCollectionSearchValue(event.target.value);
+        }}
+        className="min-w-0 flex-1 bg-white dark:bg-dark-gunmetal"
+      />
+
+      <div className="flex shrink-0 items-center gap-2">
+        {viewMode === "grid" && filterSections.length > 0 && (
+          <LibraryFiltersMenu
+            sections={filterSections}
+            buttonLabel={t("filters.title")}
+            filterByLabel={t("filters.filterBy")}
+            clearAllLabel={t("filters.clearAll")}
+            onClearAll={handleClearGridFilters}
           />
-
-          <div className="flex shrink-0 items-center gap-2">
-            {filters.length > 0 && (
-              <DataTableFilters
-                table={table}
-                filterConfigs={filters}
-                filtersMenuLabel={t("filters.title")}
-              />
-            )}
-          </div>
-        </div>
-
-        <p className="mb-4 text-sm text-muted-foreground">
-          {t("grid.results", { count: filteredBooks.length })}
-        </p>
-
-        {renderBookGrid(filteredBooks)}
-      </>
-    );
-  }
+        )}
+        {scope === "all" && (
+          <LibraryViewToggle
+            value={viewMode}
+            onValueChange={setViewMode}
+            label={t("views.label")}
+            gridLabel={t("views.grid")}
+            collectionsLabel={t("views.collections")}
+          />
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -581,7 +571,7 @@ export function LibraryGridClient({
         />
       )}
 
-      {canManageLibrary && (
+      {scope === "all" && canManageLibrary && (
         <>
           <LibraryActions
             parentCollectionId={
@@ -596,199 +586,73 @@ export function LibraryGridClient({
       )}
 
       <div className="space-y-6 pt-4">
-        <div className="flex items-center gap-2 py-4">
-          <Input
-            placeholder={t("grid.searchPlaceholder")}
-            value={
-              viewMode === "grid"
-                ? ((searchColumn?.getFilterValue() as string) ?? "")
-                : collectionSearchValue
-            }
-            onChange={(event) => {
-              if (viewMode === "grid") {
-                searchColumn?.setFilterValue(event.target.value);
-                return;
-              }
+        {gridControls}
 
-              setCollectionSearchValue(event.target.value);
-            }}
-            className="min-w-0 flex-1 bg-white dark:bg-dark-gunmetal"
-          />
-
-          <div className="flex shrink-0 items-center gap-2">
-            {viewMode === "grid" && filters.length > 0 && (
-              <DataTableFilters
-                table={table}
-                filterConfigs={filters}
-                filtersMenuLabel={t("filters.title")}
-              />
-            )}
-            <LibraryViewToggle
-              value={viewMode}
-              onValueChange={setViewMode}
-              label={t("views.label")}
-              gridLabel={t("views.grid")}
-              collectionsLabel={t("views.collections")}
-            />
-          </div>
-        </div>
-
-        {viewMode === "grid" ? (
+        {scope === "my" || viewMode === "grid" ? (
           <>
             <p className="mb-4 text-sm text-muted-foreground">
-              {t("grid.results", { count: filteredBooks.length })}
+              {gridResultsLabel}
             </p>
-
-            {renderBookGrid(filteredBooks)}
+            <LibraryBookGrid
+              books={gridBooks}
+              isLoadingFirstPage={isGridLoadingFirstPage}
+              isLoadingMore={isGridLoadingMore}
+              canLoadMore={canLoadMoreGridBooks}
+              onLoadMore={() => gridPage.loadMore(GRID_PAGE_SIZE)}
+              emptyMessage={
+                scope === "my"
+                  ? t("myBooks.emptyMessage")
+                  : t("allBooks.emptyMessage")
+              }
+              loadingMessage={t("grid.loading")}
+              loadMoreLabel={t("grid.loadMore")}
+              loadingMoreLabel={t("grid.loadingMore")}
+              unknownAuthorLabel={t("grid.unknownAuthor")}
+              openBookLabel={t("grid.viewDetails")}
+              getStatusLabel={getStatusLabel}
+              getLanguageLabel={getLanguageLabel}
+            />
           </>
         ) : (
-          <>
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <button
-                      type="button"
-                      onClick={handleOpenRoot}
-                      className="cursor-pointer"
-                    >
-                      {t("collections.root")}
-                    </button>
-                  </BreadcrumbLink>
-                  {getCollectionChildren().length > 0 && (
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <button
-                          type="button"
-                          className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground"
-                          aria-label={t("collections.dropdownLabel")}
-                        >
-                          <ChevronDownIcon className="size-3.5" />
-                        </button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="start">
-                        {getCollectionChildren().map((collection) => (
-                          <DropdownMenuItem
-                            key={collection.id}
-                            onClick={() =>
-                              handleNavigateToCollection(collection.id)
-                            }
-                          >
-                            {collection.name}
-                          </DropdownMenuItem>
-                        ))}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  )}
-                </BreadcrumbItem>
-
-                {collectionBrowser.breadcrumbs.map((breadcrumb, index) => {
-                  const isLast =
-                    index === collectionBrowser.breadcrumbs.length - 1;
-                  const childCollections = getCollectionChildren(breadcrumb.id);
-
-                  return (
-                    <React.Fragment key={breadcrumb.id}>
-                      <BreadcrumbSeparator>
-                        <DotIcon />
-                      </BreadcrumbSeparator>
-                      <BreadcrumbItem>
-                        {isLast ? (
-                          <BreadcrumbPage>{breadcrumb.name}</BreadcrumbPage>
-                        ) : (
-                          <BreadcrumbLink asChild>
-                            <button
-                              type="button"
-                              onClick={() =>
-                                handleNavigateToCollection(breadcrumb.id)
-                              }
-                              className="cursor-pointer"
-                            >
-                              {breadcrumb.name}
-                            </button>
-                          </BreadcrumbLink>
-                        )}
-                        {childCollections.length > 0 && (
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <button
-                                type="button"
-                                className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground"
-                                aria-label={`${t("collections.dropdownLabel")}: ${breadcrumb.name}`}
-                              >
-                                <ChevronDownIcon className="size-3.5" />
-                              </button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="start">
-                              {childCollections.map((collection) => (
-                                <DropdownMenuItem
-                                  key={collection.id}
-                                  onClick={() =>
-                                    handleNavigateToCollection(collection.id)
-                                  }
-                                >
-                                  {collection.name}
-                                </DropdownMenuItem>
-                              ))}
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        )}
-                      </BreadcrumbItem>
-                    </React.Fragment>
-                  );
-                })}
-              </BreadcrumbList>
-            </Breadcrumb>
-
-            {isCollectionBrowserLoading && (
-              <p className="mb-6 text-sm text-muted-foreground">
-                {t("collections.loading")}
-              </p>
-            )}
-
-            {filteredCollectionBrowser.childCollections.length > 0 && (
-              <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 2xl:grid-cols-4">
-                {filteredCollectionBrowser.childCollections.map(
-                  (collection) => (
-                    <LibraryCollectionCard
-                      key={collection.id}
-                      collection={collection}
-                      onOpen={handleOpenCollection}
-                      canManage={canManageLibrary}
-                      onEditBooks={handleEditBooksInCollection}
-                      onEdit={handleEditCollection}
-                      onDelete={handleDeleteCollection}
-                      manageLabel={t("collections.menu.manage")}
-                      editBooksLabel={t("collections.menu.editBooks")}
-                      editLabel={t("collections.menu.edit")}
-                      deleteLabel={t("collections.menu.delete")}
-                    />
-                  ),
-                )}
-              </div>
-            )}
-
-            {filteredCollectionBrowser.childCollections.length > 0 &&
-              filteredCollectionBrowser.books.length > 0 && (
-                <Separator className="my-8" />
-              )}
-
-            {filteredCollectionBrowser.books.length > 0 &&
-              renderBookGrid(filteredCollectionBrowser.books)}
-
-            {filteredCollectionBrowser.childCollections.length === 0 &&
-              filteredCollectionBrowser.books.length === 0 && (
-                <div className="rounded-xl border border-dashed p-10 text-center">
-                  <p className="text-sm text-muted-foreground">
-                    {collectionSearchValue.trim()
-                      ? t("collections.emptySearch")
-                      : activeCollectionId
-                        ? t("collections.emptyCurrent")
-                        : t("collections.emptyRoot")}
-                  </p>
-                </div>
-              )}
-          </>
+          <LibraryCollectionsBrowser
+            activeCollectionId={activeCollectionId}
+            browser={collectionBrowser}
+            collectionTree={collectionTree}
+            searchValue={collectionSearchValue}
+            childCollectionsLoading={isCollectionBrowserLoading}
+            books={collectionBooks}
+            isBooksLoadingFirstPage={isCollectionBooksLoadingFirstPage}
+            isBooksLoadingMore={isCollectionBooksLoadingMore}
+            canLoadMoreBooks={canLoadMoreCollectionBooks}
+            onLoadMoreBooks={() => collectionBooksPage.loadMore(GRID_PAGE_SIZE)}
+            canManage={canManageLibrary}
+            onOpenRoot={handleOpenRoot}
+            onNavigateToCollection={handleNavigateToCollection}
+            onOpenCollection={handleOpenCollection}
+            onEditBooksInCollection={handleEditBooksInCollection}
+            onEditCollection={handleEditCollection}
+            onDeleteCollection={handleDeleteCollection}
+            labels={{
+              root: t("collections.root"),
+              dropdownLabel: t("collections.dropdownLabel"),
+              loading: t("collections.loading"),
+              emptyRoot: t("collections.emptyRoot"),
+              emptyCurrent: t("collections.emptyCurrent"),
+              emptySearch: t("collections.emptySearch"),
+              manage: t("collections.menu.manage"),
+              editBooks: t("collections.menu.editBooks"),
+              edit: t("collections.menu.edit"),
+              delete: t("collections.menu.delete"),
+              gridEmpty: t("collections.emptyCurrent"),
+              gridLoading: t("grid.loading"),
+              gridLoadMore: t("grid.loadMore"),
+              gridLoadingMore: t("grid.loadingMore"),
+              unknownAuthor: t("grid.unknownAuthor"),
+              openBook: t("grid.viewDetails"),
+            }}
+            getStatusLabel={getStatusLabel}
+            getLanguageLabel={getLanguageLabel}
+          />
         )}
       </div>
     </>

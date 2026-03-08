@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import {
   BookOpen,
   BookmarkIcon,
@@ -163,11 +164,12 @@ export function LibraryBookDetailInfo({
     <div className="group relative overflow-hidden rounded-md border border-white/20 bg-white/10 shadow-sm">
       <div className="aspect-[2/3] w-full">
         {coverVisible && book.coverUrl ? (
-          <img
+          <Image
             src={book.coverUrl}
             alt={book.title}
-            className="h-full w-full object-cover"
-            loading="lazy"
+            fill
+            sizes="220px"
+            className="object-cover"
             onError={() => setCoverVisible(false)}
           />
         ) : (
