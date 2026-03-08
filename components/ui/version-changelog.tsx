@@ -19,6 +19,26 @@ import packageJson from "@/package.json";
 // Changelog data - update this when releasing new versions
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "2.0.0-alpha.10",
+    date: "2026-03-08",
+    changes: {
+      es: [
+        "Nueva biblioteca digital con vista en cuadrícula y vista por colecciones anidadas tipo carpetas",
+        "Gestión de colecciones para administradores: crear, renombrar, eliminar y editar libros asignados por colección",
+        "Importación de libros en lote con metadatos, selector de colecciones y mejoras de rendimiento para catálogos grandes",
+        "Detalle de libro con guardado en 'Mis Libros', edición y eliminación para roles administrativos",
+        "Autocompletado dinámico por ISBN en el formulario de importación usando catálogos (sin IA)",
+      ],
+      en: [
+        "New digital library with grid view and nested folder-like collections view",
+        "Admin collection management: create, rename, delete, and edit books assigned per collection",
+        "Bulk book import with metadata, collection selector, and performance improvements for large catalogs",
+        "Book detail view with save to 'My Books', plus edit and delete for admin roles",
+        "Dynamic ISBN autofill in the import form using catalog lookups (no AI)",
+      ],
+    },
+  },
+  {
     version: "2.0.0-alpha.9",
     date: "2026-02-13",
     milestoneUrl: "https://github.com/cpmappstudio/alef-university/milestone/5",
@@ -140,7 +160,7 @@ export function VersionChangelog({ collapsed = false }: VersionChangelogProps) {
     (typeof window !== "undefined" && document.documentElement.lang) || "es";
 
   return (
-    <Sheet>
+    <Sheet data-collapsed={collapsed ? "true" : "false"}>
       <SheetTrigger asChild>
         <button
           className="text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer hover:underline"
