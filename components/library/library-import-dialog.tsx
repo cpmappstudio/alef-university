@@ -755,7 +755,7 @@ export function LibraryImportDialog() {
           <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 py-4">
             <div className="space-y-5">
               <FieldGroup>
-                <Field>
+                {/*<Field>
                   <FieldLabel htmlFor="library-ai-assistance">
                     {t("aiAssistance.label")}
                   </FieldLabel>
@@ -772,7 +772,7 @@ export function LibraryImportDialog() {
                         : t("aiAssistance.disabledHint")}
                     </FieldDescription>
                   </FieldContent>
-                </Field>
+                </Field>*/}
 
                 <Field>
                   <FieldLabel htmlFor="library-pdf-file">
