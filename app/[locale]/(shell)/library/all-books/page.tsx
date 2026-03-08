@@ -3,7 +3,10 @@ import { fetchQuery } from "convex/nextjs";
 
 import { api } from "@/convex/_generated/api";
 import { LibraryGridClient } from "@/components/library/library-grid-client";
-import type { LibraryBookRecord } from "@/lib/library/types";
+import type {
+  LibraryBookRecord,
+  LibraryCollectionBrowserRecord,
+} from "@/lib/library/types";
 
 export default async function LibraryAllBooksPage() {
   const authData = await auth();
@@ -15,6 +18,17 @@ export default async function LibraryAllBooksPage() {
     {},
     fetchOptions,
   )) ?? []) as LibraryBookRecord[];
+  const initialCollectionBrowser = (await fetchQuery(
+    api.library.getLibraryCollectionBrowser,
+    {},
+    fetchOptions,
+  )) as LibraryCollectionBrowserRecord;
 
-  return <LibraryGridClient books={books} scope="all" />;
+  return (
+    <LibraryGridClient
+      books={books}
+      scope="all"
+      initialCollectionBrowser={initialCollectionBrowser}
+    />
+  );
 }

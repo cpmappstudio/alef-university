@@ -36,6 +36,7 @@ export type LibraryImportFormState = {
   abstract: string;
   language: string;
   categories: string;
+  collectionIds: string[];
   status: BookMetadataResult["status"];
   confidence: number;
   warnings: string[];
@@ -53,6 +54,7 @@ export const EMPTY_LIBRARY_IMPORT_FORM_STATE: LibraryImportFormState = {
   abstract: "",
   language: "",
   categories: "",
+  collectionIds: [],
   status: "needs_review",
   confidence: 0,
   warnings: [],
@@ -188,6 +190,7 @@ export function createFormStateFromExtraction(args: {
     abstract: normalizeWhitespace(extraction.metadata.abstract),
     language: normalizeLanguageCode(extraction.metadata.language) ?? "",
     categories: toCsv(extraction.metadata.categories),
+    collectionIds: [],
     status: extraction.status,
     confidence: clampConfidence(extraction.confidence),
     warnings: uniqueStrings(extraction.warnings ?? []),
@@ -208,6 +211,7 @@ export function createFormStateFromLibraryBook(
     | "abstract"
     | "language"
     | "categories"
+    | "collectionIds"
     | "status"
     | "confidence"
     | "extractionWarnings"
@@ -225,6 +229,7 @@ export function createFormStateFromLibraryBook(
     abstract: normalizeWhitespace(book.abstract ?? ""),
     language: normalizeLanguageCode(book.language ?? "") ?? "",
     categories: toCsv(book.categories),
+    collectionIds: uniqueStrings(book.collectionIds ?? []),
     status: book.status,
     confidence: clampConfidence(book.confidence),
     warnings: uniqueStrings(book.extractionWarnings ?? []),
@@ -285,6 +290,7 @@ export function buildCreateLibraryBookPayload(args: {
       categories: metadata.categories,
     },
     extractionWarnings: uniqueStrings(formState.warnings),
+    collectionIds: uniqueStrings(formState.collectionIds),
   };
 }
 
@@ -322,6 +328,7 @@ export function buildUpdateLibraryBookPayload(args: {
       categories: metadata.categories,
     },
     extractionWarnings: uniqueStrings(formState.warnings),
+    collectionIds: uniqueStrings(formState.collectionIds),
     replacementFile: replacementFile
       ? {
           storageId: replacementFile.storageId,

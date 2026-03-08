@@ -500,6 +500,88 @@
     "myBooks": {
       "emptyMessage": "No books in your personal shelf yet."
     },
+    "views": {
+      "label": "View mode",
+      "grid": "Grid",
+      "collections": "Collections",
+      "gridTitle": "Library catalog",
+      "gridDescription": "Browse every uploaded book with search and filters.",
+      "collectionsTitle": "Library collections",
+      "collectionsDescription": "Browse the library through nested, folder-like collections."
+    },
+    "collections": {
+      "root": "Collections",
+      "loading": "Opening collection...",
+      "dropdownLabel": "Open collection menu",
+      "emptyRoot": "No collections created yet.",
+      "emptyCurrent": "This collection does not contain child collections or directly assigned books yet.",
+      "emptySearch": "No matching collections or books.",
+      "menu": {
+        "manage": "Manage collection",
+        "editBooks": "Edit books",
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "booksDialog": {
+        "title": "Edit collection books",
+        "description": "Search the library and choose which books should belong to \"{name}\".",
+        "searchLabel": "Search books",
+        "searchPlaceholder": "Search by title or author...",
+        "selectedCount": "{count, plural, =0 {No books selected} one {# book selected} other {# books selected}}",
+        "totalCount": "{count, plural, =0 {No books in library} one {# book in library} other {# books in library}}",
+        "loading": "Loading books...",
+        "emptyLibrary": "No books are available in the library yet.",
+        "empty": "No books match your search.",
+        "cancel": "Cancel",
+        "submit": "Save books",
+        "submitting": "Saving...",
+        "success": "Books updated for \"{name}\".",
+        "error": "Unable to update the collection books."
+      },
+      "createDialog": {
+        "trigger": "New collection",
+        "title": "Create collection",
+        "description": "Create a root collection to organize the library.",
+        "descriptionNested": "Create a nested collection inside \"{name}\".",
+        "nameLabel": "Collection name",
+        "namePlaceholder": "e.g., Programming, Theology, Semester 1",
+        "nameRequired": "Collection name is required.",
+        "cancel": "Cancel",
+        "submit": "Create collection",
+        "submitting": "Creating...",
+        "create": "Create collection",
+        "creating": "Creating...",
+        "success": "Collection created successfully.",
+        "error": "Unable to create the collection."
+      },
+      "editDialog": {
+        "title": "Rename collection",
+        "description": "Update the collection name.",
+        "nameLabel": "Collection name",
+        "namePlaceholder": "Collection name",
+        "nameRequired": "Collection name is required.",
+        "cancel": "Cancel",
+        "submit": "Save changes",
+        "submitting": "Saving...",
+        "success": "Collection updated successfully.",
+        "error": "Unable to update the collection."
+      },
+      "deleteDialog": {
+        "title": "Delete collection",
+        "description": "Are you sure you want to delete \"{name}\"?",
+        "hasChildrenTitle": "This collection has subcollections",
+        "hasChildrenDescription": "{count, plural, one {Move or delete the # nested collection first.} other {Move or delete the # nested collections first.}}",
+        "hasBooksTitle": "This collection still contains books",
+        "hasBooksDescription": "{count, plural, one {Remove the # assigned book before deleting.} other {Remove the # assigned books before deleting.}}",
+        "blocked": "This collection cannot be deleted until it is empty.",
+        "irreversible": "This action cannot be undone.",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "deleting": "Deleting...",
+        "success": "Collection deleted successfully.",
+        "error": "Unable to delete the collection."
+      }
+    },
     "grid": {
       "searchPlaceholder": "Search by title, author, ISBN or category...",
       "results": "{count, plural, =0 {No books} one {# book} other {# books}}",
@@ -551,6 +633,7 @@
         "status": "Status",
         "confidence": "Confidence",
         "categories": "Categories",
+        "collections": "Collections",
         "isbn10": "ISBN-10",
         "isbn13": "ISBN-13",
         "file": "File",
@@ -563,6 +646,13 @@
         "title": "Edit library book",
         "description": "Update this book metadata and save your changes.",
         "commaSeparated": "Comma-separated",
+        "collections": {
+          "placeholder": "Assign collections",
+          "searchPlaceholder": "Search collections...",
+          "empty": "No collections found.",
+          "selectedCount": "selected",
+          "clear": "Remove collection"
+        },
         "pdfLabel": "PDF file",
         "pdfCurrent": "Current file: {fileName}",
         "pdfSelected": "Replacement selected: {fileName}",
@@ -659,11 +749,19 @@
         "isbn10": "ISBN-10",
         "isbn13": "ISBN-13",
         "categories": "Categories",
+        "collections": "Collections",
         "status": "Status",
         "confidence": "Confidence (0-1)",
         "language": "Language",
         "languagePlaceholder": "Select language",
         "abstract": "Abstract"
+      },
+      "collections": {
+        "placeholder": "Assign collections",
+        "searchPlaceholder": "Search collections...",
+        "empty": "No collections found.",
+        "selectedCount": "selected",
+        "clear": "Remove collection"
       }
     }
   },

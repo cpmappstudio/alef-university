@@ -26,6 +26,7 @@ export type LibraryBookRecord = {
   abstract?: string;
   language?: string;
   categories: string[];
+  collectionIds?: string[];
   href?: string;
   coverUrl?: string;
   extractionWarnings?: string[];
@@ -36,6 +37,46 @@ export type LibraryBookDetailRecord = LibraryBookRecord & {
   updatedAt?: number;
 };
 
+export type LibraryCollectionPreviewBook = Pick<
+  LibraryBookRecord,
+  "id" | "title" | "coverUrl"
+>;
+
+export type LibraryCollectionRecord = {
+  id: string;
+  name: string;
+  parentId?: string;
+  depth: number;
+  bookCount: number;
+  previewBooks: LibraryCollectionPreviewBook[];
+};
+
+export type LibraryCollectionTreeNode = {
+  id: string;
+  name: string;
+  parentId?: string;
+  depth: number;
+};
+
+export type LibraryCollectionBreadcrumb = {
+  id: string;
+  name: string;
+};
+
+export type LibraryCollectionBookOption = Pick<
+  LibraryBookRecord,
+  "id" | "title" | "authors"
+> & {
+  isAssigned: boolean;
+};
+
+export type LibraryCollectionBrowserRecord = {
+  currentCollection?: LibraryCollectionBreadcrumb;
+  breadcrumbs: LibraryCollectionBreadcrumb[];
+  childCollections: LibraryCollectionRecord[];
+  books: LibraryBookRecord[];
+};
+
 export type LibraryRawMetadataRecord = Partial<BookMetadataResult> & {
   metadata?: Partial<CandidateMetadata>;
 };
@@ -43,4 +84,5 @@ export type LibraryRawMetadataRecord = Partial<BookMetadataResult> & {
 export type LibraryCatalogClientProps = {
   books: LibraryBookRecord[];
   scope: LibraryScope;
+  initialCollectionBrowser?: LibraryCollectionBrowserRecord;
 };

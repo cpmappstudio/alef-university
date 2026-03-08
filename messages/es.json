@@ -500,6 +500,88 @@
     "myBooks": {
       "emptyMessage": "Aún no tienes libros en tu estante personal."
     },
+    "views": {
+      "label": "Modo de vista",
+      "grid": "Grid",
+      "collections": "Collections",
+      "gridTitle": "Catálogo de biblioteca",
+      "gridDescription": "Explora todos los libros subidos con búsqueda y filtros.",
+      "collectionsTitle": "Colecciones de biblioteca",
+      "collectionsDescription": "Recorre la biblioteca a través de colecciones anidadas tipo carpeta."
+    },
+    "collections": {
+      "root": "Colecciones",
+      "loading": "Abriendo colección...",
+      "dropdownLabel": "Abrir menú de colección",
+      "emptyRoot": "Todavía no se han creado colecciones.",
+      "emptyCurrent": "Esta colección aún no tiene subcolecciones ni libros asignados directamente.",
+      "emptySearch": "No hay colecciones ni libros que coincidan.",
+      "menu": {
+        "manage": "Gestionar colección",
+        "editBooks": "Editar libros",
+        "edit": "Editar",
+        "delete": "Eliminar"
+      },
+      "booksDialog": {
+        "title": "Editar libros de la colección",
+        "description": "Busca en la biblioteca y define qué libros deben pertenecer a \"{name}\".",
+        "searchLabel": "Buscar libros",
+        "searchPlaceholder": "Buscar por título o autor...",
+        "selectedCount": "{count, plural, =0 {Ningún libro seleccionado} one {# libro seleccionado} other {# libros seleccionados}}",
+        "totalCount": "{count, plural, =0 {No hay libros en la biblioteca} one {# libro en la biblioteca} other {# libros en la biblioteca}}",
+        "loading": "Cargando libros...",
+        "emptyLibrary": "Todavía no hay libros disponibles en la biblioteca.",
+        "empty": "No hay libros que coincidan con tu búsqueda.",
+        "cancel": "Cancelar",
+        "submit": "Guardar libros",
+        "submitting": "Guardando...",
+        "success": "Se actualizaron los libros de \"{name}\".",
+        "error": "No fue posible actualizar los libros de la colección."
+      },
+      "createDialog": {
+        "trigger": "Nueva colección",
+        "title": "Crear colección",
+        "description": "Crea una colección raíz para organizar la biblioteca.",
+        "descriptionNested": "Crea una colección anidada dentro de \"{name}\".",
+        "nameLabel": "Nombre de la colección",
+        "namePlaceholder": "ej., Programación, Teología, Semestre 1",
+        "nameRequired": "El nombre de la colección es obligatorio.",
+        "cancel": "Cancelar",
+        "submit": "Crear colección",
+        "submitting": "Creando...",
+        "create": "Crear colección",
+        "creating": "Creando...",
+        "success": "Colección creada correctamente.",
+        "error": "No fue posible crear la colección."
+      },
+      "editDialog": {
+        "title": "Renombrar colección",
+        "description": "Actualiza el nombre de la colección.",
+        "nameLabel": "Nombre de la colección",
+        "namePlaceholder": "Nombre de la colección",
+        "nameRequired": "El nombre de la colección es obligatorio.",
+        "cancel": "Cancelar",
+        "submit": "Guardar cambios",
+        "submitting": "Guardando...",
+        "success": "Colección actualizada correctamente.",
+        "error": "No fue posible actualizar la colección."
+      },
+      "deleteDialog": {
+        "title": "Eliminar colección",
+        "description": "¿Estás seguro de que deseas eliminar \"{name}\"?",
+        "hasChildrenTitle": "Esta colección tiene subcolecciones",
+        "hasChildrenDescription": "{count, plural, one {Mueve o elimina primero la # colección anidada.} other {Mueve o elimina primero las # colecciones anidadas.}}",
+        "hasBooksTitle": "Esta colección todavía contiene libros",
+        "hasBooksDescription": "{count, plural, one {Quita el # libro asignado antes de eliminarla.} other {Quita los # libros asignados antes de eliminarla.}}",
+        "blocked": "Esta colección no se puede eliminar hasta que esté vacía.",
+        "irreversible": "Esta acción no se puede deshacer.",
+        "cancel": "Cancelar",
+        "delete": "Eliminar",
+        "deleting": "Eliminando...",
+        "success": "Colección eliminada correctamente.",
+        "error": "No fue posible eliminar la colección."
+      }
+    },
     "grid": {
       "searchPlaceholder": "Buscar por título, autor, ISBN o categoría...",
       "results": "{count, plural, =0 {Sin libros} one {# libro} other {# libros}}",
@@ -551,6 +633,7 @@
         "status": "Estado",
         "confidence": "Confianza",
         "categories": "Categorías",
+        "collections": "Colecciones",
         "isbn10": "ISBN-10",
         "isbn13": "ISBN-13",
         "file": "Archivo",
@@ -563,6 +646,13 @@
         "title": "Editar libro de biblioteca",
         "description": "Actualiza la metadata de este libro y guarda los cambios.",
         "commaSeparated": "Separado por comas",
+        "collections": {
+          "placeholder": "Asignar colecciones",
+          "searchPlaceholder": "Buscar colecciones...",
+          "empty": "No se encontraron colecciones.",
+          "selectedCount": "seleccionado(s)",
+          "clear": "Quitar colección"
+        },
         "pdfLabel": "Archivo PDF",
         "pdfCurrent": "Archivo actual: {fileName}",
         "pdfSelected": "Reemplazo seleccionado: {fileName}",
@@ -659,11 +749,19 @@
         "isbn10": "ISBN-10",
         "isbn13": "ISBN-13",
         "categories": "Categorías",
+        "collections": "Colecciones",
         "status": "Estado",
         "confidence": "Confianza (0-1)",
         "language": "Idioma",
         "languagePlaceholder": "Selecciona idioma",
         "abstract": "Resumen"
+      },
+      "collections": {
+        "placeholder": "Asignar colecciones",
+        "searchPlaceholder": "Buscar colecciones...",
+        "empty": "No se encontraron colecciones.",
+        "selectedCount": "seleccionado(s)",
+        "clear": "Quitar colección"
       }
     }
   },

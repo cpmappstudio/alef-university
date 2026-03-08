@@ -655,6 +655,35 @@ export default defineSchema({
     .index("by_isbn10", ["isbn10"]),
 
   /**
+   * Hierarchical library collections used as folder-like organization.
+   */
+  library_collections: defineTable({
+    name: v.string(),
+    normalizedName: v.string(),
+    parentId: v.optional(v.id("library_collections")),
+    createdBy: v.id("users"),
+    createdAt: v.number(),
+    updatedAt: v.optional(v.number()),
+  })
+    .index("by_parent_id_and_name", ["parentId", "normalizedName"])
+    .index("by_parent_id_and_created_at", ["parentId", "createdAt"])
+    .index("by_created_at", ["createdAt"]),
+
+  /**
+   * Direct membership between books and collections.
+   */
+  library_book_collections: defineTable({
+    bookId: v.id("library_books"),
+    collectionId: v.id("library_collections"),
+    createdBy: v.id("users"),
+    createdAt: v.number(),
+  })
+    .index("by_book_id_and_collection_id", ["bookId", "collectionId"])
+    .index("by_collection_id_and_book_id", ["collectionId", "bookId"])
+    .index("by_collection_id_and_created_at", ["collectionId", "createdAt"])
+    .index("by_book_id_and_created_at", ["bookId", "createdAt"]),
+
+  /**
    * User favorites for library books (personal shelf)
    */
   library_book_favorites: defineTable({

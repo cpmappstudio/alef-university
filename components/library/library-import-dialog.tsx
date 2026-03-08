@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Loader2, Save, Upload } from "lucide-react";
@@ -51,6 +51,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { LibraryCollectionSelector } from "@/components/library/library-collection-selector";
 
 type UploadResponse = {
   storageId?: string;
@@ -288,6 +289,7 @@ export function LibraryImportDialog() {
   const deleteUnusedLibraryUpload = useMutation(
     api.library.deleteUnusedLibraryUpload,
   );
+  const collectionTree = useQuery(api.library.getLibraryCollectionsTree, {});
 
   const [open, setOpen] = React.useState(false);
   const [aiAssistanceEnabled, setAiAssistanceEnabled] = React.useState(false);
@@ -676,6 +678,9 @@ export function LibraryImportDialog() {
         await createLibraryBook({
           ...payload,
           storageId: payload.storageId as Id<"_storage">,
+          collectionIds: payload.collectionIds.map(
+            (collectionId) => collectionId as Id<"library_collections">,
+          ),
         });
 
         successCount += 1;
@@ -1124,6 +1129,25 @@ export function LibraryImportDialog() {
                                 }
                                 disabled={saving || item.saveState === "saved"}
                                 placeholder={t("commaSeparated")}
+                              />
+                            </Field>
+
+                            <Field className="md:col-span-2">
+                              <FieldLabel>{t("fields.collections")}</FieldLabel>
+                              <LibraryCollectionSelector
+                                collections={collectionTree ?? []}
+                                selectedIds={item.formState.collectionIds}
+                                onChange={(value) =>
+                                  updateField(item.id, "collectionIds", value)
+                                }
+                                placeholder={t("collections.placeholder")}
+                                searchPlaceholder={t(
+                                  "collections.searchPlaceholder",
+                                )}
+                                emptyLabel={t("collections.empty")}
+                                selectedLabel={t("collections.selectedCount")}
+                                clearLabel={t("collections.clear")}
+                                disabled={saving || item.saveState === "saved"}
                               />
                             </Field>
 

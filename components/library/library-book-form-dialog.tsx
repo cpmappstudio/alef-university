@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
@@ -39,6 +39,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { LibraryCollectionSelector } from "@/components/library/library-collection-selector";
 
 type UploadResponse = {
   storageId?: string;
@@ -127,6 +128,7 @@ export function LibraryBookFormDialog({
     api.library.deleteUnusedLibraryUpload,
   );
   const updateLibraryBook = useMutation(api.library.updateLibraryBook);
+  const collectionTree = useQuery(api.library.getLibraryCollectionsTree, {});
 
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [formError, setFormError] = React.useState<string | null>(null);
@@ -281,6 +283,9 @@ export function LibraryBookFormDialog({
         await updateLibraryBook({
           ...payload,
           bookId: payload.bookId as Id<"library_books">,
+          collectionIds: payload.collectionIds.map(
+            (collectionId) => collectionId as Id<"library_collections">,
+          ),
           replacementFile: payload.replacementFile
             ? {
                 ...payload.replacementFile,
@@ -513,6 +518,21 @@ export function LibraryBookFormDialog({
                 }
                 disabled={isSubmitting}
                 placeholder={tDialog("commaSeparated")}
+              />
+            </Field>
+
+            <Field className="md:col-span-2">
+              <FieldLabel>{tDetail("fields.collections")}</FieldLabel>
+              <LibraryCollectionSelector
+                collections={collectionTree ?? []}
+                selectedIds={formState.collectionIds}
+                onChange={(value) => updateField("collectionIds", value)}
+                placeholder={tDialog("collections.placeholder")}
+                searchPlaceholder={tDialog("collections.searchPlaceholder")}
+                emptyLabel={tDialog("collections.empty")}
+                selectedLabel={tDialog("collections.selectedCount")}
+                clearLabel={tDialog("collections.clear")}
+                disabled={isSubmitting}
               />
             </Field>
 
