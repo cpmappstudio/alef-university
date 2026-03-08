@@ -744,6 +744,12 @@
       "cancel": "Cancelar",
       "confidence": "Confianza",
       "commaSeparated": "Separado por comas",
+      "isbnLookup": {
+        "hint": "Al ingresar un ISBN válido, se autocompletan los campos vacíos desde catálogos.",
+        "loading": "Consultando catálogos por ISBN...",
+        "error": "No fue posible traer metadata desde catálogos por ISBN.",
+        "invalidResponse": "Respuesta inválida al consultar ISBN."
+      },
       "warningsTitle": "Advertencias de extracción",
       "fields": {
         "title": "Título",

@@ -744,6 +744,12 @@
       "cancel": "Cancel",
       "confidence": "Confidence",
       "commaSeparated": "Comma-separated",
+      "isbnLookup": {
+        "hint": "Entering a valid ISBN auto-completes empty fields from catalogs.",
+        "loading": "Looking up ISBN catalogs...",
+        "error": "Unable to fetch metadata from ISBN catalogs.",
+        "invalidResponse": "Invalid ISBN lookup response."
+      },
       "warningsTitle": "Extraction warnings",
       "fields": {
         "title": "Title",

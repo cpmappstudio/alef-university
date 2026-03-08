@@ -28,7 +28,6 @@ import {
 } from "@/components/ui/dialog";
 import {
   Field,
-  FieldContent,
   FieldDescription,
   FieldGroup,
   FieldLabel,
@@ -44,7 +43,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
 import {
   Accordion,
   AccordionContent,
@@ -52,12 +50,36 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { LibraryCollectionSelector } from "@/components/library/library-collection-selector";
+import { Spinner } from "@/components/ui/spinner";
 
 type UploadResponse = {
   storageId?: string;
 };
 
 type ExtractionApiError = {
+  error?: string;
+};
+
+type LookupIsbnApiResponse = {
+  source: string;
+  matchedBy: "isbn" | "query";
+  confidence: number;
+  metadata: {
+    title: string;
+    subtitle: string;
+    authors: string[];
+    publishers: string[];
+    publishedYear: number | null;
+    edition: string;
+    isbn10: string;
+    isbn13: string;
+    abstract: string;
+    language: string;
+    categories: string[];
+  };
+};
+
+type LookupIsbnApiError = {
   error?: string;
 };
 
@@ -87,6 +109,11 @@ type LibraryImportItem = {
   extractError: string | null;
   saveState: ItemSaveState;
   saveError: string | null;
+};
+
+type IsbnLookupState = {
+  status: "idle" | "loading" | "error";
+  error: string | null;
 };
 
 const EXTRACTION_PHASES: ReadonlyArray<{
@@ -227,6 +254,127 @@ function buildFileFingerprint(file: File): string {
   return `${file.name}:${file.size}:${file.lastModified}`;
 }
 
+function normalizeWhitespace(value: string): string {
+  return value.replace(/\s+/g, " ").trim();
+}
+
+function normalizeIsbnCandidate(value: string): string {
+  return value.toUpperCase().replace(/[^0-9X]/g, "");
+}
+
+function isValidIsbn10(isbn10: string): boolean {
+  if (!/^\d{9}[\dX]$/.test(isbn10)) {
+    return false;
+  }
+
+  let sum = 0;
+  for (let i = 0; i < 10; i += 1) {
+    const character = isbn10[i];
+    const digit = character === "X" ? 10 : Number(character);
+    sum += digit * (10 - i);
+  }
+
+  return sum % 11 === 0;
+}
+
+function isValidIsbn13(isbn13: string): boolean {
+  if (!/^\d{13}$/.test(isbn13)) {
+    return false;
+  }
+
+  let sum = 0;
+  for (let i = 0; i < 12; i += 1) {
+    const digit = Number(isbn13[i]);
+    sum += i % 2 === 0 ? digit : digit * 3;
+  }
+
+  const checkDigit = (10 - (sum % 10)) % 10;
+  return checkDigit === Number(isbn13[12]);
+}
+
+function normalizeIsbnForLookup(raw: string): string | null {
+  const normalized = normalizeIsbnCandidate(raw);
+
+  if (normalized.length === 10 && isValidIsbn10(normalized)) {
+    return normalized;
+  }
+
+  if (normalized.length === 13 && isValidIsbn13(normalized)) {
+    return normalized;
+  }
+
+  return null;
+}
+
+function normalizeCsv(values: string[]): string {
+  const seen = new Set<string>();
+  const output: string[] = [];
+
+  for (const raw of values) {
+    const value = normalizeWhitespace(raw);
+    if (!value) {
+      continue;
+    }
+
+    const key = value.toLowerCase();
+    if (seen.has(key)) {
+      continue;
+    }
+
+    seen.add(key);
+    output.push(value);
+  }
+
+  return output.join(", ");
+}
+
+function isBlank(value: string): boolean {
+  return normalizeWhitespace(value).length === 0;
+}
+
+function mergeLookupMetadataIntoFormState(
+  formState: LibraryImportFormState,
+  metadata: LookupIsbnApiResponse["metadata"],
+): LibraryImportFormState {
+  const next = { ...formState };
+
+  if (isBlank(next.title) && !isBlank(metadata.title)) {
+    next.title = metadata.title;
+  }
+  if (isBlank(next.subtitle) && !isBlank(metadata.subtitle)) {
+    next.subtitle = metadata.subtitle;
+  }
+  if (isBlank(next.authors) && metadata.authors.length > 0) {
+    next.authors = normalizeCsv(metadata.authors);
+  }
+  if (isBlank(next.publishers) && metadata.publishers.length > 0) {
+    next.publishers = normalizeCsv(metadata.publishers);
+  }
+  if (isBlank(next.publishedYear) && metadata.publishedYear) {
+    next.publishedYear = String(metadata.publishedYear);
+  }
+  if (isBlank(next.edition) && !isBlank(metadata.edition)) {
+    next.edition = metadata.edition;
+  }
+  if (isBlank(next.isbn10) && !isBlank(metadata.isbn10)) {
+    next.isbn10 = metadata.isbn10;
+  }
+  if (isBlank(next.isbn13) && !isBlank(metadata.isbn13)) {
+    next.isbn13 = metadata.isbn13;
+  }
+  if (isBlank(next.abstract) && !isBlank(metadata.abstract)) {
+    next.abstract = metadata.abstract;
+  }
+  if (isBlank(next.language) && !isBlank(metadata.language)) {
+    next.language = metadata.language.toLowerCase();
+  }
+  if (isBlank(next.categories) && metadata.categories.length > 0) {
+    next.categories = normalizeCsv(metadata.categories);
+  }
+
+  return next;
+}
+
 function createItemId(): string {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
     return crypto.randomUUID();
@@ -295,12 +443,18 @@ export function LibraryImportDialog() {
   const [items, setItems] = React.useState<LibraryImportItem[]>([]);
   const [expandedItems, setExpandedItems] = React.useState<string[]>([]);
   const [saving, setSaving] = React.useState(false);
+  const [isbnLookupByItem, setIsbnLookupByItem] = React.useState<
+    Record<string, IsbnLookupState>
+  >({});
   const collectionTree = useQuery(
     api.library.getLibraryCollectionsTree,
     open ? {} : "skip",
   );
 
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+  const itemsRef = React.useRef<LibraryImportItem[]>([]);
+  const isbnLookupTimeoutsRef = React.useRef<Record<string, number>>({});
+  const isbnLookupVersionRef = React.useRef<Record<string, number>>({});
 
   const isExtracting = React.useMemo(
     () => items.some((item) => item.extractionState === "extracting"),
@@ -311,15 +465,34 @@ export function LibraryImportDialog() {
     [items],
   );
 
+  React.useEffect(() => {
+    itemsRef.current = items;
+  }, [items]);
+
   const resetState = React.useCallback(() => {
     setAiAssistanceEnabled(false);
     setItems([]);
     setExpandedItems([]);
     setSaving(false);
+    setIsbnLookupByItem({});
+
+    for (const timeoutId of Object.values(isbnLookupTimeoutsRef.current)) {
+      window.clearTimeout(timeoutId);
+    }
+    isbnLookupTimeoutsRef.current = {};
+    isbnLookupVersionRef.current = {};
 
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
+  }, []);
+
+  React.useEffect(() => {
+    return () => {
+      for (const timeoutId of Object.values(isbnLookupTimeoutsRef.current)) {
+        window.clearTimeout(timeoutId);
+      }
+    };
   }, []);
 
   const cleanupUnusedUploads = React.useCallback(
@@ -367,6 +540,16 @@ export function LibraryImportDialog() {
       setItems((current) =>
         current.map((item) => (item.id === itemId ? updater(item) : item)),
       );
+    },
+    [],
+  );
+
+  const setIsbnLookupState = React.useCallback(
+    (itemId: string, nextState: IsbnLookupState) => {
+      setIsbnLookupByItem((current) => ({
+        ...current,
+        [itemId]: nextState,
+      }));
     },
     [],
   );
@@ -614,6 +797,111 @@ export function LibraryImportDialog() {
       }));
     },
     [updateItem],
+  );
+
+  const lookupMetadataByIsbn = React.useCallback(
+    async (itemId: string, isbn: string) => {
+      const currentVersion = (isbnLookupVersionRef.current[itemId] ?? 0) + 1;
+      isbnLookupVersionRef.current[itemId] = currentVersion;
+      setIsbnLookupState(itemId, { status: "loading", error: null });
+
+      try {
+        const latestItem = itemsRef.current.find((item) => item.id === itemId);
+        const response = await fetch("/api/library/lookup-isbn", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            isbn,
+            isbn10: latestItem?.formState.isbn10,
+            isbn13: latestItem?.formState.isbn13,
+            title: latestItem?.formState.title,
+            author: latestItem?.formState.authors,
+          }),
+        });
+
+        const payload = await readResponsePayload(response);
+        if (isbnLookupVersionRef.current[itemId] !== currentVersion) {
+          return;
+        }
+
+        if (!response.ok) {
+          const apiMessage = parseExtractionError(
+            payload.json as LookupIsbnApiError,
+          );
+          const fallbackMessage = payload.text
+            ? `HTTP ${response.status}: ${compactTextSnippet(payload.text)}`
+            : `HTTP ${response.status}`;
+
+          throw new Error(apiMessage ?? fallbackMessage);
+        }
+
+        if (!payload.json || typeof payload.json !== "object") {
+          throw new Error(t("isbnLookup.invalidResponse"));
+        }
+
+        const lookup = payload.json as LookupIsbnApiResponse;
+        updateItem(itemId, (item) => ({
+          ...item,
+          formState: mergeLookupMetadataIntoFormState(
+            item.formState,
+            lookup.metadata,
+          ),
+        }));
+
+        setIsbnLookupState(itemId, { status: "idle", error: null });
+      } catch (error) {
+        if (isbnLookupVersionRef.current[itemId] !== currentVersion) {
+          return;
+        }
+
+        const message = getErrorMessage(error, t("isbnLookup.error"));
+        setIsbnLookupState(itemId, {
+          status: "error",
+          error: message,
+        });
+      }
+    },
+    [setIsbnLookupState, t, updateItem],
+  );
+
+  const scheduleIsbnLookup = React.useCallback(
+    (itemId: string, isbn10Raw: string, isbn13Raw: string) => {
+      const isbn13 = normalizeIsbnForLookup(isbn13Raw);
+      const isbn10 = normalizeIsbnForLookup(isbn10Raw);
+      const isbn = isbn13 ?? isbn10;
+
+      const existingTimeout = isbnLookupTimeoutsRef.current[itemId];
+      if (existingTimeout) {
+        window.clearTimeout(existingTimeout);
+        delete isbnLookupTimeoutsRef.current[itemId];
+      }
+
+      if (!isbn) {
+        isbnLookupVersionRef.current[itemId] =
+          (isbnLookupVersionRef.current[itemId] ?? 0) + 1;
+        setIsbnLookupState(itemId, { status: "idle", error: null });
+        return;
+      }
+
+      const timeoutId = window.setTimeout(() => {
+        void lookupMetadataByIsbn(itemId, isbn);
+      }, 550);
+      isbnLookupTimeoutsRef.current[itemId] = timeoutId;
+    },
+    [lookupMetadataByIsbn, setIsbnLookupState],
+  );
+
+  const updateIsbnField = React.useCallback(
+    (item: LibraryImportItem, field: "isbn10" | "isbn13", value: string) => {
+      updateField(item.id, field, value);
+
+      const nextIsbn10 = field === "isbn10" ? value : item.formState.isbn10;
+      const nextIsbn13 = field === "isbn13" ? value : item.formState.isbn13;
+      scheduleIsbnLookup(item.id, nextIsbn10, nextIsbn13);
+    },
+    [scheduleIsbnLookup, updateField],
   );
 
   const getLanguageOptions = React.useCallback(
@@ -1086,8 +1374,8 @@ export function LibraryImportDialog() {
                                 id={`library-isbn13-${item.id}`}
                                 value={item.formState.isbn13}
                                 onChange={(event) =>
-                                  updateField(
-                                    item.id,
+                                  updateIsbnField(
+                                    item,
                                     "isbn13",
                                     event.target.value,
                                   )
@@ -1104,14 +1392,32 @@ export function LibraryImportDialog() {
                                 id={`library-isbn10-${item.id}`}
                                 value={item.formState.isbn10}
                                 onChange={(event) =>
-                                  updateField(
-                                    item.id,
+                                  updateIsbnField(
+                                    item,
                                     "isbn10",
                                     event.target.value,
                                   )
                                 }
                                 disabled={saving || item.saveState === "saved"}
                               />
+                            </Field>
+
+                            <Field className="md:col-span-2">
+                              <FieldDescription>
+                                {isbnLookupByItem[item.id]?.status ===
+                                "loading" ? (
+                                  <span className="inline-flex items-center gap-2">
+                                    <Spinner className="h-3.5 w-3.5" />
+                                    {t("isbnLookup.loading")}
+                                  </span>
+                                ) : isbnLookupByItem[item.id]?.status ===
+                                  "error" ? (
+                                  (isbnLookupByItem[item.id]?.error ??
+                                  t("isbnLookup.error"))
+                                ) : (
+                                  t("isbnLookup.hint")
+                                )}
+                              </FieldDescription>
                             </Field>
 
                             <Field className="md:col-span-2">
