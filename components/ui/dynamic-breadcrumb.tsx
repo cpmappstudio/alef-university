@@ -83,7 +83,7 @@ const ROUTE_CONFIG: Record<string, RouteConfig> = {
   },
   library: {
     title: "menu.library.title",
-    fallback: "Library",
+    fallback: "The Bill J. Dotson Library",
   },
   "my-books": {
     title: "menu.library.items.0.title",

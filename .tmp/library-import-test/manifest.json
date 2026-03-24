@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "generatedAt": "2026-03-14T17:18:48.392Z",
+  "inputDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/sample",
+  "directories": [],
+  "skippedFiles": [],
+  "items": [
+    {
+      "relativePath": "2005-Eduardo-Kimenez-de-Arechaga-Montevideo-Fuentes-del-Derecho-Internacional.pdf",
+      "directoryPath": "",
+      "fileName": "2005-Eduardo-Kimenez-de-Arechaga-Montevideo-Fuentes-del-Derecho-Internacional.pdf",
+      "fileSizeBytes": 2984076,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.45899999999999996,
+        "missingFields": [
+          "authors",
+          "publishers"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content."
+        ],
+        "metadata": {
+          "title": "Eduardo Kimenez de Arechaga Montevideo Fuentes del Derecho Internacional",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": 2005,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "law"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "Albright_Reviewed.pdf",
+      "directoryPath": "",
+      "fileName": "Albright_Reviewed.pdf",
+      "fileSizeBytes": 98525,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.45299999999999996,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content."
+        ],
+        "metadata": {
+          "title": "Page 1",
+          "subtitle": "",
+          "authors": [
+            "Tom McDaniel"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    }
+  ]
+}

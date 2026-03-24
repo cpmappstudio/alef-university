@@ -1,0 +1,907 @@
+{
+  "version": 2,
+  "generatedAt": "2026-03-24T13:33:34.239Z",
+  "inputDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística",
+  "libraryRootDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef",
+  "directories": [
+    "400. Lingüística",
+    "400. Lingüística/400.1 Manuales de lingüística",
+    "400. Lingüística/400.2 Ramas de la linguística",
+    "400. Lingüística/400.3 Historia del castellano",
+    "400. Lingüística/400.4 Gramática castellana",
+    "400. Lingüística/400.5 Lenguaje y signo",
+    "400. Lingüística/400.6 Lenguaje y comunicación"
+  ],
+  "skippedFiles": [],
+  "items": [
+    {
+      "relativePath": "400. Lingüística/400.1 Manuales de lingüística/Coseriu, Eugenio. Introduccion a la linguistica.pdf",
+      "directoryPath": "400. Lingüística/400.1 Manuales de lingüística",
+      "fileName": "Coseriu, Eugenio. Introduccion a la linguistica.pdf",
+      "fileSizeBytes": 298594,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.573,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 159 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Eugenio Coseriu",
+          "subtitle": "",
+          "authors": [
+            "Johannes Kabatek"
+          ],
+          "publishers": [
+            "Walter de Gruyter GmbH & Co KG"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": [
+            "Language Arts & Disciplines"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.1 Manuales de lingüística/de Saussure, Ferdinand. Curso de Linguistica.pdf",
+      "directoryPath": "400. Lingüística/400.1 Manuales de lingüística",
+      "fileName": "de Saussure, Ferdinand. Curso de Linguistica.pdf",
+      "fileSizeBytes": 1289827,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.4109999999999999,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 255 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Reseña crítica de Curso de lingüística general, de Saussure, Ferdinand de",
+          "subtitle": "",
+          "authors": [
+            "La Bisagra"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.1 Manuales de lingüística/Frías Conde, Xavier. Introd. a la Linguística.pdf",
+      "directoryPath": "400. Lingüística/400.1 Manuales de lingüística",
+      "fileName": "Frías Conde, Xavier. Introd. a la Linguística.pdf",
+      "fileSizeBytes": 185756,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.348,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 16 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - Introducción al lenguaje.doc",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.1 Manuales de lingüística/Las ramas de la linguística.pdf",
+      "directoryPath": "400. Lingüística/400.1 Manuales de lingüística",
+      "fileName": "Las ramas de la linguística.pdf",
+      "fileSizeBytes": 164187,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.4567142857142857,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 27 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "El lenguaje, las lenguas y la lingüística",
+          "subtitle": "",
+          "authors": [
+            "Guillermo Rojo"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "Language Arts & Disciplines"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.2 Ramas de la linguística/La linguistica y sus ramas.pdf",
+      "directoryPath": "400. Lingüística/400.2 Ramas de la linguística",
+      "fileName": "La linguistica y sus ramas.pdf",
+      "fileSizeBytes": 164187,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 27 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "La linguistica y sus ramas",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.3 Historia del castellano/Historia y formación de la Lengua Castellana.pdf",
+      "directoryPath": "400. Lingüística/400.3 Historia del castellano",
+      "fileName": "Historia y formación de la Lengua Castellana.pdf",
+      "fileSizeBytes": 797610,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.5162,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Historia de la lengua y literatura castellana",
+          "subtitle": "",
+          "authors": [
+            "Julio Cejador y Frauca"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "history"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.3 Historia del castellano/Huidobro, José. Origen del Castellano.pdf",
+      "directoryPath": "400. Lingüística/400.3 Historia del castellano",
+      "fileName": "Huidobro, José. Origen del Castellano.pdf",
+      "fileSizeBytes": 1355381,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "5.qxd",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.3 Historia del castellano/Naverán, Eduardo. Breve Reseña Histórica del Idioma Español.pdf",
+      "directoryPath": "400. Lingüística/400.3 Historia del castellano",
+      "fileName": "Naverán, Eduardo. Breve Reseña Histórica del Idioma Español.pdf",
+      "fileSizeBytes": 723096,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 22 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Naverán, Eduardo. Breve Reseña Histórica del Idioma Español",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.3 Historia del castellano/Simón & Cristina. El Origen del Español en América.pdf",
+      "directoryPath": "400. Lingüística/400.3 Historia del castellano",
+      "fileName": "Simón & Cristina. El Origen del Español en América.pdf",
+      "fileSizeBytes": 1287442,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 15 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Simón & Cristina. El Origen del Español en América",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.4 Gramática castellana/Bello, Andrés. Gramatica Española.pdf",
+      "directoryPath": "400. Lingüística/400.4 Gramática castellana",
+      "fileName": "Bello, Andrés. Gramatica Española.pdf",
+      "fileSizeBytes": 3667920,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.32699999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 514 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI request failed: Your input exceeds the context window of this model. Please adjust your input and try again.",
+          "OpenAI fallback retried with model gpt-4.1 and 6 sampled pages due to context window limits.",
+          "OpenAI input sampled to 6 pages from 514 total pages."
+        ],
+        "metadata": {
+          "title": "Gramatica_Andres Bello.doc",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.4 Gramática castellana/Di Tulio, Angela. Gramatica del Espanol para Maestros.pdf",
+      "directoryPath": "400. Lingüística/400.4 Gramática castellana",
+      "fileName": "Di Tulio, Angela. Gramatica del Espanol para Maestros.pdf",
+      "fileSizeBytes": 1855252,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 444 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Di Tulio, Angela. Gramatica del Espanol para Maestros",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.4 Gramática castellana/Di Tulio, Angela. Manual de Gramática.pdf",
+      "directoryPath": "400. Lingüística/400.4 Gramática castellana",
+      "fileName": "Di Tulio, Angela. Manual de Gramática.pdf",
+      "fileSizeBytes": 2870942,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 326 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Di Tulio, Angela. Manual de Gramática",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.4 Gramática castellana/Llorach, Emilio. Gramática de la Lengua Española.pdf",
+      "directoryPath": "400. Lingüística/400.4 Gramática castellana",
+      "fileName": "Llorach, Emilio. Gramática de la Lengua Española.pdf",
+      "fileSizeBytes": 1886497,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 406 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Llorach, Emilio. Gramática de la Lengua Española",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.4 Gramática castellana/Nueva gramática española.pdf",
+      "directoryPath": "400. Lingüística/400.4 Gramática castellana",
+      "fileName": "Nueva gramática española.pdf",
+      "fileSizeBytes": 1143687,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.5459999999999999,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 58 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Nueva gramática de la lengua española",
+          "subtitle": "",
+          "authors": [
+            "Real Academia Española",
+            "Asociación de Academias de la Lengua Española"
+          ],
+          "publishers": [
+            "Espasa Libros",
+            "Espasa"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "spa",
+          "categories": [
+            "Grammar",
+            "Spanish language",
+            "Gramática",
+            "Español",
+            "Sintaxis",
+            "Syntax",
+            "Spanish language, grammar",
+            "Phonetics"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.4 Gramática castellana/Orlando, Virginia Manual de Gramática en Español.pdf",
+      "directoryPath": "400. Lingüística/400.4 Gramática castellana",
+      "fileName": "Orlando, Virginia Manual de Gramática en Español.pdf",
+      "fileSizeBytes": 2547578,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 166 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI request failed: Your input exceeds the context window of this model. Please adjust your input and try again.",
+          "OpenAI fallback retried with model gpt-4.1 and 6 sampled pages due to context window limits.",
+          "OpenAI input sampled to 6 pages from 166 total pages."
+        ],
+        "metadata": {
+          "title": "Orlando, Virginia Manual de Gramática en Español",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.4 Gramática castellana/RAE Gramática Española.pdf",
+      "directoryPath": "400. Lingüística/400.4 Gramática castellana",
+      "fileName": "RAE Gramática Española.pdf",
+      "fileSizeBytes": 1143687,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 58 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "RAE Gramática Española",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.4 Gramática castellana/REA La Nueva Gramática Española.pdf",
+      "directoryPath": "400. Lingüística/400.4 Gramática castellana",
+      "fileName": "REA La Nueva Gramática Española.pdf",
+      "fileSizeBytes": 8894965,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.5326799999999999,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 1049 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI request failed: Your input exceeds the context window of this model. Please adjust your input and try again.",
+          "OpenAI fallback retried with model gpt-4.1 and 6 sampled pages due to context window limits.",
+          "OpenAI input sampled to 6 pages from 1049 total pages."
+        ],
+        "metadata": {
+          "title": "Nueva gramática de la lengua española",
+          "subtitle": "",
+          "authors": [
+            "Real Academia Española"
+          ],
+          "publishers": [
+            "Grupo Planeta Spain"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "Language Arts & Disciplines"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.4 Gramática castellana/Rodriguez, Karen. Manual de Gramatica.pdf",
+      "directoryPath": "400. Lingüística/400.4 Gramática castellana",
+      "fileName": "Rodriguez, Karen. Manual de Gramatica.pdf",
+      "fileSizeBytes": 7107048,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 338 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI request failed: Your input exceeds the context window of this model. Please adjust your input and try again.",
+          "OpenAI fallback retried with model gpt-4.1 and 6 sampled pages due to context window limits.",
+          "OpenAI input sampled to 6 pages from 338 total pages."
+        ],
+        "metadata": {
+          "title": "gramatica",
+          "subtitle": "",
+          "authors": [
+            "MAC 1"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.4 Gramática castellana/Tipos de gramática.pdf",
+      "directoryPath": "400. Lingüística/400.4 Gramática castellana",
+      "fileName": "Tipos de gramática.pdf",
+      "fileSizeBytes": 45245,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Tipos de gramática",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.5 Lenguaje y signo/Frías, Xavier. La teoría del signo.pdf",
+      "directoryPath": "400. Lingüística/400.5 Lenguaje y signo",
+      "fileName": "Frías, Xavier. La teoría del signo.pdf",
+      "fileSizeBytes": 185756,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.348,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 16 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - Introducción al lenguaje.doc",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.5 Lenguaje y signo/Moreno, Juan. Los niveles de análisis de la lengua.pdf",
+      "directoryPath": "400. Lingüística/400.5 Lenguaje y signo",
+      "fileName": "Moreno, Juan. Los niveles de análisis de la lengua.pdf",
+      "fileSizeBytes": 134230,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 15 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Moreno, Juan. Los niveles de análisis de la lengua",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.5 Lenguaje y signo/Saussure, Ferdinand. La teoría.pdf",
+      "directoryPath": "400. Lingüística/400.5 Lenguaje y signo",
+      "fileName": "Saussure, Ferdinand. La teoría.pdf",
+      "fileSizeBytes": 102086,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Saussure, Ferdinand. La teoría",
+          "subtitle": "",
+          "authors": [
+            "Lucy"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.6 Lenguaje y comunicación/Lenguaje y Comunicación.pdf",
+      "directoryPath": "400. Lingüística/400.6 Lenguaje y comunicación",
+      "fileName": "Lenguaje y Comunicación.pdf",
+      "fileSizeBytes": 397472,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 20 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Lenguaje y Comunicación",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "400. Lingüística/400.6 Lenguaje y comunicación/Martin, Manuel & otros. Teoria de la Comunicación.pdf",
+      "directoryPath": "400. Lingüística/400.6 Lenguaje y comunicación",
+      "fileName": "Martin, Manuel & otros. Teoria de la Comunicación.pdf",
+      "fileSizeBytes": 2973862,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 224 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Libro de TC.pdf",
+          "subtitle": "",
+          "authors": [
+            "Vicente E. Baca Lagos"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    }
+  ]
+}

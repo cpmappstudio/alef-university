@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "updatedAt": "2026-03-14T17:38:18.566Z",
+  "collectionsByPath": {
+    "04.1 La ciencia de la investigación": "pd78yk6nmvxtzr1athbekhmyy982xwh9",
+    "04.2 El aparato crítico": "pd782d1nsnmpj9v7gaynn6dvx982wvcf",
+    "04.3 Como hacer una tesis": "pd73wt7mtgetx8vnqg9kqnkg1182wa64",
+    "04.4 Locuciones latinas": "pd7ev7gan0vdn99ck5e16dc61582wtcp",
+    "04.5 Modelos  para tesis doctorales": "pd7bkvrxzknf42s9wjff2ndvh982wq8d"
+  },
+  "items": {
+    "04.1 La ciencia de la investigación/Briones, Guillermo. Metodología de la investigación cuantitativa.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23f7eb0g845yha09dsf4y8t982wp2v",
+      "bookId": "p179m3dnas447ax9gh2bs6dnsh82xavw",
+      "updatedAt": "2026-03-14T17:37:47.066Z"
+    },
+    "04.1 La ciencia de la investigación/Celiseo, Rodrigo. Metodología de la investigación cuaderno de trabajo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2avqr94s7h0xhn070nmjm9kh82wvg9",
+      "bookId": "p17dfa1vqycta66brx67rh61z582x8ty",
+      "updatedAt": "2026-03-14T17:38:02.556Z"
+    },
+    "04.1 La ciencia de la investigación/Fichas de trabajo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20w6r4f7bfwfyd8qxw846wc982xxqw",
+      "bookId": "p174wmv6hhahfn8zdgh1ybvwx582xc69",
+      "updatedAt": "2026-03-14T17:38:04.771Z"
+    },
+    "04.1 La ciencia de la investigación/Hernández Sampieri, Roberto. Metodología de la Investigación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28vej6jdwvdctwcr4jay8nv982wy2f",
+      "bookId": "p178dm5xbmaadeenejj5zahj3x82x9mh",
+      "updatedAt": "2026-03-14T17:38:13.709Z"
+    },
+    "04.1 La ciencia de la investigación/Introducción a la Metodología de la investigación científica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dt9rjm63bqypg25hjawjmy982wc9c",
+      "bookId": "p17axvczhjaw8y4z9p8r996aph82wdmb",
+      "updatedAt": "2026-03-14T17:38:16.497Z"
+    },
+    "04.1 La ciencia de la investigación/Kothari, C.R. Research Methodology.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg222j448dmqd166w3f4e7tc5s82w58y",
+      "bookId": "p17f98k9bgccs9g14p71xreb3d82xymd",
+      "updatedAt": "2026-03-14T17:38:18.566Z"
+    }
+  }
+}

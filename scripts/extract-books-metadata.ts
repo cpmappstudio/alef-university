@@ -20,7 +20,7 @@
  *   --no-openlibrary       Disable Open Library lookups
  *   --no-google            Disable Google Books lookups
  *   --openai               Enable OpenAI fallback for needs_review/failed
- *   --openai-model <name>  OpenAI model for fallback (default: gpt-4.1-mini)
+ *   --openai-model <name>  OpenAI model for fallback (default: gpt-5-mini)
  *   --openai-timeout-ms <n> Timeout for OpenAI fallback requests (default: 180000)
  *   --dry-run              Process and print summary without writing files
  */
@@ -82,7 +82,7 @@ Flags:
   --no-openlibrary      Disable Open Library enrichment
   --no-google           Disable Google Books enrichment
   --openai              Enable OpenAI fallback for low-confidence files
-  --openai-model <name> OpenAI model for fallback (default: gpt-4.1-mini)
+  --openai-model <name> OpenAI model for fallback (default: gpt-5-mini)
   --openai-timeout-ms   Timeout for OpenAI requests in milliseconds (default: 180000)
   --dry-run             Do not write output files
   --help                Show this help message
@@ -110,7 +110,7 @@ function parseCliArgs(argv: string[]): CliOptions {
     includeOpenLibrary: true,
     includeGoogleBooks: true,
     includeOpenAI: false,
-    openAIModel: "gpt-4.1-mini",
+    openAIModel: "gpt-5-mini",
     openAITimeoutMs: 180000,
     dryRun: false,
   };

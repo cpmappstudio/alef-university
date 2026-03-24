@@ -1,0 +1,3383 @@
+{
+  "version": 1,
+  "updatedAt": "2026-03-15T03:27:20.970Z",
+  "collectionsByPath": {
+    "00. Generalidades": "n97ecjmaeaafcbz6r301vf9mah82y96p",
+    "00. Generalidades/01. Biblioteca Gredos": "n97bzf9812vz89d5g1dfdmq6b182yy6f",
+    "00. Generalidades/04. Investigación científica": "n978qdtmmk4e8kwycbmbh5bnjx82zvag",
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación": "n975zw6vk1vx100tt97cd3bqh582z3cz",
+    "00. Generalidades/04. Investigación científica/04.2 El aparato crítico": "n97fk309yf94btj6w0t6wtyxnh82zdc2",
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis": "n97a0kv9zmwdt403pt54zhvr6182zwn6",
+    "00. Generalidades/04. Investigación científica/04.4 Locuciones latinas": "n970tv6r89hvwbt6ej3jcckarx82y945",
+    "00. Generalidades/04. Investigación científica/04.5 Modelos  para tesis doctorales": "n9797y2f2vdk75w5gd3a4px4x182zrzy"
+  },
+  "items": {
+    "00. Generalidades/01. Biblioteca Gredos/00 - catalogo-biblioteca-clasica-pdf-free.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e4xrdd11mzje1z9w6368xhh82y7p1",
+      "bookId": "n17b1s72fcpnz2ntgtxr9kdfmh82y6zh",
+      "updatedAt": "2026-03-15T03:14:52.661Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/1 - Pseudo Calístenes. Vida y hazañas de Alejandro de Macedonia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24cyzcp7gr7gcc6d6r6m968s82zvqc",
+      "bookId": "n1792qdvrz9k8vcb1dw53m98as82y1s7",
+      "updatedAt": "2026-03-15T03:14:53.565Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/10 - Cayo Petronio Arbitro. El Satiricón.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21se92j236274z0dwe47pfk582yass",
+      "bookId": "n179ygpr3d9jwmc4g3mstg7p2182ztyb",
+      "updatedAt": "2026-03-15T03:14:54.903Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/100 - ApolonioDiscolosintaxis.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ers4a9gf17b0rr54nzwpr4h82z4cz",
+      "bookId": "n17cm10hrz7x01933nn66a5xad82y14r",
+      "updatedAt": "2026-03-15T03:14:56.781Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/101 - Ciceron, Marco Tulio - Del supremo bien y del supremo mal [49982] (r1.2).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2akxeskbp7b9x4py9wcn178d82zakh",
+      "bookId": "n1771snmqtf5xwk13d6yxm8eks82yqy2",
+      "updatedAt": "2026-03-15T03:14:58.015Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/102 - Licofrón, Trifiodoro,  Coluto - Alejandra - La toma de Ilion - El rapto de Helena.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg211t37g7r55jrkzrj8fsnzpn82y8q0",
+      "bookId": "n1769fg48wv3x364efgdyvb40582zahp",
+      "updatedAt": "2026-03-15T03:14:59.216Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/103 - Plutarco. Obras morales y de costumbres III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ft37wk53afq4tmwk62sez5x82zg8x",
+      "bookId": "n172r8644bkm92hkg7xt0tmakn82yf44",
+      "updatedAt": "2026-03-15T03:15:00.419Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/104 - Porfirio - Vida de Pitagoras - Argonauticas orficas - Himnos orficos [35080] (r1.0).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24r382v78497x4kqdrfxdyad82zbry",
+      "bookId": "n17d4ycrmspexmvsf4yegzac2182y6hr",
+      "updatedAt": "2026-03-15T03:15:01.577Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/105 - AA.VV. - Textos de magia en papiros griegos -G- -1987-.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23w1gytzs8jkgs2k5hcpk1jn82yzxj",
+      "bookId": "n17d7dyfbsq2erzsr63hedxd0582yraf",
+      "updatedAt": "2026-03-15T03:15:03.427Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/106 - Elio Aristides, Discursos I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a2nzyj0pftgvm3s6rhhq6qx82zrzq",
+      "bookId": "n1750ctap45kenc3816vhhvnn182ydnv",
+      "updatedAt": "2026-03-15T03:15:05.041Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/107 - Aristóteles. Acerca de la generación y la corrupción, Tratados breves de Historia Natural.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28qcv9d9xd5b6cq087scpn9182y1xr",
+      "bookId": "n1760hsbwhbc9v9zfxry027jms82zr82",
+      "updatedAt": "2026-03-15T03:15:06.241Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/108 - Jenofonte. Ciropedia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24nvhqxx2wd5jmm79nf7v3tx82y5jk",
+      "bookId": "n17a0qmzdgd73ytr7j5e61x6pd82ysa2",
+      "updatedAt": "2026-03-15T03:15:07.639Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/109 - Plutarco. Obras morales y de costumbres IV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2064fqy400f74at8yk87zfvn82yxms",
+      "bookId": "n171c95gzg13z3dvwtzhcebsgs82znrq",
+      "updatedAt": "2026-03-15T03:15:08.821Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/11 - Euripides - Tragedias II [51225] (r1.0).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27jpfakzeg1n592djhyvchtn82yfhz",
+      "bookId": "n17acx6td7rqmjxya61srdw79n82zg9v",
+      "updatedAt": "2026-03-15T03:15:10.183Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/110 - DinDePrusadiscursosI-xi.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26ac42fh582xxgba9sb4q64582zfwm",
+      "bookId": "n17c0tjsg696kbhvzjbmmdrc6h82zca4",
+      "updatedAt": "2026-03-15T03:15:12.624Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/111 - Baquílides, Odas y Fragmentos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24jj1x9qs6aqqydmehvf2wwd82z3r1",
+      "bookId": "n179r0820hw8xdzk6bmgz86wyd82yr89",
+      "updatedAt": "2026-03-15T03:15:13.779Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/112 - Teofrasto, Historia de las Plantas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23twpsm1sv8hq0cbxhktv5c582zerm",
+      "bookId": "n178p2nr4eqj928cacj8sg862s82ybbb",
+      "updatedAt": "2026-03-15T03:15:15.536Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/113 - Luciano de Samosata. - Obras II -G- -1988-.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg250cxdwksphzh4zm7yw5asc982yyqp",
+      "bookId": "n1711kfedksnd0kh9tr1s7v44h82yabj",
+      "updatedAt": "2026-03-15T03:15:19.278Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/114 - Hipócrates. Tratados hipocráticos IV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e2dsx8nf81tvzq0qv1fbfmx82ytt3",
+      "bookId": "n175kgf3wd2jtmpgzjtc1cw9gx82y76g",
+      "updatedAt": "2026-03-15T03:15:20.916Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/115 - Aristóteles. Tratados de Lógica (órganon) II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22pnkr4g6xq77msb59chath182y1cd",
+      "bookId": "n17674sm05f85m8fk51ng2zxvs82yyn0",
+      "updatedAt": "2026-03-15T03:15:22.446Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/116 - Aristóteles. Política.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28tn1rr4a28cxvnxt9gx9apd82yb7f",
+      "bookId": "n1706zr9qe1ctr9tectzq0ebbx82zwz1",
+      "updatedAt": "2026-03-15T03:15:24.054Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/117 - Platon - Dialogos V [35382] (r1.1).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24t3q5ejqy2x05vcndgbdnkx82yejb",
+      "bookId": "n17fefszf6124p29nf9h2jea6d82yze5",
+      "updatedAt": "2026-03-15T03:15:25.654Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/118 - Clemente de Alejandria, Pedagogo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg239t9g48ny2avnqb9peszs1d82z6ed",
+      "bookId": "n176wgtrcdr044wrjs2qkrhd8n82z9hk",
+      "updatedAt": "2026-03-15T03:15:26.791Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/119 - Teofrastocaracteres.Alcifrncartas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg227t0wgghqd99p6xabddzs2n82yh0v",
+      "bookId": "n174x8ctf394d7aj63rx8ys2b182ysw4",
+      "updatedAt": "2026-03-15T03:15:28.703Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/12 - AA.VV. Los filósofos presocráticos I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24byb8skza4xfqv6hh6d1vtd82yvhn",
+      "bookId": "n17b08dy4j65ttrffpayxkbydn82ygr7",
+      "updatedAt": "2026-03-15T03:15:30.146Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/120 - Ovidio. Amores, Arte de Amar, Sobre la Cosmética del rostro, Remedios contra el amor.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2esdth4et0n737r8a4x9rk1x82zs3t",
+      "bookId": "n179wjadzg5z0px1kmg03b4czs82z42n",
+      "updatedAt": "2026-03-15T03:15:31.412Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/121 - Ovidio. Fastos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26tpmrwycbm28m668krzg1h582zpjm",
+      "bookId": "n174g9np4zaj5hbq4dzx2457b182yx9m",
+      "updatedAt": "2026-03-15T03:15:32.998Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/122 - Lisias, Discursos - Vol. 1.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d6tcw40dffjyd5100msjez982zr72",
+      "bookId": "n1748f7x9sk538d7pjhcaxwtz182yrrr",
+      "updatedAt": "2026-03-15T03:15:34.119Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/123 - Dionisio. Historia antigua de Roma - Libros VII-IX.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2657xxfa6epqqjv10n73g0wx82zzyf",
+      "bookId": "n172zc9rszvwqg0kkg7q434bpd82yp4x",
+      "updatedAt": "2026-03-15T03:15:35.456Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/124 - Dionisio. Historia antigua de Roma - Libros X, XI y fragmentos - Libros XII-XX.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21vn1yg4sg4v71crwccrpkmh82z3jh",
+      "bookId": "n17354jhv7yygbx2f3zjhvw2ys82y7w8",
+      "updatedAt": "2026-03-15T03:15:36.789Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/125 - Heróclito & Antonino Liberal. Alegorías de Homero & Metamorfosis.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21ptrwdskz58dm879578frnx82z2y0",
+      "bookId": "n17dq8yzkh76y4s75fn0qnjyp182ytb8",
+      "updatedAt": "2026-03-15T03:15:38.067Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/126 - Hipocrates de Cos - Tratados hipocraticos V [34635] (r1.1).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dhe2fxswehb1dnvhvwwbqm582zzdd",
+      "bookId": "n173fvqnvj5b7xm2b4g0tr8t1582yakp",
+      "updatedAt": "2026-03-15T03:15:39.348Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/127 - Dión de Prusa, Discursos XII-XXXV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a4dsgjsry3c77bvr150hknx82ytz7",
+      "bookId": "n177x92bsxmsc7yg978y4k4tcx82zt1e",
+      "updatedAt": "2026-03-15T03:15:40.613Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/128 - Artemidoro. La interpretación de los sueños.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg292m9gvtak180d4n9ack4hy582yv2y",
+      "bookId": "n176p3gn4sn7cwmy4h1zzvj1zh82zaqw",
+      "updatedAt": "2026-03-15T03:15:41.946Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/129 - Seneca, Lucio Anneo - Epistolas morales a Lucilio II [48084] (r1.0).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21dkr2df6vf1nase2rhqrm7982yaja",
+      "bookId": "n1764ppymzqrffvnxjrxygr9fh82z95y",
+      "updatedAt": "2026-03-15T03:15:43.237Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/13 - Hesíodo. Obras y fragmentos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2edfwh89rq9a7jr3d1sr2sps82zey2",
+      "bookId": "n17dv0s33sqs7dhvvr3b8hv3td82y7h8",
+      "updatedAt": "2026-03-15T03:15:44.345Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/130 - Heródoto, Historia - Libros VIII-IX.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2az7hj1f9mnk67ap325yw2c182ycxy",
+      "bookId": "n173ngr98szebjrzsztfmwp1jn82z4x7",
+      "updatedAt": "2026-03-15T03:15:46.105Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/131 - Propercio, Elegias.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg289n9x1v96pgshfz76rje58582yz00",
+      "bookId": "n17bkxvxptpn68ppntc852c15h82ykja",
+      "updatedAt": "2026-03-15T03:15:47.427Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/132 - Plutarco. Obras morales y de costumbres V.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg261q545yjcza93nscrjcgfw982y855",
+      "bookId": "n17b4w4m58x1mc0mrsyh5r20ys82yp3a",
+      "updatedAt": "2026-03-15T03:15:48.697Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/133 - Pseudo Plutarco, Porfirio  Salustio, Sobre la Vida y Poesia de Homero, El antro de las Ninfas de la Odisea, Sobre los Dioses y el Mundo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24kjk9gmf2jr6fmjwj2776y982y20h",
+      "bookId": "n172rz490qzq9xngb0y5tj9vs982y0wn",
+      "updatedAt": "2026-03-15T03:15:49.893Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/134 - Opiano, De la Caza - De la Pesca - Lapidario Orfico.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg213hc4yjrh1ps7wz6sddpeds82yv4j",
+      "bookId": "n17c3pwrysr1vk7e10xn0cfby582z1m6",
+      "updatedAt": "2026-03-15T03:15:51.199Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/135 - Andrea Palladio, Tratado de Agricultura - Medicina Veterinaria - Poema de los Injertos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27fdq7jrvk278y4ae56q52mx82y8pk",
+      "bookId": "n171ye9qkyrec87h8q6ff2xpqx82ymjp",
+      "updatedAt": "2026-03-15T03:15:52.660Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/136 - Lactancio. Instituciones divinas - Libros I-III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29f9jy4hmk8dhcdymtqmheg982y8ke",
+      "bookId": "n17fhy43y2egaxrr2ketf03aa982zqfk",
+      "updatedAt": "2026-03-15T03:15:53.673Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/137 - Lactancio. Instituciones divinas - Libros IV-VII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29e04jdtyxpr3fwghr6qnc1982zey4",
+      "bookId": "n17ej595fm7bpjf7z9e0w8e82n82yw2d",
+      "updatedAt": "2026-03-15T03:15:54.911Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/138 - Luciano de Samósata, Obras - Vol. 3.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fs5jkqw2dk0y7pnhd9txgbn82zk9e",
+      "bookId": "n171504hhjdtz0703n03jwxvas82zt2b",
+      "updatedAt": "2026-03-15T03:15:56.091Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/139 - Cicerón. Discursos I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f5qhygctq075x407rkmsf9d82ycww",
+      "bookId": "n17d7dkgaj6psdc06q8yyj45xd82z78k",
+      "updatedAt": "2026-03-15T03:15:57.262Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/14 - Aristóteles. Acerca del alma.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29b9ksj14cvhjrqgf4yeacsd82y3t0",
+      "bookId": "n179rsamr2xfytmm8yw4ax2bdn82zcba",
+      "updatedAt": "2026-03-15T03:15:58.233Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/140 - Ciceron, Marco Tulio - Discursos Vol. 2 [47322] (r1.0).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dd56vx3f0vcgfse2xf3zefn82y6aa",
+      "bookId": "n1798e5sragf8541k7rn7z7yxd82z9wg",
+      "updatedAt": "2026-03-15T03:15:59.303Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/141 - Virgilio. Bucólicas, Geórgicas, Apéndice virgiliano.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27wbv6yn6xfnr6wspbbwsc1982yp0n",
+      "bookId": "n171kcr2g2gapnh9223etkbtph82z2ts",
+      "updatedAt": "2026-03-15T03:16:00.947Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/142 - Aristóteles. Retórica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f1pqh9brrkb2y5rp13qf6cs82yf0v",
+      "bookId": "n17cxqd8bravkvdw19y6xyzv1n82z555",
+      "updatedAt": "2026-03-15T03:16:02.489Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/143 - Hipócrates. Tratados hipocráticos VI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29ggqzm7j67tp7e6mrqc78qn82z2tc",
+      "bookId": "n175b5c5hgwxjbz8d2c6sw7v1h82zz77",
+      "updatedAt": "2026-03-15T03:16:03.640Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/144 - Tito Livio. Historia de Roma desde su fundación - Libros I-III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2derfcsrgaj54v1xjh2372xh82zt5f",
+      "bookId": "n179j7f6c4qtx8bm9hvbp1ny7982zqtx",
+      "updatedAt": "2026-03-15T03:16:04.876Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/145 - Tito Livio. Historia de Roma desde su fundación - Libros IV-VII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21kphd05xpq8fnw5hkyrdg5d82yyw5",
+      "bookId": "n175s09kmzf5evj6abmnzfv4q982z37a",
+      "updatedAt": "2026-03-15T03:16:05.966Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/146 - Ausonio, Obras - Vol. 1.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29y4ay800gs9w7vyq9mk87qd82zqjq",
+      "bookId": "n17c0ak5k5wk1bgazprcrhs8z982z871",
+      "updatedAt": "2026-03-15T03:16:07.610Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/147 - Ausonio, Obras - Vol. 2.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bgxg3zetnrdetjsc30kgzq982zc7j",
+      "bookId": "n17dwj4n7s1w1stdg3fww7ntqh82ysqf",
+      "updatedAt": "2026-03-15T03:16:08.935Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/148 - Tito Livio. Historia de Roma desde su fundación - Libros VIII-X.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dmjy13p0v1bnfnq4nvy58pn82zp2j",
+      "bookId": "n171fr2wc7w8ypeb7wb6gb4rmn82zyq1",
+      "updatedAt": "2026-03-15T03:16:10.103Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/149 - Tucídides. Historia de la guerra del Peloponeso - Libros I-II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2040330zzk9p9wn883fs1tg582yrwz",
+      "bookId": "n17fvrh599565g4r1a59aet8s582yf2z",
+      "updatedAt": "2026-03-15T03:16:11.585Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/15 - Demetrio & Longino. Sobre el estilo & Sobre lo sublime.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg269rymgm1fsx7h160cxw3wh982zvxr",
+      "bookId": "n17896k050kf2r7pa0vqdrv81982zppp",
+      "updatedAt": "2026-03-15T03:16:12.934Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/150 - Homero - Iliada [32534] (r1.0).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2778jar00bwdd579qek5dyax82y4dw",
+      "bookId": "n177hmge8jb71dye8z74ghq5ts82zygd",
+      "updatedAt": "2026-03-15T03:16:14.150Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/151 - Tucídides. Historia de la guerra del Peloponeso - Libros III-IV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26q3gvj5a4cb2vfg9p5dycms82zzs7",
+      "bookId": "n170n5h70v1xjwjy5qm871qkrx82z1kh",
+      "updatedAt": "2026-03-15T03:16:15.699Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/152 - Cicerón. Discursos III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22p7t8wxh3px269g9egk20f182yec8",
+      "bookId": "n176g7qzrr2nzcqcv2zp9wr6pd82ytf1",
+      "updatedAt": "2026-03-15T03:16:16.682Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/153 - Numenio de Apamea, Oraculos Caldeos - Fragmentos - Testimonio.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23bmd12946jxwjk64qfj0nps82zfnc",
+      "bookId": "n17f051mxpxkz587gjjsyzajf182yfz2",
+      "updatedAt": "2026-03-15T03:16:17.875Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/154 - Antifonte, Andócides, Fragmentos y Discursos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25jb46def2gftb13hv9xy9q182zz7q",
+      "bookId": "n1780b3ng1v2tkn1y12tsdaec182zv5z",
+      "updatedAt": "2026-03-15T03:16:19.180Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/155 - Euclides. Elementos - Libros I-IV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d5dpyg0p9rvb6v4n343h0fn82z03c",
+      "bookId": "n170r5hey6rnmtx66d2bwf804982ysj5",
+      "updatedAt": "2026-03-15T03:16:20.441Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/156 - Juvenal, Persio, Satiras.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dtf2nezcmvzf7x8d3h92vr582y2p5",
+      "bookId": "n172bbppt4p3x8stt17g699kph82ys0y",
+      "updatedAt": "2026-03-15T03:16:21.948Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/157 - Eneas el Táctico, Polieno, Polliorcetica, Estratagemas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23d0jdkb9kbj6s8m072zsmrd82z4rf",
+      "bookId": "n17c8jxpd5b1gzdawm3cqdm8hh82ze0d",
+      "updatedAt": "2026-03-15T03:16:23.485Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/158 - Hermógenes. Teón - Aftonio, Ejercicios de Retorica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg227a1xny6k80pz351y31fwrh82zyp7",
+      "bookId": "n172zpwrrx4xp8f0jb289k72sn82yp7b",
+      "updatedAt": "2026-03-15T03:16:24.738Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/159 - Estrabón. Geografía - Libros I-II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bazg6yzjv3batb52jyp1q8582z2fv",
+      "bookId": "n175txe4214t6t0ks96e9ha0n582yanr",
+      "updatedAt": "2026-03-15T03:16:26.226Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/16 - Caritón de Afrodisias, Jenofonte de éfeso, Querías y Calírroe, Efesíacas, Fragmentos Novelescos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23knztghz9n3qy96wdkp712982zxqc",
+      "bookId": "n178h7e2np7t5kgqccr7p1z7cd82yzmw",
+      "updatedAt": "2026-03-15T03:16:27.456Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/160 - Platon - Dialogos VI [35657] (r1.0).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg234zwm5z8h04r85wt9xwwrq582zn3v",
+      "bookId": "n17aspmjw7djcmctyxg71f2c8n82yvps",
+      "updatedAt": "2026-03-15T03:16:28.639Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/161 - Frontón, Epistolario.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f0wfh1thx7mtdrr1b8wqwt982zmac",
+      "bookId": "n174hm9kpt35dmhr8a8za66h6n82ygyt",
+      "updatedAt": "2026-03-15T03:16:30.130Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/162 - Platón. Diálogos VII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg231vqn66q6tkf6c1m2mqab1s82ypea",
+      "bookId": "n17ap8g1ndqsztcr6t36pqc76d82zern",
+      "updatedAt": "2026-03-15T03:16:31.468Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/163 - Epigramas Funerarios Griegos, Epigramas Funerarios Griegos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f52ackh7gjbbx10snbttkx582yey5",
+      "bookId": "n170mtkqykq2nfzskt5wezpdqs82y781",
+      "updatedAt": "2026-03-15T03:16:32.666Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/164 - Tucídides, Historia de la Guerra del Peloponeso - Libros V-VI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24ekma2xt7qhd0azadtv5nn982yz3f",
+      "bookId": "n17f4mwt8m5h1v0ha51k6gjqq182zj8s",
+      "updatedAt": "2026-03-15T03:16:34.057Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/165 - Ovidio. Tristes & Pónticas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28qwtjp818y03k7wag78p90s82yve3",
+      "bookId": "n175etr6yfrsn2hf81eeya4gmn82yq1q",
+      "updatedAt": "2026-03-15T03:16:35.469Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/166 - Virgilio. Eneida.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27gtanqye036a6na0a4k9scx82yj8c",
+      "bookId": "n17336gz5syxbkt0bz0fs2e8ks82zy0b",
+      "updatedAt": "2026-03-15T03:16:36.771Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/167 - Suetonio. Vidas de los doce césares - Libros I-III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27747w3shhz92spk12tsk07582yqd0",
+      "bookId": "n177x3m4a0vejrakz8ynxr3rrd82zp5z",
+      "updatedAt": "2026-03-15T03:16:38.196Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/168 - Suetonio. Vidas de los doce césares - Libros IV-VIII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b28zvm7h2ex979ps3chx0xh82yf3p",
+      "bookId": "n17csrga6p4azyn8j3gkwjz3s982zrgn",
+      "updatedAt": "2026-03-15T03:16:39.416Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/169 - Estrabon - Geografia Libros III - IV [34628] (r1.0).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2akfcyz9em3x5g1kfvfxjmhs82zpbe",
+      "bookId": "n17888zbqt3wk4kgtrsmfx909s82zjh7",
+      "updatedAt": "2026-03-15T03:16:40.483Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/17 - Juliano, Discursos I-V.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23mxzavmqt0znp163gtv33q182zfh6",
+      "bookId": "n17fkpjd8ye5h70myt40kapf9s82zkqe",
+      "updatedAt": "2026-03-15T03:16:41.616Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/170 - Plauto. Comedias I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2300gjpyh9mv4g9fam2b7p5s82y0yx",
+      "bookId": "n17263jxnqbzshdjvbe2j7c1es82zvab",
+      "updatedAt": "2026-03-15T03:16:42.633Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/171 - Aristóteles. Investigacion sobre los animales.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24sa36adthp2p6bd2mf0v4as82ym7k",
+      "bookId": "n17bpf5fkk3vc967reqkdmtvqd82zc7d",
+      "updatedAt": "2026-03-15T03:16:44.190Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/172 - Luciano de Samósata, Obras - Vol. 4.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28xe0afcwmgw4cqp2np46r4582y3ae",
+      "bookId": "n17d9t1ecpfgrw0g1hj7f7md4s82y9ym",
+      "updatedAt": "2026-03-15T03:16:45.498Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/173 - Tucídides, Historia de la Guerra del Peloponeso - Libros VII-VIII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28rmz027jprv168j0rs8qjz582zc3z",
+      "bookId": "n17aqhkcpym86k6mdbq38bwg3582ze5q",
+      "updatedAt": "2026-03-15T03:16:46.808Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/174 - Zósimo, Nueva Historia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bj0adks98n7zchqrr52gyq182z2wb",
+      "bookId": "n177xrva5ntzjje711p0ayqb6982zyrd",
+      "updatedAt": "2026-03-15T03:16:48.500Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/175 - Hipócrates. Tratados hipocráticos VII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21jat4a126mfa0s9ds1r9erx82zbf7",
+      "bookId": "n17ee0d64q9j0xa8dpc75j8dkd82zg6d",
+      "updatedAt": "2026-03-15T03:16:50.007Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/176 - Tito Livio. Historia de Roma desde su fundación - Libros XXI-XXV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29pt8k6wa887c6m84q7whrwh82zn3j",
+      "bookId": "n1764q8zsvk0w2q2ftbtzt8na182y4sw",
+      "updatedAt": "2026-03-15T03:16:51.335Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/177 - Tito Livio. Historia de Roma desde su fundación - Libros XXVI-XXX.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22h6r8hx2yhjjqa4bw02we0s82z3n4",
+      "bookId": "n179tyn4p2kaq3c61d6hmayhy582z8r1",
+      "updatedAt": "2026-03-15T03:16:52.571Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/178 - Arato, Gémino, Fenomenos, Introduccion a Fenomenos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2c8dds5y58p270080e5xshqh82zhdf",
+      "bookId": "n171hytcs6c6h2095gs1m8z88d82zx0a",
+      "updatedAt": "2026-03-15T03:16:54.103Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/179 - Sexto Empírico. Esbozos pirrónicos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2az25s768pmq3s7yvhny57qh82z0v6",
+      "bookId": "n17a479zt1wv77r2pc0qn1srp982zbtv",
+      "updatedAt": "2026-03-15T03:16:55.227Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/18 - Vida de Apolonio de Tiana - Filostrato.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27qjfc6d97evvz7dpwbgr7xs82yqq9",
+      "bookId": "n17ada7h7zzt012xrejzsmk3m582ybdk",
+      "updatedAt": "2026-03-15T03:16:56.454Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/180 - Claudiano, Poemas I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25e3qjyv7mah68vhpp8x986982y20m",
+      "bookId": "n171y5w0j13hwjvq4w658spntn82yybp",
+      "updatedAt": "2026-03-15T03:16:57.684Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/181 - Claudiano, Poemas II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24drj0d7qddzez0sq13a7hr182yvkn",
+      "bookId": "n17fmqpneq59d99vhtfm6ywpx582zgea",
+      "updatedAt": "2026-03-15T03:16:58.810Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/182 - Jenofonte, Recuerdo de Socrates - Económico - Banquete - Apologia de Socrates.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28pjfzzst3v20x9sjx2z0ba582z8q2",
+      "bookId": "n17bg990km0qh4nymftaem1we582y4t8",
+      "updatedAt": "2026-03-15T03:17:00.269Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/183 - Tito Livio. Historia de Roma desde su fundación - Libros XXXI-XXXV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg294yqhdjmvmn7sy5hdtt3dx182y9e6",
+      "bookId": "n17ag6gsx9305a8znp4scy3qy582zxpm",
+      "updatedAt": "2026-03-15T03:17:01.374Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/184 - Hermógenes, Sobre las formas de Estilo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28v5j03z5dg15ppp5vhf8vzx82zk75",
+      "bookId": "n176vb982ff7nzwcmm07tqq94d82yeb8",
+      "updatedAt": "2026-03-15T03:17:02.565Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/185 - Epicteto, Disertaciones por Arriano.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d8jhr83c44gbgp3h0pvp4nh82zywb",
+      "bookId": "n1770rrdm3zc32zs4dpdn9gxps82y6pe",
+      "updatedAt": "2026-03-15T03:17:04.035Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/186 - Sinesio de Cierene, Himnos - Tratados.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg217m6c6qgkw89mymdpc577sh82zd65",
+      "bookId": "n174fa2gqs4hbwckyrv1yak2ad82yzht",
+      "updatedAt": "2026-03-15T03:17:05.875Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/187 - Tito Livio. Historia de Roma desde su fundación - Libros XXXVI-XL.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ehczf6v65jwvms3v1j09hm182z506",
+      "bookId": "n17eswp8ghc8d4y153kn16jnhd82zahg",
+      "updatedAt": "2026-03-15T03:17:07.616Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/188 - Cayo Valerio & Albio Tibulo. Poemas & Elegías.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24mthy7s0engh4bk10x8w4qn82yvt9",
+      "bookId": "n17bf7ev2pn5j9heexn1x52mhs82z1cg",
+      "updatedAt": "2026-03-15T03:17:08.836Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/189 - Flavio Josefo. Autobiografía, Contra Apión.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b80entn59yngj471kjcny4182zz11",
+      "bookId": "n176p3g6chrq8341gznna3jdv982zhnb",
+      "updatedAt": "2026-03-15T03:17:09.870Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/19 - Tácito. Anales - Libros I-VI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bzv9njw3xjzkf03kryvpa1182y6qt",
+      "bookId": "n17aqvnznnnpthyj6xv10fvpm182yzea",
+      "updatedAt": "2026-03-15T03:17:10.893Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/190 - Eusebio de Cesarea, Vida de Constantino.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e3tqg8pyys9ec0z8xn8k6jd82z1mp",
+      "bookId": "n17670e2xdmwrp8qr01mwqn37582zxg6",
+      "updatedAt": "2026-03-15T03:17:12.111Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/191 - Euclides. Elementos - Libros V-IX.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg224kcemcscw7cxp6x8we0vkd82yr6s",
+      "bookId": "n176men8y5jvt10k8sfchth5ms82y33r",
+      "updatedAt": "2026-03-15T03:17:13.453Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/192 - Tito Livio. Historia de Roma desde su fundación - Libros XLI-XLV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22phqjdzqvz8b9s319wsbm1n82zdta",
+      "bookId": "n173zv4thvz59yvt842zqgn11n82yg2h",
+      "updatedAt": "2026-03-15T03:17:14.796Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/193 - Poesía Helenéstica Menor, Poesía Fragmentaria.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b1n2g6aade6j86ts8x7sh3s82ynhn",
+      "bookId": "n17bmcc1fejex3w62q19mz618582zwmm",
+      "updatedAt": "2026-03-15T03:17:16.218Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/194 - Ovidio. Cartas de las heroínas, Ibis.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27d171jttamgwjb9na4gy0cs82z4mm",
+      "bookId": "n173trs8dkz3d26a6nb0afbjh982zy3h",
+      "updatedAt": "2026-03-15T03:17:17.447Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/195 - Cicerón. Discursos IV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bq3bk0evdzc5xq9bgp8hg5d82yy3f",
+      "bookId": "n17918h0e4gm8b87686t6f04s182zewj",
+      "updatedAt": "2026-03-15T03:17:18.935Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/196 - Pausanias. Descripción de Grecia - Libros I-II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg257wjp0mmrfe6n76ppe0ey9982ywgc",
+      "bookId": "n174ww2fzfw5zd7hw99re1qkkx82zkea",
+      "updatedAt": "2026-03-15T03:17:20.315Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/197 - Pausanias. Descripción de Grecia - Libros III-VI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24jdg7fbn76w6r70watvjqq182yqht",
+      "bookId": "n171qbh33y9w5yng32bp18k17982zjyq",
+      "updatedAt": "2026-03-15T03:17:21.882Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/198 - Pausanias. Descripción de Grecia - Libros VII-X.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cmtcyzkcw9q5hnr95raxw9s82ysvj",
+      "bookId": "n177dnq5371brseqz38553y94h82y3z6",
+      "updatedAt": "2026-03-15T03:17:23.356Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/199 - Clemente de Alejandria, Protreptico.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d0apyj1cww6xqkvdakjf4xd82yecj",
+      "bookId": "n175ma2vcqa1yjyx9827t7k7an82yxv3",
+      "updatedAt": "2026-03-15T03:17:24.395Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/2 - Jenofonte. Helénicas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg207n4xgapgm98dfnwxfsgbfx82yexg",
+      "bookId": "n179stwm13hd5341fff0za5m1d82ya7e",
+      "updatedAt": "2026-03-15T03:17:25.748Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/20 - AA.VV. Fragmentos de épica griega arcaica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fbh1paqp21hacqggpf89k0s82z7gy",
+      "bookId": "n17ddjg7y2jc7phs41ekw82mcx82y72f",
+      "updatedAt": "2026-03-15T03:17:27.006Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/200 - Aristoteles - Metafisica [35463] (r1.1).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2137yk3mm9kabaytdns453j182ygtq",
+      "bookId": "n177mf2jtv9pwzee2qtzbpk3a182ytz0",
+      "updatedAt": "2026-03-15T03:17:28.408Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/200.2 - Hero y Leandro - Museo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a40sksyhbge57xhx4rr32dd82zqjv",
+      "bookId": "n173r9n2jh7cq2mjyh9kx3aycn82y5yf",
+      "updatedAt": "2026-03-15T03:17:29.546Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/201 - Aristóteles. Reproducción de los animales.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg279j3hnqeczpqz03twfwpt3d82z83t",
+      "bookId": "n174c7pa2wcegbqaymmt5vtnhs82ys40",
+      "updatedAt": "2026-03-15T03:17:30.860Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/202 - Estacio. Silvas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25gqdkn5ajk5mp2vdt0dx5c182z9vj",
+      "bookId": "n17ddqwg2h61cherp0a9mg2bc182z5h2",
+      "updatedAt": "2026-03-15T03:18:03.662Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/203 - Aristóteles. Física.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29cbsadnqsbzfm38xtjxrnz182zwg4",
+      "bookId": "n174ysdh3dfd6s05jzzbaewrh182yd2a",
+      "updatedAt": "2026-03-15T03:18:05.268Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/204 - Aristofanes, Comedias I - (Arcanienses - Caballeros).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20m9r40wbcyepf0y5ed3xf0182zzq8",
+      "bookId": "n173hxyr3ymydppknjb9q985ad82zca8",
+      "updatedAt": "2026-03-15T03:18:06.395Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/205 - Sinesio de Cierene, Cartas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f0ehvqhkd6qqe1sfgnkb7a982zgqj",
+      "bookId": "n17e6y37emd59e73nt289t3n9582y4fj",
+      "updatedAt": "2026-03-15T03:18:07.537Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/206 - Plinio el viejo. Historia natural - Libros I-II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg289bbtt39gt2f4zjrate3sad82zh1e",
+      "bookId": "n17byrrzb62476gc60r8ad5gr982y1st",
+      "updatedAt": "2026-03-15T03:18:08.722Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/207 - Tabla de Cebes, Musonio Rufo, Epicteto, Tabla de Cebes, Disertaciones y Fragmentos Menores, Manual y Fragmentos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20j7rya3c2njx524v4gcyrxs82zbx4",
+      "bookId": "n177ytr19ey01658papca86eh582ygew",
+      "updatedAt": "2026-03-15T03:18:09.777Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/208 - Nono de Panópolis. Dionisíacas Cantos I-XII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2drdcc94yvv2q43r7p0atbmx82y5sq",
+      "bookId": "n17cvk7y4kez34pqt9zbdayd3982zzv2",
+      "updatedAt": "2026-03-15T03:18:11.208Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/209 - Lisias, Discursos - Vol. 2.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2eny026jxbyrp5qpycbc352982yf45",
+      "bookId": "n172r49hmptzqccb7wq9tm165s82y8j7",
+      "updatedAt": "2026-03-15T03:18:12.744Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/21 - Heródoto. Historia - Libros III-IV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b41hda5x9vmg9y0d4e415ss82z6t2",
+      "bookId": "n17acg61mavrmdk5enqvh8fys182z7ap",
+      "updatedAt": "2026-03-15T03:18:14.501Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/210 - Tito Livio. Períocas y otros textos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20cd5zq99gyhyzvs7bx96g8s82zzjd",
+      "bookId": "n17e6gd5ee8src7pycb5h5pg4982zvc5",
+      "updatedAt": "2026-03-15T03:18:15.611Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/211 - Cicerón. Discursos V.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg212y593xzaccsc73zr3m07tn82ynzj",
+      "bookId": "n1786ftn8tn40p3sekjnza483982z3ry",
+      "updatedAt": "2026-03-15T03:18:16.836Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/212 - Justino, Pompeyo Trogo, Epitome de las Historias - Filipicas de Pompeyo - Trogus.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fa1wtfj88h6qp1mpqq475h582z322",
+      "bookId": "n17cx0bbv46ddsfzcxfgxsjvxd82zkmp",
+      "updatedAt": "2026-03-15T03:18:18.098Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/213 - Plutarco, Obras morales y de Costumbres VI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27q9ck2hhnnt2kpx9278cn0582yg9n",
+      "bookId": "n179wf8hhkhw46mdfw5mdva0rx82zz8w",
+      "updatedAt": "2026-03-15T03:18:19.707Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/214 - Plutarco, Obras morales y de Costumbres VII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25h9s6hq8xbn3symrb8cmcnd82y1k8",
+      "bookId": "n173wwqr3sa6p9skrv97ktgy0s82ywsb",
+      "updatedAt": "2026-03-15T03:18:21.039Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/215 - Plutarco, Vidas Paralelas II - Solon, Publicola, Temistocles, Camilo, Pericles, Fabio Mï¿½ximo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg262tz83yk6fm17kqaa8ar7vs82y6vg",
+      "bookId": "n17ejyhsttc94cexkg1qfnk02982yz9q",
+      "updatedAt": "2026-03-15T03:18:22.845Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/216 - Arístides. Sobre la música.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f3mex6rkvkny5cbgc5c1qg182zpyg",
+      "bookId": "n178g4acj04h24m84bqcpm3jhh82zhxq",
+      "updatedAt": "2026-03-15T03:18:24.893Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/217 - Filóstrato, Calístrato, Heroico - Gimnastico - Descripciones de Cuadros.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29653hnx698f353rbb4kzjfh82y2p6",
+      "bookId": "n177tdg0xww7zqx6d2h4rmm9vh82yr2k",
+      "updatedAt": "2026-03-15T03:18:26.354Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/218 - Plauto. Comedias II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg258jkjsmmw7yxsnb8p23q0yh82ypph",
+      "bookId": "n17767wtgdpfzbm90zah7x9tws82zjk3",
+      "updatedAt": "2026-03-15T03:18:27.877Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/219 - Plutarco, Obras Morales y de Costumbres VIII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26xvw5d0ac0w3hcxx5bnaja982zkfp",
+      "bookId": "n17btnebhcjy5yat0qqsw5bnjx82ztky",
+      "updatedAt": "2026-03-15T03:18:29.868Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/22 - Eurípides. Tragedias III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29b0hf4wtzp35dvd7xa8dymh82zxz0",
+      "bookId": "n1769fztfw5xh7hf302ag7fjmx82yerp",
+      "updatedAt": "2026-03-15T03:18:31.485Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/220 - Séneca. Consolaciones, Apocolocintosis.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cw63bq9gggs4xks2cc6ewm582zmhg",
+      "bookId": "n176c72gpz7c9p2he8wzbsdxxd82zsq4",
+      "updatedAt": "2026-03-15T03:18:32.610Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/221 - AA.VV. Sofistas Testimonios y fragmentos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cg88zr8cr3g1cgah0kmct3x82y9jq",
+      "bookId": "n176d5adcpfn5e1pe8eqk6scyx82zhrw",
+      "updatedAt": "2026-03-15T03:18:33.837Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/222 - Paradoxografos Griegos, Rarezas y Maravillas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b3s7jr021ragx3zbrndxh8s82zyxy",
+      "bookId": "n17ae5vf9cbaznwg52pnpwd6d182zj4w",
+      "updatedAt": "2026-03-15T03:18:34.965Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/223 - Cicerón. Cartas I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fftfk7wxydppdes2txp0hw182yay1",
+      "bookId": "n17aqd0bnr435xmevs3gkkvm4d82zqzm",
+      "updatedAt": "2026-03-15T03:18:36.293Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/224 - Cicerón. Cartas II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg224wt0s03pz3p7pp918ksqgx82zvte",
+      "bookId": "n176wwk5bwzqr6wbkgvb7ffyy982zb7r",
+      "updatedAt": "2026-03-15T03:18:37.832Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/225 - Dos tratados de retorica epidictica - Menandro El Retor.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2emqgecbdzhsnhdebetmxb8582yvgt",
+      "bookId": "n17dnmmgs8awbg496p6sstnf7982zky8",
+      "updatedAt": "2026-03-15T03:18:39.098Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/226 - Manilio, Astrologia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22tp8b4br22dkd54h4jcf5sx82zzz4",
+      "bookId": "n177kq3j506xrqxtpexd67c3bx82z99f",
+      "updatedAt": "2026-03-15T03:18:40.138Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/227 - Apolonio. Argonáuticas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2c5xecfzy6jtkzb8ffzr14ax82ygd0",
+      "bookId": "n172y0h75j5n94sfcp6y615wjd82zgpg",
+      "updatedAt": "2026-03-15T03:18:41.519Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/228 - Euclides. Elementos - Libros X-XIII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg226ep9vw575n3fkv37fxdsqx82yawd",
+      "bookId": "n170yz1vqxjp1tcvfqbka08gz182zncb",
+      "updatedAt": "2026-03-15T03:18:43.567Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/229 - Aristóteles. Acerca del cielo, Meteorológicos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bav1j609mxx0jkkjzm9w8jn82zj74",
+      "bookId": "n17d8n5g7ts3n0kxesfschypx582zsth",
+      "updatedAt": "2026-03-15T03:18:45.103Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/23 - Isócrates. Discursos I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fhbk39rjzj554qf5s940q2x82y936",
+      "bookId": "n174twc2p2tmdv86mgyx6870cd82ytj4",
+      "updatedAt": "2026-03-15T03:18:46.317Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/230 - Estoicos Antiguos, Fragmentos y Testimonios.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24zmgvf3aaav8bm40azfaq2182ye76",
+      "bookId": "n1709j00esm8ddyd3nykgwafsh82z1sr",
+      "updatedAt": "2026-03-15T03:18:47.364Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/231 - Iseo de Atenas. Discursos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg248m22r3v7y5x0zgkzpd5ce582ym5m",
+      "bookId": "n1797w37pppbvppdtb7hewj30h82z5ex",
+      "updatedAt": "2026-03-15T03:19:21.484Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/232 - Dión de Prusa, Discursos - XXXVI-XL.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28014h80tdw1xecm99420w2582yydg",
+      "bookId": "n17fhcdjsns3a5a5r9jvrmmdv182ye20",
+      "updatedAt": "2026-03-15T03:19:22.765Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/233 - Elio Aristides, Discursos II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg239mhyjmkt88h0vyegvrst8d82zvmk",
+      "bookId": "n176psf6syy9txg1yprwp9nn0982y64c",
+      "updatedAt": "2026-03-15T03:19:23.998Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/234 - Elio Aristides, Discursos III - Las Doce Declamaciones.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21t5sbq4zcjmccsr0d4d0s0h82y334",
+      "bookId": "n17b1yf0hr62tds8swseebacp982ydte",
+      "updatedAt": "2026-03-15T03:19:25.004Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/235 - Filón. Sobre los sueños & Sobre José.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26z7v0z9pd3mrwjbt53bxnph82z8g0",
+      "bookId": "n176qe9fhte4ekba4anjdcb0eh82yt17",
+      "updatedAt": "2026-03-15T03:19:26.269Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/236 - Marcial, Epigramas - Vol. 1.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2c0qnad4map8zne6bczpbp3x82yztg",
+      "bookId": "n1713c361nsdr2ycdzqbh0fz4n82z20a",
+      "updatedAt": "2026-03-15T03:19:27.779Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/237 - Marcial, Epigramas - Vol. 2.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2453z3xf1gtsk55jq2z8ksh182y183",
+      "bookId": "n174af5p3ahjtxehdxc36tbzyn82zctz",
+      "updatedAt": "2026-03-15T03:19:29.264Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/238 - Elio Aristides, Discursos IV - Discurso XVII-XXXV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27htsfcb356p4ca047pgka6s82zh9z",
+      "bookId": "n17dfpxh31p36rj10s1kkwyx5n82zcbb",
+      "updatedAt": "2026-03-15T03:19:31.475Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/239 - Sexto Empírico, Contra los Profesores - Libros I-VI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2eh7tjwgfbker187g06ez49n82zzvp",
+      "bookId": "n17edp3gv5ynpndhcqc2cc6cns82ysv8",
+      "updatedAt": "2026-03-15T03:19:32.603Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/24 - AA.VV. Los filósofos presocráticos II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fj15ktk7w4rmg8s6rttbpyh82y6dd",
+      "bookId": "n17a65jzjakbm92smyjtd5ayqd82z733",
+      "updatedAt": "2026-03-15T03:19:33.878Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/240 - Prudencio Clemente, Aurelio, Obras - Vol. 1.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25pa6615y75f9bf3n34rn95h82y4jv",
+      "bookId": "n1788nnj4tar8a20hpv9t33z2n82ya60",
+      "updatedAt": "2026-03-15T03:19:35.136Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/241 - Prudencio Clemente, Aurelio, Obras - Vol. 2.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bj655amxkcvxp1tkrj2heyn82ztsc",
+      "bookId": "n17bfz4s0t7adnf2z1khdjyy2582zrbj",
+      "updatedAt": "2026-03-15T03:19:36.096Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/242 - Jámblico. Sobre los misterios egipcios.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2evmhncpyyfje0877hr7bc3h82yxm1",
+      "bookId": "n17fd7ntbz9fm6a8g4y6sbs82182yqzn",
+      "updatedAt": "2026-03-15T03:19:37.125Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/243 - Coripo, Juanide - Panegirico de Justino II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21bx5dbjsth9ge3kech8a11182zthm",
+      "bookId": "n17ajgdz1ymdmvrv8g4jzq4vg182zb4s",
+      "updatedAt": "2026-03-15T03:19:38.706Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/244 - Cicerón (atr.),Retorica a Herenio.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28erx5445e52k6dcx7bq6cg982zvyh",
+      "bookId": "n17cgawp68rqaaxjg98k8vha5h82yzn4",
+      "updatedAt": "2026-03-15T03:19:40.647Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/245 - Cicerón. La invención retórica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27vtedst3ggsqfqeadxetxx182yc98",
+      "bookId": "n178pjcgt6d9dh0dksksaye8c182zsq4",
+      "updatedAt": "2026-03-15T03:19:42.153Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/246 - Salustio & Pseudo Cicerón & Pseudo Salustio. Conjuración de Catilina y otros textos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bwb4556tseje6fj5f4hvggd82yh51",
+      "bookId": "n174aeakvgg0bvct0pe1ktjsg582yk08",
+      "updatedAt": "2026-03-15T03:19:43.758Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/247 - Flavio Josefo. La guerra de los judíos - Libros I-III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2azycgq7878mahzn5jgwswwn82zyjs",
+      "bookId": "n17ar3gm03gfhxcx7bpv1haa4s82zecm",
+      "updatedAt": "2026-03-15T03:19:45.318Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/248 - Galeno. Sobre la localización de las enfermedades.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b5jmht446swc610wqj7c4y982ydec",
+      "bookId": "n171s96qmryyqap3kfa0px2pc582zv3j",
+      "updatedAt": "2026-03-15T03:19:46.521Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/249 - Juvenco, Historia Evangelica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25wkzs22csfrkvb0sq26sfmh82yk64",
+      "bookId": "n178e8pjs7mbdzj199jfxeg63s82y877",
+      "updatedAt": "2026-03-15T03:19:47.671Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/25 - HeliodorolasEtipicas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2c6fytz4fmdp4rws94dm4dfh82y845",
+      "bookId": "n174x8dd45rb2xbsn4xdbf39dd82z2at",
+      "updatedAt": "2026-03-15T03:19:50.334Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/250 - Plinio el viejo. Historia natural - Libros III-VI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20b1j9rgm30p72atpx0mqpah82ze1j",
+      "bookId": "n174kz9xa3hqk2rjn93bjgs2ed82zghx",
+      "updatedAt": "2026-03-15T03:19:51.726Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/250.2 - A los jovenes Sobre el provecho de la literatura clasica - Basilio de Cesarea.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23c43h2ps479q7kegh9y3vf182za2h",
+      "bookId": "n17bfx7skpgp7rw2ktkkxx9jmx82yw6r",
+      "updatedAt": "2026-03-15T03:19:52.557Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/251 - Marco Terencio Varrón. La lengua latina - Libros V-VI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2202vvev5vdzwg3r3cmnbtys82zzgd",
+      "bookId": "n17cpsas3h4jjcbd6p2xrq4nds82y7vx",
+      "updatedAt": "2026-03-15T03:19:53.917Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/252 - Marco Terencio Varrón. La lengua latina - Libros VII-X y Fragmentos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f7tp5sf50z29bkn5003db6n82zvbt",
+      "bookId": "n17ert4f2mzr29fv7wa5cnd9gs82yynk",
+      "updatedAt": "2026-03-15T03:19:55.126Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/253 - Dioscórides. Plantas y remedios medicinales I-III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29q3vnjy0mmeepj1pztpmywh82y1bp",
+      "bookId": "n173z5gznkhqb52k0dya98chms82ykr2",
+      "updatedAt": "2026-03-15T03:19:56.662Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/254 - DioscÃ³rides, Plantas y Remedios Medicinales IV-V - Pseudo Dioscï¿½rdies.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21fpbj55shaz3kmxpds112j182yhph",
+      "bookId": "n171hkv0n7tg11y0gm8h1jqsbx82ytdq",
+      "updatedAt": "2026-03-15T03:19:57.911Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/255 - Cipriano de Cartago, Cartas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29ns7twe8avycrds0ne9j55982zrrc",
+      "bookId": "n1708fff1h1psbm5z3m6r5e1a182y1cc",
+      "updatedAt": "2026-03-15T03:19:59.111Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/256 - Plotino. Enéadas V-VI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25c6bf23mknerc9x7h8mysd982yft2",
+      "bookId": "n17dtfnn1xagwbrxqefrr86h4582zyrs",
+      "updatedAt": "2026-03-15T03:20:00.573Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/257 - Ateneo. Banquete de los eruditos - Libros I-II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d2dzapm3mz71hqz1ars9gp182ypzj",
+      "bookId": "n175c38ykd35e9ydh78qvb11n982yw7y",
+      "updatedAt": "2026-03-15T03:20:01.597Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/258 - Ateneo. Banquete de los eruditos - Libros III-V.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2agerpp0xm7vmb24kwsy4r7182z2ss",
+      "bookId": "n174z05ctpjh00a6m1jhb2rb5s82z7rg",
+      "updatedAt": "2026-03-15T03:20:03.134Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/259 - Poesía Epigráfica Latina I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dsw149jhn9r4fsf54nf4pdn82yqwv",
+      "bookId": "n174c2rr5dgeks9tvj3pa78b6x82z611",
+      "updatedAt": "2026-03-15T03:20:04.567Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/26 - Séneca. Tragedias I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg234nykhdtpv3qcx2nsz8waxx82zc5b",
+      "bookId": "n17etzsfcvqnqrsapbqavxymts82zer8",
+      "updatedAt": "2026-03-15T03:20:06.010Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/260 - Poesía Epigráfica Latina II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23qn29mtazmdfgcqe1hypfkd82z3kt",
+      "bookId": "n1707qparhxs05znwqbyrvd53x82zn0s",
+      "updatedAt": "2026-03-15T03:20:08.050Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/261 - Eutropio, Aurelio Victor, Breviario, Libros Cesares.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22e8d6eatkx8a3wrzw9y8t5d82yzat",
+      "bookId": "n173r17zz6w8w5d872jgsv4yr582zs5p",
+      "updatedAt": "2026-03-15T03:20:08.940Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/262 - Discursos V - Elio Aristides.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg223cq0bmv3839eqtf2r1w73182y0hq",
+      "bookId": "n179bmvnn1ycjkatvhmsfqaj7d82yb4t",
+      "updatedAt": "2026-03-15T03:20:10.227Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/263 - Claudio Eliano, Teofilacto, Cartas Rusticas Epistolas, Cartas de Quion de Heraclea.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e4135hwghmwe1fwbpfn3njx82ygyd",
+      "bookId": "n17d6cg3jtqdcwtsc2jp6e6ncd82yerp",
+      "updatedAt": "2026-03-15T03:20:11.368Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/264 - Flavio Josefo. La guerra de los judíos - Libros IV-VII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23amq076nabg9yjrsnvbbqe982zjfb",
+      "bookId": "n17ef0t9qedwbzgv92f8rbpz1582zs2r",
+      "updatedAt": "2026-03-15T03:20:13.084Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/265 - Platón. Diálogos VIII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg252bpqq6m01sfkm1h1669sr982znrr",
+      "bookId": "n171ec9y56jkt7xy2ks87kn0td82zb93",
+      "updatedAt": "2026-03-15T03:20:15.022Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/266 - Platón. Diálogos IX.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2090872gxcz0r61m7w5t3jfd82y12f",
+      "bookId": "n179bx5c0nkzktz4mz0h0t3q5582yqg9",
+      "updatedAt": "2026-03-15T03:20:16.704Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/267 - Vegecio, Medicina Veterinaria.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20gkd195gsgm9fbjfjazxxc182z4rw",
+      "bookId": "n1702ksd96q2kz5f6zqdavpet582zh4w",
+      "updatedAt": "2026-03-15T03:20:17.980Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/268 - Anónimo. Textos herméticos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg229en4c6e1pzxnq26vdfjd0d82zxnm",
+      "bookId": "n171749vpd2s6gybasn3ng79f582y2ew",
+      "updatedAt": "2026-03-15T03:20:19.284Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/269 - Cicerón. Sobre la naturaleza de los dioses.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ernma5nb0ej2stzf72etns182z51k",
+      "bookId": "n17ehsqqmsc4r3at5pyz7wn35d82z26k",
+      "updatedAt": "2026-03-15T03:20:20.850Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/27 - Séneca. Tragedias II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e8fb3y58p0nsxqdvrwbzkb982y59e",
+      "bookId": "n176q30wcgjq1zpcgwxqdwhtp182yqsw",
+      "updatedAt": "2026-03-15T03:20:22.079Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/270 - Pseudo Aristóteles, Anónimo, Fisiognomia, Fisiologo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bqd7b4chdj1mgxpgvrc3aax82yt7k",
+      "bookId": "n176mep32by431xv4mt3m0yppd82z32b",
+      "updatedAt": "2026-03-15T03:20:23.242Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/271 - Cicerón. Sobre la adivinación, Sobre el destino, Timeo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27c2jz0cac1dy4j3xc16zdtn82zxx4",
+      "bookId": "n173w4n832cyt5crwb7s8yewdx82zgfk",
+      "updatedAt": "2026-03-15T03:20:24.742Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/272 - Menandro, Proverbios Griegos - Sentencias.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28a5ntmyqkvx8k2n6z4xd8h982y2jj",
+      "bookId": "n1780qvz69hmw3f74tmts2238s82ydpp",
+      "updatedAt": "2026-03-15T03:20:26.360Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/273 - Temistio, Discursos Politicos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27vnq465ax73eyjjezf4q7x582z94x",
+      "bookId": "n173rf7c0n081tyx9tebgeqag182zb7v",
+      "updatedAt": "2026-03-15T03:20:28.121Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/274 - Dión de Prusa, Discursos LXI-LXXX.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ff560802hjnkejmxxx3mddd82zg14",
+      "bookId": "n175czad7rhmp03x2mesb4rj9x82yy93",
+      "updatedAt": "2026-03-15T03:20:29.381Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/275 - Oradores Menores, Discursos y Fragmentos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dgxh9cmykb18tsedzenvrk182zm6d",
+      "bookId": "n17a1zy44mmgryypd8gh6c219182zpmg",
+      "updatedAt": "2026-03-15T03:20:30.810Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/276 - Séneca. Diálogos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23863bwx5jc4aqns9gpt12ex82z8rk",
+      "bookId": "n175javj9eqn512wda2m23bzms82zydk",
+      "updatedAt": "2026-03-15T03:20:32.443Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/277 - Aristóteles & Euclides. Sobre las líneas indivisibles, Mecánica, óptica, Catóptrica, Fenómenos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28b9ctzgszndq3yrb8j62axs82z2k1",
+      "bookId": "n17d9ehc9qpbzjt7nq6r3djc3x82yn8t",
+      "updatedAt": "2026-03-15T03:20:33.899Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/278 - Floro, Epitome de la Historia de Tito Livio.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dr6r3h5zv7k1d696fhb1ca582yv14",
+      "bookId": "n17bx0aee5c6zhebzh6ynh3rjd82zk6v",
+      "updatedAt": "2026-03-15T03:20:35.390Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/279 - Procopio de Cesarea, Historia Secreta.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2982y8qewzvdpsqtgkzb7yz182zhnm",
+      "bookId": "n17bgd1yctq9ff78z3mwbbrf4d82yxex",
+      "updatedAt": "2026-03-15T03:20:36.482Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/28 - AA.VV. Los filósofos presocráticos III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23fg671tnnf2et68ybctk3s982y2wc",
+      "bookId": "n172bdgqgx1gjr0pjs8x21qky582ymkv",
+      "updatedAt": "2026-03-15T03:20:37.658Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/280 - Procopio de Cesarea, Historia de las Guerras - Libros I-II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29gb19yb69gzthxsn7y9njwd82zh0d",
+      "bookId": "n176ma5z6twkgh97qqrnbpzzas82z36w",
+      "updatedAt": "2026-03-15T03:20:38.771Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/281 - Quinto Aurelio Símaco. Cartas - Libros I-V.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg216m9wvjbh1d9pgktdq45m9s82y4n2",
+      "bookId": "n17fsh4bwg1jfwkmvab97cz60x82znrr",
+      "updatedAt": "2026-03-15T03:20:40.101Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/282 - Procopio de Cesarea, HIstoria de las Guerras - Libros III-IV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22exafcj8zhra6snt237g5bx82z0gh",
+      "bookId": "n17e81yw26mde9zswmhx3jcp2x82yetc",
+      "updatedAt": "2026-03-15T03:20:41.214Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/283 - Aristóteles. Partes de los Animales, Marcha de los Animales, Movimiento de los Animales.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg238n3sp9vyr43rc05w46jct982y8kg",
+      "bookId": "n17154ydxvq72cwaf5rj5hh9f582ysa9",
+      "updatedAt": "2026-03-15T03:20:42.253Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/284 - Veleyo Patérculo. Historia romana.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cs2p8e25x3pk2beveqx6d9s82ym1c",
+      "bookId": "n172js7kyrcmrz5gs05ybv52sh82z3qc",
+      "updatedAt": "2026-03-15T03:20:43.269Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/285 - Tertuliano, Apologetico a Gentiles.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fhykcc595htar6jcw99gvs182zrt1",
+      "bookId": "n17ammvf36z23cw0rnn2h28y7982yh23",
+      "updatedAt": "2026-03-15T03:20:44.607Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/286 - Nono de Panópolis. Dionisíacas - Cantos XIII-XXIV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25sapbar0qrefen9p2jevz5582y309",
+      "bookId": "n173e39wm7834zh0r65b8esrmx82ykv9",
+      "updatedAt": "2026-03-15T03:20:45.738Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/287 - Sobre la composicion literaria  Sobre Dinarco  Primera carta a Ameo  Carta a Pompeyo Gemino  Segunda carta a Ameo - Dionisio de Halicarnaso.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20j6xmywjhka0vfwwwawq8k982yr5j",
+      "bookId": "n173m1rwt7h1ey4b4mjs93qrqs82zgd6",
+      "updatedAt": "2026-03-15T03:20:46.829Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/288 - Estrabón. Geografía - Libros V-VII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b1y5y461bfjnx1qc529125n82y3rv",
+      "bookId": "n173zyhhr9a7x7d4wyswq6d4x182yfjf",
+      "updatedAt": "2026-03-15T03:20:48.447Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/289 - Estrabón. Geografía - Libros VIII-X.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ejdp3rxjdjg4pfwpq7pje5n82ykss",
+      "bookId": "n17311pyzg992ka7j8ce4zw6mn82ywhh",
+      "updatedAt": "2026-03-15T03:20:50.238Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/29 - Isócrates. Discursos II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2687999v36yqepe4gjg4v5hx82yg36",
+      "bookId": "n17159hf3ngt6sssehgm3rz9fd82yymq",
+      "updatedAt": "2026-03-15T03:20:51.287Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/290 - Libanio, Discursos - Vol. 1.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg287z1r6s7eh0bfysf8fjdx8982znbh",
+      "bookId": "n17b0jn022xpqazqcg0tgc0kex82zbh5",
+      "updatedAt": "2026-03-15T03:20:52.333Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/291 - Solino, Colección de hechos memorables o El Erudito.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2c6cnt7vvv31wvcjfw0cwf7582z522",
+      "bookId": "n1742w0864xe5m29myr1y6xehn82yr11",
+      "updatedAt": "2026-03-15T03:20:53.926Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/292 - Libanio, Discursos - Vol. 2.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21g03t3g0cn67npj7t0ey50x82y3kq",
+      "bookId": "n17e7j5y1shvp05yf8r6mjkh9s82zsf6",
+      "updatedAt": "2026-03-15T03:20:54.925Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/293 - Libanio, Discursos - Vol. 3.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2803eb300mks8s97kfrvyxjn82zrzt",
+      "bookId": "n172s61cf2qkw5hg2309mqy7jx82ydvq",
+      "updatedAt": "2026-03-15T03:20:56.280Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/294 - Diodoro. Biblioteca histórica - Libros I-III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bj091mhv03xrkrcydy3tyyh82yqj5",
+      "bookId": "n17da4csaan2zm1nc0hbd1m3a982zdvg",
+      "updatedAt": "2026-03-15T03:20:57.638Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/295 - Dares Phrygius, Distis Cretense, La Iliada Latina, Diario de la Guerra de Troya de Dictis.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24ep6qe0ys9pmt1z5geb7eb982z7rc",
+      "bookId": "n17fn46vzjw3z40w64htsdbf3182zdd6",
+      "updatedAt": "2026-03-15T03:20:59.148Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/296 - Avieno. Fenómenos, Descripción del orbe terrestre & Costas marinas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26sstbacrpyg2mn337c2k3y982z1sc",
+      "bookId": "n17asaxnbw16vmqfdn01gtwe9n82y6wv",
+      "updatedAt": "2026-03-15T03:21:00.593Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/297 - Yambografos Griegos,(Poemas de pie métrico Yambo).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23dtmzcwbqt1bjz3y1mv0shs82yw8z",
+      "bookId": "n179f10zestejx9pwdyrsf9tqx82zksn",
+      "updatedAt": "2026-03-15T03:21:01.720Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/298 - Esquines, Discursos Testimonios y Cartas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27q6aaqyj20y3hdybhfwfp4h82y4a6",
+      "bookId": "n17avn0ze774g5vby451drbyhs82y71t",
+      "updatedAt": "2026-03-15T03:21:03.335Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/299 - Plutarco, Obras Morales y de Costumbres IX.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22pwr7mnnq6rr2x9wjdyas4s82zbap",
+      "bookId": "n173j6gwmtna0hdkrer2rfpgz982ywr2",
+      "updatedAt": "2026-03-15T03:21:04.575Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/3 - Heródoto. Historia - Libros I-II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23d7a57z1s92px03zwy7taps82y8fr",
+      "bookId": "n173mea4r58rp58skhprfb2azd82yy1v",
+      "updatedAt": "2026-03-15T03:21:06.142Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/30 - Tácito. Anales - Libros XI-XVI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21wxjam9rwa8x7nsa4g9n4a582y168",
+      "bookId": "n17ebmf7xwq4v96k3ft7cwppcd82y8ve",
+      "updatedAt": "2026-03-15T03:21:07.269Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/300 - Cicerón. Sobre el orador.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fwmt2gnsamzszgk42qvt60x82zh3a",
+      "bookId": "n175zwh0ys71rnfp6bmftdmdqd82y9j6",
+      "updatedAt": "2026-03-15T03:21:08.568Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/301 - Galeno. Tratados filosóficos y autobiográficos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fqmth7xdd6drvazac2skcsn82z1st",
+      "bookId": "n17ftk55s0khcm6fb1pb2n6bkh82zdza",
+      "updatedAt": "2026-03-15T03:21:09.726Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/302 - Plauto. Comedias III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27531d4dw6mwsndwxw192h3s82yx4c",
+      "bookId": "n170mhc70fawxqb74jy9gtetn182z62s",
+      "updatedAt": "2026-03-15T03:21:10.905Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/303 - Dionisio-Tracio-Gramatica-Comentarios-Antiguos-pdf.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fe58ynkwnjbmb8myq8zaw9182y5w8",
+      "bookId": "n17fng85w9pd8x93z02fx1z32s82ytdp",
+      "updatedAt": "2026-03-15T03:21:12.525Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/304 - Claudio Rutilio Numancio, Retorno Geografos Latinos Menores.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg200mfqqwtgnjnrcdspm2tkh182y38s",
+      "bookId": "n171etgkntbapjdy5b4q1mk54d82zf62",
+      "updatedAt": "2026-03-15T03:21:13.828Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/305 - Galeno. Procedimientos anatómicos - Libros I-IX.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29dadn52th42342jry6358nn82yxr2",
+      "bookId": "n17chx5pzaz8j9173hsmpp9fas82yark",
+      "updatedAt": "2026-03-15T03:21:15.241Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/306 - Estrabón. Geografía - Libros XI-XIV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20hjd8a2tfk8rcw1gz8ghj2h82y09c",
+      "bookId": "n170k9bqc3tye47pa9h11fn9xn82zx6r",
+      "updatedAt": "2026-03-15T03:21:17.070Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/307 - Hipócrates. Tratados hipocráticos VIII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bbrf8d8gr1f3t190d3gmw0182ynvt",
+      "bookId": "n175d1hcre0392y3s4bt62vvd982zdfq",
+      "updatedAt": "2026-03-15T03:21:18.300Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/308 - Plinio el viejo. Historia natural - Libros VII-XI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg294v1cdg931e7g9ttzzqhkb582y2vn",
+      "bookId": "n171b1vtbncyr8jknzq1mscdfs82zj9q",
+      "updatedAt": "2026-03-15T03:21:19.945Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/309 - Plutarco, Obras Morales y de Costumbres X (Moralia).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24dw31vyc2hhd6m5y53nz48982yatq",
+      "bookId": "n17cs5kjmm3ab20w7za19m26rh82yfjf",
+      "updatedAt": "2026-03-15T03:21:21.590Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/31 - Lírica Griega Arcaica, Poemas Corales y Monodicos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24she4g91dak4qm2s9qy2e7x82zrkv",
+      "bookId": "n17b3qpb4vq08365asydjajh3582zxsb",
+      "updatedAt": "2026-03-15T03:21:23.314Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/310 - Quinto Aurelio Símaco. Cartas - Libros VI-X.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e2dsw1w4dw0w00f1kjs345582zpx9",
+      "bookId": "n178808zz8rmtx6spmj7t1fvvn82y4bj",
+      "updatedAt": "2026-03-15T03:21:24.352Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/311 - Valerio Máximo, Hechos y Dichos Memorables - Libros I-VI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27jevfy9hs9hkm5fxmgf1z9s82z71k",
+      "bookId": "n174gqneqxs8p2b75r69qr9wgd82ytmm",
+      "updatedAt": "2026-03-15T03:21:25.771Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/312 - Valerio Máximo, Hechos y Dichos Memorables - Libros VII-IX.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23sjhxftbwt8c8qv61fjf5jh82zm4x",
+      "bookId": "n17a33mypky9s9rg9sg49fjmqh82y1bk",
+      "updatedAt": "2026-03-15T03:21:27.004Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/313 - Galeno. Sobre las facultades naturales, Las facultades del alma siguen los temperamentos del cuerpo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2625h7err1pxdx9tzhtr0zdd82zh0s",
+      "bookId": "n179kbew7ywx9x712phcpv50nh82ywkc",
+      "updatedAt": "2026-03-15T03:21:27.896Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/314 - Jámblico. Vida Pitagórica, Protréptico.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a6xxx9f3pqy4xyh6rsy5hjh82y4pp",
+      "bookId": "n17ef3af4z0ezz83j87867n9p182za2x",
+      "updatedAt": "2026-03-15T03:21:28.946Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/315 - Quinto Aurelio Símaco. Informes & Discursos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2558mpa5hskgtc0xqr8r057x82z8w5",
+      "bookId": "n17fhxa9r7e8kpvy4fg1fmajtn82yf20",
+      "updatedAt": "2026-03-15T03:21:29.963Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/316 - Lucrecio, Naturaleza.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20drbqq0kbzf34ncz8erjx8s82zbxh",
+      "bookId": "n17fwsg45a36nr2s0f2xrg0zwn82y666",
+      "updatedAt": "2026-03-15T03:21:31.303Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/317 - Fragmentos Poesía Latina Epica y Lirica I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23xvwyg166wss4kfa8bt4x5582ymex",
+      "bookId": "n178fvnvy34jqg8tgvev87jazn82zr3t",
+      "updatedAt": "2026-03-15T03:21:32.433Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/318 - Fragmentos Poesía Latina Epica y Lirica II,.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23kx6kj5y6m83w6mc867qpa582yswb",
+      "bookId": "n1736j2exj6nvw2par8d86h5yx82zjm9",
+      "updatedAt": "2026-03-15T03:21:33.401Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/319 - Nono de Panópolis. Dionisíacas - Cantos XXV-XXXVI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28kj962jj56ca2h5wc5v8m7182y4dc",
+      "bookId": "n178m4xn506ygpcwspnapdhxxn82ypyv",
+      "updatedAt": "2026-03-15T03:21:34.364Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/32 - Apuleyo. Apología & Florida.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26smc9bggp81m3e4wgaxkfd182yjtt",
+      "bookId": "n17c8hs9qedcv7949ks6s2sysh82zjzs",
+      "updatedAt": "2026-03-15T03:21:35.608Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/320 - Aristóteles. Problemas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a6xwjvdpw3n139t9bj1a0yn82z7qn",
+      "bookId": "n176ht76ahfsjrrrtg8yj0sn4s82z7jw",
+      "updatedAt": "2026-03-15T03:21:36.831Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/321 - Antologia Palatina II, La Guirnalda de Filipo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28y380dq1debyc0m5bcwkn2582yych",
+      "bookId": "n1764pn3bjnry0x3k5fjychwa182zx90",
+      "updatedAt": "2026-03-15T03:21:38.674Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/322 - Plutarco, Obras Morales y de Costumbres XI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2abqvf64k174qdknyd9073ch82zbrs",
+      "bookId": "n17cy6nsftf3w9yjem3qd3yj0982zfvq",
+      "updatedAt": "2026-03-15T03:21:40.547Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/323 - Plutarco, Obras Morales y de Costumbres XII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fa9xa1cqempgapbjcfcvce982ypme",
+      "bookId": "n1732gyf299qwshztmqeakwsf982z2hc",
+      "updatedAt": "2026-03-15T03:21:41.765Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/324 - Plutarco, Obras Morales y de Costumbres XIII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dc4sjw3k2ayrszxyn02fsfx82y1m3",
+      "bookId": "n179j4f0qhsmhfcks69m4hevzx82z0yc",
+      "updatedAt": "2026-03-15T03:21:43.185Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/325 - DionCasio-Historiaromana-libros-I-XXXIV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ehadthkcv6gyat8dkwj4e9582zpcb",
+      "bookId": "n17fpms1gtz4cgartsfmy7n6ss82y79x",
+      "updatedAt": "2026-03-15T03:21:46.480Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/326 - Dion Casio. Historia romana - Libros XXXVI-XLV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24dan8vvdwjwmejrac1zqyad82zwpk",
+      "bookId": "n17d06gakkxhnkk8y32r0nm0an82zc7h",
+      "updatedAt": "2026-03-15T03:21:47.685Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/327 - Quinto de Esmirna, Posthomericas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg257n2htc5xf64q9p0hc4y45h82yrhj",
+      "bookId": "n171729rhbt15e9wthrshb49ds82yknk",
+      "updatedAt": "2026-03-15T03:21:48.925Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/328 - Diodoro. Biblioteca histórica - Libros IV-VIII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25ck9jfp5q17exd4brmmqwm582zqyg",
+      "bookId": "n17etk3whzm4beps2r1d8bs7b582y510",
+      "updatedAt": "2026-03-15T03:21:50.248Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/329 - Columela, Libro de los Arboles - La Labranza I-V.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28zzsyb3zccpthhzw4m9fmfs82y6wr",
+      "bookId": "n177app2qbcga2sxhbrz3q7dah82yvzg",
+      "updatedAt": "2026-03-15T03:21:51.526Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/33 - Calimaco himnosEpigramasYFragmentos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2era3fw5syb41zdmj4twp6x182za7g",
+      "bookId": "n17a1a25jv3c7be4dm4wr0nn4182zar5",
+      "updatedAt": "2026-03-15T03:21:53.645Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/330 - Máximo de Tiro, Disertaciones Filosoficas I-XVII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d2tv2xds0vb5667vc7gjxq982yf30",
+      "bookId": "n17fz3bsyatdbmkkt27tdmz4w582zntx",
+      "updatedAt": "2026-03-15T03:21:54.851Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/331 - Máximo de Tiro, Disertaciones Filosoficas XVIII-XLI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20y06n4qqhztke80xw0qerj982z40h",
+      "bookId": "n17epx8ecrr8d8efcmakzehyv582zy9q",
+      "updatedAt": "2026-03-15T03:21:56.145Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/332 - Cicerón. Disputaciones tusculanas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24a8pgbm1sr7133h8tt8zqtd82z666",
+      "bookId": "n173wgz03wp0b34p9bbezef0fh82yv67",
+      "updatedAt": "2026-03-15T03:21:57.721Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/333 - Arquimedes, Eutocio, Tratados I, Comentarios.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dsybt9a9p0mgzf5r0h8egdd82zted",
+      "bookId": "n178nyz22q91157zd57d5r5g5582za67",
+      "updatedAt": "2026-03-15T03:21:59.680Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/334 - Dionisio de Halicarnaso, Tratados de Critica Literaria.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2691qqn1hfyfak23zjsk7khh82y7zp",
+      "bookId": "n1793j6vx1szz0yqs83e8kg3rd82y98a",
+      "updatedAt": "2026-03-15T03:22:01.203Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/335 - Paulino. Poemas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ef2w06by96d87pepef0qbjd82yn21",
+      "bookId": "n1754pdm0fxty2d8wc0m7g1srn82y5tj",
+      "updatedAt": "2026-03-15T03:22:02.590Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/336 - Libanio, Cartas - Libros I-V.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg205pbj761ctexf3d7sw93veh82zy8g",
+      "bookId": "n17bgnck83dghgr6x6h330ykt582zs1c",
+      "updatedAt": "2026-03-15T03:22:03.885Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/337 - Sidonio Apolinar, Poemas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24c1hfjhcvryek5kkd8yp65n82zrq3",
+      "bookId": "n17bgdsjy197nyew6e400a16zs82ybn8",
+      "updatedAt": "2026-03-15T03:22:04.987Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/338 - Aristóteles. Fragmentos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22tjcm4a23wn9v26kqbbzjws82ymff",
+      "bookId": "n171maytytt2e0n62yd00zbwzn82zd59",
+      "updatedAt": "2026-03-15T03:22:06.416Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/339 - Séneca el Viejo, Controversias - Libros I-V.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21q7zqe0703agn4a6pcvppqd82y8jg",
+      "bookId": "n171v42djy1spbxn6s2qv52zbn82ym76",
+      "updatedAt": "2026-03-15T03:22:07.654Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/34 - Apiano. Historia romana I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ahg8kjrr14ww8a244mrbjrh82y9xv",
+      "bookId": "n17dj8pwwchmaph379txgvbx2582z5mz",
+      "updatedAt": "2026-03-15T03:22:09.090Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/340 - Séneca el Viejo, Controversias - Libros VI-X - Suasorias.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23sx7rhfnd1c3khvtz8mghdn82zxm9",
+      "bookId": "n176db04yzyd3bs0jx0r37qryh82y08w",
+      "updatedAt": "2026-03-15T03:22:10.008Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/341 - Anaxímenes de Lámpsaco, Alcidamante de Elea, Testimonios y Fragmentos, Retorica Alejandro.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg204248azj7k2qgf57e5asq6n82z7sx",
+      "bookId": "n175mar4jxj15b4prkgbefq14582zt7g",
+      "updatedAt": "2026-03-15T03:22:11.545Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/342 - Julio César, Autores del Corpus Cesariano, Guerra Civil - Guerra de Alejandria.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29sy2db5a9hc4mmkxnr6te1s82zyx8",
+      "bookId": "n17dh9vn2k1snq620ter0zn3xd82z9za",
+      "updatedAt": "2026-03-15T03:22:12.952Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/343 - Fedro, Aviano, Fabulas, Fabulas de Romulo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fbpctc5ns691qaax8wpcs3x82zv4f",
+      "bookId": "n173pa91ys0be25ftvzb2jmy9982yn8m",
+      "updatedAt": "2026-03-15T03:22:14.414Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/344 - Plinio el joven. Cartas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22ejkwje4d2a99kcqmj234r582z2j8",
+      "bookId": "n17b0nc8cy9j30zs713hr9q03s82yp4j",
+      "updatedAt": "2026-03-15T03:22:15.907Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/345 - Cicerón. Discursos VI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24p3vrgqtc5k1f0hb5fayz4d82z18j",
+      "bookId": "n174pfvcvgpntemnxg9g5awqf182ypza",
+      "updatedAt": "2026-03-15T03:22:17.281Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/346 - Crisipo de Solos, Testimonios y Fragmentos I - (1-318).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27e2h99jtc17dt3mwed7ptw982yxbz",
+      "bookId": "n17bs7y8mevyvw1ryy2wfmg6td82zxf0",
+      "updatedAt": "2026-03-15T03:22:18.611Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/347 - Crisipo de Solos, Testimonios y Fragmentos II - (319-606).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24d4symw2xtqe96jbvy9gmqn82yspn",
+      "bookId": "n17cdtma4yzgydzwcd6dyehkdd82yfct",
+      "updatedAt": "2026-03-15T03:22:19.982Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/348 - Claudio Eliano, Historias Curiosas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2eknkgaxt7azzx9tpp9c13g982zfg7",
+      "bookId": "n177sbdfgaadkq5nm9njtp3j9s82y7w9",
+      "updatedAt": "2026-03-15T03:22:21.161Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/349 - Ateneo. Banquete de los eruditos - Libros VI-VII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29x30xcf25d7c1263v9yhw8d82zhjn",
+      "bookId": "n1748w9z79d9gnxj5qr82xx4p182y1v9",
+      "updatedAt": "2026-03-15T03:22:22.220Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/35 - Demostenes - Discursos Politicos I [54676] (r1.0).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26ec8b4ck265t6x4a2kwvyvs82y03v",
+      "bookId": "n177yvw7yy2cfh7hnprj88vwvx82zraw",
+      "updatedAt": "2026-03-15T03:22:23.526Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/350 - Ateneo. Banquete de los eruditos - Libros VIII-X.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25z16prk50qdz739damp1z7s82y0j5",
+      "bookId": "n17576ry0gm39fwdefpsf8zqy582zbzc",
+      "updatedAt": "2026-03-15T03:22:24.857Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/351 - Macrobio. Comentario al «Sueño de Escipión» de Cicerón.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28kypg96sg1scb79c5de2t9s82y9nn",
+      "bookId": "n171f7710zk2dj8jzn5mh4qtxd82zzgr",
+      "updatedAt": "2026-03-15T03:22:26.291Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/352 - Ennio, Fragmentos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fdy2qd77qxzt36rvfkr8q6n82zvps",
+      "bookId": "n172vhgtdm1fgdz0cmp71a0fth82z37e",
+      "updatedAt": "2026-03-15T03:22:27.826Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/353 - Diodoro. Biblioteca histórica - Libros IX-XII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20r9rtby1zgy89pjdmmk8skh82yrvw",
+      "bookId": "n175sm6e8f64pkn88t8yx0ewts82zdtq",
+      "updatedAt": "2026-03-15T03:22:29.214Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/354 - Plutarco, Vidas Paralelas III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22qfbvs8x9zbnp0w5hh5ske982zvxk",
+      "bookId": "n179c7ava43nqw3pzrm2dn4bds82zda0",
+      "updatedAt": "2026-03-15T03:22:30.605Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/355 - Procopio de Cesarea, Historia de las Guerras - Libros V-VI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2aw2sb9ej63ycr8t62fcffxx82yv4j",
+      "bookId": "n17bpseqw8hsdbzt6c7qbzkyvh82zfwv",
+      "updatedAt": "2026-03-15T03:22:32.039Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/356 - Plutarco, Vidas Paralelas IV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29y7xxfpskzg7e0fgpvczd7182zr0t",
+      "bookId": "n176j6s7fqssytxqyqj44qty3582ygjh",
+      "updatedAt": "2026-03-15T03:22:33.182Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/357 - Ennodio, Ennodio - Opusculo y Declamaciones.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fg4wsv5bg4474ey5bxxt5n582z3dd",
+      "bookId": "n170edsckffa65gf4e3ktpt1ys82z6bd",
+      "updatedAt": "2026-03-15T03:22:34.336Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/358 - Procopio de Cesarea, Historia de las Guerras - Libros VII-VIII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cfba7jp3pax3a535gaaw8g582ysb3",
+      "bookId": "n176zdgd64h578kwtq7eha8kvd82z3aq",
+      "updatedAt": "2026-03-15T03:22:35.507Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/359 - San Agustín. Sobre la música.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26w7b4dr1hkc79prfmn00k8582y968",
+      "bookId": "n176ba1rd0he40vg6dntz23qs982zbsa",
+      "updatedAt": "2026-03-15T03:22:37.064Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/36 - Tácito. Agrícola, Germania, Diálogo sobre los oradores.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bxehg2f40xe6094vt5rbtpd82yp2d",
+      "bookId": "n174a915gpvf1zk8pdvv0yajb182z48j",
+      "updatedAt": "2026-03-15T03:22:38.073Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/360 - Horacio. Odas, Canto Secular y Epodos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25b9ev5t1wdh8hq3erxaamg582zrm6",
+      "bookId": "n17ddgj0en8anrc0zfcnskwwyd82zawq",
+      "updatedAt": "2026-03-15T03:22:39.436Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/361 - Fragmentos de la Comedia Media.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20ecgjsmzn8rh5rw1hm72k1h82zc34",
+      "bookId": "n178bfsfxsz8xxgbpnzt89x5t182ynxq",
+      "updatedAt": "2026-03-15T03:22:41.857Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/362 - Plutarco, Vidas Paralelas V.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26rqc793p1n4st843zza1h1s82ze57",
+      "bookId": "n172p2njnva6y5x0eash5e4jeh82zyfx",
+      "updatedAt": "2026-03-15T03:22:43.407Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/363 - Plutarco, Vidas Paralelas VI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23ejermmedk1rdxh9e05qfjh82yq0n",
+      "bookId": "n17ev658fajn73x1e4b2txmgqx82zfbe",
+      "updatedAt": "2026-03-15T03:22:44.987Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/364 - San Agustín. La ciudad de Dios - Libros I-VII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg248a3acwbaae39pxaq2a72ed82zcg4",
+      "bookId": "n1769pcww94bhafjxqwh83gf9582yasp",
+      "updatedAt": "2026-03-15T03:22:47.168Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/365 - Ovidio. Metamorfosis - Libros I-V.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f08tagb6saew1yzszcacja582y261",
+      "bookId": "n175w0v2ravers5d46804rfvsh82z27j",
+      "updatedAt": "2026-03-15T03:22:48.842Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/366 - Cicerón. Cartas III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29n8w1ra8e14w80wakhzm9y582zxge",
+      "bookId": "n175fxf1ghqv4cw0snvfqcxnjx82ydwe",
+      "updatedAt": "2026-03-15T03:22:50.748Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/367 - Marco Vitruvio Polión, Arquitectura - Libros I-IV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26s7m8yrrda4tk8rt761f85h82y64p",
+      "bookId": "n17bp0rqqzm8d18fsq366ysed182y4kn",
+      "updatedAt": "2026-03-15T03:22:52.913Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/368 - Terencio - Obras .pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cxsh2sk2a3sphqjfb2xhg8n82zmt2",
+      "bookId": "n179jm5rt6g0z4vqt6n2sbzjj182yy75",
+      "updatedAt": "2026-03-15T03:22:54.724Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/369 - Esquilo, Fragmentos - Testimonios.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a92pf141w7zvh0w376mcvf982yg8z",
+      "bookId": "n170yt0xf30c3rftvx98mjrsv982znhx",
+      "updatedAt": "2026-03-15T03:22:57.833Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/37 - Platon - Dialogos I [34470] (r1.5).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28cpktm7pt91z83vqq853q5s82yn0v",
+      "bookId": "n174yxckbcyzb1v7ky33pnp58x82y294",
+      "updatedAt": "2026-03-15T03:22:59.780Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/370 - Nono de Panópolis. Dionisíacas - Cantos XXXVII-XLVIII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2axbt90zzh26brwxyvsm7bwn82ybew",
+      "bookId": "n1723j05hxra6nqpqcjctb2x7n82zgra",
+      "updatedAt": "2026-03-15T03:23:01.015Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/371 - Diodoro. Biblioteca histórica - Libros XIII-XIV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26cs7a1der854zpntmxb4v4s82ynzj",
+      "bookId": "n170g6pt5jfyk3az89w8428e8982z9pt",
+      "updatedAt": "2026-03-15T03:23:02.283Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/372 - Agatías, Historia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d1n3x2h9xmdmtqpx1ay39ks82yq3b",
+      "bookId": "n17etzhh8r96retsvs0xstb82182zhb2",
+      "updatedAt": "2026-03-15T03:23:03.566Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/373 - Horacio. Sátiras, Epístolas, Arte poética.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg253zqp0pax1pc8zefy90np9582ybn6",
+      "bookId": "n17aeq3e6896hy4qqstjy112v982z0z5",
+      "updatedAt": "2026-03-15T03:23:05.092Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/374 - Cicerón. Cartas IV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fd3f4hjv0y0rbp5672kj72582zy87",
+      "bookId": "n17e4cvja4vz2r7433xy3ag8yx82ynhg",
+      "updatedAt": "2026-03-15T03:23:06.732Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/375 - Carisio, Arte gramática.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dt0arhyyd4t94xr4ags80fh82yzhp",
+      "bookId": "n179bj5wxrgxeg2rpsj6f2pc7d82y7qx",
+      "updatedAt": "2026-03-15T03:23:08.255Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/376 - AA. VV. Mitógrafos griegos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23bszxjz9avrxm7yk68e49bs82yk8e",
+      "bookId": "n170v5ky0v87982j5dxyrvext182yzns",
+      "updatedAt": "2026-03-15T03:23:09.714Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/377 - Boecio. Sobre el fundamento de la música.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23esppvnm3wbv840hhc9egpx82zc81",
+      "bookId": "n17cr7hsc68q97q949jyzp1y0182y48w",
+      "updatedAt": "2026-03-15T03:23:11.657Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/378 - Arquímedes,-Tratados-2.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27eer0qj7j8r10jghq354tk182zbqb",
+      "bookId": "n171t7b3agz6wzhqc8tttdcmhx82yrrj",
+      "updatedAt": "2026-03-15T03:23:13.913Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/379 - Plutarco, Vidas Paralelas VII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21g6hrsjfgtwe2m3rmdq1d9h82yr6v",
+      "bookId": "n175ea4w5z3aq4z93g22zd9a4h82zzp3",
+      "updatedAt": "2026-03-15T03:23:15.653Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/38 - Polibio. Historias - Libros I-IV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f4rp7rcv2r44ffqrt0d8hv982yb6z",
+      "bookId": "n172mtb3h0bh3xh4f94zyjtc6d82zgcy",
+      "updatedAt": "2026-03-15T03:23:16.944Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/380 - Fábulas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e2yh0gpa1nygzs2m9qsjjyx82y86g",
+      "bookId": "n17e8yde91sgq2ppdv296ffngs82y8zc",
+      "updatedAt": "2026-03-15T03:23:18.471Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/381 -  Marco Tulio Cicerón - Las leyes.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bf1sw4p2sj472btmt55gd7n82yns2",
+      "bookId": "n17d4s2bep2cqggafhhza7d7yx82y58g",
+      "updatedAt": "2026-03-15T03:23:19.446Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/382 - Cartas de amor  Cartas - Filostrato.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2168pm9hgssxjt70dx4d8x4d82ypr2",
+      "bookId": "n176g2n67mrh2q6p4jaqtg41xn82y8k1",
+      "updatedAt": "2026-03-15T03:23:20.674Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/383 - Hefestion-Metrica-Griega-Aristoxeno-Harmonica-Riitmica-Ptolomeo-Harmonica-pdf.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27yb49d19jmspz3dhx1p91w982z9xe",
+      "bookId": "n171h39nhvmgjy32cjnr3jq5wh82zk12",
+      "updatedAt": "2026-03-15T03:23:26.299Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/384 - Macrobio, Saturnales.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fd2crj2h8n3s91kd2f8hmax82zs6y",
+      "bookId": "n172pwy5de86e281wjv8x8b53s82z440",
+      "updatedAt": "2026-03-15T03:23:28.215Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/385 - Amiano Marcelino, Historias I - Libros XIV-XIX.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d2q2m04r7n3fq0tseseky8n82zw6j",
+      "bookId": "n17bbqqrw9vh624317957gcf4582z5pn",
+      "updatedAt": "2026-03-15T03:23:29.332Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/386 - Plutarco, Vidas paralelas. Vol. VIII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22xrrfdxafasn4y5c5aakyt582y60f",
+      "bookId": "n1781rcfckvxtkk8dc86fy0kcn82z99e",
+      "updatedAt": "2026-03-15T03:23:30.707Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/387 - San Agustín, Confesiones.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg211agbr6nmdkfn4swtv6yz2582ybtg",
+      "bookId": "n17bxrh7b2ss5r13w7qvpe33mh82z9nd",
+      "updatedAt": "2026-03-15T03:23:32.445Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/388 - Plinio el viejo. Historia natural - Libros XII-XVI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25axghadfegjg5d8sz40310d82znp9",
+      "bookId": "n17240mm8nv4h418vy6d3pr4j582z508",
+      "updatedAt": "2026-03-15T03:23:33.979Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/389 - Galeno. Del uso de las partes.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f843x1bt120jchyzpqyna4982yz51",
+      "bookId": "n17dc9arxcvb36n9cyf44jrs3d82z8vh",
+      "updatedAt": "2026-03-15T03:23:36.443Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/39 - Heródoto. Historia - Libros V-VI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg226b3npnjxasfyvf4xynh0ph82zrg4",
+      "bookId": "n171s2hwr2hf4q6ptenbkk2xjs82zmmd",
+      "updatedAt": "2026-03-15T03:23:37.961Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/390 - Aristóteles. Poética - Magna Moralia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg293495hxysn3fzv1rad160m582ytr1",
+      "bookId": "n17cknj287k7kh6m7yg1qfzmgx82zgg1",
+      "updatedAt": "2026-03-15T03:23:38.854Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/391 - Comedias II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28r89a54z4mzz0850qe3amds82zkkv",
+      "bookId": "n177t588mbbxz8yp9frw2bc1wn82yw0r",
+      "updatedAt": "2026-03-15T03:23:39.915Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/392 - Cicerón. Discursos - Vol. 7.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg251e0jc0qyka39tcq30z852582z1ps",
+      "bookId": "n17bgn7m5r6jb6atnr02scrpp182y6wx",
+      "updatedAt": "2026-03-15T03:23:41.110Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/393 - Dion Casio. Historia romana - Libros XLVI-XLIX.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28m8q942ydwt6e46axppjc1582zs7s",
+      "bookId": "n178th7k2p10492bpbhn78p3tx82yscz",
+      "updatedAt": "2026-03-15T03:23:42.275Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/394 - Antologia latina - AA VV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29qgp2dnt6pac964j5nsatg182zank",
+      "bookId": "n171nne2a3m15tqa8hqzgzn6hs82z8a9",
+      "updatedAt": "2026-03-15T03:23:43.810Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/395 - Dion Casio. Historia romana - Libros L-LX.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20m2bk5yjh8vxejbzm715pzs82zdkc",
+      "bookId": "n17ezk64snx9gtsrx84bqv8nbx82z11m",
+      "updatedAt": "2026-03-15T03:23:45.227Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/396 - Gayo Valerio Flaco, Argonauticas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a5hhmrqhcjkhajmn2ytxkz982za8r",
+      "bookId": "n17ezjabcvttpagncxf1f81hes82zr4w",
+      "updatedAt": "2026-03-15T03:23:46.376Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/397 - Apuleyo, Obra Filosofica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24478aag6emwkk1x5cwge6h982yvrr",
+      "bookId": "n179vg61s2w996618jb34tvbgx82yt86",
+      "updatedAt": "2026-03-15T03:23:47.249Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/398 - Diodoro. Biblioteca histórica - Libros XV-XVII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ce9s6ms76t5hza7b2rd4v7582yh1n",
+      "bookId": "n17ca6gb1warh87fcr25a1jkk182yjqq",
+      "updatedAt": "2026-03-15T03:23:48.724Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/399 - Ennodio, Poemas - Epístolas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cck9ev78tjdn9q4wdhab79s82zee6",
+      "bookId": "n172e0rt1beqte5p9ps6vtymrs82zz5p",
+      "updatedAt": "2026-03-15T03:23:49.970Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/4 - Eurípides. Tragedias I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21yfppfxw02qf71ww1azptqh82zzp0",
+      "bookId": "n17b0bzgdn37g8kbcp32np79fn82ykyz",
+      "updatedAt": "2026-03-15T03:23:50.958Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/40 - Sófocles Tragedias.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27pattvyh2w6wv4cxg1q61ax82znmw",
+      "bookId": "n173jjwft50km54v269djcq6gn82z75k",
+      "updatedAt": "2026-03-15T03:23:52.616Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/400 - Ovidio. Metamorfosis - Libros VI-X.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2byc77bvsh4xgkat3bx6691s82ztnr",
+      "bookId": "n17a46tvhwg00z4yar4va2fa7n82z6jy",
+      "updatedAt": "2026-03-15T03:23:53.497Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/401 - Contra los dogmaticos - Sexto Empirico.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg244435r3jysmhhh4p395e89182zy63",
+      "bookId": "n176fjaczve6r3ddvwpfse91ks82yw5c",
+      "updatedAt": "2026-03-15T03:23:54.887Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/402 - Cornelio Tácito. Historias - Libros I-II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bf3myacjj7h9tpbz8ky269582yq14",
+      "bookId": "n170w4wjx8f2djxc5bab3kdf9n82yhcj",
+      "updatedAt": "2026-03-15T03:23:56.302Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/403 - AA. VV. Elegíacos griegos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27vbcn7at8fcsd9fqsezkgsn82zfze",
+      "bookId": "n17aztem1z44jyr1dt541w3de582z0w6",
+      "updatedAt": "2026-03-15T03:23:57.211Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/404 - Catón el Censor, Tratado de Agricultura - Fragmentos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2080fpavhxk11ny1jgvzm08s82y2w1",
+      "bookId": "n177zxpdrexczh71px78pzwd4182ys4x",
+      "updatedAt": "2026-03-15T03:23:58.519Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/405 - San Agustín. La ciudad de Dios - Libros VIII-XV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ee6y4632q3ty6bw4n6p6jd982yjyt",
+      "bookId": "n173z4b7cm38aqjvbgn5j0vg9h82zwxc",
+      "updatedAt": "2026-03-15T03:23:59.953Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/406 - Alejandro de Afrodisias - Acerca del alma & Acerca del destino [42196] (r1.0).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22djtwn5wk348ks74729vncn82yshn",
+      "bookId": "n17a2mav4ewmbpd4nne1sm8fg182zsd3",
+      "updatedAt": "2026-03-15T03:24:01.483Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/407 - Cicerón. Discursos Vol. 8.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ctzk5jdkmdap0n1rjkq2kn982z52q",
+      "bookId": "n171hgfh95913w0hk6ddrv4rp582zc60",
+      "updatedAt": "2026-03-15T03:24:02.944Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/408 - Comedias III - Aristofanes.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24ksxs3hqc9tb474k068zz1d82ycmg",
+      "bookId": "n174w2217mz0hj8ctwg6nj04k982yasc",
+      "updatedAt": "2026-03-15T03:24:04.597Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/409 - Cornelio Tácito. Historias - Libros III-V.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b6dsspnby7hrx1xty2cph8982zftr",
+      "bookId": "n17bj661x9hwsredz790cnv79182z9bd",
+      "updatedAt": "2026-03-15T03:24:05.848Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/41 - AA.VV. Priapeos y otros textos y poemas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29yhbzhn72c06dztbzemq2h182z61n",
+      "bookId": "n170t02cpxxgma03vc0rh2x8a182y723",
+      "updatedAt": "2026-03-15T03:24:06.941Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/410 - Séneca. Cuestiones naturales.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29jkqjj8bekkppvh7rjammmn82yh60",
+      "bookId": "n172qdktantfkr1n280zjwkwes82y5yx",
+      "updatedAt": "2026-03-15T03:24:08.592Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/411 - Diodoro. Biblioteca historica - Libros XVIII-XX.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26yynj8cm5rpbcvv66a3zfrs82y6cs",
+      "bookId": "n1745vdf6jhmp22g1hg0k6cwsh82ygra",
+      "updatedAt": "2026-03-15T03:24:09.638Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/412 - Fragmentos de la Comedia Nueva.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23dpd2319era26pseex650xd82zdss",
+      "bookId": "n17bfabnam86y76hxctynvsnf582zcg2",
+      "updatedAt": "2026-03-15T03:24:11.208Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/413 - Ateneo. Banquete de los eruditos - Libros XI-XIII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dckq4yen2v1y0f1xzg71vax82zm93",
+      "bookId": "n173qq8j0zy26nm37bbt5crjh582z7ze",
+      "updatedAt": "2026-03-15T03:24:12.689Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/414 - Cicerón - Los deberes.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21s69mzwsyvc1k7zgnfw8c3s82z71k",
+      "bookId": "n179kp5rcyz5jemvv726kwx5dn82zz7p",
+      "updatedAt": "2026-03-15T03:24:13.809Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/415 - Estrabón. - Geografía 6 (libros-XV-XVII) -G- -2015-.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg281rr1616fddvh9dqf192kw982z7sq",
+      "bookId": "n175nsrjd2k871872tz3y2cyn182yhrd",
+      "updatedAt": "2026-03-15T03:24:17.072Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/415.2 - Metamorfosis Libros XIXV - Publio Ovidio Nason.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dgn89hjw4j9ywdwheemva4d82yfd5",
+      "bookId": "n173a9dtr2bj3rbagfvveaykms82y8bf",
+      "updatedAt": "2026-03-15T03:24:17.942Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/416 - La ciudad de Dios Libros XVIXXII - San Agustin De Hipona.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fy2e1tf085exxz6cgd6rqxh82zawj",
+      "bookId": "n1736h5y9z5rvm6dna73wec2xh82y2yq",
+      "updatedAt": "2026-03-15T03:24:19.210Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/417 - Obra no existe.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg252h821jfhhyp65vz1fbqxb182z032",
+      "bookId": "n171kbj4rteqknrh0td5x1x5sd82ye8n",
+      "updatedAt": "2026-03-15T03:24:20.060Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/418 - Obra no existe.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cap1pejx52498a8vzxf0etx82ymge",
+      "bookId": "n1712edv2xdq22fpwkwz7bexr182yxke",
+      "updatedAt": "2026-03-15T03:24:20.764Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/419 - historia-natural-libros-xvii-xix.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f9a2z8rbz5fe4fas2trn7an82z8f4",
+      "bookId": "n170yw0k03593vnw4w3kgnzbzh82zc7y",
+      "updatedAt": "2026-03-15T03:24:22.723Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/42 - Luciano. Obras I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f6p2h6d8fpqdyp8paeqpt3d82yb3y",
+      "bookId": "n170b9262bcarsjd8k7741ynx182zxa9",
+      "updatedAt": "2026-03-15T03:24:24.257Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/420 - Sobre el dia del nacimiento  El fragmento de Censorino  Disertacion sobre el sueno de Escipion - Censorino.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23zvh374dr4cvcjxcmwvfmpx82yekh",
+      "bookId": "n17eg2mgq3sq02zmqwd52yb4pn82zkfh",
+      "updatedAt": "2026-03-15T03:24:25.492Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/421 - Cartas V - Marco Tulio Ciceron.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2exn43pvh2efjm3wxkbh56e182y7qk",
+      "bookId": "n176tjehz8jjhd3pdx9adf96f182ybzh",
+      "updatedAt": "2026-03-15T03:24:26.819Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/422 - Arquitectura Libros VIX - Marco Vitruvio Polion.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2efmhv61r1r47n8xbpanfjjd82zca5",
+      "bookId": "n1738ctfg9xdhsz0d5yr4qbasd82zg3n",
+      "updatedAt": "2026-03-15T03:24:28.448Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/43 - Polibio. Historias - Libros V-XV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29bm376zatv98jmnjzbmaff182zwps",
+      "bookId": "n17bb0fe71e541k1hv34gxsr6n82ysjz",
+      "updatedAt": "2026-03-15T03:24:30.097Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/44 - Herodas, Paternio de Nicea, Mimiambos - Fragmentos Mimicos - Sufrimientos de Amor.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e6v5qqydk5yhjbd5bg1cxms82z0q1",
+      "bookId": "n178ypsegta0q6nqhfgghyn10s82y637",
+      "updatedAt": "2026-03-15T03:24:31.328Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/45 - Juliano, Discursos VI-XII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fenqysf9y75634sxqvccts182ywxg",
+      "bookId": "n178v3c6kf7tsmtke3j970f7zh82z74q",
+      "updatedAt": "2026-03-15T03:24:32.204Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/46 - LactanciosobreLaMuerteDeLosPerseguidores.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d6b9ypac01e9hy0nrx9j2w982y12c",
+      "bookId": "n17bqq415h1thye6bv4kpyzm9h82z053",
+      "updatedAt": "2026-03-15T03:24:34.192Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/47 - Juliano, Discursos - Contra los Galileos - Cartas - Leyes - Fragmentos - Testimonios.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27w9368h75eyjstdracrdnqx82z8ev",
+      "bookId": "n17a24ebs9frhf4pxmkdc9ghzh82y4ce",
+      "updatedAt": "2026-03-15T03:24:35.309Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/48 - Homero. Odisea.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ckdaesmvb8jpdhweerzvtys82yft9",
+      "bookId": "n17bbpdgby2b72mhmdrf223vyx82zrkc",
+      "updatedAt": "2026-03-15T03:24:36.547Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/49 - Flavio Arriano. Anábasis de Alejandro Magno - Libros I-III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20k11h835wgzr6v4z5x2358n82zq26",
+      "bookId": "n176f387c9d136m34n4eazzrcx82z2kw",
+      "updatedAt": "2026-03-15T03:24:37.881Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/5 - Marco Aurelio. Meditaciones.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bvfq5yd9gcm99ezemcpxzyx82zw5a",
+      "bookId": "n1749gxc2d90acmaw4qz3p0sbd82z6tt",
+      "updatedAt": "2026-03-15T03:24:38.691Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/50 - Flavio Arriano. Anábasis de Alejandro Magno - Libros IV-VIII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27cata5h8va42ws5x38m8ez982yy1r",
+      "bookId": "n1771qg53y12bxbj5g8psds50182yykh",
+      "updatedAt": "2026-03-15T03:24:39.767Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/51 - Aristóteles. Tratados de Lógica (órganon) I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bte3zrbq5ja9k1y4fr7tskx82z8j3",
+      "bookId": "n17ds30j2mqmr0b0v1n29z7m5982yr38",
+      "updatedAt": "2026-03-15T03:24:40.873Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/52 - Jenofonte. Anábasis.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f5qnxy3sn1a5bf92devgq4d82yvxv",
+      "bookId": "n1781b5p97yyscdx4msrpv5fkn82z4mq",
+      "updatedAt": "2026-03-15T03:24:41.734Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/53 - Paulo Orosio, Historias - Libros I-IV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d1411eh37wbxe1ybvbx598h82zwey",
+      "bookId": "n170nkyfv6d6kx0c30wyzyj62182z2d7",
+      "updatedAt": "2026-03-15T03:24:42.897Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/54 - Paulo Orosio, Historias - Libros V-VII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21xtqbhjjcesnd0pnsfq0ntx82yav9",
+      "bookId": "n170dne632jbwcgsd0wtnxy0bn82yegr",
+      "updatedAt": "2026-03-15T03:24:43.796Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/55 - Filóstrato, Vida de Sofistas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26rebkspw48d579n9ghsgp3582z626",
+      "bookId": "n17ftwj1rg81nm409ftxtyr6jx82z668",
+      "updatedAt": "2026-03-15T03:24:44.841Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/56 - Longo, Jámblico, Tacio - Dafnis y Cloe - Lucipa y Clitofonte - Babilonicas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20g9aey1ca0zm1xjkks81eqx82zq8d",
+      "bookId": "n179zgss34wezbhamg9rx9a9fn82zp45",
+      "updatedAt": "2026-03-15T03:24:46.054Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/57 - Porfirio & Plotino - Vida de Plotino - Eneadas I-II [38228] (r1.1).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2770nb6d7j3rnj76wr2d2ssd82zgd5",
+      "bookId": "n171jt3drcaqqsbvbcdctychzd82yqea",
+      "updatedAt": "2026-03-15T03:24:47.455Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/58 - Polibio. Historias - Libros XVI-XXXIX.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2c5ffe52jr2fkf7vwqef3cjs82ywrb",
+      "bookId": "n17b2x7y0txjy2stadbq1b4be582z3wg",
+      "updatedAt": "2026-03-15T03:24:48.728Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/59 - AA. VV. Los gnósticos I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2eyt63dkvpbdr162vgrh0zvs82zvc6",
+      "bookId": "n176g06s6xcyr44m4q80sh545x82yvhb",
+      "updatedAt": "2026-03-15T03:24:49.838Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/6 - Esopo & Babrio - Fabulas de Esopo, Vida de Esopo, Fabulas de Babrio [43752] (r1.1).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22z11zmk4zac8y9yjasa99fs82zcef",
+      "bookId": "n17bqb399f32w3ccb4z08v800x82yb4p",
+      "updatedAt": "2026-03-15T03:24:51.492Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/60 - AA. VV. Los gnósticos II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2834qyhcntfdwb4v3yyrhmc982z8zh",
+      "bookId": "n170d6vvn7z651e4g383z1t1ah82z3mj",
+      "updatedAt": "2026-03-15T03:24:52.523Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/61 - Platón. Diálogos II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20cw09ajdjgq493g82ed6gr582zcq3",
+      "bookId": "n17b98w0rdb0gepm8176j1g9j982y4s9",
+      "updatedAt": "2026-03-15T03:24:53.853Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/62 - Sófocles, Fragmentos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2045tas4kqhk4vsk5kdnd6an82zvgx",
+      "bookId": "n174zjg75ghe6jk5b5qg9xcqks82ytz3",
+      "updatedAt": "2026-03-15T03:24:55.673Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/63 - Hipócrates. Tratados hipocróticos I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24jn99pj0fvba81ezhfcmv9582z0zx",
+      "bookId": "n171w6z4adyynecg5cyrbmcae182ykek",
+      "updatedAt": "2026-03-15T03:24:56.823Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/64 - Demostenes, Discursos Privados - Vol. 1.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ak9wb8d5vtpmayh6f6ep79582z9q5",
+      "bookId": "n17bgvfj2tx40p7ycv78zmykjd82zvhg",
+      "updatedAt": "2026-03-15T03:24:57.979Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/65 - Demostenes, Discursos Privados - Vol. 2.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b9qncdahzr1eew5cxzr9c2182yvzn",
+      "bookId": "n173ex94bz4c1xzzywebhvq52582zmas",
+      "updatedAt": "2026-03-15T03:24:58.967Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/66 - Claudio Eliano, Historia de los Animales - Libros I-VIII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dyebny7ekfrxtmgz7xk6zv182ycew",
+      "bookId": "n17e87k1q6ew6ha1p9et12h50582znjy",
+      "updatedAt": "2026-03-15T03:25:00.099Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/67 - Claudio Eliano, Historia de los Animales - Libros IX-XVI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2201q2gwks6n0f2phpwn913582z05s",
+      "bookId": "n1756xxjjdmp9k2vj191advwkh82zfmz",
+      "updatedAt": "2026-03-15T03:25:01.139Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/68 - Pindaro - Odas y fragmentos [31145] (r1.1).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ad60vkr1svj5zxm22ephc5582y14r",
+      "bookId": "n17ax7s75qhqkj40qmdefcdnx982zj4z",
+      "updatedAt": "2026-03-15T03:25:02.456Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/69 - Porfirio. Sobre la abstinencia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d9vmqpzj34j319pgfhty8bn82zrsz",
+      "bookId": "n17fdxfxkj8j6gcxdjzk6j1ked82znzy",
+      "updatedAt": "2026-03-15T03:25:03.456Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/7 - AA.VV. Antología Palatina I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23tdc0d4abxt09877etxdq7x82z970",
+      "bookId": "n17c91mmxawdwct8n68jstpr8n82zews",
+      "updatedAt": "2026-03-15T03:25:04.605Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/70 - Aristóteles & Pseudo-Aristóteles. Constitución de los atenienses - Económicos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ez0hpxg24bf402sg5e2xmad82y5q2",
+      "bookId": "n179r4scvrr3yb2q6dxe7gc53h82y4m1",
+      "updatedAt": "2026-03-15T03:25:05.726Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/71 - Lucano, Farsalia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f8a6qsxg57zjh5x5y1qvrd982zzqw",
+      "bookId": "n172mee5b2jeqv2se4b3a8rfm982ypan",
+      "updatedAt": "2026-03-15T03:25:06.945Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/72 - Cicerón - Sobre la República.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29e6cvdn7hmx9zgq13zk81b182z84d",
+      "bookId": "n179psfzy6ff8dfr1wkmkz6yds82ztsj",
+      "updatedAt": "2026-03-15T03:25:07.893Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/73 - Dionisio. Historia antigua de Roma - Libros I-III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29qm2ers8trx8074fdfc39z982ymd5",
+      "bookId": "n17eacck16c78pg8t0f4gxh3m582y192",
+      "updatedAt": "2026-03-15T03:25:08.997Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/74 - Dionisio. Historia antigua de Roma - Libros IV-VI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24v39kqse1mcqb4zkjrp3z3h82zapc",
+      "bookId": "n17a1pnf4j5kt7ypbjmcb16v6982zpc4",
+      "updatedAt": "2026-03-15T03:25:10.027Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/75 - Jenofonte. Obras Menores & La república de los atenienses.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28cfas5zc3gw4cpq0cyzxhjh82yzpg",
+      "bookId": "n174qwepvdhy0aj152k5kqcdp582ymgr",
+      "updatedAt": "2026-03-15T03:25:11.108Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/76 - AA.VV. Poesía latina pastoril, de caza y pesca.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg235pyy6efhb8bw12q6cnr9xn82yxy0",
+      "bookId": "n1769fm3phxtaf0c1t682m762582z661",
+      "updatedAt": "2026-03-15T03:25:12.094Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/77 - Plutarco. - Vidas Paralelas I. Teseo-Romulo-Licurgo-Numa -G- -1985-.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a3x4e6r8deg8cz7bhdv07ax82zq66",
+      "bookId": "n17c83g9jj70mjhfem7hzdgcbd82zd8w",
+      "updatedAt": "2026-03-15T03:25:15.571Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/78 - Plutarco. Obras morales y de costumbres I.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2efgxg5hn82pdh4stgts74v182yrnq",
+      "bookId": "n170vzjf9tks3nvdv1ch3fed9982zbv9",
+      "updatedAt": "2026-03-15T03:25:16.782Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/79 - Vidas - Cornelio Nepote.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fb9qn8fp8vhkp64rw6vp9a582yn4h",
+      "bookId": "n17fmk96zd9vr8hwy5zcy8ebg982zxjp",
+      "updatedAt": "2026-03-15T03:25:17.850Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/8 - Homero. Himnos homéricos - La Batracomiomaquia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2c2b3h3h9dj28pmrd3f38bwx82ypb6",
+      "bookId": "n170wfq2r4mnaqk808qfj4nhhd82y7t6",
+      "updatedAt": "2026-03-15T03:25:19.146Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/80 - Herodiano, Historia del Imperio Romano despues de Marco Aurelio.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27v5hy9pemba23943hmsvfks82yt6y",
+      "bookId": "n175fk7x92st7shgqr64b6h71182y8ar",
+      "updatedAt": "2026-03-15T03:25:20.145Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/81 - Suetonio, San Jeronimo, Biografias Literarias Latinas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24ysb9kg9ha9v63xe8v2t6r182y9jg",
+      "bookId": "n179qc5745yryc8gb023kbgdw982y1w9",
+      "updatedAt": "2026-03-15T03:25:21.229Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/82 - Herodoto, Historia - Libro VII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24kfy4tp2wrjynt8dmep319n82ytyt",
+      "bookId": "n1778td5wk6dgnfny1210mx54d82ya7d",
+      "updatedAt": "2026-03-15T03:25:23.037Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/83 - Apiano. Historia romana II Guerras civiles - Libros I-II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21hsg4msp5ewqg3akrge04bh82zk99",
+      "bookId": "n174b37qmra0vbpsrfyx3ssmm182znt9",
+      "updatedAt": "2026-03-15T03:25:24.123Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/84 - Apiano. Historia romana III Guerras civiles - Libros III-V.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2es61x94bwd77bqkex3r2m1s82yeat",
+      "bookId": "n17d8rgp9sc9x8rtfrynzxbjhx82zmht",
+      "updatedAt": "2026-03-15T03:25:25.290Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/85 - Apolodoro. Biblioteca.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26rhq8p5vetk329g1j8qepgs82z9xv",
+      "bookId": "n177myc767zqambc7fx90jf33182ypn3",
+      "updatedAt": "2026-03-15T03:25:26.621Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/86 - Demostenes-Discursospoliticos-TOMO-II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27hb13rhrnyg7bjfdjx6zv1582yr2r",
+      "bookId": "n170ckxkzqecn6ztp5f21w8zkn82z499",
+      "updatedAt": "2026-03-15T03:25:30.254Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/87 - Demóstenes. - Discursos políticos. III -G- -1985-.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29n9ske83bd5m55we3n19ns582zs0b",
+      "bookId": "n178f9twzgfq44w06hfw1t108182zeqk",
+      "updatedAt": "2026-03-15T03:25:35.203Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/88 - Plotino. Enéadas III-IV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2csec26btvnxw11h4pe2t7gx82y552",
+      "bookId": "n170cjdnyq59w62ftwzjzdn4fh82yp71",
+      "updatedAt": "2026-03-15T03:25:37.477Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/89 - Aristóteles. ética Nicomáquea, ética Eudemia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cp3yggqk2tnf9wakq2xm41d82z7nx",
+      "bookId": "n17dqbd9fcebne437gmg6fq3ns82yt8k",
+      "updatedAt": "2026-03-15T03:25:38.898Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/9 - Lucio Apuleyo. El asno de oro.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24bd1tak7tnfv0g2ve2gj4bh82ydyx",
+      "bookId": "n174vyv0r8vvq19c77efysjj3182ysgv",
+      "updatedAt": "2026-03-15T03:25:40.000Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/90 - Hipócrates. Tratados hipocráticos II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fp2vbr4kassst9bj6nrd8kd82y011",
+      "bookId": "n174b23ykwybm8p48bg4w2k07182ykbg",
+      "updatedAt": "2026-03-15T03:25:41.821Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/91 - Hipócrates. Tratados hipocráticos III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20g3dnkts39p63524k015ga982zvr2",
+      "bookId": "n175hy6a6dj4vf7h6k3xpkx21x82zxnv",
+      "updatedAt": "2026-03-15T03:25:43.108Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/92 - Seneca, Lucio Anneo - Epistolas morales a Lucilio I [48083] (r1.1).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg278ych7xxtpmddaffgt5d6wh82zqmb",
+      "bookId": "n176rj6zfpg010jgmxs3kqj43182z0re",
+      "updatedAt": "2026-03-15T03:25:44.658Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/93 - Platón. Diálogos III.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29g0h9pqcdbmeyv404sf3b5982ytdx",
+      "bookId": "n1712ampeswce6h68abwbdjrv182zfth",
+      "updatedAt": "2026-03-15T03:25:46.082Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/94 - Platón. Diálogos IV.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e1r2yg5hwwhkmeac8tf5qbn82z42f",
+      "bookId": "n17f324m2h4f3xqqfwxedsg96d82yz94",
+      "updatedAt": "2026-03-15T03:25:47.696Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/95 - Bucolicos Griegos, Poesía Bucólica Pastoril.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f7jnvfwy8yz28s2ayayrmq582ybx6",
+      "bookId": "n17akrz7ry4zvc9pdhcwq2rnv182y956",
+      "updatedAt": "2026-03-15T03:25:49.047Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/96 - QuintoCurcioRufohistoriaDeAlejandroMagno.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b7rmyzj9q70jp7mca4n837s82zed3",
+      "bookId": "n17fvdr2zh71bjk6v4bzck3er582y6zb",
+      "updatedAt": "2026-03-15T03:25:53.758Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/97 - Esquilo - Tragedias [54575] (r1.0).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26r8za28c1bxgmy0z1qgkvq582y84t",
+      "bookId": "n178kzmmwzwhcw6ygzg2m7hg5h82zqrc",
+      "updatedAt": "2026-03-15T03:25:55.232Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/98 - Plutarco, Mestrio - Obras Morales y de Costumbres II [21343] (r1.3).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27gahsrg51ysnshxe9g84ves82zejq",
+      "bookId": "n17drdt6yrvr01kve7mxrvkhvs82zvte",
+      "updatedAt": "2026-03-15T03:25:56.729Z"
+    },
+    "00. Generalidades/01. Biblioteca Gredos/99 - Menandrocomedias.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26fd2a9ms33h44hh8g4s83zh82zftq",
+      "bookId": "n17ekenx5hsz141f1kkzc6w69n82zypb",
+      "updatedAt": "2026-03-15T03:25:58.760Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Briones, Guillermo. Metodología de la investigación cuantitativa.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20p957e0a9g665dg2hfabk9h82zqg8",
+      "bookId": "n17b4h7vnt8c7v1j42vdmgeged82zec8",
+      "updatedAt": "2026-03-15T03:25:59.757Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Celiseo, Rodrigo. Metodología de la investigación cuaderno de trabajo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fqnp6amcxa3svxez7sexces82yhch",
+      "bookId": "n17ayxcgfgpknv23nre62kzf2582zdf5",
+      "updatedAt": "2026-03-15T03:26:07.878Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Fichas de trabajo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2136010j1x2vdgz6wf93yjvh82y805",
+      "bookId": "n17cnwee4eenmxvmfsn6nfnhv982z7q5",
+      "updatedAt": "2026-03-15T03:26:08.606Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Hernández Sampieri, Roberto. Metodología de la Investigación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28bdc5e80aaa2w134w7wy5n582yvg8",
+      "bookId": "n17100yzmysj4p05z4098dy29182y3jh",
+      "updatedAt": "2026-03-15T03:26:10.622Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Introducción a la Metodología de la investigación científica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ea3rjyqscffvnpktc4ekbz182y3nf",
+      "bookId": "n17f0es57vdyfsq9dpgrj8708982yvdq",
+      "updatedAt": "2026-03-15T03:26:12.221Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Kothari, C.R. Research Methodology.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ehhqdkdqhcm2czywrqhbhb982yjf0",
+      "bookId": "n175vskprbbsh0mk6r54qynyzh82zcy6",
+      "updatedAt": "2026-03-15T03:26:13.148Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Martínez, José. Asesoria del Área de investigación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ffb7t5pynhxcyayw9nkyr0582zrgj",
+      "bookId": "n176ssp4qhtw43t14r80es5f4582yfys",
+      "updatedAt": "2026-03-15T03:26:13.880Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Metodología de la Investigación de Campo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21h51gb2rcp7nd4ga802xaa182yng4",
+      "bookId": "n17ad8atzxxr0adraz384k6tb982y47h",
+      "updatedAt": "2026-03-15T03:26:14.552Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Metodologia de la Investigacion Manual para el Desarrollo de Personal de Salud.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29emfhqwg5rtj4vambs8240x82y2hc",
+      "bookId": "n17a7m1vazwg5vz31j3dpxcden82yazd",
+      "updatedAt": "2026-03-15T03:26:17.346Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Metodologia de la Investigación para qué.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cafy68qzp47jeh0wb1jjdxd82yva4",
+      "bookId": "n1752k5yzqgnrv477qz1e9ynf982zhfe",
+      "updatedAt": "2026-03-15T03:26:18.275Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Muñoz Rocha, Carlos I. Metodología de la investigación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cwz8vxfs9y3jgvc716nepph82yeqs",
+      "bookId": "n172xyx3vj94e4r3w8ehh8t4nd82zdf1",
+      "updatedAt": "2026-03-15T03:26:19.856Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Ramírez, Alberto. Metodología de la investigación científica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ed8epe48efbf1pqwxpzc7j582z43w",
+      "bookId": "n17enh37jybvp389j4ar8fmrh982y4wd",
+      "updatedAt": "2026-03-15T03:26:20.567Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Research Methodology.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28g2yvy8mhx9g661sgf5j91182y0tn",
+      "bookId": "n171yn7knpvn1d2cfd3cwwxrv982y8xq",
+      "updatedAt": "2026-03-15T03:26:21.316Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Sabino, Carlos. El proceso de investigación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21ff7p98hw8w0epjc938f12182y1na",
+      "bookId": "n17f39b53r9qk8rb90vp56y9ad82yr4x",
+      "updatedAt": "2026-03-15T03:26:22.129Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Sampieri, Roberto. Metodología de la Investigación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b09r82tee1cazp9zrznz0v982zwdq",
+      "bookId": "n173nnk02c942k40peh8ds01rs82z79x",
+      "updatedAt": "2026-03-15T03:26:23.454Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Una investigación de Libro.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20hm75gsav6zfmt57jbs43bs82zsav",
+      "bookId": "n173zgjy11wjt6mfz8v499q35h82yn3x",
+      "updatedAt": "2026-03-15T03:26:24.381Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Walliman, Nicholas. Research Methods The Basics.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25bepf1w694ecmz3s2rd3q8n82yzdf",
+      "bookId": "n176rxeekda1jy6gd09z30zzas82ze46",
+      "updatedAt": "2026-03-15T03:26:25.912Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación/Zaldívar, Raúl. Métodos y técnicas de investigación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23yn1e1xr5ea2kpv3er5pe1582z1g9",
+      "bookId": "n17b1399pjapqw8bbevg7qqebx82zjza",
+      "updatedAt": "2026-03-15T03:26:27.141Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.2 El aparato crítico/Citas estilo Harvard.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dkc3fw67zsjd1m3aee892h582y53k",
+      "bookId": "n176zdtrnvcmfzy8sr0qwhm8xd82z3qx",
+      "updatedAt": "2026-03-15T03:26:27.857Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.2 El aparato crítico/Pontificia universidad Católica De Chile. Guia para redactar notas de pie de pagina.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2baf04x5zhrt18fjhwprrm3n82z9hs",
+      "bookId": "n1742g8xpkvbsh9f3nqgkpdwbx82zxyc",
+      "updatedAt": "2026-03-15T03:26:28.579Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.2 El aparato crítico/The Shortcut Chicago Manual of Style.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fpzaga21hscsfa49t1wws5n82yxfj",
+      "bookId": "n17cz6jayn2a59k6k2vxe2hrc182znvn",
+      "updatedAt": "2026-03-15T03:26:29.598Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.2 El aparato crítico/Universidad Carlos III. Como citar bibliografía.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20pj4je5sbc1gcqpdw75sj2h82z9sc",
+      "bookId": "n17fr7jdt7aspxjy87kr89mpbd82zd29",
+      "updatedAt": "2026-03-15T03:26:30.405Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/Burke, Catherine G. Doctoral dissertation proposal.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20gj21t2awgpa22a0rdehm5182z9v6",
+      "bookId": "n175pcad1q8bfhr5jbkem8parn82zga2",
+      "updatedAt": "2026-03-15T03:26:31.132Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/California State University. Dissertation Manual.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23gnngw45d0jx9qyvm8mk5qd82ye6s",
+      "bookId": "n17625166jren34g7g34t97wmx82ym08",
+      "updatedAt": "2026-03-15T03:26:32.057Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/Chandrasekhar, R (Chandra). How to write a thesis A working guide.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fdhyy3zpza9kbxpvchcdryd82y4zd",
+      "bookId": "n17en6k343dwsta097zvqf2mwx82yhhk",
+      "updatedAt": "2026-03-15T03:26:32.727Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/Clery, Arturo. Algunas sugerencias prácticas para elaborar una tesis.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cd4jnfp03mp2q9napg37h5582zrmv",
+      "bookId": "n17ah3zrd03qj4sqgp1bkyak7x82y8dc",
+      "updatedAt": "2026-03-15T03:26:33.595Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/Declaración de Bolonia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ff29syjftmc13qk54wa77mn82zw3e",
+      "bookId": "n177rgx4370kb298qjf4dm1das82z2v8",
+      "updatedAt": "2026-03-15T03:26:34.413Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/Eco, Umberto. Como se hace una Tesis.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bdhkxmnmphr6vk2esp8pb2s82y76r",
+      "bookId": "n172a25ghng5eta64h9g49rf2182y16b",
+      "updatedAt": "2026-03-15T03:26:35.293Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/El espacio europeo y la educación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2chmk04sdqznv0men3evj07n82zfvb",
+      "bookId": "n17a9gshpvevz212d8bfk874d182yvh1",
+      "updatedAt": "2026-03-15T03:26:36.054Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/Harvard University. Form of the PhD dissertation.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26s66a21ttdevt719bnajafh82y08d",
+      "bookId": "n17cpteysmegh3d2spsa0rkrg182y8b9",
+      "updatedAt": "2026-03-15T03:26:36.745Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/Hirth, Marilyn A. Seminar  Doctoral Thesis Preparation.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26aq5qj2n2b0pmwx7gp8hae182yjbd",
+      "bookId": "n1734gt85qrsa1pfckcvw8gk0d82zveb",
+      "updatedAt": "2026-03-15T03:26:37.467Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/Kumar, Ranjit. Research Methodology A Step by Step.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dggad0cb5ccrthr5vpzy21h82zrgz",
+      "bookId": "n17359kzde287h3t3t7gsfxrj182yf1q",
+      "updatedAt": "2026-03-15T03:26:39.537Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/Mäntyjärvi, Jani. Towards Doctoral Thesis.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e38eypsnry1d08vffx0vk4s82y4qa",
+      "bookId": "n175s6ymv9c6jdedb2pwmvmxtx82z3mc",
+      "updatedAt": "2026-03-15T03:26:40.453Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/Protocolo de tesis. Universidad Autónoma de Nuevo León.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2be01cz4tjgrhgn3pexz763h82ytk0",
+      "bookId": "n1757yxegwncqrd4x91np9abrx82yceh",
+      "updatedAt": "2026-03-15T03:26:41.574Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/Rams, Joaquín. A propósito de la elaboración de un tesis doctoral.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28z7g0xrjzhf1qrzctgprkwn82zseq",
+      "bookId": "n177pwvtcdm6qswewc16epyx8d82ykzy",
+      "updatedAt": "2026-03-15T03:26:42.414Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/Recomendaciones para la presentacion de una tesis.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg256d5k7b2f70yp05sf8m6zw182y6ej",
+      "bookId": "n174kjm7eyqwt8hrs8sfm24sx582zq60",
+      "updatedAt": "2026-03-15T03:26:43.320Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/Rowan University. Master thesis doctoral dissertation manual.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2792swmm5r7wt5pj5t1fpngn82zf7f",
+      "bookId": "n17e36gprm4e7ca65rm3ss6r4d82y7p6",
+      "updatedAt": "2026-03-15T03:26:44.357Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/Thesis and dissertation Guide. Cornell University.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26mr9vsyvzb79sxnx5011af982zn8x",
+      "bookId": "n1730ax30bd1ypstm63ne69qz982zk45",
+      "updatedAt": "2026-03-15T03:26:45.271Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/Thesis proposals guide. The Learning Centre.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23phrqbpnegnxmv722e7j2vd82zce6",
+      "bookId": "n179z0dke82kx3m8swyhn116nh82z3r9",
+      "updatedAt": "2026-03-15T03:26:46.103Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/Universidad Penteón de Paris. Modo de hacer tesis.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26ghsey2m0cj1x6am4yd3j6982y873",
+      "bookId": "n17byv2z7az1yxpwhf4vmvscth82zsam",
+      "updatedAt": "2026-03-15T03:26:46.997Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/University of San Diego. Doctoral dissertation Manual.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg286dn54qk85waeqr35zqnctn82zjxb",
+      "bookId": "n17c0z36zy7h1dec1e4h3h42jn82zdjj",
+      "updatedAt": "2026-03-15T03:26:47.826Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis/University of Washington. Doctoral dissertation seminar.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg255pwt7c67v590tg70nymj1982zrej",
+      "bookId": "n174rxhz41946erfmhmgtmy1as82zy89",
+      "updatedAt": "2026-03-15T03:26:48.542Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.4 Locuciones latinas/Aforismos y Locuciones latinas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e1jpqz9ey8vbt9e1161s0r982z2ta",
+      "bookId": "n175vfqbxhqak59td4zbfw0v1d82zgax",
+      "updatedAt": "2026-03-15T03:26:49.259Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.4 Locuciones latinas/Indice de Locuciones Latinas. Derecho Internacional Público.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg229btgerxwp2mjptcg76ncdh82yqpm",
+      "bookId": "n177hdyy06pk73jce8vznp84bh82y68a",
+      "updatedAt": "2026-03-15T03:26:49.978Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.4 Locuciones latinas/Locuciones Latinas Usuales.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22tge0j5tfpw46re19s21p5x82y49h",
+      "bookId": "n174036khjnhnahafavhw4f88d82yh5a",
+      "updatedAt": "2026-03-15T03:26:50.686Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.4 Locuciones latinas/Locuciones Latinas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg220cvay205v5rzx53rrx60r582y408",
+      "bookId": "n17f6e4aq1kk8ye2e3cb7r4nr182zt2k",
+      "updatedAt": "2026-03-15T03:26:51.394Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.4 Locuciones latinas/MA. Locuciones latinas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ax6cpj99f6j3c6qs8g2w8yx82zg0q",
+      "bookId": "n1702tzy69g2ntzha5b4h2fqqx82z9ex",
+      "updatedAt": "2026-03-15T03:26:52.656Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.5 Modelos  para tesis doctorales/Casanovas, O. 100 de Versalles.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25wzrmee13c6cegfv4swhmph82z0fd",
+      "bookId": "n17bg6kj6mp6epg64g04635zfd82z3jj",
+      "updatedAt": "2026-03-15T03:26:53.340Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.5 Modelos  para tesis doctorales/Casanovas, O. Los drones.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bxbczf9exe29vpjmghb18yd82yhsw",
+      "bookId": "n17edtrw216t3sddg0qfxtbec182ynbk",
+      "updatedAt": "2026-03-15T03:26:54.076Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.5 Modelos  para tesis doctorales/Coronas, L.I. Tesis.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26jqbe1dc532kfsg3dkqrv8582zsnh",
+      "bookId": "n179fc0pj9wp8pegkhwe48gh4s82zee1",
+      "updatedAt": "2026-03-15T03:26:55.607Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.5 Modelos  para tesis doctorales/Devinat, M. These doctorale.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f3qqpzypvn4rw1xb9md9cqd82y55g",
+      "bookId": "n17c199hcgxp9vcrtrfbag9djh82yfjs",
+      "updatedAt": "2026-03-15T03:27:16.491Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.5 Modelos  para tesis doctorales/Díaz, C. Cumbre de las Américas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg294qfhhy7dg0rsvktchhdsb182yzqz",
+      "bookId": "n177cpk73bpxq48snmba8v2ra582zd60",
+      "updatedAt": "2026-03-15T03:27:17.421Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.5 Modelos  para tesis doctorales/Garompolo, M. These doctorale.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20y6fypwk8xxzq223t59arvx82zcrb",
+      "bookId": "n17ehtp6v8rjrc81w6krxybsg182yzht",
+      "updatedAt": "2026-03-15T03:27:18.941Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.5 Modelos  para tesis doctorales/Nino, M. Land Grabing.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b3gr2g3qjem2kts59056a7s82z6kc",
+      "bookId": "n17487face1rh6r9cq20jgbxms82yt6k",
+      "updatedAt": "2026-03-15T03:27:19.877Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.5 Modelos  para tesis doctorales/Searl, M. Thesis. London School .pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28k0djbbdt5b6bdh6j794e7582yw7h",
+      "bookId": "n17c3jzkv114ma4jhygxq0kbws82zw75",
+      "updatedAt": "2026-03-15T03:27:20.970Z"
+    }
+  }
+}

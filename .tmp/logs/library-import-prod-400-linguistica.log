@@ -1,0 +1,75 @@
+[library-import] prepare: extracting metadata for 23 PDF(s)
+[library-import] prepare 1/23: 400. Lingüística/400.1 Manuales de lingüística/de Saussure, Ferdinand. Curso de Linguistica.pdf
+[library-import] prepare 2/23: 400. Lingüística/400.1 Manuales de lingüística/Frías Conde, Xavier. Introd. a la Linguística.pdf
+[library-import] prepare 3/23: 400. Lingüística/400.1 Manuales de lingüística/Las ramas de la linguística.pdf
+[library-import] prepare 4/23: 400. Lingüística/400.2 Ramas de la linguística/La linguistica y sus ramas.pdf
+[library-import] prepare 5/23: 400. Lingüística/400.3 Historia del castellano/Historia y formación de la Lengua Castellana.pdf
+[library-import] prepare 6/23: 400. Lingüística/400.3 Historia del castellano/Huidobro, José. Origen del Castellano.pdf
+[library-import] prepare 7/23: 400. Lingüística/400.3 Historia del castellano/Naverán, Eduardo. Breve Reseña Histórica del Idioma Español.pdf
+[library-import] prepare 8/23: 400. Lingüística/400.3 Historia del castellano/Simón & Cristina. El Origen del Español en América.pdf
+[library-import] prepare 9/23: 400. Lingüística/400.4 Gramática castellana/Bello, Andrés. Gramatica Española.pdf
+[library-import] prepare 10/23: 400. Lingüística/400.4 Gramática castellana/Di Tulio, Angela. Gramatica del Espanol para Maestros.pdf
+[library-import] prepare 11/23: 400. Lingüística/400.4 Gramática castellana/Di Tulio, Angela. Manual de Gramática.pdf
+[library-import] prepare 12/23: 400. Lingüística/400.4 Gramática castellana/Llorach, Emilio. Gramática de la Lengua Española.pdf
+[library-import] prepare 13/23: 400. Lingüística/400.4 Gramática castellana/Nueva gramática española.pdf
+[library-import] prepare 14/23: 400. Lingüística/400.4 Gramática castellana/Orlando, Virginia Manual de Gramática en Español.pdf
+[library-import] prepare 15/23: 400. Lingüística/400.4 Gramática castellana/RAE Gramática Española.pdf
+[library-import] prepare 16/23: 400. Lingüística/400.4 Gramática castellana/REA La Nueva Gramática Española.pdf
+[library-import] prepare 17/23: 400. Lingüística/400.4 Gramática castellana/Rodriguez, Karen. Manual de Gramatica.pdf
+[library-import] prepare 18/23: 400. Lingüística/400.4 Gramática castellana/Tipos de gramática.pdf
+[library-import] prepare 19/23: 400. Lingüística/400.5 Lenguaje y signo/Frías, Xavier. La teoría del signo.pdf
+[library-import] prepare 20/23: 400. Lingüística/400.5 Lenguaje y signo/Moreno, Juan. Los niveles de análisis de la lengua.pdf
+[library-import] prepare 21/23: 400. Lingüística/400.5 Lenguaje y signo/Saussure, Ferdinand. La teoría.pdf
+[library-import] prepare 22/23: 400. Lingüística/400.6 Lenguaje y comunicación/Lenguaje y Comunicación.pdf
+[library-import] prepare 23/23: 400. Lingüística/400.6 Lenguaje y comunicación/Martin, Manuel & otros. Teoria de la Comunicación.pdf
+[library-import] prepare: manifest ready at /Users/ulvenforst/Codex/Work/CPM/alef-university/.tmp/library-import-prod-400-linguistica/manifest.json
+[library-import] ingest: processing 24 item(s)
+[library-import] ingest 1/24: 400. Lingüística/400.1 Manuales de lingüística/Coseriu, Eugenio. Introduccion a la linguistica.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.1 Manuales de lingüística/Coseriu, Eugenio. Introduccion a la linguistica.pdf
+[library-import] ingest 2/24: 400. Lingüística/400.1 Manuales de lingüística/de Saussure, Ferdinand. Curso de Linguistica.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.1 Manuales de lingüística/de Saussure, Ferdinand. Curso de Linguistica.pdf
+[library-import] ingest 3/24: 400. Lingüística/400.1 Manuales de lingüística/Frías Conde, Xavier. Introd. a la Linguística.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.1 Manuales de lingüística/Frías Conde, Xavier. Introd. a la Linguística.pdf
+[library-import] ingest 4/24: 400. Lingüística/400.1 Manuales de lingüística/Las ramas de la linguística.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.1 Manuales de lingüística/Las ramas de la linguística.pdf
+[library-import] ingest 5/24: 400. Lingüística/400.2 Ramas de la linguística/La linguistica y sus ramas.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.2 Ramas de la linguística/La linguistica y sus ramas.pdf
+[library-import] ingest 6/24: 400. Lingüística/400.3 Historia del castellano/Historia y formación de la Lengua Castellana.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.3 Historia del castellano/Historia y formación de la Lengua Castellana.pdf
+[library-import] ingest 7/24: 400. Lingüística/400.3 Historia del castellano/Huidobro, José. Origen del Castellano.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.3 Historia del castellano/Huidobro, José. Origen del Castellano.pdf
+[library-import] ingest 8/24: 400. Lingüística/400.3 Historia del castellano/Naverán, Eduardo. Breve Reseña Histórica del Idioma Español.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.3 Historia del castellano/Naverán, Eduardo. Breve Reseña Histórica del Idioma Español.pdf
+[library-import] ingest 9/24: 400. Lingüística/400.3 Historia del castellano/Simón & Cristina. El Origen del Español en América.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.3 Historia del castellano/Simón & Cristina. El Origen del Español en América.pdf
+[library-import] ingest 10/24: 400. Lingüística/400.4 Gramática castellana/Bello, Andrés. Gramatica Española.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.4 Gramática castellana/Bello, Andrés. Gramatica Española.pdf
+[library-import] ingest 11/24: 400. Lingüística/400.4 Gramática castellana/Di Tulio, Angela. Gramatica del Espanol para Maestros.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.4 Gramática castellana/Di Tulio, Angela. Gramatica del Espanol para Maestros.pdf
+[library-import] ingest 12/24: 400. Lingüística/400.4 Gramática castellana/Di Tulio, Angela. Manual de Gramática.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.4 Gramática castellana/Di Tulio, Angela. Manual de Gramática.pdf
+[library-import] ingest 13/24: 400. Lingüística/400.4 Gramática castellana/Llorach, Emilio. Gramática de la Lengua Española.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.4 Gramática castellana/Llorach, Emilio. Gramática de la Lengua Española.pdf
+[library-import] ingest 14/24: 400. Lingüística/400.4 Gramática castellana/Nueva gramática española.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.4 Gramática castellana/Nueva gramática española.pdf
+[library-import] ingest 15/24: 400. Lingüística/400.4 Gramática castellana/Orlando, Virginia Manual de Gramática en Español.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.4 Gramática castellana/Orlando, Virginia Manual de Gramática en Español.pdf
+[library-import] ingest 16/24: 400. Lingüística/400.4 Gramática castellana/RAE Gramática Española.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.4 Gramática castellana/RAE Gramática Española.pdf
+[library-import] ingest 17/24: 400. Lingüística/400.4 Gramática castellana/REA La Nueva Gramática Española.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.4 Gramática castellana/REA La Nueva Gramática Española.pdf
+[library-import] ingest 18/24: 400. Lingüística/400.4 Gramática castellana/Rodriguez, Karen. Manual de Gramatica.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.4 Gramática castellana/Rodriguez, Karen. Manual de Gramatica.pdf
+[library-import] ingest 19/24: 400. Lingüística/400.4 Gramática castellana/Tipos de gramática.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.4 Gramática castellana/Tipos de gramática.pdf
+[library-import] ingest 20/24: 400. Lingüística/400.5 Lenguaje y signo/Frías, Xavier. La teoría del signo.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.5 Lenguaje y signo/Frías, Xavier. La teoría del signo.pdf
+[library-import] ingest 21/24: 400. Lingüística/400.5 Lenguaje y signo/Moreno, Juan. Los niveles de análisis de la lengua.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.5 Lenguaje y signo/Moreno, Juan. Los niveles de análisis de la lengua.pdf
+[library-import] ingest 22/24: 400. Lingüística/400.5 Lenguaje y signo/Saussure, Ferdinand. La teoría.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.5 Lenguaje y signo/Saussure, Ferdinand. La teoría.pdf
+[library-import] ingest 23/24: 400. Lingüística/400.6 Lenguaje y comunicación/Lenguaje y Comunicación.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.6 Lenguaje y comunicación/Lenguaje y Comunicación.pdf
+[library-import] ingest 24/24: 400. Lingüística/400.6 Lenguaje y comunicación/Martin, Manuel & otros. Teoria de la Comunicación.pdf
+[library-import] uploaded /Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística/400.6 Lenguaje y comunicación/Martin, Manuel & otros. Teoria de la Comunicación.pdf
+[library-import] ingest: progress saved at /Users/ulvenforst/Codex/Work/CPM/alef-university/.tmp/library-import-prod-400-linguistica/ingest-state.json

@@ -64,6 +64,47 @@ function normalizeWhitespace(value: string): string {
   return value.replace(/\s+/g, " ").trim();
 }
 
+function toWellFormedText(value: string): string {
+  if (typeof value.toWellFormed === "function") {
+    return value.toWellFormed();
+  }
+
+  let output = "";
+
+  for (let index = 0; index < value.length; index += 1) {
+    const code = value.charCodeAt(index);
+
+    if (code >= 0xd800 && code <= 0xdbff) {
+      const next = value.charCodeAt(index + 1);
+      if (next >= 0xdc00 && next <= 0xdfff) {
+        output += value[index];
+        output += value[index + 1];
+        index += 1;
+      } else {
+        output += " ";
+      }
+      continue;
+    }
+
+    if (code >= 0xdc00 && code <= 0xdfff) {
+      output += " ";
+      continue;
+    }
+
+    output += value[index];
+  }
+
+  return output;
+}
+
+function normalizeExtractionText(value?: string): string {
+  if (!value) {
+    return "";
+  }
+
+  return toWellFormedText(value).trim();
+}
+
 function normalizeOptionalText(value: string): string | undefined {
   const normalized = normalizeWhitespace(value);
   return normalized.length > 0 ? normalized : undefined;
@@ -75,6 +116,32 @@ function uniqueStrings(values: string[]): string[] {
 
   for (const raw of values) {
     const normalized = normalizeWhitespace(raw);
+    if (!normalized) {
+      continue;
+    }
+
+    const key = normalized.toLowerCase();
+    if (seen.has(key)) {
+      continue;
+    }
+
+    seen.add(key);
+    result.push(normalized);
+  }
+
+  return result;
+}
+
+function normalizeExtractionList(values?: string[]): string[] {
+  if (!values) {
+    return [];
+  }
+
+  const seen = new Set<string>();
+  const result: string[] = [];
+
+  for (const raw of values) {
+    const normalized = normalizeExtractionText(raw);
     if (!normalized) {
       continue;
     }
@@ -194,6 +261,30 @@ export function createFormStateFromExtraction(args: {
     status: extraction.status,
     confidence: clampConfidence(extraction.confidence),
     warnings: uniqueStrings(extraction.warnings ?? []),
+  };
+}
+
+export function createLibraryExtractionResponse(
+  result: BookMetadataResult,
+): LibraryExtractionResponse {
+  return {
+    status: result.status,
+    confidence: Number.isFinite(result.confidence) ? result.confidence : 0,
+    missingFields: result.missingFields,
+    warnings: normalizeExtractionList(result.diagnostics.warnings),
+    metadata: {
+      title: normalizeExtractionText(result.metadata.title),
+      subtitle: normalizeExtractionText(result.metadata.subtitle),
+      authors: normalizeExtractionList(result.metadata.authors),
+      publishers: normalizeExtractionList(result.metadata.publishers),
+      publishedYear: result.metadata.publishedYear ?? null,
+      edition: normalizeExtractionText(result.metadata.edition),
+      isbn10: normalizeExtractionText(result.metadata.isbn10),
+      isbn13: normalizeExtractionText(result.metadata.isbn13),
+      abstract: normalizeExtractionText(result.metadata.abstract),
+      language: normalizeExtractionText(result.metadata.language),
+      categories: normalizeExtractionList(result.metadata.categories),
+    },
   };
 }
 

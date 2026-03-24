@@ -1,0 +1,273 @@
+{
+  "version": 1,
+  "updatedAt": "2026-03-24T15:03:32.726Z",
+  "items": {
+    "800. Literatura/801. Obras de la literatura/Alighieri, Dante. La divina comedia.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:40:18.480Z"
+    },
+    "800. Literatura/801. Obras de la literatura/Asturias, Miguel Ángel. El Señor Presidente.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:40:32.391Z"
+    },
+    "800. Literatura/801. Obras de la literatura/Carta al padre, de Franz Kafka.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:40:46.273Z"
+    },
+    "800. Literatura/801. Obras de la literatura/Cherenfant, Emec. La muerte del carpintero.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:41:05.274Z"
+    },
+    "800. Literatura/801. Obras de la literatura/Defoe, Daniel. Aventuras de Robinson Crusoe.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:41:16.736Z"
+    },
+    "800. Literatura/801. Obras de la literatura/Dumas, Alejandro. El Conde de Montecristo.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:41:29.852Z"
+    },
+    "800. Literatura/801. Obras de la literatura/Homero. La Ilíada.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:41:46.896Z"
+    },
+    "800. Literatura/801. Obras de la literatura/Homero. La Odisea.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:42:58.152Z"
+    },
+    "800. Literatura/801. Obras de la literatura/Kafka, Franz. Metamorfosis.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:43:33.499Z"
+    },
+    "800. Literatura/801. Obras de la literatura/Luca de Tena, Torcuato. Los renglones Torcidos de Dios.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:43:52.527Z"
+    },
+    "800. Literatura/801. Obras de la literatura/Vargas, Mario. La fiesta del chivo.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:44:04.485Z"
+    },
+    "800. Literatura/801. Obras de la literatura/Verne, Julio. 20 mil Leguas Viaje Submarino.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:44:21.714Z"
+    },
+    "800. Literatura/801. Obras de la literatura/Verne, Julio. Cinco Semanas en Globo.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:44:34.118Z"
+    },
+    "800. Literatura/801. Obras de la literatura/Verne, Julio. El faro del fin del mundo.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:44:48.207Z"
+    },
+    "800. Literatura/801. Obras de la literatura/Verne, Julio. El universo de Julio Verne.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:46:00.954Z"
+    },
+    "800. Literatura/801. Obras de la literatura/Verne, Julio. Miguel Strogoff.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:46:16.470Z"
+    },
+    "800. Literatura/801. Obras de la literatura/Verne, Julio. Viaje al Centro de laTierra.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:46:29.365Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Carnegie, Dale. Como Ganar Amigos e Influir sobre las Personas.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:47:10.288Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Carnegie, Dale. Como hablar bien en publico.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:47:11.508Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Como Hablar en Publico.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:47:37.871Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Compendio de Elocuencia Sagrada.pdf": {
+      "stage": "failed",
+      "attempts": 1,
+      "lastError": "OpenAI request failed: The file you uploaded is badly formatted or corrupted. Please fix the file and try again.",
+      "updatedAt": "2026-03-24T14:47:55.603Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Crane, James. El sermon eficaz.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:48:33.681Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Las Mejores Técnicas para Hablar en Público.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:49:27.017Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Le Bon, Gustave. Psicologia de las masas.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:49:49.414Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Lopez, Eire. Retórica Antigua y Moderna.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:50:12.046Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Pantoja, Rafael. 18 secretos Caratula.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:50:35.483Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Pantoja, Rafael. 18 secretos PARTE 1.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:51:05.887Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Pantoja, Rafael. 18 secretos PARTE 2.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:51:26.185Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Pantoja, Rafael. 18 secretos PARTE 3.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:52:29.840Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Pantoja, Rafael. 18 secretos PARTE 4.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:52:45.754Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Psicologí­a de las multitudes.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:53:11.819Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Rubio, Joaquin. Manual de Elocuencia.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:53:47.619Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Zaldívar, Raúl & otros. Antología Oratoria Sagrada.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:54:32.911Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Zaldívar, Raúl & otros. MA. ANTOLOGIA DE ORATORIA SAGRADA.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:55:13.790Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Zaldívar, Raúl. Fundamentals of preaching and eloquence.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:55:38.908Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Zaldívar, Raúl. Laboratory 1 Writting sermons.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:56:02.056Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Zaldívar, Raúl. The orator that transcends.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:56:28.910Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.2 Discursos/Discurso de Malala.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:56:59.660Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.2 Discursos/Pons, Agustin. Discurso sobre la universidad.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:57:31.135Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.3 Filosofía de la elocuencia/Filosofia de la Elocuencia.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:58:04.837Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.4 Portafolios/Carvajal, Jonathan. Portafolio.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:58:25.190Z"
+    },
+    "800. Literatura/808 Oratoria y elocuencia/808.4 Portafolios/Navarro, Mayra. Portafolio.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:58:46.313Z"
+    },
+    "800. Literatura/809. Redacción de ensayos/Alvarez, Manuela & otros. Aprender a escribir, escribir para aprender.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T14:59:12.409Z"
+    },
+    "800. Literatura/809. Redacción de ensayos/Badilla, Mayra. El Párrafo.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T15:00:11.290Z"
+    },
+    "800. Literatura/809. Redacción de ensayos/Ballesteros, Dalila. Comunicacion al escribir.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T15:00:39.710Z"
+    },
+    "800. Literatura/809. Redacción de ensayos/Casasola, Wilmer. Guia para Ensayos UNIVALLE.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T15:01:09.977Z"
+    },
+    "800. Literatura/809. Redacción de ensayos/Ensayo academico.pdf": {
+      "stage": "failed",
+      "attempts": 1,
+      "lastError": "OpenAI request failed: Unknown error while validating file ownership.",
+      "updatedAt": "2026-03-24T15:01:12.231Z"
+    },
+    "800. Literatura/809. Redacción de ensayos/Hidalgo, Antonio. Ensayo académico.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T15:01:32.608Z"
+    },
+    "800. Literatura/809. Redacción de ensayos/Navarro, Mayra. La lucha contra la corrupcciòn no se gana con leyes.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T15:01:52.565Z"
+    },
+    "800. Literatura/809. Redacción de ensayos/Ramirez, Enrique. Manual de Redaccion.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T15:02:24.014Z"
+    },
+    "800. Literatura/809. Redacción de ensayos/Reyes, Ramonita. Como redactar un Parrado argumentativo.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T15:02:46.139Z"
+    },
+    "800. Literatura/809. Redacción de ensayos/Taller de Ortografia.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T15:03:12.174Z"
+    },
+    "800. Literatura/809. Redacción de ensayos/Tecnicas de Redaccion.pdf": {
+      "stage": "updated",
+      "attempts": 1,
+      "updatedAt": "2026-03-24T15:03:32.726Z"
+    }
+  }
+}

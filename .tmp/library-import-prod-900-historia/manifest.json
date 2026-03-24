@@ -1,0 +1,3557 @@
+{
+  "version": 2,
+  "generatedAt": "2026-03-20T16:15:25.792Z",
+  "inputDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/900. Historia",
+  "libraryRootDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef",
+  "directories": [
+    "900. Historia",
+    "900. Historia/900.1 Historia Universal",
+    "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal",
+    "900. Historia/900.1 Historia Universal/900.12 Edad Antigua",
+    "900. Historia/900.1 Historia Universal/900.13 Edad Media",
+    "900. Historia/900.1 Historia Universal/900.15 Edad Contemporánea (S XVIII-XIX)",
+    "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+    "900. Historia/900.1 Historia Universal/900.17 Historia de África",
+    "900. Historia/900.2 Historia de Israel",
+    "900. Historia/910. Geografía",
+    "900. Historia/910. Geografía/910.1 Manuales de geografia",
+    "900. Historia/920. Biografía",
+    "900. Historia/930. Arqueología",
+    "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+    "900. Historia/930. Arqueología/930.2 Biblioteca de Nag Hammadi",
+    "900. Historia/930. Arqueología/930.3 Literatura de Qumrán",
+    "900. Historia/930. Arqueología/930.4 Arqueólogos"
+  ],
+  "skippedFiles": [
+    "900. Historia/900.1 Historia Universal/900.12 Edad Antigua/De_la_República_romana_al_Imperio.ppt",
+    "900. Historia/900.1 Historia Universal/900.12 Edad Antigua/Historia de Roma.ppt"
+  ],
+  "items": [
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal/Cantu, Cesar. Compendio de la Historia universal ( PDFDrive ).pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal",
+      "fileName": "Cantu, Cesar. Compendio de la Historia universal ( PDFDrive ).pdf",
+      "fileSizeBytes": 9158991,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.5338571428571428,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 536 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI request failed: Your input exceeds the context window of this model. Please adjust your input and try again.",
+          "OpenAI fallback retried with model gpt-4.1 and 6 sampled pages due to context window limits.",
+          "OpenAI input sampled to 6 pages from 536 total pages."
+        ],
+        "metadata": {
+          "title": "Compendio de la historia universal de Cesar Cantu",
+          "subtitle": "",
+          "authors": [
+            "Cesare Cantù"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "World history"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal/Cantu, Cesar. Historia Universal.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal",
+      "fileName": "Cantu, Cesar. Historia Universal.pdf",
+      "fileSizeBytes": 3370669,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.524,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 757 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI request failed: Your input exceeds the context window of this model. Please adjust your input and try again.",
+          "OpenAI fallback retried with model gpt-4.1 and 6 sampled pages due to context window limits.",
+          "OpenAI input sampled to 6 pages from 757 total pages."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - Hist_Uni.doc",
+          "subtitle": "",
+          "authors": [
+            "Gerson O. Suárez"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": [
+            "history"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal/Conceptos - límites y fuentes de la historia.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal",
+      "fileName": "Conceptos - límites y fuentes de la historia.pdf",
+      "fileSizeBytes": 74463,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.419,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 16 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - PERIODOS Y FUENTES DE LA HISTORIA.doc",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "history"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal/Cronología de la Historia Universal.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal",
+      "fileName": "Cronología de la Historia Universal.pdf",
+      "fileSizeBytes": 9404216,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.545,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 40 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - www CRONOLOGIA HIA DEL MUNDO.doc",
+          "subtitle": "",
+          "authors": [
+            "Bartolome Yancovic"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "history"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal/García, Roberto. El desarrollo de la sociedad desde la visión de la historia como ciencia social.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal",
+      "fileName": "García, Roberto. El desarrollo de la sociedad desde la visión de la historia como ciencia social.pdf",
+      "fileSizeBytes": 173103,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.36499999999999994,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "García, Roberto. El desarrollo de la sociedad desde la visión de la historia como ciencia social",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "history"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal/Harman, Chris. A peoples history of the world.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal",
+      "fileName": "Harman, Chris. A peoples history of the world.pdf",
+      "fileSizeBytes": 2533338,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.545,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 700 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI request failed: Your input exceeds the context window of this model. Please adjust your input and try again.",
+          "OpenAI fallback retried with model gpt-4.1 and 6 sampled pages due to context window limits.",
+          "OpenAI input sampled to 6 pages from 700 total pages."
+        ],
+        "metadata": {
+          "title": "15",
+          "subtitle": "",
+          "authors": [
+            "J mac"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": [
+            "history"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal/Hiriart, Hugo. Diferencia entre civilización y cultura.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal",
+      "fileName": "Hiriart, Hugo. Diferencia entre civilización y cultura.pdf",
+      "fileSizeBytes": 450871,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Hiriart, Hugo. Diferencia entre civilización y cultura",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal/Historia de la Cultura.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal",
+      "fileName": "Historia de la Cultura.pdf",
+      "fileSizeBytes": 3974226,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.545,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 55 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "ARQ",
+          "subtitle": "",
+          "authors": [
+            "Enrique Cardenas"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "history"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal/Historia Universal ( PDFDrive ).pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal",
+      "fileName": "Historia Universal ( PDFDrive ).pdf",
+      "fileSizeBytes": 10735011,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.344,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 353 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "HISTORIA UNIVERSAL",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": [
+            "history"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal/Lario, Ángeles. Historia contemporánea universal. Del surgimiento del estado contemporáneo a la primera guerra.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal",
+      "fileName": "Lario, Ángeles. Historia contemporánea universal. Del surgimiento del estado contemporáneo a la primera guerra.pdf",
+      "fileSizeBytes": 6619776,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.36499999999999994,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 374 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "8. La Revolución Industrial",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "history"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal/McDougal, Littel. World history.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal",
+      "fileName": "McDougal, Littel. World history.pdf",
+      "fileSizeBytes": 155282943,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.5641542857142856,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 1312 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "McDougal Littell World History",
+          "subtitle": "",
+          "authors": [
+            "MCDOUGAL LITTEL"
+          ],
+          "publishers": [
+            "McDougal Littell"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": [
+            "Education"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal/Personajes en la Historia.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal",
+      "fileName": "Personajes en la Historia.pdf",
+      "fileSizeBytes": 30750,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.545,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Personajes en la Historia",
+          "subtitle": "",
+          "authors": [
+            "VILLALAP"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "history"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal/Universal History Vol I.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal",
+      "fileName": "Universal History Vol I.pdf",
+      "fileSizeBytes": 29814353,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.609,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 538 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI request failed: Your input exceeds the context window of this model. Please adjust your input and try again.",
+          "OpenAI fallback retried with model gpt-4.1 and 6 sampled pages due to context window limits.",
+          "OpenAI input sampled to 6 pages from 538 total pages."
+        ],
+        "metadata": {
+          "title": "Universal History, Vol. 1 of 2",
+          "subtitle": "",
+          "authors": [
+            "Alexander Fraser Tytler"
+          ],
+          "publishers": [
+            "Forgotten Books"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": [
+            "History"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal/Universal History Vol II.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal",
+      "fileName": "Universal History Vol II.pdf",
+      "fileSizeBytes": 32006135,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.609,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 536 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI request failed: Your input exceeds the context window of this model. Please adjust your input and try again.",
+          "OpenAI fallback retried with model gpt-4.1 and 6 sampled pages due to context window limits.",
+          "OpenAI input sampled to 6 pages from 536 total pages."
+        ],
+        "metadata": {
+          "title": "Universal History, Vol. 2 of 2",
+          "subtitle": "",
+          "authors": [
+            "Alexander Fraser Tytler"
+          ],
+          "publishers": [
+            "Forgotten Books"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": [
+            "History"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal/Wells, H.G. Short history world.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal",
+      "fileName": "Wells, H.G. Short history world.pdf",
+      "fileSizeBytes": 408302,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.609,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 139 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "A Short History of the World",
+          "subtitle": "",
+          "authors": [
+            "H. G. Wells"
+          ],
+          "publishers": [
+            "Sine nomine",
+            "Printed by Waterlow",
+            "The Macmillan company",
+            "Independently Published",
+            "P. Zsolnay",
+            "Penguin",
+            "Webb & Bower",
+            "Franklin Classics",
+            "Cosimo Classics",
+            "Watts & Co.",
+            "Book Tree",
+            "CreateSpace Independent Publishing Platform",
+            "Bartleby.Com",
+            "Macmillan",
+            "Bernhard Tauchnitz",
+            "Peninsular Publishing Company",
+            "Iwanami Shoten",
+            "Kessinger Publishing, LLC",
+            "Labour Pub. Co.",
+            "Franklin Classics Trade Press",
+            "Watts",
+            "Penguin Books Ltd",
+            "Penguin Books",
+            "Cassell",
+            "The Macmillan Co.",
+            "Penguin Classics",
+            "Collins",
+            "Collins Clear-Type Press"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "eng",
+          "categories": [
+            "World history",
+            "History",
+            "Civilization",
+            "Tong su du wu",
+            "Shi jie shi",
+            "Histoire universelle"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.12 Edad Antigua/Los Barbaros.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.12 Edad Antigua",
+      "fileName": "Los Barbaros.pdf",
+      "fileSizeBytes": 422015,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.5267142857142857,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "La crisis del siglo III y el fin del mundo antiguo",
+          "subtitle": "",
+          "authors": [
+            "Jose Fernandez Ubina"
+          ],
+          "publishers": [
+            "Ediciones AKAL"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "Social Science"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.13 Edad Media/Bárbaros y cristianos en el imperio.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.13 Edad Media",
+      "fileName": "Bárbaros y cristianos en el imperio.pdf",
+      "fileSizeBytes": 1821226,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.573,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 20 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Bárbaros, cristianos y musulmanes",
+          "subtitle": "",
+          "authors": [
+            "Trevor Cairns"
+          ],
+          "publishers": [
+            "Ediciones AKAL"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "History"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.13 Edad Media/Descubrimiento y conquista de América.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.13 Edad Media",
+      "fileName": "Descubrimiento y conquista de América.pdf",
+      "fileSizeBytes": 1944808,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 38 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "DESCUBRIMIENTO CONQUISTA Y COLONIZACION DE AMERICA",
+          "subtitle": "",
+          "authors": [
+            "Sandro Hernandez"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.13 Edad Media/El Imperio Otomano.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.13 Edad Media",
+      "fileName": "El Imperio Otomano.pdf",
+      "fileSizeBytes": 943546,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 29 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Slide 1",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.13 Edad Media/La Caída de Constantinopla.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.13 Edad Media",
+      "fileName": "La Caída de Constantinopla.pdf",
+      "fileSizeBytes": 11492665,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "La Caída de Constantinopla",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.13 Edad Media/La Reforma Protestante.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.13 Edad Media",
+      "fileName": "La Reforma Protestante.pdf",
+      "fileSizeBytes": 1521896,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 18 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "La Reforma Protestante",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.13 Edad Media/Los pueblos bárbaros.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.13 Edad Media",
+      "fileName": "Los pueblos bárbaros.pdf",
+      "fileSizeBytes": 131229,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.39859999999999995,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Historia de los pueblos bárbaros de Europa",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "History"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.13 Edad Media/Middle Ages Teacher Guide.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.13 Edad Media",
+      "fileName": "Middle Ages Teacher Guide.pdf",
+      "fileSizeBytes": 8925919,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 124 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Credits",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.13 Edad Media/Remeseiro, Alejandro. Bula intercoetera.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.13 Edad Media",
+      "fileName": "Remeseiro, Alejandro. Bula intercoetera.pdf",
+      "fileSizeBytes": 89422,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 16 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Remeseiro, Alejandro. Bula intercoetera",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.13 Edad Media/Sanchez, Jose. La Inquisición.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.13 Edad Media",
+      "fileName": "Sanchez, Jose. La Inquisición.pdf",
+      "fileSizeBytes": 565690,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 36 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "(05",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.13 Edad Media/The Middle Ages.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.13 Edad Media",
+      "fileName": "The Middle Ages.pdf",
+      "fileSizeBytes": 23526049,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.609,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 39 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "The making of the Middle Ages",
+          "subtitle": "",
+          "authors": [
+            "R. W. Southern",
+            "Southern"
+          ],
+          "publishers": [
+            "ACLS History E-Book Project",
+            "Hutchinson",
+            "Hutchinson of London",
+            "Arrow Books",
+            "Yale U Press",
+            "Pimlico",
+            "Yale University Press",
+            "Hutchinson University Library",
+            "New Haven & London Yale Univeristy Press",
+            "Cresset Library",
+            "Hutchinson & Company",
+            "Hutchinson's University Library",
+            "Yale Univesity Press",
+            "The Folio Society",
+            "Creative Media Partners, LLC"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "eng",
+          "categories": [
+            "Civilization",
+            "Medieval",
+            "Medieval Civilization",
+            "Middle Ages",
+            "Middeleeuwen",
+            "History - General",
+            "History & Archaeology",
+            "Moyen Âge",
+            "Europe, history",
+            "Histoire",
+            "Moyen Age",
+            "History",
+            "Politics and government",
+            "Foreign relations"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.15 Edad Contemporánea (S XVIII-XIX)/La revolución industrial.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.15 Edad Contemporánea (S XVIII-XIX)",
+      "fileName": "La revolución industrial.pdf",
+      "fileSizeBytes": 1021795,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.45299999999999996,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "TEMA 3",
+          "subtitle": "",
+          "authors": [
+            "Diego"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/Ayen, Francisco. Segunda Guerra Mundial.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "Ayen, Francisco. Segunda Guerra Mundial.pdf",
+      "fileSizeBytes": 237256,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.45299999999999996,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 16 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "LA SEGUNDA GUERRA MUNDIAL",
+          "subtitle": "",
+          "authors": [
+            "Vane",
+            "Fran"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/Conflicto Árabe Israel.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "Conflicto Árabe Israel.pdf",
+      "fileSizeBytes": 1913169,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.45299999999999996,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 108 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - conflicto arabe israel.doc",
+          "subtitle": "",
+          "authors": [
+            "Dina Yael"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/de Bunes, Miguel. El imperio Otomano y la República Turca.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "de Bunes, Miguel. El imperio Otomano y la República Turca.pdf",
+      "fileSizeBytes": 74406,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 22 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "WPM$6938.PDF",
+          "subtitle": "",
+          "authors": [
+            "Alos"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/de los Reyes, Marcelo. Guerra de los Balcanes.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "de los Reyes, Marcelo. Guerra de los Balcanes.pdf",
+      "fileSizeBytes": 5023158,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.4685999999999999,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 56 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "La guerra de los Balcanes",
+          "subtitle": "",
+          "authors": [
+            "Alastair Finlan"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/Dictaduras en América Latina.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "Dictaduras en América Latina.pdf",
+      "fileSizeBytes": 128593,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.45299999999999996,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Dictaduras en América Latina",
+          "subtitle": "",
+          "authors": [
+            "Utilisateur Windows"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/Gratius, Susanne. El populismo del S XXI.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "Gratius, Susanne. El populismo del S XXI.pdf",
+      "fileSizeBytes": 269073,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.5606,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 33 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "La \"tercera ola populista\" de América Latina",
+          "subtitle": "",
+          "authors": [
+            "Susanne Gratius"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "A diferencia de otras regiones del mundo, en América Latina, no se trata sólo de un populismo en las calles, sino de un populismo en el poder. Este Documento de Trabajo analiza el fenómeno del populismo latinoamericano y su relación con la democracia",
+          "language": "es",
+          "categories": [
+            "Authoritarianism"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/Informe La Democracia en America Latina Nuevo.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "Informe La Democracia en America Latina Nuevo.pdf",
+      "fileSizeBytes": 2443304,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 287 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Informe La Democracia en America Latina Nuevo",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/La ONU.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "La ONU.pdf",
+      "fileSizeBytes": 175410,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.45299999999999996,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 45 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Capitulo 10.PDF",
+          "subtitle": "",
+          "authors": [
+            "Rafael Calduch"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/La Primera Guerra Mundial.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "La Primera Guerra Mundial.pdf",
+      "fileSizeBytes": 242028,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.45299999999999996,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "La Primera Guerra Mundial",
+          "subtitle": "",
+          "authors": [
+            "DULCE M. TIRADO MERCED"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/Manuel, Pablo & Neantro. Surgimiento China.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "Manuel, Pablo & Neantro. Surgimiento China.pdf",
+      "fileSizeBytes": 1418761,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 51 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Trabajo preparado para la conferencia del BID",
+          "subtitle": "",
+          "authors": [
+            "PERSONAL"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/Martin, Federico. La guerra de Corea.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "Martin, Federico. La guerra de Corea.pdf",
+      "fileSizeBytes": 317123,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 33 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Martin, Federico. La guerra de Corea",
+          "subtitle": "",
+          "authors": [
+            "Í-é"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/Muñoz, Fracisco. La descolonización.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "Muñoz, Fracisco. La descolonización.pdf",
+      "fileSizeBytes": 251911,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.348,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 16 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - tema68OK.doc",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/Nina, Andrés. La seguridad nacional.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "Nina, Andrés. La seguridad nacional.pdf",
+      "fileSizeBytes": 210529,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 24 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "NUEVA SOCIEDAD Número 42 Mayo - Junio p70-86",
+          "subtitle": "",
+          "authors": [
+            "Aida"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/Qué es la Unión Europea.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "Qué es la Unión Europea.pdf",
+      "fileSizeBytes": 1331817,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "EU-ETR_ES_web.pub",
+          "subtitle": "",
+          "authors": [
+            "N.Moyersoen"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/Raúl & Andres. El terrorismo.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "Raúl & Andres. El terrorismo.pdf",
+      "fileSizeBytes": 116151,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 42 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Raúl & Andres. El terrorismo",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/Ribera, Ricardo. La Guerra fría.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "Ribera, Ricardo. La Guerra fría.pdf",
+      "fileSizeBytes": 144304,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 26 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "(Microsoft Word - La Guerra Fr\\355a.web.doc)",
+          "subtitle": "",
+          "authors": [
+            "Marcia"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/Sanchez, Freddy. Las Transnacionales en A.L.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "Sanchez, Freddy. Las Transnacionales en A.L.pdf",
+      "fileSizeBytes": 438295,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Sanchez, Freddy. Las Transnacionales en A.L",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/Schaffer, Francis. Como debemos vivir entonces.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "Schaffer, Francis. Como debemos vivir entonces.pdf",
+      "fileSizeBytes": 568386,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.507,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 50 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "¿CÓMO DEBEMOS VIVIR ENTONCES?",
+          "subtitle": "",
+          "authors": [
+            "Francis A. Schaeffer"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "Visión Cristiana de la Filosofía",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI/Urbez, Jesús. Comunidad Europea.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI",
+      "fileName": "Urbez, Jesús. Comunidad Europea.pdf",
+      "fileSizeBytes": 1781434,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.42539999999999994,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 21 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "HISTORIA DE LA COMUNIDAD EUROPEA",
+          "subtitle": "",
+          "authors": [
+            "JOSE MARIA LAGUNA"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.17 Historia de África/Eriksen, Tore. African history.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.17 Historia de África",
+      "fileName": "Eriksen, Tore. African history.pdf",
+      "fileSizeBytes": 585009,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.4814,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "Multiple ISBN candidates were detected in the PDF; current edition ISBN could not be determined locally.",
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 36 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Modern African History",
+          "subtitle": "",
+          "authors": [
+            "Tore Linné Eriksen"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": [
+            "Africa"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.1 Historia Universal/900.17 Historia de África/Neville, Alexander. African History and the Struggle to Decolonise.pdf",
+      "directoryPath": "900. Historia/900.1 Historia Universal/900.17 Historia de África",
+      "fileName": "Neville, Alexander. African History and the Struggle to Decolonise.pdf",
+      "fileSizeBytes": 9802543,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.36499999999999994,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 100 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Neville, Alexander. African History and the Struggle to Decolonise",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": [
+            "history"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.2 Historia de Israel/Barry, Philips. Antiochus IV Epiphanes.pdf",
+      "directoryPath": "900. Historia/900.2 Historia de Israel",
+      "fileName": "Barry, Philips. Antiochus IV Epiphanes.pdf",
+      "fileSizeBytes": 1646856,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 14 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Antiochus IV, Epiphanes",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.2 Historia de Israel/Botta, Alejandro. Aspectos vida cotidiana colonia elefantina.pdf",
+      "directoryPath": "900. Historia/900.2 Historia de Israel",
+      "fileName": "Botta, Alejandro. Aspectos vida cotidiana colonia elefantina.pdf",
+      "fileSizeBytes": 210092,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 23 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Botta, Alejandro. Aspectos vida cotidiana colonia elefantina",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.2 Historia de Israel/Dominguez, Helena. El carácter del reino Hasmoneo.pdf",
+      "directoryPath": "900. Historia/900.2 Historia de Israel",
+      "fileName": "Dominguez, Helena. El carácter del reino Hasmoneo.pdf",
+      "fileSizeBytes": 928044,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 20 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "06_Perea",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.2 Historia de Israel/Josefo, Flavio. Guerra de los Judíos.pdf",
+      "directoryPath": "900. Historia/900.2 Historia de Israel",
+      "fileName": "Josefo, Flavio. Guerra de los Judíos.pdf",
+      "fileSizeBytes": 6031952,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.4598,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 295 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI request failed: Your input exceeds the context window of this model. Please adjust your input and try again.",
+          "OpenAI fallback retried with model gpt-4.1 and 6 sampled pages due to context window limits.",
+          "OpenAI input sampled to 6 pages from 295 total pages."
+        ],
+        "metadata": {
+          "title": "Obras completas de Flavio Josefo",
+          "subtitle": "Contra Apión. Los Macabeos",
+          "authors": [
+            "Flavius Josephus"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "Jews"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.2 Historia de Israel/Mathews, Shailer. Antiochus Epiphanes Jewish.pdf",
+      "directoryPath": "900. Historia/900.2 Historia de Israel",
+      "fileName": "Mathews, Shailer. Antiochus Epiphanes Jewish.pdf",
+      "fileSizeBytes": 1440861,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 15 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Antiochus Epiphanes and the Jewish State",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/900.2 Historia de Israel/Mathews, Shailer. Antíoco epífanes y el Estado judío.pdf",
+      "directoryPath": "900. Historia/900.2 Historia de Israel",
+      "fileName": "Mathews, Shailer. Antíoco epífanes y el Estado judío.pdf",
+      "fileSizeBytes": 1440861,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.54852,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 15 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "The State Policy of Antiochus Epiphanes with Reference to Religion",
+          "subtitle": "",
+          "authors": [
+            "Brougher Petty Maddox"
+          ],
+          "publishers": [
+            "BoD – Books on Demand"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": [
+            "Jews"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/910. Geografía/910.1 Manuales de geografia/Geografía 1.pdf",
+      "directoryPath": "900. Historia/910. Geografía/910.1 Manuales de geografia",
+      "fileName": "Geografía 1.pdf",
+      "fileSizeBytes": 171422,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.32699999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 66 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "geografia_tema_1.doc",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/910. Geografía/910.1 Manuales de geografia/Geografía 2.pdf",
+      "directoryPath": "900. Historia/910. Geografía/910.1 Manuales de geografia",
+      "fileName": "Geografía 2.pdf",
+      "fileSizeBytes": 425283,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.45299999999999996,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 26 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Geografía 2",
+          "subtitle": "",
+          "authors": [
+            "Raul Zaldivar"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/910. Geografía/910.1 Manuales de geografia/Geografía Universal.pdf",
+      "directoryPath": "900. Historia/910. Geografía/910.1 Manuales de geografia",
+      "fileName": "Geografía Universal.pdf",
+      "fileSizeBytes": 2776051,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.45299999999999996,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 79 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "1",
+          "subtitle": "",
+          "authors": [
+            "Personal"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/910. Geografía/910.1 Manuales de geografia/Geografia.pdf",
+      "directoryPath": "900. Historia/910. Geografía/910.1 Manuales de geografia",
+      "fileName": "Geografia.pdf",
+      "fileSizeBytes": 337939,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.45299999999999996,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 37 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - Geografía.doc",
+          "subtitle": "",
+          "authors": [
+            "Administrador"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/910. Geografía/910.1 Manuales de geografia/Introducción a la Geografía.pdf",
+      "directoryPath": "900. Historia/910. Geografía/910.1 Manuales de geografia",
+      "fileName": "Introducción a la Geografía.pdf",
+      "fileSizeBytes": 64275,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Introducción a la Geografía",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/910. Geografía/910.1 Manuales de geografia/Manual Compacto de Geografia.pdf",
+      "directoryPath": "900. Historia/910. Geografía/910.1 Manuales de geografia",
+      "fileName": "Manual Compacto de Geografia.pdf",
+      "fileSizeBytes": 12463266,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.483,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 367 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "MANUAL COMPACTO DE GEOGRAFIA DO BRASIL",
+          "subtitle": "",
+          "authors": [
+            "EDITORA RIDEEL"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "pt-BR",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/910. Geografía/910.1 Manuales de geografia/Programa de Geografia.pdf",
+      "directoryPath": "900. Historia/910. Geografía/910.1 Manuales de geografia",
+      "fileName": "Programa de Geografia.pdf",
+      "fileSizeBytes": 806882,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.348,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 96 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "(Microsoft Word - Programa de GEOGRAFIA - C.F. Cient\\355fica.doc)",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/920. Biografía/Cardona, José. La Defensa de una fe.pdf",
+      "directoryPath": "900. Historia/920. Biografía",
+      "fileName": "Cardona, José. La Defensa de una fe.pdf",
+      "fileSizeBytes": 50922926,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 256 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "interior_JOSE_CARDONA.indd",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/920. Biografía/Iacoca, Lee. Biografia de un visionario.pdf",
+      "directoryPath": "900. Historia/920. Biografía",
+      "fileName": "Iacoca, Lee. Biografia de un visionario.pdf",
+      "fileSizeBytes": 198067,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - Lectura Nº 23.doc",
+          "subtitle": "",
+          "authors": [
+            "Administrador"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/Arqueología Bí­blica.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "Arqueología Bí­blica.pdf",
+      "fileSizeBytes": 24266159,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 57 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Arqueología Bí­blica",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/Arqueología geografía.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "Arqueología geografía.pdf",
+      "fileSizeBytes": 1069459,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 17 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Arqueología geografía",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/Berlesi, Josue. Arqueología en Israel.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "Berlesi, Josue. Arqueología en Israel.pdf",
+      "fileSizeBytes": 1151426,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.36,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 15 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "RevistaMundoAntigo2012-2",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "RevistaMundoAntigo2012-2",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/Biblical Archaeology.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "Biblical Archaeology.pdf",
+      "fileSizeBytes": 10485000,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.524,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 191 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - biblicalarchaeology.doc",
+          "subtitle": "",
+          "authors": [
+            "AlYahawah"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": [
+            "archaeology"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/Briend Jacques & otros. Arqueologí­a biblia historia.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "Briend Jacques & otros. Arqueologí­a biblia historia.pdf",
+      "fileSizeBytes": 3786038,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.609,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 58 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Arqueología, Biblia, Historia",
+          "subtitle": "",
+          "authors": [
+            "Olivier Artus",
+            "Jacques Briend",
+            "Damien Noël"
+          ],
+          "publishers": [
+            "Editorial Verbo Divino"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "History"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/de los Reyes, Esperanza. El papel de la arqueologí­a.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "de los Reyes, Esperanza. El papel de la arqueologí­a.pdf",
+      "fileSizeBytes": 110272,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "de los Reyes, Esperanza. El papel de la arqueologí­a",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/Joffe, Alexander. The changing place of Archeology.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "Joffe, Alexander. The changing place of Archeology.pdf",
+      "fileSizeBytes": 4214031,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.36499999999999994,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 21 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Joffe, Alexander. The changing place of Archeology",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": [
+            "archaeology"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/Johnson & Saneesh. Biblical Archeology Important Inscriptions.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "Johnson & Saneesh. Biblical Archeology Important Inscriptions.pdf",
+      "fileSizeBytes": 2710570,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.344,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 49 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Biblical Archeology_ Important Inscriptions ( PDFDrive.com ).pdf",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": [
+            "archaeology"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/Joseph & Norman. Handbook of Archaeology and the Bible worldhistory.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "Joseph & Norman. Handbook of Archaeology and the Bible worldhistory.pdf",
+      "fileSizeBytes": 39391578,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.585,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 434 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI request failed: Your input exceeds the context window of this model. Please adjust your input and try again.",
+          "OpenAI fallback retried with model gpt-4.1 and 6 sampled pages due to context window limits.",
+          "OpenAI input sampled to 6 pages from 434 total pages."
+        ],
+        "metadata": {
+          "title": "The Popular Handbook of Archaeology and the Bible",
+          "subtitle": "",
+          "authors": [
+            "Joseph M. Holden",
+            "Norman Geisler"
+          ],
+          "publishers": [
+            "Harvest House Publishers"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": [
+            "Religion"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/Laughlin, John. Archaeology and the bible.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "Laughlin, John. Archaeology and the bible.pdf",
+      "fileSizeBytes": 1845776,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.5780000000000001,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 207 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Book Cover",
+          "subtitle": "",
+          "authors": [
+            "John C. H. Laughlin"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "Arts, Language and Literature",
+          "language": "en",
+          "categories": [
+            "archaeology"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/Magness, Jodi. Archeology of the Holy Land.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "Magness, Jodi. Archeology of the Holy Land.pdf",
+      "fileSizeBytes": 56981387,
+      "extraction": {
+        "status": "ok",
+        "confidence": 0.8184999999999999,
+        "missingFields": [],
+        "warnings": [
+          "Multiple ISBN candidates were detected in the PDF; current edition ISBN could not be determined locally.",
+          "No valid ISBN found in PDF binary content.",
+          "Multiple ISBN candidates were detected locally; catalog ISBNs were withheld to avoid selecting a previous or mismatched edition."
+        ],
+        "metadata": {
+          "title": "The archaeology of the Holy Land",
+          "subtitle": "from the destruction of Solomon's Temple to the Muslim conquest",
+          "authors": [
+            "Jodi Magness"
+          ],
+          "publishers": [
+            "Cambridge University Press"
+          ],
+          "publishedYear": 2012,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "This book provides an introduction to the archaeology and history of ancient Palestine - modern Israel, Jordan, and the Palestinian territories - from the destruction of Solomon's temple in 586 BCE to the Muslim conquest in 640 CE. Special attention is paid to the archaeology of Jerusalem and the Second Temple period, in the time of Herod the Great and Jesus. For each period, the book offers a historical background for the Mediterranean world and the ancient Near East, as well as the events in Palestine. Major sites such as Masada, Caesarea Maritima, and Petra are examined in archaeological and historical detail, along with the material culture - coins, pottery, glass, and stone vessels - of each period. This book provides a thorough overview of the archaeology of this historically vibrant part of the world.",
+          "language": "en",
+          "categories": [
+            "ART / History / Ancient & Classical",
+            "Excavations (Archaeology)",
+            "Antiquities",
+            "Bible",
+            "Archäologie",
+            "ART",
+            "Ancient & Classical",
+            "History",
+            "Bible, antiquities",
+            "Palestine, antiquities"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/Maidman, M.P. The Nuzi Texts.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "Maidman, M.P. The Nuzi Texts.pdf",
+      "fileSizeBytes": 727214,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Maidman, M.P. The Nuzi Texts",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/Noegel, Scott. Letters of Lachish.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "Noegel, Scott. Letters of Lachish.pdf",
+      "fileSizeBytes": 2837244,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.4109999999999999,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "The Discovery [of the Lachish Letters].",
+          "subtitle": "",
+          "authors": [
+            "John L. STARKEY"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/Omnes, Pecunia. Propaganda of the Imperial Cult.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "Omnes, Pecunia. Propaganda of the Imperial Cult.pdf",
+      "fileSizeBytes": 769817,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.5459999999999999,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 21 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Imperial cult in the latin west ii-1",
+          "subtitle": "",
+          "authors": [
+            "Duncan Fishwick"
+          ],
+          "publishers": [
+            "BRILL"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": [
+            "Emperor worship"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/Pfeiffer, Charles. Diccionario Arqueológico.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "Pfeiffer, Charles. Diccionario Arqueológico.pdf",
+      "fileSizeBytes": 2535403,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.45299999999999996,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 701 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI request failed: Your input exceeds the context window of this model. Please adjust your input and try again.",
+          "OpenAI fallback retried with model gpt-4.1 and 6 sampled pages due to context window limits.",
+          "OpenAI input sampled to 6 pages from 701 total pages."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - 699 DICCIONARIO BIBLICO arqueologico.doc",
+          "subtitle": "",
+          "authors": [
+            "Personal"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/RAS SHAMRA – UGARIT TABLETS.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "RAS SHAMRA – UGARIT TABLETS.pdf",
+      "fileSizeBytes": 255564,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.609,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "Unable to sample PDF pages for OpenAI input, using original file. (_this.catalog.Pages is not a function)",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Ugarit (Ras Shamra)",
+          "subtitle": "",
+          "authors": [
+            "Adrian Curtis"
+          ],
+          "publishers": [
+            "Lutterworth Press"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": [
+            "History"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica/Ten top biblical archaeology discoveries.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.1 Arqueología bíblica",
+      "fileName": "Ten top biblical archaeology discoveries.pdf",
+      "fileSizeBytes": 3547810,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.609,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 155 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Top Ten Biblical Discoveries in Archaeology",
+          "subtitle": "",
+          "authors": [
+            "Timothy Kimberley"
+          ],
+          "publishers": [
+            "CreateSpace Independent Publishing Platform"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "eng",
+          "categories": [
+            "Archaeology"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.2 Biblioteca de Nag Hammadi/Los Evangelios Apocrifos.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.2 Biblioteca de Nag Hammadi",
+      "fileName": "Los Evangelios Apocrifos.pdf",
+      "fileSizeBytes": 2125163,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.6017999999999999,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 333 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI request failed: Your input exceeds the context window of this model. Please adjust your input and try again.",
+          "OpenAI fallback retried with model gpt-4.1 and 6 sampled pages due to context window limits.",
+          "OpenAI input sampled to 6 pages from 333 total pages."
+        ],
+        "metadata": {
+          "title": "Los Evangelios Apocrifos",
+          "subtitle": "",
+          "authors": [
+            "Aurelio De Santos Otero"
+          ],
+          "publishers": [
+            "Biblioteca de Autores Cristianos"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "spa",
+          "categories": [
+            "Apocryphal books",
+            "Criticism, interpretation"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán/Descubrimientos de los rollos del mar muerto.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán",
+      "fileName": "Descubrimientos de los rollos del mar muerto.pdf",
+      "fileSizeBytes": 1074844,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.6048857142857142,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 13 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "El significado de los rollos del Mar Muerto",
+          "subtitle": "",
+          "authors": [
+            "James C. VanderKam",
+            "Peter Flint"
+          ],
+          "publishers": [
+            "EDAF"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "Education"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán/Finlay, Tim. Los rollos del mar muerto.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán",
+      "fileName": "Finlay, Tim. Los rollos del mar muerto.pdf",
+      "fileSizeBytes": 444214,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.348,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Finlay, Tim. Los rollos del mar muerto",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán/Garcia, Tania. Recristianización de los Mss del Mar Muerto.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán",
+      "fileName": "Garcia, Tania. Recristianización de los Mss del Mar Muerto.pdf",
+      "fileSizeBytes": 195270,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 17 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "García Arévalo, T.",
+          "subtitle": "",
+          "authors": [
+            "User"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán/Giménez, Pedro. Qumran y las raices del pensamiento poli.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán",
+      "fileName": "Giménez, Pedro. Qumran y las raices del pensamiento poli.pdf",
+      "fileSizeBytes": 4981018,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 338 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI request failed: Your input exceeds the context window of this model. Please adjust your input and try again.",
+          "OpenAI fallback retried with model gpt-4.1 and 6 sampled pages due to context window limits.",
+          "OpenAI input sampled to 6 pages from 338 total pages."
+        ],
+        "metadata": {
+          "title": "Giménez, Pedro. Qumran y las raices del pensamiento poli",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán/Guerra de los Hijos de la Luz Contra Los Hijos De Las Tinieblas.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán",
+      "fileName": "Guerra de los Hijos de la Luz Contra Los Hijos De Las Tinieblas.pdf",
+      "fileSizeBytes": 92101,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.46242857142857136,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 21 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "La guerra de los hijos de la luz",
+          "subtitle": "",
+          "authors": [
+            "Moshe Shamir"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán/Klein, Fernando. El Evangelio de Qumran.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán",
+      "fileName": "Klein, Fernando. El Evangelio de Qumran.pdf",
+      "fileSizeBytes": 443448,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 19 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Klein, Fernando. El Evangelio de Qumran",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán/Los Rollos del mar Muerto Regla de la Comunidad.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán",
+      "fileName": "Los Rollos del mar Muerto Regla de la Comunidad.pdf",
+      "fileSizeBytes": 83456,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.348,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 16 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - Los Rollos del mar Muerto-Regla de la Comunidad.doc",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán/Piñero, Antonio. Qumran la secta de los esenios los manuscritos del mar muerto.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán",
+      "fileName": "Piñero, Antonio. Qumran la secta de los esenios los manuscritos del mar muerto.pdf",
+      "fileSizeBytes": 41160830,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.485,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Los esenios y los rollos del mar Muerto",
+          "subtitle": "",
+          "authors": [
+            "César Vidal Manzanares"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "Dead Sea scrolls"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán/Puech, Émile. Los manuscritos del mar muerto y el nuevo testamento.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán",
+      "fileName": "Puech, Émile. Los manuscritos del mar muerto y el nuevo testamento.pdf",
+      "fileSizeBytes": 456910,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 37 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Puech, Émile. Los manuscritos del mar muerto y el nuevo testamento",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán/Que aportan los escritos de Qumran.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán",
+      "fileName": "Que aportan los escritos de Qumran.pdf",
+      "fileSizeBytes": 118950,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Que aportan los escritos de Qumran",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán/Qumran sus secretos.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán",
+      "fileName": "Qumran sus secretos.pdf",
+      "fileSizeBytes": 865963,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 18 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Qumran sus secretos",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán/Vidal, César. Los Mss del Mar Muerto.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.3 Literatura de Qumrán",
+      "fileName": "Vidal, César. Los Mss del Mar Muerto.pdf",
+      "fileSizeBytes": 158344,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 29 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Vidal, César. Los Mss del Mar Muerto",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "900. Historia/930. Arqueología/930.4 Arqueólogos/McDaniel, Thomas. Albright Reviewed.pdf",
+      "directoryPath": "900. Historia/930. Arqueología/930.4 Arqueólogos",
+      "fileName": "McDaniel, Thomas. Albright Reviewed.pdf",
+      "fileSizeBytes": 98525,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.45299999999999996,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 13 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Page 1",
+          "subtitle": "",
+          "authors": [
+            "Tom McDaniel"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    }
+  ]
+}

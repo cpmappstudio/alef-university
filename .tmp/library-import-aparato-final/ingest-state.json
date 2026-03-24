@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "updatedAt": "2026-03-14T18:36:10.172Z",
+  "collectionsByPath": {
+    "00. Generalidades": "pd7d989c8nzjw4y16brdrh6hxs82xst9",
+    "00. Generalidades/04. Investigación científica": "pd74xev65j375eae2yckzjbab182x4tv",
+    "00. Generalidades/04. Investigación científica/04.2 El aparato crítico": "pd7a3vby1g9yp6gzx25vj3j7px82w1g7"
+  },
+  "items": {
+    "00. Generalidades/04. Investigación científica/04.2 El aparato crítico/Citas estilo Harvard.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg211pvzm3jb6j3bz01a5ae3f982xx26",
+      "bookId": "p177edj01qxt5smh9wdd2049k182xsfe",
+      "updatedAt": "2026-03-14T18:36:07.579Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.2 El aparato crítico/Pontificia universidad Católica De Chile. Guia para redactar notas de pie de pagina.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23fvzzzs2p482dzyr3hvbqh982waqd",
+      "bookId": "p17cx1dmrkjt2dhv1e2eytb59182xmng",
+      "updatedAt": "2026-03-14T18:36:08.547Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.2 El aparato crítico/The Shortcut Chicago Manual of Style.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24q2dapbcv12saggxaa9c5ks82wdzp",
+      "bookId": "p17e24z5k321cprragrngd38rs82wyac",
+      "updatedAt": "2026-03-14T18:36:09.420Z"
+    },
+    "00. Generalidades/04. Investigación científica/04.2 El aparato crítico/Universidad Carlos III. Como citar bibliografía.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ad1e1nem9ez1kwzds1tenns82wrfj",
+      "bookId": "p17dnj70qmg682thr5qpfptxvs82wj3g",
+      "updatedAt": "2026-03-14T18:36:10.172Z"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "version": 2,
+  "generatedAt": "2026-03-24T13:29:41.437Z",
+  "inputDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/400. Lingüística",
+  "libraryRootDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef",
+  "directories": [
+    "400. Lingüística",
+    "400. Lingüística/400.1 Manuales de lingüística",
+    "400. Lingüística/400.2 Ramas de la linguística",
+    "400. Lingüística/400.3 Historia del castellano",
+    "400. Lingüística/400.4 Gramática castellana",
+    "400. Lingüística/400.5 Lenguaje y signo",
+    "400. Lingüística/400.6 Lenguaje y comunicación"
+  ],
+  "skippedFiles": [],
+  "items": [
+    {
+      "relativePath": "400. Lingüística/400.1 Manuales de lingüística/Coseriu, Eugenio. Introduccion a la linguistica.pdf",
+      "directoryPath": "400. Lingüística/400.1 Manuales de lingüística",
+      "fileName": "Coseriu, Eugenio. Introduccion a la linguistica.pdf",
+      "fileSizeBytes": 298594,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.573,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 159 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Eugenio Coseriu",
+          "subtitle": "",
+          "authors": [
+            "Johannes Kabatek"
+          ],
+          "publishers": [
+            "Walter de Gruyter GmbH & Co KG"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": [
+            "Language Arts & Disciplines"
+          ]
+        }
+      }
+    }
+  ]
+}

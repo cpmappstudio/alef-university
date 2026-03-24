@@ -1,0 +1,54 @@
+{
+  "version": 2,
+  "generatedAt": "2026-03-14T18:25:47.961Z",
+  "inputDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/00. Generalidades/04. Investigación científica/04.2 El aparato crítico",
+  "libraryRootDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef",
+  "directories": [
+    "00. Generalidades",
+    "00. Generalidades/04. Investigación científica",
+    "00. Generalidades/04. Investigación científica/04.2 El aparato crítico"
+  ],
+  "skippedFiles": [],
+  "items": [
+    {
+      "relativePath": "00. Generalidades/04. Investigación científica/04.2 El aparato crítico/Citas estilo Harvard.pdf",
+      "directoryPath": "00. Generalidades/04. Investigación científica/04.2 El aparato crítico",
+      "fileName": "Citas estilo Harvard.pdf",
+      "fileSizeBytes": 97368,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.6585,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 19 total pages.",
+          "OpenAI note: Documento extraído de páginas proporcionadas; no se encontró autor(es) explícito(s), año de publicación, edición ni ISBN en las páginas disponibles. 'CDICT-UNIVERSIDAD CENTRAL' aparece en el encabezado y se registra como editor/publisher según el contenido visible."
+        ],
+        "metadata": {
+          "title": "Estilo Harvard para las Referencias Bibliográficas",
+          "subtitle": "",
+          "authors": [
+            "grizly"
+          ],
+          "publishers": [
+            "CDICT-UNIVERSIDAD CENTRAL"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "El sistema Harvard se utiliza para incluir de manera sencilla dentro de los escritos académicos la información básica de las fuentes utilizadas para citar, parafrasear o comentar ideas de otros autores. Su objetivo principal es facilitar la redacción de escritos científicos y proporcionar al lector, de forma rápida y clara, la información necesaria para localizar las obras empleadas. Aunque cada institución académica puede ajustar modalidades, el sistema posee un conjunto de convenciones básicas que deben respetarse.",
+          "language": "es",
+          "categories": [
+            "referencias bibliográficas",
+            "citas",
+            "estilo Harvard",
+            "metodología"
+          ]
+        }
+      }
+    }
+  ]
+}

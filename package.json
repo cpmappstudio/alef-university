@@ -11,7 +11,8 @@
     "start": "next start",
     "lint": "next lint",
     "convert-courses": "tsx scripts/excel-to-jsonl.ts",
-    "extract-books-metadata": "tsx scripts/extract-books-metadata.ts"
+    "extract-books-metadata": "tsx scripts/extract-books-metadata.ts",
+    "import-library-bulk": "tsx scripts/import-library-bulk.ts"
   },
   "dependencies": {
     "@clerk/backend": "^2.22.0",

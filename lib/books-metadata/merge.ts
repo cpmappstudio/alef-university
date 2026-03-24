@@ -81,6 +81,242 @@ function uniqueStrings(values: string[]): string[] {
   return output;
 }
 
+function normalizeComparableText(value: string): string {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function canonicalizeNameList(values: string[]): string[] {
+  const grouped = new Map<string, string[]>();
+
+  for (const raw of values) {
+    const normalized = raw.replace(/\s+/g, " ").trim();
+    if (!normalized) {
+      continue;
+    }
+
+    const signature = normalizeComparableText(normalized)
+      .split(" ")
+      .filter(Boolean)
+      .sort()
+      .join(" ");
+
+    const variants = grouped.get(signature) ?? [];
+    variants.push(normalized);
+    grouped.set(signature, variants);
+  }
+
+  const pickPreferredVariant = (variants: string[]) =>
+    variants.slice().sort((left, right) => {
+      const leftScore =
+        (left.includes(",") ? 0 : 4) +
+        (left.includes(".") ? 2 : 0) +
+        left.length;
+      const rightScore =
+        (right.includes(",") ? 0 : 4) +
+        (right.includes(".") ? 2 : 0) +
+        right.length;
+      return rightScore - leftScore;
+    })[0];
+
+  return Array.from(grouped.values()).map(pickPreferredVariant);
+}
+
+function isLikelyUsernameLikeAuthor(value: string): boolean {
+  const normalized = value.trim();
+  if (!normalized) {
+    return false;
+  }
+
+  return (
+    !normalized.includes(" ") &&
+    /^[a-z][a-z0-9._-]{2,24}$/.test(normalized) &&
+    normalized === normalized.toLowerCase()
+  );
+}
+
+function canonicalizePublisherList(values: string[]): string[] {
+  return uniqueStrings(
+    values.map((value) => value.replace(/^brand:\s*/i, "").trim()),
+  );
+}
+
+function stripWrappingPunctuation(value: string): string {
+  return value
+    .trim()
+    .replace(/^[([{]\s*|\s*[)\]}]$/g, "")
+    .trim();
+}
+
+function looksLikeEditionStatement(value?: string): boolean {
+  if (!value) {
+    return false;
+  }
+
+  const normalized = normalizeComparableText(stripWrappingPunctuation(value));
+  if (!normalized) {
+    return false;
+  }
+
+  return /(edition|revised|revise?d|edicion|edicion revisada|edicion corregida|ed\b|printing|impresion|reimpresion|\b\d+(st|nd|rd|th)\b|\b\d+\s*ed\b)/.test(
+    normalized,
+  );
+}
+
+function splitTitleOnColon(
+  title?: string,
+): { title: string; subtitle: string } | null {
+  if (!title || !title.includes(":")) {
+    return null;
+  }
+
+  const [head, ...tail] = title.split(":");
+  const mainTitle = head.replace(/\s+/g, " ").trim();
+  const subtitle = tail.join(":").replace(/\s+/g, " ").trim();
+
+  if (!mainTitle || !subtitle || looksLikeEditionStatement(subtitle)) {
+    return null;
+  }
+
+  return { title: mainTitle, subtitle };
+}
+
+function looksLikeKeywordList(value?: string): boolean {
+  if (!value) {
+    return false;
+  }
+
+  const normalized = value.replace(/\s+/g, " ").trim();
+  if (!normalized || /[.!?]/.test(normalized)) {
+    return false;
+  }
+
+  const segments = normalized.split(/\s*,\s*/).filter(Boolean);
+  return (
+    segments.length >= 4 &&
+    segments.every((segment) => segment.split(/\s+/).length <= 5)
+  );
+}
+
+function isAmbiguousIsbnSet(isbns: string[]): boolean {
+  const unique = [...new Set(isbns)];
+  if (unique.length <= 1) {
+    return false;
+  }
+
+  const isbn10s = unique.filter((isbn) => isbn.length === 10);
+  const isbn13s = new Set(unique.filter((isbn) => isbn.length === 13));
+  let unmatchedCount = 0;
+
+  for (const isbn10 of isbn10s) {
+    const paired = `978${isbn10.slice(0, 9)}`;
+    let sum = 0;
+    for (let index = 0; index < 12; index += 1) {
+      const value = Number(paired[index]);
+      sum += index % 2 === 0 ? value : value * 3;
+    }
+    const checkDigit = (10 - (sum % 10)) % 10;
+    const pairedIsbn13 = `${paired}${checkDigit}`;
+
+    if (isbn13s.has(pairedIsbn13)) {
+      isbn13s.delete(pairedIsbn13);
+      continue;
+    }
+
+    unmatchedCount += 1;
+  }
+
+  unmatchedCount += isbn13s.size;
+  return unmatchedCount > 1;
+}
+
+function normalizeMergedMetadata(
+  metadata: CandidateMetadata,
+): CandidateMetadata {
+  const normalized: CandidateMetadata = { ...metadata };
+
+  if (normalized.authors?.length) {
+    normalized.authors = canonicalizeNameList(
+      normalized.authors.filter(
+        (author) => !isLikelyUsernameLikeAuthor(author),
+      ),
+    );
+    if (normalized.authors.length === 0) {
+      normalized.authors = undefined;
+    }
+  }
+
+  if (normalized.publishers?.length) {
+    normalized.publishers = canonicalizePublisherList(normalized.publishers);
+  }
+
+  if (normalized.subtitle && looksLikeEditionStatement(normalized.subtitle)) {
+    const subtitleEdition = stripWrappingPunctuation(normalized.subtitle);
+    if (!normalized.edition) {
+      normalized.edition = subtitleEdition;
+    }
+    normalized.subtitle = undefined;
+  }
+
+  if (normalized.edition) {
+    normalized.edition = stripWrappingPunctuation(normalized.edition);
+  }
+
+  if (
+    normalized.title &&
+    (!normalized.subtitle || looksLikeEditionStatement(normalized.subtitle))
+  ) {
+    const split = splitTitleOnColon(normalized.title);
+    if (split) {
+      normalized.title = split.title;
+      normalized.subtitle = split.subtitle;
+    }
+  }
+
+  if (normalized.abstract && looksLikeKeywordList(normalized.abstract)) {
+    normalized.abstract = undefined;
+  }
+
+  return normalized;
+}
+
+function alignTitleAndSubtitleWithLocal(args: {
+  metadata: CandidateMetadata;
+  localMetadata: CandidateMetadata;
+}): CandidateMetadata {
+  const { metadata, localMetadata } = args;
+
+  if (!metadata.title || !metadata.subtitle || !localMetadata.title) {
+    return metadata;
+  }
+
+  const localTitleSimilarityToTitle = tokenSimilarity(
+    localMetadata.title,
+    metadata.title,
+  );
+  const localTitleSimilarityToSubtitle = tokenSimilarity(
+    localMetadata.title,
+    metadata.subtitle,
+  );
+
+  if (
+    localTitleSimilarityToSubtitle >= 0.75 &&
+    localTitleSimilarityToTitle <= 0.35
+  ) {
+    return {
+      ...metadata,
+      title: metadata.subtitle,
+      subtitle: metadata.title,
+    };
+  }
+
+  return metadata;
+}
+
 function isContradictoryWarning(
   warning: string,
   metadata: CandidateMetadata,
@@ -226,17 +462,47 @@ function sanitizeWeakQueryCandidate(args: {
     return candidate;
   }
 
-  const hasLocalCorroboration =
-    hasAuthorOverlap(localMetadata.authors, candidate.metadata.authors) ||
-    (Boolean(localMetadata.publishedYear) &&
-      localMetadata.publishedYear === candidate.metadata.publishedYear) ||
+  const hasAuthorCorroboration = hasAuthorOverlap(
+    localMetadata.authors,
+    candidate.metadata.authors,
+  );
+  const hasYearCorroboration =
+    Boolean(localMetadata.publishedYear) &&
+    localMetadata.publishedYear === candidate.metadata.publishedYear;
+  const hasIsbnCorroboration =
     (Boolean(localMetadata.isbn13) &&
       localMetadata.isbn13 === candidate.metadata.isbn13) ||
     (Boolean(localMetadata.isbn10) &&
       localMetadata.isbn10 === candidate.metadata.isbn10);
+  const hasLocalCorroboration =
+    hasAuthorCorroboration || hasYearCorroboration || hasIsbnCorroboration;
 
   if (hasLocalCorroboration || !isLowDistinctivenessTitle(localTitle)) {
-    return candidate;
+    if (hasIsbnCorroboration) {
+      return candidate;
+    }
+
+    return {
+      ...candidate,
+      confidence: Math.min(
+        candidate.confidence,
+        hasYearCorroboration ? 0.64 : 0.56,
+      ),
+      metadata: {
+        title: candidate.metadata.title,
+        authors: candidate.metadata.authors,
+        publishers: candidate.metadata.publishers,
+        language: candidate.metadata.language,
+        categories: candidate.metadata.categories,
+        publishedYear: hasYearCorroboration
+          ? candidate.metadata.publishedYear
+          : undefined,
+        subtitle: localMetadata.subtitle
+          ? candidate.metadata.subtitle
+          : undefined,
+        edition: localMetadata.edition ? candidate.metadata.edition : undefined,
+      },
+    };
   }
 
   // For generic titles without local corroboration, keep only title-level hint.
@@ -328,9 +594,12 @@ function mergeArrayField(
   const winner = ranked[0];
   const shouldUseWinnerOnly =
     isExternalCatalogQueryCandidate(winner) ||
+    ((field === "authors" || field === "publishers") &&
+      (winner.matchedBy === "isbn" ||
+        (winner.source === "openai" && winner.confidence >= 0.8))) ||
     (field === "categories" &&
-      winner.source === "openai" &&
-      winner.confidence >= 0.8);
+      ((winner.source === "openai" && winner.confidence >= 0.8) ||
+        winner.matchedBy === "isbn"));
 
   const merged = shouldUseWinnerOnly
     ? uniqueStrings(winner.metadata[field] ?? [])
@@ -405,6 +674,7 @@ export function mergeMetadataCandidates(args: {
       }),
     );
   const evidence: SourceEvidence[] = [];
+  const derivedWarnings: string[] = [];
 
   const merged: CandidateMetadata = {};
 
@@ -425,12 +695,31 @@ export function mergeMetadataCandidates(args: {
   if (edition.evidence) evidence.push(edition.evidence);
 
   const isbn10 = pickField(adjustedCandidates, "isbn10");
-  if (isbn10.value) merged.isbn10 = isbn10.value;
-  if (isbn10.evidence) evidence.push(isbn10.evidence);
+  const ambiguousLocalIsbns = isAmbiguousIsbnSet(args.local.extractedIsbns);
+  const shouldSuppressCatalogIsbn10 =
+    ambiguousLocalIsbns &&
+    isbn10.evidence?.note === "matched_by_isbn" &&
+    (isbn10.evidence.source === "openlibrary" ||
+      isbn10.evidence.source === "google_books");
+  if (isbn10.value && !shouldSuppressCatalogIsbn10) {
+    merged.isbn10 = isbn10.value;
+  }
+  if (isbn10.evidence && !shouldSuppressCatalogIsbn10) {
+    evidence.push(isbn10.evidence);
+  }
 
   const isbn13 = pickField(adjustedCandidates, "isbn13");
-  if (isbn13.value) merged.isbn13 = isbn13.value;
-  if (isbn13.evidence) evidence.push(isbn13.evidence);
+  const shouldSuppressCatalogIsbn13 =
+    ambiguousLocalIsbns &&
+    isbn13.evidence?.note === "matched_by_isbn" &&
+    (isbn13.evidence.source === "openlibrary" ||
+      isbn13.evidence.source === "google_books");
+  if (isbn13.value && !shouldSuppressCatalogIsbn13) {
+    merged.isbn13 = isbn13.value;
+  }
+  if (isbn13.evidence && !shouldSuppressCatalogIsbn13) {
+    evidence.push(isbn13.evidence);
+  }
 
   const abstract = pickField(adjustedCandidates, "abstract");
   if (abstract.value) merged.abstract = abstract.value;
@@ -452,23 +741,34 @@ export function mergeMetadataCandidates(args: {
   if (categories.value) merged.categories = categories.value;
   if (categories.evidence) evidence.push(categories.evidence);
 
+  if (shouldSuppressCatalogIsbn10 || shouldSuppressCatalogIsbn13) {
+    derivedWarnings.push(
+      "Multiple ISBN candidates were detected locally; catalog ISBNs were withheld to avoid selecting a previous or mismatched edition.",
+    );
+  }
+
+  const normalizedMerged = alignTitleAndSubtitleWithLocal({
+    metadata: normalizeMergedMetadata(merged),
+    localMetadata: args.local.candidate.metadata,
+  });
+
   if (
-    !merged.isbn10 &&
-    !merged.isbn13 &&
+    !normalizedMerged.isbn10 &&
+    !normalizedMerged.isbn13 &&
     args.local.extractedIsbns.length === 1
   ) {
     const fallback = args.local.extractedIsbns[0];
     if (fallback.length === 10) {
-      merged.isbn10 = fallback;
+      normalizedMerged.isbn10 = fallback;
     } else if (fallback.length === 13) {
-      merged.isbn13 = fallback;
+      normalizedMerged.isbn13 = fallback;
     }
   }
 
   const missingFields = REQUIRED_FIELDS.filter(
-    (field) => !hasValue(merged[field]),
+    (field) => !hasValue(normalizedMerged[field]),
   );
-  const confidence = computeOverallConfidence(merged, evidence);
+  const confidence = computeOverallConfidence(normalizedMerged, evidence);
   const hasStrongExternalIsbnEvidence = evidence.some(
     (item) =>
       item.note === "matched_by_isbn" &&
@@ -553,12 +853,20 @@ export function mergeMetadataCandidates(args: {
   });
 
   let status: BookMetadataResult["status"] = "needs_review";
-  if (!merged.title && !merged.isbn10 && !merged.isbn13) {
+  if (
+    !normalizedMerged.title &&
+    !normalizedMerged.isbn10 &&
+    !normalizedMerged.isbn13
+  ) {
     status = "failed";
   } else if (
     confidence >= 0.75 &&
-    Boolean(merged.title) &&
-    Boolean(merged.isbn10 || merged.isbn13 || merged.authors?.length) &&
+    Boolean(normalizedMerged.title) &&
+    Boolean(
+      normalizedMerged.isbn10 ||
+        normalizedMerged.isbn13 ||
+        normalizedMerged.authors?.length,
+    ) &&
     (hasStrongExternalIsbnEvidence ||
       hasStrongLocalEvidence ||
       hasStrongCatalogQueryEvidence ||
@@ -573,15 +881,19 @@ export function mergeMetadataCandidates(args: {
     fileSizeBytes: args.fileSizeBytes,
     status,
     confidence,
-    metadata: merged,
+    metadata: normalizedMerged,
     missingFields,
     evidence,
     diagnostics: {
       extractedIsbns: args.local.extractedIsbns,
-      usedIsbn: merged.isbn13 ?? merged.isbn10,
+      usedIsbn: normalizedMerged.isbn13 ?? normalizedMerged.isbn10,
       warnings: resolveWarningsForFinalMetadata(
-        [...args.local.warnings, ...(args.extraWarnings ?? [])],
-        merged,
+        [
+          ...args.local.warnings,
+          ...(args.extraWarnings ?? []),
+          ...derivedWarnings,
+        ],
+        normalizedMerged,
       ),
     },
   };

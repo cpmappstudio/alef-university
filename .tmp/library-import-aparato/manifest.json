@@ -1,0 +1,86 @@
+{
+  "version": 2,
+  "generatedAt": "2026-03-14T18:24:05.001Z",
+  "inputDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/00. Generalidades/04. Investigación científica/04.2 El aparato crítico",
+  "libraryRootDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef",
+  "directories": [],
+  "skippedFiles": [],
+  "items": [
+    {
+      "relativePath": "00. Generalidades/04. Investigación científica/04.2 El aparato crítico/Citas estilo Harvard.pdf",
+      "directoryPath": "00. Generalidades/04. Investigación científica/04.2 El aparato crítico",
+      "fileName": "Citas estilo Harvard.pdf",
+      "fileSizeBytes": 97368,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.6759999999999999,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 19 total pages.",
+          "OpenAI note: Metadata extracted only from provided pages. No explicit author, publication year, edition, or ISBN present. Publisher inferred from header 'CDICT-UNIVERSIDAD CENTRAL'. Document appears to be an instructional guide; pages may be partial."
+        ],
+        "metadata": {
+          "title": "Estilo Harvard para las Referencias Bibliográficas",
+          "subtitle": "",
+          "authors": [
+            "grizly"
+          ],
+          "publishers": [
+            "CDICT-UNIVERSIDAD CENTRAL"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "El sistema Harvard se utiliza para incluir de manera sencilla dentro de nuestros escritos y reflexiones académicas la información básica de las fuentes utilizadas para citar, parafrasear o comentar ideas pertenecientes a otros autores. El principal objetivo de este sistema de referencias es facilitar la redacción de escritos científicos y brindar al lector en forma rápida y sencilla la información precisa que le permita ubicar las obras empleadas durante la construcción de un escrito. Aunque cada institución académica establece sus propias modalidades en el uso de las reglas del sistema Harvard, éste posee un cuerpo de convenciones básicas que se deben respetar.",
+          "language": "es",
+          "categories": [
+            "Citación",
+            "Bibliografía",
+            "Estilo académico"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "00. Generalidades/04. Investigación científica/04.2 El aparato crítico/Pontificia universidad Católica De Chile. Guia para redactar notas de pie de pagina.pdf",
+      "directoryPath": "00. Generalidades/04. Investigación científica/04.2 El aparato crítico",
+      "fileName": "Pontificia universidad Católica De Chile. Guia para redactar notas de pie de pagina.pdf",
+      "fileSizeBytes": 84202,
+      "extraction": {
+        "status": "ok",
+        "confidence": 0.7779999999999999,
+        "missingFields": [],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 33 total pages.",
+          "OpenAI note: Metadata extracted from cover and introductory pages. No explicit author individual names, edition statement, or ISBN found in the provided pages; publisher inferred from cover text."
+        ],
+        "metadata": {
+          "title": "GUÍA PARA LA REDACCIÓN DE CITAS BIBLIOGRÁFICAS",
+          "subtitle": "",
+          "authors": [
+            "Sistema de Bibliotecas, Pontificia Universidad Católica de Chile"
+          ],
+          "publishers": [
+            "Sistema de Bibliotecas, Pontificia Universidad Católica de Chile"
+          ],
+          "publishedYear": 2001,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "Aquí se encuentran los elementos necesarios para hacer una cita bibliográfica normalizada, acompañados de ejemplos que consideran las normas ISO (International Organization for Standardization) y las normas APA (American Psychological Association).",
+          "language": "es",
+          "categories": [
+            "Biblioteconomía",
+            "Citas bibliográficas",
+            "Normas de citación"
+          ]
+        }
+      }
+    }
+  ]
+}

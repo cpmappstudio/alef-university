@@ -52,6 +52,16 @@ type OpenAISingleAttemptResult = {
   warnings: string[];
 };
 
+function hasContextWindowWarning(warnings: string[]): boolean {
+  return warnings.some((warning) => {
+    const normalized = warning.toLowerCase();
+    return (
+      normalized.includes("context window") ||
+      normalized.includes("exceeds the context window")
+    );
+  });
+}
+
 function normalizeWhitespace(value: string): string {
   return value.replace(/\s+/g, " ").trim();
 }
@@ -231,9 +241,118 @@ function clampConfidence(value: number | null | undefined): number {
   return Math.max(0, Math.min(1, parsed));
 }
 
+function detectAbstractLanguage(value?: string): "en" | "es" | null {
+  if (!value) {
+    return null;
+  }
+
+  const tokens = normalizeWhitespace(value)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .split(/[^a-z]+/i)
+    .filter((token) => token.length >= 2);
+
+  if (tokens.length < 12) {
+    return null;
+  }
+
+  const englishMarkers = new Set([
+    "the",
+    "and",
+    "that",
+    "this",
+    "with",
+    "from",
+    "written",
+    "around",
+    "even",
+    "still",
+    "whether",
+    "which",
+    "community",
+    "study",
+  ]);
+  const spanishMarkers = new Set([
+    "los",
+    "las",
+    "una",
+    "del",
+    "que",
+    "con",
+    "para",
+    "por",
+    "esta",
+    "estos",
+    "entre",
+    "segunda",
+    "investigacion",
+    "metodologia",
+  ]);
+
+  let englishHits = 0;
+  let spanishHits = 0;
+
+  for (const token of tokens) {
+    if (englishMarkers.has(token)) {
+      englishHits += 1;
+    }
+    if (spanishMarkers.has(token)) {
+      spanishHits += 1;
+    }
+  }
+
+  if (englishHits >= spanishHits + 3 && englishHits >= 4) {
+    return "en";
+  }
+
+  if (spanishHits >= englishHits + 3 && spanishHits >= 4) {
+    return "es";
+  }
+
+  return null;
+}
+
 function sanitizePayload(
   payload: OpenAIMetadataPayload,
 ): OpenAIMetadataPayload {
+  const normalizeComparableText = (value: string) =>
+    normalizeWhitespace(value)
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  const stripWrappingPunctuation = (value: string) =>
+    value
+      .trim()
+      .replace(/^[([{]\s*|\s*[)\]}]$/g, "")
+      .trim();
+  const looksLikeEditionStatement = (value?: string) => {
+    if (!value) {
+      return false;
+    }
+
+    const normalized = normalizeComparableText(stripWrappingPunctuation(value));
+    return /(edition|revised|revise?d|edicion|edicion revisada|edicion corregida|ed\b|printing|impresion|reimpresion|\b\d+(st|nd|rd|th)\b|\b\d+\s*ed\b)/.test(
+      normalized,
+    );
+  };
+  const looksLikeKeywordList = (value?: string) => {
+    if (!value) {
+      return false;
+    }
+
+    const normalized = normalizeWhitespace(value);
+    if (!normalized || /[.!?]/.test(normalized)) {
+      return false;
+    }
+
+    const segments = normalized.split(/\s*,\s*/).filter(Boolean);
+    return (
+      segments.length >= 4 &&
+      segments.every((segment) => segment.split(/\s+/).length <= 5)
+    );
+  };
+
   const normalizedYear =
     typeof payload.publishedYear === "number" &&
     payload.publishedYear >= 1600 &&
@@ -241,19 +360,53 @@ function sanitizePayload(
       ? Math.trunc(payload.publishedYear)
       : null;
 
+  const title = payload.title ? normalizeWhitespace(payload.title) : null;
+  let subtitle = payload.subtitle
+    ? normalizeWhitespace(payload.subtitle)
+    : null;
+  let edition = payload.edition ? normalizeWhitespace(payload.edition) : null;
+  let abstract = payload.abstract
+    ? normalizeWhitespace(payload.abstract)
+    : null;
+
+  if (subtitle && looksLikeEditionStatement(subtitle)) {
+    if (!edition) {
+      edition = stripWrappingPunctuation(subtitle);
+    }
+    subtitle = null;
+  }
+
+  if (abstract && looksLikeKeywordList(abstract)) {
+    abstract = null;
+  }
+
+  const normalizedLanguage = payload.language
+    ? normalizeWhitespace(payload.language).toLowerCase()
+    : null;
+  const abstractLanguage = detectAbstractLanguage(abstract ?? undefined);
+  if (
+    abstract &&
+    abstractLanguage &&
+    normalizedLanguage &&
+    (normalizedLanguage === "es" || normalizedLanguage === "en") &&
+    abstractLanguage !== normalizedLanguage
+  ) {
+    abstract = null;
+  }
+
   return {
-    title: payload.title ? normalizeWhitespace(payload.title) : null,
-    subtitle: payload.subtitle ? normalizeWhitespace(payload.subtitle) : null,
+    title,
+    subtitle,
     authors: uniqueStrings(payload.authors ?? []),
     publishers: uniqueStrings(payload.publishers ?? []),
     publishedYear: normalizedYear,
-    edition: payload.edition ? normalizeWhitespace(payload.edition) : null,
+    edition,
     isbn10: payload.isbn10
       ? payload.isbn10.replace(/[^0-9Xx]/g, "").toUpperCase()
       : null,
     isbn13: payload.isbn13 ? payload.isbn13.replace(/[^0-9]/g, "") : null,
-    abstract: payload.abstract ? normalizeWhitespace(payload.abstract) : null,
-    language: payload.language ? normalizeWhitespace(payload.language) : null,
+    abstract,
+    language: normalizedLanguage,
     categories: uniqueStrings(payload.categories ?? []),
     confidence: clampConfidence(payload.confidence),
     notes: payload.notes ? normalizeWhitespace(payload.notes) : null,
@@ -341,18 +494,20 @@ function buildRequestBody(args: {
     "- Do not invent missing fields.",
     "- If unknown, return null (or [] for arrays).",
     "- Keep title/subtitle/authors/publishers in the original document language. Never translate proper nouns.",
+    "- Subtitle must exclude edition/revision statements. If the cover shows 'Title', then a secondary phrase, then '(Second Revised Edition)', the secondary phrase is subtitle and the parenthesized phrase is edition.",
+    "- If the title line already contains a colon, keep the main title and subtitle separated conceptually: title before the colon, subtitle after the colon, unless the text after the colon is itself only an edition statement.",
     "- Keep abstract and categories in the same language as the source pages. Do not translate to English unless the source is English.",
-    "- Only return an abstract when the PDF explicitly contains summary-like content; otherwise return null.",
+    "- Only return an abstract when the PDF explicitly contains summary-like prose. Never use subject headings, keyword lists, tables of contents, or comma-separated topic lists as abstract.",
     "- For edition, extract the exact edition phrase when present (e.g., '1ª edición, noviembre 2005', 'Second edition').",
+    "- If multiple ISBNs appear, return only the ISBN for the current edition shown in the PDF. Ignore ISBNs explicitly marked as previous, earlier, prior, or old editions. If unclear, return null.",
     "- For categories, use concise domain labels from the document language (max 5).",
     "- Keep abstract concise (max 1200 chars).",
     "- For language, return ISO-639-1 when possible (e.g., en, es).",
     "- Confidence must be 0..1 and reflect certainty of the overall extraction.",
   ].join("\n");
 
-  return {
+  const requestBody: Record<string, unknown> = {
     model: args.model,
-    temperature: 0,
     input: [
       {
         role: "user",
@@ -377,6 +532,12 @@ function buildRequestBody(args: {
       },
     },
   };
+
+  if (!args.model.startsWith("gpt-5")) {
+    requestBody.temperature = 0;
+  }
+
+  return requestBody;
 }
 
 async function uploadPdfToOpenAI(args: {
@@ -488,9 +649,11 @@ async function extractMetadataFromBuffer(args: {
 
     const json = (await response.json()) as OpenAIResponseJson;
     if (!response.ok) {
-      warnings.push(
-        `OpenAI request failed: ${json.error?.message ?? response.statusText}`,
-      );
+      const message = json.error?.message ?? response.statusText;
+      if (message.toLowerCase().includes("context window")) {
+        warnings.push("OpenAI context window limit reached.");
+      }
+      warnings.push(`OpenAI request failed: ${message}`);
       return { candidate: null, warnings };
     }
 
@@ -583,6 +746,7 @@ export async function extractMetadataWithOpenAI(args: {
   const shouldRetryWithoutSampling =
     sampledInput.sampled &&
     args.fileBuffer.byteLength <= OPENAI_MAX_FILE_BYTES &&
+    !hasContextWindowWarning(sampledAttempt.warnings) &&
     (hasUnreadablePdfWarning(sampledAttempt.warnings) ||
       !hasCandidateData(sampledAttempt.candidate));
 

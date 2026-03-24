@@ -1,0 +1,1951 @@
+{
+  "version": 2,
+  "generatedAt": "2026-03-24T13:35:21.450Z",
+  "inputDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/800. Literatura",
+  "libraryRootDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef",
+  "directories": [
+    "800. Literatura",
+    "800. Literatura/801. Obras de la literatura",
+    "800. Literatura/808 Oratoria y elocuencia",
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+    "800. Literatura/808 Oratoria y elocuencia/808.2 Discursos",
+    "800. Literatura/808 Oratoria y elocuencia/808.3 Filosofía de la elocuencia",
+    "800. Literatura/808 Oratoria y elocuencia/808.4 Portafolios",
+    "800. Literatura/808 Oratoria y elocuencia/808.5 Videos predicación y elocuencia",
+    "800. Literatura/809. Redacción de ensayos"
+  ],
+  "skippedFiles": [
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/MA.POWER POINT DE ORATORIA SAGRADA.ppt",
+    "800. Literatura/808 Oratoria y elocuencia/808.5 Videos predicación y elocuencia/Banner de una predicaciòn.jpg",
+    "800. Literatura/808 Oratoria y elocuencia/808.5 Videos predicación y elocuencia/PPT del Sermon.pptm",
+    "800. Literatura/808 Oratoria y elocuencia/808.5 Videos predicación y elocuencia/Sermòn en PPT.pptx",
+    "800. Literatura/809. Redacción de ensayos/Elaboracion de citas y Notas.docx",
+    "800. Literatura/809. Redacción de ensayos/Reglas para hacer el Ensayo.docx",
+    "800. Literatura/809. Redacción de ensayos/Writing Seminar Proposal UPL.docx"
+  ],
+  "items": [
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Alighieri, Dante. La divina comedia.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Alighieri, Dante. La divina comedia.pdf",
+      "fileSizeBytes": 12368575,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 444 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI request failed: Your input exceeds the context window of this model. Please adjust your input and try again.",
+          "OpenAI fallback retried with model gpt-4.1 and 6 sampled pages due to context window limits.",
+          "OpenAI input sampled to 6 pages from 444 total pages."
+        ],
+        "metadata": {
+          "title": "INDICE",
+          "subtitle": "",
+          "authors": [
+            "Dante Alighieri"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Asturias, Miguel Ángel. El Señor Presidente.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Asturias, Miguel Ángel. El Señor Presidente.pdf",
+      "fileSizeBytes": 1256171,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 187 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Asturias, Miguel Angel - El Senor Presidente",
+          "subtitle": "",
+          "authors": [
+            "GoGo"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Carta al padre, de Franz Kafka.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Carta al padre, de Franz Kafka.pdf",
+      "fileSizeBytes": 222993,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 30 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - Carta al padre y otros escritos.doc",
+          "subtitle": "",
+          "authors": [
+            "LUCHO"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Cherenfant, Emec. La muerte del carpintero.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Cherenfant, Emec. La muerte del carpintero.pdf",
+      "fileSizeBytes": 2775062,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 1615 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - Emec Cherenfant. La muerte del carpintero.docx",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Defoe, Daniel. Aventuras de Robinson Crusoe.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Defoe, Daniel. Aventuras de Robinson Crusoe.pdf",
+      "fileSizeBytes": 629519,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.6305,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 121 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Las Aventuras de Robinson Crusoe",
+          "subtitle": "",
+          "authors": [
+            "Daniel Defoe"
+          ],
+          "publishers": [
+            "DigiCat"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "eBooket.com",
+          "language": "es",
+          "categories": [
+            "Fiction"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Dumas, Alejandro. El Conde de Montecristo.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Dumas, Alejandro. El Conde de Montecristo.pdf",
+      "fileSizeBytes": 3937298,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 568 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI request failed: Your input exceeds the context window of this model. Please adjust your input and try again.",
+          "OpenAI fallback retried with model gpt-4.1 and 6 sampled pages due to context window limits.",
+          "OpenAI input sampled to 6 pages from 568 total pages."
+        ],
+        "metadata": {
+          "title": "Alejandro Dumas",
+          "subtitle": "",
+          "authors": [
+            "Amparo"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Homero. La Ilíada.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Homero. La Ilíada.pdf",
+      "fileSizeBytes": 1413086,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.6305,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 222 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "La Iliada",
+          "subtitle": "",
+          "authors": [
+            "Homero"
+          ],
+          "publishers": [
+            "Createspace Independent Publishing Platform",
+            "La Editorial Universidad de Puerto Rico",
+            "Porrua"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "eBooket.com",
+          "language": "spa",
+          "categories": [
+            "Literary Criticism"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Homero. La Odisea.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Homero. La Odisea.pdf",
+      "fileSizeBytes": 1333360,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 160 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Los dioses deciden en asamblea el retorno de Odiseo",
+          "subtitle": "CANTO I",
+          "authors": [
+            "Homero"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Kafka, Franz. Metamorfosis.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Kafka, Franz. Metamorfosis.pdf",
+      "fileSizeBytes": 304196,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 37 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "ã",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Luca de Tena, Torcuato. Los renglones Torcidos de Dios.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Luca de Tena, Torcuato. Los renglones Torcidos de Dios.pdf",
+      "fileSizeBytes": 2586566,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 228 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - Luca de Tena, Torcuato - Los renglones torcidos de Dios.doc",
+          "subtitle": "",
+          "authors": [
+            "PfAoR"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Vargas, Mario. La fiesta del chivo.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Vargas, Mario. La fiesta del chivo.pdf",
+      "fileSizeBytes": 1046193,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 396 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - lafiestadelchivo.doc",
+          "subtitle": "",
+          "authors": [
+            "Gerson O. Suárez"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Verne, Julio. 20 mil Leguas Viaje Submarino.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Verne, Julio. 20 mil Leguas Viaje Submarino.pdf",
+      "fileSizeBytes": 996227,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.348,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 366 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "20.000 leguas de viaje submarino - Julio Verne",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Verne, Julio. Cinco Semanas en Globo.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Verne, Julio. Cinco Semanas en Globo.pdf",
+      "fileSizeBytes": 2070384,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.45299999999999996,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 220 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Verne, Julio. Cinco Semanas en Globo",
+          "subtitle": "",
+          "authors": [
+            "DIA"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Verne, Julio. El faro del fin del mundo.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Verne, Julio. El faro del fin del mundo.pdf",
+      "fileSizeBytes": 279317,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 72 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "farofin_mundo",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Verne, Julio. El universo de Julio Verne.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Verne, Julio. El universo de Julio Verne.pdf",
+      "fileSizeBytes": 336616,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.609,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Julio Verne",
+          "subtitle": "",
+          "authors": [
+            "Juan José Dimilta"
+          ],
+          "publishers": [
+            "Ediciones LEA"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "Biography & Autobiography"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Verne, Julio. Miguel Strogoff.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Verne, Julio. Miguel Strogoff.pdf",
+      "fileSizeBytes": 2908480,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.45299999999999996,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 277 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Primera parte",
+          "subtitle": "",
+          "authors": [
+            "DIA"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/801. Obras de la literatura/Verne, Julio. Viaje al Centro de laTierra.pdf",
+      "directoryPath": "800. Literatura/801. Obras de la literatura",
+      "fileName": "Verne, Julio. Viaje al Centro de laTierra.pdf",
+      "fileSizeBytes": 2000196,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 228 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Verne, Julio. Viaje al Centro de laTierra",
+          "subtitle": "",
+          "authors": [
+            "DIA"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Carnegie, Dale. Como Ganar Amigos e Influir sobre las Personas.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Carnegie, Dale. Como Ganar Amigos e Influir sobre las Personas.pdf",
+      "fileSizeBytes": 503218,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.609,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 95 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Resumen de Como Ganar Amigos e Influir Sobre Las Personas de Dale Carnegie",
+          "subtitle": "",
+          "authors": [
+            "Sapiens Editorial"
+          ],
+          "publishers": [
+            "Independently Published"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "spa",
+          "categories": [
+            "Self-Help"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Carnegie, Dale. Como hablar bien en publico.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Carnegie, Dale. Como hablar bien en publico.pdf",
+      "fileSizeBytes": 2117715,
+      "extraction": {
+        "status": "ok",
+        "confidence": 0.8516666666666665,
+        "missingFields": [],
+        "warnings": [
+          "Multiple ISBN candidates were detected in the PDF; current edition ISBN could not be determined locally."
+        ],
+        "metadata": {
+          "title": "Como Hablar Bien En Publico (Autoayuda)",
+          "subtitle": "",
+          "authors": [
+            "Dale Carnegie"
+          ],
+          "publishers": [
+            "Grijalbo"
+          ],
+          "publishedYear": 1998,
+          "edition": "",
+          "isbn10": "9500701553",
+          "isbn13": "9789500701556",
+          "abstract": "Este libro sera su valioso auxiliar porque... Le ensenara como adquirir valor y confianza en sus fuerzas. Le expondra metodos practicos para perfeccionar la memoria. Le explicara como preparaban sus discursos famosos oradores. Le familiarizara con valiosas reglas de trabajo intelectual. Le facilitara la forma de aprovechar la asociacion de ideas. Le aleccionara en la disciplina de los ejercicios vocales. Le hara conocer uno a uno los habituales vicios de diccion. Le confiara los medios de evitar que el auditorio se duerma. Le permitira descubrir los secretos de la buena elocucion. Le hara triunfar en la tribuna y en sus diarias actividades.",
+          "language": "es",
+          "categories": [
+            "Public speaking",
+            "Oratory"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Como Hablar en Publico.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Como Hablar en Publico.pdf",
+      "fileSizeBytes": 67735,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.609,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 13 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Como Hablar En Publico",
+          "subtitle": "",
+          "authors": [
+            "G. Janner"
+          ],
+          "publishers": [
+            "Planeta Pub Corp"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "spa",
+          "categories": [
+            "Public speaking"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Compendio de Elocuencia Sagrada.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Compendio de Elocuencia Sagrada.pdf",
+      "fileSizeBytes": 30456084,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.4685999999999999,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "Unable to sample PDF pages for OpenAI input, using original file. (Failed to parse PDF document (line:7066 col:1435 offset=30282683): Failed to parse invalid PDF object)",
+          "OpenAI request failed: The file you uploaded is badly formatted or corrupted. Please fix the file and try again."
+        ],
+        "metadata": {
+          "title": "Compendio de elocuencia sagrada en cuarenta lecciones",
+          "subtitle": "",
+          "authors": [
+            "Melcior (de Tivissa)"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Crane, James. El sermon eficaz.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Crane, James. El sermon eficaz.pdf",
+      "fileSizeBytes": 1611324,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.5780000000000001,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 277 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Biblioteca Mundo Hispano",
+          "subtitle": "",
+          "authors": [
+            "James D. Crane"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "Ministerios de Predicación y Enseñanza",
+          "language": "es",
+          "categories": [
+            "theology"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Las Mejores Técnicas para Hablar en Público.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Las Mejores Técnicas para Hablar en Público.pdf",
+      "fileSizeBytes": 17578633,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.609,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 22 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Las Mejores Técnicas para Hablar en Público",
+          "subtitle": "",
+          "authors": [
+            "Carlos BRASSEL"
+          ],
+          "publishers": [
+            "Penguin Random House Grupo Editorial"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "spa",
+          "categories": [
+            "Language Arts & Disciplines"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Le Bon, Gustave. Psicologia de las masas.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Le Bon, Gustave. Psicologia de las masas.pdf",
+      "fileSizeBytes": 510571,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 103 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Psicología de las masas",
+          "subtitle": "",
+          "authors": [
+            "SolidWorks"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Lopez, Eire. Retórica Antigua y Moderna.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Lopez, Eire. Retórica Antigua y Moderna.pdf",
+      "fileSizeBytes": 17524188,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.5267142857142857,
+        "missingFields": [
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 38 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "La retórica antigua",
+          "subtitle": "",
+          "authors": [
+            "Lluís Pastor Pérez"
+          ],
+          "publishers": [
+            "Editorial UOC"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": [
+            "Language Arts & Disciplines"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Pantoja, Rafael. 18 secretos Caratula.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Pantoja, Rafael. 18 secretos Caratula.pdf",
+      "fileSizeBytes": 614375,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Pantoja, Rafael. 18 secretos Caratula",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Pantoja, Rafael. 18 secretos PARTE 1.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Pantoja, Rafael. 18 secretos PARTE 1.pdf",
+      "fileSizeBytes": 487220,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 39 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Pantoja, Rafael. 18 secretos PARTE 1",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Pantoja, Rafael. 18 secretos PARTE 2.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Pantoja, Rafael. 18 secretos PARTE 2.pdf",
+      "fileSizeBytes": 739348,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 77 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Pantoja, Rafael. 18 secretos PARTE 2",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Pantoja, Rafael. 18 secretos PARTE 3.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Pantoja, Rafael. 18 secretos PARTE 3.pdf",
+      "fileSizeBytes": 298257,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Pantoja, Rafael. 18 secretos PARTE 3",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Pantoja, Rafael. 18 secretos PARTE 4.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Pantoja, Rafael. 18 secretos PARTE 4.pdf",
+      "fileSizeBytes": 432230,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 32 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Pantoja, Rafael. 18 secretos PARTE 4",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Psicologí­a de las multitudes.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Psicologí­a de las multitudes.pdf",
+      "fileSizeBytes": 62893,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.503,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Psicología de las multitudes",
+          "subtitle": "",
+          "authors": [
+            "Gustave Le Bon"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "Multitudes"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Rubio, Joaquin. Manual de Elocuencia.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Rubio, Joaquin. Manual de Elocuencia.pdf",
+      "fileSizeBytes": 14596985,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 371 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Manual de elocuencia sagrada",
+          "subtitle": "",
+          "authors": [
+            "Joaquim RubiÃ³ i Ors, JoaquÃn RubiÃ³",
+            "Ors"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Zaldívar, Raúl & otros. Antología Oratoria Sagrada.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Zaldívar, Raúl & otros. Antología Oratoria Sagrada.pdf",
+      "fileSizeBytes": 702949,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 83 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "(Microsoft Word - Antolog\\355a de Oratoria Sagrada 1.doc)",
+          "subtitle": "",
+          "authors": [
+            "Raul Zaldivar"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Zaldívar, Raúl & otros. MA. ANTOLOGIA DE ORATORIA SAGRADA.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Zaldívar, Raúl & otros. MA. ANTOLOGIA DE ORATORIA SAGRADA.pdf",
+      "fileSizeBytes": 702949,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 83 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "(Microsoft Word - Antolog\\355a de Oratoria Sagrada 1.doc)",
+          "subtitle": "",
+          "authors": [
+            "Raul Zaldivar"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Zaldívar, Raúl. Fundamentals of preaching and eloquence.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Zaldívar, Raúl. Fundamentals of preaching and eloquence.pdf",
+      "fileSizeBytes": 4598327,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 45 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Zaldívar, Raúl. Fundamentals of preaching and eloquence",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Zaldívar, Raúl. Laboratory 1 Writting sermons.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Zaldívar, Raúl. Laboratory 1 Writting sermons.pdf",
+      "fileSizeBytes": 12914299,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.344,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 40 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Zaldívar, Raúl. Laboratory 1 Writting sermons",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": [
+            "theology"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica/Zaldívar, Raúl. The orator that transcends.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica",
+      "fileName": "Zaldívar, Raúl. The orator that transcends.pdf",
+      "fileSizeBytes": 3559364,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 35 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Zaldívar, Raúl. The orator that transcends",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "en",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.2 Discursos/Discurso de Malala.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.2 Discursos",
+      "fileName": "Discurso de Malala.pdf",
+      "fileSizeBytes": 52242,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Discurso de Malala",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.2 Discursos/Pons, Agustin. Discurso sobre la universidad.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.2 Discursos",
+      "fileName": "Pons, Agustin. Discurso sobre la universidad.pdf",
+      "fileSizeBytes": 8175737,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.46699999999999997,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 69 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Discurso de orden en el Día de la Universidad",
+          "subtitle": "",
+          "authors": [
+            "Manuel Agustín Aguirre"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "Education, Higher"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.3 Filosofía de la elocuencia/Filosofia de la Elocuencia.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.3 Filosofía de la elocuencia",
+      "fileName": "Filosofia de la Elocuencia.pdf",
+      "fileSizeBytes": 898676,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 98 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "FILOSOFÍA de la Elocuencia",
+          "subtitle": "",
+          "authors": [
+            "José Juan Berbel"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.4 Portafolios/Carvajal, Jonathan. Portafolio.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.4 Portafolios",
+      "fileName": "Carvajal, Jonathan. Portafolio.pdf",
+      "fileSizeBytes": 13653724,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 29 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Carvajal, Jonathan. Portafolio",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/808 Oratoria y elocuencia/808.4 Portafolios/Navarro, Mayra. Portafolio.pdf",
+      "directoryPath": "800. Literatura/808 Oratoria y elocuencia/808.4 Portafolios",
+      "fileName": "Navarro, Mayra. Portafolio.pdf",
+      "fileSizeBytes": 711161,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.45299999999999996,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 55 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Navarro, Mayra. Portafolio",
+          "subtitle": "",
+          "authors": [
+            "David Raudales"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/809. Redacción de ensayos/Alvarez, Manuela & otros. Aprender a escribir, escribir para aprender.pdf",
+      "directoryPath": "800. Literatura/809. Redacción de ensayos",
+      "fileName": "Alvarez, Manuela & otros. Aprender a escribir, escribir para aprender.pdf",
+      "fileSizeBytes": 177526,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.32699999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 17 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Alvarez, Manuela & otros. Aprender a escribir, escribir para aprender",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/809. Redacción de ensayos/Badilla, Mayra. El Párrafo.pdf",
+      "directoryPath": "800. Literatura/809. Redacción de ensayos",
+      "fileName": "Badilla, Mayra. El Párrafo.pdf",
+      "fileSizeBytes": 583326,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.348,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Badilla, Mayra. El Párrafo",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/809. Redacción de ensayos/Ballesteros, Dalila. Comunicacion al escribir.pdf",
+      "directoryPath": "800. Literatura/809. Redacción de ensayos",
+      "fileName": "Ballesteros, Dalila. Comunicacion al escribir.pdf",
+      "fileSizeBytes": 219215,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.601,
+        "missingFields": [
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 15 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Redalyc.El lenguaje escrito como canal de comunicación y desarrollo humano",
+          "subtitle": "",
+          "authors": [
+            "Ballesteros Pérez, Dalia Vanessa"
+          ],
+          "publishers": [],
+          "publishedYear": 2016,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "El lenguaje escrito como canal de comunicación y desarrollo humano. Razón y Palabra Ballesteros Pérez, Dalia Vanessa vol. 20, núm. 93, abril-junio, 2016, pp. 442-455 Instituto Tecnológico y de Estudios Superiores de Monterrey Estado de México, México",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/809. Redacción de ensayos/Casasola, Wilmer. Guia para Ensayos UNIVALLE.pdf",
+      "directoryPath": "800. Literatura/809. Redacción de ensayos",
+      "fileName": "Casasola, Wilmer. Guia para Ensayos UNIVALLE.pdf",
+      "fileSizeBytes": 151774,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Casasola, Wilmer. Guia para Ensayos UNIVALLE",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/809. Redacción de ensayos/Ensayo academico.pdf",
+      "directoryPath": "800. Literatura/809. Redacción de ensayos",
+      "fileName": "Ensayo academico.pdf",
+      "fileSizeBytes": 25138,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Ensayo academico",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/809. Redacción de ensayos/Hidalgo, Antonio. Ensayo académico.pdf",
+      "directoryPath": "800. Literatura/809. Redacción de ensayos",
+      "fileName": "Hidalgo, Antonio. Ensayo académico.pdf",
+      "fileSizeBytes": 1398023,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.27299999999999996,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 68 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Hidalgo, Antonio. Ensayo académico",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/809. Redacción de ensayos/Navarro, Mayra. La lucha contra la corrupcciòn no se gana con leyes.pdf",
+      "directoryPath": "800. Literatura/809. Redacción de ensayos",
+      "fileName": "Navarro, Mayra. La lucha contra la corrupcciòn no se gana con leyes.pdf",
+      "fileSizeBytes": 309236,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.294,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        ],
+        "metadata": {
+          "title": "Navarro, Mayra. La lucha contra la corrupcciòn no se gana con leyes",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/809. Redacción de ensayos/Ramirez, Enrique. Manual de Redaccion.pdf",
+      "directoryPath": "800. Literatura/809. Redacción de ensayos",
+      "fileName": "Ramirez, Enrique. Manual de Redaccion.pdf",
+      "fileSizeBytes": 1491316,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.2747142857142857,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 47 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Manual de Redaccion General",
+          "subtitle": "9 libros en un volumen",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/809. Redacción de ensayos/Reyes, Ramonita. Como redactar un Parrado argumentativo.pdf",
+      "directoryPath": "800. Literatura/809. Redacción de ensayos",
+      "fileName": "Reyes, Ramonita. Como redactar un Parrado argumentativo.pdf",
+      "fileSizeBytes": 1022302,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.4403999999999999,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "Only query-based catalog matches were found; continuing to OpenAI to validate the PDF's actual edition and metadata.",
+          "OpenAI input sampled to 12 pages from 29 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Microsoft word 2007",
+          "subtitle": "",
+          "authors": [
+            "Juan Antonio Parrado Guerrero"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/809. Redacción de ensayos/Taller de Ortografia.pdf",
+      "directoryPath": "800. Literatura/809. Redacción de ensayos",
+      "fileName": "Taller de Ortografia.pdf",
+      "fileSizeBytes": 566789,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.474,
+        "missingFields": [
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 84 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Indice",
+          "subtitle": "",
+          "authors": [
+            "Administrador"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    },
+    {
+      "relativePath": "800. Literatura/809. Redacción de ensayos/Tecnicas de Redaccion.pdf",
+      "directoryPath": "800. Literatura/809. Redacción de ensayos",
+      "fileName": "Tecnicas de Redaccion.pdf",
+      "fileSizeBytes": 115824,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.348,
+        "missingFields": [
+          "authors",
+          "publishedYear",
+          "publishers",
+          "categories"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 13 total pages.",
+          "OpenAI request failed: You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF."
+        ],
+        "metadata": {
+          "title": "Microsoft Word - 24.doc",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": []
+        }
+      }
+    }
+  ]
+}

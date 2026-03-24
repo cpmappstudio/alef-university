@@ -1,0 +1,171 @@
+{
+  "version": 2,
+  "generatedAt": "2026-03-14T18:35:47.637Z",
+  "inputDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/00. Generalidades/04. Investigación científica/04.2 El aparato crítico",
+  "libraryRootDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef",
+  "directories": [
+    "00. Generalidades",
+    "00. Generalidades/04. Investigación científica",
+    "00. Generalidades/04. Investigación científica/04.2 El aparato crítico"
+  ],
+  "skippedFiles": [],
+  "items": [
+    {
+      "relativePath": "00. Generalidades/04. Investigación científica/04.2 El aparato crítico/Citas estilo Harvard.pdf",
+      "directoryPath": "00. Generalidades/04. Investigación científica/04.2 El aparato crítico",
+      "fileName": "Citas estilo Harvard.pdf",
+      "fileSizeBytes": 97368,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.5425,
+        "missingFields": [
+          "authors",
+          "publishedYear"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 19 total pages.",
+          "OpenAI note: Título y contenido extraídos directamente de las páginas suministradas. No se encontró autor explícito, año de publicación, edición ni ISBN en las páginas provistas. El publicador se infiere del encabezado 'CDICT-UNIVERSIDAD CENTRAL'. El abstract se obtuvo del apartado INTRODUCCION presente en el documento."
+        ],
+        "metadata": {
+          "title": "Estilo Harvard para las Referencias Bibliográficas",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [
+            "CDICT-UNIVERSIDAD CENTRAL"
+          ],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "Guía sobre el sistema Harvard para incluir referencias bibliográficas en trabajos académicos. Explica el objetivo del sistema (facilitar la redacción de escritos científicos y ofrecer convenciones básicas), y presenta formas de emplearlo en los casos más frecuentes, con ejemplos sobre citas textuales, paráfrasis, referencias dentro del texto y en la bibliografía, así como para distintos tipos de fuentes y soportes electrónicos.",
+          "language": "es",
+          "categories": [
+            "Referencias bibliográficas",
+            "Citas",
+            "Estilo Harvard",
+            "Guía académica"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "00. Generalidades/04. Investigación científica/04.2 El aparato crítico/Pontificia universidad Católica De Chile. Guia para redactar notas de pie de pagina.pdf",
+      "directoryPath": "00. Generalidades/04. Investigación científica/04.2 El aparato crítico",
+      "fileName": "Pontificia universidad Católica De Chile. Guia para redactar notas de pie de pagina.pdf",
+      "fileSizeBytes": 84202,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.6639999999999999,
+        "missingFields": [
+          "authors"
+        ],
+        "warnings": [
+          "No authors found in filename or PDF info dictionary.",
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 33 total pages.",
+          "OpenAI note: Fecha de publicación tomada de la cubierta: Enero 2001. No se identifica autor individual en las páginas provistas; la institución aparece en la cubierta como Sistema de Bibliotecas, Pontificia Universidad Católica de Chile. No aparecen ISBN en las páginas suministradas."
+        ],
+        "metadata": {
+          "title": "GUÍA PARA LA REDACCIÓN DE CITAS BIBLIOGRÁFICAS",
+          "subtitle": "",
+          "authors": [],
+          "publishers": [
+            "Sistema de Bibliotecas, Pontificia Universidad Católica de Chile"
+          ],
+          "publishedYear": 2001,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "Guía que describe los elementos necesarios para redactar citas bibliográficas normalizadas, con ejemplos basados en las normas ISO y APA.",
+          "language": "es",
+          "categories": [
+            "Bibliografía",
+            "Citas bibliográficas",
+            "Normas de citación",
+            "Documentos electrónicos"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "00. Generalidades/04. Investigación científica/04.2 El aparato crítico/The Shortcut Chicago Manual of Style.pdf",
+      "directoryPath": "00. Generalidades/04. Investigación científica/04.2 El aparato crítico",
+      "fileName": "The Shortcut Chicago Manual of Style.pdf",
+      "fileSizeBytes": 629366,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.742,
+        "missingFields": [],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI input sampled to 12 pages from 42 total pages.",
+          "OpenAI note: The cover references Turabian (6th ed.) and Chicago Manual of Style (15th ed.), but no explicit edition statement for this document itself was found. Authors/publisher attributed to the institution names shown on the Statement of Purpose page."
+        ],
+        "metadata": {
+          "title": "The Shortcut",
+          "subtitle": "",
+          "authors": [
+            "Luther Seminary Library",
+            "Luther Seminary Graduate Theological Education",
+            "Luther Seminary"
+          ],
+          "publishers": [
+            "Luther Seminary Library",
+            "Luther Seminary Graduate Theological Education"
+          ],
+          "publishedYear": 2005,
+          "edition": "A Condensed Manual of Style and Guide for Theses and Papers at Luther Seminary",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "Kate L. Turabian’s A Manual for Writers of Term Papers, Theses, and Dissertations, sixth edition (1996), is the recognized manual of style for classroom research papers and theses submitted at Luther Seminary. The purpose of The Shortcut is to point out preferences adopted by Luther Seminary where Turabian gives options, to provide clear and concise guidance for the front matter of theses, and to supply information specific to theological research. Where there are divergences of interpretation between Turabian and this manual, The Shortcut takes precedence. For questions not addressed in Turabian or The Shortcut students may need to consult The Chicago Manual of Style, fifteenth edition (2003). The SBL Handbook of Style provides the standard for transliterating ancient languages, and abbreviations of ancient texts and secondary sources.",
+          "language": "en",
+          "categories": [
+            "style guide",
+            "theses",
+            "citation",
+            "bibliography",
+            "academic writing"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "00. Generalidades/04. Investigación científica/04.2 El aparato crítico/Universidad Carlos III. Como citar bibliografía.pdf",
+      "directoryPath": "00. Generalidades/04. Investigación científica/04.2 El aparato crítico",
+      "fileName": "Universidad Carlos III. Como citar bibliografía.pdf",
+      "fileSizeBytes": 331583,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.7869999999999999,
+        "missingFields": [],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI note: Documento de la Biblioteca UC3M. La última página indica 'Biblioteca UC3M 2012'. No aparece ISBN en las páginas proporcionadas. Contiene licencia Creative Commons Reconocimiento-NoComercial 3.0 España."
+        ],
+        "metadata": {
+          "title": "Cómo citar bibliografía",
+          "subtitle": "Una guía de la Biblioteca de la Universidad Carlos III de Madrid para estudiantes ante su Trabajo de Fin de Grado.",
+          "authors": [
+            "Biblioteca de la Universidad Carlos III de Madrid"
+          ],
+          "publishers": [
+            "Biblioteca UC3M, Universidad Carlos III de Madrid"
+          ],
+          "publishedYear": 2012,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "Nuestro propósito es ofrecer algunas directrices para la elaboración y presentación de citas o referencias bibliográficas, que pueden ser necesarias para utilizarlas en trabajos de estudio o investigación.",
+          "language": "es",
+          "categories": [
+            "Biblioteconomía",
+            "Documentación",
+            "Citación",
+            "Normas bibliográficas"
+          ]
+        }
+      }
+    }
+  ]
+}

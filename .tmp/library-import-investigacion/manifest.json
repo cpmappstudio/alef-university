@@ -1,0 +1,248 @@
+{
+  "version": 1,
+  "generatedAt": "2026-03-14T17:30:56.486Z",
+  "inputDir": "/Users/ulvenforst/Codex/Work/CPM/alef-university/public/books/Biblioteca Alef/00. Generalidades/04. Investigación científica",
+  "directories": [
+    "04.1 La ciencia de la investigación",
+    "04.2 El aparato crítico",
+    "04.3 Como hacer una tesis",
+    "04.4 Locuciones latinas",
+    "04.5 Modelos  para tesis doctorales"
+  ],
+  "skippedFiles": [],
+  "items": [
+    {
+      "relativePath": "04.1 La ciencia de la investigación/Briones, Guillermo. Metodología de la investigación cuantitativa.pdf",
+      "directoryPath": "04.1 La ciencia de la investigación",
+      "fileName": "Briones, Guillermo. Metodología de la investigación cuantitativa.pdf",
+      "fileSizeBytes": 1039674,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.9707499999999998,
+        "missingFields": [],
+        "warnings": [
+          "OpenAI input sampled to 12 pages from 219 total pages.",
+          "OpenAI file upload error: Unexpected token 'u', \"upstream c\"... is not valid JSON",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI note: The document is a methodological text on quantitative research in social sciences by Guillermo Briones, published by ICFES in 2002. It includes detailed chapters on research design, data analysis, and statistical methods. The language is Spanish. No explicit abstract found."
+        ],
+        "metadata": {
+          "title": "Metodología de la investigación cuantitativa en las ciencias sociales",
+          "subtitle": "",
+          "authors": [
+            "Guillermo Briones",
+            "Jimena"
+          ],
+          "publishers": [
+            "Instituto Colombiano para el Fomento de la Educación Superior (ICFES)"
+          ],
+          "publishedYear": 2002,
+          "edition": "",
+          "isbn10": "9589329144",
+          "isbn13": "",
+          "abstract": "modulo3",
+          "language": "es",
+          "categories": [
+            "Metodología de la investigación",
+            "Ciencias sociales",
+            "Estadística",
+            "Educación",
+            "Análisis de datos"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "04.1 La ciencia de la investigación/Celiseo, Rodrigo. Metodología de la investigación cuaderno de trabajo.pdf",
+      "directoryPath": "04.1 La ciencia de la investigación",
+      "fileName": "Celiseo, Rodrigo. Metodología de la investigación cuaderno de trabajo.pdf",
+      "fileSizeBytes": 43543869,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.9849999999999999,
+        "missingFields": [],
+        "warnings": [
+          "OpenAI input sampled to 12 pages from 193 total pages.",
+          "OpenAI file upload error: Unexpected token 'u', \"upstream c\"... is not valid JSON",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI note: Metadata extracted from front matter and introductory pages; content is in Spanish; no explicit edition phrase found; abstract synthesized from introductory text."
+        ],
+        "metadata": {
+          "title": "Metodología de la investigación",
+          "subtitle": "Cuaderno de trabajo",
+          "authors": [
+            "Norma Morlote Samperio",
+            "Rodrigo Celiseo Santamaría"
+          ],
+          "publishers": [
+            "McGraw-Hill Interamericana Editores, S.A. de C.V."
+          ],
+          "publishedYear": 2004,
+          "edition": "",
+          "isbn10": "9701046110",
+          "isbn13": "",
+          "abstract": "Este texto-cuaderno de trabajo es el resultado de la experiencia de los autores, quienes han dedicado varios años a impartir la materia y observar las necesidades de los alumnos y profesores de bachillerato. Es un manual de actividades desprendibles que apoya, de forma práctica y sencilla, los contenidos teóricos de la materia, que pueden abordarse con otros textos relacionados con el tema. Los ejercicios y actividades están diseñados para facilitar la comprensión y el aprendizaje de los conceptos fundamentales que los alumnos aplican a situaciones reales.",
+          "language": "es",
+          "categories": [
+            "Metodología",
+            "Investigación",
+            "Educación",
+            "Ciencias sociales"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "04.1 La ciencia de la investigación/Fichas de trabajo.pdf",
+      "directoryPath": "04.1 La ciencia de la investigación",
+      "fileName": "Fichas de trabajo.pdf",
+      "fileSizeBytes": 97826,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.5855,
+        "missingFields": [
+          "publishedYear",
+          "publishers"
+        ],
+        "warnings": [
+          "No valid ISBN found in PDF binary content.",
+          "OpenAI note: The document contains instructional content on different types of study fichas (notes) used in research and study processes, with examples and guidelines. No explicit bibliographic metadata such as title, authors, publisher, or ISBN is present in the provided pages."
+        ],
+        "metadata": {
+          "title": "Fichas de trabajo",
+          "subtitle": "",
+          "authors": [
+            "ExpeUEW7"
+          ],
+          "publishers": [],
+          "publishedYear": null,
+          "edition": "",
+          "isbn10": "",
+          "isbn13": "",
+          "abstract": "",
+          "language": "es",
+          "categories": [
+            "educación",
+            "investigación",
+            "técnicas de estudio",
+            "fichas de trabajo",
+            "análisis textual"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "04.1 La ciencia de la investigación/Hernández Sampieri, Roberto. Metodología de la Investigación.pdf",
+      "directoryPath": "04.1 La ciencia de la investigación",
+      "fileName": "Hernández Sampieri, Roberto. Metodología de la Investigación.pdf",
+      "fileSizeBytes": 6892025,
+      "extraction": {
+        "status": "ok",
+        "confidence": 0.9693999999999999,
+        "missingFields": [],
+        "warnings": [],
+        "metadata": {
+          "title": "Metodología de la investigación",
+          "subtitle": "las rutas cuantitativa, cualitativa y mixta",
+          "authors": [
+            "Roberto Hernández Sampieri",
+            "Christian Paulina Mendoza Torres"
+          ],
+          "publishers": [
+            "McGraw Hill Mexico"
+          ],
+          "publishedYear": 2023,
+          "edition": "",
+          "isbn10": "6071520312",
+          "isbn13": "9786071520319",
+          "abstract": "\"Esta segunda edición de Metodología de la investigación: Las rutas cuantitativa, cualitativa y mixta es una obra innovadora y completamente actualizada, mucho más gráfica, didáctica, personalizada y multidisciplinaria.ʺ--Back cover.",
+          "language": "es",
+          "categories": [
+            "Research"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "04.1 La ciencia de la investigación/Introducción a la Metodología de la investigación científica.pdf",
+      "directoryPath": "04.1 La ciencia de la investigación",
+      "fileName": "Introducción a la Metodología de la investigación científica.pdf",
+      "fileSizeBytes": 5137498,
+      "extraction": {
+        "status": "needs_review",
+        "confidence": 0.9849999999999999,
+        "missingFields": [],
+        "warnings": [
+          "OpenAI input sampled to 12 pages from 138 total pages.",
+          "OpenAI note: La información fue extraída directamente de las páginas visibles del documento, sin inferencias adicionales."
+        ],
+        "metadata": {
+          "title": "Introducción a la metodología de la investigación científica",
+          "subtitle": "",
+          "authors": [
+            "Edison Damián Cabezas Mejía",
+            "Diego Andrade Naranjo",
+            "Johana Torres Santamaría"
+          ],
+          "publishers": [
+            "Universidad de las Fuerzas Armadas ESPE"
+          ],
+          "publishedYear": 2018,
+          "edition": "Primera edición electrónica. Octubre de 2018",
+          "isbn10": "",
+          "isbn13": "9789942765444",
+          "abstract": "El libro ofrece un aporte al desarrollo de la ciencia mediante un enfoque teórico, epistemológico y práctico de la investigación científica. Contiene cinco capítulos que abordan desde el conocimiento y la investigación, hipótesis, diseño metodológico, población y muestra, hasta la recolección de datos. Está dirigido a estudiantes y profesionales para empoderarse en la investigación científica, incluyendo trabajo empírico e intelectual, con el fin de formar investigadores noveles y facilitar la elaboración y ejecución de proyectos de investigación.",
+          "language": "es",
+          "categories": [
+            "Metodología de la investigación",
+            "Ciencia",
+            "Educación superior",
+            "Técnicas de investigación",
+            "Estadística"
+          ]
+        }
+      }
+    },
+    {
+      "relativePath": "04.1 La ciencia de la investigación/Kothari, C.R. Research Methodology.pdf",
+      "directoryPath": "04.1 La ciencia de la investigación",
+      "fileName": "Kothari, C.R. Research Methodology.pdf",
+      "fileSizeBytes": 2001871,
+      "extraction": {
+        "status": "ok",
+        "confidence": 0.9735999999999998,
+        "missingFields": [],
+        "warnings": [
+          "OpenAI input sampled to 12 pages from 414 total pages.",
+          "OpenAI file upload error: Unexpected token 'u', \"upstream c\"... is not valid JSON",
+          "OpenAI sampled PDF appeared unreadable; retrying once with the full PDF.",
+          "OpenAI note: The metadata is extracted from the visible content of the PDF including title page, preface, contents, and bibliographic references. The edition is taken from the subtitle on the cover page. No abstract is explicitly present in the document. The language is English as per the text. Categories are derived from the subject matter of the book."
+        ],
+        "metadata": {
+          "title": "Research Methodology: Methods and Techniques",
+          "subtitle": "(Second Revised Edition)",
+          "authors": [
+            "C. R. Kothari",
+            "Kothari, C. R."
+          ],
+          "publishers": [
+            "New Age International (P) Limited, Publishers"
+          ],
+          "publishedYear": 1990,
+          "edition": "Second Revised Edition",
+          "isbn10": "",
+          "isbn13": "9788122424881",
+          "abstract": "Management and Commerce,Home Science, Mathematics, Bestsellers, Hotel Management, Statistics",
+          "language": "en",
+          "categories": [
+            "Research",
+            "Statistics",
+            "Methodology",
+            "Social Sciences",
+            "Data Analysis"
+          ]
+        }
+      }
+    }
+  ]
+}

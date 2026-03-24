@@ -1,0 +1,2075 @@
+{
+  "version": 1,
+  "updatedAt": "2026-03-18T18:36:16.138Z",
+  "collectionsByPath": {
+    "00. Generalidades": "n97ecjmaeaafcbz6r301vf9mah82y96p",
+    "00. Generalidades/01. Biblioteca Gredos": "n97bzf9812vz89d5g1dfdmq6b182yy6f",
+    "00. Generalidades/04. Investigación científica": "n978qdtmmk4e8kwycbmbh5bnjx82zvag",
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación": "n975zw6vk1vx100tt97cd3bqh582z3cz",
+    "00. Generalidades/04. Investigación científica/04.2 El aparato crítico": "n97fk309yf94btj6w0t6wtyxnh82zdc2",
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis": "n97a0kv9zmwdt403pt54zhvr6182zwn6",
+    "00. Generalidades/04. Investigación científica/04.4 Locuciones latinas": "n970tv6r89hvwbt6ej3jcckarx82y945",
+    "00. Generalidades/04. Investigación científica/04.5 Modelos para tesis doctorales": "n9797y2f2vdk75w5gd3a4px4x182zrzy",
+    "100. Filosofía": "n97fr7x9dr50gs8qzv7xgpte7d835gt3",
+    "100. Filosofía/100.1 Manuales de filosofía": "n979ws7pa0vwcb752w7s2f5y69835ctg",
+    "100. Filosofía/100.10 Estética": "n9792g4ws6we91kj64zamr94mn8351y5",
+    "100. Filosofía/100.11 Filosofía social": "n9787by0th1dthtx80htfbqv9983402t",
+    "100. Filosofía/100.12Cristianismo y filosofía griega": "n97bqyvw2v8zga1nm65c3s5btn834e0k",
+    "100. Filosofía/100.13 Filosofía y religión": "n970f44t2mgar00gka692bha5x835pqa",
+    "100. Filosofía/100.14 Filosofos y sus obras": "n975t10nx3axk6fz4w20wmdhes835kwh",
+    "100. Filosofía/100.2 Historia de la filosofía": "n973dk4xr9619qby3np798yqvx835v7g",
+    "100. Filosofía/100.2 Historia de la filosofía/100.21 Manuales de historia de la filosofía": "n97a8hqe2wncr6x0qxsjcsp22n835bsd",
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua": "n977e1r160h61n0y52h357wt2s835t7r",
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.1 Pres - sócraticos": "n97dv51er5s696crknx0ndmkad8357g4",
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.2 Sócrates": "n97949aa1taq19kpv2429g173h834cbf",
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.3 Platón": "n97epppk8yd4q6ydr9n6g62369834ht3",
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.4 Aristóteles": "n972g64r6gcb2ga82yq26vt7nh8348hm",
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.5 Epícurios": "n9799zbqe65abdkm8exv6c8kks835qw7",
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.6 Estoicos": "n975xke6bdcdc35d7m1dxay2ah8352xe",
+    "100. Filosofía/100.2 Historia de la filosofía/100.23 Filosofía medieval": "n978x2y3fawk1kag4saf5fpn5x834112",
+    "100. Filosofía/100.2 Historia de la filosofía/100.23 Filosofía medieval/100.23.1 Filosofía medieval": "n97e7fv0xtqmnpd05s657htzzd835jqd",
+    "100. Filosofía/100.2 Historia de la filosofía/100.23 Filosofía medieval/100.23.3 Patrística": "n97er76f6m1tqcdn9enaf5sny5835wx1",
+    "100. Filosofía/100.2 Historia de la filosofía/100.23 Filosofía medieval/100.23.4 Escolastica": "n97725h47gnbe78thk6n8rw0gx83545a",
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna": "n971zyd5yxhyyj97wmvj1y7249834a2x",
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.1 Filosofía moderna": "n972dfn9zyssnf7ec0pnhs0tes834nq8",
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.2 El Renacimiento": "n972f6aqa15rggejfag668g04n8352rg",
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.3 Hegel": "n97cyj55j4mv7y41q3j23z1w0s8345r5",
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.4 Ilustración": "n9707jvs700pthkkscs3rpay058344aq",
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.5 Empiricism": "n977ptvzzwa1v1fypf0h60zz7d834nha",
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea": "n974ymnwpm27awjewfjbjqzgqx834mrp",
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.2 Idealismo": "n976peb7y7f9hpma45j0jhg8dx8356zd",
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.3 Materialismo": "n97840tre6mcyt2mkentqcfr118357cb",
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.4 Nietzche": "n97cn3qmgmmgbg3v0qp6b7vjbd834xq3",
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.5 Existencialismo": "n97cpn3tebaemew9h2q6e07e2h8359m3",
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.6 Fenomenología": "n971y9semnbkdrb8e2tfcwg6hs83528p",
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.7 Agnosticismo": "n973tz0k7c289zvx4pwvczefjs835ysj",
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista": "n975gqfq4raxec1ecqy0z3hcnn834vfh",
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.3 Postmodernismo": "n97cq6h6az0abjz19x987bsn81835dey",
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.4 Gilles Lipovetsky": "n979dsmsr5k2qf7d8dk4ghjs158348xp",
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.5 Relativismo": "n97fvsqmpnvaebxz7963dmbq9d834r03",
+    "100. Filosofía/100.3 Corrientes filosóficas del S XXI": "n97c6w0mtte632hw4a8pp4jx5n834543",
+    "100. Filosofía/100.4 Filosofía de la religión": "n977td0tx9jk5vszsg04j6qv6x834ndp",
+    "100. Filosofía/100.5 Lógica": "n97b936r8w8fkte7nn3w9whwe1835t2a",
+    "100. Filosofía/100.5 Lógica/100.5.2 Manuales de lógica": "n973c8xg76dwrwysk53v03jg5h8352fg",
+    "100. Filosofía/100.5 Lógica/100.5.3. El razonamiento": "n9777tq87ynqc6fyhnr1wn2f95834fd2",
+    "100. Filosofía/100.5 Lógica/100.5.4 Las falacias": "n97erbj5map0b043pp7r0dwgz5835crq",
+    "100. Filosofía/100.6 Epistemología": "n978wyy94rpmpzecb2f88ecn71835cwv",
+    "100. Filosofía/100.7 Metafísica": "n9765hrbbhenx29jhkp4mb44bx834m8y",
+    "100. Filosofía/100.8 Teodicea": "n974en85a3csxx9h2vpc8rrqx9834cnv",
+    "100. Filosofía/100.9 Ética": "n970jrpwjjdqq4bkttcrwa8q9s835yjp",
+    "100. Filosofía/135. Libros por países": "n972vznx6j78qk1dmw1n2pcg8s835mpg",
+    "100. Filosofía/135. Libros por países/135.1 Honduras": "n978dfzsgnhfh6yz71q84f5twd8344mm",
+    "100. Filosofía/150. Psicología": "n97bfjketa3t1sqmm2yjfchcrs834s1x",
+    "100. Filosofía/150. Psicología/150.1 Manuales de psicología": "n9719kwvy8ggyq58g3de3ff55n834a6j",
+    "100. Filosofía/150. Psicología/150.2 Psicólogos y sus teorías": "n9768rmxxgr09ktzt1jjjb62pn834b4s",
+    "100. Filosofía/150. Psicología/150.3 Historia de la Psicología": "n97c6zc6zpm946rvxfq2jf5r71835ptf",
+    "100. Filosofía/150. Psicología/150.4 Mecanismos de defensa": "n97b394abvyy0vmdvmpp3wzs5d83449w",
+    "100. Filosofía/150. Psicología/150.5 Divisiones de la Psicología": "n977hnvkqt2083nn0a7vxzdj3n834r5z",
+    "100. Filosofía/158. Autoayuda e inspiracionales": "n97669rw4eaba2a3vjksk3c5ex834zb9",
+    "100. Filosofía/158. Autoayuda e inspiracionales/158.1 Inspiracionales ": "n974bq6e05jc153t00w59dw07x8357jb"
+  },
+  "items": {
+    "100. Filosofía/100.1 Manuales de filosofía/Bibliografía de Filosofia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28jk5q338mjkhy1t4krw251n8340bq",
+      "bookId": "n1754t73qj5swdfcfa8wdwtckx835jq1",
+      "updatedAt": "2026-03-18T18:28:56.523Z"
+    },
+    "100. Filosofía/100.1 Manuales de filosofía/Carpio, Adolfo. Principios De Filosofia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2c2jmbh8s0ppy370yz8sd26n834gmd",
+      "bookId": "n175pqktqv5br53zvmfamj5bfh8355jx",
+      "updatedAt": "2026-03-18T18:28:57.596Z"
+    },
+    "100. Filosofía/100.1 Manuales de filosofía/Fernández, Salustiano. Historia de la Filosofía.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29tgp46wrdamcsckdj0b4jnn835d9s",
+      "bookId": "n172t5zfy8ngvv2zyn0xcrvq79834g33",
+      "updatedAt": "2026-03-18T18:28:59.083Z"
+    },
+    "100. Filosofía/100.1 Manuales de filosofía/Fernández, Santiago. Curso de Filosofía Elemental.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e82h3d3mkrgfpx3tmdz9hw1834a5j",
+      "bookId": "n172a4nypq12h9hcrgce2rgzed8353v8",
+      "updatedAt": "2026-03-18T18:29:00.028Z"
+    },
+    "100. Filosofía/100.1 Manuales de filosofía/Hicks, Stephen. Introduction to Philosophy 1.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg201tr67ew2e5d5h455y93c5d83555z",
+      "bookId": "n17acmd8pggagpem3st4gs48n1834bp1",
+      "updatedAt": "2026-03-18T18:29:00.952Z"
+    },
+    "100. Filosofía/100.1 Manuales de filosofía/introduction to philosophy.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a6dqre4fmw5ag4er21xgrb18353r3",
+      "bookId": "n176aq3pwt3mk0xx5h9420xxa1834x7q",
+      "updatedAt": "2026-03-18T18:29:02.313Z"
+    },
+    "100. Filosofía/100.1 Manuales de filosofía/Leonidas, Josefo. Los escandalosos amores de los filosofos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a4m7w24gnwsgsse061q6vt9834msw",
+      "bookId": "n17b7psaxgc36gqk720nxr4m31834fr0",
+      "updatedAt": "2026-03-18T18:29:03.283Z"
+    },
+    "100. Filosofía/100.1 Manuales de filosofía/Modern Philosophy.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e278b2qh2fwyv89gx78zrfd8358rv",
+      "bookId": "n17ap7sxhxea7e88ss3fqs1ged834s46",
+      "updatedAt": "2026-03-18T18:29:04.243Z"
+    },
+    "100. Filosofía/100.1 Manuales de filosofía/Payne, W. Russ. An introduction to philosophy.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23nhfxxvwmefwgjs5wp62dcn8354dy",
+      "bookId": "n172a6313571995t4wr6e74g858356gj",
+      "updatedAt": "2026-03-18T18:29:05.334Z"
+    },
+    "100. Filosofía/100.1 Manuales de filosofía/Vaughan, Barry F. Philosophy textbook.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg259gq15gs0s5dmkw5jpmn1ns834gn7",
+      "bookId": "n176ax0dxrf8xb9ezamex1tzh5835mjg",
+      "updatedAt": "2026-03-18T18:29:06.763Z"
+    },
+    "100. Filosofía/100.10 Estética/Aesthectics.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23hxq3ggxymbcdxaexa6qghs8352h4",
+      "bookId": "n177tpmth9tmh5knhh87qe3sv18356tq",
+      "updatedAt": "2026-03-18T18:29:07.812Z"
+    },
+    "100. Filosofía/100.10 Estética/Graham, Gordon. Philosophy arts 3rd edition.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2br0eww0kc2z5j1f0xeg6x2h83510b",
+      "bookId": "n176sy6pw8rbaqcnm2ybjfmmq983432t",
+      "updatedAt": "2026-03-18T18:29:08.666Z"
+    },
+    "100. Filosofía/100.10 Estética/Levinson, Jerrold. Philosophical Aesthetics an introduction.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b4a9w70mr3cydwbpjsvrd4n835dt0",
+      "bookId": "n173q829pkq8nfzrjjt13a71gd835s4d",
+      "updatedAt": "2026-03-18T18:29:09.531Z"
+    },
+    "100. Filosofía/100.10 Estética/Mayo, Stephan. Aesthetics What is art.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f6azawcy5yskb2wh3ddz8t9834pad",
+      "bookId": "n170gztcak11az6zcy45013nkh8349b7",
+      "updatedAt": "2026-03-18T18:29:10.335Z"
+    },
+    "100. Filosofía/100.10 Estética/Sosa, Freddy. Autonomia en la Estética.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e5qcf4d58zmfzdx3d5sdsws834hyn",
+      "bookId": "n171h39c7aprmd2b0jdw0s7mhh834z77",
+      "updatedAt": "2026-03-18T18:29:11.029Z"
+    },
+    "100. Filosofía/100.11 Filosofía social/Social Philosophy.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27j7ezjdn99gqn8avrc2znbs835f6s",
+      "bookId": "n17bm8e6r5zaezh5ymvdbsng2n834kfb",
+      "updatedAt": "2026-03-18T18:29:11.801Z"
+    },
+    "100. Filosofía/100.11 Filosofía social/Stahl, Gerry. Social Philosophy 2.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f1wg96s828b6010s9rba40h835vkz",
+      "bookId": "n172px2zs4c9r2g6sb0k49ta1h834ffk",
+      "updatedAt": "2026-03-18T18:29:12.939Z"
+    },
+    "100. Filosofía/100.11 Filosofía social/Washburn, Phil. Social Philosophy.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg250z6v30d15f7t7x8e7hfbnx83555g",
+      "bookId": "n17fmxzxesxzya25e2jsegn2gx834pq7",
+      "updatedAt": "2026-03-18T18:29:13.880Z"
+    },
+    "100. Filosofía/100.12Cristianismo y filosofía griega/Cristianismo y platonismo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ape4rfenfgygs6b0wrpa2m1834hry",
+      "bookId": "n171ekge7ve59vz937sgwzq685835w61",
+      "updatedAt": "2026-03-18T18:29:14.588Z"
+    },
+    "100. Filosofía/100.12Cristianismo y filosofía griega/Nuñez, Miguel. El Concepto Verdad en Sus Dimensiones Griega y Hebrea [The Concept].pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ddvjpde738c2v468cpj8pz9835jf7",
+      "bookId": "n173p6wydeztpk5gz7yeph61c58350t6",
+      "updatedAt": "2026-03-18T18:29:15.366Z"
+    },
+    "100. Filosofía/100.13 Filosofía y religión/Corona, Nestor. La cuestion de Dios en Heidegger Metafisica pensam.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fb2db2yrxfmmqr0yys7evb98343nm",
+      "bookId": "n1727dzyp56wgdgtts8gt8m0n5835sde",
+      "updatedAt": "2026-03-18T18:29:16.038Z"
+    },
+    "100. Filosofía/100.13 Filosofía y religión/De Anquín, Nimio. Filosofía y religión.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23xz3pbp3036tqgp88943hw58348xp",
+      "bookId": "n179x00br086k7bp4kpzhgzevx8351n4",
+      "updatedAt": "2026-03-18T18:29:17.448Z"
+    },
+    "100. Filosofía/100.13 Filosofía y religión/Flew, Antony. Dios y la filosofia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e18g8da6w14ac3j3htc70ax834st4",
+      "bookId": "n176ygek8g86k5m2wgyyqt1bhh834yv3",
+      "updatedAt": "2026-03-18T18:29:19.894Z"
+    },
+    "100. Filosofía/100.13 Filosofía y religión/Gilson, Étienne. Dios y la filosofia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg270qvhddtnmh8es7rqb3p2c5835ktm",
+      "bookId": "n176406a58pjyj0vxvaz96cw9x835j2q",
+      "updatedAt": "2026-03-18T18:29:21.279Z"
+    },
+    "100. Filosofía/100.13 Filosofía y religión/Hume Diálogos sobre la religión natural.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23n0etsvmczy4wnma9mghff98345mm",
+      "bookId": "n17c1b5faxbaawjt04ekncdsfs835wd0",
+      "updatedAt": "2026-03-18T18:29:22.105Z"
+    },
+    "100. Filosofía/100.13 Filosofía y religión/Iribarne, Julia. Dios en la fenomenología de Husserl.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg286karwpgsea3bgpq5q8npk5834yb7",
+      "bookId": "n17dx2v8ym7fh8fm1tj508xjw98354gd",
+      "updatedAt": "2026-03-18T18:29:22.851Z"
+    },
+    "100. Filosofía/100.13 Filosofía y religión/La verdadera y la falsa religión en la filosofia de Hume.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f4gnrc7tsgxwnxdvqhfc0nh835jre",
+      "bookId": "n178efvtyedz5tw51btkqkn1v1834afg",
+      "updatedAt": "2026-03-18T18:29:23.826Z"
+    },
+    "100. Filosofía/100.13 Filosofía y religión/Lombraña, Julián. Razón ilustrada y agnosticismo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dkb487q5ptpjvev6je7v7ad83574a",
+      "bookId": "n1779aa9dvm7mfd61w1hhw21gh834w1y",
+      "updatedAt": "2026-03-18T18:29:24.764Z"
+    },
+    "100. Filosofía/100.13 Filosofía y religión/Ortiz, Antonio. Los caminos de la increencia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2awqe53xxt82wqqtveb4mcax83584y",
+      "bookId": "n177bz8jh1gdhj7vmky4pjetzd83526e",
+      "updatedAt": "2026-03-18T18:29:25.833Z"
+    },
+    "100. Filosofía/100.13 Filosofía y religión/Pizzy, Matías. Alcanzar a Dios sin Dios.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bq0pqhy0rc5xd8jt6t1v8mx8342vw",
+      "bookId": "n17fde7vh0dtvs968h1ddgg9fh8347z9",
+      "updatedAt": "2026-03-18T18:29:26.585Z"
+    },
+    "100. Filosofía/100.13 Filosofía y religión/Rodríguez, José. El Pensamiento Filosofico Politico de Baruch Spinoza.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20sxqcyn17e22bd7eema8m3h8356fj",
+      "bookId": "n1799x9h4e82my0pfq4k4xrjbh835yh6",
+      "updatedAt": "2026-03-18T18:29:27.654Z"
+    },
+    "100. Filosofía/100.13 Filosofía y religión/Zion, Mark. Baruch of Spinoza. Prophet of a Modern Worldview.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2611x03xa9z8g9rxz52p7pe5835es7",
+      "bookId": "n172s0hsrdht8m2afkg905hygx8352qr",
+      "updatedAt": "2026-03-18T18:29:28.679Z"
+    },
+    "100. Filosofía/100.14 Filosofos y sus obras/Barrio Nuevo, Maria. Vida, Pensamiento y Obra de John Locke.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2eb0rtnajntr3j2fdmzcakr5834909",
+      "bookId": "n1702njthp3q6g919d45w5cwk5834k8z",
+      "updatedAt": "2026-03-18T18:29:29.599Z"
+    },
+    "100. Filosofía/100.14 Filosofos y sus obras/De la clemencia al emperador Nerón.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23sx93npeke4tq0afec2ck7n835g2r",
+      "bookId": "n177y2q8bk7v9dd7vb8mhf18v9835n94",
+      "updatedAt": "2026-03-18T18:29:30.419Z"
+    },
+    "100. Filosofía/100.14 Filosofos y sus obras/Derrida Jacques. De-la-gramatologia-.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24zahvbm27b5y46q60610c61835jra",
+      "bookId": "n170dkwxx9vzk4br32pbpxs6cd835k6w",
+      "updatedAt": "2026-03-18T18:29:32.162Z"
+    },
+    "100. Filosofía/100.14 Filosofos y sus obras/Derrida Jacques. La-diseminacion.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cbsqwt22mhvjv8ymp7q69jd834ejn",
+      "bookId": "n170gpw15tqqy0g2dvyatfskx1834bfs",
+      "updatedAt": "2026-03-18T18:29:34.143Z"
+    },
+    "100. Filosofía/100.14 Filosofos y sus obras/Derrida, J. El fin del libro y el comienzo-de la escritura.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29wbfebqwzx7dh1045cc65ns8351p9",
+      "bookId": "n17bfvrtfmj20e76max61bjfns834zke",
+      "updatedAt": "2026-03-18T18:29:35.061Z"
+    },
+    "100. Filosofía/100.14 Filosofos y sus obras/Descartes, René. El Discurso del Método.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg223z46ppqc8t5dgdbqzkxnk1834xht",
+      "bookId": "n174q5yhx04zhdsrf0yn4t1291835q40",
+      "updatedAt": "2026-03-18T18:29:35.846Z"
+    },
+    "100. Filosofía/100.14 Filosofos y sus obras/Heidegger.Ser y Tiempo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29pghn5yc4zf521d84eyj7c5834v27",
+      "bookId": "n177064689hy5hte38g0wpdxa1835m39",
+      "updatedAt": "2026-03-18T18:29:37.178Z"
+    },
+    "100. Filosofía/100.14 Filosofos y sus obras/Nietzsche, Friedrich. Asi hablo Zaratustra.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg206bgsrdcskygfewd9z4kt658355xw",
+      "bookId": "n17a7v6c6f5c3ynskph7bnjawx835zxt",
+      "updatedAt": "2026-03-18T18:29:38.067Z"
+    },
+    "100. Filosofía/100.14 Filosofos y sus obras/Nontol, L. Perdón en la filosofía de Jaques Derrida.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28jx5v7900g8417w499ba0ts8356t2",
+      "bookId": "n179nksrh9np6xkaggdk1j03fn834t56",
+      "updatedAt": "2026-03-18T18:29:38.963Z"
+    },
+    "100. Filosofía/100.14 Filosofos y sus obras/Séneca, Lucio. La Ira.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22kvmh1hw7wg8whj0f29fejd835k2t",
+      "bookId": "n17ctpta6636fcyk7gy880eqks83403k",
+      "updatedAt": "2026-03-18T18:29:39.957Z"
+    },
+    "100. Filosofía/100.14 Filosofos y sus obras/Voltaire. Tratado sobre la tolerancia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25r3w6dnd5q8ez3f1p199r0h835n30",
+      "bookId": "n17dnpkkw4sy7pwpa8a1e63pq1835jg4",
+      "updatedAt": "2026-03-18T18:29:41.106Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.21 Manuales de historia de la filosofía/Antología de Teologí­a en el pensamiento humano.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cz9fwgvhap8xrst44qx0459834gt2",
+      "bookId": "n17ea9erfmtc6a70fv7088y77d834jyv",
+      "updatedAt": "2026-03-18T18:29:42.198Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.21 Manuales de historia de la filosofía/Bertrand, Russel. History of Western Philosophy.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg266nf3rgam90brra2hded57h835jpx",
+      "bookId": "n17cge2jx2fstd1ktcz9qwk331834vjw",
+      "updatedAt": "2026-03-18T18:29:43.735Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.21 Manuales de historia de la filosofía/Delacampagne, Christian. Historia de la filosofia en el S. XX.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg208kkbpec8bjws77pxvfzmn5834wqe",
+      "bookId": "n17fcp0cd4bnspkbs4ae1xdkfx835nya",
+      "updatedAt": "2026-03-18T18:29:44.917Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.21 Manuales de historia de la filosofía/Grabmann, Martin. Historia de la filosofía medieval.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21c2mm7x4pa31ymt2e0te0v183462s",
+      "bookId": "n170akcje6xtaw7rbfq0s8zd99835h5j",
+      "updatedAt": "2026-03-18T18:29:45.739Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.21 Manuales de historia de la filosofía/Grayling, A. C. The history of philosophy.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ckmx6r2cee4pq8s8x2pg7p98341v0",
+      "bookId": "n17764pwa7f6cygemyv70t29hs8340q7",
+      "updatedAt": "2026-03-18T18:29:46.800Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.21 Manuales de historia de la filosofía/Historia de la Filosofia. Boulesis.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg286dqav3k93r70mf6c6470zh835wph",
+      "bookId": "n1712gam69yr4a42zgjp0q53th834kaw",
+      "updatedAt": "2026-03-18T18:29:47.800Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.21 Manuales de historia de la filosofía/Historia de la filosofia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23k8egp4m3byt418k65b7y6x835332",
+      "bookId": "n17197257tvbn3gef593ssev2d83549w",
+      "updatedAt": "2026-03-18T18:29:48.751Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.21 Manuales de historia de la filosofía/Historia_de_la_Filosofí­a (2).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21sthd6kc3ex9jgqhyv6jrj18345kc",
+      "bookId": "n176msak2mn801fz42thjgrb85835pjy",
+      "updatedAt": "2026-03-18T18:29:49.570Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.21 Manuales de historia de la filosofía/History-of-Philosophy.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26czs4cg3b1pjqahq66bd12h834zfb",
+      "bookId": "n17fk7bzd468z96hwma7rr9q8s834pbz",
+      "updatedAt": "2026-03-18T18:29:53.363Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.21 Manuales de historia de la filosofía/La filosofí­a de la Historia de Ignacio Ellacuria. Universidad Iberoamericana.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bjzgf1sqyfqsv70z67z6ekn8349hh",
+      "bookId": "n1793e040j3vzyf1j9mac17ebx835pkn",
+      "updatedAt": "2026-03-18T18:29:54.032Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.21 Manuales de historia de la filosofía/Sobrevilla, David. Revista de Filosofí­a. Historia de la Filosofí­a Latinoaméricana.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26dra20679nxrw3cxe3eqwjx834ths",
+      "bookId": "n17dagxq4fkajzzb07hmeha3gd8356ff",
+      "updatedAt": "2026-03-18T18:29:54.796Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.21 Manuales de historia de la filosofía/Thilly, Frank. History of philosophy full1.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg289byt4m1w7cw7twzm5nxrr9835zfm",
+      "bookId": "n1794gwmfs5629mqz303yn7mhn8354ty",
+      "updatedAt": "2026-03-18T18:29:57.138Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.21 Manuales de historia de la filosofía/Warburton, Nigel. A little history of philosophy yale university press 2011.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20fr8kzdzazr45q08dh22bsn835tpb",
+      "bookId": "n17eh4fftvan6ge1xyzvxfn941835mvy",
+      "updatedAt": "2026-03-18T18:29:58.148Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.1 Pres - sócraticos/A Presocratics Reader.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20njsfedzk7qnqst73mqsbxd835tsj",
+      "bookId": "n178zym393hne3mrwhvz4v19an835rt9",
+      "updatedAt": "2026-03-18T18:29:59.295Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.1 Pres - sócraticos/Ancient greek philosophy. Part 1.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2feq8q061m9tzh4kzfqea825834r6v",
+      "bookId": "n17c3cgtmxrfrb5v1kdqgxe7nx834j9k",
+      "updatedAt": "2026-03-18T18:30:00.134Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.1 Pres - sócraticos/Fieser, James. Presocratic philosophy.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d0z7xf265cyn8x0yy8ez9v1835v64",
+      "bookId": "n176v7g4h2v2jqsvqv8g6h7z9h835a83",
+      "updatedAt": "2026-03-18T18:30:00.933Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.1 Pres - sócraticos/Guthrie, W.K.C. A history of greek philosophy. Vol 1. Presocratics.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25x3s8wszr6dvcyynrv1db1h834beg",
+      "bookId": "n17bweyfnhe7ss3x2aqhjrkgd9834ezv",
+      "updatedAt": "2026-03-18T18:30:04.273Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.1 Pres - sócraticos/Pre-Socratic Philosophy.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg210zzm6mpra1r7g52f2bfjs1834dvb",
+      "bookId": "n178ed1grfc0tdd3mczsmmpwmh834cdj",
+      "updatedAt": "2026-03-18T18:30:05.100Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.1 Pres - sócraticos/Rojas, Caty. Los presocraticos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d340k2a203jwzr02qahydbd834g6b",
+      "bookId": "n175t84q2618ajppsqqz44ctgx835967",
+      "updatedAt": "2026-03-18T18:30:05.991Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.1 Pres - sócraticos/Roochnik Retrieving the ancients sample chapter.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg248gyqp6241dnmyd5avsxb41835ywn",
+      "bookId": "n175kyen22g0w0k21mjfj73vvd834qag",
+      "updatedAt": "2026-03-18T18:30:06.875Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.1 Pres - sócraticos/The Presocratic Philosophers and Socrates. Cambridge University.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23md2pd9fm1phzhr5e6p8jxh835pmg",
+      "bookId": "n177qxhw0tbrzwjpesx0apcysx834n7s",
+      "updatedAt": "2026-03-18T18:30:07.799Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.1 Pres - sócraticos/The presocratic philosophers.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a7p67drmdwsyg8m802s9481834bg5",
+      "bookId": "n1743fth8tbsz657kkntmhfet9835emn",
+      "updatedAt": "2026-03-18T18:30:10.354Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.2 Sócrates/Paukner, Fraño. Sócrates y la filosofía griega.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25b15mj2cbc0q5j5v0vd0yrn8347xg",
+      "bookId": "n176w3f0q9bkffz5axyzwmfw79834633",
+      "updatedAt": "2026-03-18T18:30:11.084Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.2 Sócrates/Solana, José. Pensamiento político de Sócrates.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22gdhy5f2xejfwkqezh2xn1d8351z9",
+      "bookId": "n170yep4hqvt8dj3f8dfd1wkhn834nzy",
+      "updatedAt": "2026-03-18T18:30:11.992Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.2 Sócrates/Zubiri, Xavier. Sócrates y la sabiduría griega.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2198gykc9bst6qxy9j9c9p4h835kz8",
+      "bookId": "n178h64qcf7hh61z4vhf9ry2zn835vq8",
+      "updatedAt": "2026-03-18T18:30:13.124Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.3 Platón/Diálogos III de Platón.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ed12wjt7r4grjdvxxvysqp58343db",
+      "bookId": "n176g2svgahbp3fka6se37vee9834t2c",
+      "updatedAt": "2026-03-18T18:30:15.315Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.3 Platón/Fernández, Manuel. La República.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22z28rwn19gkbqr4pghm5yd9834rw0",
+      "bookId": "n17014t59pcr610pwqdxagbh9s834t7d",
+      "updatedAt": "2026-03-18T18:30:16.328Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.3 Platón/La República. Universidad Nacional de General San Martín.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ayk5pg5hzjh5c2vh9p478b18350vp",
+      "bookId": "n175dn7pdna7wmmvwtwb9qv5q58344s4",
+      "updatedAt": "2026-03-18T18:30:17.224Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.3 Platón/Morla, Rafael. El_pensamiento_de_Platón.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg264dfbd566qyj287ty6q36p583531v",
+      "bookId": "n17frz8gp9jvxym9df2ja0vkvh83402g",
+      "updatedAt": "2026-03-18T18:30:18.140Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.3 Platón/Platon 1.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27vs1hcjdxwspnzavkt4x8b9835kwf",
+      "bookId": "n17cpeteqtm8sftdjjtnbyyy5s834vv8",
+      "updatedAt": "2026-03-18T18:30:19.163Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.3 Platón/Platon Apologia de Socrates.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27zn7nkg6v7gm6s16pwseekx834rtg",
+      "bookId": "n178ygn8ydpb0xt4014pvq9kqh834fdd",
+      "updatedAt": "2026-03-18T18:30:20.105Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.4 Aristóteles/Aristoteles Acerca del alma. Gredos. Traducción Tomas Calvo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg293amqdf96cyyfct8y6krng18357zc",
+      "bookId": "n17bekz2701rdrbqddnjw424ph8351e9",
+      "updatedAt": "2026-03-18T18:30:21.238Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.4 Aristóteles/Aristoteles Etica a Nicomaco. Biblioteca Eudemia Gredos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27zbdk9ysetp88zva5msx08n835j31",
+      "bookId": "n17d998e5vfbk7mq99jqcy5k29834pyw",
+      "updatedAt": "2026-03-18T18:30:23.509Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.4 Aristóteles/Aristóteles.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dvhwpqg982kbg5f5esad065835gv2",
+      "bookId": "n17ezcccz88byttdd2gpsfjze5834a05",
+      "updatedAt": "2026-03-18T18:30:24.591Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.4 Aristóteles/Blanco, Carmelo. La filosofía de Aristóteles un pensamiento de actualidad.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21ampfkaebm0z525ef9243jh834c7x",
+      "bookId": "n17aq4rwsbasfke9xgpg8vkr2x835e3h",
+      "updatedAt": "2026-03-18T18:30:25.357Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.4 Aristóteles/Ética a Nicómaco.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20939ajprb7rafvbb11vspb1834gm5",
+      "bookId": "n17fp37tqjk74a8cmhq69c1hnh8351ej",
+      "updatedAt": "2026-03-18T18:30:26.041Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.4 Aristóteles/García, Valentín. Aristóteles Metafísica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d6815kjcmeevqjg4ny5v9g1834s3p",
+      "bookId": "n17845xzhtw1k4vrj24p3p1vrs8353cn",
+      "updatedAt": "2026-03-18T18:30:26.932Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.4 Aristóteles/La filosofía de Aristóteles Vol 1.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25g03hata6233wvg85enmx3n8344ew",
+      "bookId": "n17empkt9698nzhkrs4msbnyn9834ff7",
+      "updatedAt": "2026-03-18T18:30:27.739Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.4 Aristóteles/Riera García, María C. Aristóteles Acerca del Alma.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2emrsd7qnwthmrqs1vp8z22s834hmh",
+      "bookId": "n1746v8tjngr5r0hbbnv4w2vkh8342dm",
+      "updatedAt": "2026-03-18T18:30:28.373Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.4 Aristóteles/Salgado, Sebastián. Pensamiento de Aristóteles.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e3kvy5vt1hmtdyw4t5zqp11834j4d",
+      "bookId": "n177ydxnzv1kw17ywzhxwjg82h835wgr",
+      "updatedAt": "2026-03-18T18:30:29.298Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.5 Epícurios/Dissertatio Filosofía. Determinismo, responsabilidad y acción en el estoicismo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bs8xcm283hc6wexr07mr2xs835kkj",
+      "bookId": "n17dxs09r481djjy1knyvwj7ph8348w8",
+      "updatedAt": "2026-03-18T18:30:30.226Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.5 Epícurios/Epicurus on Pleasure, a Complete Life, and Death A Defence.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg276rx4kq2d4jx6dmx6m2krr18344y2",
+      "bookId": "n17b7wfk4ee4f1xqpr77p85z0x834y77",
+      "updatedAt": "2026-03-18T18:30:31.031Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.5 Epícurios/Nava, Mariano. Epicureos Vs Estoicos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29km9vr59ezxvw9j6eswfjv1835ey4",
+      "bookId": "n17cnbqkazymh6jxkfrqztxm89834rha",
+      "updatedAt": "2026-03-18T18:30:32.066Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.5 Epícurios/O'Keefe, Tim. Epicureanism.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2br4kdgbtdc40j6xkvj7fbwh8343gr",
+      "bookId": "n17dgdq7hx7aw1wzx5z5gbayy1835p2h",
+      "updatedAt": "2026-03-18T18:30:33.005Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.5 Epícurios/Principal Doctrines of Epicureos. Translated by Erik Anderson.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26zt457spbqnhxnbfpmsgt7h8349cv",
+      "bookId": "n177jmnq38hc240gyx4wc9p6s9835ms4",
+      "updatedAt": "2026-03-18T18:30:33.807Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.5 Epícurios/Rodríguez, Marcelino. Epicureo y Estoicos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25p3rxc590qzweq324fn5thn835mq0",
+      "bookId": "n17bgbx1tw3ddfcxp1hps5xdxn835fap",
+      "updatedAt": "2026-03-18T18:30:34.935Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.5 Epícurios/Sánchez, Javier. Tesis Epicureo y Cristianismo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2996z28qr7zm0zbq8t0at1ns835fkg",
+      "bookId": "n17bqf6tfsegheb9ggyfg24m41834gq1",
+      "updatedAt": "2026-03-18T18:30:36.060Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.5 Epícurios/Vara, José. Epicuro Obras completas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2akcvanmgemp8mt44c7gd8cs834xtn",
+      "bookId": "n17bcfgkmn3jznxwbpxr6ssqkd8340az",
+      "updatedAt": "2026-03-18T18:30:37.382Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.6 Estoicos/Cappelletti, Ángel J. Los estoicos antiguos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25230669hzvt45ssp2rj1ads835jnp",
+      "bookId": "n17f2brde12k0be94mwx5hr8nd834apd",
+      "updatedAt": "2026-03-18T18:30:39.131Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.6 Estoicos/Hedahl, Marcus. Stoic handbook.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ec2jzmm989sncmkvwd8jf89835mpm",
+      "bookId": "n17eqtr0bz3sja9g6rdgcyrj5s834y0k",
+      "updatedAt": "2026-03-18T18:30:40.051Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.6 Estoicos/Salles, Ricardo. Determinismo estoico.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2c5593bvgmypp1m5hc96nr7h8356nv",
+      "bookId": "n17bj08xwcc7wmz2hyds7eq6w9834f2d",
+      "updatedAt": "2026-03-18T18:30:41.181Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.6 Estoicos/Salzgeber, Jonas. The Little Book of Stoicism.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26me8tm8hpwe8559khgrdbh98353tg",
+      "bookId": "n17bh1jfw9c76dw5wmy7nn8yys835wg5",
+      "updatedAt": "2026-03-18T18:30:42.307Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.23 Filosofía medieval/100.23.1 Filosofía medieval/Historia de la Filosofí­a Medieval (2).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21f2v5zrrdz8bcstv7tbtzns835063",
+      "bookId": "n17f0q27bm51vq29vhn6z6221n834m1p",
+      "updatedAt": "2026-03-18T18:30:43.435Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.23 Filosofía medieval/100.23.1 Filosofía medieval/Historia de la Filosofia Medieval.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg262fx9bsw2pck510redsdqy9835bzc",
+      "bookId": "n171n64m9qkf058ka2zhxbxzed8345rv",
+      "updatedAt": "2026-03-18T18:30:44.344Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.23 Filosofía medieval/100.23.3 Patrística/Cuadro de la Patristica. Padres occidentales (padres latinos) s. IV-VII.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ba6yffv5bd7fwrdgxq4zhc9834fcx",
+      "bookId": "n173bwxq67cey44vs8sssndm0d8347xk",
+      "updatedAt": "2026-03-18T18:30:45.074Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.23 Filosofía medieval/100.23.3 Patrística/Patristica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dxv1hhx1qtewxjje626v5nh8340aj",
+      "bookId": "n174tw50cgxyv9ft9t550qmtfn8357fy",
+      "updatedAt": "2026-03-18T18:30:45.950Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.23 Filosofía medieval/100.23.4 Escolastica/La Escolastica. Historia de la Filosofía Medieval.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28fbxgp6x7skmbr1z02kp329835amq",
+      "bookId": "n1794x13q5nps8vcmgvwvp818h8341js",
+      "updatedAt": "2026-03-18T18:30:47.296Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.23 Filosofía medieval/100.23.4 Escolastica/Ramírez, Rómulo. Maimónides y su racionalismo religioso.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2541xdfnvfwcmpwjzh5ct4bh835tbt",
+      "bookId": "n177w7qzvkwqccfh5hd19a1kch834p9z",
+      "updatedAt": "2026-03-18T18:30:48.142Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.1 Filosofía moderna/Introducción a la Filosofía Moderna.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg268zj4e5dmndm4gavwd28z8n835104",
+      "bookId": "n1784ctvq3nnnneymmqr9fxew5835qq0",
+      "updatedAt": "2026-03-18T18:30:49.065Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.1 Filosofía moderna/Vernea, Roger. Filosofía moderna.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21fdbrqwabxc68zbmgxcsc5d834tmh",
+      "bookId": "n17cxehd9zgh2vf6pcttbqwx7x834293",
+      "updatedAt": "2026-03-18T18:30:50.125Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.2 El Renacimiento/El renacimiento.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b8fwwydbyrd16qkbacsk9sx8345s1",
+      "bookId": "n175hdp9hs7zhxqwd2byazbjvn835hmh",
+      "updatedAt": "2026-03-18T18:30:51.215Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.3 Hegel/Souvirón, José. Hegel Y La Teologia Liberal.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cw9p7x5vd9n6sswjd7kwyvh835k79",
+      "bookId": "n174c9hftbbwrgcw6xzjs1mya5835f66",
+      "updatedAt": "2026-03-18T18:30:52.036Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.4 Ilustración/Falgueras, Ignacio. Ilustracion.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2402rmcc7zkah5k6t1fk80658347fw",
+      "bookId": "n176jg9q56ks6t31zm0f7t37ns834wnc",
+      "updatedAt": "2026-03-18T18:30:52.854Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.4 Ilustración/La Ilustración (2).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fwwnzxxdbvyv9hdqp3wgc5d834frs",
+      "bookId": "n1775k0w56c4m0dreqkgwnynq9835spk",
+      "updatedAt": "2026-03-18T18:30:53.595Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.4 Ilustración/La Ilustración.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f45ce1ecpqca8j615s2zspn834szb",
+      "bookId": "n17bn3xm78sm8c1sphq3xgj5vd835mah",
+      "updatedAt": "2026-03-18T18:30:54.556Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.4 Ilustración/Terol, Gabriel. Influencia oriental en el pensamiento occidental.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg272s5ezf7bfnka0wvn5gat5x834fsq",
+      "bookId": "n173q7nrk97np9d085p1cvxmcx834qr3",
+      "updatedAt": "2026-03-18T18:30:55.550Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.5 Empiricism/History empiricism.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29mqe8hn1wwax7q5qtc1szy5834nkc",
+      "bookId": "n176xq9qhcnhs3cdwj9mfhzvt5834dvm",
+      "updatedAt": "2026-03-18T18:30:56.419Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.5 Empiricism/Hossain, Anayet. A Critical Analysis of Empiricism.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21ders52mcz73m4r41g13hy5834stx",
+      "bookId": "n177bk1wmnmrpmk8kk7a6t7855835kqn",
+      "updatedAt": "2026-03-18T18:30:57.360Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.2 Idealismo/El idealismo Alemán.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg251pkceqzbe2g4a2p8jrqzbd834cav",
+      "bookId": "n1786f1qy4ge1jbn3nytmfcg51835ngj",
+      "updatedAt": "2026-03-18T18:30:58.116Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.2 Idealismo/Filosofía clásica Alemana.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg229564xceambhbyp8gptsh21835sbt",
+      "bookId": "n171w1n7xx3gnw7hssxhtk83r5835psn",
+      "updatedAt": "2026-03-18T18:30:59.511Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.2 Idealismo/González, Luis. Fundamentos de la Filosofía Idealista.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2avzpphzsc69zdtam0p336td835h82",
+      "bookId": "n170zrmd72xhfr3883bf3cmvp9834khh",
+      "updatedAt": "2026-03-18T18:31:00.843Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.2 Idealismo/Kant, Immanuel. Crítica a la Razón Pura.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22x07cye24xc45058azb7409834j08",
+      "bookId": "n17cpssy39ppejb2fswjt612x9835j8z",
+      "updatedAt": "2026-03-18T18:31:01.971Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.2 Idealismo/Verneaux, Roger. Idealismo Alemán.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg257h2gh8d9ss1ajpmzmwrkvd834w59",
+      "bookId": "n172v3k3t36z6t7ajh27c57shx834rkr",
+      "updatedAt": "2026-03-18T18:31:02.835Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.3 Materialismo/Materialismo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21kwgqv3sxf6dh11kzh7wxrn83564s",
+      "bookId": "n17dt4rvyr29vwmf040ac1xz3s8349m4",
+      "updatedAt": "2026-03-18T18:31:03.636Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.3 Materialismo/Yahot, O. Qué es el materialismo dialéctico.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29hmq0npvyfmkzw1z1ydzg85835vek",
+      "bookId": "n17ezfedm0dfy419xfg1jbxz4x835q6h",
+      "updatedAt": "2026-03-18T18:31:05.381Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.4 Nietzche/Cybulska, Eva. Nietches superman.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27qy6jcff2s7s8cyh1sskb59834ex9",
+      "bookId": "n17eqq5dvz9ftyd6cq3k73njmn835zdw",
+      "updatedAt": "2026-03-18T18:31:06.267Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.4 Nietzche/Friedrich Nietzsche.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23nn6src0227cafbdnhjcf158358k7",
+      "bookId": "n176bk90btn9kw7ajsezj7v7ps834v9r",
+      "updatedAt": "2026-03-18T18:31:07.191Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.4 Nietzche/Langford, Carol. God is dead nietzsche.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a32nwk7va6ecwvvwpcvvqs5835z05",
+      "bookId": "n171q2ahs9er9hbs61fv090rgn834nge",
+      "updatedAt": "2026-03-18T18:31:08.008Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.4 Nietzche/Nietzsche, Friedrich. Asi hablo Zaratustra.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24sgb7dy0mqncvykh0pmg2a9835j0m",
+      "bookId": "n17e5k18xp9tpz748m1731b4ah835khq",
+      "updatedAt": "2026-03-18T18:31:09.032Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.4 Nietzche/Nietzsche, Friedrich. La gaya ciencia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg226bjhbqtmpvjfr0ye6ne4ax834vck",
+      "bookId": "n1751f0t83qvfvtczzx17w2gk583594e",
+      "updatedAt": "2026-03-18T18:31:10.217Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.4 Nietzche/Who is the “God” Nietzsche denied-.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cn3nk3q9gmr2qqv87gxgtxh834r2e",
+      "bookId": "n174djnhgjmvgdvw6031ec3jad8344x3",
+      "updatedAt": "2026-03-18T18:31:10.983Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.5 Existencialismo/Arias, Mariano. Sartre S. XXI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20d9qtp38x3z63wdng2n65a98354zq",
+      "bookId": "n172076dtr9qwfs21thwm4d1ah835jqm",
+      "updatedAt": "2026-03-18T18:31:11.901Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.5 Existencialismo/Existencialismo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bd3yk574gdawdmf9tzq8sq9834fws",
+      "bookId": "n174e45werc9ks59yv4ejysj9s835rds",
+      "updatedAt": "2026-03-18T18:31:12.730Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.5 Existencialismo/JEAN PAUL SARTRE- THE MYSTICAL ATHEIST.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b18tabne9rcxq1rw69edjad834skz",
+      "bookId": "n1763wph51wmcv2kshv348r2zn835p69",
+      "updatedAt": "2026-03-18T18:31:13.458Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.5 Existencialismo/Lisson, Steven. Sartre's Conception of God.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29xfg6zqsx6fsynrsfhr1x1h835hbc",
+      "bookId": "n17c0r1j7z0y1fa8tqerqq4y458351rh",
+      "updatedAt": "2026-03-18T18:31:14.718Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.5 Existencialismo/Marosan, Peter. Husserls Peculiar Argument for the Exist.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2da7236ergdgbbsgd6ymrawh8340j1",
+      "bookId": "n17249rcb8619qqfdkf313ebcs834k53",
+      "updatedAt": "2026-03-18T18:31:15.418Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.5 Existencialismo/Moser SK's Conception of God final.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cn3adz4cv8azpj6gt8ex3sx834c7f",
+      "bookId": "n179rnxbznwwdn69ybnmxh9w39834dab",
+      "updatedAt": "2026-03-18T18:31:16.139Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.5 Existencialismo/Robles, Enrique. Introduccion al existencialismo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2c46pp7ax933es88tf2yvkwd835xve",
+      "bookId": "n17b86678zmtrm5qpgfm38v1q9835g5m",
+      "updatedAt": "2026-03-18T18:31:17.019Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.6 Fenomenología/Yáñez, Ángel. Historia Fenomenológica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg244zcqzmvcb6r4vxwvttzdps834ckf",
+      "bookId": "n175waydcp43axg63jsmpb9j09835ssv",
+      "updatedAt": "2026-03-18T18:31:17.734Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.7 Agnosticismo/Ortiz, Antonio. El agnosticismo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cpkymjt86h50hd1n5jhfwp1834qy3",
+      "bookId": "n177wt3w1swqvthyapteh594wd8354y9",
+      "updatedAt": "2026-03-18T18:31:18.759Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.3 Postmodernismo/Callinicos, Alex. Contra el postmodernismo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg266qzrzpz5e2363bbmy49xe5834pza",
+      "bookId": "n17atb54ksw479pdry0gh7ybrd834fq3",
+      "updatedAt": "2026-03-18T18:31:19.782Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.3 Postmodernismo/Carmelo, Alfredo. Bogotá Genesis y apoteosis del postmodernismo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25t34n0rb6k68wz2gzgsf5g5835dme",
+      "bookId": "n17dganh3ewen7ppw74s7jy36d834pp8",
+      "updatedAt": "2026-03-18T18:31:20.543Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.3 Postmodernismo/Gómez, Joan. La moda y clase social en la era de consumo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a9b0skzq3fdkmr62mcz3bjs8350nh",
+      "bookId": "n17fx3608wnw8nafr8ek5asyrx834q9k",
+      "updatedAt": "2026-03-18T18:31:21.627Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.3 Postmodernismo/Kennedy, Aaron. The Post modernism Condition.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26qt0prwpa7xdkgzz7gn2qts834hrf",
+      "bookId": "n17by73h6zmrmah55n2erzct1d834f7e",
+      "updatedAt": "2026-03-18T18:31:22.447Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.3 Postmodernismo/Lyotard, Jean. Postmodern Condition.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ddzevf6a79t39jkzfjnn8sd835xh4",
+      "bookId": "n170fawc5dbyqtk0bmwh7z0n79834rd4",
+      "updatedAt": "2026-03-18T18:31:24.144Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.3 Postmodernismo/Lyotard, Jean. Que es lo posmoderno.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28w9mzax9pgmv14mpkwzz4pd835ra3",
+      "bookId": "n1795e9r7qqt019jb7y2f72vyx834t7b",
+      "updatedAt": "2026-03-18T18:31:24.896Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.3 Postmodernismo/Martínez, José. El hombre postmoderno.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b02jxh0avmb4e99me32hj3x835e4q",
+      "bookId": "n17308tnhkz6ed7xxfwsp9w4n183453n",
+      "updatedAt": "2026-03-18T18:31:25.933Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.3 Postmodernismo/Oliveria, Jefferson. The On And Off Of Faith Inhypermodernity Religion And The New Interfaces Of The Sacredin The Media Era.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26qa5xs31b1kyctrfrbt307x835j3a",
+      "bookId": "n17041gh8he4wd80cpa80xeh11834yt1",
+      "updatedAt": "2026-03-18T18:31:26.955Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.3 Postmodernismo/Pallares, Enrique. Crí­tica al postmodernismo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg285jv7v41bwq1by97w9k9sth835ne9",
+      "bookId": "n174wcr0gg1w6699gx71e7f5r5834d4x",
+      "updatedAt": "2026-03-18T18:31:28.079Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.3 Postmodernismo/Un ejemplo de pensamiento postmoderno.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20120ff5009jbrsjqbvqwf15834sbx",
+      "bookId": "n17442rvkxx4g5c4f1x3r009hd83575b",
+      "updatedAt": "2026-03-18T18:31:28.893Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.4 Gilles Lipovetsky/ Lipovetsky, Gilíes. La Era del Vacio. Ensayos sobre individualismo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2edhc3wss4md0pak6wtw8s2s835jg9",
+      "bookId": "n172bn5262m0dnrv4yy44knv218348ex",
+      "updatedAt": "2026-03-18T18:31:30.453Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.4 Gilles Lipovetsky/La Era del Vacío de Gilles lipovetsky. Una Visión de Nuestro Tiempo una Versión de Posmodernismo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2czq5fvwsjbcq7a7ax3ewhr9834ma7",
+      "bookId": "n178byerwr0zfat8m4gsme254s8357hx",
+      "updatedAt": "2026-03-18T18:31:31.328Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.4 Gilles Lipovetsky/Lipovetsky, Gilles. L’ère du vide.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ejv5zf53gzxktcw2czvfhkx834b6r",
+      "bookId": "n178zt5hc4vghzztzjv2pxf76h8359qw",
+      "updatedAt": "2026-03-18T18:31:32.279Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.4 Gilles Lipovetsky/Lipovetsky, Gilles. Los tiempos hipermodernos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25trq5ztxjh7zaf62awz671d834a8n",
+      "bookId": "n172v9h8q9z53t1mjnscak8m918353ag",
+      "updatedAt": "2026-03-18T18:31:33.290Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.4 Gilles Lipovetsky/Lipovetsky. Del vacio a la Hipermodernidad.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27q9j9yjm9rpqw0mm3sa6h1d8341s3",
+      "bookId": "n1780h874a3assv3ndm20hbjqd8351v6",
+      "updatedAt": "2026-03-18T18:31:34.082Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.4 Gilles Lipovetsky/Quintero, Raúl. Gilles Lipovetsky. Una sociologí­a del presente.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24y4ptetpyx333mt00wasbch834jzj",
+      "bookId": "n1719ap6n6695zrdt993r9gvq9834ahy",
+      "updatedAt": "2026-03-18T18:31:34.896Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.4 Gilles Lipovetsky/Quintero, Raúl. Gilles Lipovetsky. Una_sociología del presente.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23ykgb8y0fh3nbm584k6qbt5834ggb",
+      "bookId": "n170c5r18z86tj4ecma682pqj1834fns",
+      "updatedAt": "2026-03-18T18:31:36.194Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.4 Gilles Lipovetsky/Sánchez, Silverio. Comentarios a las tesis de Gilles Lipovetsky.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20t96kdzrz9j66bb1nsbxmh5834ver",
+      "bookId": "n178frq71154ys24v1rbq0ndxs834cfb",
+      "updatedAt": "2026-03-18T18:31:37.889Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.4 Gilles Lipovetsky/Tamés, Enrique. Del Vacio a la Hipermodernidad.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b77yfmh86yswb0sn0gggb49834zy5",
+      "bookId": "n17fhvzbjq79jrhadky9pxdvys835yt2",
+      "updatedAt": "2026-03-18T18:31:39.235Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.5 Relativismo/Arellano, José. Relativismo y postmodernidad.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg297gpnfm9pmg9h3vqb52tm8d83565y",
+      "bookId": "n1782nc6fbw4tkat65fvqtbjgn834sf3",
+      "updatedAt": "2026-03-18T18:31:40.122Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.5 Relativismo/Donadío, María. Relativismo y postmodernidad.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2aa80zmpbhx83ja8yra1e1z5834haj",
+      "bookId": "n17a11abwttsxsrthwsp46t285835s0m",
+      "updatedAt": "2026-03-18T18:31:41.519Z"
+    },
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.5 Relativismo/Ibáñez, Eduardo. Relativismo y verdad en la cultura filosófica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2egdx2j0pt3nqj0rg2xfshjx835s20",
+      "bookId": "n17b5260d2fgesftvvvw89wspn835vdw",
+      "updatedAt": "2026-03-18T18:31:42.267Z"
+    },
+    "100. Filosofía/100.3 Corrientes filosóficas del S XXI/Revista de Ciencias Sociales. Agenda para la Filosofí­a del S. XXI.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21pdt90bf9k2abbv9frydv0d834vff",
+      "bookId": "n175z6rcdr8rcx76zs09pcgv5n834c3y",
+      "updatedAt": "2026-03-18T18:31:42.974Z"
+    },
+    "100. Filosofía/100.4 Filosofía de la religión/Beuchot, Mauricio. Filosofía de la religión.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg204h952nedw1a8ze8ex6f4pn835nfc",
+      "bookId": "n173dhkefknfxcq1jkfbd0b29d834bxx",
+      "updatedAt": "2026-03-18T18:31:43.849Z"
+    },
+    "100. Filosofía/100.4 Filosofía de la religión/Estudios Filosóficos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27kx01g6w58cyvfjshpn8nw1835fvp",
+      "bookId": "n17b50nfq4qjpkby26y9rsp63s835v66",
+      "updatedAt": "2026-03-18T18:31:45.065Z"
+    },
+    "100. Filosofía/100.4 Filosofía de la religión/García, Martín. Introduccion a La Filosofia de La Religion.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21jet5wgnshmbdm8nqkm02qn834xat",
+      "bookId": "n175bqwr2r4jhmq5kq0c6f466d834nwv",
+      "updatedAt": "2026-03-18T18:31:46.207Z"
+    },
+    "100. Filosofía/100.4 Filosofía de la religión/Grondin, Jean. La filosofia de la religion.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25f1xe3xgxzqa0nx89sgws4x834j3s",
+      "bookId": "n175pfbss1tkyh2f99ctfhm2e58356tv",
+      "updatedAt": "2026-03-18T18:31:47.660Z"
+    },
+    "100. Filosofía/100.4 Filosofía de la religión/Iparraguirre, Régulo. Raices Sociales y Gnoseologicas de la Religion en la Sociedad.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2c85jxyk51nr3z168t5t8seh834ghq",
+      "bookId": "n177dd67g0q7xhxyc2y9p9w6g5835zt8",
+      "updatedAt": "2026-03-18T18:31:48.345Z"
+    },
+    "100. Filosofía/100.4 Filosofía de la religión/Morales, J_Filosofia de la religion.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28vwr9f2jat3yv0an7mpe41x835c55",
+      "bookId": "n1717hd951h0z2yjssmhd3f2c18342rt",
+      "updatedAt": "2026-03-18T18:31:49.382Z"
+    },
+    "100. Filosofía/100.4 Filosofía de la religión/Morales, José. Filosofia de la religion.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22pjxcyvdmskaj6bnzz15nqd835405",
+      "bookId": "n178xx313m12xhdzmt2awtenn5835tvt",
+      "updatedAt": "2026-03-18T18:31:50.609Z"
+    },
+    "100. Filosofía/100.4 Filosofía de la religión/Schmitz, Josef. Filosofia religion.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2686h3j3gv66qs5y4xjmj9r9835t31",
+      "bookId": "n173x14sbkw1mjy1btqcjw42m9835dkh",
+      "updatedAt": "2026-03-18T18:31:53.909Z"
+    },
+    "100. Filosofía/100.4 Filosofía de la religión/TESIS SOBRE FEUERBACH Thesen ueber Feuerbach.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg211xch0pj6nxj99b342yh9r9835g4f",
+      "bookId": "n17ek0evsghqk56pv85a55gfyn835btn",
+      "updatedAt": "2026-03-18T18:31:54.808Z"
+    },
+    "100. Filosofía/100.4 Filosofía de la religión/Tillich, P_Filosofía de la religión.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29m8rm3wa6rh1gq3pvt201q5834ajj",
+      "bookId": "n175m6xmkxjpn38fyf3dmtbjyn8343gn",
+      "updatedAt": "2026-03-18T18:31:56.231Z"
+    },
+    "100. Filosofía/100.5 Lógica/100.5.2 Manuales de lógica/Apuntes de Lógica. Universidad de Castilla-La Mancha.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d17mdv6ym771mqspma0mwa98349nd",
+      "bookId": "n176w681tac72gmzj2c320xg65835y9n",
+      "updatedAt": "2026-03-18T18:31:57.084Z"
+    },
+    "100. Filosofía/100.5 Lógica/100.5.2 Manuales de lógica/Basic Concepts of Logic.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25cww78ecd9xe8qapkx8wy6s835ygj",
+      "bookId": "n17f94ms45qh6m3th4zxp84wcx835jm0",
+      "updatedAt": "2026-03-18T18:31:58.053Z"
+    },
+    "100. Filosofía/100.5 Lógica/100.5.2 Manuales de lógica/Bello, Héctor. Introducción al estudio de la lógica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg288263gxn1jk1baw3abm16hd834xet",
+      "bookId": "n178jrezv3gn87ayfhp7m0v0sd834pbh",
+      "updatedAt": "2026-03-18T18:31:59.310Z"
+    },
+    "100. Filosofía/100.5 Lógica/100.5.2 Manuales de lógica/Copi, Irving M. Introducción a la Lógica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ct4p2r8zk762a61hj8wgg7n834ktf",
+      "bookId": "n173ab024mfjxp1n9mm4qpfdgs834shh",
+      "updatedAt": "2026-03-18T18:32:00.554Z"
+    },
+    "100. Filosofía/100.5 Lógica/100.5.2 Manuales de lógica/Gortari, Eli. Lógica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29swe0371vgjbg84cd94722n834w67",
+      "bookId": "n1793wc9ad8bznd0dbm0pp5ek5834np0",
+      "updatedAt": "2026-03-18T18:33:06.654Z"
+    },
+    "100. Filosofía/100.5 Lógica/100.5.2 Manuales de lógica/Hurley, Patrick. A concise introduction to Logic.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2famwk49e5ewhgt84rpwc1hx834ps7",
+      "bookId": "n173nethq3st8fzpr0xrhf8qj1834aa1",
+      "updatedAt": "2026-03-18T18:33:09.665Z"
+    },
+    "100. Filosofía/100.5 Lógica/100.5.2 Manuales de lógica/Introduction to Logic.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2avnkm4qm37c0v65p9yya42x834d3d",
+      "bookId": "n176sqmq9s9pbmb5869d0xgpms834tht",
+      "updatedAt": "2026-03-18T18:33:11.514Z"
+    },
+    "100. Filosofía/100.5 Lógica/100.5.2 Manuales de lógica/Logica Elemental.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20mqpt9sh3h675rafzqhe2yn83588t",
+      "bookId": "n179w1pc00rfw8qtwxa6pavth98341yx",
+      "updatedAt": "2026-03-18T18:33:13.454Z"
+    },
+    "100. Filosofía/100.5 Lógica/100.5.2 Manuales de lógica/Lógica general.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29sefyhedygzysacbey2sx3h8355xp",
+      "bookId": "n1758zg6ed1ded7btmqy1xanqx835t68",
+      "updatedAt": "2026-03-18T18:33:14.400Z"
+    },
+    "100. Filosofía/100.5 Lógica/100.5.2 Manuales de lógica/Lógica Jurídica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f360c1b84z5f8w8v886w879835nj6",
+      "bookId": "n177rxrwvx7zk9a9z1aqyp4yf1835nkk",
+      "updatedAt": "2026-03-18T18:33:15.746Z"
+    },
+    "100. Filosofía/100.5 Lógica/100.5.2 Manuales de lógica/Lógica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2627mhcz6mfd5da1fjyncdxd835ed0",
+      "bookId": "n177jsekxsddntt024dysschn5835bbm",
+      "updatedAt": "2026-03-18T18:33:16.880Z"
+    },
+    "100. Filosofía/100.5 Lógica/100.5.2 Manuales de lógica/Muñoz, Carlos. Introducción a la Lógica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22zysfs78khmcgzqv9dp15ks835mnm",
+      "bookId": "n179mxwn9ty43bhbsa92c8cvas835nnm",
+      "updatedAt": "2026-03-18T18:33:17.764Z"
+    },
+    "100. Filosofía/100.5 Lógica/100.5.2 Manuales de lógica/Renato, Lewin. Introducción a la Lógica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23v4hgd96vxmqt9pnhdtxk8s834n00",
+      "bookId": "n179c777jq8sf97hngs4mfw0as835r78",
+      "updatedAt": "2026-03-18T18:33:18.738Z"
+    },
+    "100. Filosofía/100.5 Lógica/100.5.3. El razonamiento/El Razonamiento.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2av20waf9a7mamn0413t7egs834z9w",
+      "bookId": "n176p4bt989v3aznt9d5b1vbn9834e88",
+      "updatedAt": "2026-03-18T18:33:19.596Z"
+    },
+    "100. Filosofía/100.5 Lógica/100.5.4 Las falacias/Las Falacias.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2frpfv77dfgcfz3pabcjrt518358fm",
+      "bookId": "n1702emekeav5em3by91g2cts9835nq3",
+      "updatedAt": "2026-03-18T18:33:20.517Z"
+    },
+    "100. Filosofía/100.6 Epistemología/Bonjour, Laurence. Epistemology.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg269dtksv5p9z98n10zqkmfyd835sh5",
+      "bookId": "n17591rmsfyb10f8x1hcgncn75834z1r",
+      "updatedAt": "2026-03-18T18:33:21.541Z"
+    },
+    "100. Filosofía/100.6 Epistemología/Epistemology 1.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bqq77756c9g5v8rh4py427x834m1n",
+      "bookId": "n171fxd8kb91p98qzchgvt97w58342y6",
+      "updatedAt": "2026-03-18T18:33:22.766Z"
+    },
+    "100. Filosofía/100.6 Epistemología/History of Epistemology.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e0b2cq6fv8awvpp3kxc0vsx834r4p",
+      "bookId": "n17ey3et5qgs1qmfk1d3a1cq3h834e34",
+      "updatedAt": "2026-03-18T18:33:25.706Z"
+    },
+    "100. Filosofía/100.6 Epistemología/Introducción a la Epistemologia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fbar4cw66fnekd4ktdzmfj18356xf",
+      "bookId": "n179v8zrtywyyczc13bvmhsjxs834kjn",
+      "updatedAt": "2026-03-18T18:33:26.561Z"
+    },
+    "100. Filosofía/100.6 Epistemología/Mejía, Julio. Epistemología de la Investigación Social.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26kw0y4yevbaphbe4mbn3f0x83404q",
+      "bookId": "n17dv5v8m8efqqet137k60bcsh8341zw",
+      "updatedAt": "2026-03-18T18:33:27.480Z"
+    },
+    "100. Filosofía/100.6 Epistemología/Recher, Nicholas. Epistemology.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26gg5v5vc3jnjdw7knef2jf98353p7",
+      "bookId": "n170gtd1td1mfxz2975b1bmtd1834cxs",
+      "updatedAt": "2026-03-18T18:33:28.487Z"
+    },
+    "100. Filosofía/100.6 Epistemología/Teoria del conocimiento.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2as4pdr56x1f6rgs2gjdef1s8351ck",
+      "bookId": "n17dksphyecp59378j3aqxrm21835497",
+      "updatedAt": "2026-03-18T18:33:29.141Z"
+    },
+    "100. Filosofía/100.7 Metafísica/Apuntes de metafisica de Aristoteles.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2c6k5w9j1dyswpjmpqf6vq25835wwj",
+      "bookId": "n17d3pwqfvj4nr6fyey4achtws834q1g",
+      "updatedAt": "2026-03-18T18:33:29.812Z"
+    },
+    "100. Filosofía/100.7 Metafísica/Dewan, Lawrence. Metafísica II.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d25bazd8mvp02ejyqk5z11d8344nt",
+      "bookId": "n17e0p67gv6fxqwe4rekqey2xs8347dc",
+      "updatedAt": "2026-03-18T18:33:30.792Z"
+    },
+    "100. Filosofía/100.7 Metafísica/Metaphysics.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28v23cfemkzcpyjkbk1tgza58352r2",
+      "bookId": "n173kh8ek980gm8vs09vaebzqs835t0c",
+      "updatedAt": "2026-03-18T18:33:31.545Z"
+    },
+    "100. Filosofía/100.7 Metafísica/Velásquez, Oscar. La Metafísica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29dqwvz9d5wgmb21pmg073en835kkt",
+      "bookId": "n176jn3ryzpyth9j8k7fmxk1nd8350wq",
+      "updatedAt": "2026-03-18T18:33:32.490Z"
+    },
+    "100. Filosofía/100.8 Teodicea/Gottfried, Leibniz. Teodicea. Ensayos sobre la bondad.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22tben8vyys9jwg6xhzcqevn834pgn",
+      "bookId": "n17f32dq81aw87rn3s4zrqj1g9835env",
+      "updatedAt": "2026-03-18T18:33:33.478Z"
+    },
+    "100. Filosofía/100.8 Teodicea/Las 5 vías de Tomás de Aquino y su refutación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27egbdvtnvym99e82w7kd3ah8341sb",
+      "bookId": "n17dqbw90kxyd7gsvbvswe2j098348ph",
+      "updatedAt": "2026-03-18T18:33:34.133Z"
+    },
+    "100. Filosofía/100.8 Teodicea/Teodicea.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2895y6d02d1hg05cgea83s858343zw",
+      "bookId": "n1739vkjety9s8eyhg4jzdnngh83433z",
+      "updatedAt": "2026-03-18T18:33:34.933Z"
+    },
+    "100. Filosofía/100.9 Ética/Elsa, Estebán. La ética aristótelica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cg765qmcnphrgjcwh6x3x1h834bzh",
+      "bookId": "n17dm77tf3j5sh1xmda5prs9vs835qfw",
+      "updatedAt": "2026-03-18T18:33:35.680Z"
+    },
+    "100. Filosofía/100.9 Ética/Fletcher, Joseph. Ética de Situación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26q2cczwdcpjazqe12100c3d834cn9",
+      "bookId": "n174n0tvd0ffh5rqn263r00bch835azr",
+      "updatedAt": "2026-03-18T18:33:37.310Z"
+    },
+    "100. Filosofía/100.9 Ética/Gómez, Rafael. Problemas Morales de la Existencia Humana.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28w16t122ezg86hxqebvhsgs834qx7",
+      "bookId": "n175679mw40qzwqgr304h42rhn835714",
+      "updatedAt": "2026-03-18T18:33:38.121Z"
+    },
+    "100. Filosofía/100.9 Ética/Introduction to Ethical Studies.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25zgrzf5m0jwxpp9b2dqwfcx834y83",
+      "bookId": "n173gbqkxkc97esgsgf2kzdy8s8349wt",
+      "updatedAt": "2026-03-18T18:33:39.256Z"
+    },
+    "100. Filosofía/100.9 Ética/Kovach, Francis J. A Critical Evalution to Fletcher.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28a5xyswvkkvzg32pac9vytx835003",
+      "bookId": "n17er0aby15760fvwvvv4hfct9835tyb",
+      "updatedAt": "2026-03-18T18:33:40.281Z"
+    },
+    "100. Filosofía/100.9 Ética/La morale sexualle.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dqq71kf9wffa6t8c0153qn583540b",
+      "bookId": "n177s4vsy5fcqknra3vkr1k8t1834rc4",
+      "updatedAt": "2026-03-18T18:33:41.190Z"
+    },
+    "100. Filosofía/100.9 Ética/Problemas Eticos del S XXI  1.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cascpk7mczx9764k24bb9c5835fqy",
+      "bookId": "n17dxageqgnnfw0rhrrvh3py2n834k43",
+      "updatedAt": "2026-03-18T18:33:41.919Z"
+    },
+    "100. Filosofía/100.9 Ética/Problemas Eticos del S XXI 2.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26bp8bpgf15strn4gsf8ws55834n76",
+      "bookId": "n17e99h1c11pp2g8zxvp1vjmt5834b63",
+      "updatedAt": "2026-03-18T18:33:42.629Z"
+    },
+    "100. Filosofía/100.9 Ética/Rich, Karen. Introduction to Ethics.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21ny5954y9trdd04r4k7je5h834zyq",
+      "bookId": "n172t7tqb11z85q3533tt7qsjx835v90",
+      "updatedAt": "2026-03-18T18:33:43.412Z"
+    },
+    "100. Filosofía/100.9 Ética/Rodríguez, Luisa. Ëtica Argumentativa en Aristoteles.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg267b1tt8jf8zmww99tydwen1835g3e",
+      "bookId": "n175q4dxcyt6wjq004sq5b0tsx8343y8",
+      "updatedAt": "2026-03-18T18:33:44.276Z"
+    },
+    "100. Filosofía/100.9 Ética/Situation Ethics Critics.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29barwg39f7jwgbctq2swe5d834ftz",
+      "bookId": "n17bhnvzsc3fn22t7cfczrehhd83563r",
+      "updatedAt": "2026-03-18T18:33:44.959Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/100 años de Corrupción e impunidad CNA WEB.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e1mdjrp9gr2969h69yhtd9s834ceh",
+      "bookId": "n1719gz9h0pvpyzyh6jx5x1d6n834xyj",
+      "updatedAt": "2026-03-18T18:33:48.987Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/2010 Honduras Political Culture. Vanderbilt University.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg201nbhhfe84y9x6ey9y2qzx18351q7",
+      "bookId": "n173aqy0zn2k3a4tmf7d43ggr983596d",
+      "updatedAt": "2026-03-18T18:33:50.289Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/50 años de institucionalidad agraria.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27mwracmdntt4a3qcfas4vvx835c6g",
+      "bookId": "n17d140kr8zxfynny3a5mx78cn834mfh",
+      "updatedAt": "2026-03-18T18:33:51.235Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Administración forestal del Estado.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d8dgsyraxds1dkfm12mpfvh835j7z",
+      "bookId": "n17a2ttdcb0j204qvzvjznk6g5834vhq",
+      "updatedAt": "2026-03-18T18:33:52.261Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Advocating for Peace Justice and Security in Honduras.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dj44fwc4xwn4ptn16bkdgbd8358gh",
+      "bookId": "n17ewyjdkyvfnpd4jh0j8n7edn8358c5",
+      "updatedAt": "2026-03-18T18:33:54.002Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Aguilar, Mario. Regulacion juridica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2636mt4zkrjz8hzn3e28tkv5834ktv",
+      "bookId": "n1756mfcmwk1t51k8ttcq4dvy5834ese",
+      "updatedAt": "2026-03-18T18:33:54.699Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Araya, Carlos. MIneria.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d2zdknyv5jpjrnym22t7nm98342nd",
+      "bookId": "n1795m9n33tzdxft8514f3n1z9835xbf",
+      "updatedAt": "2026-03-18T18:33:57.170Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Boussard, Caroline. Crafting democracy.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fxw9q57fca8q456parzdsqx83547h",
+      "bookId": "n17dtj2r0wtej0xqfy5jvb1wqd835bak",
+      "updatedAt": "2026-03-18T18:33:58.407Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Caso de Carlos Luna López.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26szf3btyx928xqtw61f10gh834e8r",
+      "bookId": "n17d60dnwcr6dx5vs9wyne0rm1835hhc",
+      "updatedAt": "2026-03-18T18:33:59.112Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Cayetano, José. Procesos electorales.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2511r1wdtm9zdth6ar70vvy1835q0r",
+      "bookId": "n179ghg0c0zeqcve230714pdvh834ys9",
+      "updatedAt": "2026-03-18T18:33:59.930Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Chayes Corruption Final updated.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2064tct1sv4jf00bp7n3qz4s835fbb",
+      "bookId": "n173vntrc6txg3xk727d1xmmqx834wvr",
+      "updatedAt": "2026-03-18T18:34:01.272Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Cooperativas de Ahorro y Crédito en Honduras.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ez3jgh9fx8m2wk46nqqhgs5834c2m",
+      "bookId": "n1702f3f00ewas30t9f90pbtf5835nh3",
+      "updatedAt": "2026-03-18T18:34:06.169Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Democracia y partidos políticos en Honduras.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2580jw28w6t3j2hrmfyb8975835zxx",
+      "bookId": "n170hjbz62v10fmhv9cjfg7z0s835b1d",
+      "updatedAt": "2026-03-18T18:34:07.825Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Dissaperances in Honduras.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bmjwr02zzgwkdfbe7sbmdsx834c8b",
+      "bookId": "n176jjwkqxxmaga9gvma7mw3fx835bjt",
+      "updatedAt": "2026-03-18T18:34:19.194Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Doctrina de la seguridad nacional.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22j03egv2jr8sr4k82pgccah835js9",
+      "bookId": "n179k39kn1takh7gdqm0mnmef58341gd",
+      "updatedAt": "2026-03-18T18:34:36.426Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/El enclave bananero en Honduras.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg235q8rmd7ctx4hrpf7js6xxn8345jf",
+      "bookId": "n17btfwj67w39y01sewn9vqfh18356dr",
+      "updatedAt": "2026-03-18T18:34:45.168Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Enclave  minero.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26hm1j9va412acs7865agg4n8357bb",
+      "bookId": "n17assxm24gapkjtqp8a9t97cn835af5",
+      "updatedAt": "2026-03-18T18:34:46.926Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Enclave MInero en Centroamérica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26wxv7q9bsywq0yhttx8t4sd834edz",
+      "bookId": "n1755ka2gjfjqwsfrgcjg4855183532n",
+      "updatedAt": "2026-03-18T18:35:09.145Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Esteban De Gori (2009). Honduras politicas de contrainsurgencia, doctrina de la seguridad nacion.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27ez688e3ck5je9tdj9dr541834f1a",
+      "bookId": "n17ey3p7frepyhjd7pnntcqm09834hqz",
+      "updatedAt": "2026-03-18T18:35:09.923Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Historia Ferrocarril Nacional de Honduras.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24cxrpc5nmejesq2qqzw845s834cz6",
+      "bookId": "n1781mpc7f4tmvad4mh0g2ds6n834h7c",
+      "updatedAt": "2026-03-18T18:35:11.618Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Honduras democracy and governance assessment.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25q242a1d2m6g6ybdtgmabf1834168",
+      "bookId": "n17dt07zs8xr2krv4m71a70d15835fgf",
+      "updatedAt": "2026-03-18T18:35:12.647Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Honduras el lugar más peligroso para defender el planeta.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cmh6b0630s8be70rfyq365h835wnq",
+      "bookId": "n173s97yjfm85dxbzydcdme075835qnr",
+      "updatedAt": "2026-03-18T18:35:13.991Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Honduras National Security Tesis Reynel Funes.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28n9ach6jgy84rqa15afs1j18344st",
+      "bookId": "n176gy35t81f8zrv5146759xnn834wbk",
+      "updatedAt": "2026-03-18T18:35:15.313Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Human rights Honduras.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b13dnd6s65wj0haxv8t832h834f68",
+      "bookId": "n1761sgq1f9qcvfw7agzj8tppd8354jw",
+      "updatedAt": "2026-03-18T18:35:16.328Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Inmigracion y colonizacion en Honduras durante la reforma liberal.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fvbq7rpyf54prj8vsyf5mj5834ynf",
+      "bookId": "n17ds1cv26z5j4ay80csmr57298345v2",
+      "updatedAt": "2026-03-18T18:35:17.067Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/La crisis de la tala ilegal en Honduras.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22mpctag22qmqq01zvq6s2rd834h9m",
+      "bookId": "n170ygt0frc1exw1mrkmr2h075834at5",
+      "updatedAt": "2026-03-18T18:35:18.147Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/La ley general de Mineria.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20ez5hxypb0wejxdhc8422vd8348m6",
+      "bookId": "n171fa3aq22pn1r079mdahebdd835gdr",
+      "updatedAt": "2026-03-18T18:35:18.849Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Las Escuelas Radiofonicas Suyapa una alternativa para la alfabetizacion de los campesinos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e77twphtgynsa5gefr4t645834xx2",
+      "bookId": "n172s8bw549gnkkx2nsavtc3dd834qad",
+      "updatedAt": "2026-03-18T18:35:19.703Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/López, Luna. Sentencia Carlos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg238dhvfpf8k9g1b2gzd4ewd5835nt6",
+      "bookId": "n171pg0zy721x4hxgm2v4t5jc5834jzc",
+      "updatedAt": "2026-03-18T18:35:20.736Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Marchando por la vida.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dbchp3chmzhtq4fef87qmb1835ssz",
+      "bookId": "n171hhy6ttmfhwe57ddaddf8jn835dn4",
+      "updatedAt": "2026-03-18T18:35:21.659Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Meza, Victor. El turno de los corruptos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23t0km19q884npngrdccfn05834wj4",
+      "bookId": "n17114fr86c15vr89t802ddae58348gt",
+      "updatedAt": "2026-03-18T18:35:22.559Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Meza, Victor. Libro Blindaje 2018.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29v44pkp9ew2by7wzzfb0atd8351yd",
+      "bookId": "n173r862fm7t6jysex1hbbstzh8357fv",
+      "updatedAt": "2026-03-18T18:35:24.007Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Meza, Victor. Libro Corrupcion Completo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24erwyqh0phk1ghgxsw2z6ds8353vh",
+      "bookId": "n174z81eysjfz22nwe7bsxmkbs835qxa",
+      "updatedAt": "2026-03-18T18:35:25.142Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Movimiento Ambientalista de Olancho.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg229y41meybfy4qsxc9crh9rd834vrj",
+      "bookId": "n17eptwjse1nz6e879mxqgbabd834wmt",
+      "updatedAt": "2026-03-18T18:35:25.971Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Oyuela, Leticia. Miseria de la minería en Honduras.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27hq031z7cjn6smh4a1zdt69835get",
+      "bookId": "n1750zt4bmq2kswx5gpj3k93f18359by",
+      "updatedAt": "2026-03-18T18:35:26.778Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Perez, Orlando J. And randy pestaña 2016.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b5pg6v979z2vsjbm0pq5ca1834q0w",
+      "bookId": "n1703jyd1whcxx9b2avzg22xqh8344kp",
+      "updatedAt": "2026-03-18T18:35:27.840Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Por los bosques, por el agua, por la vida.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24hfxve8w3qg88y84n4hzhc1834xy0",
+      "bookId": "n176gzpxsqbzyvtk7yz893zcx98351qp",
+      "updatedAt": "2026-03-18T18:35:28.586Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Ramón Villeda Morales The  Little Bird  Who Brought Big Changes and Honor to Honduras.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26vyym0j9ajkvgta69r02fj1834dbr",
+      "bookId": "n17ere54byzkstceq90z3dye6x835efg",
+      "updatedAt": "2026-03-18T18:35:29.340Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Ramos, José. Evolución del Estado de Derecho.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d7rf0fsa8ptktazmwmrscwd834ww5",
+      "bookId": "n179p6ehfkwqztwdb8sd4dfp6h8349mc",
+      "updatedAt": "2026-03-18T18:35:30.054Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Rivera, Carla. La Gestión Ambiental en Honduras.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24avc2j1bh6ssb88qm73nt2s835x3p",
+      "bookId": "n177xp2swmx7fb8p8pvamdehy98347bn",
+      "updatedAt": "2026-03-18T18:35:30.892Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Romero, Ramón. Antologia Honduras.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24r56c6tcwq4xz0dw52zwcps835htd",
+      "bookId": "n172azmstz4gdp149pyann1fjd8357te",
+      "updatedAt": "2026-03-18T18:35:32.410Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Sánchez, José. Reforma Liberal.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dnqtfmj30t9xfnk3e9wehjx835sp9",
+      "bookId": "n17d4h8m89psamzrx9mpxy6c0x835fp6",
+      "updatedAt": "2026-03-18T18:35:33.538Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Sentencia de Jeanette Kawas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg299t0bknkpzcxepqs2eff66x8359ec",
+      "bookId": "n17e0514k8aghnjkvvnr4v8xy1834d9f",
+      "updatedAt": "2026-03-18T18:35:34.458Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Situación de derechos humanos en Honduras 2015.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28b00xfjfpbxzdkf2pwha1v1835n1t",
+      "bookId": "n1775chdv4s75gvhj2x8ccxm8h834x83",
+      "updatedAt": "2026-03-18T18:35:36.004Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Tala ilegal en el Río Platano.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fa5xbjjapqf4rs54kk2ne19834kqz",
+      "bookId": "n173md0d3j2kwekdv2yh2gwxh583522c",
+      "updatedAt": "2026-03-18T18:35:36.914Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Tendencias migratorias.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2255hsgqct7kb8nkph8ayyvx835qqd",
+      "bookId": "n17fn436gnerrzmtjgk77ks3kn835ann",
+      "updatedAt": "2026-03-18T18:35:37.838Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/The Emergence of Neoliberalism and Free Trade in the Developing W.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23y05y3n2pkk617m3a9veg45834f49",
+      "bookId": "n17368w2rvbzcwmfwrqe235mex834441",
+      "updatedAt": "2026-03-18T18:35:39.059Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Vildósola, Julio. Sistema minero.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dw5hjrk2404rxq1m5rwcmqs834zrt",
+      "bookId": "n172txpt2vt44rcv2tndtd3hax835nk8",
+      "updatedAt": "2026-03-18T18:35:41.122Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Violence in Honduras.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg287g4d3jc012mr5v826b31e5835ss1",
+      "bookId": "n170fvqzvbcg1b26kyrv1mxp79835n14",
+      "updatedAt": "2026-03-18T18:35:42.343Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Yankelevich, Pablo. Reforma Liberal.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25jap1qstn81k38g36ys8gds835wky",
+      "bookId": "n171mphnke1w0377jkskssxn3s834vym",
+      "updatedAt": "2026-03-18T18:35:43.265Z"
+    },
+    "100. Filosofía/135. Libros por países/135.1 Honduras/Zaldívar, Raúl. Relaciones Estado Iglesia y su apertura la protestantismo en Honduras.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23gcm8kfjj62kb9rfetzgpy58342n0",
+      "bookId": "n17e3kysrmn5ddmz93zz8g12h9835gmm",
+      "updatedAt": "2026-03-18T18:35:43.963Z"
+    },
+    "100. Filosofía/150. Psicología/150.1 Manuales de psicología/Atkinson & Hilgard. Introduction to Psychology 15th Edition.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2eemn1j7g8em9tsm9p97c5v5835fqd",
+      "bookId": "n171wmeqkw895yztg983qrj2kn835gpd",
+      "updatedAt": "2026-03-18T18:35:50.740Z"
+    },
+    "100. Filosofía/150. Psicología/150.1 Manuales de psicología/Charles & Albert. Psicología general.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fgh29r10cyhsm1j11xxaywh835n2p",
+      "bookId": "n17ffgy4nzs3qz9dayspx8sach8359em",
+      "updatedAt": "2026-03-18T18:35:52.789Z"
+    },
+    "100. Filosofía/150. Psicología/150.1 Manuales de psicología/Introduction to Psychology.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fcfqv7n9fjwtfyakebs7v5n83490j",
+      "bookId": "n178g63fr26jtv7xz3rcxemd6d8356p5",
+      "updatedAt": "2026-03-18T18:35:53.710Z"
+    },
+    "100. Filosofía/150. Psicología/150.1 Manuales de psicología/Martha & Suzanne. Introduction To Psychology Text.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21z6rdzvbtq2nkrbhdbgwfzd834v03",
+      "bookId": "n1789vmcbqcpxxyz67zfwbqb7s834x40",
+      "updatedAt": "2026-03-18T18:35:55.437Z"
+    },
+    "100. Filosofía/150. Psicología/150.1 Manuales de psicología/Psicología General 2.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22y04yqy28v5b73g90c7j23s834vbz",
+      "bookId": "n1776nnzdg3hr2eec1dtc3pd8n835sy2",
+      "updatedAt": "2026-03-18T18:35:56.372Z"
+    },
+    "100. Filosofía/150. Psicología/150.1 Manuales de psicología/Psicología general y evolutiva del ser humano.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2040vzms2neh10w3exar919h835b6j",
+      "bookId": "n1749y31sz7aaxzwx25d1bttfs8354yx",
+      "updatedAt": "2026-03-18T18:35:57.398Z"
+    },
+    "100. Filosofía/150. Psicología/150.1 Manuales de psicología/Psicologia General.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22dp6cqe073xj1z3hfmtqd71834cnn",
+      "bookId": "n172d3wb15y1bxknfc3eakq8gd835q0z",
+      "updatedAt": "2026-03-18T18:35:58.103Z"
+    },
+    "100. Filosofía/150. Psicología/150.2 Psicólogos y sus teorías/Astacio, Martin. Crítica comparativa de Addler.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bfx94kjzbkqemt2mc4kn6n1835338",
+      "bookId": "n17cyvctpnptpq8qys5qx38py1835ra0",
+      "updatedAt": "2026-03-18T18:35:58.856Z"
+    },
+    "100. Filosofía/150. Psicología/150.2 Psicólogos y sus teorías/Del Col, José. Psicoanálisis de Freud.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22r5p7t97ndrw0qpx9vrkt9n835gjd",
+      "bookId": "n17abxdcphcjv07fp2n60c7bt98343g1",
+      "updatedAt": "2026-03-18T18:35:59.648Z"
+    },
+    "100. Filosofía/150. Psicología/150.2 Psicólogos y sus teorías/El condicionamiento operante de B. F. Skinner.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21edtpn6vx9dvjqjw9s0aa8x834hfa",
+      "bookId": "n1720zg5k7vw6x12191p8h25kh835pn5",
+      "updatedAt": "2026-03-18T18:36:00.355Z"
+    },
+    "100. Filosofía/150. Psicología/150.2 Psicólogos y sus teorías/Frankl, Viktor. El hombre en busca de sentido.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29f703mwxzxh3cwdqwwagv7n8342jk",
+      "bookId": "n17a5qa37xk6f2kq2960exy2hx834x2y",
+      "updatedAt": "2026-03-18T18:36:01.131Z"
+    },
+    "100. Filosofía/150. Psicología/150.2 Psicólogos y sus teorías/Gilley, Gary. Cristianismo y Psicología.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg208ce5cfqpwxxzq5a1k85tgx8346cc",
+      "bookId": "n172mh5wmy6qwj6tpstn99csgd835dng",
+      "updatedAt": "2026-03-18T18:36:01.998Z"
+    },
+    "100. Filosofía/150. Psicología/150.2 Psicólogos y sus teorías/Teoria Psicoanalitica de la personalidad.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ajt63mkp6xt5hexd858mr4n834fzt",
+      "bookId": "n17a67gdns1dnefxbn9j82nees835j1m",
+      "updatedAt": "2026-03-18T18:36:02.721Z"
+    },
+    "100. Filosofía/150. Psicología/150.3 Historia de la Psicología/Historia de la Psicología.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27hxt7exxqxw8m0t69kqjgx18353h8",
+      "bookId": "n173aw9gp4c83khymr4wpr95ah835y77",
+      "updatedAt": "2026-03-18T18:36:03.386Z"
+    },
+    "100. Filosofía/150. Psicología/150.4 Mecanismos de defensa/Mecanismos de defensa.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2aemgyd3vgygtnas5wa65h1s834z6d",
+      "bookId": "n17djwxk2n4wda30mdynzjtxxx834eeb",
+      "updatedAt": "2026-03-18T18:36:04.320Z"
+    },
+    "100. Filosofía/150. Psicología/150.5 Divisiones de la Psicología/03 Aprendizaje.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg226hd7y4s2rsgbdcb8a77wmn835d5y",
+      "bookId": "n176sn62bwsbknz5v0jh2pbnhx835twg",
+      "updatedAt": "2026-03-18T18:36:05.170Z"
+    },
+    "100. Filosofía/150. Psicología/150.5 Divisiones de la Psicología/04 Percepción.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg203bmbnnt4kj9wc2n514f1rs834qbd",
+      "bookId": "n172j3yqkj68v522t539xe7szh834x1y",
+      "updatedAt": "2026-03-18T18:36:05.889Z"
+    },
+    "100. Filosofía/150. Psicología/150.5 Divisiones de la Psicología/05 La conciencia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25evne56870f7d26xsfs39q9834m9v",
+      "bookId": "n17682qj28mh00xpeajab3z7th835rds",
+      "updatedAt": "2026-03-18T18:36:06.819Z"
+    },
+    "100. Filosofía/150. Psicología/150.5 Divisiones de la Psicología/06 La Memoria.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f0w187hthe700fy9snwrs9n8354re",
+      "bookId": "n1772xp9e9awvf5kz7tmzz7cds835fhv",
+      "updatedAt": "2026-03-18T18:36:07.738Z"
+    },
+    "100. Filosofía/150. Psicología/150.5 Divisiones de la Psicología/08 La Motivacion.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23ckgd8hwvx2aw8ws6jh45wn8358xs",
+      "bookId": "n17dh59fekr9ad4s6fpb2qj2s58344zw",
+      "updatedAt": "2026-03-18T18:36:08.428Z"
+    },
+    "100. Filosofía/150. Psicología/150.5 Divisiones de la Psicología/09 La Emoción.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20g9n24card8rycf7wa5e4ax83563j",
+      "bookId": "n179y69esaszm4eheevp37d3yh834xkt",
+      "updatedAt": "2026-03-18T18:36:09.132Z"
+    },
+    "100. Filosofía/150. Psicología/150.5 Divisiones de la Psicología/10 La Inteligencia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bh4r9qbxtqfs8e9z6qmm4s5834drz",
+      "bookId": "n17923f1drtc3t8hb1tr3jeej9835jy9",
+      "updatedAt": "2026-03-18T18:36:09.908Z"
+    },
+    "100. Filosofía/150. Psicología/150.5 Divisiones de la Psicología/11 Personalidad.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20yt5hbbyjr6qv85zefd80bn8356kh",
+      "bookId": "n172pp7a2w2z5m069wyt4cykvn835pk8",
+      "updatedAt": "2026-03-18T18:36:10.700Z"
+    },
+    "100. Filosofía/150. Psicología/150.5 Divisiones de la Psicología/Echeburúa, Enrique. Estrategías ante el sentimiento de culpa.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f1rv6fm8b1c0xkhwe2cdy65834ykb",
+      "bookId": "n1766tq300apfq7ny5fwrtr2wh835rqj",
+      "updatedAt": "2026-03-18T18:36:11.674Z"
+    },
+    "100. Filosofía/150. Psicología/150.5 Divisiones de la Psicología/El sentimiento de culpa.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2c470td4gadxftpmrt1pb87h834ez1",
+      "bookId": "n171zksyje109rswexr1gpbzq9834v9s",
+      "updatedAt": "2026-03-18T18:36:12.723Z"
+    },
+    "100. Filosofía/150. Psicología/150.5 Divisiones de la Psicología/Guzmán, Mónica. El perdón en la relaciones cercanas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22ngr3bmejh3sntwpt6h99098353td",
+      "bookId": "n176we8cj5b5bkkmd4d9an5rp9834zzh",
+      "updatedAt": "2026-03-18T18:36:13.554Z"
+    },
+    "100. Filosofía/150. Psicología/150.5 Divisiones de la Psicología/Madrid, Edgar. Personalidad y Temperamento.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20tqrw3nf816ezbh570m7gjh8341xv",
+      "bookId": "n1787ksq1g8s4b4zcdpp28v5dx8358r9",
+      "updatedAt": "2026-03-18T18:36:14.283Z"
+    },
+    "100. Filosofía/150. Psicología/150.5 Divisiones de la Psicología/Pérez-Sales, Pau. La culpa traumática.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b0kx31fzh06yfbbr4r4gng58341kt",
+      "bookId": "n170xfdhq02ccfpzkkxyrc2z79835qrx",
+      "updatedAt": "2026-03-18T18:36:14.999Z"
+    },
+    "100. Filosofía/158. Autoayuda e inspiracionales/158.1 Inspiracionales /Ravenhill, Leonard. Por qué no llega el avivamiento.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21n8hngg43mx9rebg0h1c0798347tn",
+      "bookId": "n17bzjyvktkwjzpqdsv096pfmx834e4c",
+      "updatedAt": "2026-03-18T18:36:16.138Z"
+    }
+  }
+}

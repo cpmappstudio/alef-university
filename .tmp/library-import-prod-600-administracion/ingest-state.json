@@ -1,0 +1,1851 @@
+{
+  "version": 1,
+  "updatedAt": "2026-03-24T13:54:51.561Z",
+  "collectionsByPath": {
+    "00. Generalidades": "n97ecjmaeaafcbz6r301vf9mah82y96p",
+    "00. Generalidades/01. Biblioteca Gredos": "n97bzf9812vz89d5g1dfdmq6b182yy6f",
+    "00. Generalidades/04. Investigación científica": "n978qdtmmk4e8kwycbmbh5bnjx82zvag",
+    "00. Generalidades/04. Investigación científica/04.1 La ciencia de la investigación": "n975zw6vk1vx100tt97cd3bqh582z3cz",
+    "00. Generalidades/04. Investigación científica/04.2 El aparato crítico": "n97fk309yf94btj6w0t6wtyxnh82zdc2",
+    "00. Generalidades/04. Investigación científica/04.3 Como hacer una tesis": "n97a0kv9zmwdt403pt54zhvr6182zwn6",
+    "00. Generalidades/04. Investigación científica/04.4 Locuciones latinas": "n970tv6r89hvwbt6ej3jcckarx82y945",
+    "00. Generalidades/04. Investigación científica/04.5 Modelos para tesis doctorales": "n9797y2f2vdk75w5gd3a4px4x182zrzy",
+    "100. Filosofía": "n97fr7x9dr50gs8qzv7xgpte7d835gt3",
+    "100. Filosofía/100.1 Manuales de filosofía": "n979ws7pa0vwcb752w7s2f5y69835ctg",
+    "100. Filosofía/100.10 Estética": "n9792g4ws6we91kj64zamr94mn8351y5",
+    "100. Filosofía/100.11 Filosofía social": "n9787by0th1dthtx80htfbqv9983402t",
+    "100. Filosofía/100.12Cristianismo y filosofía griega": "n97bqyvw2v8zga1nm65c3s5btn834e0k",
+    "100. Filosofía/100.13 Filosofía y religión": "n970f44t2mgar00gka692bha5x835pqa",
+    "100. Filosofía/100.14 Filosofos y sus obras": "n975t10nx3axk6fz4w20wmdhes835kwh",
+    "100. Filosofía/100.2 Historia de la filosofía": "n973dk4xr9619qby3np798yqvx835v7g",
+    "100. Filosofía/100.2 Historia de la filosofía/100.21 Manuales de historia de la filosofía": "n97a8hqe2wncr6x0qxsjcsp22n835bsd",
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua": "n977e1r160h61n0y52h357wt2s835t7r",
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.1 Pres - sócraticos": "n97dv51er5s696crknx0ndmkad8357g4",
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.2 Sócrates": "n97949aa1taq19kpv2429g173h834cbf",
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.3 Platón": "n97epppk8yd4q6ydr9n6g62369834ht3",
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.4 Aristóteles": "n972g64r6gcb2ga82yq26vt7nh8348hm",
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.5 Epícurios": "n9799zbqe65abdkm8exv6c8kks835qw7",
+    "100. Filosofía/100.2 Historia de la filosofía/100.22 Filosofía antigua/100.22.6 Estoicos": "n975xke6bdcdc35d7m1dxay2ah8352xe",
+    "100. Filosofía/100.2 Historia de la filosofía/100.23 Filosofía medieval": "n978x2y3fawk1kag4saf5fpn5x834112",
+    "100. Filosofía/100.2 Historia de la filosofía/100.23 Filosofía medieval/100.23.1 Filosofía medieval": "n97e7fv0xtqmnpd05s657htzzd835jqd",
+    "100. Filosofía/100.2 Historia de la filosofía/100.23 Filosofía medieval/100.23.3 Patrística": "n97er76f6m1tqcdn9enaf5sny5835wx1",
+    "100. Filosofía/100.2 Historia de la filosofía/100.23 Filosofía medieval/100.23.4 Escolastica": "n97725h47gnbe78thk6n8rw0gx83545a",
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna": "n971zyd5yxhyyj97wmvj1y7249834a2x",
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.1 Filosofía moderna": "n972dfn9zyssnf7ec0pnhs0tes834nq8",
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.2 El Renacimiento": "n972f6aqa15rggejfag668g04n8352rg",
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.3 Hegel": "n97cyj55j4mv7y41q3j23z1w0s8345r5",
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.4 Ilustración": "n9707jvs700pthkkscs3rpay058344aq",
+    "100. Filosofía/100.2 Historia de la filosofía/100.24 Filosofía moderna/100.24.5 Empiricism": "n977ptvzzwa1v1fypf0h60zz7d834nha",
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea": "n974ymnwpm27awjewfjbjqzgqx834mrp",
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.2 Idealismo": "n976peb7y7f9hpma45j0jhg8dx8356zd",
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.3 Materialismo": "n97840tre6mcyt2mkentqcfr118357cb",
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.4 Nietzche": "n97cn3qmgmmgbg3v0qp6b7vjbd834xq3",
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.5 Existencialismo": "n97cpn3tebaemew9h2q6e07e2h8359m3",
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.6 Fenomenología": "n971y9semnbkdrb8e2tfcwg6hs83528p",
+    "100. Filosofía/100.2 Historia de la filosofía/100.25 Filosofía contemporánea/100.25.7 Agnosticismo": "n973tz0k7c289zvx4pwvczefjs835ysj",
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista": "n975gqfq4raxec1ecqy0z3hcnn834vfh",
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.3 Postmodernismo": "n97cq6h6az0abjz19x987bsn81835dey",
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.4 Gilles Lipovetsky": "n979dsmsr5k2qf7d8dk4ghjs158348xp",
+    "100. Filosofía/100.2 Historia de la filosofía/100.26 Filosofía post - modernista/100.26.5 Relativismo": "n97fvsqmpnvaebxz7963dmbq9d834r03",
+    "100. Filosofía/100.3 Corrientes filosóficas del S XXI": "n97c6w0mtte632hw4a8pp4jx5n834543",
+    "100. Filosofía/100.4 Filosofía de la religión": "n977td0tx9jk5vszsg04j6qv6x834ndp",
+    "100. Filosofía/100.5 Lógica": "n97b936r8w8fkte7nn3w9whwe1835t2a",
+    "100. Filosofía/100.5 Lógica/100.5.2 Manuales de lógica": "n973c8xg76dwrwysk53v03jg5h8352fg",
+    "100. Filosofía/100.5 Lógica/100.5.3. El razonamiento": "n9777tq87ynqc6fyhnr1wn2f95834fd2",
+    "100. Filosofía/100.5 Lógica/100.5.4 Las falacias": "n97erbj5map0b043pp7r0dwgz5835crq",
+    "100. Filosofía/100.6 Epistemología": "n978wyy94rpmpzecb2f88ecn71835cwv",
+    "100. Filosofía/100.7 Metafísica": "n9765hrbbhenx29jhkp4mb44bx834m8y",
+    "100. Filosofía/100.8 Teodicea": "n974en85a3csxx9h2vpc8rrqx9834cnv",
+    "100. Filosofía/100.9 Ética": "n970jrpwjjdqq4bkttcrwa8q9s835yjp",
+    "100. Filosofía/135. Libros por países": "n972vznx6j78qk1dmw1n2pcg8s835mpg",
+    "100. Filosofía/135. Libros por países/135.1 Honduras": "n978dfzsgnhfh6yz71q84f5twd8344mm",
+    "100. Filosofía/150. Psicología": "n97bfjketa3t1sqmm2yjfchcrs834s1x",
+    "100. Filosofía/150. Psicología/150.1 Manuales de psicología": "n9719kwvy8ggyq58g3de3ff55n834a6j",
+    "100. Filosofía/150. Psicología/150.2 Psicólogos y sus teorías": "n9768rmxxgr09ktzt1jjjb62pn834b4s",
+    "100. Filosofía/150. Psicología/150.3 Historia de la Psicología": "n97c6zc6zpm946rvxfq2jf5r71835ptf",
+    "100. Filosofía/150. Psicología/150.4 Mecanismos de defensa": "n97b394abvyy0vmdvmpp3wzs5d83449w",
+    "100. Filosofía/150. Psicología/150.5 Divisiones de la Psicología": "n977hnvkqt2083nn0a7vxzdj3n834r5z",
+    "100. Filosofía/158. Autoayuda e inspiracionales": "n97669rw4eaba2a3vjksk3c5ex834zb9",
+    "100. Filosofía/158. Autoayuda e inspiracionales/158.1 Inspiracionales": "n974bq6e05jc153t00w59dw07x8357jb",
+    "200. Religión": "n97fc2h8xk1y5t4wsd6336med98354c6",
+    "200. Religión/200.1 Manuales de religión": "n979zdvkrk96yqwz5x42h406tx834mmj",
+    "200. Religión/200.2 Historia de las religiones": "n9755sh5wzxve85sf635mm32bs835ckh",
+    "200. Religión/200.3 El fenómeno religioso": "n9788ghsj0bvp2q7b60hpn2etd834dk6",
+    "200. Religión/201. Religión cristiana": "n977jt3p88qrmhy7vgbpm9dpdn834zs6",
+    "200. Religión/201. Religión cristiana/201.1 Cristianismo católico": "n97dc1j9rrjxqt22t7azak5wkx835md3",
+    "200. Religión/201. Religión cristiana/201.1 Cristianismo católico/201.11 Encíclicas": "n972rm3aj82wvd22e3ws1d0ty9834wvg",
+    "200. Religión/201. Religión cristiana/201.1 Cristianismo católico/201.12 Concilios": "n970j8jc1hp8ngw4xzn94vnscx834crf",
+    "200. Religión/201. Religión cristiana/201.1 Cristianismo católico/201.13 Conferencias episcopales": "n97as557qztzwktzk46r592y89834bd9",
+    "200. Religión/201. Religión cristiana/201.1 Cristianismo católico/201.14 Teológos católicos": "n97435jds4p06909sz1h4jvw7n834tvt",
+    "200. Religión/201. Religión cristiana/201.1 Cristianismo católico/201.15 Catholic theology": "n975frq775xttky67mppc16z5d835vg0",
+    "200. Religión/201. Religión cristiana/201.1 Cristianismo católico/201.16 Polémica del cristianismo católico": "n97bsv29smmff6cr3fmetjmyeh835n62",
+    "200. Religión/201. Religión cristiana/201.1 Cristianismo católico/201.17Doctrina Social de la Iglesia": "n976r36pjcqbr4bz2b6b045m49834jdt",
+    "200. Religión/201. Religión cristiana/201.2 Cristianismo protestante": "n971sb6xfj4znx7wyc3b7j8rss834tb3",
+    "200. Religión/201. Religión cristiana/201.3 Cristianismo ortodoxo": "n97cgagty1wm7pfwej5aev2j4d8353c6",
+    "200. Religión/202. Judaísmo": "n979xet8vsnwdaw9fv24mt8bq18345kd",
+    "200. Religión/202. Judaísmo/202.1 Sectas judías": "n97ch8ng2rpx7y0en462az762d835zy2",
+    "200. Religión/202. Judaísmo/202.2 Literatura judía": "n97b3paxtqksk43jytfery1x1x835z5e",
+    "200. Religión/202. Judaísmo/202.2 Literatura judía/202.21 Literatura esenia": "n971cntsycafa0w991kw2kyand835z2k",
+    "200. Religión/202. Judaísmo/202.3 Filón de Alejandría": "n97eqdvpc12fddcxbabtnay98n835mj1",
+    "200. Religión/202. Judaísmo/202.4 Escuelas judías": "n973heffd399n0kr9km1h02639834n4n",
+    "200. Religión/202. Judaísmo/202.5 Judaísmo vs helenismo": "n9712mn0twq1afd85b0vebr1wh834cjj",
+    "200. Religión/202. Judaísmo/202.6 Ruptura del judaísmo con el cristianismo": "n97a3bd0rbvf6nytx956avyaax834vep",
+    "200. Religión/202. Judaísmo/202.7 Temas del judaísmo": "n970km7mb8an6qep5nczddgdpn834c6f",
+    "200. Religión/203. Judaísmo vs cristianismo": "n976x34tvgpstt8wnmvnp6qk9h835mee",
+    "200. Religión/204. Zoroastrismo": "n973ze3n7sktcyabt12g0kg205834pvz",
+    "200. Religión/205. El islán": "n9770kaz7fawmwgndtp38ckaz1835pb9",
+    "200. Religión/206. Confucionismo": "n971pdsf6paww42cnwwe8t9xdx835kz8",
+    "200. Religión/207. Shintoísmo": "n973ykdeq03258y0jx3pvw93tx834b8w",
+    "200. Religión/208. Hinduísmo": "n9734zenyar1re8m4gxa9xdzdd834ajd",
+    "200. Religión/209. La Nueva Era": "n977yy4cfnn4evnrwcdrn0ht85835nqw",
+    "200. Religión/210. Sectas": "n974kz7d186sew9xsvmer3qggs834bjg",
+    "200. Religión/211. Prácticas religiosas": "n974kk3h5pezw926td8eqe4tc1835wkx",
+    "200. Religión/230. Teología": "n974mdjx6szw5qaqvebyh5mn2583563b",
+    "200. Religión/230. Teología/230.1 Introducción a la teología": "n97aaf1430yzsebk36vdwj0pd5834w6y",
+    "200. Religión/230. Teología/230.10 Teología India": "n97091jkjt74yg62nk09xh46r9835rgv",
+    "200. Religión/230. Teología/230.11 Teología Europea": "n97brznm956gmh15pwjtszsgb1835018",
+    "200. Religión/230. Teología/230.12 Inculturación de la teología": "n977fvxg892pqtn6ga84mh7pdn8345ax",
+    "200. Religión/230. Teología/230.13 Secularismo": "n971j1cws3zqwd11xatvtp9twd83580d",
+    "200. Religión/230. Teología/230.14 Teología negra": "n97135s6tf9snbvwav9brjd95h835de7",
+    "200. Religión/230. Teología/230.15 Teología de la prosperidad": "n9727hrejpawer4dtqatxtbh3x8348cx",
+    "200. Religión/230. Teología/230.16 Fundamentalismo": "n972706mrkzmkfwffqy2hm0ncd834d0d",
+    "200. Religión/230. Teología/230.17 Teología del Período Intertestamentario": "n970q6aqphctfyy39z9e42qvhd834yp4",
+    "200. Religión/230. Teología/230.18 Teología de la liberación": "n978aazsygmhcqwvm4bmmzrydd834pkb",
+    "200. Religión/230. Teología/230.19 Teología de Santidad": "n973w10akcddsk8t3m4t76tha5834h2a",
+    "200. Religión/230. Teología/230.2 Teología patrística": "n97epy8vbfqk94ex6b1xb09xch835m9v",
+    "200. Religión/230. Teología/230.20 Teología hispana": "n976axdd9nf2rs5qy2n98m8zwd834x3s",
+    "200. Religión/230. Teología/230.21 Historia de la dogmática": "n970cbkwnz2gprwgpds02xb15h835h31",
+    "200. Religión/230. Teología/230.22 Eco teología": "n97btvax3b3qhj4aqvstvjajx98343tb",
+    "200. Religión/230. Teología/230.23 Teología africana": "n97fqth1n2bsfdvbrfg68t9e8d834pa8",
+    "200. Religión/230. Teología/230.24 Teológos cristianos": "n97c0r6eahxeexchg9hp3dzntn835tjx",
+    "200. Religión/230. Teología/230.25 Herejías": "n97ftw3tnsgq4kvmb3e8rwc81s834v7x",
+    "200. Religión/230. Teología/230.3 Teología Medieval": "n97cxjxpbkjdf4ftmqsp8zhhx983406q",
+    "200. Religión/230. Teología/230.4 Influencia griega a la teología": "n97apd0jvgq758k1ggg5q9nhw98348kd",
+    "200. Religión/230. Teología/230.5 Teología étnica": "n97cffxhq9md127446r5wjpjn58340wt",
+    "200. Religión/230. Teología/230.6 Teología de la Reforma": "n97501p4ssdq5jd0zmpxdt40fs834zj9",
+    "200. Religión/230. Teología/230.7 Teología Gay": "n979n9wxmep1jggh0t74q4eq0n834qwy",
+    "200. Religión/230. Teología/230.8 Teología latinoamericana": "n97cmtq6j056s2836geax6hjw5835m94",
+    "200. Religión/230. Teología/230.9 Teología feminista": "n971bdept0mt5awxrsqcc752tn8352n1",
+    "200. Religión/231. Teología sistemática": "n975g5bja20fc1vanj5wh35mds834fa0",
+    "200. Religión/231. Teología sistemática/231.1 Manuales de teología sistemática": "n9782sv65pv7zxbsw3mntzmch9834mmb",
+    "200. Religión/231. Teología sistemática/231.10 Soteriología": "n97ady085j48k395td3rp31s2x83446a",
+    "200. Religión/231. Teología sistemática/231.11 Teología propia": "n97c72ra3zmcsd06bhdpcarp9183418j",
+    "200. Religión/231. Teología sistemática/231.2 Angelología": "n979t7sw68qh8djd9ppn93syb1835q9e",
+    "200. Religión/231. Teología sistemática/231.3 Antropología": "n97af0z08hpw54qs365c8f682n8340jx",
+    "200. Religión/231. Teología sistemática/231.4 Bibliología": "n975dj9df3t3fkvnccvaq45s8d834zdt",
+    "200. Religión/231. Teología sistemática/231.5 Cristología": "n9727tmtdywvrjjj9apefbghsd834278",
+    "200. Religión/231. Teología sistemática/231.6 Eclesiología": "n97570mah54bzgjfrpycw8mds5834gcc",
+    "200. Religión/231. Teología sistemática/231.7 Escatología": "n970zgr4969fywg7vht69dzgr5835fxr",
+    "200. Religión/231. Teología sistemática/231.8 Hamarteología": "n9771xvpsv1gv68psnsrkwqa6h834zcb",
+    "200. Religión/231. Teología sistemática/231.9 Pneumatología": "n97azx51e24y7f0wtrr5fdyg11834qh4",
+    "200. Religión/232. Teología bíblica": "n97dh9hv4y52k2n2nqw62gccgh83541b",
+    "200. Religión/232. Teología bíblica/232.1 Textus receptus": "n97fs5nbxsx5r71qva6ew1hcz5834kcj",
+    "200. Religión/232. Teología bíblica/232.10 Diccionario bíblico": "n978yy13g521yk0p0eh86h35qx834yk3",
+    "200. Religión/232. Teología bíblica/232.11 El Período Intertestamentario": "n972j653sgvv1d9c6ch6e82sk9835gdp",
+    "200. Religión/232. Teología bíblica/232.12 Manuales de Nuevo Testamento": "n974cx486g23jh67s3v3e1khy183553m",
+    "200. Religión/232. Teología bíblica/232.13 Comentarios bíblicos": "n971d25qgps64w83s3v6hwe0zx835chy",
+    "200. Religión/232. Teología bíblica/232.14 Evangelios apócrifos": "n973zmffnvdvavc972azz5wxyh83589s",
+    "200. Religión/232. Teología bíblica/232.15 Evangelios gnósticos": "n9737bvygjberepqne28wanvzn83547s",
+    "200. Religión/232. Teología bíblica/232.16 Pentateuco": "n972ad5c1mm9dq28mnbxsg58pd834rfx",
+    "200. Religión/232. Teología bíblica/232.17 Libros históricos": "n9754rexmgz5v7qfdse3ztf46s835rpm",
+    "200. Religión/232. Teología bíblica/232.18 Libros poéticos": "n979add1k9m2hfta059atw30gs834vhx",
+    "200. Religión/232. Teología bíblica/232.19 Libro de Daniel": "n973x5dj3dpttkq83sz2hd858s834bha",
+    "200. Religión/232. Teología bíblica/232.2 Biblias": "n97d7vrtqs5kaap0xatd12x83x834fhp",
+    "200. Religión/232. Teología bíblica/232.20 Libros sapienciales": "n977nw39638qyg2rvf30b9rc19835j4w",
+    "200. Religión/232. Teología bíblica/232.21 Libros proféticos": "n97e1kfh13qksyep9a9asrf83d8351j1",
+    "200. Religión/232. Teología bíblica/232.22 Los evangelios": "n979d8ccq29zqej1f8bhbjav05834ja8",
+    "200. Religión/232. Teología bíblica/232.24 Romanos": "n9799cfy3nq395x7qfc0d04xsn834far",
+    "200. Religión/232. Teología bíblica/232.25 Carta a los corintios": "n9704k7awpz5jkcmv1031t4txx834j23",
+    "200. Religión/232. Teología bíblica/232.26 Cartas de la prisión": "n974100hamtmzy6764zrp2jx71834z8m",
+    "200. Religión/232. Teología bíblica/232.27 Cartas pastorales": "n978sd299p827fj5m26fsw6y4h83484h",
+    "200. Religión/232. Teología bíblica/232.28 Cartas escatológicas": "n9794zesc998j9mfrzvkqxhkqd834cd3",
+    "200. Religión/232. Teología bíblica/232.29 San Pablo": "n9752q95xdbf5vmtf3jac64sg9834fej",
+    "200. Religión/232. Teología bíblica/232.3 Sociedad Bíblica y traducciones": "n9757q2r0snw8x590mwpb92hkh8351vg",
+    "200. Religión/232. Teología bíblica/232.30 Cartas universales": "n97bqvcevaa3rz8t8tb8p5vr7d8348hx",
+    "200. Religión/232. Teología bíblica/232.31 El Apocalipsis": "n979mkqhevw6qhckckz88nvfds8357jb",
+    "200. Religión/232. Teología bíblica/232.32 Literatura pseudoepígrafe o apocalíptica": "n97bva7r8nxgc382q665f77d09835mxk",
+    "200. Religión/232. Teología bíblica/232.33 Literatura deuterocanónica": "n979p8h2h31rxsxnkdgfe0h219835vqs",
+    "200. Religión/232. Teología bíblica/232.34 Los números de la Biblia": "n97c1vdhd3fz1a9x5hc9v12xwd835pkq",
+    "200. Religión/232. Teología bíblica/232.4 La Septuaginta o Biblia griega": "n97e9g4j0ghwgbdbbg7wdtv9n98359pb",
+    "200. Religión/232. Teología bíblica/232.5 La Biblia hebrea": "n97e2d57c0xwbmmf52987m6qd1834gvw",
+    "200. Religión/232. Teología bíblica/232.6 Canonicidad": "n97c9h5f121ft6savmpp2wben1834vvq",
+    "200. Religión/232. Teología bíblica/232.7 Helenismo en la formación del Texto": "n97bng13jsjr2ba4brfcwbb35d8342ad",
+    "200. Religión/232. Teología bíblica/232.8 Versiones": "n97ddr9n0hgttf3w3qgx1e9gnd8354ms",
+    "200. Religión/232. Teología bíblica/232.9 Manuales de Antiguo Testamento": "n97bn5322j5aavv9bghxz5mns18355pz",
+    "200. Religión/233. Idiomas bíblicos": "n97apvvdafaa9jc2s9jyhrp6xx835hcc",
+    "200. Religión/233. Idiomas bíblicos/233.1 Gramática griega": "n975aycggc5j03m0x9zj89ttmx835jck",
+    "200. Religión/233. Idiomas bíblicos/233.2 Gramática hebrea": "n97dbd9rpahy5xgtw3441jqnk9835h35",
+    "200. Religión/233. Idiomas bíblicos/233.3 Juan en griego": "n97fzx82vnxwbw7wneyyhpjyax834p5x",
+    "200. Religión/234. Teología exegética": "n97a5w0c4cs04jcep2axrs05k5834tb7",
+    "200. Religión/234. Teología exegética/234.1 Manuales de hermenéutica": "n973n86mcqq4fns2632ff4j0ks8345pm",
+    "200. Religión/234. Teología exegética/234.2 Crítica bíblica": "n975235ghwjx0fwn26ttxm0nqd835wry",
+    "200. Religión/234. Teología exegética/234.2 Crítica bíblica/234.2.1 Crítica bíblica": "n9713x7xsrt30k36js16666t75835hg5",
+    "200. Religión/234. Teología exegética/234.2 Crítica bíblica/234.2.2Crítica Textual": "n972wzr2cb02qbq0m9pvfcyt818355yw",
+    "200. Religión/234. Teología exegética/234.2 Crítica bíblica/234.2.4 Crítica literaria": "n976xsem7gf6yk4a4zedp81pys834tmt",
+    "200. Religión/234. Teología exegética/234.2 Crítica bíblica/234.2.5 Crítica de formas": "n97bjdhc1z8aqwb22pncge1srh834bgm",
+    "200. Religión/234. Teología exegética/234.2 Crítica bíblica/234.2.6 Crítica de redacción": "n973w25vx6rjpjt3szmd48edr98341x4",
+    "200. Religión/234. Teología exegética/234.2 Crítica bíblica/234.2.7 Crítica histórica": "n971fd7d0mpatdjfdvzzq8ryq1834xn3",
+    "200. Religión/234. Teología exegética/234.3 Exégesis especializada": "n97byehg2ydxf35280bk4w29mn834geg",
+    "200. Religión/234. Teología exegética/234.4 Métodos de interpretación textual": "n977w5s2ygh7xewnzzcq6ryj6n835jk9",
+    "200. Religión/234. Teología exegética/234.4 Métodos de interpretación textual/234.4.1 Métodos hermenéuticos": "n978rjs92h3e4szy2se19z2qgh834y6d",
+    "200. Religión/234. Teología exegética/234.4 Métodos de interpretación textual/234.4.2 Semiotica": "n97cs68j2ywge0t3b106ye1a1x8351jb",
+    "200. Religión/234. Teología exegética/234.4 Métodos de interpretación textual/234.4.4 Histórico - crítico": "n972c50w78n3ezyd11sjy1z6cd835cex",
+    "200. Religión/234. Teología exegética/234.4 Métodos de interpretación textual/234.4.5 Inductivo": "n97dj5gz5baekjk0sx3k6yp5s5835tj5",
+    "200. Religión/234. Teología exegética/234.5 Método alegórico": "n972z1s30chzngcmw09v9peqcn835143",
+    "200. Religión/234. Teología exegética/234.6 Práctica de métodos de interpretación": "n976s0r5hbfkcy8k5y43g2nt8h83541t",
+    "200. Religión/234. Teología exegética/234.7 Hermenéutica latinoamericana": "n97ccbxj8g31grryg2gp051b4x835txd",
+    "200. Religión/234. Teología exegética/234.8 Escuela de Alejandría": "n971q6rc50ynsa09cf81v7yvj1834267",
+    "200. Religión/235. Teología histórica": "n972tze0x988w9yxcyj4bv1p2s834e56",
+    "200. Religión/235. Teología histórica/235.1 Historia de la Iglesia": "n976aywhn3vb6ctrn1xgnp1q51834ax3",
+    "200. Religión/235. Teología histórica/235.10 Historia de iglesias": "n974cp0abz2ygcxp73f28xa3y1835ya2",
+    "200. Religión/235. Teología histórica/235.2 La patrística": "n97655bxdt1tm9dmh9v17j3xes834c5d",
+    "200. Religión/235. Teología histórica/235.3 La Edad Media": "n979w6n5rnm35rba2ekqc7edad835vmp",
+    "200. Religión/235. Teología histórica/235.4 La reforma protestante": "n971qqxp0mjgtm2c0x4hb2tb5d834rrt",
+    "200. Religión/235. Teología histórica/235.5 La inquisición": "n978hjcn8kez6ectde4sjx52tn835fsy",
+    "200. Religión/235. Teología histórica/235.6 Los movimientos ingleses del S. XVII y S XVIII": "n9758zp6hv0spnjp9cyrmac2xn834mmj",
+    "200. Religión/235. Teología histórica/235.7 Movimiento pentecostal": "n978cfzghxy9jk99f5dqdmnq7s834pqq",
+    "200. Religión/235. Teología histórica/235.8 Movimiento Apostólico y Profético": "n978dzbphwbcf06cfd33zpeqms8350b6",
+    "200. Religión/235. Teología histórica/235.9 Congresos de la Iglesia protestante": "n97706mzat8hkf3ygmpkynr2qx835sg4",
+    "200. Religión/236. Teología práctica": "n971fxrmadkc9tsxmg57eh8txn835ckb",
+    "200. Religión/236. Teología práctica/236.1 Manuales": "n974yvg56s5bbseygwtt7fv3t18351cd",
+    "200. Religión/236. Teología práctica/236.11 Homilética": "n974y491bkpcwm1a21x2vb82r1835cbe",
+    "200. Religión/236. Teología práctica/236.2 Consejería pastoral": "n97aa44a6afzss5sfeax11agnd8350x0",
+    "200. Religión/236. Teología práctica/236.3 Ética": "n9709qnyh4h2bweqfve56xr17x8345nh",
+    "200. Religión/236. Teología práctica/236.4 Evangelismo": "n978ytgbw66g0m9hjnnsysn3x5835zsm",
+    "200. Religión/236. Teología práctica/236.5 Pastoral": "n97da4kzy9jfa3hmkfag9yg7xh835kna",
+    "200. Religión/236. Teología práctica/236.6 Iglecrecimiento": "n97fmhpjq0xpevm4gp04xe5evn834vg6",
+    "200. Religión/236. Teología práctica/236.7 Liturgia": "n978tb4xjt3q4jyvqf8yak1hb5835k4z",
+    "200. Religión/236. Teología práctica/236.8 Mayordomía": "n977tc2hyy46bfbh3b5rksrbn58354yw",
+    "200. Religión/236. Teología práctica/236.9 Misiones": "n97emvp5ck95ap5c0tw035n7p1835mnk",
+    "200. Religión/236. Teología práctica/236.9 Misiones/236.91 Misiones": "n97990afw0z3t1ffftb7hased9835z5w",
+    "200. Religión/236. Teología práctica/236.9 Misiones/236.92 La conferencia misionera": "n971prefa6z4k9jyqcq3jdzymh83477y",
+    "200. Religión/236. Teología práctica/236.9 Misiones/236.93 Congresos misioneros": "n97573h0vrfwv7h1yseg4sy4m183492e",
+    "200. Religión/236. Teología práctica/236.9 Misiones/236.94 Misiones de corto plazo": "n9707ehxaphhfvz1dcxdd6w79h834f4a",
+    "200. Religión/236. Teología práctica/236.9 Misiones/236.95 Misiones en el mundo musulmán": "n975q7resj4g8fec11cnhrpra18359xm",
+    "200. Religión/239. Apologética cristiana": "n9793cbkz79m4bqa5s7k0wjxxs835ft3",
+    "200. Religión/240. Tesis y portafolios": "n97161txz86nkpmhf5hxgfhwxs835p6y",
+    "200. Religión/240. Tesis y portafolios/240.1 Tesinas": "n97d8rznn9ez8qhv9xt2rz0m5h835scc",
+    "200. Religión/240. Tesis y portafolios/240.2 Tesis de Licenciatura y maestría": "n97agkn6867m0btvkypw34j2qh834k9k",
+    "200. Religión/240. Tesis y portafolios/240.3 Tesis doctorales": "n97fbkr8mtnwqb2sfjf9vqnx01835e83",
+    "200. Religión/240. Tesis y portafolios/240.4 Portafolios": "n975gq4ptanq6z6q1p3d43trs583570p",
+    "300. Ciencias Sociales": "n97e422yt7c0ehv2vtqe5p8ftx838jqg",
+    "300. Ciencias Sociales/301. Sociología": "n978940nn4t2mztf45xanht43n839sr0",
+    "300. Ciencias Sociales/301. Sociología/301.1 Manuales de sociología": "n978v1yy3d6gyre3wq60z9wnt1839n9n",
+    "300. Ciencias Sociales/301. Sociología/301.10 Sociología jurídica": "n975at6pbnfcr656hq2b45jpd5838b5e",
+    "300. Ciencias Sociales/301. Sociología/301.11 Sociología política": "n974pgm0b5h52xnb528mvvgpa98384nm",
+    "300. Ciencias Sociales/301. Sociología/301.12 La migración": "n97fhaf7nv77c9f9pg89kzg38n8399x9",
+    "300. Ciencias Sociales/301. Sociología/301.2 Métodos de la sociología": "n97fkncnc5nf32chf4kbgfkk89839zy4",
+    "300. Ciencias Sociales/301. Sociología/301.3 Sociología de la religión": "n9710b9e9n9tpbcsknj9gykzks838a6j",
+    "300. Ciencias Sociales/301. Sociología/301.4 Sociología y cultura": "n977ck0q6v5j354ycer522vden839yh7",
+    "300. Ciencias Sociales/301. Sociología/301.5 Sociólogos": "n97971ztbg8mhg91vcdqzh73as8396ff",
+    "300. Ciencias Sociales/301. Sociología/301.6 La sociedad": "n974whqc86zzv7c0g5jsgvwcsn838q5q",
+    "300. Ciencias Sociales/301. Sociología/301.7 Sociología y familia": "n97fbte450d4nxepfnykz58q0d838qa6",
+    "300. Ciencias Sociales/301. Sociología/301.8 Sociología de la educación": "n97a7k3fm0s7rcwd96gv1t88cn838p4p",
+    "300. Ciencias Sociales/301. Sociología/301.9 Sociología de la Comunicación": "n979x8qm3hhg2pc20qpc5ametd839jfy",
+    "300. Ciencias Sociales/306. Familia": "n970a3fkw7hv8xzemb80ce88x5838000",
+    "300. Ciencias Sociales/306. Familia/306.1 Diplomado en orientación familia": "n971m7bvmxhgqy047711k6c97n839cqk",
+    "300. Ciencias Sociales/306. Familia/306.1 Diplomado en orientación familia/306.1.1 Áreas de aplicación de la Psicología": "n97d0j2p3zdyy6b375mfs97ets838n39",
+    "300. Ciencias Sociales/306. Familia/306.1 Diplomado en orientación familia/306.1.2 Consideraciones básicas a la orientación": "n97feqsz95cy1wbkqxbbbxsvgh838xst",
+    "300. Ciencias Sociales/306. Familia/306.1 Diplomado en orientación familia/306.1.3 Ética-psicología – Biblia": "n97554gbse30f0d6ejp54w1f318384vp",
+    "300. Ciencias Sociales/306. Familia/306.1 Diplomado en orientación familia/306.1.4 Introducción a la terapía familiar": "n97dkf93jn5383rvkyb966b4zh839cyp",
+    "300. Ciencias Sociales/306. Familia/306.1 Diplomado en orientación familia/306.1.5 Violencia intrafamiliar": "n974r4767y58hwdrzg7p7asxgh8394gh",
+    "300. Ciencias Sociales/307. Realidad socioeconómica": "n978q0g1pbpt170442v3kh1bcx839kms",
+    "300. Ciencias Sociales/307. Realidad socioeconómica/307.1 Realidad socioeconómica de África": "n979pxwg0gfefsfss9fwed7vn9839khw",
+    "300. Ciencias Sociales/307. Realidad socioeconómica/307.2 Realidad socio económica de LA": "n97adg1htymnfv9g03s6vb200h838njy",
+    "300. Ciencias Sociales/320. Ciencias políticas": "n978tzvbjyc97r93sdgcevh91d838kdz",
+    "300. Ciencias Sociales/320. Ciencias políticas/320.1 Manuales de Ciencias políticas": "n977hewf4esd2cfb1gfxvxscax8390kk",
+    "300. Ciencias Sociales/320. Ciencias políticas/320.10 Participación del cristiano en la política": "n973334q3rj2tb2hmz7b1xgz7x838d9k",
+    "300. Ciencias Sociales/320. Ciencias políticas/320.11 Realidad moral y socioeconómica de América Latina": "n979yed3e0t6x75a97kty51wj18383pa",
+    "300. Ciencias Sociales/320. Ciencias políticas/320.12 Socialización de un plan de gobierno": "n976q0vv0bd6apaa371rgprg2h839b2t",
+    "300. Ciencias Sociales/320. Ciencias políticas/320.13 Obras clásicas de ciencias políticas": "n9786yb04060z2rjhg1a4nf9b1838xqh",
+    "300. Ciencias Sociales/320. Ciencias políticas/320.14 El liberalismo político": "n97enmetn83nyjz0y78zh0htex838ec0",
+    "300. Ciencias Sociales/320. Ciencias políticas/320.15 Formas de gobierno": "n97d8eqdxbda0jwrwy15s0khss838h3r",
+    "300. Ciencias Sociales/320. Ciencias políticas/320.2 Constituciones políticas": "n97cv0gkqkvskm6bsx3q9jmsfn838btj",
+    "300. Ciencias Sociales/320. Ciencias políticas/320.3 Derecho y justicia": "n97b3377yyr5jngyxwq9h5hyz58395qz",
+    "300. Ciencias Sociales/320. Ciencias políticas/320.4 Ética y política": "n97ffrbeac38mpfbmzwq0w6m71838xcj",
+    "300. Ciencias Sociales/320. Ciencias políticas/320.5 Política y Religión en la Sociedad Norteamericana": "n9763209n1w7w6bd9e6ymvn1en839p4n",
+    "300. Ciencias Sociales/320. Ciencias políticas/320.6 El Estado": "n979dgxh4dvdeykggcphcda1zd8385w6",
+    "300. Ciencias Sociales/320. Ciencias políticas/320.7 Introducción a las doctrinas político- económicas": "n976434rdg0hdjmrsf4an4pq4x838d27",
+    "300. Ciencias Sociales/320. Ciencias políticas/320.8 Ciencias políticas desde la dimensión de la fe": "n97cct3qwcd0hg527na0krmba9839r9f",
+    "300. Ciencias Sociales/320. Ciencias políticas/320.9 Manuales del diplomado de Fe y política": "n977xsfqtqbhzrfnt4dgbnep4d838dnh",
+    "300. Ciencias Sociales/330. Economía": "n973x56xn9n3v1hfkm91g33aed839rf7",
+    "300. Ciencias Sociales/330. Economía/330.1 Manuales de economía": "n971mhyce3x3ctr8e85s1p6ev9838jaj",
+    "300. Ciencias Sociales/330. Economía/330.2 Obras de economía": "n978r2mwhaakbhdw5cd0ede8ax8388yd",
+    "300. Ciencias Sociales/330. Economía/330.3 Globalización económica": "n97dfhadb2yk5x0snahe703ye9838p78",
+    "300. Ciencias Sociales/330. Economía/330.4 Comercio internacional": "n970sjw1z257a63nhzqt1dfhx98381ms",
+    "300. Ciencias Sociales/330. Economía/330.5 Microeconomía": "n97f7r6vk4dg12j4xcvbf4prf9838t6n",
+    "300. Ciencias Sociales/330. Economía/330.8 Economía y Empresa": "n97es1kyvj57jf8rejz2ghnvxn839t2r",
+    "300. Ciencias Sociales/332. Finanzas": "n97a5vah3fktegghhe74h5q4gx839eqh",
+    "300. Ciencias Sociales/340. Derecho": "n971kqhfg0ecm4shkmnctwwcvn839f7h",
+    "300. Ciencias Sociales/340. Derecho/340.1 Derecho Civil": "n97ad3x0vwm97814et6s3bhxgd839cak",
+    "300. Ciencias Sociales/340. Derecho/340.10 Filosofía del derecho": "n978a89frk2x94shwxvt7gezan838t0n",
+    "300. Ciencias Sociales/340. Derecho/340.11 Moral y derecho": "n976269dafjrv28s77t8pnr4q1838neh",
+    "300. Ciencias Sociales/340. Derecho/340.12 Teoría general del Estado": "n97dd0kv5sr6khwp4pzdvyregn838089",
+    "300. Ciencias Sociales/340. Derecho/340.13 Sociologia criminal": "n97f0875wsf5wt4gxh8zmj6gjn839vvp",
+    "300. Ciencias Sociales/340. Derecho/340.14 Trata de personas": "n976kbfhtyhw01rpxz26xk50n98384cm",
+    "300. Ciencias Sociales/340. Derecho/340.15 Victomologia": "n9761hjmz98tkafeh64pjqxned8390v6",
+    "300. Ciencias Sociales/340. Derecho/340.16 Informatica forense": "n97292ssgeeyqnh8y71sh6j6md838f69",
+    "300. Ciencias Sociales/340. Derecho/340.17 Interrogatorios y mas": "n970nxv2y7xq9hp0m2b46zmzrh8387ye",
+    "300. Ciencias Sociales/340. Derecho/340.2 Introducción al estudio del derecho": "n972wv1v343dsw1jqxwdnct915839151",
+    "300. Ciencias Sociales/340. Derecho/340.3 Derecho Internacional": "n97bcvtsgv97c1k9f03aqhx3tx83989t",
+    "300. Ciencias Sociales/340. Derecho/340.3 Derecho Internacional/Tesis RZ": "n97f9sj3bzvr3rnhg5yra2160s839enw",
+    "300. Ciencias Sociales/340. Derecho/340.4 Derecho Penal": "n97c14cnag50qxm8kn7qv7q6a18391ph",
+    "300. Ciencias Sociales/340. Derecho/340.5 Derechos Humanos": "n975my12q7q8nr1qpe836j98hs838b8n",
+    "300. Ciencias Sociales/340. Derecho/340.6 Derecho empresarial": "n97d24w73vdyg8wjb0dcqq6jzh838s47",
+    "300. Ciencias Sociales/340. Derecho/340.7 Derecho islámico": "n97fxvrxa3thy8xkd4t1ysjzth8385av",
+    "300. Ciencias Sociales/340. Derecho/340.9 Historia del derecho": "n97d2czm56y8pe153c5rsvs1fn839069",
+    "300. Ciencias Sociales/370. Educación": "n97cbzbgpke8evgy0axsaa8dhd838s11",
+    "300. Ciencias Sociales/370. Educación/370.1 Manuales de pedagogía": "n974ke0dhzjyedg3qf0hwhj8eh839epm",
+    "300. Ciencias Sociales/370. Educación/370.2 Historia de la Pedagogía": "n9760mx5d5d33prw78hzfvfg8d838cy4",
+    "300. Ciencias Sociales/370. Educación/370.3 Andragogía": "n97f7vmhs60dnrzm1e19yxhzzd839h76",
+    "300. Ciencias Sociales/370. Educación/370.4 Didáctica": "n97e3rj8bqna2jvffpv9jqe0p9839h04",
+    "300. Ciencias Sociales/370. Educación/370.5 Evaluación": "n979wyh3rw39jjtstyz3q7vn91839vfy",
+    "300. Ciencias Sociales/370. Educación/370.6 Pedagogos y su obra": "n971deca9qw16gj1nnhh53ve55839y3q",
+    "300. Ciencias Sociales/371. Educación cristiana": "n97c86wd4q0x9a24te7qs3fz69838aht",
+    "400. Lingüística": "n9784dzccykgkscwjbrxfmf37583g14r",
+    "400. Lingüística/400.1 Manuales de lingüística": "n97e57k10nhf51kdwpqrs7h78h83hnnh",
+    "400. Lingüística/400.2 Ramas de la linguística": "n975mjmjyq9gdfrnc1cq8q2f5x83gqvj",
+    "400. Lingüística/400.3 Historia del castellano": "n97bqeqxsm3fqbw7a7zhw7ghcx83hyns",
+    "400. Lingüística/400.4 Gramática castellana": "n971t8dx3gtm2rpyw16cb9ehqn83gwea",
+    "400. Lingüística/400.5 Lenguaje y signo": "n97b74fnbnrp7x4c2jszz21td983gq0p",
+    "400. Lingüística/400.6 Lenguaje y comunicación": "n9737bhjhkst6d8wyws26b7n5s83h8e9",
+    "800. Literatura": "n973r5tx4m687ajxvfqqd85e9s83hhrb",
+    "800. Literatura/801. Obras de la literatura": "n978rs475dqyfhh2bytp9t3fks83hkcq",
+    "800. Literatura/808 Oratoria y elocuencia": "n97748swajbsddd5kb40y0e52s83gy8n",
+    "800. Literatura/808 Oratoria y elocuencia/808.1 Manuales de oratoria y retórica": "n976t8ntkqde967a3d124k3cah83gcdn",
+    "800. Literatura/808 Oratoria y elocuencia/808.2 Discursos": "n97bdstkgc2464npwf3cfvgptd83gjf2",
+    "800. Literatura/808 Oratoria y elocuencia/808.3 Filosofía de la elocuencia": "n970e66e0zvrq116b43rmeca2183gq96",
+    "800. Literatura/808 Oratoria y elocuencia/808.4 Portafolios": "n976tk62865v4sbk2s00wzadmh83g8x3",
+    "800. Literatura/808 Oratoria y elocuencia/808.5 Videos predicación y elocuencia": "n9793p52eyztt4mvnrsrccg29d83g0fz",
+    "800. Literatura/809. Redacción de ensayos": "n972qbessjvjb9k81daqhc8r7n83hhax",
+    "900. Historia": "n973md9gpzfsbt32mgcp9aaf2d839f72",
+    "900. Historia/900.1 Historia Universal": "n977svfz48egh3jbehsasm6rp9839w3m",
+    "900. Historia/900.1 Historia Universal/900.11 Manuales de Historia Universal": "n971g7sv26xtptmhtyhaaz0tg98395gp",
+    "900. Historia/900.1 Historia Universal/900.12 Edad Antigua": "n97a8facw9nxrg4ce3xhct87cs839xcb",
+    "900. Historia/900.1 Historia Universal/900.13 Edad Media": "n97aphjpjwaevd59brqywavbes838fz9",
+    "900. Historia/900.1 Historia Universal/900.15 Edad Contemporánea (S XVIII-XIX)": "n97ccs9qtgz72rn55qkhs2vbj9838875",
+    "900. Historia/900.1 Historia Universal/900.16 Edad Contemporánea (S XX - XXI": "n97acmwy1n98sa9pt730g87sdh8380e6",
+    "900. Historia/900.1 Historia Universal/900.17 Historia de África": "n97c580yehv7wepp23vc7pevvn839kp6",
+    "900. Historia/900.2 Historia de Israel": "n97cdvjf68nh17qmqfwxzkx68d839jf5",
+    "900. Historia/910. Geografía": "n971sn15k2xvq6s7hzf4yb45gd838mfq",
+    "900. Historia/910. Geografía/910.1 Manuales de geografia": "n97dnve346c74mt4tx7rz3fpgd8390yn",
+    "900. Historia/920. Biografía": "n974f38f6qem3b14y9ga2xqhj9838vgd",
+    "900. Historia/930. Arqueología": "n9794g1rcnreebzneh6cb3p11x838jfg",
+    "900. Historia/930. Arqueología/930.1 Arqueología bíblica": "n973ahevje7a204b53aahbbn6h838605",
+    "900. Historia/930. Arqueología/930.2 Biblioteca de Nag Hammadi": "n97cfz1dtpsm55pg9e76v49g79839qf2",
+    "900. Historia/930. Arqueología/930.3 Literatura de Qumrán": "n974zgnn0d81dc91x029msryyx838zve",
+    "900. Historia/930. Arqueología/930.4 Arqueólogos": "n971mp0pg5rjkqh9sfabfgnkdn838qqp",
+    "600. Administración": "n972t23j2t9azzsk5b2k9w4ds583g6f4",
+    "600. Administración/600.1 Manuales de administración": "n979ca9ktwphb7tszhcj8zwken83h0rx",
+    "600. Administración/600.2 Recursos humanos": "n973dd89wgnmvrhchs5sxrq05983ggak",
+    "600. Administración/600.3 Normas parlamentarias": "n973bf6zv7th01a4g53q98xz1x83g92g",
+    "600. Administración/658. Liderazgo": "n9736f5yfq2ac9pfrd9ptscnjn83h6vq",
+    "600. Administración/658. Liderazgo/658.1 Liderazgo empresarial": "n97bfwxh54ygfj3dqgm0yqrnq983h7q7",
+    "600. Administración/658. Liderazgo/658.2 Mentoría": "n9708sk3r0ec6s03dcegxhpte983hys5",
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos": "n97fnmgf1d6f3rnneag4ajm08983h79b",
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership": "n974jwh43kfgmvemmhffh1wy8583g1cm",
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.41 Decision Making": "n9730t5t08rtgtgv3zgtn89khh83gf53",
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.42 Eloquence": "n970k1yab61ckjcp30fxc1d4g983g5db",
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.43 Ethics": "n97faj54ht4v1w0fkv8n01mbcn83hq4k",
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.44 General Review of the Bible": "n978kqn5da1d3dqq29f2md93g583gt88",
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.45 Interpretation Techniques": "n97c5wq12nq93z597cww9m1teh83h116",
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership": "n972qen30yj7p8swf922yavjg583h61g",
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.47 Planning events": "n97707t7dqp9r19fyb2gk5vx3d83gvhm",
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.48 Postmodernism": "n977sj5bfmar19dp4rchqw7jjn83hb9h",
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership": "n97343ptxan570f89bah66e2sh83hgzk",
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado": "n978597473kgd52v0qkk42p7k583g9pn",
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.51 Etica en una sociedad postmodernista": "n977sk118r5y9kdgv2znsqfkvx83gfb7",
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.52 Evangelismo y recursos humanos": "n971b3s58jqz9yxsmv24wbb53x83gkap",
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.53 Introduccion al liderazgo": "n97aec7m5njekpd7hp5tnbb1b983gvrb",
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.54 Organizacion y planeacion de eventos": "n9710bgyzdq7r8hhxwr0n04wg583hpgf",
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.55 Posmodernismo en la sociedad actual": "n97197c5pm0h4fwcrpfe5447m983ghxg",
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.56 Principios y estilos de liderazgo": "n976eg82ecm369vjxa5nt5b98n83g9qc",
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.57 Toma de decisiones y cambio": "n97fefdrayes5as9sjk59kw39s83gb0w"
+  },
+  "items": {
+    "600. Administración/600.1 Manuales de administración/Chiavenato, Idalberto. Introducción a la teoría de la administración.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2090zag4hv3cm0xhrfekqh8583hwtm",
+      "bookId": "n177x8gjgjzmaf1drftq9v6yr583gp4p",
+      "updatedAt": "2026-03-24T13:51:08.426Z"
+    },
+    "600. Administración/600.1 Manuales de administración/Gallardo, E. Fundamentos Administracion.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bjm9bkqzn5zw4gg465ggs5d83hggx",
+      "bookId": "n17b7131zprc7fng5664s1ct9h83gr7f",
+      "updatedAt": "2026-03-24T13:51:12.513Z"
+    },
+    "600. Administración/600.2 Recursos humanos/Lopez, Luis. Recursos Humanos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg263pswathkhdjm2j734ppkr983h7nx",
+      "bookId": "n175bxm5qhv1fw45esqyw0g1d583gjwa",
+      "updatedAt": "2026-03-24T13:51:13.587Z"
+    },
+    "600. Administración/600.3 Normas parlamentarias/Roberts Rules of Order.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg218jqtpan1e3k79xp63zahv583hazj",
+      "bookId": "n176q3bxr5jhme9pv0q09c8zy983gvj7",
+      "updatedAt": "2026-03-24T13:51:14.675Z"
+    },
+    "600. Administración/658. Liderazgo/658.1 Liderazgo empresarial/Area Comerical. El Marketing.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2197khn3dc58xm8vc2tzw3r583hx3w",
+      "bookId": "n178epd66y5evd89jmkm6xynhd83ghqs",
+      "updatedAt": "2026-03-24T13:51:15.476Z"
+    },
+    "600. Administración/658. Liderazgo/658.1 Liderazgo empresarial/Coaching Dirigir.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29mqqjc2bx13wn8jsp234wxh83htf4",
+      "bookId": "n174hzwa2wy03nkbxeveanx11s83gw09",
+      "updatedAt": "2026-03-24T13:51:16.713Z"
+    },
+    "600. Administración/658. Liderazgo/658.1 Liderazgo empresarial/Coaching y Liderazgo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26br8q49xchtyfsd58q206xh83hfbr",
+      "bookId": "n17699tgmae1ctecfsvn6j4r8d83hkdn",
+      "updatedAt": "2026-03-24T13:51:17.727Z"
+    },
+    "600. Administración/658. Liderazgo/658.1 Liderazgo empresarial/Dether, Mario. Ser Emprendedor.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2547x12vghtx649q2f026bs583g8sv",
+      "bookId": "n17f1cszvy50e7ytx3ssnw0myh83gdgt",
+      "updatedAt": "2026-03-24T13:51:18.476Z"
+    },
+    "600. Administración/658. Liderazgo/658.1 Liderazgo empresarial/Empresa e iniciativa emprendedora UD01.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22a8hdcgvk4q1hf2y1g6s2b583hp45",
+      "bookId": "n17en32cmcat3sj9x2a3bt9f5s83hfza",
+      "updatedAt": "2026-03-24T13:51:19.792Z"
+    },
+    "600. Administración/658. Liderazgo/658.1 Liderazgo empresarial/Freire, Andy. Qué es ser Emprendedor.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dyffhdcecww5jg12df4rjn983h5gb",
+      "bookId": "n1752amjnp6xax96q09hwt10bd83g0ay",
+      "updatedAt": "2026-03-24T13:51:20.606Z"
+    },
+    "600. Administración/658. Liderazgo/658.1 Liderazgo empresarial/Garcia, Ramon & otros. Aprendiendo Empresas Sociales.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21ev7x60nc9gnv4zp9v13z0s83hz55",
+      "bookId": "n1736zkkjqfrws4v9j9t57rq3s83hy1e",
+      "updatedAt": "2026-03-24T13:51:22.353Z"
+    },
+    "600. Administración/658. Liderazgo/658.1 Liderazgo empresarial/Goméz, Juan. La Empresa Como Organizacion.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21nw65aqv3cyy3saa418pmas83g85p",
+      "bookId": "n17bmxy3yvvpp9p7tqqgasefd983g7g1",
+      "updatedAt": "2026-03-24T13:51:23.174Z"
+    },
+    "600. Administración/658. Liderazgo/658.1 Liderazgo empresarial/Gonzalez, Humberto. Economí­a y Empresa.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fnaypa97hxtwwjmdcakeeah83hk7g",
+      "bookId": "n1789vbrhmat3nc9bmbq8s940983gywc",
+      "updatedAt": "2026-03-24T13:51:24.095Z"
+    },
+    "600. Administración/658. Liderazgo/658.1 Liderazgo empresarial/La Empresa.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25pr7ja44wtke2a6rhbe19wn83ht4m",
+      "bookId": "n17b1f4w92c16d8e74vg3j804h83g6hk",
+      "updatedAt": "2026-03-24T13:51:24.860Z"
+    },
+    "600. Administración/658. Liderazgo/658.1 Liderazgo empresarial/Monsalve, Juan. Guia Jovenes, talento y perfil emprendedor.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dmdbxwg9bgg0v5v6x6qj5jx83hh8r",
+      "bookId": "n17cydwbh020fmvqqxptf913yn83gyz7",
+      "updatedAt": "2026-03-24T13:51:26.449Z"
+    },
+    "600. Administración/658. Liderazgo/658.1 Liderazgo empresarial/Roure, Julian. Cuatro Reflexiones en Torno al Emprendedor.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f02npbxxqz7snsdj9sh5qj983hqez",
+      "bookId": "n17adjbngsx9znbhx26k6mazds83g3dh",
+      "updatedAt": "2026-03-24T13:51:27.371Z"
+    },
+    "600. Administración/658. Liderazgo/658.1 Liderazgo empresarial/Salas, Vicente. Economí­a_de_la_Empresa.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24zwqgajk19dgp0ntcpwtvxs83gcx7",
+      "bookId": "n171vtxqb6r6mafynjtttqc2n183gv3t",
+      "updatedAt": "2026-03-24T13:51:28.292Z"
+    },
+    "600. Administración/658. Liderazgo/658.1 Liderazgo empresarial/Salas, Vicente. La economía de la empresa.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg241417q44d6vawfjpxnfxhzx83hvhd",
+      "bookId": "n177541t25agc2my5zbfhybc5983gppc",
+      "updatedAt": "2026-03-24T13:51:29.522Z"
+    },
+    "600. Administración/658. Liderazgo/658.2 Mentoría/Manual de la formación del Mentor.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24a0q7p82k8gbzjsh8zsm5rd83hdht",
+      "bookId": "n17c1h98wj48e96e6mamh6sa0n83gv51",
+      "updatedAt": "2026-03-24T13:51:31.266Z"
+    },
+    "600. Administración/658. Liderazgo/658.2 Mentoría/Velaz, Consuelo. Competencias del profesor - mentor.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22q08m7pc27mc76bw89jwwt983g7tv",
+      "bookId": "n17c1jcbx313hyrtjaqtce7fs983grd6",
+      "updatedAt": "2026-03-24T13:51:31.999Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Alzate, Ramón. Teoría del Conflicto.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg200xwc3xrpqjdjymjr0zsa3h83g03b",
+      "bookId": "n170wrc73vkhrjpqa3rxsa5pw183g4e7",
+      "updatedAt": "2026-03-24T13:51:32.864Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Budjac, Barbara. Tecnicas de Negociacion y Resolución de Conflictos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e30h6a24jt14sg2yjx8nm0n83g6gj",
+      "bookId": "n1757jmyqd895q0gry1d1m350s83g5m9",
+      "updatedAt": "2026-03-24T13:51:34.152Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Concepto de Negociacion Colectiva.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fm93z4wanwa2sxnq8prdk1s83ht7v",
+      "bookId": "n179qgtyyartbyb27h2fs4r4xn83hqaa",
+      "updatedAt": "2026-03-24T13:51:34.949Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/De paz, Anette & otros. 12 Destrezas para resolver Conflictos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24jdbffeh81na878xv7v2ptx83g40t",
+      "bookId": "n17ex6ccqax94w161c352c4d3n83gtay",
+      "updatedAt": "2026-03-24T13:51:35.849Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/El poder de la negociación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2d3zx6f2scbz90mbb2w11rk183g96c",
+      "bookId": "n1716tmzg9807m9b2n21cc80px83hghr",
+      "updatedAt": "2026-03-24T13:51:36.611Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Estrategias y Técnicas de Neogiación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a9vry82g8zcx0g70vggc6e983hkpe",
+      "bookId": "n17fvzynndr7wynqh6p15xr8ss83gbce",
+      "updatedAt": "2026-03-24T13:51:37.919Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Estretegias de gestión - La Negociación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24b3h0p7bvd1r72jpg0wt43h83gyyw",
+      "bookId": "n17253dq2xtjcdnkkxm8htr81583g2nx",
+      "updatedAt": "2026-03-24T13:51:38.942Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Fuquen, Maria. Conflictos y Formas Alternativas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2280t2g5bz6tf8nfvycehfas83hx6e",
+      "bookId": "n17ddckkgdyfytg29xztgm2vrx83hjy2",
+      "updatedAt": "2026-03-24T13:51:39.708Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Guía de Resolución de Conflictos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ev39z6fyesjchfqzdkqn9gs83hdwk",
+      "bookId": "n173ccgfs8hpakj5j8w5me291h83h2t0",
+      "updatedAt": "2026-03-24T13:51:40.484Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Kennedy, Gavin. Edimburgo Business - Negociación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25zdgbz48weyyrr3pd95px7x83h7hq",
+      "bookId": "n17dm2sqng5j0e8xbssjhw4x5x83gz5j",
+      "updatedAt": "2026-03-24T13:51:41.400Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/La Negociación 2.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2avhw3wb5kw43r8z4bkc1fjs83hksb",
+      "bookId": "n17579gdczb2f0z9xe35q97jd183g7gd",
+      "updatedAt": "2026-03-24T13:51:42.442Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/La Negociación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23r34d2rq637msbjazn8f7gs83hmjy",
+      "bookId": "n17bysqce82jmgm50a3hbcwggs83gqjd",
+      "updatedAt": "2026-03-24T13:51:43.652Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Lewicki Roy & otros. Fundamentos de la Negociación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25p9g6vf8v4mptm2cac70yfh83hka5",
+      "bookId": "n17c94c21qq2vs8qhgvb36w09583gm0m",
+      "updatedAt": "2026-03-24T13:51:45.191Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Los Elementos de la Negocicación Efectiva.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ck4mcm8ph0s96g6g4wz8g3983h3v3",
+      "bookId": "n17a71c8ewakmn1zd0925ggrkx83h76p",
+      "updatedAt": "2026-03-24T13:51:45.919Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Maccari, Esteban. Universidad de Palermo - Negociación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ah7t3d91qn1dzxswmn3a10d83h7w5",
+      "bookId": "n17dkck7zvk79nf9ryaecerz1983garc",
+      "updatedAt": "2026-03-24T13:51:46.623Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Manejo de Conflicto.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e2h5k55mq983eyjk256ffb983hcp2",
+      "bookId": "n1773dj2xfj3h1w7g9wdsams1s83g8wr",
+      "updatedAt": "2026-03-24T13:51:47.544Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Manual de Resolución de Conflictos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29w51dbctfhtbv4gp7ze4jz983g1ep",
+      "bookId": "n17fyt3edy3g8sfg4cjktah98h83hfhj",
+      "updatedAt": "2026-03-24T13:51:48.674Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Maria & Carlos. Tesis Solución de Conflictos Una alternativa.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29req5kfhrk98kk9wrmatpqh83gz01",
+      "bookId": "n17eckt4dagjwz68e3vex7dzph83hp2e",
+      "updatedAt": "2026-03-24T13:51:49.583Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Miguel & Lourdes. Mediación por Alternativa en la Resolución de Conflictos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b5jae2xsgmjhtyw169303ax83gk0n",
+      "bookId": "n1726mvsegmqp0vd708f08pvyh83g7jf",
+      "updatedAt": "2026-03-24T13:51:50.740Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Miranda, Enrique. El Arte de Negociar.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21mh9ws4xht285esp89yqxtn83g96q",
+      "bookId": "n174ay25rqb0ecvhe5g68nwfns83h3xt",
+      "updatedAt": "2026-03-24T13:51:52.473Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Negociación de Ventas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29vp5v6x0gg3p58ewqxgysp583gwpf",
+      "bookId": "n1715mm5hbfq8zffgbt2swsh6183g9gw",
+      "updatedAt": "2026-03-24T13:51:53.625Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Pease, Allan. La Respuesta está en las Preguntas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg243y03m91f7hghwpbkah0r4983ggcf",
+      "bookId": "n175mywz8z7g065976cqm0yeps83h769",
+      "updatedAt": "2026-03-24T13:51:55.121Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Resolución de Conflictos 1.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28j48wqzxqca2em8css7a0w183h60t",
+      "bookId": "n17e8ybxyxer53p770xkarhr9x83g52x",
+      "updatedAt": "2026-03-24T13:51:55.841Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Resolución de Conflictos 2.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20whpxp3xp5nbyf9qeq1gzdx83h849",
+      "bookId": "n17bqx523s64gc2s915h96w6h183gpjs",
+      "updatedAt": "2026-03-24T13:51:56.975Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Resolución de Conflictos Laborales.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26f5mjfqwdrep09kmbthbk1h83hdsa",
+      "bookId": "n1706vnx0xaem02rbjfcwjm87d83g7m8",
+      "updatedAt": "2026-03-24T13:51:57.956Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Roger, William & Bruce. Si de Acuerdo, Negociacion.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fb1e8wjn3m9hse9w7tm9ykx83g9pp",
+      "bookId": "n173k6rrw9559btqbaypph2wpd83hhcr",
+      "updatedAt": "2026-03-24T13:51:58.912Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Técnicas de Negociación - Universidades de España.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg270wb0cfa9yezaemym0t611d83h2j7",
+      "bookId": "n17b4ds4xf10r96fz923q72z9983hxen",
+      "updatedAt": "2026-03-24T13:51:59.812Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Ténicas de la Negociación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28r5dzxd7fsq5z5x88dbyn8183g8c6",
+      "bookId": "n171d7camgazpbs4r70kpedzmd83g6pv",
+      "updatedAt": "2026-03-24T13:52:00.763Z"
+    },
+    "600. Administración/658. Liderazgo/658.3 Negociación y resolución de conflictos/Tzu, Sun. El arte de la guerra.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fnpjr7qkv2etx41y3vp5r5h83gnpk",
+      "bookId": "n17c56pwqyr54d921htm2q5eq583gmw9",
+      "updatedAt": "2026-03-24T13:52:01.573Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.41 Decision Making/Anderson, Barry. 3 Secrets of decision making.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg248peqzy2vv1wsm1t5y0mhvx83hrmk",
+      "bookId": "n17dwc30xasz1kk2rsdkmwdtzd83gaqh",
+      "updatedAt": "2026-03-24T13:52:03.267Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.41 Decision Making/Barrett, Richard. Six Modes of Decision Making.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cw8ac5z3pak3v365hhp1p6n83h11r",
+      "bookId": "n17c95bf95ejzk2kev6y3jt2x583gn17",
+      "updatedAt": "2026-03-24T13:52:04.133Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.41 Decision Making/Decesion making.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27s0es7n6na2k09xj55vmqjx83gt28",
+      "bookId": "n17e71stfv8hzyt56xb66k90jd83hg7v",
+      "updatedAt": "2026-03-24T13:52:04.849Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.41 Decision Making/Decision making.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25xqgh9zgzn19541h7nkhmgs83hkd2",
+      "bookId": "n171bknkmk7phae71t28yyyaf583gfkv",
+      "updatedAt": "2026-03-24T13:52:05.872Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.41 Decision Making/How risk analysis streamlines decision making for major it initiatives.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2138nm1vhy7888yrgsm6pf4183hhkr",
+      "bookId": "n1762pmj0g6h0hdj244vtgy3dd83gavd",
+      "updatedAt": "2026-03-24T13:52:06.582Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.41 Decision Making/How to implement change.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg257wxam6c7gzymbw68qd013183hqra",
+      "bookId": "n17da560661ctrrdc1dmr0tez983gt83",
+      "updatedAt": "2026-03-24T13:52:07.411Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.41 Decision Making/Lavell, Allan. Decision making and risk management.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22ks6qmce5363p3v2z7w05cx83gq78",
+      "bookId": "n17a8nbxvxamjqqp9yz5gf942s83h8b8",
+      "updatedAt": "2026-03-24T13:52:08.266Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.41 Decision Making/Milkman, Katherine & otros. How can decesion making be improved.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26079bfv5wz52ae8n5q2zd6n83gthm",
+      "bookId": "n177fvh2bv9h9csfn8vmnmnhh983gs28",
+      "updatedAt": "2026-03-24T13:52:09.358Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.41 Decision Making/Paul, Melissa & Donald. Risk and decision making.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25xx8ahz66zabre61xv9tpvs83g765",
+      "bookId": "n175pkmt928a9qf7gq5dmmk6ed83gn8e",
+      "updatedAt": "2026-03-24T13:52:10.077Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.41 Decision Making/RIabacke, Ari. Managerial decision making.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg201aygt0gjh3cygsf8s1jtf583hc6r",
+      "bookId": "n178mwsrmpz7hj5ab7xmt5g6bd83g648",
+      "updatedAt": "2026-03-24T13:52:11.404Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.42 Eloquence/Carnegie, Dale. Speaking effectively.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21jy741z08gkdyhzc1bsn6gn83h37j",
+      "bookId": "n174vkwzf1np5nqcbs71htcrqn83gghs",
+      "updatedAt": "2026-03-24T13:52:12.137Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.42 Eloquence/Edwards, Paul & otros. How to Give an Academic Talk.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ayk32p364dt5wx498yqaar183hq2v",
+      "bookId": "n17b1ch3a39qaaezndamc850mx83gm7y",
+      "updatedAt": "2026-03-24T13:52:12.939Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.42 Eloquence/Homiletics.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2be5r15aa4n60bqqwhs93ny983gzxv",
+      "bookId": "n17dbhxqv4aqqcmtv1rps66hb183hz0w",
+      "updatedAt": "2026-03-24T13:52:13.861Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.42 Eloquence/How to prepare a sermon.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b2x6g5xf3266231dznnsry983g8zt",
+      "bookId": "n178z3phg8n4q2tec5xdpg765n83ghaw",
+      "updatedAt": "2026-03-24T13:52:14.990Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.42 Eloquence/Scambler, T.H. Art of Sermon Construction.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2eb9gkk7cpmbk0emb56a5w2183g0qf",
+      "bookId": "n171gg8cjdbvyz07ehr3m4fsc583h60c",
+      "updatedAt": "2026-03-24T13:52:16.080Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.42 Eloquence/Speaking in public.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a4cbw8w41b0n9w737bsz6w183hkxd",
+      "bookId": "n177241eqtk1e9vacj69nk3ads83gsw3",
+      "updatedAt": "2026-03-24T13:52:16.831Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.42 Eloquence/Speaking tips.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cgz8ma97h3vkzrfr2pr5nen83g20r",
+      "bookId": "n1708t3ea2nbky2050wmvt611183h8jy",
+      "updatedAt": "2026-03-24T13:52:17.547Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.42 Eloquence/Stand Up, Speak Out - The Practice and Ethics of Public Speaking.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23e5kgm0hbdw0h77s1k3exmh83hc4e",
+      "bookId": "n178mgk3vsfwg5p36h0k8e609d83gxtz",
+      "updatedAt": "2026-03-24T13:52:19.290Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.43 Ethics/Archie & Archie. Ethics.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20e8warwwz88qt8qkz7ee87983hhgm",
+      "bookId": "n179a55qbkrs9bx2ej02bqsejh83hjqx",
+      "updatedAt": "2026-03-24T13:52:20.394Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.43 Ethics/Dimock, Michael & otros. Gay Marriage Release.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26shkxamsj7qw98abevtqsgh83g5nv",
+      "bookId": "n176tzby4ngjywkgmcv4bncaw183hppm",
+      "updatedAt": "2026-03-24T13:52:21.335Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.43 Ethics/Eskridge, William. A History of Same Sex Marriage.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg211pmaqhnvns6s5qs0bak78s83hdb1",
+      "bookId": "n17bessnvn9gg1yxyp2rw0yfxd83hck0",
+      "updatedAt": "2026-03-24T13:52:22.214Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.43 Ethics/Ethics in postmodernism.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22d6kqt11s90r9an4rawb8v583gsx0",
+      "bookId": "n171def526h6rkc2vzdxn8rdd583hkff",
+      "updatedAt": "2026-03-24T13:52:22.882Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.43 Ethics/Rea Michael. What is Pornography.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22agn15z8wnez51nzzr7sr1d83h15d",
+      "bookId": "n17br937aysqadsky71st3tngs83hteq",
+      "updatedAt": "2026-03-24T13:52:23.794Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.43 Ethics/Research On Pornography.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26wnz234r5ygcx68da0mz1rh83gec7",
+      "bookId": "n171vxekhf04na25ddqyhr6r2s83gxcr",
+      "updatedAt": "2026-03-24T13:52:24.819Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.43 Ethics/Sexual Purity Fighting Against the Devastating Desire of Lust.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25w9va3fr19w8x2etfmx1gk183gg8z",
+      "bookId": "n179ha9y8rfkbbzyk7khbhp5v183gf5z",
+      "updatedAt": "2026-03-24T13:52:25.850Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.43 Ethics/Sexual Purity.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg211zn24str6vmman3jq8htkh83gdyy",
+      "bookId": "n17124a3rrmbmn8aj8bmj027gd83h9nk",
+      "updatedAt": "2026-03-24T13:52:26.560Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.43 Ethics/The New Age.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fcndnshd8d9tfc8xsfs7nm983gyax",
+      "bookId": "n176a65n77w6jew452x49qfn6583gcgm",
+      "updatedAt": "2026-03-24T13:52:27.379Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.44 General Review of the Bible/Baker, R.A. New Testament Canon.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b4efbhpa7y7jdvv84jk81t183g7gz",
+      "bookId": "n173r80vgd7ddg6pn6rrms1tmn83gpcx",
+      "updatedAt": "2026-03-24T13:52:28.053Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.44 General Review of the Bible/Breed & Kent. Review of the Bible.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b6tej8hmmyyj0tv4fbkfkr183hqx3",
+      "bookId": "n174kv21rtapqma4et22hpsd0183hy9g",
+      "updatedAt": "2026-03-24T13:52:28.914Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.44 General Review of the Bible/Bruce, F.F. The biblical canon.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20vhdrxx48syf352zrhzrjn183gycz",
+      "bookId": "n179j1g9vrh1tzpwa1cn17yvnx83hfv6",
+      "updatedAt": "2026-03-24T13:52:29.836Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.44 General Review of the Bible/Dawes, Gregory. Introduction to the Bible.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2c9r0b6cq8rf00kfqh45ewps83ggzh",
+      "bookId": "n1762atkh72v686jef54md6wpn83h776",
+      "updatedAt": "2026-03-24T13:52:31.475Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.44 General Review of the Bible/Hyndman, Rob. Handbook to the Bible.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26vr9cf86k1dvx8habhefvms83gdrv",
+      "bookId": "n17eq9a0xrpdg1r4e4004rbr8983hpd8",
+      "updatedAt": "2026-03-24T13:52:32.601Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.44 General Review of the Bible/Metzger, Bruce. The Canon of the New Testament.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21hswrf97s8rqj6m9nsne52s83hh6s",
+      "bookId": "n17b8w8wntv978b9j3ecq33tdx83gv0y",
+      "updatedAt": "2026-03-24T13:52:34.356Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.44 General Review of the Bible/Utley, Bob. Old Testament Survey.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27d1j9schk1453nkejpbane183gs4w",
+      "bookId": "n17bj7qmzbqbxqjnc6dbgmvj1983h920",
+      "updatedAt": "2026-03-24T13:52:35.264Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.45 Interpretation Techniques/Hermeneutics.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2emq8znf60m72q3cff809xkh83h2ew",
+      "bookId": "n17cvnv2d7dmg3rdetn181tnch83g868",
+      "updatedAt": "2026-03-24T13:52:36.394Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.45 Interpretation Techniques/Orientation inductive bible study.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg219g2xgwd78k0wthfy5jb8jx83hcw4",
+      "bookId": "n178h4vzncfaz2j29xa183zycd83h0yz",
+      "updatedAt": "2026-03-24T13:52:37.413Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.45 Interpretation Techniques/Piper, John. Bible exegesis.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a071dwewzw12z2czsyc91ss83g7xr",
+      "bookId": "n171mkdy4cdqy6fc83vf07ydv183gkym",
+      "updatedAt": "2026-03-24T13:52:38.368Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.45 Interpretation Techniques/Ries, Xavier. Inductive study.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fkjveq480mscz7c1y0yyd5583hg7c",
+      "bookId": "n17enrcc3x9r7qfmhxgd0wd18583hb8f",
+      "updatedAt": "2026-03-24T13:52:39.257Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.45 Interpretation Techniques/Seminar on Bible interpretation.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg269cvyxtfcjtwz936kc7sq6983hvy7",
+      "bookId": "n170sbrfbnrwh1nxgn20fdh2sh83h5ef",
+      "updatedAt": "2026-03-24T13:52:40.311Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.45 Interpretation Techniques/Seminar textbook.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2eaqcd253b0jzcd5maspf2fh83htex",
+      "bookId": "n17edet8gjmr5nk0c1pabs1fa983g8g5",
+      "updatedAt": "2026-03-24T13:52:41.294Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.45 Interpretation Techniques/Smith, Bob. Basics of interpretation.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28qxxwhjgjp1mbdd817ee5n183ggy8",
+      "bookId": "n179c7wersd0bmz0pwp06dtmm583haxa",
+      "updatedAt": "2026-03-24T13:52:42.329Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/21C Emotional Intelligence.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20pn7a69eq25exqap47nww6d83hch6",
+      "bookId": "n17bv877mykt1cs7ca07bhqwrd83gsms",
+      "updatedAt": "2026-03-24T13:52:43.161Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Ann Faeth, Margareth. Power authority and influence.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg209j9sp75ngmvqf8grjnvhx183h80b",
+      "bookId": "n17904fg97a7qfq2qrznctvgzd83gw5p",
+      "updatedAt": "2026-03-24T13:52:44.224Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Bal, Vidula. The role of power in effective leadership.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg224pq832d7f78dbawtyr45z983g019",
+      "bookId": "n1776w349zf43xbz3k3k1jwzyx83g6rp",
+      "updatedAt": "2026-03-24T13:52:45.459Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Durant, Michael. Managin organizational change.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23g92w0zy3hxbg5nheenwg2s83hww2",
+      "bookId": "n176destwd6qtapaz76m5navj583ggye",
+      "updatedAt": "2026-03-24T13:52:46.225Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Enabling Change Through Strategic Initiatives.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ftqgqe2ywead90xar0c2ges83gck9",
+      "bookId": "n17akmsxcj4cca0r5f21h89mbs83grya",
+      "updatedAt": "2026-03-24T13:52:47.349Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Goleman, Daniel. What makes a leader.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29kz498pp5z1vthscfns3a6583hxkz",
+      "bookId": "n17c0mwq2nkvy3n88pk6p9gh5x83hna6",
+      "updatedAt": "2026-03-24T13:52:48.872Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/John, Peter & David. Emotional Intelligence theory.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29b8kvt35dgj94kvzycmhc8x83g0bp",
+      "bookId": "n179hfbm16qajwxwvfdgcrqvsx83hfqq",
+      "updatedAt": "2026-03-24T13:52:50.214Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Leadership strategy.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2eqxd7xf1sr2cygnxhtfq2nx83h37e",
+      "bookId": "n178m006n73fd73tnfhps766h183gvbc",
+      "updatedAt": "2026-03-24T13:52:51.443Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Leadership Theories.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fx86gxjt5jytawm2d0m10dd83ht6g",
+      "bookId": "n17brv7vhxkbr2srtr6h9ryc8d83gzgm",
+      "updatedAt": "2026-03-24T13:52:52.233Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Lunenburg, Fred C. Forces For and Resistance to Change.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg219xpd0tyxkfgp2vx4j0fy3h83hrsg",
+      "bookId": "n17af48ha26svw7dzkkxg28pf983gwg7",
+      "updatedAt": "2026-03-24T13:52:53.195Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Maxwell, John. 21 indispensable qualities of a leader.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f82a2qbqnr54tyv8rhncb5183hwd7",
+      "bookId": "n17ffsnehjyam33sjfxhjg706s83gzd4",
+      "updatedAt": "2026-03-24T13:52:54.038Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Mayfield, Jacqueline. Leader Communication Strategies.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23wgzwxwxg74dmck1htj17ds83ge10",
+      "bookId": "n171kqp5cgj77c8a6sb60yhn5983hd95",
+      "updatedAt": "2026-03-24T13:52:54.822Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Oconnor, Matthew & otros. The Qualities of an Effective Team Leader.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fhj5wccsbd0tgzb7p42hcfh83h7ye",
+      "bookId": "n178tgkqhqyze0zpy7vvcnjk8583hhnp",
+      "updatedAt": "2026-03-24T13:52:55.846Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Organizational change.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bahh25akxtj7yr4k7qh8svs83gntr",
+      "bookId": "n170bfpp9wrqa8m48m2h5acqh183hnj2",
+      "updatedAt": "2026-03-24T13:52:56.971Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Paolo & Trevor. What does organizational change means.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24rgs0j0f5w6aqkmw4rvdg3983haxk",
+      "bookId": "n17a1cxh7wj1ez1kbyx1wgjar583gbzv",
+      "updatedAt": "2026-03-24T13:52:57.791Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Rita, Linjuan. The role of ethics in internal communication.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e49c1sb9gt0yyzrpwcx43j983hdf3",
+      "bookId": "n17374k7t084k3y7gf73tst09183h9j1",
+      "updatedAt": "2026-03-24T13:52:59.122Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Stehlik, David. Failure the impartial executioner.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg291nng9s34x4t1zha9wbpzw183hkxz",
+      "bookId": "n175kw9hgr3gk5wwza0t9fn3nx83hwcr",
+      "updatedAt": "2026-03-24T13:53:00.148Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Team leadership.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24j08p88e1wm1r3k7c5w30ds83hxkv",
+      "bookId": "n175nnq5hxx0akg8jk72fwhxh583ge41",
+      "updatedAt": "2026-03-24T13:53:01.172Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/The influence of leadership.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fwq7dxakj1r33mbf4xcnm4h83hetb",
+      "bookId": "n17bvasqr581mz464q95f42xg583g1mx",
+      "updatedAt": "2026-03-24T13:53:03.219Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Understanding emotional intelligence.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg232b9c53sdw5v40tvvqmc32x83g23w",
+      "bookId": "n172txg454yts17mddzna7xxzx83hj9m",
+      "updatedAt": "2026-03-24T13:53:04.244Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/What is leadership.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26e49zhspx0pwjs8xcj6v8k183gzvj",
+      "bookId": "n17621djk1t4bvzr299487rw7183ht9k",
+      "updatedAt": "2026-03-24T13:53:05.678Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.46 Introduction to leadership/Yukl, Gary. Leadership as a function of power.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20v7rghhfgmf87h3c0tm49q183g6r6",
+      "bookId": "n170tbm49r5a8ca2endmyzwmrh83h8jw",
+      "updatedAt": "2026-03-24T13:53:06.395Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.47 Planning events/Accessible Meetings Toolkit authcheckdam.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23gqnrfzwvpt61xszwspjez983gba0",
+      "bookId": "n17axza3t189nxejrbtrse5pzx83h7cd",
+      "updatedAt": "2026-03-24T13:53:07.667Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.47 Planning events/Event Checklist.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28t5pe6d4ysa471dr9gwk1j983ha2m",
+      "bookId": "n176hr1szsx8ngzgxgkpps737583hcjc",
+      "updatedAt": "2026-03-24T13:53:08.553Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.47 Planning events/Event Management Plan - GDC Toolkit.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2e936m1qexav9kms3eth6z6h83hyvd",
+      "bookId": "n170e8dqhhmfjs79a1ch493knx83h677",
+      "updatedAt": "2026-03-24T13:53:09.773Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.47 Planning events/Event management.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg295e19gzbjcdynp0vhkd81qx83h86f",
+      "bookId": "n1719k340e246x183rzayfzfsn83gbp4",
+      "updatedAt": "2026-03-24T13:53:11.406Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.47 Planning events/Event Planning Guide.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2500pe2tc1jgbvkq09twyxe183h1bx",
+      "bookId": "n173fa4tcxepc2md0a0jema75583g8w9",
+      "updatedAt": "2026-03-24T13:53:12.676Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.47 Planning events/Gourley, Kristin. Event Planning.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a725505j4sgwxpk5wfkfvhn83h96h",
+      "bookId": "n17bpeg3kywmzkzmrs91h00ab583hwwn",
+      "updatedAt": "2026-03-24T13:53:13.665Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.47 Planning events/New Signature Event Management Planning.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2athqmgcy9am303nr3e9rmjn83h9y8",
+      "bookId": "n179wzv449er2wjak0ynqsts5583gn1x",
+      "updatedAt": "2026-03-24T13:53:15.100Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.47 Planning events/Successful event planning.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fwncr6dhfp1kmjb48124ch983h585",
+      "bookId": "n174hhmvkvc7wavzjagk01g01n83gevv",
+      "updatedAt": "2026-03-24T13:53:15.901Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.47 Planning events/Top Ten Tips for Planning an Event.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23nhc5n00r3gfq9jvgtwnaw983h70m",
+      "bookId": "n17barrwbmt1ydse2ene1h4e6d83htf0",
+      "updatedAt": "2026-03-24T13:53:16.728Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.48 Postmodernism/Armitage, John. From Modernism to Hypermodernism and Beyond - Interview with Paul Virilio.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fkbjtd2ff4dyppnfh7vfv9983h1x2",
+      "bookId": "n174ve47gnzdt9kes8th3smj8n83gjrg",
+      "updatedAt": "2026-03-24T13:53:17.575Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.48 Postmodernism/Barrett, Terry. Modernism and Postmodernism.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg220kr2h1d0tpzhxvy3jnnqmx83haxg",
+      "bookId": "n17es8tsm56ara6vxknseq1xvs83hsrp",
+      "updatedAt": "2026-03-24T13:53:18.634Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.48 Postmodernism/Degner, Steven. Postmodern.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23bx2qtd2vkmqyfesrdm027983g291",
+      "bookId": "n17dv1cybke14crmqck7k7td5d83h00h",
+      "updatedAt": "2026-03-24T13:53:19.501Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.48 Postmodernism/Diaspora Mediatore.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20ftdxx473dcs0y7d435w0dh83gs59",
+      "bookId": "n17d8kw1364p7kxrz48pqesrrx83hqf2",
+      "updatedAt": "2026-03-24T13:53:20.494Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.48 Postmodernism/Hicks, Stephen. Postmodernism.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28vkrwm3rrm4s0jgtp8k9v2583hd6g",
+      "bookId": "n17b5qg97zn79e0rb5gaqfy5zd83gsyf",
+      "updatedAt": "2026-03-24T13:53:21.651Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.48 Postmodernism/Mahboob, Dewan. Postmodernis Issues and problems.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cyww06mkrawcfpkf2ecp2t183gj3w",
+      "bookId": "n17d8g1jvbsx4jh3h7tmzjv6hx83gq9y",
+      "updatedAt": "2026-03-24T13:53:22.380Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.48 Postmodernism/Mass Culture.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2183hw69cq1e126sb8jkf2as83hxd1",
+      "bookId": "n177xtwh0jm094tbg8xm8rqb8d83h5xe",
+      "updatedAt": "2026-03-24T13:53:23.050Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.48 Postmodernism/Turner, Anthony. Teaching Postmodern People.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22v75p4pn07mw7bpk861gafs83hssq",
+      "bookId": "n17d14xdjqjhr614yadwgfp9d583g9dg",
+      "updatedAt": "2026-03-24T13:53:23.954Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.48 Postmodernism/Wright, N.T. The Bible for the Post Modern World.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26kwqv3qjxc2m818994je4rh83gss2",
+      "bookId": "n17es2jma0t3rmg3paanxhvpv983g6e7",
+      "updatedAt": "2026-03-24T13:53:24.827Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership/Cherry, Kendra. 2 Leadership Styles.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg226t59vyhfmns06w9dwn4fdn83hhat",
+      "bookId": "n17b8rmdyvan097mhwet5gpbr583hw5r",
+      "updatedAt": "2026-03-24T13:53:25.643Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership/Covey, Stephen. 7 habits summary.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22vf2vd5f02zhr2jebnxec0n83g6pp",
+      "bookId": "n1761fzw68b3gfnp8qwf4m25fd83gk2c",
+      "updatedAt": "2026-03-24T13:53:26.837Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership/Covey, Stephen. Covey seven habits.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22svh12f26kexmwk0djvbr1d83gzvr",
+      "bookId": "n179y1vkwkfd3sxe29bh891tx983h12q",
+      "updatedAt": "2026-03-24T13:53:27.612Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership/Effecteviness in leadership.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bprwnt0wxcwx5d7ep11a45d83gv1d",
+      "bookId": "n17av7fzz934zf3t8vs85xjce983hyqt",
+      "updatedAt": "2026-03-24T13:53:28.410Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership/Finzel, Hans. Top Ten Mistakes Leaders Make.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg283jcc9ky668n4ymsvvgdvmh83gx5g",
+      "bookId": "n17551kwgvhseyy887w63x2qr983hf6s",
+      "updatedAt": "2026-03-24T13:53:29.845Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership/Harper, Shanta. The leader coach.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25afxq4aycy59t07yq1zg11s83htgs",
+      "bookId": "n1741dsm9kt8s0bdb4hx3rgedx83g3s8",
+      "updatedAt": "2026-03-24T13:53:30.774Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership/Jhonson, Bruce. The Top 10 Mistakes Leaders Make.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24h6bd28t0pd7x0jkn63xbnn83gqf2",
+      "bookId": "n17552pmxpkc77ejfms3xg2kbs83gm9t",
+      "updatedAt": "2026-03-24T13:53:32.567Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership/Leadership Styles.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2c4gm6xv943n4cg94746t5th83h0ry",
+      "bookId": "n17f8vmmben9yqwhfwsxsqf88983h78q",
+      "updatedAt": "2026-03-24T13:53:33.425Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership/Lester, C.N. Styles of leadership.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2421m4yx28w8851nv7ds229h83gke8",
+      "bookId": "n170ztg42zj8p22q4964q9xpen83htt7",
+      "updatedAt": "2026-03-24T13:53:34.772Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership/McCormack, Paddy. A Study of the leadership and coaching behaviours of High Level Hurling Coaches.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20aew738tccmhs8h2v0echy983h0re",
+      "bookId": "n1793kaehtrmxv2qmgb1eeyph983gsnh",
+      "updatedAt": "2026-03-24T13:53:35.860Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership/Mistakes in leadership.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21pmenkppg1xv72qjyw786g983h7hh",
+      "bookId": "n17235p1885fe0zhna5e01m58n83g4cv",
+      "updatedAt": "2026-03-24T13:53:36.671Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership/Motivation.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg241f5swh34dvcdqw67ws327d83g4dr",
+      "bookId": "n17ch5344ysa8p0wprxvgga3q583g5ay",
+      "updatedAt": "2026-03-24T13:53:37.728Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership/Sandra & Bernard. Theories and principles of motivation.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20vrhtepyje611nzpww473h183hj0w",
+      "bookId": "n1734wrjhv07wz7a555trg63td83gqc3",
+      "updatedAt": "2026-03-24T13:53:38.935Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership/Shanks, Nancy. Management and motivation.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28nf3x1hmnhkv7rwxq4c5y8n83h5eb",
+      "bookId": "n176je9wz1my9ew9e45cppnmad83h34f",
+      "updatedAt": "2026-03-24T13:53:39.774Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership/Six Leadership Styles.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg21pewjpwgzmhn1cb2enwgw5s83g5eb",
+      "bookId": "n17b1b27yaa0sase36bc2b6pjx83h59q",
+      "updatedAt": "2026-03-24T13:53:40.475Z"
+    },
+    "600. Administración/658. Liderazgo/658.4 Advanced leadership/658.49 Principles and Styles of leadership/The 7 habits of Covey.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg235knkjvyjprtgjjy0tjjrm983hvev",
+      "bookId": "n176pke6qzqytyg409yz7x54sn83hv63",
+      "updatedAt": "2026-03-24T13:53:41.415Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.51 Etica en una sociedad postmodernista/Alarcon, Luis. Matrimonio Homosexual.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2eyhn0hg45ebt5rkz6ndhdts83ggdc",
+      "bookId": "n178w7npfwerzjzsv94knrbenn83ga2y",
+      "updatedAt": "2026-03-24T13:53:42.645Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.51 Etica en una sociedad postmodernista/Brown, David. La Nueva Era.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27k1kfdpdt99e8ry9a1h251d83hf72",
+      "bookId": "n177e6brjg5yeafsct9p8rxyk183gh6s",
+      "updatedAt": "2026-03-24T13:53:43.572Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.51 Etica en una sociedad postmodernista/Carta de agradecimiento a Doce & Gabbana.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25vxv6ay0e1xpkx44get3nc183h65g",
+      "bookId": "n17fn506t8fw1f9btvhbzpcx3d83hcrk",
+      "updatedAt": "2026-03-24T13:53:44.591Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.51 Etica en una sociedad postmodernista/Dowshen, Steven. La Realidad Sobre Las Drogas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg255a5ckwv3xrx132n3zgymys83hws1",
+      "bookId": "n174jkvmeh1mhy4wa3hefqq7fd83gxh6",
+      "updatedAt": "2026-03-24T13:53:45.622Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.51 Etica en una sociedad postmodernista/Duarte & Luis. El Problema de las drogas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bhhvvxajdjj33twyw62f3zn83hx6c",
+      "bookId": "n1763kvbxn5kv1rf6p6tzd29qn83gktp",
+      "updatedAt": "2026-03-24T13:53:46.534Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.51 Etica en una sociedad postmodernista/Generalidades de la Crítica. WIKIPEDIA. Enciclopedia Libre.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2daf3prthxcdrazza3w33bh983ggby",
+      "bookId": "n170x1xsmhm04bg0pjs95yph6x83g0m8",
+      "updatedAt": "2026-03-24T13:53:47.560Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.51 Etica en una sociedad postmodernista/Lazo, Estela. La Pornografía.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2914szfe1fn4ef022tznygfx83geyp",
+      "bookId": "n170w7y8vvpqqmd3kcj1apqcg983hjah",
+      "updatedAt": "2026-03-24T13:53:48.482Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.51 Etica en una sociedad postmodernista/Lesbians Daughters letter.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25c6fg9jdya1qfv92j6bkgah83gz6c",
+      "bookId": "n172x6db79wzawc167j8139h0983hqve",
+      "updatedAt": "2026-03-24T13:53:49.196Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.51 Etica en una sociedad postmodernista/Polanco, Alberto. Las Drogas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23nbppg4ewspq4nz59txz6hd83g307",
+      "bookId": "n178qdzz3behb7k6b89d9xmj7d83hmmn",
+      "updatedAt": "2026-03-24T13:53:50.119Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.51 Etica en una sociedad postmodernista/Smith, Fred. Cómo manejar correctamente las críticas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24cqkszzfj948xhrqfxn20ns83gw8a",
+      "bookId": "n1715m8ce3znbs1me8cn0m6n5983gwv5",
+      "updatedAt": "2026-03-24T13:53:51.038Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.51 Etica en una sociedad postmodernista/Zaldívar, Raúl. Ética en una Sociedad Postmoderna V3.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2956xvq851ha2v1kwbaxyb1183hwhn",
+      "bookId": "n17502qr0vby504pzj80hbnkwh83gzhr",
+      "updatedAt": "2026-03-24T13:53:52.232Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.51 Etica en una sociedad postmodernista/Zapata, Dante. Causas para que existan las pandillas juveniles.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26wbgfh0y9m2zqhzv3nnn8ns83g7jh",
+      "bookId": "n17b30n9nd7ek1fqtn7yscwkrs83hn3k",
+      "updatedAt": "2026-03-24T13:53:53.024Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.52 Evangelismo y recursos humanos/Cuatro Aspectos de la Salvación.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2007250hktzgka2eg04fbwjd83hm1q",
+      "bookId": "n1725fecmnqm1vh5ac6tmr0y5h83gh7a",
+      "updatedAt": "2026-03-24T13:53:54.850Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.52 Evangelismo y recursos humanos/GESTION DE RECURSOS HUMANOS.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2f17ptky59qxgx1gnmv5tk5983hzsf",
+      "bookId": "n174br2vgbz3dxjxqt70cbx2c583h2w1",
+      "updatedAt": "2026-03-24T13:53:57.230Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.52 Evangelismo y recursos humanos/Iriarte, Carlos. EVANGELISMO.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20k5pghnq4p2s72b5p12npw983gvnj",
+      "bookId": "n1794aht72txrcwsy77k7ebdg983h97s",
+      "updatedAt": "2026-03-24T13:53:58.774Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.52 Evangelismo y recursos humanos/La Escuela de Evangelismo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24kke44vxcy1wn12x94zwvjh83h3yj",
+      "bookId": "n172ysc9q54jwvt17tc4xvzbxh83gsd0",
+      "updatedAt": "2026-03-24T13:54:00.137Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.52 Evangelismo y recursos humanos/Modelos de Iglecrecimiento.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26j03yfknq8e8vqp08x6cn0n83gf0x",
+      "bookId": "n178tq6re401bh8yrqpjk6cxd983g8w6",
+      "updatedAt": "2026-03-24T13:54:00.899Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.52 Evangelismo y recursos humanos/Williams, Jimmy. La Apologética y el Evangelismo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2597xm1htctr7nt1rqysgw2d83hhqd",
+      "bookId": "n17fzcnbkry14xg0mcjb239hy983hs6v",
+      "updatedAt": "2026-03-24T13:54:01.714Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.53 Introduccion al liderazgo/Chapman, Alan. Consejos Para el Desarrollo del Liderazgo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg204z10kqgptfvszw8qzp4q9s83hd8a",
+      "bookId": "n1783w3p40kgjdcnnqc36h70md83hzpf",
+      "updatedAt": "2026-03-24T13:54:02.509Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.53 Introduccion al liderazgo/El Gran Mito Sobre el Liderazgo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg276ff0vy9q38gatb8ztrsrqx83gg8r",
+      "bookId": "n17dazzj1fsa22tkcr8x3g391n83gfgp",
+      "updatedAt": "2026-03-24T13:54:03.250Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.53 Introduccion al liderazgo/El Liderazgo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg246527fnm76x1qfqe2rd30d583gjx6",
+      "bookId": "n174fr5yqyjyher33c3cvsc34h83hstv",
+      "updatedAt": "2026-03-24T13:54:03.955Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.53 Introduccion al liderazgo/Gámez, Rosalinda. Comunicacion Formal e Informal en la Organizacion.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26adxfjwzkw8102h26dztkzn83hn7p",
+      "bookId": "n17cp7pzsbdgynm5dd5jenysm983h17t",
+      "updatedAt": "2026-03-24T13:54:04.788Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.53 Introduccion al liderazgo/Herrera, Jordan. Inteligencia Emocional.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22dytjhap13b7px7kms8kccs83g51x",
+      "bookId": "n172trm0emymjp12xymkw4p25583hnay",
+      "updatedAt": "2026-03-24T13:54:05.946Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.53 Introduccion al liderazgo/La Comunicación. WIKIPEDIA, Enciclopedia.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ap466d10esepea1tjks5hjh83hq0k",
+      "bookId": "n179tygsr4gf47mjw2f90t7yq183gq85",
+      "updatedAt": "2026-03-24T13:54:06.755Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.53 Introduccion al liderazgo/Liderazgo  (Andrés Quijano).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dthfyr2akz65vxeef67c5nx83hyp7",
+      "bookId": "n172s87a01mtqp2dzmsengkbt583h16q",
+      "updatedAt": "2026-03-24T13:54:07.635Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.53 Introduccion al liderazgo/Mart, Bruno. Las Relaciones Humanas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28wypna384nd0pwe29eyrbks83gpsq",
+      "bookId": "n177qy506gc9t6zh73tkfhge6s83hx2d",
+      "updatedAt": "2026-03-24T13:54:08.757Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.53 Introduccion al liderazgo/Moya, Gonzalo. Cualidades de un Líder.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bngseb2cm2zdgv80af4h15x83h5eb",
+      "bookId": "n173v42fsa8y7bg75f3m7v8n9983g3kg",
+      "updatedAt": "2026-03-24T13:54:09.534Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.53 Introduccion al liderazgo/Robbins, Stephen. Comportamiento Organizacional.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg280sc44byv4gctpqthgajqsn83gkf7",
+      "bookId": "n170ndh0jaavv7havf85mga4s983gqk2",
+      "updatedAt": "2026-03-24T13:54:15.209Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.53 Introduccion al liderazgo/Senge, Peter. La quinta disciplina.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg29c2vv6k4tzbshc4bc3ywxsx83gvz7",
+      "bookId": "n176756wb783cww3cnq5643zjn83hw4h",
+      "updatedAt": "2026-03-24T13:54:16.940Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.54 Organizacion y planeacion de eventos/10 pasos para organizar un evento.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2c837dbdzqx0feygx2kc341d83g8ng",
+      "bookId": "n17f1x8sgx3ae3s5jp9hf089jn83h0k1",
+      "updatedAt": "2026-03-24T13:54:17.672Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.54 Organizacion y planeacion de eventos/Cabrera, Liliana. Planeación, estrategias y tácticas.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fp95qcmsatcm22yq2b5170n83h81q",
+      "bookId": "n172d9sqgdy4g5v1q0mx4cqnzn83g63f",
+      "updatedAt": "2026-03-24T13:54:18.530Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.54 Organizacion y planeacion de eventos/Cerna, Juan. La Ejecución.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2azf99j0zjshmtxgea0jxpzx83hg6k",
+      "bookId": "n1797b66j9322b9prpmpqt2sdh83gs9c",
+      "updatedAt": "2026-03-24T13:54:19.305Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.54 Organizacion y planeacion de eventos/Cruz, Kewin. Desarrollo de personal y capacitación para un desempeño efectivo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg25sjw07k63p67tc54tkp9c6d83hbrv",
+      "bookId": "n173qrzccnv9njwds2q9xv490583hqty",
+      "updatedAt": "2026-03-24T13:54:20.333Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.54 Organizacion y planeacion de eventos/Evoli, Jeftee. Planeación Estratégica.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2frsaz4qed8r8b2xh30964pn83gvym",
+      "bookId": "n17djbj2wsz99z9m12qpqt92hh83had0",
+      "updatedAt": "2026-03-24T13:54:21.334Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.54 Organizacion y planeacion de eventos/Gamez, Rosalinda. Organizacion y cultura.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a47r3ndq5m4v9txa21af5hd83gfws",
+      "bookId": "n17afa0cxbg07xm2ndztf1p63s83gpa2",
+      "updatedAt": "2026-03-24T13:54:22.682Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.54 Organizacion y planeacion de eventos/Gordin, Marcelo. Ideas para Organizar un evento corporativo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2912rhkcanxnvdfm3k4x38jd83hjs9",
+      "bookId": "n17cst7tzr5yz5jj4cb8d1dms583hkf1",
+      "updatedAt": "2026-03-24T13:54:23.361Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.54 Organizacion y planeacion de eventos/Guerrero, Mauricio. Como planear eventos Exitosos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2336rrb79y5yd4ybyapyjpxn83g38x",
+      "bookId": "n179q5rvwcswhrr9kq8te9wgtx83ge4w",
+      "updatedAt": "2026-03-24T13:54:24.838Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.54 Organizacion y planeacion de eventos/Instructivo para Eventos religiosos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2br08c23d21bsaxprr3546vh83ht8r",
+      "bookId": "n1720e46adnwcn10eanxb4mdx583gkmv",
+      "updatedAt": "2026-03-24T13:54:25.684Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.54 Organizacion y planeacion de eventos/Organizacion de Eventos Deportivos.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2fwqgfbw1ts6snw7de3jgds183hb2g",
+      "bookId": "n1783xj2fncmcb2n0454es97n183gpnd",
+      "updatedAt": "2026-03-24T13:54:26.662Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.54 Organizacion y planeacion de eventos/Organizar Eventos es un Servicio.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20dxhh5gc1j4571ttshdtysn83h9pz",
+      "bookId": "n172em7thya5h8spd6m207hgwd83h9c0",
+      "updatedAt": "2026-03-24T13:54:27.479Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.54 Organizacion y planeacion de eventos/Pasos para Organizar un evento.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22fafwczxzrx3xqra1c4bhwd83h45n",
+      "bookId": "n173jsk9mkwhcz9mhbmba456g183ghrm",
+      "updatedAt": "2026-03-24T13:54:28.417Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.54 Organizacion y planeacion de eventos/Suarez, Omar. La Evaluacion.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2772qhpwktkw17a3t5eswvxs83gfrr",
+      "bookId": "n175sh7628n2map9t6dm2qfxzn83hr8j",
+      "updatedAt": "2026-03-24T13:54:29.126Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.54 Organizacion y planeacion de eventos/Subero, Escandry. Modos de formular estrategias.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2eaz3ck8x03vj5w6ymx9m49n83gr0t",
+      "bookId": "n17acptmzr6gaf1ekpvydmqnt583g7w0",
+      "updatedAt": "2026-03-24T13:54:30.056Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.55 Posmodernismo en la sociedad actual/Zaldívar, Raúl. El posmodernismo el ocaso al derecho y la moral.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a44rrev9kas5e8s6nxkfff183hakm",
+      "bookId": "n176y2aktzs2163hstbfyntpfs83hjbc",
+      "updatedAt": "2026-03-24T13:54:30.874Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.56 Principios y estilos de liderazgo/Coronel Guillot l. Liderazgo Estratégico.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22bpcweecnz9mrcmeahbg03s83gr1b",
+      "bookId": "n17dpndh3gt97ehtxajdwdkpwh83gchw",
+      "updatedAt": "2026-03-24T13:54:31.594Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.56 Principios y estilos de liderazgo/El carácter   (Glenda Avalos).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg23nbpjyx7g6znd53pkcrz4j983gyqq",
+      "bookId": "n171a3xasy0n79e5q8vrhbdg2s83ghdp",
+      "updatedAt": "2026-03-24T13:54:32.411Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.56 Principios y estilos de liderazgo/Filicetti, Domingo. Principios de Liderazgo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26zme6kshzqtfp0xxzncvn8583hvph",
+      "bookId": "n175mzzt860d3p22mc32r6mqqh83gfzs",
+      "updatedAt": "2026-03-24T13:54:33.265Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.56 Principios y estilos de liderazgo/Galvan, José. Principios bssicos de liderazgo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2dvfm89fav8dd1na0xzbhk7n83g7dj",
+      "bookId": "n172v5eyrtw7bqt9c0wr07as8s83g3pq",
+      "updatedAt": "2026-03-24T13:54:34.053Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.56 Principios y estilos de liderazgo/Goleman, Daniel. Los Estilos de Liderazgo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22jgj2qmma3twpsx9jdkzevn83hfqh",
+      "bookId": "n171w0xwxkjxytxcytd2wjsr2983gx9s",
+      "updatedAt": "2026-03-24T13:54:34.868Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.56 Principios y estilos de liderazgo/La motivación  (Adriana López).pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg22gjn4m1kzjqp91t3mak9hqn83gym1",
+      "bookId": "n17dq8z93gzt8t7b4av163ymdn83gwqe",
+      "updatedAt": "2026-03-24T13:54:35.652Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.56 Principios y estilos de liderazgo/La Motivación, Conceptos y Teorías.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bj8qbzgq39harn1kmfht57d83g1ps",
+      "bookId": "n171ncpm2r1p344w1q7n9aknad83gshd",
+      "updatedAt": "2026-03-24T13:54:36.850Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.56 Principios y estilos de liderazgo/Liderazgo. tipos, estilos y tipología.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2a1zm1p4vv6pem7qx2374mx983h0ej",
+      "bookId": "n1745506ehmx0kptw1d47gjqtx83h70z",
+      "updatedAt": "2026-03-24T13:54:37.534Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.56 Principios y estilos de liderazgo/Morales, Raúl. Los estilos de liderazgo mas colaborativos propician mejores ambientes.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2acdpp6cgx5mam5y15s2ghk183gsc5",
+      "bookId": "n17angywvr6bw2peesjq917t6n83gjek",
+      "updatedAt": "2026-03-24T13:54:38.452Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.56 Principios y estilos de liderazgo/Moreai, Alicia. Los cuatro principios de Liderazgo decisivo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg20jqtwezyb2adah704a97dmn83g9y4",
+      "bookId": "n171kv55wxgg3rnwxqzrzy2cw183hbk5",
+      "updatedAt": "2026-03-24T13:54:39.281Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.56 Principios y estilos de liderazgo/Perez, Rafael. Siete principios de liderazgo transformador.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2bp6t5xq0jqf82pqxhr4s3w983hfsz",
+      "bookId": "n170v7s05tz9wghg1f9j1w1vmh83g4v8",
+      "updatedAt": "2026-03-24T13:54:40.090Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.56 Principios y estilos de liderazgo/Zayas, Pedro. Principios del proceso de selección de personal.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg215qeeh8waa53kekdxk3e5rs83g4yh",
+      "bookId": "n178qv9wk8z6jjaw1mtpwat5ks83hnhr",
+      "updatedAt": "2026-03-24T13:54:41.627Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.57 Toma de decisiones y cambio/Alejandro & Jose. Cambio organizacional.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ecpky4s2wrrsfm00dr5vxnn83gv57",
+      "bookId": "n175ccv7f9kgmaprqdyd2frbz183h9fp",
+      "updatedAt": "2026-03-24T13:54:43.061Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.57 Toma de decisiones y cambio/El proceso de toma de decisiones.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg28q3yd0wnrsesp8p6m0ywjmd83h00d",
+      "bookId": "n17979e3cjd8qqenpczb0239as83g77q",
+      "updatedAt": "2026-03-24T13:54:43.881Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.57 Toma de decisiones y cambio/La creatividad en la toma de decisiones.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg27069tyax6wrasd75pdnje7x83hf5t",
+      "bookId": "n178tgg01v96vxpdg8gvvx151n83hrvp",
+      "updatedAt": "2026-03-24T13:54:44.699Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.57 Toma de decisiones y cambio/Mary Emily. Toma de Decisiones.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2b3nrdk0ewcm2bq4y6s841ys83gjy6",
+      "bookId": "n173gw4kwt1vd4dbcznwadc1r983h8yq",
+      "updatedAt": "2026-03-24T13:54:45.531Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.57 Toma de decisiones y cambio/Olarte, Rigoberto. Toma de Decisiones y Liderazgo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2568rnyht5m47vhxpnffzb4583h7q3",
+      "bookId": "n17dr14djpqw6hh39x6ph82wj983hvfe",
+      "updatedAt": "2026-03-24T13:54:46.648Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.57 Toma de decisiones y cambio/Toma de decisiones en la empresa.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg24f61jz94yy8dg78gx93yred83gh9r",
+      "bookId": "n178csym95jshdgnmdz9kpfe2s83hsr0",
+      "updatedAt": "2026-03-24T13:54:47.369Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.57 Toma de decisiones y cambio/Tovar, Adriana. Toma de Decisiones y Creatividad.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2ef3f18qek47gbyjnmz2xrps83hrc7",
+      "bookId": "n17d7t492anfp373gz2j82dtph83gkyy",
+      "updatedAt": "2026-03-24T13:54:48.283Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.57 Toma de decisiones y cambio/Trabajo en Equipo.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg2cgf63etv1f2bghmkpa00nks83hxwm",
+      "bookId": "n177m3awmt64x34b4vajhs2z6183h3k7",
+      "updatedAt": "2026-03-24T13:54:49.118Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.57 Toma de decisiones y cambio/Truman, Harry S. Toma de decisiones.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg210edj2w2wh05m06dqp84vm583hbmg",
+      "bookId": "n179a925699x3mh5388e6dkgs983ghng",
+      "updatedAt": "2026-03-24T13:54:50.754Z"
+    },
+    "600. Administración/658. Liderazgo/658.5 Liderazgo Avanzado/658.57 Toma de decisiones y cambio/Vazquez, Angie. El concepto de cambio.pdf": {
+      "stage": "created",
+      "attempts": 1,
+      "storageId": "kg26tmvchkfgzyj5g9344byywh83g254",
+      "bookId": "n17ca97fg0ebv0ej8xekjntzgd83g640",
+      "updatedAt": "2026-03-24T13:54:51.561Z"
+    }
+  }
+}

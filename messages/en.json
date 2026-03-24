@@ -39,7 +39,7 @@
     "academicAdmin": "Academic Administration",
     "personalAdmin": "Personal Administration",
     "adminDocs": "Documentation",
-    "library": "Library",
+    "library": "The Bill J. Dotson Library",
     "menu": {
       "profile": {
         "title": "My Account",
@@ -150,7 +150,7 @@
         ]
       },
       "library": {
-        "title": "Library",
+        "title": "The Bill J. Dotson Library",
         "url": "/library",
         "items": [
           {

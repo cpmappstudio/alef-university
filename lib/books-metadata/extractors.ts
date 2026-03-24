@@ -4,6 +4,19 @@ import type { CandidateMetadata, LocalExtractionResult } from "./types";
 const ISBN_LABELED_REGEX =
   /ISBN(?:-1[03])?\s*[:#]?\s*([0-9Xx][0-9Xx\-\s]{8,20}[0-9Xx])/gi;
 const ISBN13_UNLABELED_REGEX = /\b97[89][0-9\-\s]{10,17}[0-9]\b/g;
+const PREVIOUS_EDITION_SIGNALS = [
+  "previous edition",
+  "earlier edition",
+  "prior edition",
+  "old edition",
+  "edition précédente",
+  "edicion anterior",
+  "edición anterior",
+  "edicion previa",
+  "edición previa",
+  "de la edicion anterior",
+  "de la edición anterior",
+];
 
 function normalizeWhitespace(value: string): string {
   return value.replace(/\s+/g, " ").trim();
@@ -39,6 +52,12 @@ function isReadableText(value: string): boolean {
 
 function normalizeText(value?: string): string {
   return normalizeWhitespace(value ?? "").toLowerCase();
+}
+
+function normalizeFoldedText(value?: string): string {
+  return normalizeText(value)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
 }
 
 function uniqueStrings(values: string[]): string[] {
@@ -104,6 +123,57 @@ function isbn13From10(isbn10: string): string {
   return `${core}${checkDigit}`;
 }
 
+function isAmbiguousIsbnSet(isbns: string[]): boolean {
+  const unique = [...new Set(isbns)];
+  if (unique.length <= 1) {
+    return false;
+  }
+
+  const pendingIsbn13 = new Set(
+    unique.filter((isbn) => isbn.length === 13 && isValidIsbn13(isbn)),
+  );
+  let unmatchedCount = 0;
+
+  for (const isbn of unique) {
+    if (isbn.length === 10 && isValidIsbn10(isbn)) {
+      const pairedIsbn13 = isbn13From10(isbn);
+      if (pendingIsbn13.has(pairedIsbn13)) {
+        pendingIsbn13.delete(pairedIsbn13);
+        continue;
+      }
+
+      unmatchedCount += 1;
+      continue;
+    }
+
+    if (isbn.length === 13 && isValidIsbn13(isbn)) {
+      if (pendingIsbn13.has(isbn)) {
+        unmatchedCount += 1;
+        pendingIsbn13.delete(isbn);
+      }
+      continue;
+    }
+
+    unmatchedCount += 1;
+  }
+
+  return unmatchedCount > 1;
+}
+
+function shouldIgnoreIsbnMatch(
+  text: string,
+  matchIndex: number,
+  length: number,
+) {
+  const start = Math.max(0, matchIndex - 120);
+  const end = Math.min(text.length, matchIndex + length + 120);
+  const context = normalizeFoldedText(text.slice(start, end));
+
+  return PREVIOUS_EDITION_SIGNALS.some((signal) =>
+    context.includes(normalizeFoldedText(signal)),
+  );
+}
+
 type ParsedIsbn = {
   isbn10?: string;
   isbn13?: string;
@@ -134,6 +204,10 @@ function extractIsbns(text: string): string[] {
 
   for (const match of matches) {
     const raw = match[1];
+    const matchIndex = match.index ?? 0;
+    if (shouldIgnoreIsbnMatch(text, matchIndex, match[0].length)) {
+      continue;
+    }
     const parsed = parseIsbn(raw);
     if (!parsed) {
       continue;
@@ -574,13 +648,21 @@ export function extractLocalMetadata(
     .map((isbn) => parseIsbn(isbn))
     .filter((isbn): isbn is ParsedIsbn => Boolean(isbn));
 
-  for (const parsed of parsedIsbns) {
-    if (parsed.isbn10 && !metadata.isbn10) {
-      metadata.isbn10 = parsed.isbn10;
+  const hasAmbiguousIsbns = isAmbiguousIsbnSet(extractedIsbns);
+
+  if (!hasAmbiguousIsbns) {
+    for (const parsed of parsedIsbns) {
+      if (parsed.isbn10 && !metadata.isbn10) {
+        metadata.isbn10 = parsed.isbn10;
+      }
+      if (parsed.isbn13 && !metadata.isbn13) {
+        metadata.isbn13 = parsed.isbn13;
+      }
     }
-    if (parsed.isbn13 && !metadata.isbn13) {
-      metadata.isbn13 = parsed.isbn13;
-    }
+  } else {
+    warnings.push(
+      "Multiple ISBN candidates were detected in the PDF; current edition ISBN could not be determined locally.",
+    );
   }
 
   if (!metadata.title) {
