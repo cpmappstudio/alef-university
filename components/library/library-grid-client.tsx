@@ -14,7 +14,6 @@ import { LibraryCollectionDeleteDialog } from "@/components/library/library-coll
 import { LibraryCollectionFormDialog } from "@/components/library/library-collection-form-dialog";
 import { LibraryCollectionsBrowser } from "@/components/library/library-collections-browser";
 import { LibraryFiltersMenu } from "@/components/library/library-filters-menu";
-import { LibraryViewToggle } from "@/components/library/library-view-toggle";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import type {
@@ -23,13 +22,6 @@ import type {
   LibraryCatalogFilterOptions,
   LibraryCollectionBrowserRecord,
 } from "@/lib/library/types";
-import {
-  buildLibraryViewModeCookieValue,
-  LIBRARY_VIEW_MODE_COOKIE_NAME,
-  LIBRARY_VIEW_MODE_STORAGE_KEY,
-  parseLibraryViewMode,
-  type LibraryViewMode,
-} from "@/lib/library/view-mode";
 
 const GRID_PAGE_SIZE = 24;
 const EMPTY_FILTER_OPTIONS: LibraryCatalogFilterOptions = {
@@ -106,7 +98,6 @@ function normalizeCollectionBrowser(
 export function LibraryGridClient({
   initialBooks,
   scope,
-  initialViewMode = "grid",
 }: LibraryCatalogClientProps) {
   const t = useTranslations("library");
   const { user } = useUser();
@@ -114,9 +105,6 @@ export function LibraryGridClient({
   const userRole = user?.publicMetadata?.role as string | undefined;
   const canManageLibrary = userRole === "admin" || userRole === "superadmin";
 
-  const [viewMode, setViewMode] = React.useState<LibraryViewMode>(
-    scope === "all" ? initialViewMode : "grid",
-  );
   const [activeCollectionId, setActiveCollectionId] = React.useState<
     string | null
   >(null);
@@ -126,8 +114,8 @@ export function LibraryGridClient({
     React.useState<CollectionBooksState | null>(null);
   const [collectionToDelete, setCollectionToDelete] =
     React.useState<DeletableCollectionState | null>(null);
-  const [gridSearchValue, setGridSearchValue] = React.useState("");
   const [collectionSearchValue, setCollectionSearchValue] = React.useState("");
+  const [gridSearchValue, setGridSearchValue] = React.useState("");
   const [selectedStatuses, setSelectedStatuses] = React.useState<
     LibraryBookRecord["status"][]
   >([]);
@@ -138,41 +126,11 @@ export function LibraryGridClient({
     [],
   );
 
-  React.useEffect(() => {
-    if (scope !== "all" || typeof window === "undefined") {
-      return;
-    }
-
-    const cookieValue = document.cookie
-      .split("; ")
-      .find((entry) => entry.startsWith(`${LIBRARY_VIEW_MODE_COOKIE_NAME}=`))
-      ?.split("=")[1];
-
-    if (parseLibraryViewMode(cookieValue)) {
-      return;
-    }
-
-    const persistedMode = parseLibraryViewMode(
-      window.localStorage.getItem(LIBRARY_VIEW_MODE_STORAGE_KEY),
-    );
-    if (persistedMode) {
-      setViewMode(persistedMode);
-    }
-  }, [scope]);
-
-  React.useEffect(() => {
-    if (scope !== "all" || typeof window === "undefined") {
-      return;
-    }
-
-    window.localStorage.setItem(LIBRARY_VIEW_MODE_STORAGE_KEY, viewMode);
-    document.cookie = buildLibraryViewModeCookieValue(viewMode);
-  }, [scope, viewMode]);
-
   const deferredGridSearch = React.useDeferredValue(gridSearchValue.trim());
   const deferredCollectionSearch = React.useDeferredValue(
     collectionSearchValue.trim(),
   );
+  const isMyBooksGridView = scope === "my";
 
   const gridQueryArgs = React.useMemo(
     () => ({
@@ -195,19 +153,23 @@ export function LibraryGridClient({
     !gridQueryArgs.languages &&
     !gridQueryArgs.categories;
 
-  const allBooksPage = usePaginatedQuery(
-    api.library.getAllLibraryBooksPage,
-    scope === "all" && viewMode === "grid" ? gridQueryArgs : "skip",
-    { initialNumItems: GRID_PAGE_SIZE },
-  );
   const myBooksPage = usePaginatedQuery(
     api.library.getMyLibraryBooksPage,
     scope === "my" ? gridQueryArgs : "skip",
     { initialNumItems: GRID_PAGE_SIZE },
   );
+  const rootCollectionSearchPage = usePaginatedQuery(
+    api.library.getAllLibraryBooksPage,
+    scope === "all" && !activeCollectionId && Boolean(deferredCollectionSearch)
+      ? {
+          search: deferredCollectionSearch,
+        }
+      : "skip",
+    { initialNumItems: GRID_PAGE_SIZE },
+  );
   const collectionBooksPage = usePaginatedQuery(
     api.library.getLibraryCollectionBooksPage,
-    scope === "all" && viewMode === "collections" && activeCollectionId
+    scope === "all" && activeCollectionId
       ? {
           collectionId: activeCollectionId as Id<"library_collections">,
           search: deferredCollectionSearch || undefined,
@@ -215,14 +177,14 @@ export function LibraryGridClient({
       : "skip",
     { initialNumItems: GRID_PAGE_SIZE },
   );
-  const gridPage = scope === "my" ? myBooksPage : allBooksPage;
+  const gridPage = myBooksPage;
 
   const catalogFilterOptions = useQuery(
     api.library.getLibraryCatalogFilterOptions,
-    scope === "my" || viewMode === "grid" ? {} : "skip",
+    scope === "my" ? {} : "skip",
   );
   const collectionBrowserQueryArgs = React.useMemo(() => {
-    if (scope !== "all" || viewMode !== "collections") {
+    if (scope !== "all") {
       return "skip" as const;
     }
 
@@ -231,14 +193,14 @@ export function LibraryGridClient({
           collectionId: activeCollectionId as Id<"library_collections">,
         }
       : {};
-  }, [activeCollectionId, scope, viewMode]);
+  }, [activeCollectionId, scope]);
   const liveCollectionBrowser = useQuery(
     api.library.getLibraryCollectionBrowser,
     collectionBrowserQueryArgs,
   );
   const collectionTree = useQuery(
     api.library.getLibraryCollectionsTree,
-    scope === "all" && viewMode === "collections" ? {} : "skip",
+    scope === "all" ? {} : "skip",
   );
 
   const rootCollectionBrowser = React.useMemo(
@@ -250,7 +212,7 @@ export function LibraryGridClient({
   );
 
   React.useEffect(() => {
-    if (scope !== "all" || viewMode !== "collections") {
+    if (scope !== "all") {
       return;
     }
 
@@ -262,18 +224,11 @@ export function LibraryGridClient({
     }
 
     setCollectionBrowser(normalizeCollectionBrowser(liveCollectionBrowser));
-  }, [
-    activeCollectionId,
-    liveCollectionBrowser,
-    rootCollectionBrowser,
-    scope,
-    viewMode,
-  ]);
+  }, [activeCollectionId, liveCollectionBrowser, rootCollectionBrowser, scope]);
 
   React.useEffect(() => {
     if (
       scope !== "all" ||
-      viewMode !== "collections" ||
       !activeCollectionId ||
       liveCollectionBrowser === undefined
     ) {
@@ -283,7 +238,7 @@ export function LibraryGridClient({
     if (!liveCollectionBrowser.currentCollection) {
       setActiveCollectionId(null);
     }
-  }, [activeCollectionId, liveCollectionBrowser, scope, viewMode]);
+  }, [activeCollectionId, liveCollectionBrowser, scope]);
 
   const getStatusLabel = React.useCallback(
     (status: LibraryBookRecord["status"]) =>
@@ -343,17 +298,21 @@ export function LibraryGridClient({
     ? t("grid.results", { count: gridBooks.length })
     : t("grid.showingResults", { count: gridBooks.length });
 
+  const collectionBooksPageSource = activeCollectionId
+    ? collectionBooksPage
+    : rootCollectionSearchPage;
   const collectionBooks = React.useMemo(
-    () => collectionBooksPage.results.map((book) => normalizeLiveBook(book)),
-    [collectionBooksPage.results],
+    () =>
+      collectionBooksPageSource.results.map((book) => normalizeLiveBook(book)),
+    [collectionBooksPageSource.results],
   );
   const isCollectionBooksLoadingFirstPage =
-    collectionBooksPage.status === "LoadingFirstPage" &&
-    Boolean(activeCollectionId);
+    collectionBooksPageSource.status === "LoadingFirstPage" &&
+    Boolean(activeCollectionId || deferredCollectionSearch);
   const isCollectionBooksLoadingMore =
-    collectionBooksPage.status === "LoadingMore";
+    collectionBooksPageSource.status === "LoadingMore";
   const canLoadMoreCollectionBooks =
-    collectionBooksPage.status === "CanLoadMore";
+    collectionBooksPageSource.status === "CanLoadMore";
 
   const filterSections = React.useMemo(
     () =>
@@ -484,17 +443,15 @@ export function LibraryGridClient({
 
   const currentCollectionName = collectionBrowser.currentCollection?.name;
   const isCollectionBrowserLoading =
-    scope === "all" &&
-    viewMode === "collections" &&
-    liveCollectionBrowser === undefined;
+    scope === "all" && liveCollectionBrowser === undefined;
 
   const gridControls = (
     <div className="flex items-center gap-2 py-4">
       <Input
         placeholder={t("grid.searchPlaceholder")}
-        value={viewMode === "grid" ? gridSearchValue : collectionSearchValue}
+        value={scope === "my" ? gridSearchValue : collectionSearchValue}
         onChange={(event) => {
-          if (viewMode === "grid") {
+          if (scope === "my") {
             setGridSearchValue(event.target.value);
             return;
           }
@@ -505,22 +462,13 @@ export function LibraryGridClient({
       />
 
       <div className="flex shrink-0 items-center gap-2">
-        {viewMode === "grid" && filterSections.length > 0 && (
+        {scope === "my" && filterSections.length > 0 && (
           <LibraryFiltersMenu
             sections={filterSections}
             buttonLabel={t("filters.title")}
             filterByLabel={t("filters.filterBy")}
             clearAllLabel={t("filters.clearAll")}
             onClearAll={handleClearGridFilters}
-          />
-        )}
-        {scope === "all" && (
-          <LibraryViewToggle
-            value={viewMode}
-            onValueChange={setViewMode}
-            label={t("views.label")}
-            gridLabel={t("views.grid")}
-            collectionsLabel={t("views.collections")}
           />
         )}
       </div>
@@ -574,12 +522,8 @@ export function LibraryGridClient({
       {scope === "all" && canManageLibrary && (
         <>
           <LibraryActions
-            parentCollectionId={
-              viewMode === "collections" ? activeCollectionId : undefined
-            }
-            parentCollectionName={
-              viewMode === "collections" ? currentCollectionName : undefined
-            }
+            parentCollectionId={activeCollectionId ?? undefined}
+            parentCollectionName={currentCollectionName}
           />
           <Separator />
         </>
@@ -588,7 +532,7 @@ export function LibraryGridClient({
       <div className="space-y-6 pt-4">
         {gridControls}
 
-        {scope === "my" || viewMode === "grid" ? (
+        {isMyBooksGridView ? (
           <>
             <p className="mb-4 text-sm text-muted-foreground">
               {gridResultsLabel}
@@ -624,7 +568,9 @@ export function LibraryGridClient({
             isBooksLoadingFirstPage={isCollectionBooksLoadingFirstPage}
             isBooksLoadingMore={isCollectionBooksLoadingMore}
             canLoadMoreBooks={canLoadMoreCollectionBooks}
-            onLoadMoreBooks={() => collectionBooksPage.loadMore(GRID_PAGE_SIZE)}
+            onLoadMoreBooks={() =>
+              collectionBooksPageSource.loadMore(GRID_PAGE_SIZE)
+            }
             canManage={canManageLibrary}
             onOpenRoot={handleOpenRoot}
             onNavigateToCollection={handleNavigateToCollection}

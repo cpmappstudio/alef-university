@@ -2,7 +2,6 @@ import type {
   BookMetadataResult,
   CandidateMetadata,
 } from "@/lib/books-metadata/types";
-import type { LibraryViewMode } from "@/lib/library/view-mode";
 
 export type LibraryBookStatus = BookMetadataResult["status"];
 
@@ -94,5 +93,4 @@ export type LibraryRawMetadataRecord = Partial<BookMetadataResult> & {
 export type LibraryCatalogClientProps = {
   initialBooks: LibraryBookRecord[];
   scope: LibraryScope;
-  initialViewMode?: LibraryViewMode;
 };
