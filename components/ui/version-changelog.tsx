@@ -19,6 +19,24 @@ import packageJson from "@/package.json";
 // Changelog data - update this when releasing new versions
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "2.0.0-alpha.11",
+    date: "2026-03-27",
+    changes: {
+      es: [
+        "La biblioteca ahora se presenta como The Billy J. Dotson Library con una portada editorial dedicada, retrato y texto conmemorativo",
+        "La navegación por colecciones quedó asociada a la URL, por lo que el historial del navegador y el botón de retroceso regresan a la colección correcta",
+        "Corrección: al navegar entre colecciones ya no se pierde la posición vertical de la página",
+        "Corrección: el selector de colecciones dentro de los diálogos ya permite scroll normal con rueda o trackpad",
+      ],
+      en: [
+        "The library now presents itself as The Billy J. Dotson Library with a dedicated editorial landing section, portrait, and commemorative text",
+        "Collection navigation is now tied to the URL, so browser history and the back button return to the correct collection",
+        "Fix: navigating between collections no longer resets the page scroll position",
+        "Fix: the collection selector inside dialogs now supports normal mouse wheel and trackpad scrolling",
+      ],
+    },
+  },
+  {
     version: "2.0.0-alpha.10",
     date: "2026-03-08",
     changes: {

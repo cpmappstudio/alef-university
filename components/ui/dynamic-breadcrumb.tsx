@@ -91,8 +91,8 @@ const ROUTE_CONFIG: Record<string, RouteConfig> = {
     parent: "library",
   },
   "all-books": {
-    title: "menu.library.items.1.title",
-    fallback: "All Books",
+    title: "menu.library.title",
+    fallback: "The Bill J. Dotson Library",
     parent: "library",
   },
   profile: { title: "profile", fallback: "Profile" },

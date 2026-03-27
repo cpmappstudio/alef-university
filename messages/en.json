@@ -500,6 +500,12 @@
     "myBooks": {
       "emptyMessage": "No books in your personal shelf yet."
     },
+    "hero": {
+      "eyebrow": "Alef University",
+      "title": "THE BILLY J. DOTSON LIBRARY",
+      "description": "Today, we proudly dedicate the Alef University Library in honor of Reverend Billy J. Dotson. As a missionary in Honduras, he served with unwavering faith and compassion. As a teacher, he inspired minds and opened doors to new possibilities. His life reflects the true power of education to transform individuals and communities. This library stands as a symbol of knowledge, hope, and new beginnings. Within this space, students will grow, learn, and pursue their dreams. His legacy will live on in every page turned and every idea discovered. By bearing his name, this library honors his dedication and humble service. May all who enter be inspired to lead lives of purpose and generosity. Reverend Billy J. Dotson, we celebrate you through this lasting tribute.",
+      "imageAlt": "Portrait of Reverend Billy J. Dotson"
+    },
     "views": {
       "label": "View mode",
       "grid": "Grid",

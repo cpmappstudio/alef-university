@@ -45,6 +45,9 @@ export function LibraryCollectionSelector({
   disabled = false,
 }: LibraryCollectionSelectorProps) {
   const [open, setOpen] = React.useState(false);
+  const [portalContainer, setPortalContainer] =
+    React.useState<HTMLElement | null>(null);
+  const wrapperRef = React.useRef<HTMLDivElement | null>(null);
 
   const selectedSet = React.useMemo(() => new Set(selectedIds), [selectedIds]);
   const selectedCollections = React.useMemo(
@@ -76,8 +79,21 @@ export function LibraryCollectionSelector({
       ? `${selectedCollections.length} ${selectedLabel}`
       : placeholder;
 
+  React.useEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    const nextContainer = wrapperRef.current?.closest(
+      "[data-slot='dialog-content']",
+    );
+    setPortalContainer(
+      nextContainer instanceof HTMLElement ? nextContainer : null,
+    );
+  }, [open]);
+
   return (
-    <div className="space-y-3">
+    <div ref={wrapperRef} className="space-y-3">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -92,7 +108,11 @@ export function LibraryCollectionSelector({
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[min(500px,calc(100vw-2rem))] p-0" align="start">
+        <PopoverContent
+          className="w-[min(500px,calc(100vw-2rem))] p-0"
+          align="start"
+          container={portalContainer}
+        >
           <Command>
             <CommandInput placeholder={searchPlaceholder} className="h-9" />
             <CommandList>

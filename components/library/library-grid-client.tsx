@@ -13,6 +13,7 @@ import { LibraryBookGrid } from "@/components/library/library-book-grid";
 import { LibraryCollectionBooksDialog } from "@/components/library/library-collection-books-dialog";
 import { LibraryCollectionDeleteDialog } from "@/components/library/library-collection-delete-dialog";
 import { LibraryCollectionFormDialog } from "@/components/library/library-collection-form-dialog";
+import { LibraryHero } from "@/components/library/library-hero";
 import { LibraryCollectionsBrowser } from "@/components/library/library-collections-browser";
 import { LibraryFiltersMenu } from "@/components/library/library-filters-menu";
 import { Input } from "@/components/ui/input";
@@ -133,6 +134,7 @@ export function LibraryGridClient({
   const [selectedCategories, setSelectedCategories] = React.useState<string[]>(
     [],
   );
+  const pendingCollectionScrollYRef = React.useRef<number | null>(null);
 
   const deferredGridSearch = React.useDeferredValue(gridSearchValue.trim());
   const deferredCollectionSearch = React.useDeferredValue(
@@ -253,6 +255,21 @@ export function LibraryGridClient({
     },
     [pathname, router, scope, searchParams],
   );
+
+  React.useEffect(() => {
+    if (pendingCollectionScrollYRef.current === null) {
+      return;
+    }
+
+    const scrollY = pendingCollectionScrollYRef.current;
+    pendingCollectionScrollYRef.current = null;
+
+    const frame = window.requestAnimationFrame(() => {
+      window.scrollTo({ top: scrollY, behavior: "auto" });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [urlCollectionId]);
 
   React.useEffect(() => {
     if (scope !== "all") {
@@ -441,6 +458,7 @@ export function LibraryGridClient({
 
   const handleOpenCollection = React.useCallback(
     (collectionId: string) => {
+      pendingCollectionScrollYRef.current = window.scrollY;
       setActiveCollectionId(collectionId);
       setCollectionBrowser((current) => {
         const nextCollection = current.childCollections.find(
@@ -473,6 +491,7 @@ export function LibraryGridClient({
 
   const handleNavigateToCollection = React.useCallback(
     (collectionId: string) => {
+      pendingCollectionScrollYRef.current = window.scrollY;
       setActiveCollectionId(collectionId);
       navigateToCollection(collectionId);
     },
@@ -480,6 +499,7 @@ export function LibraryGridClient({
   );
 
   const handleOpenRoot = React.useCallback(() => {
+    pendingCollectionScrollYRef.current = window.scrollY;
     setActiveCollectionId(null);
     setCollectionBrowser((current) => {
       if (!activeCollectionId) {
@@ -593,6 +613,15 @@ export function LibraryGridClient({
       )}
 
       <div className="space-y-6 pt-4">
+        {scope === "all" && (
+          <LibraryHero
+            eyebrow={t("hero.eyebrow")}
+            title={t("hero.title")}
+            description={t("hero.description")}
+            imageAlt={t("hero.imageAlt")}
+          />
+        )}
+
         {gridControls}
 
         {isMyBooksGridView ? (
