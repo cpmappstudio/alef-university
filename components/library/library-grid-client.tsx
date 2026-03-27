@@ -4,6 +4,7 @@ import * as React from "react";
 import { useTranslations } from "next-intl";
 import { useUser } from "@clerk/nextjs";
 import { usePaginatedQuery, useQuery } from "convex/react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { api } from "@/convex/_generated/api";
 import type { Id } from "@/convex/_generated/dataModel";
@@ -101,13 +102,20 @@ export function LibraryGridClient({
 }: LibraryCatalogClientProps) {
   const t = useTranslations("library");
   const { user } = useUser();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const userRole = user?.publicMetadata?.role as string | undefined;
   const canManageLibrary = userRole === "admin" || userRole === "superadmin";
+  const urlCollectionId = React.useMemo(() => {
+    const value = searchParams.get("collection")?.trim();
+    return value ? value : null;
+  }, [searchParams]);
 
   const [activeCollectionId, setActiveCollectionId] = React.useState<
     string | null
-  >(null);
+  >(scope === "all" ? urlCollectionId : null);
   const [collectionToEdit, setCollectionToEdit] =
     React.useState<EditableCollectionState | null>(null);
   const [collectionToEditBooks, setCollectionToEditBooks] =
@@ -211,6 +219,49 @@ export function LibraryGridClient({
     rootCollectionBrowser,
   );
 
+  const navigateToCollection = React.useCallback(
+    (
+      collectionId: string | null,
+      options?: {
+        replace?: boolean;
+      },
+    ) => {
+      if (scope !== "all") {
+        return;
+      }
+
+      const nextSearchParams = new URLSearchParams(searchParams.toString());
+      if (collectionId) {
+        nextSearchParams.set("collection", collectionId);
+      } else {
+        nextSearchParams.delete("collection");
+      }
+
+      const currentQuery = searchParams.toString();
+      const nextQuery = nextSearchParams.toString();
+      if (currentQuery === nextQuery) {
+        return;
+      }
+
+      const nextUrl = nextQuery ? `${pathname}?${nextQuery}` : pathname;
+      if (options?.replace) {
+        router.replace(nextUrl, { scroll: false });
+        return;
+      }
+
+      router.push(nextUrl, { scroll: false });
+    },
+    [pathname, router, scope, searchParams],
+  );
+
+  React.useEffect(() => {
+    if (scope !== "all") {
+      return;
+    }
+
+    setActiveCollectionId(urlCollectionId);
+  }, [scope, urlCollectionId]);
+
   React.useEffect(() => {
     if (scope !== "all") {
       return;
@@ -237,8 +288,9 @@ export function LibraryGridClient({
 
     if (!liveCollectionBrowser.currentCollection) {
       setActiveCollectionId(null);
+      navigateToCollection(null, { replace: true });
     }
-  }, [activeCollectionId, liveCollectionBrowser, scope]);
+  }, [activeCollectionId, liveCollectionBrowser, navigateToCollection, scope]);
 
   const getStatusLabel = React.useCallback(
     (status: LibraryBookRecord["status"]) =>
@@ -387,39 +439,44 @@ export function LibraryGridClient({
     [collectionTree],
   );
 
-  const handleOpenCollection = React.useCallback((collectionId: string) => {
-    setActiveCollectionId(collectionId);
-    setCollectionBrowser((current) => {
-      const nextCollection = current.childCollections.find(
-        (collection) => collection.id === collectionId,
-      );
+  const handleOpenCollection = React.useCallback(
+    (collectionId: string) => {
+      setActiveCollectionId(collectionId);
+      setCollectionBrowser((current) => {
+        const nextCollection = current.childCollections.find(
+          (collection) => collection.id === collectionId,
+        );
 
-      if (!nextCollection) {
-        return current;
-      }
+        if (!nextCollection) {
+          return current;
+        }
 
-      return {
-        currentCollection: {
-          id: nextCollection.id,
-          name: nextCollection.name,
-        },
-        breadcrumbs: [
-          ...current.breadcrumbs,
-          {
+        return {
+          currentCollection: {
             id: nextCollection.id,
             name: nextCollection.name,
           },
-        ],
-        childCollections: [],
-      };
-    });
-  }, []);
+          breadcrumbs: [
+            ...current.breadcrumbs,
+            {
+              id: nextCollection.id,
+              name: nextCollection.name,
+            },
+          ],
+          childCollections: [],
+        };
+      });
+      navigateToCollection(collectionId);
+    },
+    [navigateToCollection],
+  );
 
   const handleNavigateToCollection = React.useCallback(
     (collectionId: string) => {
       setActiveCollectionId(collectionId);
+      navigateToCollection(collectionId);
     },
-    [],
+    [navigateToCollection],
   );
 
   const handleOpenRoot = React.useCallback(() => {
@@ -433,7 +490,13 @@ export function LibraryGridClient({
 
       return rootCollectionBrowser;
     });
-  }, [activeCollectionId, liveCollectionBrowser, rootCollectionBrowser]);
+    navigateToCollection(null);
+  }, [
+    activeCollectionId,
+    liveCollectionBrowser,
+    navigateToCollection,
+    rootCollectionBrowser,
+  ]);
 
   const handleClearGridFilters = React.useCallback(() => {
     setSelectedStatuses([]);
