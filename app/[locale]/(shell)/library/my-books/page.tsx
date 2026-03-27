@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { auth } from "@clerk/nextjs/server";
 import { fetchQuery } from "convex/nextjs";
 
@@ -22,5 +23,9 @@ export default async function LibraryMyBooksPage() {
   );
   const initialBooks = (initialPage?.page ?? []) as LibraryBookRecord[];
 
-  return <LibraryGridClient initialBooks={initialBooks} scope="my" />;
+  return (
+    <Suspense fallback={null}>
+      <LibraryGridClient initialBooks={initialBooks} scope="my" />
+    </Suspense>
+  );
 }
