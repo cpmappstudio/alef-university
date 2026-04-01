@@ -55,7 +55,7 @@ export function LibraryHero({
               width={440}
               height={550}
               priority
-              className="aspect-[4/5] h-auto w-full object-cover"
+              className="aspect-[4/5] h-auto w-full object-cover object-top"
             />
           </div>
         </div>
